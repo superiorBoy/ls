@@ -1,0 +1,41 @@
+
+.head {
+		border-bottom: 2rpx solid #E8E8E8;
+}
+.time{
+	text-align: right;
+	margin-top: 6rpx;
+}
+.weituo_body{
+	padding: 22rpx 30rpx;
+	border-bottom: 20rpx solid #F7F7F7;
+}
+.weituo_list{
+	height: 96rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	padding: 0 30rpx;
+	border-bottom: 2rpx solid #F7F7F7;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+}
+.tingzhi{
+	height: 80rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	border-bottom: 20rpx solid #F7F7F7;
+	border-top: 20rpx solid #F7F7F7;
+}
+

@@ -1,0 +1,215 @@
+
+page {
+	background-color: #f7f7f7;
+}
+.head {
+	border-bottom: 2rpx solid #e8e8e8;
+}
+.wenti {
+	padding: 19rpx 30rpx;
+	background-color: #ffffff;
+	margin-bottom: 20rpx;
+}
+.wenti_center {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	margin: 20rpx 0;
+}
+.wenti_bottom {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	height: 60rpx;
+	background-color: #f5f5f5;
+	border-radius: 5rpx;
+	padding: 0 24rpx 0 15rpx;
+}
+.wenti_bottom_left image {
+	width: 22rpx;
+	height: 22rpx;
+	margin-right: 10rpx;
+}
+.huida_num {
+	height: 90rpx;
+	line-height: 90rpx;
+	background-color: #ffffff;
+	border-bottom: 2rpx solid #f7f7f7;
+	padding: 0 30rpx;
+}
+.ls_list {
+	padding: 0 30rpx;
+	background-color: #ffffff;
+}
+.huifu_item {
+	border-bottom: 2rpx solid #f7f7f7;
+	padding: 30rpx 0;
+}
+.huifu_item_top {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+}
+.huifu_item_top_r {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	width: 83%;
+}
+.huifu_item_top image {
+	width: 95rpx;
+	height: 95rpx;
+	border-radius: 100%;
+	margin-right: 23rpx;
+}
+.huifu_item_name image {
+	width: 17rpx;
+	height: 14rpx;
+	margin-left: 14rpx;
+}
+.ls_name {
+	margin-bottom: 12rpx;
+}
+.huifu_item_top button {
+	width: 120rpx;
+	height: 44rpx;
+	background-color: #0eb77e;
+	border-radius: 22rpx;
+	line-height: 44rpx;
+	margin: 0;
+	padding: 0;
+}
+.huida_txt {
+	margin: 20rpx 0 15rpx;
+}
+.manyi {
+	padding: 0 80rpx;
+	margin: 88rpx 0 200rpx;
+	text-align: center;
+}
+.manyi button {
+	height: 74rpx;
+	background-color: #0eb77e;
+	border-radius: 37rpx;
+	margin: 29rpx 0;
+	line-height: 74rpx;
+}
+.manyi button image {
+	width: 26rpx;
+	height: 23rpx;
+	margin-right: 8rpx;
+}
+.manyi_bottom {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.manyi_bottom image {
+	width: 26rpx;
+	height: 26rpx;
+	margin-right: 9rpx;
+}
+.manyi_bottom_item {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	margin-right: 70rpx;
+}
+.manyi_bottom_item:last-child {
+	margin-right: 0;
+}
+.shipin_dibu {
+	position: fixed;
+	height: 100rpx;
+	bottom: 00;
+	width: 100%;
+	padding: 0 0 0 30rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	box-sizing: border-box;
+	background-color: #ffffff;
+	box-shadow: 0rpx 0rpx 13rpx 0rpx rgba(0, 0, 0, 0.13);
+}
+.shipin_dibu_left {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	width: 38%;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.shipin_dibu button {
+	width: 62%;
+	height: 100%;
+	background-color: #0eb77e;
+	border-radius: 0;
+	padding: 12rpx 0 0;
+}
+.shipin_dibu button view {
+	line-height: 30rpx;
+	margin-bottom: 14rpx;
+}
+.shipin_dibu_item {
+	width: 33.33%;
+	text-align: center;
+}
+.shipin_dibu_item image {
+	margin-bottom: 6rpx;
+}
+.zhui_list {
+	margin-bottom: 6rpx;
+}
+.zhuiwen {
+	
+	border: 1px solid #EEEEEE;
+	padding: 0rpx 6rpx;
+	line-height: 32rpx;
+	height: 32rpx;
+	border-radius:14rpx;
+	/* 	position: relative;
+	top: 6rpx; */
+	margin-right: 6rpx;
+}
+.zhui_item {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: start;
+	-webkit-align-items: flex-start;
+	        align-items: flex-start;
+	margin-bottom: 8rpx;
+}
+.zhuiwen_body {
+	max-width: 90%;
+	line-height: 34rpx;
+}
+.get_more {
+	height: 90rpx;
+	background-color: #dcdcdc;
+	line-height: 90rpx;
+	text-align: center;
+}
+

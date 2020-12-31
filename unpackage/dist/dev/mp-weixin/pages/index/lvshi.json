@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "unpopup": "/components/uni-popup/uni-popup-share",
+    "picker-address2": "/components/wangding-pickerAddress/wangding-pickerAddress"
+  }
+}

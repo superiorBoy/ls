@@ -1,0 +1,92 @@
+
+.head {
+	border-bottom: 2rpx solid #f7f7f7;
+}
+.zhishi_xq{
+	padding-left: 30rpx;
+	padding-right: 30rpx;
+}
+.xq_title{
+	margin: 15rpx 0;
+}
+.xq_top{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+}
+.xq_top_item1 image{
+	width: 21rpx;
+		height: 23rpx;
+		margin-right: 10rpx;
+}
+.xq_top_item2 image{
+	width: 22rpx;
+		height: 23rpx;
+		margin-right: 10rpx;
+}
+.xq_top_item3 image{
+	width: 30rpx;
+		height: 22rpx;
+		margin-right: 10rpx;
+}
+.lvshi{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	height: 150rpx;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	background-color: #F7F7F7;
+	margin: 20rpx 0;
+	padding: 0 20rpx;
+	box-sizing: border-box;
+}
+.ls_name{
+	margin-bottom: 10rpx;
+}
+.lvshi_left{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+}
+.lvshi button{
+	width: 150rpx;
+	height:50rpx;
+	background-color: #0eb77e;
+	margin: 0;
+	padding: 0;
+	line-height: 50rpx;
+}
+.lvshi_left image{
+	width: 80rpx;
+	height: 80rpx;
+	border-radius: 100%;
+	margin-right: 15rpx;
+}
+.zhaiyao{
+	margin: 35rpx 0;
+	background-color: #eaeaea;
+	line-height: 40rpx;
+	padding:36rpx 30rpx ;
+}
+.zhengwen{
+	line-height: 40rpx;
+	padding-bottom: 30rpx;
+}
+.zhengwen image{
+	width: 100%;
+}
+.xq_zhengwen_title{
+	margin: 10rpx 0;
+}
+

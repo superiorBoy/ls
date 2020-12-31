@@ -1,0 +1,148 @@
+
+page {
+	background-color: #f7f7f7;
+}
+.head_center input {
+	width: 100%;
+	height: 55rpx;
+	background-color: #f3f3f3;
+	border-radius: 28rpx;
+}
+.uni-searchbar {
+	width: 100%;
+	padding: 0;
+}
+.uni-searchbar__box {
+	border-style: none !important;
+	height: 55rpx !important;
+}
+.tab_top {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	padding: 16rpx 71rpx;
+	background-color: #ffffff;
+	position: fixed;
+	top: 96rpx;
+	width: 100%;
+	box-sizing: border-box;
+	z-index: 9;
+}
+.tab_top image {
+	width: 16rpx;
+	height: 8rpx;
+	vertical-align: middle;
+	margin-left: 22rpx;
+}
+.head_right image {
+	width: 40rpx;
+	height: 41rpx;
+}
+.lvshi_left image {
+	width: 130rpx;
+	height: 131rpx;
+	border-radius: 100%;
+	margin-right: 20rpx;
+}
+.lvshi_list {
+	margin-top: 30rpx;
+	background-color: #ffffff;
+}
+.lvshi_item {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	position: relative;
+	padding: 26rpx 20rpx;
+	border-bottom: 2rpx solid #e8e8e8;
+}
+.lvshi_name image {
+	width: 22rpx;
+	height: 20rpx;
+	margin-left: 11rpx;
+}
+.zixun {
+	position: absolute;
+	width: 140rpx;
+	height: 44rpx;
+	background-color: #ffffff;
+	border-radius: 22rpx;
+	border: solid 1rpx #0eb77e;
+	text-align: center;
+	line-height: 44rpx;
+	right: 20rpx;
+}
+.zixun image {
+	width: 18rpx;
+	height: 18rpx;
+	margin-right: 5rpx;
+}
+.lvshi_item_fuwu {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	margin-top: 10rpx;
+}
+.lvshi_item_fuwu image {
+	width: 25rpx;
+	height: 23rpx;
+	margin-right: 10rpx;
+}
+.lvshi_item_fuwu text {
+	margin: 0 4rpx;
+}
+.lv_suo {
+	margin: 10rpx 0;
+}
+.tese {
+	background-color: #ffad2b;
+	border-radius: 3rpx;
+	margin-right: 9rpx;
+	padding: 0 6rpx;
+}
+.lvsuo_dizhi image {
+	width: 19rpx;
+	height: 20rpx;
+	margin-right: 12rpx;
+}
+.fuwu {
+	margin-right: 60rpx;
+}
+.sousuo {
+	width: 100%;
+	position: relative;
+}
+.sou_tishi image {
+	width: 25rpx;
+	height: 26rpx;
+	margin-right: 17rpx;
+}
+.sou_tishi {
+	position: absolute;
+	-webkit-transform: translate(-50%, -50%);
+	        transform: translate(-50%, -50%); /* 50%为自身尺寸的一半 */
+	left: 50%;
+	top: 50%;
+	pointer-events: none;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.sousuo input {
+	width: 100%;
+	height: 55rpx;
+	background-color: #f3f3f3;
+	border-radius: 28rpx;
+	padding-left: 20rpx;
+	box-sizing: border-box;
+}
+

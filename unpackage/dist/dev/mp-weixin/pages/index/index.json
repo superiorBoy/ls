@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "picker-address": "/components/wangding-pickerAddress/wangding-pickerAddress",
+    "wuc-tab": "/components/wuc-tab/wuc-tab"
+  }
+}

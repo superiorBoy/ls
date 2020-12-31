@@ -1,0 +1,562 @@
+<template>
+	<view class="body">
+		<view class=" " >
+			<view class="ls_top_bg">
+				<view class="ls_top_bg_wai">
+					<view class="head2">
+						<view class="head_back"><image src="@/static/img/bai_back.png" mode="" @click="navigateBack()"></image></view>
+						<view class="head_center bai_38_bold">律师主页</view>
+						<view class=" head_right hei_30_bold"></view>
+					</view>
+				</view>
+			</view>
+			<view class="ls_padd">
+				<view class="ls_top">
+					<view class="ls_tx">
+						<image :src="img_url+lvshi.photourl" mode="" class="ls_tx_img"></image>
+						<image src="@/static/img/ls_ren.png" mode="" class="is_ren"></image>
+					</view>
+					<view class="hei_28_bold">{{lvshi.nickname}}</view>
+					<view class="qian_26 ls_dizhi">
+						<text>{{lvshi.province}}-{{lvshi.city}}</text>
+						<text>专职律师</text>
+					</view>
+					<view class="hui_26 techang" v-if="lvshi!=''">
+					<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise1].shanchangname">{{zhuanchang_arry[lvshi.expertise1].shanchangname}}</text>
+					<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise2].shanchangname">{{zhuanchang_arry[lvshi.expertise2].shanchangname}}</text>
+					<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise3].shanchangname">{{zhuanchang_arry[lvshi.expertise3].shanchangname}}</text>
+					</view>
+					<view class="ls_gaikuo">
+						<view class="ls_gaikuo_item">
+							<view class="lv_30 ls_gaikuo_num">{{lvshi.replynum}}</view>
+							<view class="qian_26">解答咨询</view>
+						</view>
+						<view class="ls_gaikuo_item">
+							<view class="lv_30 ls_gaikuo_num">{{lvshi.likenum}}</view>
+							<view class="qian_26">获得点赞</view>
+						</view>
+						<view class="ls_gaikuo_item">
+							<view class="lv_30 ls_gaikuo_num">{{lvshi.pingfen}}</view>
+							<view class="qian_26">综合评分</view>
+						</view>
+					</view>
+				</view>
+
+				<view class="ls_renzheng qian_24">
+					<view class="ls_renzheng_item ren_shiming">
+						<image src="@/static/img/ls_shiming.png" mode=""></image>
+						实名认证
+					</view>
+					<view class="ls_renzheng_item ren_zhiye">
+						<image src="@/static/img/ls_zhiye.png" mode=""></image>
+						执业认证
+					</view>
+					<view class="ls_renzheng_item ren_pingtai">
+						<image src="@/static/img/ls_ping.png" mode="w"></image>
+						平台认证
+					</view>
+				</view>
+			</view>
+			<view class="ls_tab qian_26">
+				<navigator :url="'ls_zhuye_index?lawyerid='+lawyerid" class="ls_tab_item ">首页</navigator>
+				<navigator :url="'ls_zhuye?lawyerid='+lawyerid" class="ls_tab_item ">律师服务</navigator>
+				<navigator :url="'ls_xinxi?lawyerid='+lawyerid" class="ls_tab_item ">律师信息</navigator>
+				<navigator :url="'ls_anli?lawyerid='+lawyerid" class="ls_tab_item ls_tab_item_active">律师案例</navigator>
+				<!-- <view :class="['ls_tab_item', index == active ? 'ls_tab_item_active' : '']" v-for="(tab, index) in tabs" @click="qiehuan(index)">{{ tab }}</view> -->
+			</view>
+
+			<view class="fuwu_body">
+				<view class="anli_top">
+					<!-- <text class="hei_28_bold">{{is_shaixuan?'共{{num}}件案例':'律师案件'}}</text> -->
+					<text class="hei_28_bold" v-if="!is_shaixuan">律师案件</text>
+					<text class="hei_28_bold" v-if="is_shaixuan">共{{anli_num.num}}件案例</text>
+					<view class="qian_28 an_shaixuan" @click="shaixuan">
+						<image src="@/static/img/ls_shaixuan.png" mode="" class="shaixuan_img"v-if="!is_shaixuan"></image>
+						<image src="@/static/img/shouqi.png" mode="" class="shouqi_img" v-if="is_shaixuan"></image>
+						{{is_shaixuan?'收起':'筛选'}}
+					</view>
+				</view>
+				<view class="shai" v-if="is_shaixuan">
+					<view class="shai_list hei_26">
+						案件类型：
+						<view class="shai_list_right">
+							<text class="leixing" v-for="(item,key,index) in anli_num.typeids" @click="lei_xuan(item.name)">
+								{{fenlei[key].typename}}(<text class="hong_26">{{item}}</text>)
+							</text>
+						</view>
+					</view>
+					<view class="shai_list hei_26">
+						办案法院：
+						<view class="shai_list_right">
+							<view class="lvsuo" v-for="(item,key,index) in anli_num.fayuans" @click="lei_xuan(item.name)">
+								{{key}}(
+								<text class="hong_26">{{item}}</text>
+								)
+							</view>
+							
+							</view>
+						</view>
+					</view>
+				</view>
+				<view class="anli-body">
+					<view class="anli_list" v-for="item in anjian_list">
+						<view class="anli_list_top hei_26">{{item.title}}</view>
+						<text class="hui_26 laiyuan">{{item.daili}}</text>
+					</view>
+				</view>
+
+				<view class="more_anli hei_26" v-if="!is_all" @click="all">查看全部案例></view>
+				<view class="fenye hei_26" v-if="is_all">
+					<view class="shangyiye"> <image src="@/static/img/shangye.png" mode="" style="width: 14rpx;height: 14rpx;"></image> 上一页 </view>
+					<view class="yeshu qian_26">
+						<text class="lv_26">1</text>
+						/2
+					</view>
+					<view class="xiayiye">下一页<image src="@/static/img/xiaye.png" mode=""  style="width: 14rpx;height: 14rpx;"></image></view>
+				</view>
+
+				<view class="zhanwei2" style="height: 120rpx;"></view>
+				<view class="bottom">
+					<view class="bottom_fenxiang">
+						<image src="@/static/img/share.png" mode=""></image>
+						<view class="hui_26">分享</view>
+					</view>
+					<view class="bottom_pingjia" @click="go_dianping()">
+						<image src="@/static/img/go_pingjia.png" mode=""></image>
+						<view class="hui_26">评价</view>
+					</view>
+					<view class="dianhua lv_26">
+						<image src="@/static/img/dianhua_lv.png" mode=""></image>
+						电话咨询
+					</view>
+					<view class="zaixian bai_26" @click="tochat(lvshi.userid,lvshi.mobile)">
+						<image src="@/static/img/zaixian_bai.png" mode=""></image>
+						在线咨询
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</template>
+
+<script>
+export default {
+	data() {
+		return {
+			is_all:false,
+			is_shaixuan:false,
+			leixing:[
+				{name:'劳动工伤',num:'2'},
+				{name:'合同事务',num:'6'},
+				{name:'债权债务',num:'5'},
+				{name:'房产纠纷',num:'2'},
+				{name:'公司经营',num:'1'},
+				{name:'刑事辩护',num:'2'}
+				],
+				lvsuo:[
+					{name:'杭州市萧山区人民法院',num:'2'},
+					{name:'杭州市江干区人民法院',num:'6'},
+					{name:'杭州市滨江区人民法院',num:'5'},
+					{name:'杭州市萧山区人民法院',num:'2'},
+					{name:'浙江省杭州市中级人民法院',num:'1'},
+					{name:'进贤县人民法院',num:'2'},
+					{name:'桐庐县人民法院',num:'2'},
+					{name:'义乌市人民法院',num:'2'}
+					],
+			lawyerid:'',
+			lvshi:'',
+			zhuanchang_arry:[],
+			img_url: uni.getStorageSync('img_url'),
+			anli_num:'',
+			fenlei:[],
+			anjian_list:[],
+			page:0
+		};
+	},
+	created() {},
+	onLoad(option) {
+		this.$http
+			.post({
+				url: '/mapi/lawyer/getshanchang'
+			})
+			.then(res => {
+				this.zhuanchang_arry = res.data.shanchang;
+				this.huoqu_lvshi()
+			});
+			
+		this.$http
+			.post({
+				url: '/mapi/index/gettype'
+			})
+			.then(res => {
+				this.fenlei = res.data.type;
+			});	
+		this.lawyerid=option.lawyerid
+		this.huoqu_anli_num()
+		this.huoqu_anjian_list()
+	},
+	methods: {
+		navigateBack() {
+			uni.navigateBack();
+		},
+		all(){
+			this.is_all=true
+		},
+		shaixuan(){
+			this.is_shaixuan=!this.is_shaixuan
+		},
+		lei_xuan(e){
+			console.log(e)
+		},
+		lvsuo_xuan(e){
+			console.log(e)
+		},
+		huoqu_lvshi(){
+			this.$http
+				.post({
+					url: '/mapi/lawyer/lawyer',
+					data: {
+						lawyerid:this.lawyerid
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.lvshi=res.data.lawyer
+						console.log(res.data.lawyer)
+					}
+				});	
+		},
+		// 获取数量和标签
+		huoqu_anli_num(){
+			this.$http
+				.post({
+					url: '/mapi/lawyer/anlinum',
+					data: {
+						lawyerid:this.lawyerid
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.anli_num=res.data
+						
+					}
+				});	
+		},
+		huoqu_anjian_list(){
+			this.$http
+				.post({
+					url: '/mapi/lawyer/anlilist',
+					data: {
+						lawyerid:this.lawyerid,
+						page:this.page
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.anjian_list=this.anjian_list.concat(res.data.anli);
+					}
+				});	
+		},
+		tochat(id,mobile) {
+			uni.navigateTo({
+				url: 'zaixian_wen?user=' + id+'&mobile='+mobile
+			});
+		},
+		go_dianping(){
+			uni.navigateTo({
+				url:'pingjia?lsid='+this.lawyerid
+			})
+		},
+	}
+};
+</script>
+
+<style>
+.ls_top_bg {
+	width: 100%;
+	height: 308rpx;
+	background: url(../../static/img/ls_bg.png) no-repeat;
+	background-size: 100% 100%;
+}
+.head2 {
+	background: none;
+	padding-top: 86rpx;
+	display: flex;
+	justify-content: space-between;
+	/* position: fixed; */
+	top: 0;
+	width: 100%;
+	padding: 96rpx 30rpx 26rpx;
+	z-index: 99;
+	box-sizing: border-box;
+	align-items: center;
+}
+.ls_tx_img {
+	width: 152rpx;
+	height: 152rpx;
+	margin-top: -76rpx;
+	border-radius: 100%;
+}
+.is_ren {
+	width: 24rpx;
+	height: 22rpx;
+	position: absolute;
+	bottom: 26rpx;
+	left: 364rpx;
+}
+.ls_top {
+	height: 398rpx;
+	background-color: #ffffff;
+	box-shadow: 0rpx 0rpx 13rpx 0rpx rgba(0, 0, 0, 0.13);
+	border-radius: 10rpx;
+	text-align: center;
+	padding: 0 30rpx;
+	box-sizing: border-box;
+}
+.ls_padd {
+	padding: 0 30rpx;
+	margin-top: -45rpx;
+}
+.ls_tx {
+	text-align: center;
+	position: relative;
+	margin-bottom: 10rpx;
+}
+.ls_gaikuo {
+	display: flex;
+	justify-content: space-between;
+}
+.ls_top_bg_wai {
+	background-color: rgba(0, 0, 0, 0.6);
+	height: 308rpx;
+}
+.ls_dizhi text {
+	margin-right: 30rpx;
+}
+.ls_dizhi {
+	margin: 10rpx 0;
+}
+.techang {
+	margin: 30rpx 0;
+}
+.techang text {
+	height: 42rpx;
+	background-color: #f5f5f5;
+	line-height: 42rpx;
+	margin-right: 20rpx;
+	padding: 10rpx 10rpx;
+}
+.ls_gaikuo {
+	border-top: 2rpx solid #f7f7f7;
+	padding: 20rpx 0;
+}
+.ls_gaikuo_item {
+	position: relative;
+	width: 33.33%;
+}
+.ls_gaikuo_item::before {
+	content: '';
+	width: 2rpx;
+	height: 36rpx;
+	background-color: #f7f7f7;
+	position: absolute;
+	right: 0;
+	top: 26rpx;
+}
+.ls_gaikuo_item:last-child::before {
+	content: none;
+}
+.ls_gaikuo_num {
+	margin-bottom: 8rpx;
+}
+.ls_renzheng {
+	display: flex;
+	height: 65rpx;
+	background-color: #f5f5f5;
+	border-radius: 10rpx;
+	align-items: center;
+	margin: 20rpx 0;
+}
+.ls_renzheng_item {
+	width: 33.33%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.ren_shiming image {
+	width: 17rpx;
+	height: 17rpx;
+	margin-right: 10rpx;
+}
+.ren_zhiye image {
+	width: 18rpx;
+	height: 14rpx;
+	margin-right: 10rpx;
+}
+.ren_pingtai image {
+	width: 17rpx;
+	height: 14rpx;
+	margin-right: 10rpx;
+	vertical-align: middle;
+}
+.ls_tab {
+	display: flex;
+	height: 60rpx;
+	align-items: center;
+	padding: 0 80rpx;
+	justify-content: space-between;
+	border-bottom: 2rpx solid #f7f7f7;
+}
+.ls_tab_item {
+}
+.ls_tab_item_active {
+	color: #333333;
+	position: relative;
+}
+
+.ls_tab_item_active::before {
+	position: absolute;
+	content: '';
+	display: inline-block;
+	width: 71rpx;
+	height: 4rpx;
+	background-color: #0eb77e;
+	bottom: -12rpx;
+	left: 50%;
+	margin-left: -35rpx;
+}
+
+.bottom {
+	display: flex;
+	padding: 0 30rpx;
+	height: 100rpx;
+	align-items: center;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: #ffffff;
+}
+.bottom_fenxiang,
+.bottom_pingjia {
+	text-align: center;
+	margin-right: 22rpx;
+}
+.bottom_fenxiang image {
+	width: 24rpx;
+	height: 23rpx;
+}
+
+.bottom_pingjia image {
+	width: 25rpx;
+	height: 24rpx;
+}
+.dianhua {
+	width: 270rpx;
+	height: 74rpx;
+	border: solid 1rpx #0eb77e;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10rpx 0 0 10rpx;
+}
+.dianhua image {
+	width: 25rpx;
+	height: 27rpx;
+	margin-right: 16rpx;
+}
+.zaixian image {
+	width: 26rpx;
+	height: 26rpx;
+	margin-right: 12rpx;
+}
+.zaixian {
+	width: 270rpx;
+	height: 74rpx;
+	background-color: #0eb77e;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 0 10rpx 10rpx 0;
+}
+.an_shaixuan .shaixuan_img {
+	width: 30rpx;
+	height: 28rpx;
+	margin-right: 6rpx;
+}
+.shouqi_img{
+	width: 21rpx;
+		height: 13rpx;
+		margin-right: 6rpx;
+}
+.anli_top {
+	display: flex;
+	justify-content: space-between;
+	height: 100rpx;
+	align-items: center;
+	padding: 0 30rpx;
+}
+.anli_list {
+	border-bottom: 2rpx solid #f7f7f7;
+	padding: 20rpx 30rpx 30rpx;
+}
+.laiyuan {
+	display: inline-block;
+	height: 42rpx;
+	background-color: #f5f5f5;
+	line-height: 42rpx;
+	padding: 0 18rpx;
+	margin-top: 13rpx;
+}
+.more_anli {
+	height: 89rpx;
+	background-color: #fcfcfc;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 50rpx;
+}
+.fenye {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 30rpx;
+	height: 89rpx;
+	background-color: #fcfcfc;
+	align-items: center;
+	margin-bottom: 50rpx;
+}
+.shangyiye,.xiayiye {
+	display: flex;
+	align-items: center;
+}
+
+.yeshu {
+	height: 41rpx;
+	border-radius: 20rpx;
+	border: solid 1rpx #dcdcdc;
+	line-height: 40rpx;
+	padding: 0 40rpx;
+}
+.shai_list {
+	display: flex;
+	padding: 0 0 0 30rpx;
+}
+.shai_list_right {
+	max-width: 81%;
+}
+.shai {
+	border-bottom: 2rpx solid #f7f7f7;
+}
+.leixing {
+	display: inline-block;
+	height: 44rpx;
+	background-color: #f5f5f5;
+	border-radius: 4rpx;
+	line-height: 44rpx;
+	padding: 0 16rpx;
+	margin: 0 20rpx 20rpx 0;
+}
+.lvsuo {
+	margin-bottom: 20rpx;
+}
+</style>

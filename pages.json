@@ -1,0 +1,373 @@
+{
+	"pages": [
+		{
+		"path": "pages/index/index"
+                 },
+		{
+			"path":"pages/index/zixun",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
+		},
+		{
+			"path":"pages/index/tiwen_list",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
+		},
+		{
+			"path":"pages/index/tiwen_list_xq"
+		
+		},
+		{
+			"path":"pages/index/zixun_jilu",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
+		},
+		{
+			"path":"pages/index/dianhua_jilu",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
+		},
+		{
+			"path":"pages/index/dianhua_zixun",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
+		},
+		{
+			"path":"pages/index/weituo_list",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
+		},
+		{
+			"path":"pages/index/weituo_xq"
+		},
+		{
+			"path":"pages/index/shendu_pay"
+		},
+		{
+			"path":"pages/index/app_down"
+		},         
+		{
+			"path":"pages/index/geren_xinxi"
+		},
+		{
+			"path":"pages/index/ls_anli"
+		},
+		{
+			"path":"pages/index/ls_liushui"
+		},
+		{
+			"path":"pages/index/ls_tixian"
+		},
+		{
+			"path":"pages/index/chongzhi"
+		},
+		{
+			"path":"pages/index/shipin"
+		},
+		{
+			"path":"pages/index/shipin_xq"
+		},
+		{
+			"path":"pages/index/changshi",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
+		},
+		{
+			"path":"pages/index/changshi_xq"
+		},
+		{
+			"path":"pages/index/zhishi_all"
+		},
+		{
+			"path":"pages/index/ls_zhuye"
+		},
+		{
+			"path":"pages/index/ls_zhuye_index"
+		},
+		{
+			"path":"pages/index/ls_zhuye_huifu"
+		},
+		{
+			"path":"pages/index/ls_zhuye_tuwen"
+		},
+		{
+			"path":"pages/index/tuwen_xq"
+		},
+		{
+			"path":"pages/index/ls_xinxi"
+		},
+		{
+			"path":"pages/index/zhuye_zixun_xq"
+		},
+		{
+			"path":"pages/index/help"
+		},
+		{
+			"path":"pages/index/help_xq"
+		},
+		{
+			"path":"pages/index/gonggao"
+		},
+		{
+			"path":"pages/index/vip"
+		},
+		{
+			"path":"pages/index/gonggao_xq"
+		},
+		{
+			"path":"pages/index/zaixian_wen"
+		},
+		{
+			"path":"pages/index/pay"
+		},
+		{
+			"path":"pages/index/tiwen"
+		},
+		{
+			"path":"pages/index/zaixian_list"
+		},
+		{
+			"path":"pages/index/lvshi",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
+		},
+		{
+			"path":"pages/index/xiaoxi"
+		},
+		{
+			"path":"pages/index/my"
+		},
+		{
+			"path":"pages/index/zhuce"
+		},
+		{
+			"path":"pages/index/pingjia"
+		},
+		{
+			"path":"pages/index/login"
+		},
+		{
+			"path":"pages/index/chat",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
+		},
+		{
+			"path":"pages/index/zhuiwen"
+		},
+		{
+			"path":"pages/ls/index"
+		},
+		
+		{
+			"path":"pages/ls/my"
+		},
+		{
+			"path":"pages/ls/xiaoxi"
+		},
+		{
+			"path":"pages/ls/yaoqing"
+		},
+		{
+			"path":"pages/ls/ls_xueshu"
+		},
+		{
+			"path":"pages/ls/anli",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
+		},
+		{
+			"path":"pages/ls/up_anli"
+		},
+		{
+			"path":"pages/ls/up_neirong"
+		},
+		{
+			"path":"pages/ls/ls_meiti"
+		},
+		{
+			"path":"pages/ls/zixun_baojia"
+		},
+		{
+			"path":"pages/ls/jiedan_xq"
+		},
+		{
+			"path":"pages/ls/fuwu_baojia"
+		},
+		{
+			"path":"pages/ls/add_baojia"
+		},
+		{
+			"path":"pages/ls/kaitong"
+		},
+		{
+			"path":"pages/ls/peizhi"
+		},
+	{
+		"path":"pages/ls/shezhi"
+	},
+	{
+		"path":"pages/ls/geren_xinxi"
+	},	
+	{
+		"path":"pages/ls/tixian"
+	},	
+	{
+		"path":"pages/ls/gaimima"
+	},	
+	{
+		"path":"pages/ls/liushui",
+		"style": {
+		"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+		}
+	},
+		{
+			"path":"pages/ls/tiwen_guanli",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
+		},
+		{
+			"path":"pages/ls/tiwen_jilu",
+			 "style": {
+			 "enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			 }
+		},
+		{
+			"path":"pages/ls/ceshi",
+			  "style": {
+			  "enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			  }
+		},
+		{
+			"path":"pages/ls/tiwen_ji_xq"
+		},
+		{
+			"path":"pages/ls/tiwen_guanli_xq"
+		},
+		{
+			"path":"pages/ls/shiming_renzheng"
+		},
+		{
+			"path":"pages/ls/zhiye_renzheng"
+		},
+		{
+			"path":"pages/ls/ls_renzheng"
+		},
+		{
+			"path":"pages/ls/ls_geren"
+		},
+		{
+			"path":"pages/ls/ls_jiben"
+		},
+		{
+			"path":"pages/ls/ls_jiaoyu"
+		},
+		{
+			"path":"pages/ls/ls_more"
+		},
+		{
+			"path":"pages/ls/ls_lianxi"
+		},
+		{
+			"path":"pages/ls/login"
+		},
+		{
+			"path":"pages/ls/ls_ren_list"
+		},
+		{
+			"path":"pages/ls/ls_zhiwu"
+		},
+		{
+			"path":"pages/ls/ls_rongyu"
+		},
+		{
+			"path":"pages/ls/zaixian_list",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
+		},
+		{
+			"path":"pages/ls/zixun_jilu",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
+		},
+		{
+			"path":"pages/ls/chat",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
+		},
+		{
+			"path":"pages/ls/dianhua_zixun",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
+		}
+		
+    ],
+	"globalStyle": {
+
+		"titleNView":false
+	},
+	"condition" : { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [
+			{
+				"name": "", //模式名称
+				"path": "pages/index/index", //启动页面，必选
+				"query": "" //启动参数，在页面的onLoad函数里面得到
+			}
+		]
+	},
+	"tabBar": {
+			"color":"#8a8a8a",
+			"selectedColor":"#0eb77e",
+			"borderStyle":"black",
+			"backgroundColor":"#ffffff",
+			"list": [
+				{
+					"pagePath":"pages/index/index",
+					"text":"首页",
+					"iconPath":"static/img/shouye_icon.png",
+					"selectedIconPath":"static/img/on_shouye_icon.png"
+				},
+				{
+					"pagePath":"pages/index/zixun",
+					"text":"咨询",
+					"iconPath":"static/img/zixun_icon.png",
+					"selectedIconPath":"static/img/on_zixun_icon.png"
+				},
+				{
+					"pagePath":"pages/index/lvshi",
+					"text":"律师",
+					"iconPath":"static/img/lvshi_icon.png",
+					"selectedIconPath":"static/img/on_lvshi_icon.png"
+				},
+				{
+					"pagePath":"pages/index/xiaoxi",
+					"text":"消息",
+					"iconPath":"static/img/xiaoxi_icon.png",
+					"selectedIconPath":"static/img/on_xiaoxi_icon.png"
+				},
+				{
+					"pagePath":"pages/index/my",
+					"text":"我的",
+					"iconPath":"static/img/my_icon.png",
+					"selectedIconPath":"static/img/on_my_icon.png"
+				}
+			
+			]	
+		 }
+
+}

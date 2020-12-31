@@ -1,0 +1,138 @@
+
+.head {
+		border-bottom: 2rpx solid #E8E8E8;
+}
+.head_right image {
+		width: 40rpx;
+		height: 41rpx;
+}
+.tiwen_item {
+		padding: 20rpx 30rpx;
+		margin-bottom: 20rpx;
+		background-color: #FFFFFF;
+		border-bottom: 2rpx solid #E8E8E8;
+}
+.tiwen_item:first-child {
+		margin-top: 20rpx;
+}
+.tiwen_item_center {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		margin: 18rpx 0 10rpx;
+}
+.tiwen_item_dizhi image {
+		width: 18rpx;
+		height: 20rpx;
+		margin-right: 8rpx;
+}
+.tiwen_item_biaoqian{
+	margin: 0 98rpx 0 50rpx;
+}
+.tiwen_item_biaoqian image {
+		width: 21rpx;
+		height: 20rpx;
+		margin-right: 8rpx;
+}
+.tiwen_item_shijian image {
+		width: 21rpx;
+		height: 21rpx;
+		margin-right: 8rpx;
+}
+.tiwen_item_top {
+		line-height: 36rpx;
+}
+.jiedan_tab {
+		height: 87rpx;
+		margin: 0 auto;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		        justify-content: center;
+		border-bottom: 2rpx solid #E8E8E8;
+}
+.jiedan_tab_item {
+		line-height: 87rpx;
+		text-align: center;
+		width: 50%;
+		height: 87rpx;
+		position: relative;
+}
+.jiedan_tab_item:first-child::before {
+		content: '';
+		display: inline-block;
+		width: 2rpx;
+		height: 43rpx;
+		background-color: #e5e5e5;
+		position: absolute;
+		right: 0;
+		top: 20rpx;
+}
+.jiedan_tab_item_active {
+		color: #333333;
+		font-weight: bold;
+}
+.jingxuan_item{
+		padding: 20rpx 30rpx;
+		border-bottom: 2rpx solid #E8E8E8;
+}
+.jingxuan_item_top{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-pack: justify;
+		-webkit-justify-content: space-between;
+		        justify-content: space-between;
+}
+.jingxuan_item_top .tx{
+			width: 80rpx;
+			height: 81rpx;
+			border-radius: 100%;
+}
+.jingxuan_item_top button{
+			width: 136rpx;
+			height: 51rpx;
+			background-color: #ffffff;
+			border-radius: 25rpx;
+			border: solid 1rpx #0eb77e;
+			line-height: 51rpx;
+			margin: 0;
+}
+.jingxuan_item_top_left{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+}
+.jingxuan_item_tx{
+		margin-right: 17rpx;
+		position: relative;
+}
+.renzheng{
+		width: 20rpx;
+			height: 21rpx;
+			position: absolute;
+			right: 5rpx;
+			bottom: 10rpx;
+			border: solid 2rpx #ffffff;
+			border-radius: 100%;
+			background-color: #FFFFFF;
+}
+.wen_da{
+		padding-left: 96rpx;
+}
+.zixun_da{
+		margin: 10rpx 0 5rpx ;
+}
+.lv_name{
+		margin-bottom: 6rpx;
+}
+
+

@@ -1,0 +1,139 @@
+
+page {
+	background-color: #F7F7F7;
+}
+.ls_tx {
+	width: 110rpx;
+	height: 110rpx;
+	border: 10rpx solid #d7e7e1;
+	border-radius: 100%;
+	margin-right: 32rpx;
+}
+.my_top_left {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+}
+.my_top {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	padding: 30rpx;
+	background-color: #FFFFFF;
+}
+.renzheng {
+	width: 120rpx;
+	text-align: center;
+	line-height: 30rpx;
+	height: 30rpx;
+	background-color: #f43a51;
+	border-radius: 15rpx;
+	margin-top: 20rpx;
+}
+.my_top_left_r {
+	padding-top: 20rpx;
+}
+.my_name {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+}
+.renzheng1 {
+	margin-left: 10rpx;
+}
+.renzheng1,
+.renzheng2 {
+	width: 17rpx;
+	height: 17rpx;
+	margin-right: 10rpx;
+}
+.renzheng3 {
+	width: 18rpx;
+	height: 14rpx;
+}
+.my_top_right {
+	margin-top: 5rpx;
+}
+.my_ziliao_item {
+	text-align: center;
+	width: 25%;
+}
+.my_ziliao {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	background-color: #FFFFFF;
+	padding-bottom: 30rpx;
+}
+.my_title {
+	height: 100rpx;
+	line-height: 100rpx;
+	border-bottom: solid 2rpx #e2e2e2;
+	margin-bottom: 30rpx;
+}
+.my_guanli {
+	background-color: #FFFFFF;
+	margin-top: 20rpx;
+	padding: 0 18rpx 40rpx;
+}
+.jiedan_item {
+	text-align: center;
+	width: 20%;
+}
+.jiedan_item image {
+	width: 78rpx;
+	height: 79rpx;
+	margin-bottom: 20rpx;
+}
+.my_list {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	/* justify-content: space-between; */
+	-webkit-flex-wrap: wrap;
+	        flex-wrap: wrap;
+}
+.my_bottom {
+	padding: 0 30rpx ;
+}
+.ls_item {
+	text-align: center;
+	width: 33.33%;
+	margin-bottom: 60rpx;
+}
+.ls_item image {
+	width: 51rpx;
+	height: 51rpx;
+	margin-bottom: 30rpx;
+}
+.ls_guanli {
+	padding-bottom: 0rpx;
+}
+.wangzhan_item {
+	width: 25%;
+	text-align: center;
+}
+.wangzhan_item image {
+	width: 74rpx;
+	height: 74rpx;
+	margin-bottom: 10rpx;
+}
+.zhanghao_guanli {
+	margin-bottom: 30rpx;
+}
+.zhanghao_item {
+	width: 25%;
+	text-align: center;
+}
+.zhanghao_item image {
+	width: 40rpx;
+	height: 39rpx;
+	margin-bottom: 25rpx;
+}
+

@@ -1,0 +1,8 @@
+{
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/uni-popup",
+    "picker-address": "/components/pickerAddress/pickerAddress",
+    "unpopup": "/components/uni-popup/uni-popup-share"
+  }
+}
