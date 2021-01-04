@@ -2,7 +2,7 @@
 	<view class="body">
 		<view class="head">
 			<view class="head_back"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
-			<view class="head_center hei_38_bold">法律常识</view>
+			<view class="head_center hei_38_bold">法律知识</view>
 			<view class=" head_right hei_30_bold"></view>
 		</view>
 
@@ -32,16 +32,23 @@
 			</view>
 
 			<view class="zhishi_list">
-				<view class="zhishi_item hei_26" v-for="item in fenlei">
-					<image :src=img_url+item.pic mode=""></image>
-					<view>{{ item.knowledgetypename }}</view>
+				<view class="zhishi_item hei_30" v-for="item in fenlei" @click="go_erji(item.knowledgetypeid,item.knowledgetypename)">
+					<image :src=img_url+item.pic mode="widthFix" v-if="item && item.pic"></image>
+					<view v-if="item && item.knowledgetypename">{{ item.knowledgetypename }}</view>
+				</view>
+				<view class="zhishi_item hei_30" @click="go_index()">
+					<image src='@/static/img/zhishi_back.png' mode="widthFix" ></image>
+					<view >返回首页</view>
 				</view>
 			</view>
-			<view class="more_fenlei qian_26">更多分类></view>
-			<view class="jiedan_tab qian_30_bold">
+			<!-- <view class="more_fenlei qian_26">更多分类></view> -->
+		<!-- 	<view class="jiedan_tab qian_30_bold">
 				<view :class="['jiedan_tab_item', index == active ? 'jiedan_tab_item_active' : '']" v-for="(tab, index) in tabs" @click="jiedan_qiehuan(index)">{{ tab }}</view>
+			</view> -->
+			<view class="zhishi_title hei_28">
+				<image src="@/static/img/zhishi_huo.png" mode=""></image>热点知识
 			</view>
-			<view class="tuijian_list" v-if="active == 0">
+			<view class="tuijian_list" >
 				<view class="tuijian_item" v-for="item in remenlist" @click="go_xq(item.knowledgeid)">
 					<image src="@/static/img/fei2.png" mode="" class="tuijan_img"></image>
 					<view class="tuijian_item_right">
@@ -63,14 +70,14 @@
 					</view>
 				</view>
 			</view>
-			<view class="zuixin_list" v-if="active == 1">
+		<!-- 	<view class="zuixin_list" v-if="active == 1">
 				<view class="zuixin_item" v-for="item in zuixin_list"  @click="go_xq(item.knowledgeid)">
 					<view class="zuixin_item_top hei_26">{{item.title}}</view>
 					<view class="zuixin_item_bottom qian_22">
 						<u-parse :content="item.information" ></u-parse>
 					</view>
 				</view>
-			</view>
+			</view> -->
 		</view>
 	</view>
 </template>
@@ -122,7 +129,7 @@ export default {
 	onLoad(option) {
 		this.huoqu_fenlei()
 		this.huoqu_remen()
-		this.huoqu_zuixin()
+		// this.huoqu_zuixin()
 	},
 	//下拉刷新
 	onPullDownRefresh: function() {
@@ -131,13 +138,13 @@ export default {
 			this.page=0
 			
 			this.is_all=false
-			if(that.active==0){
+			// if(that.active==0){
 				this.zixun_list=[]
 				that.huoqu_remen()
-			}else{
-				this.remenlist=[]
-				that.huoqu_zuixin()
-			}
+			// }else{
+			// 	this.remenlist=[]
+			// 	that.huoqu_zuixin()
+			// }
 	
 	},
 	methods: {
@@ -154,11 +161,11 @@ export default {
 				return false
 			}else{
 				that.page++
-				if(that.active==0){
+				// if(that.active==0){
 					that.huoqu_remen()
-				}else{
-					that.huoqu_zuixin()
-				}
+				// }else{
+				// 	that.huoqu_zuixin()
+				// }
 				
 			}
 		},
@@ -171,13 +178,20 @@ export default {
 			console.log(this.current);
 			console.log(this.banner.length);
 		},
-		jiedan_qiehuan(index) {
-			this.active = index;
-			this.is_all=false
-		},
+		// jiedan_qiehuan(index) {
+		// 	this.active = index;
+		// 	this.is_all=false
+		// },
 		go_xq(knowledgeid) {
 			uni.navigateTo({
 				url: 'changshi_xq?knowledgeid='+knowledgeid
+			});
+		},
+		// 跳转二级
+		go_erji(id,name){
+			
+			uni.navigateTo({
+				url: 'changshi_erji?typeid='+id+'&name='+name
 			});
 		},
 		
@@ -189,15 +203,9 @@ export default {
 						url: '/mapi/index/knowledgetype',
 					})
 					.then(res => {
-						console.log(res.data.type)
-						var array = [];
-						 for(var key in res.data.type){
-						    array.push(res.data.type[key][0]);
-						 }
-							this.fenlei=array
-					
+							this.fenlei=res.data.type[1]
 					});
-			
+
 		},
 
 		// 获取热门
@@ -220,25 +228,12 @@ export default {
 							
 					});
 		},
-		// 获取最新
-		huoqu_zuixin(){
-			
-			  this.$http
-					.post({
-						url: '/mapi/index/knowledge',
-						data:{
-							page:this.page,
-							type:1
-						}
-					})
-					.then(res => {
-						if(res.data.knowledgelist<10){
-							this.is_all=true
-						}
-							this.zuixin_list=this.zuixin_list.concat(res.data.knowledgelist);
-					});
-		},
-		
+	
+		go_index(){
+			uni.switchTab({
+				url:'index'
+			})
+		}
 	},
 	filters: {
 		timeStamp: function(value) {
@@ -302,18 +297,19 @@ uni-swiper {
 	height: 100%;
 }
 .zhishi_item {
-	text-align: center;
+	display: flex;
 	height: 136rpx;
-	width: 25%;
+	width: 33.33%;
 	border-right: 2rpx solid #f7f7f7;
 	border-bottom: 2rpx solid #f7f7f7;
-	padding-top: 20rpx;
+	align-items: center;
+	justify-content: center;
 	box-sizing: border-box;
 }
 .zhishi_item image {
 	width: 34rpx;
 	height: 34rpx;
-	margin-bottom: 10rpx;
+	margin-right: 19rpx;
 }
 .zhishi_list {
 	background-color: #ffffff;
@@ -431,5 +427,18 @@ uni-swiper {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	max-height: 28rpx;
+}
+.zhishi_title{
+	display: flex;
+	align-items: center;
+	background-color: #FFFFFF;
+	border-bottom: 2rpx solid #d9d9d9;
+	padding: 40rpx 0 28rpx 31rpx;
+	margin-top: 20rpx;
+}
+.zhishi_title image{
+		width: 29rpx;
+		height: 33rpx;
+		margin-right: 13rpx;
 }
 </style>

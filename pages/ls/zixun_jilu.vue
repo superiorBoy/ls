@@ -20,7 +20,7 @@
 						</view>
 					</view>
 
-					<view :class="['item_zhuangtai bai_26',  item.zixunstate==1 ? 'zhengzai' : 'jieshu']">{{ item.zixunstate == 1 ? '正在咨询' : '咨询结束' }}</view>
+					<view :class="['item_zhuangtai bai_26',  item.zixunstate==1 ? 'zhengzai' : 'jieshu']">{{ item.zixunstate == 1 ? '待付款':item.zixunstate == 2?'已付款':item.zixunstate == 3?'接单中':'已完成' }}</view>
 				</view>
 			</view>
 		</view>
@@ -62,7 +62,7 @@ export default {
 
 	data() {
 		return {
-			tab_arry: ['全部咨询', '正在咨询', '结束咨询'],
+			tab_arry: ['全部咨询', '待付款', '已付款','接单中','已完成'],
 			active: '0',
 			zhuangtai: '0',
 			dianhua: '',

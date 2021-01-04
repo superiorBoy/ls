@@ -10,8 +10,10 @@
 				<image src="@/static/lsimg/sousuo.png" mode="" @click="tan"></image>
 			</view>
 		</view>
-	
-		<view class="zi_body ">
+	<view class="tab_top hui_26">
+				<text v-for="(item, index) in tab_arry" :class="['', index == active ? 'hong_26_bold' : '']" @click="qiehuan(index)">{{ item }}</text>
+			</view>
+		<view class="zi_body tab_zi_body">
 
 			<view class="zixun_list">
 				<view class="zixun_item" v-for="(item,index) in jilu_list">
@@ -100,7 +102,7 @@
 		
 		data() {
 			return {
-				tab_arry: ['全部咨询', '正在咨询', '结束咨询'],
+				tab_arry: ['全部咨询', '待付款', '已付款','接单中','已完成'],
 				active: '0',
 				zhuangtai: '0',
 				dianhua: '',
@@ -116,6 +118,7 @@
 				img_url: uni.getStorageSync('img_url'),
 				fenlei:'',
 				type_id:'',
+				state:''
 			}
 		},
      onLoad() {
@@ -181,7 +184,8 @@
 							page: this.page,
 							typeid:this.type_id,
 							dianhua:this.dianhua,
-							mingcheng:this.name
+							mingcheng:this.name,
+							state:this.state
 							
 						}
 					})
@@ -196,7 +200,19 @@
 			},
 			// 切换tab
 			qiehuan(index) {
-				this.active = index
+				this.active = index;
+				if(index==0){
+					this.state=''
+				}else{
+					this.state=index
+				}
+				this.page=0
+				this.jilu_list=[]
+				this.is_all=false
+				this.dianhua='',
+				this.name='',
+				this.mingcheng=''
+				this.huoqu_list()
 			},
 			huifu() {
 				// this.$refs.huifu.open()
@@ -439,5 +455,17 @@
 		line-height: 88rpx;
 		background-color: #f43a51;
 		border-radius: 0rpx 44rpx 44rpx 0rpx;
+	}
+	.tab_top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 10rpx 38rpx;
+		background-color: #ffffff;
+		position: fixed;
+		top: 100rpx;
+		width: 100%;
+		box-sizing: border-box;
+		z-index: 9;
 	}
 </style>

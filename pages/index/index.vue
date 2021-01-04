@@ -62,11 +62,11 @@
 			</view>
 			<navigator url="changshi" class="index_tab_item">
 				<image src="@/static/img/tab3.png" mode=""></image>
-				<view>法律常识</view>
+				<view>法律知识</view>
 			</navigator>
-			<navigator url="shipin" class="index_tab_item">
-				<image src="@/static/img/tab4.png" mode=""></image>
-				<view>视频说法</view>
+			<navigator url="changshi" class="index_tab_item">
+				<image src="@/static/img/tab4_4.png" mode=""></image>
+				<view>法律法规</view>
 			</navigator>
 			<view class="index_tab_item" @click="go_ls_list">
 				<image src="@/static/img/tab5.png" mode=""></image>
@@ -222,19 +222,17 @@
 		</view>
 		<div id="allmap" style="display: none"></div>
 		<view class="zhuanti">
-			<view class="zhuanti_title hei_32_bold">热门专题</view>
+			<view class="index_fazhi hei_32_bold"><image src="@/static/img/index_fazhi.png" mode=""></image>法律知识</view>
 			<view class="zhuanti_list hei_26">
-				<view class="">酒驾处罚新标准</view>
-				<view class="hot">醉酒驾驶处罚的新标准</view>
+				
+				<view class="" v-for="item in fa_zhishi" @click="go_zhishi_xq(item.knowledgetypeid,item.knowledgetypename)">{{item.knowledgetypename}}</view>
+			<!-- 	<view class="hot">醉酒驾驶处罚的新标准</view>
 				<view class="">拆迁法规</view>
-				<view class="">劳动争议仲裁法解读</view>
-				<view class="">利息税的计算</view>
-				<view class="">土地使用权的收回</view>
 				<view class="hot">交通事故怎么赔偿</view>
-				<view class="">新婚姻法关于房产的问题</view>
-				<view class="">夫妻债务制度</view>
+			     -->
 			</view>
-			<view type="default" class="qian_20 more_zhuanti">查看更多热门专题>></view>
+			<navigator url="changshi" class="qian_20 more_zhuanti">查看更多热门专题>></navigator>
+			
 		</view>
 	</view>
 </template>
@@ -294,7 +292,8 @@ export default {
 					img: '../../static/img/banner5.jpg'
 				}
 			],
-			btnnum: 0
+			btnnum: 0,
+			fa_zhishi:''
 		};
 	},
 	components: {
@@ -380,6 +379,16 @@ export default {
 			.then(res => {
 				this.data = res.data;
 			});
+	// 获取知识一级
+		this.$http
+		.post({
+			url: '/mapi/index/knowledgetype',
+		})
+			.then(res => {
+		this.fa_zhishi=res.data.type[1]
+							});
+			
+			
 	},
 	methods: {
 		tabChange(index) {
@@ -515,6 +524,11 @@ $.ajax({
 				} catch (e) {
 					console.log(e);
 				}
+			});
+		},
+		go_zhishi_xq(knowledgetypeid,name){
+			uni.navigateTo({
+				url:'changshi_erji?typeid='+knowledgetypeid+'&name='+name
 			});
 		}
 	},
@@ -1041,5 +1055,14 @@ scroll-view ::-webkit-scrollbar {
 	height: 8rpx;
 	background-color: #ffffff;
 	border-radius: 10rpx;
+}
+.index_fazhi image{
+	margin-right: 9rpx;
+		width: 47rpx;
+		height: 35rpx;
+}
+.index_fazhi{
+	padding-left: 25rpx;
+	margin: 30rpx 0 40rpx;
 }
 </style>

@@ -1,14 +1,16 @@
 {
-    "name" : "lvshi",
-    "appid" : "__UNI__B1CE163",
-    "description" : "",
+    "name" : "小虎律师",
+    "appid" : "__UNI__6204E51",
+    "description" : "小虎律师-在线法律咨询-专业律师咨询",
     "versionName" : "1.0.0",
     "versionCode" : "100",
     "transformPx" : false,
     "app-plus" : {
         "nvueCompiler" : "uni-app",
         "compilerVersion" : 3,
-        "modules" : {},
+        "modules" : {
+            "Payment" : {}
+        },
         "distribute" : {
             "android" : {
                 "permissions" : [
@@ -34,10 +36,18 @@
                     "<uses-feature android:name=\"android.hardware.camera\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
-                ]
+                ],
+                "abiFilters" : [ "armeabi-v7a" ]
             },
             "ios" : {},
-            "sdkConfigs" : {}
+            "sdkConfigs" : {
+                "ad" : {},
+                "push" : {
+                    "unipush" : {}
+                },
+                "share" : {},
+                "payment" : {}
+            }
         }
     },
     "quickapp" : {},

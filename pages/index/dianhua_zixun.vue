@@ -17,28 +17,34 @@
 				<view class="zixun_item" v-for="(item,index) in dianhua_list">
 
 					<view class="zixun_item_left">
-						<view class="zixun_item_tx">
-							<image src="@/static/lsimg/tx.png" mode=""></image>
+						<view class="zixun_item_tx" @click="go_zhuye(item.userid)">
+							<image :src="img_url+item.photourl" mode=""></image>
 						</view>
 						<view class="zixun_item_xinxi">
-							<view class="hei_26">
+							<view class="hei_26" @click="go_zhuye(item.userid)">
 								{{item.nickname}}律师
+							</view>
+							<view class="hui_26 techang" v-if="dianhua_list!=''">
+							<text v-if="zhuanchang_arry[item.expertise1] && zhuanchang_arry[item.expertise1].shanchangname">{{zhuanchang_arry[item.expertise1].shanchangname}}</text>
+							<text v-if="zhuanchang_arry[item.expertise1] && zhuanchang_arry[item.expertise2].shanchangname">{{zhuanchang_arry[item.expertise2].shanchangname}}</text>
+							<text v-if="zhuanchang_arry[item.expertise1] && zhuanchang_arry[item.expertise3].shanchangname">{{zhuanchang_arry[item.expertise3].shanchangname}}</text>
+							</view>
+							<view class="qian_22 item_dizhi">
+								{{item.province}}-{{item.city}}-{{item.area}}
 							</view>
 							<view class="hong_26 zixun_item_feiyong">
 								{{item.phoneprice}}元/20分钟
 							</view>
-							<view class="qian_22">
-								{{ item.addtime | timeStamp }}
-							</view>
+							
 						</view>
 					</view>
 
 					<view class="zixun_r">
 						<view class="zixun_leibie hei_26">
-							婚姻家庭
+							<!-- 婚姻家庭 -->
 						</view>
 		
-							<view  class="to_pay bai_28" @click="go_pay()">付费咨询</view>
+							<view  class="to_pay bai_28" @click="go_pay()">付费电话咨询</view>
 			
 						<view class="zixun_dianhua" @click="call()">
 							<image src="@/static/img/dianhua_icon.png" mode=""></image>{{item.mobile}}
@@ -63,8 +69,8 @@
 						</view>
 					</view>
 					<view class="tan_list_bottom zhuanchang_arry hei_26" v-if="zhuan_show">
-						<text v-for="(item,index) in zhuanchang" :class="['' ,index==xuanzc?'xuanzhong': '']" @click="xuanzhuangchang(index,item)">
-							{{item}}</text>
+						<text v-for="(item,index) in zhuanchang" :class="['' ,index==xuanzc?'xuanzhong': '']" @click="xuanzhuangchang(index,item.typename)">
+							{{item.typename}}</text>
 					</view>
 					<button type="" class="zhuanchang_quer_ding bai_30" @click="zhuanchang_go" v-if="zhuan_show">确定</button>
 				</view>
@@ -101,7 +107,24 @@
 			unpopup,
 		},
 onLoad() {
-	this.huoqulist()
+	var that=this
+	// 获取分类
+	this.$http
+		.post({
+			url: '/mapi/index/gettype'
+		})
+		.then(res => {
+			this.zhuanchang = res.data.type;
+		});
+	         this.$http
+			.post({
+				url: '/mapi/lawyer/getshanchang'
+			})
+			.then(res => {
+				this.zhuanchang_arry = res.data.shanchang;
+				that.huoqulist()
+			});		
+	
 },
 		onShow() {
         
@@ -109,6 +132,7 @@ onLoad() {
 
 		data() {
 			return {
+				img_url: uni.getStorageSync('img_url'),
 				tab_arry: ['全部咨询', '正在咨询', '结束咨询'],
 				active: '0',
 				zhuangtai: '0',
@@ -121,7 +145,8 @@ onLoad() {
 				zhuanchang_txt2:'',
 				is_all:false,
 				page:0,
-				dianhua_list:[]
+				dianhua_list:[],
+			   zhuanchang_arry:''
 			}
 		},
 		created() {
@@ -139,6 +164,7 @@ onLoad() {
 		// stopPullDownRefresh:function(){
 
 		// },
+
 		methods: {
 			//上拉加载
 			onReachBottom() {
@@ -224,6 +250,11 @@ onLoad() {
 				this.zhuan_show = !this.zhuan_show
 			
 			},
+			go_zhuye(id) {
+				uni.navigateTo({
+					url: 'ls_zhuye?lawyerid='+id
+				});
+			},
 			call(){
 				uni.makePhoneCall({
 				 	// 手机号
@@ -286,11 +317,11 @@ onLoad() {
 	.zixun_item {
 		display: flex;
 		align-items: center;
-		height: 191rpx;
+		/* height: 240rpx; */
 		background-color: #ffffff;
 		margin-bottom: 20rpx;
 		justify-content: space-between;
-		padding: 0 49rpx 0 30rpx;
+		padding: 10rpx 49rpx 10rpx 30rpx;
 		box-sizing: border-box;
 	}
 
@@ -303,20 +334,21 @@ onLoad() {
 	}
 
 	.zixun_item_feiyong {
-		margin: 18rpx 0;
+		margin: rpx 0;
 	}
 
 	.xuanzhong {
 		color: #f43a51;
 		border: 2rpx solid #f43a51 !important;
 	}
-
+.item_dizhi{
+	margin: 18rpx 0;
+}
 .zixun_dianhua{
 	width: 238rpx;
 		height: 50rpx;
 		background-color: #eceae9;
 		border-radius: 25rpx;
-		
 		font-size: 26rpx;
 			color: #999999;
 			display: flex;
@@ -336,7 +368,9 @@ onLoad() {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
+	justify-content: center;
 	padding-top: 10rpx;
+	height: 200rpx;
 }
 .zhuanchang_arry {
 		display: flex;
@@ -394,7 +428,15 @@ onLoad() {
 		text-align: center;
 		line-height: 120rpx;
 	}
-
+	.techang{
+		margin: 18rpx 0 0;
+	}
+.techang text {
+	background-color: #f5f5f5;
+	line-height: 30rpx;
+	margin-right: 20rpx;
+	padding: 2rpx 10rpx;
+}
 	.tan_list {}
 
 	.tan_list_top {
@@ -446,9 +488,9 @@ onLoad() {
 			border-radius: 5rpx;
 			line-height: 50rpx;
 			padding: 0 20rpx;
-			margin: 10rpx 0;
+			margin: 10rpx 0 30rpx;
 			text-align: center;
 			background-color: #11b790;
-width: 130rpx;
+           /* width: 130rpx; */
 	}
 </style>

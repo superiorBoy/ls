@@ -19,11 +19,11 @@
 				<view class="zixun_item" v-for="(item,index) in zixun_list">
 
 					<view class="zixun_item_left">
-						<view class="zixun_item_tx">
-							<image src="@/static/lsimg/tx.png" mode=""></image>
+						<view class="zixun_item_tx" @click="go_zhuye(item.lawyerid)">
+							<image :src="img_url+item.photourl" mode=""></image>
 						</view>
 						<view class="zixun_item_xinxi">
-							<view class="hei_26">
+							<view class="hei_26"  @click="go_zhuye(item.lawyerid)">
 								{{item.nickname}}律师
 							</view>
 							<view class="hong_26 zixun_item_feiyong">
@@ -35,8 +35,8 @@
 						</view>
 					</view>
 	      
-					<view :class="['item_zhuangtai bai_26' ,item.zixunstate==2?'jieshu': 'zhengzai']">
-						{{item.zixunstate==2?'结束咨询':'正在咨询'}}
+					<view :class="['item_zhuangtai bai_26' ,item.zixunstate==1?'zhengzai': 'jieshu']">
+						{{item.zixunstate==1?'正在咨询':'结束咨询'}}
 					</view>
 				</view>
 			</view>
@@ -94,13 +94,13 @@
 
 		data() {
 			return {
+				img_url: uni.getStorageSync('img_url'),
 				tab_arry: ['全部咨询', '正在咨询', '结束咨询'],
 				active: '0',
 				zhuangtai: '1',
 				name: '',
 				zhuanchang_txt: '',
 				zhuan_show: false,
-				zhuanchang: ['全部专长', '婚姻家庭', '交通事故', '形势辩护', '劳动工伤', '房产纠纷', '债权债务', '合同事务', '公司经营', '损害赔偿', '知识产权', '征地拆迁'],
 				xuanzc: '9999',
 				zhuanchang_txt2: '',
 				page:0,
@@ -240,7 +240,12 @@
 						console.log(res);
 						this.zixun_list=this.zixun_list.concat(res.data.consult);
 					});
-			}
+			},
+			go_zhuye(id) {
+				uni.navigateTo({
+					url: 'ls_zhuye?lawyerid='+id
+				});
+			},
 
 		}
 	}

@@ -3,7 +3,7 @@
 		<view class="head">
 			<view class="head_back"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
 			<view class="head_center hei_38_bold ">登录</view>
-			<view class="hei_30_bold head_right"><navigator url="zhuce">注册</navigator></view>
+			<view class="hei_30_bold head_right"><navigator url="../index/zhuce?state=2">注册</navigator></view>
 		</view>
 
 		<view class="zi_body">

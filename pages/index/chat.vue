@@ -19,22 +19,22 @@
 					<view class="chat_jiage_item chat_jiage_item1">
 						<view class="bai_28">在线图文咨询</view>
 						<view class="bai_20 chat_jiage_num">
-							<text class="bai_30">{{ chat_xinxi.chatprice }}</text>
-							元/
-							<text class="bai_30">24</text>
-							小时
+							<text class="bai_30" >{{ chat_xinxi.chatprice==0?'未报价':chat_xinxi.chatprice }} </text>
+							<text v-if="chat_xinxi.chatprice!=0">元/小时</text>
+						
 						</view>
-						<button type="">立即咨询</button>
+						<button type=""v-if="chat_xinxi.chatprice!=0">立即咨询</button>
+						<button type=""v-if="chat_xinxi.chatprice==0">未开启</button>
 					</view>
 					<view class="chat_jiage_item chat_jiage_item2">
 						<view class="bai_28">付费电话咨询</view>
 						<view class="bai_20 chat_jiage_num">
-							<text class="bai_30">{{ chat_xinxi.phoneprice }}</text>
-							元/
-							<text class="bai_30">20</text>
-							分钟
+							<text class="bai_30">{{ chat_xinxi.phoneprice==0?'未报价':chat_xinxi.phoneprice }}</text>
+				
+							<text v-if="chat_xinxi.phoneprice!=0">元/20分钟</text></text>
 						</view>
-						<button type="" @click="fufei()">付费咨询</button>
+						<button type="" @click="fufei()" v-if="chat_xinxi.phoneprice!=0">付费咨询</button>
+						<button type=""v-if="chat_xinxi.phoneprice==0">未开启</button>
 					</view>
 					<view class="chat_jiage_item chat_jiage_item3">
 						<view class="bai_28">免费拨打电话</view>

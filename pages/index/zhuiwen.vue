@@ -6,18 +6,19 @@
 			<view class=" head_right hei_30_bold"></view>
 		</view>
 		<view class="zi_body">
+			
 			<view :class="['chat_body', bt_show ? 'chat_body_jia' : '']" @click="bt_show=!bt_show">
-				<view v-for="item in message">
-					<view class="chat_list chat_right" v-if="item.userid_from == id">
+				<view v-for="item in xq_item.zhuiwen" v-if="xq_item!=''">
+					<view class="chat_list chat_right" v-if="item.type == 1">
 						<view class="chat_right_txt bai_26">
-							<text>{{ item.content }}</text>
+							<text>{{ item.information }}</text>
 						</view>
-						<image src="@/static/lsimg/yh_tx.png" mode="" class="tx"></image>
+						<image :src="img_url+my.photourl" mode="" class="tx"></image>
 					</view>
 
-					<view class="chat_list chat_left" v-if="item.userid_from != id">
-						<image src="@/static/img/tx.png" mode="" class="tx"></image>
-						<view class="chat_left_txt hei_26">{{ item.content }}</view>
+					<view class="chat_list chat_left" v-if="item.type == 2">
+						<image :src="img_url+xq_item.photourl" mode="" class="tx"></image>
+						<view class="chat_left_txt hei_26">{{ item.information }}</view>
 					</view>
 				</view>
 
@@ -86,6 +87,7 @@ export default {
 			bt_show: true,
 			chat_txt: '',
 			id: '100004',
+			img_url: uni.getStorageSync('img_url'),
 			message: [
 				// {
 				// 	addtime: 1591171851,
@@ -121,14 +123,18 @@ export default {
 			lawyerid:'',
 			lvshi:'',
 			consultid:'',
-			zixun_list:''
+			zixun_list:'',
+			xq_item:'',
+			my:''
 		};
 	},
 	onLoad(option) {
 		this.lawyerid=option.lawyerid
 		this.consultid=option.consultid
+		this.xq_item=JSON.parse(option.item)
 		this.huoqu_lvshi()
 		this.huoqu_zixun_xq()
+		console.log(this.xq_item)
 	},
 	//下拉刷新
 	onPullDownRefresh: function() {
@@ -167,6 +173,19 @@ export default {
 				.then(res => {
 					if (res.code == 0) {
 						this.lvshi=res.data.lawyer
+						
+					}
+				});	
+		},
+		// 个人信息
+		huoqu_lvshi(){
+			this.$http
+				.post({
+					url: '/mapi/user/user'
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.my=res.data.user
 						
 					}
 				});	
@@ -235,11 +254,11 @@ export default {
 			
 			
 			var data = {
-				content: '' + this.chat_txt,
-				userid_from: '' + this.id
+				information: '' + this.chat_txt,
+				type: '1'
 			};
 
-			this.message.push(data);
+			this.xq_item.zhuiwen.push(data);
 			this.chat_txt = '';
 			this.bt_show = true;
 		},
@@ -323,6 +342,7 @@ page {
 	position: relative;
 	padding: 10rpx 20rpx;
 	border-radius: 10rpx;
+	word-break: break-all;
 }
 .chat_right_txt {
 	max-width: 410rpx;
@@ -331,6 +351,7 @@ page {
 	padding: 10rpx 20rpx;
 	border-radius: 10rpx;
 	background-color: #0eb77e;
+	word-break: break-all;
 }
 
 .chat_left_txt::before {

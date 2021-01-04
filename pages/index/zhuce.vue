@@ -22,7 +22,7 @@
 					<image src="../../static/img/shouji_icon.png"></image>
 					<input type="text" value="" placeholder="手机号码" v-model="shouji" />
 				</view>
-				<view class="zhuce_list zhuce_list_yanzheng">
+				<view class="zhuce_list zhuce_list_yanzheng" v-if="is_xinxi==1">
 					<view class="zhuce_list_left">
 						<image src="../../static/img/duanxin_icon.png" mode="" class="yanzheng_icon"></image>
 						<input type="text" placeholder="验证码" v-model="code">
@@ -44,7 +44,7 @@
 					<image src="../../static/img/yaoqing_icon.png" mode="" class="yaoqing_icon"></image>
 					<input type="text" value="" placeholder="请输入邀请码(选填)" v-model="yaoqingma" />
 				</view>
-				<view class="" v-if="active==1">
+				<!-- <view class="" v-if="active==1">
 
 
 					<view class="zhuce_list">
@@ -66,7 +66,7 @@
 						<image src="../../static/img/lvsuo_icon.png" mode="" class="yaoqing_icon"></image>
 						<input type="text" value="" placeholder="请选择执业律所" v-model="lvsuo" />
 					</view>
-				</view>
+				</view> -->
 				<view class="xieyi qian_24">
 
 					<checkbox :checked="isCheck" @click="checkBox($event)" />我已阅读并同意<text class="hong_24">《小虎律师网协议》</text>
@@ -109,8 +109,8 @@
 				yan_txt:'获取验证码',
 				isdisabled:false,
 				yan1_zhuangtai:'../../static/lsimg/yanguan.png',
-				yan2_zhuangtai:'../../static/lsimg/yanguan.png'
-				
+				yan2_zhuangtai:'../../static/lsimg/yanguan.png',
+				is_xinxi:''
 			}
 		},
 onLoad(option) {
@@ -120,6 +120,7 @@ onLoad(option) {
 	}else{
 		this.active=0
 	}
+	this.is_duanxin()
 },
 		components: {
 			pickerAddress
@@ -132,6 +133,21 @@ onLoad(option) {
 			},
 			navigateBack(){
 				uni.navigateBack()
+			},
+			is_duanxin(){
+			this.$http
+				.post({
+					url: '/mapi/index/open_sms'
+				})
+				.then(res => {
+					console.log(res);
+					if(res.code==0){
+						
+						this.is_xinxi=res.data.open_sms
+					}
+				});
+			
+				
 			},
 			btnCheck: function(e) {
 				var that=this
@@ -168,7 +184,21 @@ onLoad(option) {
 					return false
 				}
 				
-				this.btnCheck(e);
+				this.$http
+					.post({
+						url: '/index/login/sendsms',
+						data:{
+							mobile:this.shouji
+						}
+					})
+					.then(res => {
+						console.log(res);
+						if(res.code==0){
+							
+							this.btnCheck(e);
+						}
+					});
+
 			},
 			chakan(e) {
 				if (e == 1) {
@@ -195,7 +225,7 @@ onLoad(option) {
 			zhuce() {
 			console.log(this.active)
 				if(this.active=="0"){
-					if(this.shouji==''||this.code==''||this.mima==''||this.agamima==''){
+					if(this.shouji==''||this.mima==''||this.agamima==''){
 						uni.showToast({
 							title: '请填写完整',
 							duration: 2000,
@@ -217,7 +247,9 @@ onLoad(option) {
 							data: {
 								mobile: this.shouji,
 								password: this.mima,
-								password1:this.agamima
+								password1:this.agamima,
+								code:this.code,
+								randcode:this.yaoqingma
 							}
 						})
 						.then(res => {
@@ -230,11 +262,11 @@ onLoad(option) {
 						});
 					
 					
-					console.log(this.shouji, this.code, this.mima, this.agamima, this.yaoqingma)
+					console.log(this.shouji, this.mima, this.agamima, )
 					
 				}else if(this.active=="1"){
 					
-					if(this.shouji==''||this.code==''||this.mima==''||this.agamima==''){
+					if(this.shouji==''||this.mima==''||this.agamima==''){
 						uni.showToast({
 							title: '请填写完整',
 							duration: 2000,
@@ -250,21 +282,14 @@ onLoad(option) {
 						return false
 					}
 					
-					if(this.name==''||this.zhengjian==''||this.dizhi==''||this.lvsuo==''){
-						uni.showToast({
-							title: '请填写完整',
-							duration: 2000,
-							icon: "none"
-						});
-						return false
-					}
 					this.$http
 						.post({
 							url: '/lawyer/login/register',
 							data: {
 								mobile: this.shouji,
 								password: this.mima,
-								password1:this.agamima
+								password1:this.agamima,
+								code:this.code
 							}
 						})
 						.then(res => {
@@ -277,18 +302,8 @@ onLoad(option) {
 							}
 						});
 					
-					
-					
 					}
-				
-					
-					
-					console.log(this.shouji, this.code, this.mima, this.agamima, this.yaoqingma)
-					console.log(this.name, this.zhengjian, this.dizhi, this.lvsuo, )
-				
-				
-				
-				
+
 				console.log(this.isCheck)
 			},
 			mimashu(e) {

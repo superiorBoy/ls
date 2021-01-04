@@ -37,10 +37,10 @@
 			</view>
 			<view class="mingdan">
 			
-			<!-- <view class="none">
+			<view class="none">
 				<image src="../../static/lsimg/none_mingdan.png" mode=""></image>
-			</view> -->
-			<view class="mimgdan_list bai_30">
+			</view>
+			<!-- <view class="mimgdan_list bai_30">
 				<text class="paixu">1</text> <text>188****5555</text> <text>12人</text>
 			</view>
 			<view class="mimgdan_list bai_30">
@@ -54,7 +54,7 @@
 			</view>
 			<view class="mimgdan_list bai_30">
 				<text class="paixu">5</text> <text>188****5555</text> <text>12人</text>
-			</view>
+			</view> -->
 			</view>
 			<button type="default" class="fenxiang">立即分享给好友</button>
 			</view>
@@ -100,23 +100,32 @@
 			
 			this.$http
 				.post({
-					url: '/index/login/islogin'
+					url: '/lawyer/login/islogin'
 				})
 				.then(res => {
 					if(res.data.user==''){
 						this.deng_txt=='立即登录'
 					}else{
 						this.user=res.data.user
-						this.deng_txt='复制邀请链接'
-						this.lianjie='暂无链接'
+						this.huoqu_lianjie()
 					}
 					
 				});
 			},
+			huoqu_lianjie(){
+						   this.$http
+						   	.post({
+						   		url: '/mapi/user/yaoqing'
+						   	})
+						   	.then(res => {
+						   		this.deng_txt='复制邀请链接'
+								this.lianjie=res.data.inviteurl
+						   	});
+			},
 			lianjiego(){
 				if(this.deng_txt=='立即登录'){
 					wx.navigateTo({
-						url:'/lawyer/login/islogin'
+						url:'login'
 					})
 				}else{
 					  // #ifdef H5

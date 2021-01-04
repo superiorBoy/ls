@@ -77,10 +77,16 @@
 			"path":"pages/index/shipin_xq"
 		},
 		{
-			"path":"pages/index/changshi",
-			"style": {
-			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
-			}
+			"path":"pages/index/changshi"
+		
+		},
+		{
+			"path":"pages/index/changshi_erji"
+		
+		},
+		{
+			"path":"pages/index/changshi_sanji"
+		
 		},
 		{
 			"path":"pages/index/changshi_xq"

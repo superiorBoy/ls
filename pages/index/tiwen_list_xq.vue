@@ -119,8 +119,9 @@ onLoad(option) {
 				this.is_zhankai = !this.is_zhankai
 			},
 			zhuiwen(lawyerid,consultid,item){
+			
 				uni.navigateTo({
-					url:'zhuiwen?lawyerid='+lawyerid+'&consultid='+consultid
+					url:'zhuiwen?lawyerid='+lawyerid+'&consultid='+consultid+'&item='+JSON.stringify(item)
 				})
 			},
 			get_xq(id) {

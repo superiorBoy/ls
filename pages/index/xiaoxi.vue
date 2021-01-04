@@ -16,7 +16,7 @@
 						</view>
 						<view class="xiaoxi_top_list_left_txt">
 							<view class="hei_30_bold top_txt">
-								推送消息
+								粉丝
 							</view>
 							<view class="qian_26">
 								有用户支付成功向您提出问题，前去解答
@@ -27,17 +27,17 @@
 						10-16
 					</view>
 				</view>
-				<view class="xiaoxi_top_list">
+				<view class="xiaoxi_top_list" @click="go_gonggao">
 					<view class="xiaoxi_top_list_left">
 						<view class="xiaoxi_tx">
 						<image src="../../static/lsimg/xiaoxi_tongzhi.png" mode=""></image>
 						</view>
 						<view class="xiaoxi_top_list_left_txt">
 							<view class="hei_30_bold top_txt">
-								系统通知
+								公告
 							</view>
 							<view class="qian_26">
-								您有一张优惠券即将过期
+								查看最新公告
 							</view>
 						</view>
 					</view>
@@ -66,7 +66,7 @@
 				</view>
 			</view>
 			<view class="xiaoxi_list">
-				<view class="xiaoxi_item" v-for="item in xiaoxi_list" @click="go_chat(item.user_to.userid)" v-if="item.user_to">
+				<view class="xiaoxi_item" v-for="item in xiaoxi_list" @click="go_chat(item.user_to.userid)" v-if="item.user_to &&item.user_to.userid!=7">
 					<view class="xiaoxi_item_left" >
 						<view class="xiaoxi_tx">
 						<image :src=img_url+item.user_to.photourl  mode=""></image>
@@ -115,6 +115,7 @@
 			uParse
 		},
 		onShow() {
+			
 			this.huoqu_xiaoxilist()
 		},
 		data() {
@@ -145,7 +146,12 @@
 			},
 			go_kefu(){
 				uni.navigateTo({
-					url: 'zaixian_wen'
+					url: 'zaixian_wen?user=7'
+				});
+			},
+			go_gonggao(){
+				uni.navigateTo({
+					url: 'gonggao'
 				});
 			},
 			huoqu_xiaoxilist(){
@@ -154,7 +160,6 @@
 						url: '/mapi/consult/messagelist'
 					})
 					.then(res => {
-					
 						this.xiaoxi_list=res.data.messagelist
 					});
 				

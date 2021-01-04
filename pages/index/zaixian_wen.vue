@@ -17,7 +17,7 @@
 					本次沟通已经加密，请放心输入你的问题，
 					提交问题默认同意<text class="lv_30"> 《小虎律师用户协议》</text>
 				</view> -->
-				<view class="wen_jiage">
+			<!-- 	<view class="wen_jiage">
 					<view class="wen_jiage_list wen_jiage_list1">
 						<text class="bai_24">在线图文咨询</text>
 						<text class="bai_26">58元/24小时</text>
@@ -36,7 +36,7 @@
 						<text class="bai_24">{{ dianhua }}</text>
 						<view class="dianji" @click="kan_dianhua">点击查看</view>
 					</view>
-				</view>
+				</view> -->
 
 				<view class="chat_list chat_left">
 					<image src="@/static/img/wen_kefu.png" mode="" class="tx"></image>
@@ -52,9 +52,16 @@
 					<image src="@/static/img/wen_kefu.png" mode="" class="tx"></image>
 					<view class="chat_left_txt hei_26">你好，请问您遇见了什么法律问题？</view>
 				</view>
-
-				<view class="chat_list chat_right" v-for="item in my_message">
-					<view class="chat_right_txt hei_26">{{ item }}</view>
+                 <view class="chat_list chat_left" v-for="item in my_message" v-if="item.userid_from==7">
+                 	
+                 	<image src="@/static/lsimg/yh_tx.png" mode="" class="tx"></image>
+					<view class="chat_left_txt hei_26">
+						<image :src="img_url + item.content" mode="widthFix" v-if="item.msgtype == 2" style="max-width: 100rpx;"></image>
+						<view v-if="item.msgtype == 1"><u-parse :content="replace_em(item.content)"></u-parse></view>
+					</view>
+                 </view>
+				<view class="chat_list chat_right" v-for="item in my_message"v-else>
+					<view class="chat_right_txt hei_26">{{ item.content }}</view>
 					<image src="@/static/lsimg/yh_tx.png" mode="" class="tx"></image>
 				</view>
 			</view>
@@ -67,28 +74,41 @@
 </template>
 
 <script>
+	import uParse from '@/components/feng-parse/parse.vue';
 export default {
+	components: {
+		
+		uParse
+	},
 	data() {
 		return {
 			title: '提问详情',
 			huifu_txt: '',
+			img_url: uni.getStorageSync('img_url'),
 			my_message: [],
 			dianhua: '点击查看显示电话号码',
 			userid: '',
 			mobile:'',
-			page:0
+			page:0,
 			
 		};
 	},
 	created() {},
 	onLoad(option) {
-		// this.userid = option.user;
+		this.userid = option.user;
 		// this.mobile=option.mobile
 		// this.huiqu_ls()
 	},
 	methods: {
 		navigateBack() {
 			uni.navigateBack();
+		},
+		replace_em(str) {
+			str = str.replace(/\</g, '&lt;');
+			str = str.replace(/\>/g, '&gt;');
+			str = str.replace(/\n/g, '<br/>');
+			str = str.replace(/\[em_([0-9]*)\]/g, '<img src="../../static/bkhumor-emoji/$1.gif" border="0" style="width:40rpx"/>');
+			return str;
 		},
 		huiqu_ls(){
 			this.$http
@@ -101,11 +121,12 @@ export default {
 				})
 				.then(res => {
 					if (res.code == 0) {
-						
+						this.my_message=res.data.message
 					}
 				});
 		},
 		huifu() {
+
 			if (this.huifu_txt == '') {
 				uni.showToast({
 					title: '请输入问题',
@@ -127,8 +148,13 @@ export default {
 				})
 				.then(res => {
 					if (res.code == 0) {
+						this.my_message.push({
+						  				content: this.huifu_txt,
+						  				nickname_from: "",
+						  });
+						
 						this.huifu_txt = '';
-						this.my_message.push(this.huifu_txt);
+						
 					}
 				});
 			
@@ -224,7 +250,7 @@ page {
 }
 
 .chat_body {
-	padding: 0 30rpx 150rpx;
+	padding: 30rpx 30rpx 150rpx;
 	overflow: auto;
 }
 

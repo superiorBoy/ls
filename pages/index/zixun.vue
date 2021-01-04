@@ -154,9 +154,9 @@ this.huoqu()
 						});
 			},
            zixun(){
-			   uni.navigateTo({
-			   	url:'zaixian_wen?user='+666
-			   })
+			   // uni.navigateTo({
+			   // 	url:'zaixian_wen?user='+666
+			   // })
 		   },
 		   zixun_xq(id){
 			   uni.navigateTo({

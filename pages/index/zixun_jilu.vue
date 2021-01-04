@@ -19,11 +19,11 @@
 				<view class="zixun_item" v-for="(item,index) in zixun_list">
 
 					<view class="zixun_item_left">
-						<view class="zixun_item_tx">
-							<image src="@/static/lsimg/tx.png" mode=""></image>
+						<view class="zixun_item_tx" @click="go_zhuye(item.lawyerid)">
+							<image :src="img_url+item.photourl" mode=""></image>
 						</view>
 						<view class="zixun_item_xinxi">
-							<view class="hei_26">
+							<view class="hei_26" @click="go_zhuye(item.lawyerid)">
 								{{item.nickname}}律师
 							</view>
 							<view class="hong_26 zixun_item_feiyong">
@@ -94,6 +94,7 @@
 
 		data() {
 			return {
+				img_url: uni.getStorageSync('img_url'),
 				tab_arry: ['全部咨询', '正在咨询', '结束咨询'],
 				active: '0',
 				zhuangtai: '1',
@@ -241,7 +242,12 @@
 						this.zixun_list=this.zixun_list.concat(res.data.consult);
 						console.log(this.zixun_list)
 					});
-			}
+			},
+			go_zhuye(id) {
+				uni.navigateTo({
+					url: 'ls_zhuye?lawyerid='+id
+				});
+			},
 
 		}
 	}

@@ -146,7 +146,8 @@
 			},
 			go_kefu(){
 				uni.navigateTo({
-					url: '../index/zaixian_wen'
+					url:'../index/zaixian_wen?user=7'
+					
 				});
 			},
 			huoqu_xiaoxilist(){
