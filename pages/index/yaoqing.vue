@@ -3,7 +3,7 @@
 		<view >
 			<view class="head">  
 			  <view class="head_back">
-
+				  <image src="@/static/img/back.png" mode="" @click="navigateBack()" ></image>
 			  </view> 
 			  <view class="head_center hei_38_bold">邀请好友</view> 
 			  <view class="head_right"></view> 
@@ -60,36 +60,31 @@
 			</view>
 
 			</view>
-			<view class="padding_bottom" ></view>
-			<tabBar :currentPage="currentPage" ></tabBar>
-			
+	
 		</view>
 	
 </template>
 
 <script>
-	import tabBar from '@/components/tabbar/tabbar.vue';
+	
 	import clipboard from "@/common/copy.js"
 	export default {
-		components:{
-			tabBar
-		},
+
 		created() {
 		
 		},
 		onLoad(option){	
-			
+			this.is_login()
 		},
 		onShow() {
-			this.is_login()
+			
 		},
 		data() {
 			return {
 				currentPage:'ls/yaoqing',
 				lianjie:'登录后即可生成邀请好友的专属链接',
 				deng_txt:'立即登录',  //复制邀请链接 --- 立即登录
-				
-				
+				user:'',
 			}
 		},
 		methods: {
@@ -113,10 +108,11 @@
 					
 				});
 			},
+		
 			lianjiego(){
 				if(this.deng_txt=='立即登录'){
 					wx.navigateTo({
-						url:'/lawyer/login/islogin'
+						url:'/pages/index/login'
 					})
 				}else{
 					  // #ifdef H5

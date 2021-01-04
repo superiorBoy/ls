@@ -40,14 +40,14 @@
 
 			<view class="fangshi_txt hei_30_bold">支付方式</view>
 			<view class="fangshi">
-				<view class="fangshi_list_pay" @click="radio(1)">
+				<!-- <view class="fangshi_list_pay" @click="radio(1)">
 					<view class="fangshi_left hei_28">
 						<image src="@/static/img/pay_weixin.png" mode="" style="width:36rpx ;height: 31rpx;"></image>
 						微信支付
 						<text class="tuijian hong_22">推荐</text>
 					</view>
 					<label class="radio"><radio value="1" :checked="zhifu == 1" /></label>
-				</view>
+				</view> -->
 				<view class="fangshi_list_pay" @click="radio(2)">
 					<view class="fangshi_left hei_28">
 						<image src="@/static/img/pay_zhifubao.png" mode="" style="width: 39rpx;height: 39rpx;"></image>
@@ -67,7 +67,7 @@
 export default {
 	data() {
 		return {
-			zhifu: '1',
+			zhifu: '2',
 			jine: '58.00'
 		};
 	},

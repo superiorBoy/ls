@@ -1,17 +1,55 @@
 <template>
 	<view class="">
 		<view class="head">
-			<view class="head_back"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
-			<view class="head_center hei_38_bold">{{ title }}</view>
-			<view class=" head_right hei_30_bold"></view>
+			<view class="head_back" style="width: 10%;"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
+			<view class="head_center " style="width: 80%;">
+				 <view class="hei_38_bold top_title">
+					{{ title }}
+				 </view> 
+			<view class="qian_20 chat_lvsuo">
+				{{ls_xinxi.lvsuo}}
+			</view>
+			</view>
+			<view class=" head_right hei_30_bold" style="width: 10%;"></view>
 		</view>
+
 		<view class="zi_body">
+			<view class="chat_jiage_wai">
+				<view class="chat_jiage">
+					<view class="chat_jiage_item chat_jiage_item1">
+						<view class="bai_28">在线图文咨询</view>
+						<view class="bai_20 chat_jiage_num">
+							<text class="bai_30">{{ chat_xinxi.chatprice }}</text>
+							元/
+							<text class="bai_30">24</text>
+							小时
+						</view>
+						<button type="">立即咨询</button>
+					</view>
+					<view class="chat_jiage_item chat_jiage_item2">
+						<view class="bai_28">付费电话咨询</view>
+						<view class="bai_20 chat_jiage_num">
+							<text class="bai_30">{{ chat_xinxi.phoneprice }}</text>
+							元/
+							<text class="bai_30">20</text>
+							分钟
+						</view>
+						<button type="" @click="fufei()">付费咨询</button>
+					</view>
+					<view class="chat_jiage_item chat_jiage_item3">
+						<view class="bai_28">免费拨打电话</view>
+						<view class="bai_20 xianshi_dianhua">{{ dian_num }}</view>
+						<button type="" @click="xianshi()">点击查看</button>
+					</view>
+				</view>
+			</view>
 			<view :class="['chat_body', bt_show ? 'chat_body_jia' : '']" @click="tan_hide()">
 				<view class="time qian_20" v-if="message != ''">{{ message[0].addtime | timeStamp }}</view>
 				<view v-for="item in message">
 					<view class="chat_list chat_left" v-if="item.userid_from == ls_id">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
+							<text class="ls_name">{{ title }}</text>
 							<image :src="img_url + item.content" mode="widthFix" v-if="item.msgtype == 2" style="max-width: 100rpx;"></image>
 							<view v-if="item.msgtype == 1"><u-parse :content="replace_em(item.content)"></u-parse></view>
 						</view>
@@ -90,14 +128,13 @@ export default {
 			.then(res => {
 				this.user = res.data.user;
 			});
-			
-			this.connectSocketInit()
+
+		this.huqu_ls_xinxi()
+		this.connectSocketInit();
 		// 进入这个页面的时候创建websocket连接【整个页面随时使用】
 		// this.connectSocketInit();
 	},
-	onShow() {
-	
-	},
+	onShow() {},
 	data() {
 		return {
 			title: '',
@@ -115,7 +152,10 @@ export default {
 			page: 0,
 			is_all: false,
 			ls_id: '',
-			dianhua:''
+			dianhua: '',
+			chat_xinxi: '',
+			dian_num: '点击显示号码',
+			ls_xinxi:''
 		};
 	},
 	//下拉刷新
@@ -158,7 +198,8 @@ export default {
 				.then(res => {
 					this.message = res.data.message;
 					this.title = res.data.user_to.nickname;
-					this.dianhua=res.data.user_to.mobile;
+					this.dianhua = res.data.user_to.mobile;
+					this.chat_xinxi = res.data.user_to;
 				});
 		},
 
@@ -167,6 +208,20 @@ export default {
 				title: '点赞成功',
 				duration: 2000
 			});
+		},
+		huqu_ls_xinxi(){
+			
+			this.$http
+				.post({
+					url: '/mapi/lawyer/lawyer',
+					data: {
+						lawyerid:this.ls_id
+					}
+				})
+				.then(res => {
+					   this.ls_xinxi=res.data.lawyer
+					   
+				});
 		},
 		replace_em(str) {
 			str = str.replace(/\</g, '&lt;');
@@ -230,17 +285,14 @@ export default {
 			// this.chat_txt=''
 		},
 		call() {
-
+			
 			uni.makePhoneCall({
-				// 手机号
-				phoneNumber:this.dianhua+'',
-				// 成功回调
+				phoneNumber: this.dianhua + '',
 				success: res => {
 					console.log('调用成功!');
 				},
-				// 失败回调
 				fail: res => {
-					console.log(res)
+					console.log(res);
 					console.log('调用失败!');
 				}
 			});
@@ -252,62 +304,70 @@ export default {
 		},
 		pingjia() {
 			uni.navigateTo({
-				url: 'pingjia'
-			});
+				url:'pingjia?lsid='+this.chat_xinxi.userid
+			})
 		},
 		tan_hide() {
 			this.isShowEmj = false;
 			this.bt_show = false;
 		},
-
-		
+		// 显示电话号码
+		xianshi() {
+			this.dian_num = this.dianhua;
+		},
+		// 去付费
+		fufei(){
+			uni.navigateTo({
+				url:'pay'
+			})
+			},
 		connectSocketInit() {
-		var url = window.location.host;
-		console.log(url);
-		var ws = new WebSocket('ws://' + url + ':3348');
-		ws.onopen = function(evt) {
-			console.log('Connection open ...');
-			// ws.send("你好");
-		};
-		ws.onmessage = function(evt) {
-			var that = this;
-			console.log('Received Message: ' + evt.data);
-			// json数据转换成js对象
-			var data = JSON.parse(evt.data);
-			console.log(data);
-			var type = data.type || '';
-			switch (type) {
-				// Events.php中返回的init类型的消息，将client_id发给后台进行uid绑定
-				case 'init':
-					// 利用jquery发起ajax请求，将client_id发给后端进行uid绑定
-					this.$http
-						.post({
-							url: 'push/gatewayworker/bind',
-							data: {
-								client_id: res.data.client_id
-							}
-						})
-						.then(res => {
-							console.log(res);
-						});
-		
-					break;
-				case 'say':
-					// if (data.state == 1) {
-					// }
-					that.message.push(data)
-					break;
-				default:
-					console.log(evt.data);
-				// ws.close();
-			}
-		};
-		ws.onclose = function(evt) {
-			console.log('Connection closed.');
-		};
-		ws.onerror = function(evt) {
-			console.log('WebSocketError!', evt);
-		};
+			var url = window.location.host;
+			console.log(url);
+			var ws = new WebSocket('ws://' + url + ':3348');
+			ws.onopen = function(evt) {
+				console.log('Connection open ...');
+				// ws.send("你好");
+			};
+			ws.onmessage = function(evt) {
+				var that = this;
+				console.log('Received Message: ' + evt.data);
+				// json数据转换成js对象
+				var data = JSON.parse(evt.data);
+				console.log(data);
+				var type = data.type || '';
+				switch (type) {
+					// Events.php中返回的init类型的消息，将client_id发给后台进行uid绑定
+					case 'init':
+						// 利用jquery发起ajax请求，将client_id发给后端进行uid绑定
+						this.$http
+							.post({
+								url: 'push/gatewayworker/bind',
+								data: {
+									client_id: res.data.client_id
+								}
+							})
+							.then(res => {
+								console.log(res);
+							});
+
+						break;
+					case 'say':
+						// if (data.state == 1) {
+						// }
+						that.message.push(data);
+						break;
+					default:
+						console.log(evt.data);
+					// ws.close();
+				}
+			};
+			ws.onclose = function(evt) {
+				console.log('Connection closed.');
+			};
+			ws.onerror = function(evt) {
+				console.log('WebSocketError!', evt);
+			};
 		}
 	},
 	filters: {
@@ -338,7 +398,7 @@ export default {
 }
 
 .time {
-	margin: 24rpx auto;
+	margin: 24rpx auto 40rpx;
 	text-align: center;
 	width: 300rpx;
 	height: 28rpx;
@@ -375,11 +435,21 @@ export default {
 
 .chat_left_txt {
 	max-width: 470rpx;
-
-	position: relative;
+	
 	padding: 10rpx 20rpx;
 	border-radius: 10rpx;
 	background-color: #f6f6f6;
+	position: relative;
+	top: 20rpx;
+	
+}
+.ls_name{
+	position: absolute;
+	top: -38rpx;
+	display: inline-block;
+	width:400rpx;
+	font-size: 20rpx;
+	left: 0;
 }
 .chat_right_txt {
 	max-width: 470rpx;
@@ -387,6 +457,7 @@ export default {
 	position: relative;
 	padding: 10rpx 20rpx;
 	border-radius: 10rpx;
+	top: 20rpx;
 }
 
 .chat_left_txt::before {
@@ -497,5 +568,73 @@ export default {
 }
 .zhanwei {
 	height: 360rpx;
+}
+.chat_jiage_item {
+	width: 217rpx;
+	height: 210rpx;
+	border-radius: 10rpx;
+	text-align: center;
+	padding: 24rpx 0;
+	box-sizing: border-box;
+}
+.chat_jiage_item button {
+	width: 157rpx;
+	height: 50rpx;
+	background-color: #ffffff;
+	border-radius: 5rpx;
+	font-size: 28rpx;
+	line-height: 50rpx;
+}
+.chat_jiage_item1 {
+	background: url(../../static/img/jia1.png) no-repeat;
+	background-size: 100% 100%;
+}
+.chat_jiage_item2 {
+	background: url(../../static/img/jia2.png) no-repeat;
+	background-size: 100% 100%;
+}
+.chat_jiage_item3 {
+	background: url(../../static/img/jia3.png) no-repeat;
+	background-size: 100% 100%;
+}
+.chat_jiage_item1 button {
+	color: #0eb77e;
+}
+.chat_jiage_item2 button {
+	color: #bcb198;
+}
+.chat_jiage_item3 button {
+	color: #ef995f;
+}
+button {
+	padding: 0;
+}
+.chat_jiage {
+	padding: 30rpx 30rpx;
+	display: flex;
+	align-content: center;
+	justify-content: space-between;
+	position: fixed;
+	top: 100rpx;
+	width: 100%;
+	background-color: #ffffff;
+	box-sizing: border-box;
+}
+.chat_jiage_num {
+	margin: 18rpx 0 15rpx;
+}
+.xianshi_dianhua {
+	margin: 20rpx 0 20rpx;
+}
+.chat_jiage_wai {
+	height: 260rpx;
+	position: relative;
+	z-index: 99;
+}
+.chat_lvsuo{
+	
+}
+.top_title{
+	margin-top: -4rpx;
 }
 </style>

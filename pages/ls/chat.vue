@@ -36,6 +36,7 @@
 					<view class="chat_list chat_left" v-if="item.userid_from==userid">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
+							<text class="ls_name">{{ title }}</text>
 							<image :src="img_url + item.content" mode="widthFix" v-if="item.msgtype == 2" style="max-width: 100rpx;"></image>
 								<view v-if="item.msgtype == 1"><u-parse :content="replace_em(item.content)"></u-parse></view>
 
@@ -449,7 +450,7 @@ import uParse from '@/components/feng-parse/parse.vue';
 		position: relative;
 		padding: 10rpx 20rpx;
 		border-radius: 10rpx;
-		
+		top: 20rpx;
 	}
 
 	.chat_left_txt::before {
@@ -473,6 +474,7 @@ import uParse from '@/components/feng-parse/parse.vue';
 		position: relative;
 		padding: 10rpx 20rpx;
 		border-radius: 10rpx;
+		top: 20rpx;
 		
 	}
 
@@ -568,5 +570,13 @@ import uParse from '@/components/feng-parse/parse.vue';
 	}
 .zhanwei{
 	height: 360rpx;
+}
+.ls_name{
+	position: absolute;
+	top: -38rpx;
+	display: inline-block;
+	width:400rpx;
+	font-size: 20rpx;
+	left: 0;
 }
 </style>

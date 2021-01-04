@@ -28,7 +28,7 @@
 		<view class="zi_body tab_zi_body">
 			<view class="lvshi_list">
 				<view class="lvshi_item" v-for="(item, index) in lslist">
-					<view class="zixun lv_20" @click="tochat(item.userid,item.mobile)">
+					<view class="zixun lv_20" @click="go_chat(item.userid)">
 						<image src="@/static/img/xiaoxi.png" mode=""></image>
 						在线咨询
 					</view>
@@ -187,6 +187,11 @@ export default {
 			uni.navigateTo({
 				url: 'zaixian_wen?user=' + id+'&mobile='+mobile
 			});
+		},
+		go_chat(id){
+			uni.navigateTo({
+				url:'chat?lsid='+id
+			})
 		},
 		go_zhuye(id) {
 			uni.navigateTo({

@@ -171,7 +171,7 @@
 						<navigator :url="'ls_zhuye_tuwen?lawyerid=' + lvshi.userid" class="qian_28">更多>></navigator>
 					</view>
 					<scroll-view scroll-x="true" class="tuwen_list">
-						<view class="tuwen_item" v-for="item in tuwen_list" @click="tuwen_xq()">
+						<view class="tuwen_item" v-for="item in tuwen_list" @click="tuwen_xq(item.lytuwenid)">
 							<image :src="img_url + item.pic" mode=""></image>
 							<view class="tuwen_bottom">
 								<text class="hei_26 tuwen_txt">{{ item.title }}</text>
@@ -231,7 +231,7 @@
 						<image src="@/static/img/dianhua_lv.png" mode=""></image>
 						电话咨询
 					</view>
-					<view class="zaixian bai_26" @click="tochat(lvshi.userid, lvshi.mobile)">
+					<view class="zaixian bai_26" @click="go_chat(lawyerid)">
 						<image src="@/static/img/zaixian_bai.png" mode=""></image>
 						在线咨询
 					</view>
@@ -497,15 +497,20 @@ export default {
 				url: 'zaixian_wen?user=' + id + '&mobile=' + mobile
 			});
 		},
+		go_chat(id){
+			uni.navigateTo({
+				url:'chat?lsid='+id
+			})
+		},
 		// 主页提问详情
 		go_tiwen_xq(id) {
 			uni.navigateTo({
 				url: 'zhuye_zixun_xq?id=' + id
 			});
 		},
-		tuwen_xq() {
+		tuwen_xq(lytuwenid) {
 			uni.navigateTo({
-				url: 'tuwen_xq'
+				url: 'tuwen_xq?lytuwenid='+lytuwenid
 			});
 		},
 		go_dianping() {

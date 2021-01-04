@@ -14,7 +14,7 @@
 
 
 			<view class="xiaoxi_list">
-				<view class="xiaoxi_item" v-for="item in xiaoxi_list" @click="kan(item.user_to.userid)">
+				<view class="xiaoxi_item" v-for="item in xiaoxi_list" @click="kan(item.user_to.userid)" v-if="item.user_to">
 					<view class="xiaoxi_item_left">
 						<view class="xiaoxi_tx">
 							<image :src=img_url+item.user_to.photourl  mode=""></image>
@@ -47,7 +47,7 @@
 
 
 
-		<uni-popup type="center" ref='popup'>
+	<!-- 	<uni-popup type="center" ref='popup'>
 
 			<view class="tan_jiage">
 				<view class="tan_title">
@@ -93,7 +93,7 @@
 
 			</view>
 
-		</uni-popup>
+		</uni-popup> -->
 
 
 
@@ -106,7 +106,7 @@
 </template>
 
 <script>
-	import unpopup from '@/components/uni-popup/uni-popup-share.vue'
+	// import unpopup from '@/components/uni-popup/uni-popup-share.vue'
 import uParse from '@/components/feng-parse/parse.vue';
 	export default {
 
@@ -114,7 +114,6 @@ import uParse from '@/components/feng-parse/parse.vue';
 
 		},
 		components: {
-			unpopup,
 			uParse
 
 		},
@@ -169,7 +168,7 @@ import uParse from '@/components/feng-parse/parse.vue';
 				uni.navigateTo({
 					url:'chat?lsid='+id
 				})
-				this.$refs.popup.open()
+				
 				
 
 			},

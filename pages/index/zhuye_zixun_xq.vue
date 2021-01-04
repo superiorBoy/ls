@@ -42,7 +42,7 @@
 									次
 								</view>
 							</view>
-							<button type="" class="bai_24" @click="go_zixun(item.lawyerid,item.mobile)">咨询TA</button>
+							<button type="" class="bai_24" @click="go_chat(item.lawyerid)">咨询TA</button>
 						</view>
 					</view>
 					<view class="hei_26 huida_txt">{{ item.information }}</view>
@@ -169,6 +169,11 @@ export default {
 			uni.navigateTo({
 				url: 'zaixian_wen?user=' + id+'&mobile='+mobile
 			});
+		},
+		go_chat(id){
+			uni.navigateTo({
+				url:'chat?lsid='+id
+			})
 		},
 		go_lvshi() {
 			uni.switchTab({

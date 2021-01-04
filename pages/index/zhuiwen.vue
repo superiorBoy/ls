@@ -2,7 +2,7 @@
 	<view class="">
 		<view class="head">
 			<view class="head_back"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
-			<view class="head_center hei_38_bold" style="width: 80%;">追问{{ title }}</view>
+			<view class="head_center hei_38_bold" style="width: 80%;">追问{{ lvshi.nickname }}</view>
 			<view class=" head_right hei_30_bold"></view>
 		</view>
 		<view class="zi_body">
@@ -79,46 +79,56 @@
 export default {
 	created() {},
 
-	onShow() {},
+	
 	data() {
 		return {
-			title: '樊凯律师',
+		
 			bt_show: true,
 			chat_txt: '',
 			id: '100004',
 			message: [
-				{
-					addtime: 1591171851,
-					content: '对以后的就业有没有什么影响？',
-					flag: 1,
-					messageid: 173,
-					msgtype: 1,
-					nickname_from: '1234',
-					nickname_to: '会员100005',
-					photourl_form: 'user/20200525/159037945424676.png',
-					photourl_to: 'user/20200529/159074444286391.png',
-					read: 1,
-					userid_from: 100004,
-					userid_to: 100005
-				},
+				// {
+				// 	addtime: 1591171851,
+				// 	content: '对以后的就业有没有什么影响？',
+				// 	flag: 1,
+				// 	messageid: 173,
+				// 	msgtype: 1,
+				// 	nickname_from: '1234',
+				// 	nickname_to: '会员100005',
+				// 	photourl_form: 'user/20200525/159037945424676.png',
+				// 	photourl_to: 'user/20200529/159074444286391.png',
+				// 	read: 1,
+				// 	userid_from: 100004,
+				// 	userid_to: 100005
+				// },
 
-				{
-					addtime: 1591171761,
-					content:
-						'你好！按照你说的这个情况来看，如果是行政拘留的话，可能对他的升迁有影响，这个一般情况下不会上征信，可以考公务员，对孩子没有多大影响。万一如果是刑事拘留的话，就是有案底了。',
-					flag: 1,
-					messageid: 172,
-					msgtype: 1,
-					nickname_from: '会员100005',
-					nickname_to: '1234',
-					photourl_form: 'user/20200529/159074444286391.png',
-					photourl_to: 'user/20200525/159037945424676.png',
-					read: 1,
-					userid_from: 100005,
-					userid_to: 100004
-				}
-			]
+				// {
+				// 	addtime: 1591171761,
+				// 	content:
+				// 		'你好！按照你说的这个情况来看，如果是行政拘留的话，可能对他的升迁有影响，这个一般情况下不会上征信，可以考公务员，对孩子没有多大影响。万一如果是刑事拘留的话，就是有案底了。',
+				// 	flag: 1,
+				// 	messageid: 172,
+				// 	msgtype: 1,
+				// 	nickname_from: '会员100005',
+				// 	nickname_to: '1234',
+				// 	photourl_form: 'user/20200529/159074444286391.png',
+				// 	photourl_to: 'user/20200525/159037945424676.png',
+				// 	read: 1,
+				// 	userid_from: 100005,
+				// 	userid_to: 100004
+				// }
+			],
+			lawyerid:'',
+			lvshi:'',
+			consultid:'',
+			zixun_list:''
 		};
+	},
+	onLoad(option) {
+		this.lawyerid=option.lawyerid
+		this.consultid=option.consultid
+		this.huoqu_lvshi()
+		this.huoqu_zixun_xq()
 	},
 	//下拉刷新
 	onPullDownRefresh: function() {
@@ -144,6 +154,38 @@ export default {
 			// 	duration: 2000,
 			// 	icon: "none"
 			// });
+		},
+		// 律师信息
+		huoqu_lvshi(){
+			this.$http
+				.post({
+					url: '/mapi/lawyer/lawyer',
+					data: {
+						lawyerid:this.lawyerid
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.lvshi=res.data.lawyer
+						
+					}
+				});	
+		},
+		// 获取咨询详情
+		huoqu_zixun_xq(){
+			this.$http
+				.post({
+					url: '/mapi/consult/zixun_xq',
+					data: {
+						consultid:this.consultid
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.zixun_list=res.data.consult
+						
+					}
+				});	
 		},
 		navigateBack() {
 			uni.navigateBack();
@@ -171,6 +213,27 @@ export default {
 				});
 				return false;
 			}
+			
+			this.$http
+				.post({
+					url: '/lawyer/index/zhuiwen',
+					data: {
+						consultid:this.consultid,
+						text:this.chat_txt
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						uni.showToast({
+							title: '已回复',
+							duration: 2000,
+							icon: 'none'
+						});
+						
+					}
+				});	
+			
+			
 			var data = {
 				content: '' + this.chat_txt,
 				userid_from: '' + this.id
@@ -183,7 +246,7 @@ export default {
 		call() {
 			uni.makePhoneCall({
 				// 手机号
-				phoneNumber: '110',
+				phoneNumber: ''+this.lvshi.mobile,
 				// 成功回调
 				success: res => {
 					console.log('调用成功!');
@@ -197,8 +260,8 @@ export default {
 
 		pingjia() {
 			uni.navigateTo({
-				url: 'pingjia'
-			});
+				url:'pingjia?lsid='+this.lawyerid
+			})
 		},
 		go_shendu(){
 			uni.navigateTo({

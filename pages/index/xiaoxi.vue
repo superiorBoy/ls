@@ -51,7 +51,7 @@
 						<image src="../../static/lsimg/xiaoxi_kefu.png" mode=""></image>
 							
 						</view>
-						<view class="xiaoxi_top_list_left_txt">
+						<view class="xiaoxi_top_list_left_txt" @click="go_kefu()">
 							<view class="hei_30_bold top_txt">
 								客服消息
 							</view>
@@ -66,15 +66,15 @@
 				</view>
 			</view>
 			<view class="xiaoxi_list">
-				<view class="xiaoxi_item" v-for="item in xiaoxi_list" @click="go_chat(item.user_to.userid)">
-					<view class="xiaoxi_item_left">
+				<view class="xiaoxi_item" v-for="item in xiaoxi_list" @click="go_chat(item.user_to.userid)" v-if="item.user_to">
+					<view class="xiaoxi_item_left" >
 						<view class="xiaoxi_tx">
 						<image :src=img_url+item.user_to.photourl  mode=""></image>
 						<text class="xiaoxi_num bai_20" v-if="item.messagecount>0">{{item.messagecount}}</text>
 						</view>
 						<view class="xiaoxi_item_left_name">
 							<view class="hei_30_bold xiaoxi_item_name">
-								{{item.opposite_nickname}}
+								{{item.user_to.nickname}}
 							</view>
 							<view class="qian_26 txt_over">
 								<view class="" v-if="item.msgtype==1">
@@ -142,6 +142,11 @@
 				uni.navigateTo({
 					url:'chat?lsid='+id
 				})
+			},
+			go_kefu(){
+				uni.navigateTo({
+					url: 'zaixian_wen'
+				});
 			},
 			huoqu_xiaoxilist(){
 				this.$http

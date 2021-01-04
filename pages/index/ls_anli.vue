@@ -129,7 +129,7 @@
 						<image src="@/static/img/dianhua_lv.png" mode=""></image>
 						电话咨询
 					</view>
-					<view class="zaixian bai_26" @click="tochat(lvshi.userid,lvshi.mobile)">
+					<view class="zaixian bai_26" @click="go_chat(lvshi.userid)">
 						<image src="@/static/img/zaixian_bai.png" mode=""></image>
 						在线咨询
 					</view>
@@ -261,6 +261,11 @@ export default {
 			uni.navigateTo({
 				url: 'zaixian_wen?user=' + id+'&mobile='+mobile
 			});
+		},
+		go_chat(id){
+			uni.navigateTo({
+				url:'chat?lsid='+id
+			})
 		},
 		go_dianping(){
 			uni.navigateTo({

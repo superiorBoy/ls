@@ -76,17 +76,34 @@ export default {
 			dianhua: '点击查看显示电话号码',
 			userid: '',
 			mobile:'',
+			page:0
 			
 		};
 	},
 	created() {},
 	onLoad(option) {
-		this.userid = option.user;
-		this.mobile=option.mobile
+		// this.userid = option.user;
+		// this.mobile=option.mobile
+		// this.huiqu_ls()
 	},
 	methods: {
 		navigateBack() {
 			uni.navigateBack();
+		},
+		huiqu_ls(){
+			this.$http
+				.post({
+					url: '/mapi/consult/chatdeatils',
+					data: {
+						userid: this.userid,
+						page:this.page
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						
+					}
+				});
 		},
 		huifu() {
 			if (this.huifu_txt == '') {

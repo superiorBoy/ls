@@ -129,7 +129,7 @@
 						<view class=" xixin_title hei_28_bold">教育背景</view>
 						<view class="jiben_xixin_list hei_26">
 							最高学历
-							<view class="jiaoyu_right hui_26">硕士</view>
+							<view class="jiaoyu_right hui_26">{{xueli_type[ls_xinxi.lawyerinfos[1][0].xueli]}}</view>
 						</view>
 						<view class="jiben_xixin_list hei_26">
 							毕业院校
@@ -274,7 +274,7 @@
 						<image src="@/static/img/dianhua_lv.png" mode=""></image>
 						电话咨询
 					</view>
-					<view class="zaixian bai_26" @click="tochat(lvshi.userid,lvshi.mobile)">
+					<view class="zaixian bai_26" @click="go_chat(lvshi.userid)">
 						<image src="@/static/img/zaixian_bai.png" mode=""></image>
 						在线咨询
 					</view>
@@ -350,6 +350,7 @@ export default {
 				.then(res => {
 					if (res.code == 0) {
 						this.ls_xinxi=res.data
+						this.xueli_type=res.data.xueli
 					}
 				});	
 		},
@@ -383,6 +384,11 @@ export default {
 			uni.navigateTo({
 				url: 'zaixian_wen?user=' + id+'&mobile='+mobile
 			});
+		},
+		go_chat(id){
+			uni.navigateTo({
+				url:'chat?lsid='+id
+			})
 		},
 		go_dianping(){
 			uni.navigateTo({

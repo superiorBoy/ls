@@ -82,7 +82,7 @@
 				<view>VIP</view>
 			</navigator>
 
-			<navigator url="../ls/yaoqing?zhuangtai=user" class="index_tab_item">
+			<navigator url="yaoqing" class="index_tab_item">
 				<image src="@/static/img/tab8.png" mode=""></image>
 				<view>邀请好友</view>
 			</navigator>

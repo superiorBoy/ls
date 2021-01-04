@@ -31,7 +31,7 @@
 							<view class="hui_24">{{ tuwen.lawyer.lvsuo }}</view>
 						</view>
 					</view>
-					<button type="" class="bai_24" @click="tochat(tuwen.lawyer.lawyerid,tuwen.lawyer.mobile)">咨询TA</button>
+					<button type="" class="bai_24" @click="go_chat(tuwen.lawyer.lawyerid)">咨询TA</button>
 				</view>
 
 				<view class="zhengwen hei_26">
@@ -84,6 +84,11 @@ export default {
 			uni.navigateTo({
 				url: 'zaixian_wen?user=' + id+'&mobile='+mobile
 			});
+		},
+		go_chat(id){
+			uni.navigateTo({
+				url:'chat?lsid='+id
+			})
 		},
 	},
 	filters: {

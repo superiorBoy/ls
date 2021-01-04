@@ -25,7 +25,7 @@
 								{{item.nickname}}律师
 							</view>
 							<view class="hong_26 zixun_item_feiyong">
-								{{item.phoneprice}}元/分钟
+								{{item.phoneprice}}元/20分钟
 							</view>
 							<view class="qian_22">
 								{{ item.addtime | timeStamp }}
@@ -37,6 +37,9 @@
 						<view class="zixun_leibie hei_26">
 							婚姻家庭
 						</view>
+		
+							<view  class="to_pay bai_28" @click="go_pay()">付费咨询</view>
+			
 						<view class="zixun_dianhua" @click="call()">
 							<image src="@/static/img/dianhua_icon.png" mode=""></image>{{item.mobile}}
 						</view>
@@ -167,7 +170,12 @@ onLoad() {
 				this.$refs.popup.open()
 
 			},
-			
+			// 去支付
+			go_pay(){
+				uni.navigateTo({
+					url:'pay'
+				})
+			},
 			huoqulist(){
 				
 				  this.$http
@@ -322,10 +330,12 @@ onLoad() {
 		margin-right: 8rpx;
 }
 .zixun_leibie{
-	margin-bottom: 30rpx;
+	
 }
 .zixun_r{
-	text-align: right;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
 	padding-top: 10rpx;
 }
 .zhuanchang_arry {
@@ -409,6 +419,7 @@ onLoad() {
 	button {
 		margin: 0;
 		border: none;
+		padding: 0;
 	}
 
 	button::after {
@@ -429,5 +440,15 @@ onLoad() {
 		line-height: 88rpx;
 			background-color: #0eb77e;
 		border-radius: 0rpx 44rpx 44rpx 0rpx;
+	}
+	.to_pay{
+			height: 50rpx;
+			border-radius: 5rpx;
+			line-height: 50rpx;
+			padding: 0 20rpx;
+			margin: 10rpx 0;
+			text-align: center;
+			background-color: #11b790;
+width: 130rpx;
 	}
 </style>

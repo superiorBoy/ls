@@ -51,7 +51,7 @@
 						<image src="../../static/lsimg/xiaoxi_kefu.png" mode=""></image>
 							
 						</view>
-						<view class="xiaoxi_top_list_left_txt">
+						<view class="xiaoxi_top_list_left_txt" @click="go_kefu()">
 							<view class="hei_30_bold top_txt">
 								客服消息
 							</view>
@@ -143,6 +143,11 @@
 				uni.navigateTo({
 					url:'chat?userid='+id
 				})
+			},
+			go_kefu(){
+				uni.navigateTo({
+					url: '../index/zaixian_wen'
+				});
 			},
 			huoqu_xiaoxilist(){
 				this.$http
