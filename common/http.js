@@ -10,6 +10,7 @@ if (process.env.NODE_ENV == 'development') {
 	
 } else {
     baseUrl = '' // 生产环境
+	uni.setStorageSync("xian_url",baseUrl)
 }
 
 function request(url,method,data,header={}){

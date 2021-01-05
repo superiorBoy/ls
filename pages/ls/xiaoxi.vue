@@ -12,14 +12,14 @@
 				<view class="xiaoxi_top_list">
 					<view class="xiaoxi_top_list_left">
 						<view class="xiaoxi_tx">
-						<image src="../../static/lsimg/xiaoxi_tuisong.png" mode=""></image>
+						<image src="@/static/img/fensi_icon.png" mode=""></image>
 						</view>
 						<view class="xiaoxi_top_list_left_txt">
 							<view class="hei_30_bold top_txt">
-								推送消息
+								粉丝
 							</view>
 							<view class="qian_26">
-								有用户支付成功向您提出问题，前去解答
+								花落谁家关注了你
 							</view>
 						</view>
 					</view>
@@ -27,17 +27,17 @@
 						10-16
 					</view>
 				</view>
-				<view class="xiaoxi_top_list">
+				<view class="xiaoxi_top_list" @click="go_gonggao">
 					<view class="xiaoxi_top_list_left">
 						<view class="xiaoxi_tx">
 						<image src="../../static/lsimg/xiaoxi_tongzhi.png" mode=""></image>
 						</view>
 						<view class="xiaoxi_top_list_left_txt">
 							<view class="hei_30_bold top_txt">
-								系统通知
+								公告
 							</view>
 							<view class="qian_26">
-								您有一张优惠券即将过期
+								查看公告
 							</view>
 						</view>
 					</view>
@@ -53,10 +53,10 @@
 						</view>
 						<view class="xiaoxi_top_list_left_txt" @click="go_kefu()">
 							<view class="hei_30_bold top_txt">
-								客服消息
+								客服
 							</view>
 							<view class="qian_26">
-								有一条案件委托信息，请查看
+								点击查看客服对话及售后通知
 							</view>
 						</view>
 					</view>
@@ -143,6 +143,11 @@
 				uni.navigateTo({
 					url:'chat?userid='+id
 				})
+			},
+			go_gonggao(){
+				uni.navigateTo({
+					url: '../index/gonggao'
+				});
 			},
 			go_kefu(){
 				uni.navigateTo({

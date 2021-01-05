@@ -11,24 +11,43 @@
 				<view class="pay_list">
 					<text class="qian_30">服务项目</text>
 					<text class="hei_30">
-						在线图文咨询
-						<text class="qian_26">（服务时长:24小时）</text>
+						{{type==1?'在线咨询':'电话咨询'}}
+						<image src="@/static/lsimg/go_r.png" mode="" class="go_r"></image>
 					</text>
 				</view>
-				<view class="pay_list">
+				<view class="pay_list height_auto">
 					<text class="qian_30">服务律师</text>
-					<text class="hei_30">杨再坤律师</text>
+					<view class="ls_item">
+						<view class="ls_item_left">
+							<image :src="img_url+lvshi.photourl" mode=""></image>
+						</view>
+						<view class="ls_item_right">
+							<view class="hui_24 ls_item_right_top">
+								<text class="hei_28_bold">{{lvshi.nickname}}律师</text>
+								<text class="ls_dizhi"><image src="@/static/img/dianhua_dizhi.png" mode="" class="dianhua_dizhi"></image>{{lvshi.province}}-{{lvshi.city}}-{{lvshi.area}}</text>
+							</view>
+							<view class="hui_26 techang">
+								<view class="shanchang">擅长：</view>
+								<view class="techang_list">
+									<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise1].shanchangname">{{zhuanchang_arry[lvshi.expertise1].shanchangname}}</text>
+									<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise2].shanchangname">{{zhuanchang_arry[lvshi.expertise2].shanchangname}}</text>
+									<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise3].shanchangname">{{zhuanchang_arry[lvshi.expertise3].shanchangname}}</text>
+								</view>
+							</view>
+						</view>
+					</view>
 				</view>
-				<view class="pay_list">
-					<text class="qian_30">咨询内容</text>
-					<text class="hei_30">离婚了孩子的抚养权归谁？</text>
+				<view class="pay_list wen_list">
+					<view class="qian_30 wen_list_top">咨询内容</view>
+					<textarea value="" placeholder="" class="hei_30 wen_neirong" v-model="neirong"/>
+					
 				</view>
 				<view class="pay_list_jine">
 					<view class="pay_list_top">
-						<text class="qian_30">咨询内容</text>
+						<text class="qian_30">支付金额</text>
 						<text class="hei_30">
 							实付款：
-							<text class="hong_30">￥{{ jine }}</text>
+							<text class="hong_30">￥{{type==1?lvshi.chatprice:lvshi.phoneprice  }}</text>
 						</text>
 					</view>
 					<view class="hei_30 qian_26 yuanjia">
@@ -57,7 +76,7 @@
 				</view>
 			</view>
 			<view class="pay_btn">
-				<button type="" class="tixian_btn bai_30" @click="save">去支付（{{ jine }}）</button>
+				<button type="" class="tixian_btn bai_30" @click="save">去支付（{{ type==1?lvshi.chatprice:lvshi.phoneprice }}）</button>
 			</view>
 		</view>
 	</view>
@@ -68,44 +87,52 @@ export default {
 	data() {
 		return {
 			zhifu: '2',
-			jine: '58.00'
+			lawyerid:'',
+			img_url: uni.getStorageSync('img_url'),
+			lvshi:'',
+			neirong:'',
+			zhuanchang_arry:[],
+			type:''
 		};
 	},
 	created() {
 	},
-	onLoad(option) {},
+	onLoad(option) {
+		this.lawyerid=option.lawyerid
+		this.type=option.type
+		this.$http
+			.post({
+				url: '/mapi/lawyer/getshanchang'
+			})
+			.then(res => {
+				this.zhuanchang_arry = res.data.shanchang;
+				this.huoqu_lvshi();
+			});
+		
+	},
 	methods: {
 		navigateBack() {
 			uni.navigateBack();
 		},
-
+// 律师信息
+		huoqu_lvshi() {
+			this.$http
+				.post({
+					url: '/mapi/lawyer/lawyer',
+					data: {
+						lawyerid: this.lawyerid
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.lvshi = res.data.lawyer;
+					}
+				});
+		},
 		save() {
-			uni.request({
-				url: 'http://81.68.238.59:3000/captcha/sent',
-				dataType: 'json',
-				data: {
-					phone: '15993999344'
-				},
-				success: res => {
-					console.log(res.data);
-				}
-			});
+			
 
-			// uni.request({
-			//     url: '/dpc/ws/geocoder/v1/?location=39.984154,116.307490&key=FVRBZ-F3A3I-J5TGK-5PWRJ-4AFGJ-2UBHR&get_poi=1',
-			//     success: (res) => {
-			//         console.log(res.data);
-			//     }
-			// });
-			// this.$http.get({
-			// 	url: '/dpc/ws/geocoder/v1/?location=39.984154,116.307490&key=FVRBZ-F3A3I-J5TGK-5PWRJ-4AFGJ-2UBHR&get_poi=1',
-			// 	data:{
-			// 		// phone: '1509676254',
-			// 		// passWord: '12345689',
-			// 	}
-			// }).then(resp => {
-			// 	console.log(resp)
-			// })
+			
 
 			console.log(this.zhifu);
 		},
@@ -240,5 +267,83 @@ page {
 }
 .pay_btn {
 	padding: 0 30rpx;
+}
+.wen_list{
+	display: block;
+	padding-bottom: 30rpx;
+	height: auto;
+	
+}
+.wen_list_top{
+	line-height: 80rpx;
+}
+.wen_neirong{
+		background-color: #f8f8f8;
+		width: 100%;
+		padding: 10rpx 16rpx;
+		box-sizing: border-box;
+		
+}
+.go_r{
+		width: 13rpx;
+		height: 24rpx;
+		margin-left: 17rpx;
+}
+.ls_item{
+	display: flex;
+	align-items: center;
+	background-color: #f8f8f8;
+	padding: 34rpx 14rpx;
+	max-width: 530rpx;
+}
+.ls_item_left{
+	margin-right: 15rpx;
+}
+.ls_item_left image{
+		width: 81rpx;
+		height: 81rpx;
+		border-radius: 100%;
+}
+.dianhua_dizhi{
+		width: 20rpx;
+		height: 24rpx;
+		margin-right: 17rpx;
+}
+.techang {
+	
+	display: flex;
+	align-items: center;
+}
+.shanchang {
+	width: 90rpx;
+	height: 36rpx;
+	background-color: #e7e7e7;
+	margin-right: 10rpx;
+	text-align: center;
+}
+.techang_list text {
+	line-height: 30rpx;
+	margin-right: 8rpx;
+	padding: 2rpx 10rpx;
+	color: #ffffff;
+}
+.techang_list text:nth-child(1) {
+	background-color: #01af63;
+}
+.techang_list text:nth-child(2) {
+	background-color: #39bf84;
+}
+.techang_list text:nth-child(3) {
+	background-color: #7acea4;
+}
+.height_auto{
+	height: auto;
+	padding:20rpx 0 ;
+}
+.ls_item_right_top{
+	margin-bottom: 20rpx;
+}
+.ls_dizhi{
+	margin-left: 20rpx;
 }
 </style>

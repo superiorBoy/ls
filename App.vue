@@ -107,4 +107,29 @@ uni-checkbox:not([disabled]) .uni-checkbox-input:hover,uni-radio:not([disabled])
 .uni-popup__wrapper-box{
 		margin-top: 120rpx;
 	}
+	
+/* app沉浸式配置	 */
+
+   /* #ifdef APP-PLUS */
+  .head{
+  	padding-top: 56rpx;
+  }
+  .zi_body {
+  	padding-top: 134rpx;
+  }
+  .tab_zi_body{
+  	padding-top: 184rpx;
+  }
+  .tab_top{
+  	top: 126rpx !important;
+  }
+  .index_top{
+  	padding-top: 70rpx !important;
+  }
+  .my_top{
+  	padding-top: 60rpx !important;
+  }
+    /* #endif */
+
+
 </style>

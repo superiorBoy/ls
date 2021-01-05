@@ -2,7 +2,7 @@
 	"pages": [
 		{
 		"path": "pages/index/index"
-                 },
+          },
 		{
 			"path":"pages/index/zixun",
 			"style": {
@@ -29,6 +29,7 @@
 			"path":"pages/index/dianhua_jilu",
 			"style": {
 			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			// "navigationBarTitleText":"电话记录"
 			}
 		},
 		{

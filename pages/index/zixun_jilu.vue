@@ -29,15 +29,13 @@
 							<view class="hong_26 zixun_item_feiyong">
 								￥{{item.paymoney}}
 							</view>
-							<view class="hei_26" v-if="fenlei!=''">
-								<!-- {{ fenlei[item.typeid].typename }} -->
+							<view class="hei_26" v-if="item.typeid">
+								{{ fenlei[item.typeid].typename }}
 							</view>
 						</view>
 					</view>
 	      
-					<view :class="['item_zhuangtai bai_26' ,item.zixunstate==1?'zhengzai': 'jieshu']">
-						{{item.zixunstate==1?'正在咨询':'结束咨询'}}
-					</view>
+					<view :class="['item_zhuangtai bai_26',  item.zixunstate == 1 ? 'daifu':item.zixunstate == 2?'yifu':item.zixunstate == 3?'zhengzai':'jieshu' ]">{{ item.zixunstate == 1 ? '未付款':item.zixunstate == 2?'已付款':item.zixunstate == 3?'接单中':'已完成' }}</view>
 				</view>
 			</view>
 		</view>
@@ -95,7 +93,7 @@
 		data() {
 			return {
 				img_url: uni.getStorageSync('img_url'),
-				tab_arry: ['全部咨询', '正在咨询', '结束咨询'],
+				tab_arry: ['全部', '未付款', '已付款','接单中','已完成'],
 				active: '0',
 				zhuangtai: '1',
 				name: '',
@@ -108,7 +106,8 @@
 				fenlei: '',
 				zixun_list: [],
 		        zixunstate:'',
-				type_id:''
+				type_id:'',
+			
 			}
 		},
 		created() {
@@ -166,13 +165,11 @@
 				this.active = index
 				this.zhuangtai=index
 				
-				if(index==1){
+				
 					this.zixunstate=index
-				}else if(index==2){
-					this.zixunstate=index
-				}else {
-					this.zixunstate=''
-				}					this.page=0
+			if(index==0){
+				this.zixunstate=''
+			}					this.page=0
 					this.type_id=''
 					this.name = ''
 					this.xuanzc = '999'
@@ -431,5 +428,13 @@
 	.xuanzhong {
 		color: #f43a51;
 		border: 2rpx solid #f43a51 !important;
+	}
+	.daifu{
+			border: solid 1px #f43a51;
+			color:#f43a51 ;
+	}
+	.yifu{
+		border: solid 1px #0eb77e;
+		color: #0eb77e;
 	}
 </style>

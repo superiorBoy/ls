@@ -12,14 +12,14 @@
 				<view class="xiaoxi_top_list">
 					<view class="xiaoxi_top_list_left">
 						<view class="xiaoxi_tx">
-						<image src="../../static/lsimg/xiaoxi_tuisong.png" mode=""></image>
+						<image src="@/static/img/fensi_icon.png" mode=""></image>
 						</view>
 						<view class="xiaoxi_top_list_left_txt">
 							<view class="hei_30_bold top_txt">
 								粉丝
 							</view>
 							<view class="qian_26">
-								有用户支付成功向您提出问题，前去解答
+								花落谁家关注了你
 							</view>
 						</view>
 					</view>
@@ -37,7 +37,7 @@
 								公告
 							</view>
 							<view class="qian_26">
-								查看最新公告
+								查看公告
 							</view>
 						</view>
 					</view>
@@ -56,7 +56,7 @@
 								客服消息
 							</view>
 							<view class="qian_26">
-								有一条案件委托信息，请查看
+								点击查看客服对话及售后通知
 							</view>
 						</view>
 					</view>
@@ -115,8 +115,20 @@
 			uParse
 		},
 		onShow() {
+			this.$http
+				.post({
+					url: '/index/login/islogin'
+				})
+				.then(res => {
+					if(res.data.user!=''){
+						
+						this.huoqu_xiaoxilist()
+					}else{
+						
+					}
+					
+				});
 			
-			this.huoqu_xiaoxilist()
 		},
 		data() {
 			return {
@@ -124,7 +136,8 @@
 				tabs:['图文咨询','电话咨询'],
 				img_url: uni.getStorageSync('img_url'),
 				active:'0',
-				xiaoxi_list:[]
+				xiaoxi_list:[],
+				islogin:''
 			}
 		},
 		methods: {

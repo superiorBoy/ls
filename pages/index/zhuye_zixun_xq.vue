@@ -29,10 +29,10 @@
 			<view class="ls_list">
 				<view class="huifu_item" v-for="item in huifu_list">
 					<view class="huifu_item_top">
-						<image :src="img_url + item.photourl" mode="" @click="go_zhuye(item.lawyerid)"></image>
+						<image :src="img_url + item.photourl" mode="" @click="go_zhuye(item.userid)"></image>
 						<view class="huifu_item_top_r">
 							<view class="huifu_item_name">
-								<view class="hei_30 ls_name"  @click="go_zhuye(item.lawyerid)">
+								<view class="hei_30 ls_name"  @click="go_zhuye(item.userid)">
 									{{ item.nickname }}律师
 									<image src="@/static/img/renzheng.png" mode=""></image>
 								</view>
@@ -42,7 +42,7 @@
 									次
 								</view>
 							</view>
-							<button type="" class="bai_24" @click="go_chat(item.lawyerid)">咨询TA</button>
+							<button type="" class="bai_24" @click="go_chat(item.userid)">咨询TA</button>
 						</view>
 					</view>
 					<view class="hei_26 huida_txt">{{ item.information }}</view>

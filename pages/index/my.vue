@@ -42,7 +42,7 @@
 		<view class="my_bottom">
 			<view class="xianshi">
 				<image src="../../static/img/hy_guanggao.png" mode=""></image>
-				<view class="jiage hei_22_bold">限时￥399</view>
+				<view class="jiage hei_22_bold">限时￥99</view>
 			</view>
 
 			<view class="my_guanli zixun_guanli">

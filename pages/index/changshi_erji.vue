@@ -15,14 +15,14 @@
 				<image src="@/static/img/changshi_banner.png" mode=""></image>
 			</view>
 			<view class="erji_weizhi hui_30_bold">
-				首页
+			   <text @click="go_index()">首页</text>	
 				<image src="@/static/img/zhishi_weizhi.png" mode=""></image>
-				法律知识
+				<navigator url="changshi">法律知识</navigator> 
 				<image src="@/static/img/zhishi_weizhi.png" mode=""></image>
 				<text class="hei_30">{{title}}</text>
 			</view>
 			<view class="zhishi_list">
-				<view class="zhishi_item hei_26" v-for="item in fenlei" @click="go_sanji(item.knowledgetypeid,title,item.knowledgetypename,yiji_id)">
+				<view class="zhishi_item hei_26" v-for="item in fenlei" @click="go_sanji(item.knowledgetypeid)">
 					<image :src="img_url + item.pic" mode="heightFix" v-if="item && item.pic"></image>
 					<view v-if="item && item.knowledgetypename">{{ item.knowledgetypename }}</view>
 				</view>
@@ -37,7 +37,7 @@
 			</view>
 			<view class="tuijian_list">
 				<view class="tuijian_item" v-for="item in remenlist" @click="go_xq(item.knowledgeid)">
-					<image src="@/static/img/fei2.png" mode="" class="tuijan_img"></image>
+					<image :src="img_url+item.pic" mode="" class="tuijan_img"></image>
 					<view class="tuijian_item_right">
 						<view class="tuijian_item_top hei_26">{{ item.title }}</view>
 						<view class="tuijian_item_txt qian_22"><u-parse :content="item.information"></u-parse></view>
@@ -114,10 +114,24 @@ export default {
 	created() {},
 	onLoad(option) {
 		this.yiji_id=option.typeid
-		this.title=option.name
 		this.huoqu_fenlei();
 		this.huoqu_remen();
 		// this.huoqu_zuixin()
+		
+		
+		// 获取分类title
+			  this.$http
+					.post({
+						url: '/mapi/index/knowledgetype',
+					})
+					.then(res => {
+							for (var item in res.data.type[1]){
+								if(res.data.type[1][item].knowledgetypeid==option.typeid)
+								this.title=res.data.type[1][item].knowledgetypename
+							}
+					});
+		
+		
 	},
 	//下拉刷新
 	onPullDownRefresh: function() {
@@ -174,9 +188,9 @@ export default {
 			});
 		},
         // 三级
-		go_sanji(id,yiji,name,yi_id){
+		go_sanji(id){
 			uni.navigateTo({
-				url: 'changshi_sanji?erjiid='+id+'&yiji='+yiji+'&name='+name+'&yi_id='+yi_id
+				url: 'changshi_sanji?erjiid='+id+'&yi_id='+this.yiji_id
 			});
 		},
 		// 获取分类
@@ -217,7 +231,8 @@ export default {
 			uni.switchTab({
 				url: 'index'
 			});
-		}
+		},
+		
 	},
 	filters: {
 		timeStamp: function(value) {

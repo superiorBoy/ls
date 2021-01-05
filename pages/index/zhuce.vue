@@ -40,7 +40,7 @@
 					<image :src="yan2_zhuangtai" mode="" @click="chakan(2)" :class="['yanjing',type2=='text'?'kai':'guan']"></image>
 				</view>
 
-				<view class="zhuce_list" v-if="active==0">
+				<view class="zhuce_list" >
 					<image src="../../static/img/yaoqing_icon.png" mode="" class="yaoqing_icon"></image>
 					<input type="text" value="" placeholder="请输入邀请码(选填)" v-model="yaoqingma" />
 				</view>
@@ -224,23 +224,23 @@ onLoad(option) {
 			},
 			zhuce() {
 			console.log(this.active)
+			if(this.shouji==''||this.mima==''||this.agamima==''){
+				uni.showToast({
+					title: '请填写完整',
+					duration: 2000,
+					icon: "none"
+				});
+				return false
+			}else if(this.mima!=this.agamima){
+				uni.showToast({
+					title: '两次密码不一致',
+					duration: 2000,
+					icon: "none"
+				});
+				return false
+			}
 				if(this.active=="0"){
-					if(this.shouji==''||this.mima==''||this.agamima==''){
-						uni.showToast({
-							title: '请填写完整',
-							duration: 2000,
-							icon: "none"
-						});
-						return false
-					}else if(this.mima!=this.agamima){
-						uni.showToast({
-							title: '两次密码不一致',
-							duration: 2000,
-							icon: "none"
-						});
-						return false
-					}
-					
+
 					this.$http
 						.post({
 							url: '/index/login/register',
@@ -265,23 +265,7 @@ onLoad(option) {
 					console.log(this.shouji, this.mima, this.agamima, )
 					
 				}else if(this.active=="1"){
-					
-					if(this.shouji==''||this.mima==''||this.agamima==''){
-						uni.showToast({
-							title: '请填写完整',
-							duration: 2000,
-							icon: "none"
-						});
-						return false
-					}else if(this.mima!=this.agamima){
-						uni.showToast({
-							title: '两次密码不一致',
-							duration: 2000,
-							icon: "none"
-						});
-						return false
-					}
-					
+
 					this.$http
 						.post({
 							url: '/lawyer/login/register',
@@ -289,7 +273,8 @@ onLoad(option) {
 								mobile: this.shouji,
 								password: this.mima,
 								password1:this.agamima,
-								code:this.code
+								code:this.code,
+								randcode:this.yaoqingma
 							}
 						})
 						.then(res => {

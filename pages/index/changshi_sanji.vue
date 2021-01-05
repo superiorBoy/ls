@@ -9,11 +9,11 @@
 		<view class="zi_body ">
 			
 			<view class="erji_weizhi hui_30_bold">
-				首页
+				<text @click="go_index()">首页</text>	
 				<image src="@/static/img/zhishi_weizhi.png" mode=""></image>
-				法律知识
+				<navigator url="changshi">法律知识</navigator> 
 				<image src="@/static/img/zhishi_weizhi.png" mode=""></image>
-				{{yiji_title}}
+				<navigator :url="'changshi_erji?typeid='+yi_id">{{yiji_title}} </navigator>
 				<image src="@/static/img/zhishi_weizhi.png" mode=""></image>
 				<text class="hei_30">{{title}}</text>
 			</view>
@@ -26,7 +26,7 @@
 			</view>
 			<view class="tuijian_list">
 				<view class="tuijian_item" v-for="item in remenlist" @click="go_xq(item.knowledgeid)">
-					<image src="@/static/img/fei2.png" mode="" class="tuijan_img"></image>
+					<image :src="img_url+item.pic" mode="" class="tuijan_img"></image>
 					<view class="tuijian_item_right">
 						<view class="tuijian_item_top hei_26">{{ item.title }}</view>
 						<view class="tuijian_item_txt qian_22"><u-parse :content="item.information"></u-parse></view>
@@ -120,12 +120,30 @@ export default {
 	created() {},
 	onLoad(option) {
 		this.erji_id=option.erjiid
-		this.title=option.name
-		this.yiji_title=option.yiji
+		// this.title=option.name
+		// this.yiji_title=option.yiji
 		this.yi_id=option.yi_id
 		this.huoqu_fenlei();
 		this.huoqu_remen();
 		// this.huoqu_zuixin()
+		// 获取分类title
+			  this.$http
+					.post({
+						url: '/mapi/index/knowledgetype',
+					})
+					.then(res => {
+							for (var item in res.data.type[2]){
+								if(res.data.type[2][item].knowledgetypeid==option.erjiid)
+								this.title=res.data.type[2][item].knowledgetypename
+							}
+							for (var item in res.data.type[1]){
+								if(res.data.type[1][item].knowledgetypeid==option.yi_id)
+								this.yiji_title=res.data.type[1][item].knowledgetypename
+							}
+					});
+		
+		
+		
 	},
 
 	methods: {

@@ -40,10 +40,10 @@
 			<view class="ls_list"   v-if="huifu_list.length!=0">
 
 				<view class="ls_item" v-for="item in huifu_list" >
-					<image :src=img_url+item.photourl mode="" @click="go_zhuye(item.lawyerid)"></image>
+					<image :src=img_url+item.photourl mode="" @click="go_zhuye(item.userid)"></image>
 					<view class="ls_item_right">
 						<view class="ls_item_right_top">
-							<view class="hei_30" @click="go_zhuye(item.lawyerid)">
+							<view class="hei_30" @click="go_zhuye(item.userid)">
 								{{item.nickname}}律师 <text class="mianfei bai_24">免费咨询</text>
 							</view>
 
@@ -53,7 +53,7 @@
 							<view class="ls_item_right_bottom_list">
 							<text class="qian_26 huida_txt">{{item.information}}</text>
 							</view>
-							<view class="zhuiwen bai_24" @click="zhuiwen(item.lawyerid,item.consultid,item)">
+							<view class="zhuiwen bai_24" @click="zhuiwen(item.userid,item.consultid,item)">
 								追问
 							</view>
 						

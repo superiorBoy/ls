@@ -102,7 +102,7 @@
 		
 		data() {
 			return {
-				tab_arry: ['全部咨询', '待付款', '已付款','接单中','已完成'],
+				tab_arry: ['全部', '未付款', '已付款','接单中','已完成'],
 				active: '0',
 				zhuangtai: '0',
 				dianhua: '',

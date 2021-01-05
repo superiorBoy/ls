@@ -36,7 +36,7 @@
 				</view>
 			</view>
 			<view class="jingxuan_list" v-else>
-				<view class="jingxuan_item">
+				<!-- <view class="jingxuan_item">
 					<view class="jingxuan_item_top">
 						<view class="jingxuan_item_top_left">
 						<view class="jingxuan_item_tx" @click="go_zhuye()">
@@ -62,7 +62,7 @@
 						来自问题：我想问一下，开庭量刑3-6年建议缓刑什么意思？
 					</view>
 					</view>
-				</view>
+				</view> -->
 
 			</view>
 		</view>
@@ -205,6 +205,7 @@ this.huoqu()
 		margin-bottom: 20rpx;
 		background-color: #FFFFFF;
 		border-bottom: 2rpx solid #E8E8E8;
+		word-break: break-all;
 	}
 
 	.tiwen_item:first-child {

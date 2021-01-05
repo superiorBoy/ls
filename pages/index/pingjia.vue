@@ -80,7 +80,7 @@
 		data() {
 			return {
 				img_url: uni.getStorageSync('img_url'),
-				xing_number:'1',
+				xing_number:'5',
 				arry_img:[],
 				yinxiang_arry:['服务优质','学识渊博','经验丰富','待人诚恳','乐于助人','回复很快','形象专业','值得推荐 '],
 				shuru_txt:'',
@@ -182,7 +182,7 @@
 				// #endif
 				
 			} else {
-			    baseUrl = '' // 生产环境
+			    baseUrl = uni.getStorageSync('xian_url')
 			}
 			if(this.shuru_txt==''){
 				uni.showToast({

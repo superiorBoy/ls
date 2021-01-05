@@ -32,7 +32,7 @@
 			</view>
 
 			<view class="zhishi_list">
-				<view class="zhishi_item hei_30" v-for="item in fenlei" @click="go_erji(item.knowledgetypeid,item.knowledgetypename)">
+				<view class="zhishi_item hei_30" v-for="item in fenlei" @click="go_erji(item.knowledgetypeid)">
 					<image :src=img_url+item.pic mode="widthFix" v-if="item && item.pic"></image>
 					<view v-if="item && item.knowledgetypename">{{ item.knowledgetypename }}</view>
 				</view>
@@ -50,7 +50,7 @@
 			</view>
 			<view class="tuijian_list" >
 				<view class="tuijian_item" v-for="item in remenlist" @click="go_xq(item.knowledgeid)">
-					<image src="@/static/img/fei2.png" mode="" class="tuijan_img"></image>
+					<image :src="img_url+item.pic" mode="" class="tuijan_img"></image>
 					<view class="tuijian_item_right">
 						<view class="tuijian_item_top hei_26">{{item.title}}</view>
 						<view class="tuijian_item_txt qian_22">
@@ -188,10 +188,10 @@ export default {
 			});
 		},
 		// 跳转二级
-		go_erji(id,name){
+		go_erji(id){
 			
 			uni.navigateTo({
-				url: 'changshi_erji?typeid='+id+'&name='+name
+				url: 'changshi_erji?typeid='+id
 			});
 		},
 		

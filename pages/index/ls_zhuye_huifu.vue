@@ -91,7 +91,7 @@
 						<image src="@/static/img/go_pingjia.png" mode=""></image>
 						<view class="hui_26">评价</view>
 					</view>
-					<view class="dianhua lv_26">
+					<view class="dianhua lv_26" @click="go_chat(lvshi.userid)">
 						<image src="@/static/img/dianhua_lv.png" mode=""></image>
 						电话咨询
 					</view>
@@ -226,6 +226,25 @@ export default {
 				url:'pingjia?lsid='+this.lawyerid
 			})
 		},
+		call(mobile) {
+			uni.makePhoneCall({
+				// 手机号
+				phoneNumber: ''+mobile,
+				// 成功回调
+				success: res => {
+					console.log('调用成功!');
+				},
+				// 失败回调
+				fail: res => {
+					console.log('调用失败!');
+				}
+			});
+		},
+		go_pay(lawyerid){
+			uni.navigateTo({
+				url:'pay?lawyerid='+lawyerid
+			})
+		}
 	},
 	filters: {
 		timeStamp: function(value) {

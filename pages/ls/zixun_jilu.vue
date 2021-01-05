@@ -20,7 +20,7 @@
 						</view>
 					</view>
 
-					<view :class="['item_zhuangtai bai_26',  item.zixunstate==1 ? 'zhengzai' : 'jieshu']">{{ item.zixunstate == 1 ? '待付款':item.zixunstate == 2?'已付款':item.zixunstate == 3?'接单中':'已完成' }}</view>
+					<view :class="['item_zhuangtai bai_26',  item.zixunstate == 1 ? 'daifu':item.zixunstate == 2?'yifu':item.zixunstate == 3?'zhengzai':'jieshu' ]">{{ item.zixunstate == 1 ? '未付款':item.zixunstate == 2?'已付款':item.zixunstate == 3?'接单中':'已完成' }}</view>
 				</view>
 			</view>
 		</view>
@@ -62,7 +62,7 @@ export default {
 
 	data() {
 		return {
-			tab_arry: ['全部咨询', '待付款', '已付款','接单中','已完成'],
+			tab_arry: ['全部', '未付款', '已付款','接单中','已完成'],
 			active: '0',
 			zhuangtai: '0',
 			dianhua: '',
@@ -332,4 +332,12 @@ button::after {
 	background-color: #f43a51;
 	border-radius: 0rpx 44rpx 44rpx 0rpx;
 }
+	.daifu{
+			border: solid 1px #f43a51;
+			color:#f43a51 ;
+	}
+	.yifu{
+		border: solid 1px #0eb77e;
+		color: #0eb77e;
+	}
 </style>

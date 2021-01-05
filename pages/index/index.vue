@@ -27,10 +27,10 @@
 			<view class="lunbo">
 				<swiper
 					:indicator-dots="false"
-					:autoplay="false"
+					:autoplay="true"
 					circular="true"
 					easing-function="default"
-					:interval="3000"
+					:interval="5000"
 					indicator-color="#c7c7c7"
 					indicator-active-color="#ffffff"
 					:duration="500"
@@ -175,6 +175,7 @@
 				</block>
 			</view>
 		</view>
+		<button type="" class="qian_20 ls_more" @click="tiaozhuan_zixun">查看更多咨询>></button>
 		<view class="tuijian">
 			<view class="tuijian_top"><image src="@/static/img/tuijian_title.png" mode=""></image></view>
 			<view class="tuijian_list">
@@ -187,7 +188,7 @@
 									{{ item.nickname }}
 									<image src="@/static/img/renzheng.png" mode=""></image>
 								</view>
-								<view class="ls_name_right lv_20" @click="tochat">
+								<view class="ls_name_right lv_20" @click="tochat(item.userid)">
 									<image src="@/static/img/xiaoxi.png" mode=""></image>
 									在线咨询
 								</view>
@@ -442,15 +443,20 @@ export default {
 				url: 'lvshi'
 			});
 		},
+		tiaozhuan_zixun(){
+			uni.switchTab({
+				url: 'zixun'
+			});
+		},
 		zixun_xq(id) {
 			uni.navigateTo({
 				url: 'zhuye_zixun_xq?id=' + id
 			});
 		},
-		tochat() {
+		tochat(id) {
 			uni.navigateTo({
-				url: 'zaixian_wen?user=' + 6666
-			});
+				url:'chat?lsid='+id
+			})
 		},
 		go_ls_list() {
 			uni.switchTab({
@@ -772,6 +778,7 @@ scroll-view ::-webkit-scrollbar {
 .index_zixun_item {
 	border-bottom: 1px solid #d9d9d9;
 	padding: 30rpx 20rpx;
+	word-break: break-all;
 }
 
 .index_zixun_item_bottom view {
@@ -825,7 +832,7 @@ scroll-view ::-webkit-scrollbar {
 }
 
 .tuijian {
-	border-top: 20rpx solid #f7f7f7;
+	
 	border-bottom: 20rpx solid #f7f7f7;
 	padding-bottom: 13rpx;
 }

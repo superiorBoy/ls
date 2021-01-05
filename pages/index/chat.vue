@@ -23,7 +23,7 @@
 							<text v-if="chat_xinxi.chatprice!=0">元/小时</text>
 						
 						</view>
-						<button type=""v-if="chat_xinxi.chatprice!=0">立即咨询</button>
+						<button type=""v-if="chat_xinxi.chatprice!=0" @click="fufei(1)">立即咨询</button>
 						<button type=""v-if="chat_xinxi.chatprice==0">未开启</button>
 					</view>
 					<view class="chat_jiage_item chat_jiage_item2">
@@ -33,7 +33,7 @@
 				
 							<text v-if="chat_xinxi.phoneprice!=0">元/20分钟</text></text>
 						</view>
-						<button type="" @click="fufei()" v-if="chat_xinxi.phoneprice!=0">付费咨询</button>
+						<button type="" @click="fufei(2)" v-if="chat_xinxi.phoneprice!=0">付费咨询</button>
 						<button type=""v-if="chat_xinxi.phoneprice==0">未开启</button>
 					</view>
 					<view class="chat_jiage_item chat_jiage_item3">
@@ -316,9 +316,9 @@ export default {
 			this.dian_num = this.dianhua;
 		},
 		// 去付费
-		fufei(){
+		fufei(type){
 			uni.navigateTo({
-				url:'pay'
+				url:'pay?lawyerid='+this.ls_id+'&type='+type
 			})
 			},
 		connectSocketInit() {
@@ -619,6 +619,7 @@ button {
 	width: 100%;
 	background-color: #ffffff;
 	box-sizing: border-box;
+	max-width: 750px;
 }
 .chat_jiage_num {
 	margin: 18rpx 0 15rpx;
