@@ -17,7 +17,7 @@
 					{{tab}}
 				</view>
 			</view>
-			<view class="tiwen_list" v-if ="active==0">
+			<view class="tiwen_list">
 				<view class="tiwen_item" v-for="(item,index) in zixun_list" @click="zixun_xq(item.consultid)">
 					<view class="tiwen_item_top hei_26">
 						{{item.information}}
@@ -35,36 +35,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="jingxuan_list" v-else>
-				<!-- <view class="jingxuan_item">
-					<view class="jingxuan_item_top">
-						<view class="jingxuan_item_top_left">
-						<view class="jingxuan_item_tx" @click="go_zhuye()">
-							<image src="@/static/img/tx.png" mode="" class="tx"></image>
-							<image src="@/static/img/renzheng2.png" mode="" class="renzheng"></image>
-						</view>
-						<view class="">
-						<view class="hei_26_bold lv_name">
-							樊柯律师
-						</view>
-						<view class="qian_20">
-							与7分钟前回复
-						</view>
-						</view>
-						</view>
-						<button type="" class="lv_24" @click="zixun()">咨询我</button>
-					</view>
-					<view class="wen_da">
-					<view class="zixun_wen hei_22">
-						您好，是可以判3年的缓刑
-					</view>
-					<view class="zixun_da qian_20">
-						来自问题：我想问一下，开庭量刑3-6年建议缓刑什么意思？
-					</view>
-					</view>
-				</view> -->
-
-			</view>
+		
 		</view>
 
 	</view>
@@ -76,8 +47,8 @@
 
 		data() {
 			return {
-				tabs: ['最新提问', '精选问答'],
-				active: '0',
+				tabs: ['最新咨询', '最新解答'],
+				active: 0,
 				zixun_list:[],
 				page:0,
 				fenlei:'',
@@ -98,7 +69,7 @@
 
 		// },
 		onShow() {
-this.huoqu()
+               
 		// 获取分类
 		this.$http
 			.post({
@@ -106,6 +77,7 @@ this.huoqu()
 			})
 			.then(res => {
 				this.fenlei = res.data.type;
+				this.huoqu()
 			});
 		},
 		methods: {
@@ -142,7 +114,8 @@ this.huoqu()
 						.post({
 							url: '/mapi/consult/zixunlist',
 							data:{
-								page:this.page
+								page:this.page,
+								type:this.active+1
 							}
 						})
 						.then(res => {

@@ -28,7 +28,8 @@
 							</view>
 							<view class="hui_26 techang">
 								<view class="shanchang">擅长：</view>
-								<view class="techang_list">
+								<view class="techang_list hui_20">
+									
 									<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise1].shanchangname">{{zhuanchang_arry[lvshi.expertise1].shanchangname}}</text>
 									<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise2].shanchangname">{{zhuanchang_arry[lvshi.expertise2].shanchangname}}</text>
 									<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise3].shanchangname">{{zhuanchang_arry[lvshi.expertise3].shanchangname}}</text>
@@ -318,14 +319,20 @@ page {
 	width: 90rpx;
 	height: 36rpx;
 	background-color: #e7e7e7;
-	margin-right: 10rpx;
+	margin-right: 0rpx;
 	text-align: center;
+	
 }
+.techang_list{
+	display: flex;
+	flex-wrap: wrap;
+	}
 .techang_list text {
 	line-height: 30rpx;
-	margin-right: 8rpx;
+	margin-right: -2rpx;
 	padding: 2rpx 10rpx;
 	color: #ffffff;
+	
 }
 .techang_list text:nth-child(1) {
 	background-color: #01af63;
@@ -335,6 +342,7 @@ page {
 }
 .techang_list text:nth-child(3) {
 	background-color: #7acea4;
+	margin-right: 0;
 }
 .height_auto{
 	height: auto;

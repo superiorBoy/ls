@@ -51,6 +51,9 @@
 			"path":"pages/index/yaoqing"
 		},
 		{
+			"path":"pages/index/tuanzhang"
+		},
+		{
 			"path":"pages/index/shendu_pay"
 		},
 		{
@@ -202,6 +205,9 @@
 			"path":"pages/ls/up_neirong"
 		},
 		{
+			"path":"pages/ls/ls_gongzuo"
+		},
+		{
 			"path":"pages/ls/ls_meiti"
 		},
 		{
@@ -328,7 +334,9 @@
     ],
 	"globalStyle": {
 
-		"titleNView":false
+		"titleNView":false,
+		"navigationBarTextStyle": "black"//全局设置导航和状态栏文字颜色
+		
 	},
 	"condition" : { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式(list 的索引项)

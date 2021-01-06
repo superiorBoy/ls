@@ -28,7 +28,7 @@
 			</view>
 			<view class="shiming_list hei_28 zhiyezhao">
 				<view class="shiming_list_left">
-					律师职业照
+					律师头像
 				</view>
 				<view class="shiming_list_right" @click="up_zhiye">
 					<image :src="zhiye_zhao" mode="" class="tx"></image>
@@ -107,7 +107,7 @@
 					}
 					this.name=res.data.lawyerauth.realname
 					this.danxuan=res.data.lawyerauth.sex
-					this.zhiye_zhao=this.img_url+res.data.lawyerauth.zhiyephoto
+					this.zhiye_zhao=this.img_url+res.data.lawyerauth.lawyerphoto
 					this.shenfenhao=res.data.lawyerauth.idcard
 					this.zheng_img=this.img_url+res.data.lawyerauth.idcardfront
 					this.fan_img=this.img_url+res.data.lawyerauth.idcardback
@@ -299,6 +299,7 @@
 
 	.zhiyezhao {
 		justify-content: space-between;
+		height: 300rpx;
 	}
 
 	.up {
@@ -363,8 +364,8 @@
 	}
 
 	.tx {
-		width: 80rpx;
-		height: 80rpx;
+		width: 240rpx;
+		height: 240rpx;
 		border-radius: 100%;
 	}
 

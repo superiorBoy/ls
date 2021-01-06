@@ -57,7 +57,7 @@
 					<image src="@/static/img/shangye.png" mode="heightFix"></image>上一页
 				</view>
 				<view class="fenye_num hui_26">
-					<text class="lv_26">{{page}}</text>/null
+					<text class="lv_26">{{page+1}}</text>/{{yeshu}}
 				</view>
 				<view class="fenye_next hei_28" @click="xiayiye">
 					下一页<image src="@/static/img/xiaye.png" mode="heightFix"></image>
@@ -111,7 +111,8 @@ export default {
 			title:'',
 			yiji_title:'',
 			yi_id:'',
-			sanji_id:''
+			sanji_id:'',
+			yeshu:0
 		};
 	},
 	components: {
@@ -125,6 +126,7 @@ export default {
 		this.yi_id=option.yi_id
 		this.huoqu_fenlei();
 		this.huoqu_remen();
+		this.huiqu_num()
 		// this.huoqu_zuixin()
 		// 获取分类title
 			  this.$http
@@ -141,9 +143,7 @@ export default {
 								this.yiji_title=res.data.type[1][item].knowledgetypename
 							}
 					});
-		
-		
-		
+	
 	},
 
 	methods: {
@@ -200,6 +200,23 @@ export default {
 					this.fenlei = res.data.type[3];
 				});
 		},
+	// 获取回复总数
+		huiqu_num(){
+			this.$http
+				.post({
+					url: '/mapi/index/knowledgecount',
+					data: {
+						knowledgetypeid:this.yi_id,
+						knowledgetypeid1:this.erji_id,
+						knowledgetypeid2:this.sanji_id
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.yeshu= Math.ceil(res.data.count/10); 
+					}
+				});	
+		},
 
 		// 获取热门
 		huoqu_remen() {
@@ -218,7 +235,7 @@ export default {
 					if (res.data.knowledgelist < 10) {
 						this.is_all = true;
 					}
-					console.log(res.data.knowledgelist);
+					// console.log(res.data.knowledgelist);
 					this.remenlist =res.data.knowledgelist;
 				});
 		},
@@ -235,6 +252,7 @@ export default {
 			this.page=0
 			this.is_all=false
 			this.huoqu_remen()
+			this.huiqu_num()
 		},
 		shangyiye(){
 			if(this.page==0){

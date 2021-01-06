@@ -170,20 +170,7 @@
 			this.arry_img.splice(index,1)
 		},
 		save(){
-			
 			var that=this
-			let baseUrl = '';
-			if (process.env.NODE_ENV == 'development') {
-			
-			    baseUrl='/api'
-				
-				// #ifndef H5
-				baseUrl='http://www.ls.xyz/'
-				// #endif
-				
-			} else {
-			    baseUrl = uni.getStorageSync('xian_url')
-			}
 			if(this.shuru_txt==''){
 				uni.showToast({
 					title: '请输入评价',
@@ -202,7 +189,7 @@
 			}
 			
 			uni.request({
-			  url: baseUrl + '/index/lawyer/pingjia?lawyerid='+this.lawyerid,
+			  url: this.$http.baseUrl + '/index/lawyer/pingjia?lawyerid='+this.lawyerid,
 			  method:'POST',
 			  data: {
 			  	xing:this.xing_number,

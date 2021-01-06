@@ -52,6 +52,14 @@
 				<image src="@/static/lsimg/go_r.png" mode=""></image>
 			</view>
 			</navigator>
+			<navigator url="ls_ren_list?title=工作经历">
+			<view class="shiming_list hei_28">
+				<view class="shiming_list_left">
+					工作经历
+				</view>
+				<image src="@/static/lsimg/go_r.png" mode=""></image>
+			</view>
+			</navigator>
 			<navigator url="ls_ren_list?title=社会职务">
 			<view class="shiming_list hei_28">
 				<view class="shiming_list_left">

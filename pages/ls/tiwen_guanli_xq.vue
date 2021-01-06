@@ -1,386 +1,298 @@
 <template>
-
 	<view class="body">
 		<view class="head">
-			<view class="head_back" >
-				<image src="@/static/img/back.png" mode="" @click="navigateBack()"></image>
-			</view>
-			<view class="head_center hei_38_bold">{{title}}</view>
-			<view class=" head_right hong_30">
-
-			</view>
+			<view class="head_back"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
+			<view class="head_center hei_38_bold">提问详情</view>
+			<view class=" head_right hong_30"></view>
 		</view>
 
 		<view class="zi_body ">
 			<view class="xq_body">
-				<!-- <view class="xq_top_tx hui_24">
-					<image src="@/static/lsimg/yh_tx.png" mode=""></image>
-					兔子的眼泪
-				</view> -->
 				<view class="xq_body_top">
-					<view class="xq_wenti hui_26">
-						{{neirong}}
+					<view class="xq_body_top_tx hui_24">
+						<image src="@/static/lsimg/moren_tx.png" mode=""></image>
+						<text>{{ xq.user.nickname }}</text>
 					</view>
+					<view class="xq_wenti hei_26">{{ xq.consult.information }}</view>
 					<view class="tiwen_item_center qian_22">
 						<view class="tiwen_item_dizhi">
-							<image src="@/static/img/dizhi.png" mode=""></image>{{sheng}}-{{shi}}
+							<image src="@/static/img/dizhi.png" mode=""></image>
+							{{ xq.consult.province }}-{{ xq.consult.city }}
 						</view>
-						<view class="tiwen_item_biaoqian">
-							<image src="@/static/img/biaoqian.png" mode=""></image>{{leixing}}
+						<view class="tiwen_item_biaoqian" v-if="fenlei != ''">
+							<image src="@/static/img/biaoqian.png" mode=""></image>
+							{{ fenlei[xq.consult.typeid].typename }}
 						</view>
 						<view class="tiwen_item_shijian">
-							<image src="@/static/lsimg/shijian_icon.png" mode=""></image>{{ time | timeStamp }}
+							<image src="@/static/lsimg/shijian_icon.png" mode=""></image>
+							{{ xq.consult.addtime | timeStamp }}
 						</view>
 					</view>
 				</view>
+				<view class="tiwen_huifu"><textarea value="" placeholder="说点什么吧..." class="hei_24" v-model="shuru_txt" /></view>
+				<view class="tiwen_huifu_btn"><button type="" class="bai_26" @click="huifu">回复</button></view>
 
 				<view class="xq_bottom">
-				<!-- 	<view class="xq_ls">
-						<view class="xq_ls_left">
-							<view class="xq_ls_tx">
-								<image src="@/static/lsimg/tx.png" mode="" class="xq_tx"></image>
-								<image src="@/static/img/renzheng.png" mode="" class="xq_renzheng"></image>
-							</view>
-							<view class="xq_ls_name">
-								<view class="hei_26_bold">
-									邓论迪律师
+					<view class="xq_bottom_list" v-for="item in xq.consult_reply">
+						<view class="xq_ls">
+							<view class="xq_ls_left">
+								<view class="xq_ls_tx">
+									<image :src="img_url + item.photourl" mode="" class="xq_tx"></image>
+									<image src="@/static/img/renzheng2.png" mode="" class="xq_renzheng"></image>
 								</view>
-								<view class="qian_22 xq_ls_time">
-									2020-09-30 15:21:06
+								<view class="xq_ls_name">
+									<view class="hei_26_bold xq_ls_name_img">
+										{{ item.nickname }}律师
+										<image src="@/static/img/ls_shiming_yi.png" mode="widthFix"></image>
+									</view>
+									<view class="qian_22 xq_ls_jieda">
+										已解答
+										<text>{{ item.replynum }}</text>
+										次
+									</view>
 								</view>
 							</view>
 						</view>
-
+						<view class="xq_huifu_txt hui_26">{{ item.information }}</view>
+						<view class="qian_22 xq_ls_time">{{ item.addtime | timeStamp }}</view>
 					</view>
-					<view class="xq_huifu_txt hui_26">
-						你好，对于民事案件，如果对一审判决不服的，可以在收到
-						判决书第二日起的15日内向上级法院上诉，由二审法院重新
-						审理和判决。《民事诉讼法》　第一百六十四条 当事人不服
-						地方人民法院第一审判决的，有权在判决书送达之日起十五
-						日内向上一级人民法院提起上诉。
-						<view class="zhuiwen hui_26" v-if="shang_zhuangtai==2">
-							<view class="zhuiwen_txt bai_20">追问</view>
-							<view class="zhuiwen_body">二审有新的证据可以在二审审判程序中向二审法院递交
-								的新证据嘛？</view>
-						</view>
-						<view class="hui_zhuiwen" v-if="shang_zhuangtai==2">
-							<view class="lv_26">
-								邓论迪律师回复：
-							</view>
-							<view class="hui_zhuiwen_body">我国实行两审终审制度，原则上不能再上诉了。
-								但是对已经发生法律效力的判决、裁定认为有错
-								误的，可以向上一级人民法院申请再审</view>
-						</view>
-					</view> -->
-
 				</view>
-
-
-
-				<view class="huifu_anxiu hui_22">
-					<input type="text" value="" v-model="huifu_txt" />
-					<button type="" class="bai_26" @click="huifu">回复</button>
-				</view>
-
 			</view>
-
-
 		</view>
-
-
-
-
 	</view>
-
-
-
 </template>
 
 <script>
-	export default {
-
-		data() {
-			return {
-				title: '提问详情',
-				huifu_txt: '',
-				shang_zhuangtai:'',
-				neirong:'',
-				sheng:'',
-				shi:'',
-				leixing:'',
-				time:'',
-				id:''
+export default {
+	data() {
+		return {
+			img_url: uni.getStorageSync('img_url'),
+			id: '',
+			fenlei: '',
+			shuru_txt: '',
+			xq: ''
+		};
+	},
+	created() {},
+	onLoad(option) {
+		// 获取分类
+		this.id = option.id;
+		this.$http
+			.post({
+				url: '/mapi/index/gettype'
+			})
+			.then(res => {
+				this.fenlei = res.data.type;
+				this.huoqu_xq();
+			});
+	},
+	methods: {
+		navigateBack() {
+			uni.navigateBack();
+		},
+		huoqu_xq() {
+			this.$http
+				.post({
+					url: '/mapi/consult/zixun_xq',
+					data: {
+						consultid: this.id
+					}
+				})
+				.then(res => {
+					this.xq = res.data;
+				});
+		},
+		huifu() {
+			console.log(this.shuru_txt);
+			if (this.shuru_txt == '') {
+				uni.showToast({
+					title: '请输入回复内容',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false;
 			}
-		},
-		created() {
-
-		},
-		onLoad(option) {
-			console.log(option)
-			this.shang_zhuangtai=option.zhuangtai
-			this.neirong=option.title
-			this.sheng=option.sheng
-			this.shi=option.shi
-			this.leixing=option.leixing
-			this.time=option.time
-			this.id=option.id
-		},
-		methods: {
-			navigateBack() {
-				uni.navigateBack()
-			},
-			huifu() {
-				if(this.huifu_txt==''){
-					uni.showToast({
-						title: '请输入回复内容',
-						duration: 2000,
-						icon: "none"
-					});
-					return false
-				}
-				if(this.huifu_txt.length<10){
-					uni.showToast({
-						title: '不得少于10个字',
-						duration: 2000,
-						icon: "none"
-					});
-					return false
-				}
-				console.log(this.shang_zhuangtai)
-				if(this.shang_zhuangtai==2){
-					var post_url='/lawyer/index/zhuiwen'
-				}else{
-					var post_url='/lawyer/index/consult_reply'
-				}
-				this.$http
-					.post({
-						url: post_url,
-						data:{
-							text:this.huifu_txt,
-							consultid:this.id
-						}
-					})
-					.then(res => {
-						if(res.code==0){
-							uni.showToast({
-								title: '回复成功',
-								duration: 2000
-							});
-							setTimeout(function(){
-											uni.navigateBack()
-										},2000)
-							
-						}
-					});
-				console.log(this.huifu_txt)
+			this.$http
+				.post({
+					url: '/lawyer/index/consult_reply',
+					data: {
+						consultid: this.id,
+						text: this.shuru_txt
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						uni.showToast({
+							title: '已回复',
+							duration: 1500,
+							icon: 'none'
+						});
+						this.shuru_txt = '';
+						setTimeout(function() {
+							uni.navigateBack();
+						}, 1500);
+					}
+				});
+		}
+	},
+	filters: {
+		timeStamp: function(value) {
+			if (value == null) {
+				return 'null';
 			}
-		},
-		filters: {
-			timeStamp: function(value) {
-				if(value==null){
-					return 'null'
-				}
-				var i = (value + '').length;
-				while (i++ < 13) value = value + '0';
-				value = Number(value);
-				var date = new Date(value);
-				//date.setTime(value);
-				var month = date.getMonth() + 1;
-				var hours = date.getHours();
-				if (hours < 10) hours = '0' + hours;
-				var minutes = date.getMinutes();
-				if (minutes < 10) minutes = '0' + minutes;
-				var time = date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + hours + ':' + minutes;
-				return time;
-			}
+			var i = (value + '').length;
+			while (i++ < 13) value = value + '0';
+			value = Number(value);
+			var date = new Date(value);
+			//date.setTime(value);
+			var month = date.getMonth() + 1;
+			var hours = date.getHours();
+			if (hours < 10) hours = '0' + hours;
+			var minutes = date.getMinutes();
+			if (minutes < 10) minutes = '0' + minutes;
+			var time = date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + hours + ':' + minutes;
+			return time;
 		}
 	}
+};
 </script>
 
 <style>
-	.xq_body_top {
-		padding: 20rpx 30rpx 50rpx;
+.xq_body_top {
+	padding: 20rpx 30rpx;
 
-	}
+	border-bottom: 2rpx solid #e8e8e8;
+}
 
-	.head {
-		border-bottom: 2rpx solid #E8E8E8;
-	}
+.head {
+	border-bottom: 2rpx solid #e8e8e8;
+}
 
-	.xq_top_tx {
-		display: flex;
-		align-items: center;
-		padding: 23rpx 30rpx 0;
-	}
+.xq_body {
+	padding: 0 0rpx;
+}
 
-	.xq_top_tx image {
-		width: 50rpx;
-		height: 51rpx;
-		border-radius: 100%;
-		margin-right: 15rpx;
-	}
+.tiwen_item_center {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 20rpx 0 15rpx;
+}
 
-	.xq_body {}
+.tiwen_item_dizhi image {
+	width: 18rpx;
+	height: 20rpx;
+	margin-right: 8rpx;
+}
 
-	.tiwen_item_center {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-top: 20rpx;
-	}
+.tiwen_item_biaoqian image {
+	width: 21rpx;
+	height: 20rpx;
+	margin-right: 8rpx;
+}
 
-	.tiwen_item_dizhi image {
-		width: 18rpx;
-		height: 20rpx;
-		margin-right: 8rpx;
-	}
-
-	.tiwen_item_biaoqian image {
-		width: 21rpx;
-		height: 20rpx;
-		margin-right: 8rpx;
-	}
-
-	.tiwen_item_shijian image {
-		width: 21rpx;
-		height: 21rpx;
-		margin-right: 8rpx;
-	}
-
-	.xq_ls_left .xq_tx {
-		width: 56rpx;
-		height: 56rpx;
-		border-radius: 100%;
-		margin-right: 10rpx;
-	}
-
-	.xq_bottom {
-		border-top: 2rpx solid #E8E8E8;
-		padding: 30rpx 30rpx 200rpx;
-
-	}
-
-	.xq_ls {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 10rpx 0;
-	}
-
-	.xq_ls_left {
-		display: flex;
-	}
-
-	.xq_zhauntai {
-		width: 129rpx;
-		height: 114rpx;
-		background: url(../../static/lsimg/xq_zhuangtai.png) no-repeat;
-		background-size: 100% 100%;
-		position: relative;
-	}
-
-	.xq_ls_time {
-		margin-top: 4rpx;
-	}
-
-	.huifu_txt {
-		-moz-transform: rotate(-35deg);
-		-webkit-transform: rotate(-35deg);
-		display: block;
-		position: absolute;
-		filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-		top: 40rpx;
-		left: 20rpx;
-	}
-
-	.xq_huifu_txt {
-		margin-top: 13rpx;
-		line-height: 36rpx;
-		padding-left: 62rpx;
-	}
-
-	.xq_ls_tx {
-		position: relative;
-	}
-
-	.xq_renzheng {
-		width: 15rpx;
-		height: 15rpx;
-		position: absolute;
-		bottom: 15rpx;
-		right: 10rpx;
-		background-color: #FFFFFF;
-		border-radius: 100%;
-		border: 4rpx solid #FFFFFF;
-	}
-
-	.huifu_anxiu {
-		display: flex;
-
-		padding: 4rpx 30rpx 0;
-		box-sizing: border-box;
-		position: fixed;
-		bottom: 0rpx;
-		height: 150rpx;
-		width: 100%;
-		justify-content: space-between;
-		background-color: #FFFFFF;
-	}
-
-	.huifu_anxiu input {
-		width: 575rpx;
-		height: 60rpx;
-		background-color: #f5f5f5;
-		border-radius: 10rpx;
-		border: solid 1rpx #d5d5d5;
-		padding-left: 10rpx;
-		box-sizing: border-box;
-	}
-
-	.huifu_anxiu button {
-		width: 99rpx;
-		height: 60rpx;
-		background-color: #f43a51;
-		border-radius: 10rpx;
-		line-height: 60rpx;
-		padding: 0;
-		box-sizing: border-box;
-	}
-
-	.zhuiwen {
-		display: flex;
-		align-items: flex-start;
-		margin-top: 20rpx;
-		background-color: #f3f3f3;
-		padding: 16rpx;
-		box-sizing: border-box;
-	}
-
-	.hui_zhuiwen {
-		padding-top: 20rpx;
-		background-color: #f3f3f3;
-		padding: 16rpx;
-		box-sizing: border-box;
-	}
-
-	.zhuiwen .zhuiwen_txt {
-		padding: 2rpx 4rpx;
-		height: 26rpx;
-		background-color: #f43a51;
-		border-radius: 3rpx;
-		margin-right: 7rpx;
-		line-height: 26rpx;
-		margin-top: 6rpx;
-	}
-
-	.zhuiwen_body {
-		max-width: 89%;
-		line-height: 38rpx;
-	}
-
-	.hui_zhuiwen_body {
-		line-height: 38rpx;
-		padding-left: 56rpx;
-		margin-top: 10rpx;
-	}
+.tiwen_item_shijian image {
+	width: 21rpx;
+	height: 21rpx;
+	margin-right: 8rpx;
+}
+.xq_ls_left .xq_tx {
+	width: 80rpx;
+	height: 81rpx;
+	border-radius: 100%;
+	margin-right: 16rpx;
+}
+.xq_ls {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10rpx 0;
+}
+.xq_ls_left {
+	display: flex;
+}
+.xq_zhauntai {
+	width: 129rpx;
+	height: 114rpx;
+	background: url(../../static/lsimg/xq_zhuangtai.png) no-repeat;
+	background-size: 100% 100%;
+	position: relative;
+}
+.xq_ls_time {
+	margin-top: 10rpx;
+}
+.huifu_txt {
+	-moz-transform: rotate(-35deg);
+	-webkit-transform: rotate(-35deg);
+	display: block;
+	position: absolute;
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+	top: 40rpx;
+	left: 20rpx;
+}
+.xq_huifu_txt {
+	margin-top: 13rpx;
+	line-height: 36rpx;
+}
+.xq_ls_tx {
+	position: relative;
+}
+.xq_renzheng {
+	width: 22rpx;
+	height: 21rpx;
+	position: absolute;
+	bottom: 15rpx;
+	right: 10rpx;
+	background-color: #ffffff;
+	border-radius: 100%;
+	border: 4rpx solid #ffffff;
+}
+.xq_body_top_tx {
+	display: flex;
+	align-items: center;
+	margin: 23rpx 0;
+}
+.xq_body_top_tx image {
+	width: 50rpx;
+	height: 51rpx;
+	border-radius: 100%;
+	margin-right: 15rpx;
+}
+.tiwen_huifu {
+	padding: 10px 30rpx;
+	border-bottom: 1px solid #eeeeee;
+}
+.tiwen_huifu textarea {
+	height: 206rpx;
+}
+.tiwen_huifu_btn {
+	padding: 0px 30rpx;
+	margin: 20rpx 0 10rpx;
+}
+.tiwen_huifu_btn button {
+	height: 61rpx;
+	background-color: #f43a51;
+	border-radius: 30rpx;
+	line-height: 61rpx;
+}
+.xq_bottom {
+	padding: 0 30rpx;
+}
+.xq_ls_jieda {
+	margin-top: 10rpx;
+}
+.xq_ls_jieda text {
+	color: #ffad2b;
+}
+.xq_bottom_list {
+	border-bottom: 1px solid #eeeeee;
+	padding: 20rpx 0;
+}
+.xq_ls_name_img image {
+	max-width: 17rpx;
+	margin-left: 6rpx;
+}
+.xq_wenti {
+	word-break: break-all;
+}
 </style>

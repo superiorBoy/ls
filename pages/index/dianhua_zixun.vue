@@ -26,16 +26,17 @@
 						<view class="zixun_r">
 							<view class="zixun_leibie hei_26"><!-- 婚姻家庭 --></view>
 							<view class="zixun_item_feiyong lv_20">{{ item.phoneprice }}元/20分钟</view>
-							<view class="to_pay bai_20" @click="go_pay()">
+							<view class="to_pay bai_20" @click="go_pay(item.userid,2)">
 								<image src="@/static/img/bai_shouji.png" mode=""></image>
 								付费电话咨询
 							</view>
 						</view>
 					</view>
 					<view class="zixun_item_bottom">
-						<view class="hui_26 techang" v-if="dianhua_list != ''">
+						<view class="hui_22 techang" v-if="dianhua_list != ''">
 							<view class="shanchang">擅长：</view>
 							<view class="techang_list">
+								
 								<text v-if="zhuanchang_arry[item.expertise1] && zhuanchang_arry[item.expertise1].shanchangname">
 									{{ zhuanchang_arry[item.expertise1].shanchangname }}
 								</text>
@@ -188,9 +189,9 @@ export default {
 			this.$refs.popup.open();
 		},
 		// 去支付
-		go_pay() {
+		go_pay(lawyerid,type) {
 			uni.navigateTo({
-				url: 'pay'
+				url:'pay?lawyerid='+lawyerid+'&type='+type
 			});
 		},
 		huoqulist() {
@@ -426,12 +427,18 @@ page {
 	height: 36rpx;
 	background-color: #e7e7e7;
 	margin-right: 10rpx;
+	text-align: center;
 }
+.techang_list{
+	display: flex;
+	flex-wrap: wrap;
+	}
 .techang_list text {
 	line-height: 30rpx;
 	margin-right: 8rpx;
 	padding: 2rpx 10rpx;
 	color: #ffffff;
+	
 }
 .techang_list text:nth-child(1) {
 	background-color: #01af63;
@@ -441,6 +448,7 @@ page {
 }
 .techang_list text:nth-child(3) {
 	background-color: #7acea4;
+	margin-right: 0 !important;
 }
 .tan_list {
 }

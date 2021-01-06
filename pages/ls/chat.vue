@@ -17,8 +17,10 @@
 				<view class="time qian_20" v-if="message!=''">
 					{{ message[0].addtime | timeStamp }}
 				</view>
-				<view v-for="item in message" >
-					
+				<view v-for="(item,index) in message" >
+					<view class="time qian_20" v-if="index>1 && message[index].addtime-message[index-1].addtime>300">
+					 {{ message[index].addtime | timeStamp }}
+					</view>
 					<view class="chat_list chat_right" v-if="item.userid_from!=userid">
 						<view class="chat_right_txt hei_30">
 							<!-- {{item.content}} -->

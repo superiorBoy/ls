@@ -15,6 +15,14 @@
 				</view>
 				<image src="@/static/lsimg/go_r.png" mode=""></image>
 			</view>
+			<!-- 工作经历 -->
+			<view class="list" v-if="title == '工作经历'" v-for="(item, index) in gongzuo_list" @click="gongzuo_xq(item)">
+				<view class="list_left">
+					<view class="hei_26 time">{{item.starttime}}-{{item.endtime}}</view>
+					<view class="hei_28">{{item.school}}-{{item.zhuanye}}</view>
+				</view>
+				<image src="@/static/lsimg/go_r.png" mode=""></image>
+			</view>
 			<!-- 社会职务 -->
 			<view class="list" v-if="title == '社会职务'" v-for="(item, index) in shehui_list" @click="zhiwu_xq(item.lyinfoid,item.zwstate,item.school,item.zhuanye)">
 				<view class="list_left">
@@ -60,7 +68,8 @@ export default {
 			shehui_list:[],
 			rongyu_list:[],
 			meiti_list:[],
-			xueshu_list:[]
+			xueshu_list:[],
+			gongzuo_list:[]
 			
 		};
 	},
@@ -103,7 +112,21 @@ export default {
 							 });
 				
 				
-			} else if (this.title == '荣誉奖励') {
+			}  else if (this.title == '工作经历') {
+				
+				this.$http
+							 .post({
+							 	url: '/mlawyerapi/lawyer/lawyerinfo',
+							 	data:{
+							 		state:11
+							 	}
+							 })
+							 .then(res => {	
+							this.gongzuo_list=res.data.lawyerinfo
+							 });
+				
+				
+			}else if (this.title == '荣誉奖励') {
 				
 				this.$http
 							 .post({
@@ -151,6 +174,10 @@ export default {
 				uni.navigateTo({
 					url: 'ls_zhiwu'
 				});
+			}else if (this.title == '工作经历') {
+				uni.navigateTo({
+					url: 'ls_gongzuo'
+				});
 			} else if (this.title == '荣誉奖励') {
 				uni.navigateTo({
 					url: 'ls_rongyu'
@@ -174,6 +201,11 @@ export default {
 		zhiwu_xq(id,zhuangtai,jigou) {
 			uni.navigateTo({
 				url: 'ls_zhiwu?id='+id+'&zhuangtai='+ zhuangtai+'&jigou='+ jigou
+			});
+		},
+		gongzuo_xq(item){
+			uni.navigateTo({
+				url: 'ls_gongzuo?item='+JSON.stringify(item)
 			});
 		},
 		rongyu_xq(id,time,jigou) {

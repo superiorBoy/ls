@@ -77,7 +77,7 @@
 				<view>电话咨询</view>
 			</navigator>
 
-			<navigator url="vip" class="index_tab_item">
+			<navigator url="tuanzhang" class="index_tab_item">
 				<image src="@/static/img/tab7.png" mode=""></image>
 				<view>VIP</view>
 			</navigator>
@@ -125,8 +125,8 @@
 
 		<view class="index_zixun">
 			<view class="zixun_tab qian_28">
-				<text @tap="change(0)" :class="{ hei: btnnum == 0 }">最新咨询</text>
 				<text @tap="change(1)" :class="{ hei: btnnum == 1 }">最新解答</text>
+				<text @tap="change(0)" :class="{ hei: btnnum == 0 }">最新咨询</text>
 			</view>
 			<view class="index_zixun_list">
 				<block class="" v-if="data != ''">
@@ -175,7 +175,7 @@
 				</block>
 			</view>
 		</view>
-		<button type="" class="qian_20 ls_more" @click="tiaozhuan_zixun">查看更多咨询>></button>
+		<button type="" class="qian_26 ls_more" @click="tiaozhuan_zixun">查看更多咨询>></button>
 		<view class="tuijian">
 			<view class="tuijian_top"><image src="@/static/img/tuijian_title.png" mode=""></image></view>
 			<view class="tuijian_list">
@@ -219,7 +219,7 @@
 					</view>
 				</block>
 			</view>
-			<button type="" class="qian_20 ls_more" @click="tiaozhuan">查看更多律师>></button>
+			<button type="" class="qian_26 ls_more" @click="tiaozhuan">查看更多律师>></button>
 		</view>
 		<div id="allmap" style="display: none"></div>
 		<view class="zhuanti">
@@ -232,9 +232,31 @@
 				<view class="hot">交通事故怎么赔偿</view>
 			     -->
 			</view>
-			<navigator url="changshi" class="qian_20 more_zhuanti">查看更多热门专题>></navigator>
+			<navigator url="changshi" class="qian_26 more_zhuanti">查看更多热门专题>></navigator>
+			
+			<view class="tab_bg" v-if="is_gengxin">
+				<view class="tan">
+					<view class="tan_top">
+						<image src="@/static/img/gengxin.png" mode=""></image>	
+					</view>
+					<view class="tan_bottom hui_27">
+						<view class="">
+							解决了旧版本中已知BUG
+						</view>
+						<view class="tan_txt">
+							优化了一部分不合理的功能
+						</view>
+						<image src="@/static/img/gengxin_btn.png" mode="widthFix"></image>
+					</view>
+					
+							
+				</view>
+			</view>
+			
+			
 			
 		</view>
+		
 	</view>
 </template>
 
@@ -293,8 +315,9 @@ export default {
 					img: '../../static/img/banner5.jpg'
 				}
 			],
-			btnnum: 0,
-			fa_zhishi:''
+			btnnum: 1,
+			fa_zhishi:'',
+			is_gengxin:false
 		};
 	},
 	components: {
@@ -352,6 +375,7 @@ export default {
 
 		console.log(this.websiteUrl);
 		// 获取url
+		
 	},
 	onShow() {
 		this.$http
@@ -387,8 +411,14 @@ export default {
 		})
 			.then(res => {
 		this.fa_zhishi=res.data.type[1]
-							});
-			
+					});
+						
+		//#ifdef APP-PLUS
+		  plus.runtime.getProperty(plus.runtime.appid,(wgtinfo)=>{
+							  console.log(JSON.stringify(wgtinfo));
+							  console.log("版本号",wgtinfo.version);//应用版本号
+		  })	
+		  //#endif		
 			
 	},
 	methods: {
@@ -967,6 +997,7 @@ scroll-view ::-webkit-scrollbar {
 	background-color: #f7f7f7;
 	width: 100%;
 	border-radius: 0;
+	line-height: 70rpx;
 }
 
 .ls_more::after {
@@ -1072,4 +1103,40 @@ scroll-view ::-webkit-scrollbar {
 	padding-left: 25rpx;
 	margin: 30rpx 0 40rpx;
 }
+.tan{
+	width: 523rpx;
+		height: 627rpx;
+		background-color: #ffffff;
+		border-radius: 25rpx;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%,-50%);
+		 
+
+}
+.tan_top image{
+	width: 100%;
+	height: 354rpx;
+}
+.tan_bottom{
+	text-align: center;
+	padding: 20rpx 0 0;
+}
+.tan_bottom image{
+	width: 126rpx;
+}
+.tan_txt{
+	margin: 10rpx 0;
+}
+.tab_bg{
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.3);
+	z-index: 999;
+	
+}
+
 </style>

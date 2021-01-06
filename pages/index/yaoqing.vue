@@ -81,7 +81,7 @@
 		},
 		data() {
 			return {
-				currentPage:'ls/yaoqing',
+				
 				lianjie:'登录后即可生成邀请好友的专属链接',
 				deng_txt:'立即登录',  //复制邀请链接 --- 立即登录
 				user:'',

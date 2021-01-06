@@ -24,7 +24,7 @@
 						</view>
 					</view>
 					<view class="top_shijian qian_20">
-						10-16
+						<!-- 10-16 -->
 					</view>
 				</view>
 				<view class="xiaoxi_top_list" @click="go_gonggao">
@@ -42,7 +42,7 @@
 						</view>
 					</view>
 					<view class="top_shijian qian_20">
-						10-16
+						<!-- 10-16 -->
 					</view>
 				</view>
 				<view class="xiaoxi_top_list">
@@ -61,7 +61,7 @@
 						</view>
 					</view>
 					<view class="top_shijian qian_20">
-						10-16
+						<!-- 10-16 -->
 					</view>
 				</view>
 			</view>
@@ -159,7 +159,7 @@
 			},
 			go_kefu(){
 				uni.navigateTo({
-					url: 'zaixian_wen?user=7'
+					url:'chat?lsid=7'
 				});
 			},
 			go_gonggao(){

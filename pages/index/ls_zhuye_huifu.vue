@@ -73,7 +73,7 @@
 					</view>
 					<view class="yeshu qian_26">
 						<text class="lv_26">{{page+1}}</text>
-						/3
+						/{{yeshu}}
 					</view>
 					<view class="xiayiye"@click="nextye()">
 						下一页
@@ -116,7 +116,8 @@ export default {
 			page:0,
 			is_all:false,
 			type_list:[],
-			list:[]
+			list:[],
+			yeshu:0
 		};
 	},
 	created() {},
@@ -139,6 +140,7 @@ export default {
 			});
 		this.lawyerid=option.lawyerid
 		this.huoqu_list()
+		this.huiqu_num()
 	},
 	methods: {
 		navigateBack() {
@@ -161,7 +163,7 @@ export default {
 				.then(res => {
 					if (res.code == 0) {
 						this.lvshi=res.data.lawyer
-						
+					
 					}
 				});	
 		},
@@ -177,10 +179,25 @@ export default {
 				})
 				.then(res => {
 					if (res.code == 0) {
-						this.list=this.list.concat(res.data.consult);
+						this.list=res.data.consult;
 						if(res.data.consult.length<10){
 							this.is_all=true
 						}
+					}
+				});	
+		},
+		// 获取回复总数
+		huiqu_num(){
+			this.$http
+				.post({
+					url: '/mapi/lawyer/consultlistcount',
+					data: {
+						lawyerid:this.lawyerid
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.yeshu= Math.ceil(res.data.count/10); 
 					}
 				});	
 		},

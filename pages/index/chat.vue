@@ -45,7 +45,11 @@
 			</view>
 			<view :class="['chat_body', bt_show ? 'chat_body_jia' : '']" @click="tan_hide()">
 				<view class="time qian_20" v-if="message != ''">{{ message[0].addtime | timeStamp }}</view>
-				<view v-for="item in message">
+				<view v-for="(item,index) in message">
+					
+					<view class="time qian_20" v-if="index>1 && message[index].addtime-message[index-1].addtime>300">
+				     {{ message[index].addtime | timeStamp }}
+					</view>
 					<view class="chat_list chat_left" v-if="item.userid_from == ls_id">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
@@ -54,6 +58,8 @@
 							<view v-if="item.msgtype == 1"><u-parse :content="replace_em(item.content)"></u-parse></view>
 						</view>
 					</view>
+					
+					
 					<view class="chat_list chat_right" v-if="item.userid_from != ls_id">
 						<view class="chat_right_txt hei_30">
 							<!-- {{item.content}} -->

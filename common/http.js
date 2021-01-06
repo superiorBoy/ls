@@ -10,7 +10,10 @@ if (process.env.NODE_ENV == 'development') {
 	
 } else {
     baseUrl = '' // 生产环境
-	uni.setStorageSync("xian_url",baseUrl)
+	  //#ifdef APP-PLUS
+	    baseUrl = 'http://xhlvshi.hongvv.com/' // 生产环境
+	    uni.setStorageSync("xian_url",baseUrl)
+	  //#endif
 }
 
 function request(url,method,data,header={}){
@@ -56,6 +59,7 @@ function request(url,method,data,header={}){
   })
 }
 
+
 // 封装get方法
 function get(obj) {
   return request(obj.url,'GET',obj.data)
@@ -64,6 +68,8 @@ function get(obj) {
 function post(obj) {
   return request(obj.url,'POST',obj.data)
 }
+
+
 
 export default {
   request,

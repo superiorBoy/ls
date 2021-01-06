@@ -107,12 +107,12 @@
 
 				<view class="more_anli hei_26" v-if="!is_all" @click="all">查看全部案例></view>
 				<view class="fenye hei_26" v-if="is_all">
-					<view class="shangyiye"> <image src="@/static/img/shangye.png" mode="" style="width: 14rpx;height: 14rpx;"></image> 上一页 </view>
+					<view class="shangyiye"@click="pre_ye()"> <image src="@/static/img/shangye.png" mode="" style="width: 14rpx;height: 14rpx;"></image> 上一页 </view>
 					<view class="yeshu qian_26">
 						<text class="lv_26">1</text>
-						/2
+						/{{yeshu}}
 					</view>
-					<view class="xiayiye">下一页<image src="@/static/img/xiaye.png" mode=""  style="width: 14rpx;height: 14rpx;"></image></view>
+					<view class="xiayiye" @click="nextye()">下一页<image src="@/static/img/xiaye.png" mode=""  style="width: 14rpx;height: 14rpx;"></image></view>
 				</view>
 
 				<view class="zhanwei2" style="height: 120rpx;"></view>
@@ -170,7 +170,8 @@ export default {
 			anli_num:'',
 			fenlei:[],
 			anjian_list:[],
-			page:0
+			page:0,
+			yeshu:0
 		};
 	},
 	created() {},
@@ -194,6 +195,7 @@ export default {
 		this.lawyerid=option.lawyerid
 		this.huoqu_anli_num()
 		this.huoqu_anjian_list()
+		this.huiqu_num()
 	},
 	methods: {
 		navigateBack() {
@@ -242,6 +244,21 @@ export default {
 					}
 				});	
 		},
+		// 获取图文总数
+		huiqu_num(){
+			this.$http
+				.post({
+					url: '/mapi/lawyer/anlilistcount',
+					data: {
+						lawyerid:this.lawyerid
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.yeshu= Math.ceil(res.data.count/10); 
+					}
+				});	
+		},
 		huoqu_anjian_list(){
 			this.$http
 				.post({
@@ -254,6 +271,9 @@ export default {
 				.then(res => {
 					if (res.code == 0) {
 						this.anjian_list=this.anjian_list.concat(res.data.anli);
+						if(res.data.anli.length<10){
+							this.is_all=true
+						}
 					}
 				});	
 		},
@@ -290,7 +310,34 @@ export default {
 			uni.navigateTo({
 				url:'pay?lawyerid='+lawyerid
 			})
-		}
+		},
+		pre_ye(){
+			if(this.page==0){
+				uni.showToast({
+					title: '暂无更多',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false
+			}else{
+				this.page--
+				this.huoqu_anjian_list()
+			}
+		},
+		nextye(){
+			if(this.is_all){
+				uni.showToast({
+					title: '暂无更多',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false
+			}else{
+				this.page++
+				this.huoqu_anjian_list()
+			}
+		
+		},
 	}
 };
 </script>

@@ -112,22 +112,22 @@ uni-checkbox:not([disabled]) .uni-checkbox-input:hover,uni-radio:not([disabled])
 
    /* #ifdef APP-PLUS */
   .head{
-  	padding-top: 56rpx;
+  	padding-top: 66rpx;
   }
   .zi_body {
-  	padding-top: 134rpx;
+  	padding-top: 144rpx;
   }
   .tab_zi_body{
-  	padding-top: 184rpx;
+  	padding-top: 194rpx;
   }
   .tab_top{
-  	top: 126rpx !important;
+  	top: 136rpx !important;
   }
   .index_top{
-  	padding-top: 70rpx !important;
+  	padding-top: 80rpx !important;
   }
   .my_top{
-  	padding-top: 60rpx !important;
+  	padding-top: 80rpx !important;
   }
     /* #endif */
 

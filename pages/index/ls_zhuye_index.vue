@@ -72,9 +72,10 @@
 							<view class="bai_26" style="margin-right: 15rpx;">在线文字咨询</view>
 							<text class="bai_22">简易需求,在线解答</text>
 						</view>
-						<view class=" dianhua_btn bai_26" >
+						<view class=" dianhua_btn bai_30" >
 							<image src="@/static/img/zhuye_tab1.png" mode="widthFix" style="width: 17rpx;"></image>
 							<text v-if="lvshi.chatprice!=0">{{lvshi.chatprice}}元/小时</text>
+							<text v-if="lvshi.chatprice==0">未报价</text>
 						</view>
 						<view class="lv_20 lei_btn zaixian_btn" v-if="lvshi.chatprice!=0" @click="go_chat(lawyerid)"><text>立即咨询</text></view>
 						<view class="lv_20 lei_btn zaixian_btn" v-if="lvshi.chatprice==0"><text>未开启</text></view>
@@ -95,9 +96,10 @@
 							<view class="bai_26" style="margin-right: 15rpx;" >付费电话咨询</view>
 							<text class="bai_22">隐私咨询，一步到位</text>
 						</view>
-						<view class=" dianhua_btn bai_26" >
+						<view class=" dianhua_btn bai_30" >
 							<image src="@/static/img/zhuye_tab3.png" mode="widthFix"  style="width: 16rpx;"></image>
 							<text v-if="lvshi.phoneprice!=0">{{lvshi.phoneprice}}元/20分钟</text>
+							<text v-if="lvshi.phoneprice==0">未报价</text>
 						</view>
 						<view class="lei_btn tuwen_btn" v-if="lvshi.phoneprice!=0" @click="go_chat(lawyerid)"><text>立即咨询</text></view>
 						<view class="lei_btn tuwen_btn" v-if="lvshi.phoneprice==0"><text>未开启</text></view>
@@ -719,6 +721,7 @@ export default {
 	border-radius: 15rpx;
 	line-height: 30rpx;
 	text-align: center;
+	padding: 0 6rpx;
 }
 .dianhua_btn {
 	height: 31rpx;
@@ -739,7 +742,7 @@ export default {
 	left: 14rpx;
 }
 .dianhua_btn text {
-	font-size: 16rpx;
+	
 	-webkit-transform: scale(0.8);
 	-webkit-transform-origin-x: 0;
 	position: relative;
@@ -752,6 +755,7 @@ export default {
 	border-radius: 15rpx;
 	color: #bcb198;
 	line-height: 30rpx;
+	padding: 0 6rpx;
 }
 .ls_jilu {
 	padding: 0 30rpx;

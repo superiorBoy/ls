@@ -74,7 +74,7 @@
 					</view>
 					<view class="yeshu qian_26">
 						<text class="lv_26">{{page+1}}</text>
-						/1
+						/{{yeshu}}
 					</view>
 					<view class="xiayiye" @click="nextye()">
 						下一页
@@ -117,7 +117,8 @@ export default {
 			lvshi:'',
 			page:0,
 			type_list:[],
-			is_all:false
+			is_all:false,
+			yeshu:0
 		};
 	},
 	created() {},
@@ -140,6 +141,7 @@ export default {
 			});
 		this.lawyerid=option.lawyerid
 		this.huoqu_tuwen()
+		this.huiqu_num()
 	},
 	methods: {
 		navigateBack() {
@@ -177,6 +179,21 @@ export default {
 						if(res.data.tuwen.length<10){
 							this.is_all=true
 						}
+					}
+				});	
+		},
+		// 获取图文总数
+		huiqu_num(){
+			this.$http
+				.post({
+					url: '/mapi/lawyer/tuwenlistcount',
+					data: {
+						lawyerid:this.lawyerid
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.yeshu= Math.ceil(res.data.count/10); 
 					}
 				});	
 		},

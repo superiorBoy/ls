@@ -40,10 +40,10 @@
 		</view>
 
 		<view class="my_bottom">
-			<view class="xianshi">
-				<image src="../../static/img/hy_guanggao.png" mode=""></image>
-				<view class="jiage hei_22_bold">限时￥99</view>
-			</view>
+			<navigator url="chat?lsid=7" class="xianshi">
+					<image src="../../static/img/hy_guanggao.png" mode=""></image>
+					<view class="jiage hei_22_bold">限时￥29</view>
+			</navigator>
 
 			<view class="my_guanli zixun_guanli">
 				<view class="my_title hei_30_bold">咨询管理</view>
@@ -78,10 +78,10 @@
 			<view class="my_guanli tuiguang_guanli">
 				<view class="my_title hei_30_bold">推广中心</view>
 				<view class="my_list">
-					<view class="jiedan_item">
+					<navigator url="tuanzhang" class="jiedan_item">
 						<image src="../../static/img/hy_tuiguang1.png" mode=""></image>
 						<view class="hui_24 ">升级团长</view>
-					</view>
+					</navigator>
 					<view class="jiedan_item">
 						<image src="../../static/img/hy_tuiguang2.png" mode=""></image>
 						<view class="hui_24 ">我的奖励</view>

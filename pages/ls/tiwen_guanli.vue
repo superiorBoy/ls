@@ -31,7 +31,7 @@
 					</view>
 					<view class="huifu_btn">
 						<view class="tiwen_ren hui_24"><!-- <image src="@/static/lsimg/yh_tx.png" mode=""></image>兔子的眼泪 --></view>
-						<button type="" class="huifu bai_24" @click="huifu(item.information, item.province, item.city, fenlei[item.typeid].typename, item.addtime, item.consultid)">
+						<button type="" class="huifu bai_24" @click="huifu(item.consultid)">
 							回复
 						</button>
 					</view>
@@ -200,23 +200,10 @@ export default {
 					this.jilu_list = this.jilu_list.concat(res.data.list);
 				});
 		},
-		huifu(title, sheng, shi, leixing, time, id) {
+		huifu(id) {
 			uni.navigateTo({
 				url:
-					'/pages/ls/tiwen_guanli_xq?zhuangtai=' +
-					this.active +
-					'&title=' +
-					title +
-					'&sheng=' +
-					sheng +
-					'&shi=' +
-					shi +
-					'&leixing=' +
-					leixing +
-					'&time=' +
-					time +
-					'&id=' +
-					id
+					'/pages/ls/tiwen_guanli_xq?id='+id
 			});
 		},
 		// 底部弹窗

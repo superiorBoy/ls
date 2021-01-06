@@ -14,13 +14,18 @@
 					<view class="zixun_item_left">
 						<view class="zixun_item_tx"><image :src=img_url+item.photourl mode=""></image></view>
 						<view class="zixun_item_xinxi">
-							<view class="hei_26">{{item.phone}}</view>
+							<view class="hei_26">{{item.nickname}}</view>
 							<view class="hong_26 zixun_item_feiyong">￥{{item.paymoney}}</view>
 							<view class="qian_22">{{ item.addtime | timeStamp }}</view>
 						</view>
 					</view>
-
+                      <view class="zixun_item_right">
 					<view :class="['item_zhuangtai bai_26',  item.zixunstate == 1 ? 'daifu':item.zixunstate == 2?'yifu':item.zixunstate == 3?'zhengzai':'jieshu' ]">{{ item.zixunstate == 1 ? '未付款':item.zixunstate == 2?'已付款':item.zixunstate == 3?'接单中':'已完成' }}</view>
+                      	<view class="zixun hong_20" @click="go_chat(item.userid)">
+							<image src="@/static/lsimg/xiaoxi.png" mode=""></image>
+                      		在线联系
+                      	</view>
+                      </view>
 				</view>
 			</view>
 		</view>
@@ -173,7 +178,12 @@ export default {
 			this.jilu_list=[]
 			this.is_all=false
 			this.huoqu_list()
-		}
+		},
+		go_chat(id){
+			uni.navigateTo({
+				url:'chat?userid='+id
+			})
+		},
 	},
 	filters: {
 		timeStamp: function(value) {
@@ -257,8 +267,8 @@ page {
 	height: 50rpx;
 
 	border-radius: 5rpx;
-	-moz-transform: rotate(-10deg);
-	-webkit-transform: rotate(-10deg);
+	/* -moz-transform: rotate(-10deg); */
+	/* -webkit-transform: rotate(-10deg); */
 	text-align: center;
 	line-height: 46rpx;
 }
@@ -339,5 +349,21 @@ button::after {
 	.yifu{
 		border: solid 1px #0eb77e;
 		color: #0eb77e;
+	}
+	.zixun {
+		width: 164rpx;
+		height: 44rpx;
+		background-color: #ffffff;
+		border-radius: 22rpx;
+		border: solid 1rpx #f43a51;
+		text-align: center;
+		line-height: 44rpx;
+		margin-top: 10rpx;
+		
+	}
+	.zixun image {
+		width: 18rpx;
+		height: 18rpx;
+		margin-right: 5rpx;
 	}
 </style>

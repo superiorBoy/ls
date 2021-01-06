@@ -219,6 +219,12 @@ export default {
 						duration: 2000
 					});
 					this.shuru_txt=''
+					setTimeout(function(){
+									uni.navigateTo({
+										url:'tiwen_list'
+									})
+								},2000)
+					
 				}
 				console.log(res)
 			})
