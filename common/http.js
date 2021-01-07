@@ -7,6 +7,10 @@ if (process.env.NODE_ENV == 'development') {
 	// #ifndef H5
 	baseUrl='http://www.ls.xyz/'
 	// #endif
+	//#ifdef APP-PLUS
+	  baseUrl = 'http://xhlvshi.hongvv.com/' // 生产环境
+	  // uni.setStorageSync("xian_url",baseUrl)
+	//#endif
 	
 } else {
     baseUrl = '' // 生产环境

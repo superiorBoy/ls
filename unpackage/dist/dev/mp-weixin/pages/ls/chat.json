@@ -1,6 +1,0 @@
-{
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "emotion": "/components/bkhumor-emoji/index"
-  }
-}

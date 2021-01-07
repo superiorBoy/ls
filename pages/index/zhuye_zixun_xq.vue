@@ -7,6 +7,13 @@
 		</view>
 
 		<view class="zi_body ">
+			<view class="erji_weizhi hui_26_bold">
+				<text @click="go_index()">首页</text>	
+				<image src="@/static/img/zhishi_weizhi.png" mode=""></image>
+				<view @click="navigateBack()">最新咨询</view> 
+				<image src="@/static/img/zhishi_weizhi.png" mode=""></image>
+				<text class="hei_30">咨询详情</text>
+			</view>
 			<view class="wenti hei_28" v-if="data != ''">
 				{{ data.consult.information }}
 				<view class="wenti_center qian_24">
@@ -413,5 +420,19 @@ page {
 	background-color: #dcdcdc;
 	line-height: 90rpx;
 	text-align: center;
+}
+.erji_weizhi {
+	height: 70rpx;
+	background-color: #f9f9f9;
+	display: flex;
+	align-items: center;
+	margin: 0rpx 0 0rpx;
+	padding-left: 30rpx;
+	border-bottom: 1px solid #e8e8e8;
+}
+.erji_weizhi image {
+	margin: 0 13rpx 0 20rpx;
+	width: 24rpx;
+	height: 100%;
 }
 </style>

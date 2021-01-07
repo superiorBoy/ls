@@ -85,7 +85,7 @@
 							<view class="bai_26 " style="margin-right: 15rpx;">电话语音咨询</view>
 							<text class="bai_22">电话直呼,方便快捷</text>
 						</view>
-						<view class=" dianhua_btn" v-if="lvshi!=''">
+						<view class=" dianhua_btn bai_30" v-if="lvshi!=''">
 							<image src="@/static/img/zhuye_tab2.png" mode="widthFix" style="width: 12rpx;"></image>
 							<text>{{ lvshi.mobile }}</text>
 						</view>

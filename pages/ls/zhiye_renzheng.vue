@@ -104,7 +104,8 @@
 				img_url: uni.getStorageSync('img_url'),
 				huoqu_zhuang:[],
 				tijiao_txt:'确认提交',
-				shan_id:[]
+				shan_id:[],
+				state:0
 			}
 		},
 		components: {
@@ -159,8 +160,16 @@
 								}
 					})
 					.then(res => {
+						
+						
+						if(res.data.lawyerauth){
+							this.tijiao_txt='提交修改'
+							this.state=2
+						}
+						
+						
 						if(res.data.lawyerauth.state==2){
-									this.tijiao_txt='提交修改'
+									
 								}else if(res.data.lawyerauth.state==3){
 									this.tijiao_txt='失败：'+res.data.lawyerauth.reason
 								}
@@ -299,9 +308,16 @@
 				// console.log(zhuan)
 				// return false
 				
+				
+				if(this.tijiao_txt=='确认提交'){
+					var url='/lawyer/lawyer/zx_zhiye_rz'
+				}else{
+					var url='/lawyer/lawyer/upzhiye'
+				}
+				
 				this.$http
 					.post({
-						url: '/lawyer/lawyer/zx_zhiye_rz',
+						url: url,
 						data:{
 							    phone:this.shouji,
 								zhenghao:this.zhenghao,

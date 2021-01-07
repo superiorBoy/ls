@@ -36,7 +36,7 @@
 				{{title}}
 			</view>
 			<view class="tuijian_list">
-				<view class="tuijian_item" v-for="item in remenlist" @click="go_xq(item.knowledgeid)">
+				<view class="tuijian_item" v-for="item in remenlist" @click="go_xq(item.knowledgeid,yiji_id)">
 					<image :src="img_url+item.pic" mode="" class="tuijan_img"></image>
 					<view class="tuijian_item_right">
 						<view class="tuijian_item_top hei_26">{{ item.title }}</view>
@@ -182,9 +182,9 @@ export default {
 		// 	this.active = index;
 		// 	this.is_all=false
 		// },
-		go_xq(knowledgeid) {
+		go_xq(knowledgeid,yiid) {
 			uni.navigateTo({
-				url: 'changshi_xq?knowledgeid=' + knowledgeid
+				url: 'changshi_xq?knowledgeid=' + knowledgeid+'&yiid='+yiid
 			});
 		},
         // 三级

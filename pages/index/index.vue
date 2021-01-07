@@ -8,7 +8,8 @@
 				current == 0 ? 'index_top0' : current == 1 ? 'index_top1' : current == 2 ? 'index_top2' : current == 3 ? 'index_top3' : current == 4 ? 'index_top4' : ''
 			]"
 		>
-			<view class="index_top_dingwei">
+		
+			<view class="index_top_dingwei" :style="{ background: topbg }">
 				<view class="dingwei bai_20">
 					<image src="@/static/img/dingwei.png" mode=""></image>
 					<pickerAddress @change="xuandizhi">{{ dizhi }}</pickerAddress>
@@ -18,7 +19,9 @@
 					<image src="@/static/img/sousuo.png" mode=""></image>
 					<input confirm-type="search" @confirm="confirm" type="text" v-model="sou_txt" placeholder="详实输入案情经过，获得更精准的解答" class="hei_26" />
 				</view>
+			
 			</view>
+			
 			<view class="tab">
 				<wuc-tab :tab-list="tabList" :tabCur.sync="TabCur" @change="tabChange" class="fenlei bai_26"></wuc-tab>
 				<image src="@/static/img/qita.png" mode=""></image>
@@ -246,7 +249,7 @@
 						<view class="tan_txt">
 							优化了一部分不合理的功能
 						</view>
-						<image src="@/static/img/gengxin_btn.png" mode="widthFix"></image>
+						<image src="@/static/img/gengxin_btn.png" mode="widthFix" @click="down"></image>
 					</view>
 					
 							
@@ -317,7 +320,9 @@ export default {
 			],
 			btnnum: 1,
 			fa_zhishi:'',
-			is_gengxin:false
+			is_gengxin:false,
+			banben:'',
+			down_url:''
 		};
 	},
 	components: {
@@ -373,11 +378,18 @@ export default {
 		//      alert("pc端");
 		//    }
 
-		console.log(this.websiteUrl);
-		// 获取url
 		
 	},
 	onShow() {
+		//#ifdef APP-PLUS
+		plus.runtime.getProperty(plus.runtime.appid,(wgtinfo)=>{
+									  console.log(JSON.stringify(wgtinfo));
+									  console.log("版本号",wgtinfo.versionCode);//应用版本号
+									  this.banben=wgtinfo.versionCode
+									  
+		})
+		 //#endif	
+		
 		this.$http
 			.post({
 				url: '/mapi/index/geturl'
@@ -414,14 +426,92 @@ export default {
 					});
 						
 		//#ifdef APP-PLUS
-		  plus.runtime.getProperty(plus.runtime.appid,(wgtinfo)=>{
-							  console.log(JSON.stringify(wgtinfo));
-							  console.log("版本号",wgtinfo.version);//应用版本号
-		  })	
+		
+		// 获取版本
+		this.$http
+		.post({
+			url: '/mapi/index/banben',
+		})
+			.then(res => {
+		       console.log(res.data.banben,'版本')
+			   
+			   
+			   if(uni.getSystemInfoSync().platform == 'ios'){
+				   console.log("ios",this.banben)
+				   if(this.banben!=res.data.banben.ios){
+				   				   this.is_gengxin=true
+								   this.down_url=res.data.banben.iosurl
+				   				   uni.hideTabBar()
+				   }
+			   }else if(uni.getSystemInfoSync().platform === 'android'){
+				   console.log("android",this.banben)
+				   if(this.banben!=res.data.banben.android){
+				   				   this.is_gengxin=true
+								   this.down_url=res.data.banben.androidurl
+				   				   uni.hideTabBar()
+				   }
+			   }
+			  
+			});
+		
+			  const clientInfo = plus.push.getClientInfo()
+			  console.log(clientInfo,'6666')
 		  //#endif		
+		
+	
+		
 			
 	},
 	methods: {
+		down(){
+			//#ifdef APP-PLUS
+			  var urlStr = encodeURI(this.down_url)//把字符串作为url进行编码
+			  plus.runtime.openURL(urlStr);
+			  //#endif	
+			// //#ifdef H5
+			// window.location.href = this.down_url;
+			// //#endif	
+			
+			
+			// var that=this
+			// uni.downloadFile({
+			// 		url: that.down_url,//下载地址接口返回
+			// 		success: (data) => {
+			// 			if (data.statusCode === 200) {
+			// 				//文件保存到本地
+			// 				uni.saveFile({
+			// 					tempFilePath: data.tempFilePath, //临时路径
+			// 					success: function(res) {
+			// 						uni.showToast({
+			// 							icon: 'none',
+			// 							mask: true,
+			// 							title: '文件已保存：' + res.savedFilePath, //保存路径
+			// 							duration: 1000,
+			// 						});
+			// 						setTimeout(() => {
+			// 							//打开文档查看
+			// 							uni.openDocument({
+			// 								filePath: res.savedFilePath,
+			// 								success: function(res) {
+			// 									console.log('打开文件成功');
+			// 								}
+			// 							});
+			// 						}, 1000)
+			// 					}
+			// 				});
+			// 			}
+			// 		},
+			// 		fail: (err) => {
+			// 			console.log(err);
+			// 			uni.showToast({
+			// 				icon: 'none',
+			// 				mask: true,
+			// 				title: '失败请重新下载',
+			// 			});
+			// 		},
+			// 	});
+				
+		},
 		tabChange(index) {
 			this.TabCur = index;
 			uni.switchTab({
@@ -595,6 +685,8 @@ $.ajax({
 .tab {
 	display: flex;
 	align-items: center;
+	margin-top: 50rpx;
+	padding: 0 20rpx;
 }
 
 .tab image {
@@ -606,7 +698,7 @@ $.ajax({
 	height: 200rpx;
 	/* background-color: #86dbbe; */
 	/* border-radius: 0 0rpx 200rpx 200rpx; */
-	padding: 38rpx 20rpx 0;
+	padding: 38rpx 0rpx 0;
 	position: relative;
 }
 
@@ -675,6 +767,12 @@ $.ajax({
 .index_top_dingwei {
 	display: flex;
 	align-items: center;
+	position: fixed;
+	z-index: 99;
+	padding: 30rpx 20rpx;
+	width: 100%;
+	box-sizing: border-box;
+	top: 0;
 }
 
 .fenlei {
@@ -723,6 +821,7 @@ scroll-view ::-webkit-scrollbar {
 .swiper {
 	height: 300rpx;
 	position: relative;
+	padding: 0 20rpx;
 }
 
 .swiper-item {
@@ -1135,7 +1234,7 @@ scroll-view ::-webkit-scrollbar {
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0,0,0,0.3);
-	z-index: 999;
+	z-index: 99999;
 	
 }
 

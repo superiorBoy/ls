@@ -182,7 +182,7 @@ export default {
 		// },
 		go_xq(knowledgeid) {
 			uni.navigateTo({
-				url: 'changshi_xq?knowledgeid=' + knowledgeid
+				url: 'changshi_xq?knowledgeid=' + knowledgeid+'&yiid=' + this.yi_id + '&erid='+this.erji_id
 			});
 		},
 

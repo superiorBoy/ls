@@ -28,9 +28,12 @@
 		<view class="zi_body tab_zi_body">
 			<view class="lvshi_list">
 				<view class="lvshi_item" v-for="(item, index) in lslist">
-					<view class="zixun lv_20" @click="go_chat(item.userid)">
-						<image src="@/static/img/xiaoxi.png" mode=""></image>
+					<view class="zixun bai_22" @click="go_chat(item.userid)">
+						<image src="@/static/img/bai_xiaoxi.png" mode=""></image>
 						在线咨询
+					</view>
+					<view class="zixun_jiage lv_22" >
+						58元/24小时
 					</view>
 					<view class="lvshi_left" @click="go_zhuye(item.userid)"><image :src="img_url + item.photourl" mode=""></image></view>
 					<view class="lvshi_right">
@@ -168,14 +171,19 @@ export default {
 			this.sheng = data.data[0];
 			this.shi = data.data[1];
 			this.dizhi = this.sheng + '-' + this.shi;
-			this.lslist = [];
+			this.page=0,
+			this.is_all=false,
+			this.lslist=[],
+			
 			this.get_lvshilist();
 		},
 		// 专长选择
 		zhuanchang_change(e) {
 			this.zhuanchang = this.zhuanchang_arry[e.detail.value].shanchangname;
 			this.shanchang_id = this.zhuanchang_arry[e.detail.value].shanchangid;
-			this.lslist = [];
+			this.page=0,
+			this.is_all=false,
+			this.lslist=[],
 			this.get_lvshilist();
 			console.log(this.shanchang_id);
 		},
@@ -299,18 +307,32 @@ page {
 }
 .zixun {
 	position: absolute;
-	width: 140rpx;
-	height: 44rpx;
+	width: 155rpx;
+	height: 36rpx;
+		background-color: #0eb77e;
+		border-radius: 3rpx;
+	text-align: center;
+	line-height: 36rpx;
+	right: 20rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.zixun_jiage{
+	position: absolute;
+	width: 155rpx;
+	height: 36rpx;
 	background-color: #ffffff;
-	border-radius: 22rpx;
+	box-sizing: border-box;
 	border: solid 1rpx #0eb77e;
 	text-align: center;
-	line-height: 44rpx;
+	line-height: 36rpx;
 	right: 20rpx;
+	top: 62rpx;
 }
 .zixun image {
-	width: 18rpx;
-	height: 18rpx;
+	width: 23rpx;
+	height: 23rpx;
 	margin-right: 5rpx;
 }
 .lvshi_item_fuwu {
@@ -327,12 +349,18 @@ page {
 }
 .lv_suo {
 	margin: 10rpx 0;
+	word-break: break-all;
+	max-width: 400rpx;
 }
 .tese {
 	background-color: #ffad2b;
 	border-radius: 3rpx;
 	margin-right: 9rpx;
 	padding: 0 6rpx;
+	
+}
+.lvsuo_dizhi{
+	word-break: break-all;
 }
 .lvsuo_dizhi image {
 	width: 19rpx;

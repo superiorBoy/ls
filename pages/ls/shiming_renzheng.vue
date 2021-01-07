@@ -100,8 +100,12 @@
 					}
 				})
 				.then(res => {
+					
+					if(res.data.lawyerauth){
+						this.tijiao_txt='提交修改'
+					}
 					if(res.data.lawyerauth.state==1){
-								this.tijiao_txt='提交修改'
+								
 					}else if(res.data.lawyerauth.state==3){
 								this.tijiao_txt='失败：'+res.data.lawyerauth.reason
 					}
@@ -239,9 +243,16 @@
 					return false
 				}
 
+               if(this.tijiao_txt=='确认提交'){
+               	var url='/lawyer/lawyer/zx_zhiye_rz'
+               }else{
+               	var url='/lawyer/lawyer/uprealname'
+               }
+
+
 	      	this.$http
 				.post({
-					url: '/lawyer/lawyer/zx_shiming_rz',
+					url: url,
 					data:{
 						xingming:this.name,
 						sex:this.danxuan,

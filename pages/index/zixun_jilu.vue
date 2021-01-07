@@ -36,7 +36,7 @@
 					</view>
 	      <view class="zixun_item_right">
 					<view :class="['item_zhuangtai bai_26',  item.zixunstate == 1 ? 'daifu':item.zixunstate == 2?'yifu':item.zixunstate == 3?'zhengzai':'jieshu' ]">{{ item.zixunstate == 1 ? '未付款':item.zixunstate == 2?'已付款':item.zixunstate == 3?'接单中':'已完成' }}</view>
-			<view class="zixun hong_20" @click="go_chat(item.userid)">
+			<view class="zixun hong_20" @click="go_chat(item.lawyerid)">
 				<image src="@/static/lsimg/xiaoxi.png" mode=""></image>
 				在线联系
 			</view>
@@ -252,7 +252,7 @@
 			},
 			go_chat(id){
 				uni.navigateTo({
-					url:'chat?userid='+id
+					url:'chat?lsid='+id
 				})
 			},
 

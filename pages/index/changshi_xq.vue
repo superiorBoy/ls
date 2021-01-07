@@ -7,6 +7,17 @@
 		</view>
 
 		<view class="zi_body ">
+			<view class="erji_weizhi hui_26_bold">
+				<text @click="go_index()">首页</text>	
+				<image src="@/static/img/zhishi_weizhi.png" mode=""></image>
+				<navigator url="changshi">法律知识</navigator> 
+				<image src="@/static/img/zhishi_weizhi.png" mode=""  v-if="yiji_title!=''"></image>
+				<navigator :url="'changshi_erji?typeid='+yiid" v-if="yiji_title!=''">{{yiji_title}} </navigator>
+				<image src="@/static/img/zhishi_weizhi.png" mode=""  v-if="er_title!=''"></image>
+				<navigator :url="'changshi_sanji?erjiid='+er_id +'&yi_id='+yiid" v-if="er_title!=''">{{er_title}} </navigator>
+				<image src="@/static/img/zhishi_weizhi.png" mode=""></image>
+				<text class="hei_30">详情</text>
+			</view>
 			<view class="zhishi_xq">
 				<view class="xq_title hei_30_bold">{{ data.title }}</view>
 				<view class="xq_top qian_24">
@@ -69,7 +80,11 @@ export default {
 	data() {
 		return {
 			knowledgeid: '',
-			data: ''
+			data: '',
+			yiid:'',
+			yiji_title:'',
+			er_id:'',
+			er_title:''
 		};
 	},
 	components: {
@@ -81,6 +96,30 @@ export default {
 		if (option.knowledgeid != undefined) {
 			this.knowledgeid = option.knowledgeid;
 			this.huoqu_xq();
+		}
+		if (option.yiid != undefined) {
+			this.yiid=option.yiid
+			// 获取分类title
+				  this.$http
+						.post({
+							url: '/mapi/index/knowledgetype',
+						})
+						.then(res => {
+								
+								for (var item in res.data.type[1]){
+									if(res.data.type[1][item].knowledgetypeid==option.yiid)
+									this.yiji_title=res.data.type[1][item].knowledgetypename
+								}
+							if (option.erid != undefined) {
+								this.er_id=option.erid
+								for (var item in res.data.type[2]){
+									if(res.data.type[2][item].knowledgetypeid==option.erid)
+									this.er_title=res.data.type[2][item].knowledgetypename
+								}
+								
+							}	
+								
+						});
 		}
 	},
 	methods: {
@@ -98,6 +137,11 @@ export default {
 				.then(res => {
 					this.data = res.data.knowledge;
 				});
+		},
+		go_index(){
+			uni.switchTab({
+				url:'index'
+			})
 		}
 	}
 };
@@ -150,5 +194,18 @@ export default {
 }
 .xq_zhengwen_title {
 	margin: 10rpx 0;
+}
+.erji_weizhi {
+	height: 70rpx;
+	background-color: #f9f9f9;
+	display: flex;
+	align-items: center;
+	margin: 0rpx 0 20rpx;
+	padding-left: 30rpx;
+}
+.erji_weizhi image {
+	margin: 0 13rpx 0 20rpx;
+	width: 24rpx;
+	height: 100%;
 }
 </style>
