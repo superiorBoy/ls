@@ -23,13 +23,13 @@
 
 				<view class="fangshi_txt hei_30_bold">支付方式</view>
 				<view class="fangshi">
-					<view class="fangshi_list" @click="radio(1)">
+					<!-- <view class="fangshi_list" @click="radio(1)">
 						<view class="fangshi_left hei_28">
 							<image src="@/static/img/weixin_pay.png" mode=""></image>
 							微信支付
 						</view>
 						<label class="radio"><radio value="1" :checked="zhifu == 1" /></label>
-					</view>
+					</view> -->
 					<view class="fangshi_list" @click="radio(2)">
 						<view class="fangshi_left hei_28">
 							<image src="../../static/img/zhifubao_pay.png" mode=""></image>
@@ -56,15 +56,7 @@ export default {
 	created() {},
 	onLoad(option) {
 		
-		// 获取用户信息
-		this.$http
-			.post({
-				url: '/mapi/user/user'
-			})
-			.then(res => {
-				this.yue = res.data.user.rmb;
-				
-			});
+		this.huoqu_yue()
 		
 	},
 	methods: {
@@ -75,6 +67,17 @@ export default {
 		all() {
 			this.jine = this.yue;
 		},
+		huoqu_yue(){
+			// 获取用户信息
+			this.$http
+				.post({
+					url: '/mapi/user/user'
+				})
+				.then(res => {
+					this.yue = res.data.user.rmb;
+					
+				});
+		},
 		save() {
 			if (this.number == '') {
 				uni.showToast({
@@ -84,6 +87,41 @@ export default {
 				});
 				return false;
 			}
+
+
+ 	     this.$http
+	      		.post({
+	      			url: '/mapi/user/chongzhi',
+					data:{
+						paymoney:this.number
+						}
+	      		})
+	      		.then(res => {
+	      		
+	      			// if(res.code==0){
+					
+						uni.requestPayment({
+						       provider: 'alipay',
+						       orderInfo:res,
+						       success: function(res) {
+						           console.log('success:' + JSON.stringify(res));
+								   
+								   this.number=''
+								   this.huoqu_yue()
+						       },
+						       fail: function(err) {
+						           console.log('fail:' + JSON.stringify(err));
+						       }
+						   });
+					// }
+					
+					
+					console.log(res)
+					
+	      		});
+
+
+
 
 			console.log(this.number, this.zhifu);
 		},

@@ -33,6 +33,9 @@
 			}
 		},
 		{
+			"path":"pages/index/dianhua_jilu_xq"
+		},
+		{
 			"path":"pages/index/dianhua_zixun",
 			"style": {
 			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
@@ -46,6 +49,21 @@
 		},
 		{
 			"path":"pages/index/weituo_xq"
+		},
+		{
+			"path":"pages/index/fensi"
+		},
+		{
+			"path":"pages/index/tuandui"
+		},
+		{
+			"path":"pages/index/jiangli"
+		},
+		{
+			"path":"pages/index/guanzhu"
+		},
+		{
+			"path":"pages/index/shoucang"
 		},
 		{
 			"path":"pages/index/sucai"

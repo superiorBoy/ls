@@ -33,7 +33,7 @@
 						在线咨询
 					</view>
 					<view class="zixun_jiage lv_22" >
-						58元/24小时
+					<text v-if="item.chatprice==0">未报价</text>	<text v-if="item.chatprice!=0">{{item.chatprice}}/小时</text>
 					</view>
 					<view class="lvshi_left" @click="go_zhuye(item.userid)"><image :src="img_url + item.photourl" mode=""></image></view>
 					<view class="lvshi_right">
@@ -109,7 +109,8 @@ export default {
 			shanchang_id: '',
 			sheng: '',
 			shi: '',
-			is_all:false
+			is_all:false,
+			type:1
 		};
 	},
 	created() {
@@ -189,6 +190,12 @@ export default {
 		},
 		// 排序选择
 		paixu_change(e) {
+			console.log(e.detail.value)
+			this.type=e.detail.value+1
+			this.page=0,
+			this.is_all=false,
+			this.lslist=[],
+			this.get_lvshilist();
 			this.paixu = this.paixu_arry[e.detail.value];
 		},
 		tochat(id,mobile) {
@@ -230,7 +237,8 @@ export default {
 						page: this.page,
 						shanchangid: this.shanchang_id,
 						province: this.sheng,
-						city: this.shi
+						city: this.shi,
+						type:this.type
 					}
 				})
 				.then(res => {
@@ -326,7 +334,7 @@ page {
 	box-sizing: border-box;
 	border: solid 1rpx #0eb77e;
 	text-align: center;
-	line-height: 36rpx;
+	line-height: 34rpx;
 	right: 20rpx;
 	top: 62rpx;
 }

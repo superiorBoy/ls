@@ -178,7 +178,7 @@
 				</block>
 			</view>
 		</view>
-		<button type="" class="qian_26 ls_more" @click="tiaozhuan_zixun">查看更多咨询>></button>
+		<button type="" class="qian_26 ls_more" @click="tiaozhuan_zixun"><image src="@/static/img/gengduo.png" mode=""></image>查看更多咨询>></button>
 		<view class="tuijian">
 			<view class="tuijian_top"><image src="@/static/img/tuijian_title.png" mode=""></image></view>
 			<view class="tuijian_list">
@@ -222,7 +222,7 @@
 					</view>
 				</block>
 			</view>
-			<button type="" class="qian_26 ls_more" @click="tiaozhuan">查看更多律师>></button>
+			<button type="" class="qian_26 ls_more" @click="tiaozhuan"><image src="@/static/img/gengduo.png" mode=""></image>查看更多律师>></button>
 		</view>
 		<div id="allmap" style="display: none"></div>
 		<view class="zhuanti">
@@ -235,7 +235,7 @@
 				<view class="hot">交通事故怎么赔偿</view>
 			     -->
 			</view>
-			<navigator url="changshi" class="qian_26 more_zhuanti">查看更多热门专题>></navigator>
+			<navigator url="changshi" class="qian_26 more_zhuanti"><image src="@/static/img/gengduo.png" mode=""></image>查看更多热门专题>></navigator>
 			
 			<view class="tab_bg" v-if="is_gengxin">
 				<view class="tan">
@@ -773,6 +773,7 @@ $.ajax({
 	width: 100%;
 	box-sizing: border-box;
 	top: 0;
+	max-width: 750px;
 }
 
 .fenlei {
@@ -1097,6 +1098,15 @@ scroll-view ::-webkit-scrollbar {
 	width: 100%;
 	border-radius: 0;
 	line-height: 70rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.ls_more image{
+		width: 27rpx;
+		height: 27rpx;
+		margin-right: 11rpx;
+		
 }
 
 .ls_more::after {
@@ -1161,8 +1171,16 @@ scroll-view ::-webkit-scrollbar {
 	height: 70rpx;
 	background-color: #f7f7f7;
 	line-height: 70rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
-
+.more_zhuanti image{
+		width: 27rpx;
+		height: 27rpx;
+		margin-right: 11rpx;
+		
+}
 .lunbo {
 	position: relative;
 }

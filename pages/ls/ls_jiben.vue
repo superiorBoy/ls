@@ -82,6 +82,65 @@
 				</view>
 				<input type="text" value="" placeholder="语言能力，如：普通话，英语，日语等" class="hei_26" v-model="yuyan" />
 			</view>
+			<!-- 联系方式 -->
+			
+			<view class="shiming_list hei_28">
+				<view class="shiming_list_left">
+					联系电话
+				</view>
+				<input type="text" value="" placeholder="请填写" class="hei_26" v-model="dianhua" disabled="true" />
+			</view>
+			<view class="shiming_list hei_28">
+				<view class="shiming_list_left">
+					电子邮箱
+				</view>
+				<input type="text" value="" placeholder="请填写" class="hei_26" v-model="youxiang" />
+			</view>
+			<view class="shiming_list hei_28">
+				<view class="shiming_list_left">
+					微信
+				</view>
+				<input type="text" value="" placeholder="请填写" class="hei_26" v-model="weixin" />
+			</view>
+			<view class="shiming_list hei_28">
+				<view class="shiming_list_left">
+					联系地址
+				</view>
+				<input type="text" value="" placeholder="请填写" class="hei_26" v-model="dizhi" disabled="true"/>
+			</view>
+			
+			<!-- 更多信息 -->
+			<view class="shiming_list hei_28">
+				<view class="shiming_list_left">
+					政治派别
+				</view>
+				<input type="text" value="" placeholder="请填写" class="hei_26" v-model="paibie" />
+			</view>
+			<view class="shiming_list hei_28">
+				<view class="shiming_list_left">
+					政治职务
+				</view>
+				<input type="text" value="" placeholder="请填写" class="hei_26" v-model="zhiwu" />
+			</view>
+			<view class="shiming_list hei_28">
+				<view class="shiming_list_left">
+					交通工具
+				</view>
+				<input type="text" value="" placeholder="请填写" class="hei_26" v-model="gongjv" />
+			</view>
+			<view class="shiming_list hei_28">
+				<view class="shiming_list_left">
+					兴趣爱好
+				</view>
+				<input type="text" value="" placeholder="请填写" class="hei_26" v-model="aihao" />
+			</view>
+			<!-- 个人简介 -->
+			<view class="jianjie hei_28">
+				个人简介
+				<textarea value="" disabled placeholder="请介绍一下自己，让大家更好的认识你..."maxlength="1000" class="jianjie_txt" v-model="jianjie" />
+			</view>
+			
+			
 		</view>
 
 
@@ -109,6 +168,15 @@
 				guxiang: '',
 				yuyan: '',
 				xing_arry: ['男', '女'],
+				paibie:'',
+				zhiwu:'',
+				gongjv:'',
+				aihao:'',
+				dianhua: '',
+				youxiang:'',
+				weixin:'',
+				dizhi:'',
+				jianjie:''
 			}
 		},
 		created() {
@@ -129,17 +197,91 @@
 					   }else{
 						   this.xingbie='女'
 					   }
-					   this.shengri=res.data.lawyer.birthday
+					   if(res.data.lawyer.birthday){
+					   this.shengri=res.data.lawyer.birthday  
+					   }
+					   if(res.data.lawyer.idcard){
 					   this.shenfenhao=res.data.lawyer.idcard
+					   }
+					   if(res.data.lawyer.shuxiang){
 					   this.shuxiang=res.data.lawyer.shuxiang
+					   }
+					   if(res.data.lawyer.mingzu){
 					   this.minzu=res.data.lawyer.mingzu
+					   }
+					   if(res.data.lawyer.xingzuo){
 					   this.xingzuo=res.data.lawyer.xingzuo
+					   }
+					   if(res.data.lawyer.jiating){
 					   this.jiating_txt=res.data.lawyer.jiating
+					   }
+					   if(res.data.lawyer.hometown){
 					   this.guxiang=res.data.lawyer.hometown
+					   }
+					   if(res.data.lawyer.yuyan){
 					   this.yuyan=res.data.lawyer.yuyan
-				   
+					   }
+   
 			 });
-
+			 // 联系方式
+			 this.$http
+			 			 .post({
+			 			 	url: '/mlawyerapi/lawyer/lawyerinfo',
+			 			 	data:{
+			 			 		state:3
+			 			 	}
+			 			 })
+			 			 .then(res => {	
+							 if(res.data.lawyer.mobile){
+			 				this.dianhua=res.data.lawyer.mobile
+							 }
+							 if(res.data.lawyer.email){
+							 this.youxiang=res.data.lawyer.email
+							  }
+			                if(res.data.lawyer.weixin){
+			                this.weixin=res.data.lawyer.weixin
+			                 }
+			 				if(res.data.lawyer.address){
+			 				this.dizhi=res.data.lawyer.address
+			 				 }
+			 				
+			 			 });
+             // 更多信息
+			 this.$http
+			 			 .post({
+			 			 	url: '/mlawyerapi/lawyer/lawyerinfo',
+			 			 	data:{
+			 			 		state:4
+			 			 	}
+			 			 })
+			 			 .then(res => {	
+							 if(res.data.lawyer.mianmao){
+								 this.paibie=res.data.lawyer.mianmao
+							 }
+							 if(res.data.lawyer.zzzhiwu){
+							  this.zhiwu=res.data.lawyer.zzzhiwu
+							 }
+			 				if(res.data.lawyer.vehicle){
+			 				 this.gongjv=res.data.lawyer.vehicle
+			 				}
+			              if(res.data.lawyer.hobby){
+			               this.aihao=res.data.lawyer.hobby
+			              }
+			 				
+			 				
+			 			 });
+						 
+						 // 个人简介
+						 this.$http
+						 .post({
+						 	url: '/mlawyerapi/lawyer/lawyerinfo',
+						 	data:{
+						 		state:10
+						 	}
+						 })
+						 .then(res => {	
+						   	this.jianjie=res.data.lawyer.miaoshu
+						 });
 		},
 		methods: {
 			navigateBack() {
@@ -209,7 +351,14 @@ if(this.name==''){
 					xingzuo:this.xingzuo,
 					minzu:this.minzu,
 					jiating:this.jiating_txt,
-					yuyan:this.yuyan
+					yuyan:this.yuyan,
+					weixin:this.weixin,
+					youxiang:this.youxiang,
+					zhengzhi:this.paibie,
+					jiaotong:this.gongjv,
+					zhiwu:this.zhiwu,
+					aihao:this.aihao
+					
             	}
             })
             .then(res => {	

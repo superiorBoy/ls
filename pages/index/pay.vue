@@ -12,37 +12,52 @@
 					<text class="qian_30">服务项目</text>
 					<text class="hei_30">
 						{{type==1?'在线咨询':'电话咨询'}}
-						<image src="@/static/lsimg/go_r.png" mode="" class="go_r"></image>
+						
 					</text>
 				</view>
-				<view class="pay_list height_auto">
+				<view class="pay_list height_auto dis_fir">
 					<text class="qian_30">服务律师</text>
 					<view class="ls_item">
+						<view class="ls_item_top">
+						
 						<view class="ls_item_left">
-							<image :src="img_url+lvshi.photourl" mode=""></image>
+							<image :src="img_url+lvshi.photourl" mode="" class="ls_item_left_tx"></image>
+							<image src="@/static/img/renzheng2.png" mode="" class="ls_item_left_ren"></image>
 						</view>
-						<view class="ls_item_right">
-							<view class="hui_24 ls_item_right_top">
-								<text class="hei_28_bold">{{lvshi.nickname}}律师</text>
-								<text class="ls_dizhi"><image src="@/static/img/dianhua_dizhi.png" mode="" class="dianhua_dizhi"></image>{{lvshi.province}}-{{lvshi.city}}-{{lvshi.area}}</text>
-							</view>
-							<view class="hui_26 techang">
-								<view class="shanchang">擅长：</view>
-								<view class="techang_list hui_20">
-									
-									<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise1].shanchangname">{{zhuanchang_arry[lvshi.expertise1].shanchangname}}</text>
-									<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise2].shanchangname">{{zhuanchang_arry[lvshi.expertise2].shanchangname}}</text>
-									<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise3].shanchangname">{{zhuanchang_arry[lvshi.expertise3].shanchangname}}</text>
-								</view>
-							</view>
+					<view class="ls_item_right">
+						<view class="hui_24 ls_item_right_top">
+							<text class="hei_28_bold">{{lvshi.nickname}}律师</text>
+							<text class="ls_dianhua"><image src="@/static/img/dianhua_icon.png" mode="" class="dianhua_dizhi"></image>{{lvshi.mobile}}</text>
+						</view>
+						<view class="ls_dizhi hui_24">
+							<image src="@/static/img/dianhua_dizhi.png" mode="" class="dianhua_dizhi"></image>{{lvshi.province}}-{{lvshi.city}}-{{lvshi.area}}
 						</view>
 					</view>
+						
+					</view>
+					<view class="hui_26 techang">
+						<view class="shanchang">擅长:</view>
+						<view class="techang_list hui_20">
+							
+							<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise1].shanchangname">{{zhuanchang_arry[lvshi.expertise1].shanchangname}}</text>
+							<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise2].shanchangname">{{zhuanchang_arry[lvshi.expertise2].shanchangname}}</text>
+							<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise3].shanchangname">{{zhuanchang_arry[lvshi.expertise3].shanchangname}}</text>
+						</view>
+					</view>
+					</view>
+				</view>
+				<view class="pay_list">
+					<text class="qian_30">咨询类型</text>
+					<text class="hei_30">
+						家庭婚姻
+					</text>
 				</view>
 				<view class="pay_list wen_list">
 					<view class="qian_30 wen_list_top">咨询内容</view>
 					<textarea value="" placeholder="" class="hei_30 wen_neirong" v-model="neirong"/>
 					
 				</view>
+				
 				<view class="pay_list_jine">
 					<view class="pay_list_top">
 						<text class="qian_30">支付金额</text>
@@ -56,9 +71,15 @@
 						<text>99.00</text>
 					</view>
 				</view>
+				<view class="pay_list">
+					<text class="qian_30">咨询时长</text>
+					<text class="hong_30">
+						1小时
+					</text>
+				</view> 
 			</view>
 
-			<view class="fangshi_txt hei_30_bold">支付方式</view>
+			<view class="fangshi_txt qian_30">请选择支付方式</view>
 			<view class="fangshi">
 				<!-- <view class="fangshi_list_pay" @click="radio(1)">
 					<view class="fangshi_left hei_28">
@@ -291,20 +312,36 @@ page {
 		margin-left: 17rpx;
 }
 .ls_item{
+
+	background-color: #f8f8f8;
+	padding: 34rpx 14rpx 34rpx 46rpx;
+	width: 560rpx;
+	box-sizing: border-box;
+}
+.ls_item_top{
 	display: flex;
 	align-items: center;
-	background-color: #f8f8f8;
-	padding: 34rpx 14rpx;
-	max-width: 530rpx;
 }
 .ls_item_left{
 	margin-right: 15rpx;
+	position: relative;
 }
-.ls_item_left image{
+.ls_item_left_tx{
 		width: 81rpx;
 		height: 81rpx;
 		border-radius: 100%;
 }
+.ls_item_left_ren{
+	position: absolute;
+	right: 8rpx;
+	bottom: 6rpx;
+		width: 15rpx;
+		height: 16rpx;
+		border: 2rpx solid #FFFFFF;
+		background-color: #FFFFFF;
+		border-radius: 100%;
+}
+
 .dianhua_dizhi{
 		width: 20rpx;
 		height: 24rpx;
@@ -314,12 +351,13 @@ page {
 	
 	display: flex;
 	align-items: center;
+	margin-top: 20rpx;
 }
 .shanchang {
 	width: 90rpx;
 	height: 36rpx;
 	background-color: #e7e7e7;
-	margin-right: 0rpx;
+	margin-right:8rpx;
 	text-align: center;
 	
 }
@@ -329,7 +367,7 @@ page {
 	}
 .techang_list text {
 	line-height: 30rpx;
-	margin-right: -2rpx;
+	margin-right:8rpx;
 	padding: 2rpx 10rpx;
 	color: #ffffff;
 	
@@ -352,6 +390,18 @@ page {
 	margin-bottom: 20rpx;
 }
 .ls_dizhi{
+	
+}
+.ls_dianhua{
+	
 	margin-left: 20rpx;
+}
+.ls_dianhua image{
+		width: 23rpx;
+		height: 24rpx;
+		margin-right: 5rpx;
+}
+.dis_fir{
+	align-items: flex-start;
 }
 </style>

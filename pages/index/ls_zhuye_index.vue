@@ -185,7 +185,7 @@
 				</view>
 				<view class="zhanwei2" style="height: 120rpx;"></view>
 				<view class="bottom">
-					<view class="bottom_fenxiang">
+					<view class="bottom_fenxiang"@click="share">
 						<image src="@/static/img/share.png" mode=""></image>
 						<view class="hui_26">
 							分享
@@ -501,7 +501,13 @@ export default {
 			uni.navigateTo({
 				url:'pay?lawyerid='+lawyerid
 			})
-		}
+		},
+		// 分享
+		share(){
+			uni.navigateTo({
+				url:'sucai?state=1'
+			})
+		},
 	},
 	filters: {
 		timeStamp: function(value) {

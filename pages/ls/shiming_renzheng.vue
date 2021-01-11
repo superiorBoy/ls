@@ -102,19 +102,28 @@
 				.then(res => {
 					
 					if(res.data.lawyerauth){
-						this.tijiao_txt='提交修改'
-					}
-					if(res.data.lawyerauth.state==1){
-								
-					}else if(res.data.lawyerauth.state==3){
+						
+						if(res.data.lawyerauth.isreal==1){
+							this.tijiao_txt='提交修改'
+						}else if(res.data.lawyerauth.isreal==4){
+								this.tijiao_txt='认证中'
+					      }else if(res.data.lawyerauth.isreal==3){
 								this.tijiao_txt='失败：'+res.data.lawyerauth.reason
+					       }
+						
+						this.name=res.data.lawyerauth.nickname
+						this.danxuan=res.data.lawyerauth.sexid
+						this.zhiye_zhao=this.img_url+res.data.lawyerauth.photourl
+						this.shenfenhao=res.data.lawyerauth.idcard
+						this.zheng_img=this.img_url+res.data.lawyerauth.idcardfront
+						this.fan_img=this.img_url+res.data.lawyerauth.idcardback
+						
+						
 					}
-					this.name=res.data.lawyerauth.realname
-					this.danxuan=res.data.lawyerauth.sex
-					this.zhiye_zhao=this.img_url+res.data.lawyerauth.lawyerphoto
-					this.shenfenhao=res.data.lawyerauth.idcard
-					this.zheng_img=this.img_url+res.data.lawyerauth.idcardfront
-					this.fan_img=this.img_url+res.data.lawyerauth.idcardback
+					
+					
+				
+					
 				});
 
 		},
@@ -244,10 +253,14 @@
 				}
 
                if(this.tijiao_txt=='确认提交'){
-               	var url='/lawyer/lawyer/zx_zhiye_rz'
+               	var url='/lawyer/lawyer/zx_shiming_rz'
+               }else if(this.tijiao_txt=='认证中'){
+               	    return  false
                }else{
                	var url='/lawyer/lawyer/uprealname'
                }
+
+
 
 
 	      	this.$http

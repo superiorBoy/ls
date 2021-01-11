@@ -18,30 +18,48 @@
 			<view class="zixun_list">
 				<view class="zixun_item" v-for="(item,index) in zixun_list">
 
+<view class="zixun_item_top">
+	
 					<view class="zixun_item_left">
 						<view class="zixun_item_tx" @click="go_zhuye(item.lawyerid)">
-							<image :src="img_url+item.photourl" mode=""></image>
+							<image :src="img_url+item.photourl" mode="" class="zixun_item_tx_img"></image>
+							<image src="@/static/img/renzheng2.png" mode="" class="zixun_item_ren"></image>
 						</view>
 						<view class="zixun_item_xinxi">
 							<view class="hei_26" @click="go_zhuye(item.lawyerid)">
 								{{item.nickname}}律师
 							</view>
-							<view class="hong_26 zixun_item_feiyong">
-								￥{{item.paymoney}}
+							<view class="qian_22 zixun_item_feiyong">
+							        {{ item.addtime | timeStamp }}
 							</view>
-							<view class="hei_26" v-if="item.typeid">
-								{{ fenlei[item.typeid].typename }}
-							</view>
+							
 						</view>
 					</view>
 	      <view class="zixun_item_right">
-					<view :class="['item_zhuangtai bai_26',  item.zixunstate == 1 ? 'daifu':item.zixunstate == 2?'yifu':item.zixunstate == 3?'zhengzai':'jieshu' ]">{{ item.zixunstate == 1 ? '未付款':item.zixunstate == 2?'已付款':item.zixunstate == 3?'接单中':'已完成' }}</view>
-			<view class="zixun hong_20" @click="go_chat(item.lawyerid)">
+					<view :class="['',item.zixunstate == 4?'qian_26_bold':'lv_26_bold']">{{ item.zixunstate == 1 ? '未付款':item.zixunstate == 2?'已付款':item.zixunstate == 3?'接单中':'已完成' }}</view>
+		<!-- 	<view class="zixun hong_20" @click="go_chat(item.lawyerid)">
 				<image src="@/static/lsimg/xiaoxi.png" mode=""></image>
 				在线联系
+			</view> -->
 			</view>
 			</view>
+			<view class="zixun_item_leixing hui_26" >
+				<text v-if="item.typeid">咨询类型：{{ fenlei[item.typeid].typename }}</text>  <text class="hong_26 zixun_item_jiage">￥{{item.paymoney}}/小时</text>
+			</view>
+			<view class="zixun_item_top_bottom" @click="pay(item.lawyerid)">
+				<view class="fukuan lv_26" v-if="item.zixunstate == 1">
+					立即付款
 				</view>
+				<view class="iten_lianxi lv_26" @click="go_chat(item.lawyerid)">
+				 	<image src="@/static/img/zaixian_chat.png" mode=""></image>在线联系
+				</view>
+			</view>
+			
+				</view>
+				
+				
+				
+				
 			</view>
 		</view>
 
@@ -192,6 +210,7 @@
 				this.$refs.popup.open()
 
 			},
+			
 
 			// 专长选择
 			xuanzhuangchang(index, item,id) {
@@ -229,6 +248,11 @@
 				this.huoqu_list()
 				
 			},
+			pay(id){
+				uni.navigateTo({
+					url:'pay?lawyerid='+id+'&type=1'
+				})
+			},
 			huoqu_list(){
 				this.$http.post({
 						url: '/mapi/consult/zixunlists',
@@ -256,6 +280,25 @@
 				})
 			},
 
+		},
+		filters: {
+			timeStamp: function(value) {
+				if(value==null){
+					return 'null'
+				}
+				var i = (value + '').length;
+				while (i++ < 13) value = value + '0';
+				value = Number(value);
+				var date = new Date(value);
+				//date.setTime(value);
+				var month = date.getMonth() + 1;
+				var hours = date.getHours();
+				if (hours < 10) hours = '0' + hours;
+				var minutes = date.getMinutes();
+				if (minutes < 10) minutes = '0' + minutes;
+				var time = date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + hours + ':' + minutes;
+				return time;
+			}
 		}
 	}
 </script>
@@ -284,24 +327,42 @@
 		height: 41rpx;
 	}
 
-	.zixun_item_tx image {
+	.zixun_item_tx_img  {
+	width: 100%;
+	height: 100%;
+		box-sizing: border-box;
+		
+		border-radius: 100%;
+	}
+	.zixun_item_tx{
 		width: 80rpx;
 		height: 81rpx;
-		box-sizing: border-box;
+		position: relative;
 		margin-right: 18rpx;
 	}
-
+.zixun_item_ren{
+		width: 15rpx;
+		height: 16rpx;
+		background-color: #ffffff;
+		border: solid 2rpx #ffffff;
+		position: absolute;
+		right: 8rpx;
+		bottom: 0;
+		border-radius: 100%;
+		
+}
 	.zixun_item {
-		display: flex;
-		align-items: center;
-		height: 191rpx;
+		
 		background-color: #ffffff;
 		margin-bottom: 20rpx;
-		justify-content: space-between;
-		padding: 0 49rpx 0 30rpx;
+		padding: 30rpx 49rpx 0rpx 30rpx;
 		box-sizing: border-box;
 	}
-
+.zixun_item_top{
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+}
 	.zixun_item:first-child {
 		margin-top: 20rpx;
 	}
@@ -311,18 +372,14 @@
 	}
 
 	.zixun_item_feiyong {
-		margin: 18rpx 0;
+		margin: 18rpx 0 0;
 	}
 
 	.item_zhuangtai {
-		width: 164rpx;
-		height: 50rpx;
-
-		border-radius: 5rpx;
+		
 		/* -moz-transform: rotate(-10deg); */
 		/* -webkit-transform: rotate(-10deg); */
-		text-align: center;
-		line-height: 46rpx;
+	
 	}
 
 	.zhengzai {
@@ -462,5 +519,43 @@
 		width: 18rpx;
 		height: 18rpx;
 		margin-right: 5rpx;
+	}
+	.zixun_item_leixing{
+		
+		margin: 15rpx 0;
+	}
+	.zixun_item_jiage{
+		margin-left: 9rpx;
+	}
+	.iten_lianxi{
+			width: 186rpx;
+			height: 60rpx;
+			background-color: #ffffff;
+			border-radius: 30rpx;
+			border: solid 1rpx #0eb77e;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+	}
+	.iten_lianxi image{
+			width: 28rpx;
+			height: 27rpx;
+			margin-right: 10rpx;
+	}
+	.zixun_item_top_bottom{
+		display: flex;
+		justify-content: flex-end;
+		border-top: 2rpx dashed #c6c6c6;
+		padding:  20rpx 0;
+	}
+	.fukuan{
+		width: 187rpx;
+			height: 60rpx;
+			background-color: #ffffff;
+			border-radius: 30rpx;
+			border: solid 1rpx #0eb77e;
+			line-height: 60rpx;
+			text-align: center;
+			margin-right: 20rpx;
 	}
 </style>

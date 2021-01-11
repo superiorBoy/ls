@@ -453,6 +453,7 @@ import uParse from '@/components/feng-parse/parse.vue';
 		padding: 10rpx 20rpx;
 		border-radius: 10rpx;
 		top: 20rpx;
+		word-break: break-all;
 	}
 
 	.chat_left_txt::before {
@@ -477,6 +478,7 @@ import uParse from '@/components/feng-parse/parse.vue';
 		padding: 10rpx 20rpx;
 		border-radius: 10rpx;
 		top: 20rpx;
+		word-break: break-all;
 		
 	}
 
@@ -581,4 +583,7 @@ import uParse from '@/components/feng-parse/parse.vue';
 	font-size: 20rpx;
 	left: 0;
 }
+
+
+
 </style>

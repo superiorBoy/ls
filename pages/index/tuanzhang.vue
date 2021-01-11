@@ -138,61 +138,20 @@
 					</view>
 				</view>
 				<view class="paihang_list" v-if="login=='1'">
-				<view class="paihang_item">
+				<view class="paihang_item" v-for="(item,index) in paihang">
 					<view class="paihang_item_left hei_28">
 					<view class="paihang_item_left_paiming">
-						1
+						{{index+1}}
 					</view>	
-					150*******54
+					{{item.mobile}}
 					</view>	
 					<view class="paihang_item_right hong_20">
-						￥<text class="hong_30_bold">1290.41</text>
+						￥<text class="hong_30_bold">{{item.summoney}}</text>
 					</view>	
 				</view>	
-				<view class="paihang_item">
-					<view class="paihang_item_left hei_28">
-					<view class="paihang_item_left_paiming">
-						2
-					</view>	
-					150*******54
-					</view>	
-					<view class="paihang_item_right hong_20">
-						￥<text class="hong_30_bold">1290.41</text>
-					</view>	
-				</view>
-				<view class="paihang_item">
-					<view class="paihang_item_left hei_28">
-					<view class="paihang_item_left_paiming">
-						3
-					</view>	
-					150*******54
-					</view>	
-					<view class="paihang_item_right hong_20">
-						￥<text class="hong_30_bold">1290.41</text>
-					</view>	
-				</view>
-				<view class="paihang_item">
-					<view class="paihang_item_left hei_28">
-					<view class="paihang_item_left_paiming">
-						4
-					</view>	
-					150*******54
-					</view>	
-					<view class="paihang_item_right hong_20">
-						￥<text class="hong_30_bold">1290.41</text>
-					</view>	
-				</view>
-				<view class="paihang_item">
-					<view class="paihang_item_left hei_28">
-					<view class="paihang_item_left_paiming">
-						5
-					</view>	
-					150*******54
-					</view>	
-					<view class="paihang_item_right hong_20">
-						￥<text class="hong_30_bold">1290.41</text>
-					</view>	
-				</view>
+			
+				
+				
 				</view>
 			
 			</view>
@@ -214,7 +173,8 @@ export default {
 		lianjie:'',
 		deng_txt:'立即登录',  //复制邀请链接 --- 立即登录
 		user:'',
-		login:'2'
+		login:'2',
+		paihang:[]
 		};
 	},
 	created() {
@@ -247,7 +207,7 @@ export default {
 	      			}else{
 	      				this.login='1'
 	      				this.huoqu_lianjie()
-	      				
+	      				this.huoqu_paihang()
 	      				
 	      			}
 	      			
@@ -263,6 +223,16 @@ export default {
 	      			this.lianjie=res.data.inviteurl
 	      	   	});
 	         },
+			 huoqu_paihang(){
+				this.$http
+					.post({
+						url: '/mapi/user/rewardlist'
+					})
+					.then(res => {
+						this.paihang=res.data.rewardlist
+						
+					}); 
+			 },
 			 lianjiego(){
 			 	if(this.deng_txt=='立即登录'){
 			 		wx.navigateTo({

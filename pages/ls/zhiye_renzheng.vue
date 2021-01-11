@@ -48,6 +48,11 @@
 			</view>
 			<view class="shiming_list hei_28">
 				<view class="shiming_list_left">
+					详细地址
+				</view> <input type="text" value="" placeholder="请输入详细地址" class="qian_28" v-model="xiangxi" />
+			</view>
+			<view class="shiming_list hei_28">
+				<view class="shiming_list_left">
 					执业律所
 				</view> <input type="text" value="" placeholder="请输入律所名称" class="qian_28" v-model="lvsuo" />
 			</view>
@@ -69,7 +74,7 @@
 
 			<view class="renzheng_btn">
 
-				<button type="" :class="['tijao bai_30',zhenghao==''||zhuanchang=='第一专长 第二专长 第三专长'|| zhiwu==''||nianfen==''||dizhi=='执业的地区'||lvsuo==''||gaikuo==''||shouji==''||zheng_img==''?'sty_dis':''] "  @click="tijiao" :disabled="zhenghao==''||zhuanchang=='第一专长 第二专长 第三专长'|| zhiwu==''||nianfen==''||dizhi=='执业的地区'||lvsuo==''||gaikuo==''||zheng_img==''">{{tijiao_txt}}</button>
+				<button type="" :class="['tijao bai_30',shouji==''||zhenghao==''||zhuanchang=='第一专长 第二专长 第三专长'|| zhiwu==''|| dizhi=='执业的地区'||lvsuo==''||gaikuo==''||shouji==''||zheng_img==''?'sty_dis':''] "  @click="tijiao" :disabled="zhenghao==''||zhuanchang=='第一专长 第二专长 第三专长'|| zhiwu==''||nianfen==''||dizhi=='执业的地区'||lvsuo==''||gaikuo==''||zheng_img==''">{{tijiao_txt}}</button>
 			</view>
 
 
@@ -94,7 +99,7 @@
 				zhenghao: '',
 				zhuanchang:'',
 				zhiwu: '',
-				nianfen: '',
+				nianfen:'',
 				dizhi:'',
 				lvsuo: '',
 				gaikuo: '',
@@ -105,7 +110,8 @@
 				huoqu_zhuang:[],
 				tijiao_txt:'确认提交',
 				shan_id:[],
-				state:0
+				state:0,
+				xiangxi:''
 			}
 		},
 		components: {
@@ -163,30 +169,33 @@
 						
 						
 						if(res.data.lawyerauth){
-							this.tijiao_txt='提交修改'
-							this.state=2
+							
+							if(res.data.lawyerauth.iszhiye==1){
+								this.tijiao_txt='提交修改'
+								this.state=2
+							}else if(res.data.lawyerauth.iszhiye==3){
+								this.tijiao_txt='失败：'+res.data.lawyerauth.reason	
+							}else if(res.data.lawyerauth.iszhiye==4){
+								this.tijiao_txt='认证中'
+							}
+							
+							this.shouji=res.data.lawyerauth.mobile
+							this.zhenghao=res.data.lawyerauth.zhiye
+							this.zhiwu=res.data.lawyerauth.zhiwu
+							this.xiangxi=res.data.lawyerauth.address
+							this.lvsuo=res.data.lawyerauth.lvsuo
+							this.gaikuo=res.data.lawyerauth.miaoshu
+							this.zheng_img=uni.getStorageSync('img_url')+res.data.lawyerauth.zhiyephoto
+							this.dizhi=res.data.lawyerauth.province+"-"+res.data.lawyerauth.city+"-"+res.data.lawyerauth.area
+							this.nianfen=res.data.lawyerauth.zhiyenianfen
+							this.zhuanchang=this.huoqu_zhuang[res.data.lawyerauth.expertise1].shanchangname+"-"+this.huoqu_zhuang[res.data.lawyerauth.expertise2].shanchangname+"-"+this.huoqu_zhuang[res.data.lawyerauth.expertise3].shanchangname
+							
+							this.shan_id=[]
+							this.shan_id.push(res.data.lawyerauth.expertise1)
+							this.shan_id.push(res.data.lawyerauth.expertise2)
+							this.shan_id.push(res.data.lawyerauth.expertise3)
 						}
-						
-						
-						if(res.data.lawyerauth.state==2){
-									
-								}else if(res.data.lawyerauth.state==3){
-									this.tijiao_txt='失败：'+res.data.lawyerauth.reason
-								}
-								this.shouji=res.data.lawyerauth.phone
-								this.zhenghao=res.data.lawyerauth.zhiye
-								this.zhiwu=res.data.lawyerauth.zhiwu
-								this.lvsuo=res.data.lawyerauth.lvsuo
-								this.gaikuo=res.data.lawyerauth.survey
-								this.zheng_img=uni.getStorageSync('img_url')+res.data.lawyerauth.zhiyephoto
-								this.dizhi=res.data.lawyerauth.province+"-"+res.data.lawyerauth.city+"-"+res.data.lawyerauth.area
-								this.nianfen=res.data.lawyerauth.zhiyenianfen
-								this.zhuanchang=this.huoqu_zhuang[res.data.lawyerauth.expertise1].shanchangname+"-"+this.huoqu_zhuang[res.data.lawyerauth.expertise2].shanchangname+"-"+this.huoqu_zhuang[res.data.lawyerauth.expertise3].shanchangname
-								
-								this.shan_id=[]
-								this.shan_id.push(res.data.lawyerauth.expertise1)
-								this.shan_id.push(res.data.lawyerauth.expertise2)
-								this.shan_id.push(res.data.lawyerauth.expertise3)
+	
 					});
 				
 			},
@@ -243,7 +252,14 @@
 			},
 			tijiao() {
 
-
+            if (this.shouji == '') {
+					uni.showToast({
+						title: '请输入手机号码',
+						duration: 2000,
+						icon: "none"
+					});
+					return false
+				} 
 				if (this.zhenghao == '') {
 					uni.showToast({
 						title: '请输入执业证号',
@@ -275,6 +291,13 @@
 				}else if (this.dizhi == '') {
 					uni.showToast({
 						title: '请选择地址',
+						duration: 2000,
+						icon: "none"
+					});
+					return false
+				}else if (this.xiangxi == '') {
+					uni.showToast({
+						title: '请输入详细地址',
 						duration: 2000,
 						icon: "none"
 					});
@@ -311,7 +334,9 @@
 				
 				if(this.tijiao_txt=='确认提交'){
 					var url='/lawyer/lawyer/zx_zhiye_rz'
-				}else{
+				}else if(this.tijiao_txt=='认证中'){
+               	    return  false
+               }else{
 					var url='/lawyer/lawyer/upzhiye'
 				}
 				
@@ -330,6 +355,7 @@
 								sheng:di[0],
 								shi:di[1],
 								qu:di[2],
+								address:this.xiangxi,
 								dizhi:this.dizhi,
 								gaikuo:this.gaikuo
 						}

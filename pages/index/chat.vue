@@ -441,7 +441,7 @@ export default {
 
 .chat_left_txt {
 	max-width: 470rpx;
-	
+	word-break: break-all;
 	padding: 10rpx 20rpx;
 	border-radius: 10rpx;
 	background-color: #f6f6f6;
@@ -464,6 +464,7 @@ export default {
 	padding: 10rpx 20rpx;
 	border-radius: 10rpx;
 	top: 20rpx;
+	word-break: break-all;
 }
 
 .chat_left_txt::before {

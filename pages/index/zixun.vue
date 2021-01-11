@@ -6,7 +6,7 @@
 				<input type="text" value="" confirm-type="search" class="hei_24" @confirm="search" v-model="sou_txt"  placeholder="输入您要查找的问题"/>
 		
 			</view>
-			<view class=" head_right bai_30_bold tiwen_btn"><navigator url="tiwen"><image src="@/static/img/tiwen_xie.png" mode=""></image>提问</navigator></view>
+			<view class=" head_right bai_30_bold tiwen_btn"><navigator url="tiwen"><image src="@/static/img/tiwen_xie.png" mode=""></image>我要提问</navigator></view>
 		</view>
         <view class="tab_top hui_26">
         	<pickerAddress2 @change="change" class="aaaaaa">
@@ -100,7 +100,9 @@ export default {
 			sou_txt: '',
 			tishi: true,
 			paixu_arry: ['综合排序', '最新排序', '热门排序'],
-			shanchang_id:''
+			shanchang_id:'',
+			sheng:'',
+			shi:''
 		};
 	},
 	created() {},
@@ -215,7 +217,10 @@ export default {
 					url: '/mapi/consult/zixunlist',
 					data: {
 						page: this.page,
-						type: this.zixun_state
+						type: this.zixun_state,
+						province:this.sheng,
+						city:this.shi,
+						typeid:this.shanchang_id
 					}
 				})
 				.then(res => {
@@ -416,7 +421,7 @@ export default {
 	margin-left: 22rpx;
 }
 .sousuo {
-		width:65%;
+		width:55%;
 	position: relative;
 	display: flex;
 	align-items: center;
@@ -445,7 +450,7 @@ export default {
 	box-sizing: border-box;
 }
 .tiwen_btn{
-		width: 130rpx;
+		width: 200rpx;
 		height: 55rpx;
 		background-color: #0eb77e;
 		border-radius: 28rpx;

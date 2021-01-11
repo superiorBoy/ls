@@ -3,15 +3,17 @@
     "appid" : "__UNI__6204E51",
     "description" : "小虎律师-在线法律咨询-专业律师咨询",
     "versionName" : "1.0.0",
-    "versionCode" : 101,
+    "versionCode" : 102,
     "transformPx" : false,
     "app-plus" : {
         "nvueCompiler" : "uni-app",
         "compilerVersion" : 3,
         "modules" : {
             "Payment" : {},
+            "Maps" : {},
             "Push" : {},
-            "Maps" : {}
+            "Share" : {},
+            "SQLite" : {}
         },
         "compatible" : {
             "ignoreVersion" : true //true表示忽略版本检查提示框，HBuilderX1.9.0及以上版本支持  
@@ -52,7 +54,12 @@
                 "push" : {
                     "unipush" : {}
                 },
-                "share" : {},
+                "share" : {
+                    "weixin" : {
+                        "appid" : "wx5c69cd2b0a97ed55",
+                        "UniversalLinks" : ""
+                    }
+                },
                 "payment" : {
                     "alipay" : {
                         "__platform__" : [ "ios", "android" ]

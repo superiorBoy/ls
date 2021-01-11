@@ -27,11 +27,11 @@
 					</view>
 					<view class="xq_top_item2">
 						<image src="@/static/img/changshi_time.png" mode=""></image>
-						2020-08-06
+						{{ data.addtime | timeStamp }}
 					</view>
 					<view class="xq_top_item3">
 						<image src="@/static/img/changshi_liulan.png" mode=""></image>
-						44125浏览
+						{{data.readnum}}浏览
 					</view>
 				</view>
 				<view class="zhaiyao hui_26" v-if="data.daodu != ''">{{ data.daodu }}</view>
@@ -142,6 +142,25 @@ export default {
 			uni.switchTab({
 				url:'index'
 			})
+		}
+	},
+	filters: {
+		timeStamp: function(value) {
+			if (value == null) {
+				return 'null';
+			}
+			var i = (value + '').length;
+			while (i++ < 13) value = value + '0';
+			value = Number(value);
+			var date = new Date(value);
+			//date.setTime(value);
+			var month = date.getMonth() + 1;
+			var hours = date.getHours();
+			if (hours < 10) hours = '0' + hours;
+			var minutes = date.getMinutes();
+			if (minutes < 10) minutes = '0' + minutes;
+			var time = date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + hours + ':' + minutes;
+			return time;
 		}
 	}
 };

@@ -1,431 +1,707 @@
 <template>
-
 	<view class="body">
 		<view class="head">
-			<view class="head_back">
-				<image src="@/static/img/back.png" mode="" @click="navigateBack()"></image>
-			</view>
+			<view class="head_back"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
 			<view class="head_center hei_38_bold">素材圈</view>
-			<view class=" head_right">
-				<image src="@/static/lsimg/sousuo.png" mode="" @click="tan"></image>
-			</view>
+			<view class=" head_right"></view>
 		</view>
 		<view class="tab_top hui_26">
-			<text v-for="(item,index) in tab_arry" :class="['' ,index==active?'sucai_active': '']" @click="qiehuan(index)">{{item}}</text>
+			<text v-for="(item, index) in tab_arry" :class="['', index == active ? 'sucai_active' : '']" @click="qiehuan(index)">{{ item }}</text>
 		</view>
 		<view class="zi_body tab_zi_body">
-
-
-			<view class="jingxuan_body" v-if="active==0">
-				<view class="jingxuan_item" v-for="item in 5">
+			<view class="jingxuan_body" v-if="active == 0">
+				<view class="jingxuan_item" v-for="item in 10">
 					<view class="jingxuan_item_top">
 						<view class="jingxuan_item_top_left">
-						<image src="@/static/img/xh_tx.png" mode="" class="xh_tx"></image>
-						<view class="jingxuan_item_top_r">
-							<view class="hei_32 jingxuan_item_name">
-								虎哥推荐
-							</view>
-							<view class="qian_24">
-								2020-01-05 15:20:14
+							<image src="@/static/img/xh_tx.png" mode="" class="xh_tx"></image>
+							<view class="jingxuan_item_top_r">
+								<view class="hei_32 jingxuan_item_name">虎哥推荐</view>
+								<view class="qian_24">2020-01-05 15:20:14</view>
 							</view>
 						</view>
-						</view>
-						<view class="jing_fenxiang lv_22">
-							<image src="@/static/img/yijian_fenxiang.png" mode=""></image>一键分享
+						<view class="jing_fenxiang lv_22" @click="jingxuan_share()">
+							<image src="@/static/img/yijian_fenxiang.png" mode=""></image>
+							一键分享
 						</view>
 					</view>
-					
-					<view class="jingxuan_wenti hei_26">
-						丈夫挪用公款赌博妻子需要承担责任吗?
-					</view>
+
+					<view class="jingxuan_wenti hei_26">丈夫挪用公款赌博妻子需要承担责任吗?</view>
 					<view class="jingxuan_jieda hui_24">
 						<text class="bai_20">精选解答</text>
-						丈夫挪用公款赌博，如果妻子不知情，是不用承担法律责任的。
-						只是调查过，没有证据完全可以证明妻子知情，或者证据不充分，
-						也不能作为证据使用，作为证据使用，必须形成证据链。如果妻
-						子明知丈夫挪用公款进行赌博，在司法机关调查时，还进行包庇，
-						情节严重的，依法应追究刑事责任。法律链接：《刑法》第三百
-						一十条　明知是犯罪的人而为其提供隐藏处所、财物，帮助其逃
-						匿或者作假证明包庇的，处三年以下有期徒刑、拘役或者管制；
-						情节严重的，处三年以上十年以下有期徒刑。
+						丈夫挪用公款赌博，如果妻子不知情，是不用承担法律责任的。 只是调查过，没有证据完全可以证明妻子知情，或者证据不充分，
+						也不能作为证据使用，作为证据使用，必须形成证据链。如果妻 子明知丈夫挪用公款进行赌博，在司法机关调查时，还进行包庇，
+						情节严重的，依法应追究刑事责任。法律链接：《刑法》第三百 一十条 明知是犯罪的人而为其提供隐藏处所、财物，帮助其逃
+						匿或者作假证明包庇的，处三年以下有期徒刑、拘役或者管制； 情节严重的，处三年以上十年以下有期徒刑。
 					</view>
 					<view class="jingxuan_ls">
 						<view class="jingxuan_ls_left">
 							<view class="jingxuan_ls_left_tx">
 								<image src="@/static/img/tx.png" mode="" class="jingxuan_ls_tx"></image>
-								<image src="@/static/img/renzheng.png" mode="" class="jingxuan_ls_ren"></image>
+								<image src="@/static/img/renzheng2.png" mode="" class="jingxuan_ls_ren"></image>
 							</view>
 							<text class="hei_26 jingxuan_ls_name">樊柯律师</text>
-							<text class="hui_22">18938874792 </text>
+							<text class="hui_22">18938874792</text>
 						</view>
 						<text class="qian_24">2021-01-06 15:21:45</text>
 					</view>
-					
 				</view>
 			</view>
 
-           <view class="jingxuan_body" v-if="active==1">
-           	<view class="jingxuan_item" v-for="item in 5">
-           		<view class="jingxuan_item_top">
-           			<view class="jingxuan_item_top_left">
-           			<image src="@/static/img/xh_tx.png" mode="" class="xh_tx"></image>
-           			<view class="jingxuan_item_top_r">
-           				<view class="hei_32 jingxuan_item_name">
-           					虎哥推荐
-           				</view>
-           				<view class="qian_24">
-           					2020-01-05 15:20:14
-           				</view>
-           			</view>
-           			</view>
-           			<view class="jing_fenxiang lv_22">
-           				<image src="@/static/img/yijian_fenxiang.png" mode=""></image>一键分享
-           			</view>
-           		</view>
-           		<view class="yingxiao_item_bottom">
-           			
-					<view class="yingxiao_item_wen hei_28">
-						<text class="bai_20_bold">问</text>死亡理赔一定非要提供火化证明吗？
+			<!-- 营销素材 -->
+			<view class="jingxuan_body" v-if="active == 1">
+				<view class="jingxuan_item" v-for="item in 5">
+					<view class="jingxuan_item_top">
+						<view class="jingxuan_item_top_left">
+							<image src="@/static/img/xh_tx.png" mode="" class="xh_tx"></image>
+							<view class="jingxuan_item_top_r">
+								<view class="hei_32 jingxuan_item_name">虎哥推荐</view>
+								<view class="qian_24">2020-01-05 15:20:14</view>
+							</view>
+						</view>
+						<view class="jing_fenxiang lv_22" >
+							<image src="@/static/img/yijian_fenxiang.png" mode=""></image>
+							一键分享
+						</view>
 					</view>
-					<view class="yingxiao_item_da">
-						<text class="bai_20_bold">问</text>
-						<view class="yingxiao_item_da_item">
-							<view class="yingxiao_item_da_item_top">
-							   <view class="yingxiao_item_da_item_tx">
+					<view class="yingxiao_item_bottom">
+						<view class="yingxiao_item_wen hei_28">
+							<text class="bai_20_bold kuang_txt">问</text>
+							死亡理赔一定非要提供火化证明吗？
+						</view>
+						<view class="yingxiao_item_da">
+							<text class="bai_20_bold kuang_txt">答</text>
+							<view class="yingxiao_item_da_item">
+								<view class="yingxiao_item_da_item_top">
+									<view class="yingxiao_item_da_item_t">
+										<view class="yingxiao_item_da_item_tx">
+											<image src="@/static/lsimg/moren_tx.png" mode="" class="yingxiao_tx"></image>
+											<image src="@/static/img/renzheng2.png" mode="" class="yingxiao_ren"></image>
+										</view>
+										<text class="hei_26 yingxiao_item_name">樊柯律师</text>
+										<text class="hui_22">18938874792</text>
+									</view>
+									<view class="qian_24">
+										您好，关于您的这个问题，我们遇到的比较多，无法 一下子详细说清楚，当面或语音交流更方便，建议您 若有意向找律师的话可直接咨询我们。
+									</view>
 								</view>
-								<view class="qian_24">
-									您好，关于您的这个问题，我们遇到的比较多，无法								一下子详细说清楚，当面或语音交流更方便，建议您								若有意向找律师的话可直接咨询我们。
+							</view>
+						</view>
+						<view class="yingxiao_item_da">
+							<text class="bai_20_bold kuang_txt">答</text>
+							<view class="yingxiao_item_da_item">
+								<view class="yingxiao_item_da_item_top">
+									<view class="yingxiao_item_da_item_t">
+										<view class="yingxiao_item_da_item_tx">
+											<image src="@/static/lsimg/moren_tx.png" mode="" class="yingxiao_tx"></image>
+											<image src="@/static/img/renzheng2.png" mode="" class="yingxiao_ren"></image>
+										</view>
+										<text class="hei_26 yingxiao_item_name">樊柯律师</text>
+										<text class="hui_22">18938874792</text>
+									</view>
+									<view class="qian_24">
+										您好，关于您的这个问题，我们遇到的比较多，无法 一下子详细说清楚，当面或语音交流更方便，建议您 若有意向找律师的话可直接咨询我们。
+									</view>
 								</view>
 							</view>
 						</view>
 					</view>
-					
-					
-           		</view>
-           		
-           		
-           		
-           		
-           	</view>
-           </view>
+				</view>
+			</view>
 
+			<!-- 分享海报 -->
+			<view class="jingxuan_body sucai_body" v-if="active == 2">
+				<view class="lunbo">
+					<swiper
+						:indicator-dots="false"
+						:autoplay="false"
+						circular="true"
+						easing-function="default"
+						:interval="5000"
+						indicator-color="#c7c7c7"
+						indicator-active-color="#ffffff"
+						:duration="500"
+						class="swiper"
+						@change="swiperchang"
+					>
+						<swiper-item v-for="item in banner">
+							<view class="swiper-item"><image :src="item.img"></image>
+							<view class="yaoqing_kuling">
+								邀请口令:HM56A4XC
+							</view>
+							<view class="yaoqing_erweima">
+								<image src="@/static/img/erweima.png" mode=""></image>
+							</view>
+							</view>
+						</swiper-item>
+					</swiper>
 
-
+					<view class="dots">
+						<block v-for="(item, index) in banner"><view :class="['dot', index == current ? 'active' : '']"></view></block>
+					</view>
+				</view>
+				<view class="haibao_bottom">
+					<view class="haibao_bottom_left hei_22">
+						<image src="@/static/img/haibao_lian.png" mode=""></image>复制分享链接
+					</view>
+					<view class="haibao_bottom_right bai_22">
+						<image src="@/static/img/haibao_fen.png" mode=""></image>分享专属海报
+					</view>
+				</view>
+			</view>
+			
+			<!-- 商学院 -->
+			<view class="jingxuan_body " v-if="active ==3">
+				<view class="shangxue_list">
+					<view class="shangxue_item">
+						<view class="shangxue_item_left">
+						<image src="@/static/img/shangxue1.png" mode=""></image>
+						</view>
+						<view class="shangxue_item_right">
+							<view class="shangxue_item_title hei_28_bold">
+							<text >置顶</text>	小虎律师 常见问题
+							</view>
+							<view class="shangxue_item_time qian_24">
+								<image src="@/static/img/shipin_time.png" mode=""></image>2021-01-06
+							</view>
+						</view>
+					</view>
+					<view class="shangxue_item">
+						<view class="shangxue_item_left">
+						<image src="@/static/img/shangxue2.png" mode=""></image>
+						</view>
+						<view class="shangxue_item_right">
+							<view class="shangxue_item_title hei_28_bold">
+							<text >置顶</text>	如何升级做团长
+							</view>
+							<view class="shangxue_item_time qian_24">
+								<image src="@/static/img/shipin_time.png" mode=""></image>2021-01-06
+							</view>
+						</view>
+					</view>
+					<view class="shangxue_item">
+						<view class="shangxue_item_left">
+						<image src="@/static/img/shangxue3.png" mode=""></image>
+						</view>
+						<view class="shangxue_item_right">
+							<view class="shangxue_item_title hei_28_bold">
+							律师入驻须知
+							</view>
+							<view class="shangxue_item_time qian_24">
+								<image src="@/static/img/shipin_time.png" mode=""></image>2021-01-06
+							</view>
+						</view>
+					</view>
+					<view class="shangxue_item">
+						<view class="shangxue_item_left">
+						<image src="@/static/img/shangxue4.png" mode=""></image>
+						</view>
+						<view class="shangxue_item_right">
+							<view class="shangxue_item_title hei_28_bold">
+							小虎律师免责声明
+							</view>
+							<view class="shangxue_item_time qian_24">
+								<image src="@/static/img/shipin_time.png" mode=""></image>2021-01-06
+							</view>
+						</view>
+					</view>
+				</view>
+				
+			</view>
+			
 			
 		</view>
-
-		
 	</view>
-
 </template>
 
 <script>
-	
-
-	export default {
-
-		onShow() {
-
-		},
-
-		data() {
-			return {
-				img_url: uni.getStorageSync('img_url'),
-				tab_arry: ['精选回答', '营销素材', '分享海报','商学院'],
-				active: 1,
-				page:0,
-				is_all:false,
-				zixun_list: [],
-			
-			}
-		},
-		created() {
-
-		},
-		onLoad() {
-			
+export default {
+	onShow() {
 		
-			
-		},
-		//下拉刷新
-		onPullDownRefresh: function() {
-			this.page=0
-			this.type_id=''
-			this.name = ''
-			this.xuanzc = '999'
-			this.zhuanchang_txt=''
-			this.zhuanchang_txt2=''
-			this.zixun_list=[]
-			this.is_all=false
-			this.huoqu_list()
-			
-		},
-		// stopPullDownRefresh:function(){
+		
+	},
 
-		// },
-		methods: {
-			//上拉加载
-			onReachBottom() {
-			  if(this.is_all){
+	data() {
+		return {
+			img_url: uni.getStorageSync('img_url'),
+			tab_arry: ['精选回答', '营销素材', '分享海报', '商学院'],
+			active: 0,
+			page: 0,
+			is_all: false,
+			zixun_list: [],
+			banner: [
+				{
+					img: '../../static/img/haibao1.png'
+				},
+				{
+					img: '../../static/img/haibao2.png'
+				},
+
+			],
+			current: 0
+		};
+	},
+	created() {},
+	onLoad(option) {
+		if(option.state){
+			this.active=option.state
+		}
+		
+		this.huoqu_jingxuan()
+	},
+	//下拉刷新
+	onPullDownRefresh: function() {
+
+		
+	},
+	// stopPullDownRefresh:function(){
+
+	// },
+	methods: {
+		//上拉加载
+		onReachBottom() {
+			if (this.is_all) {
 				uni.showToast({
 					title: '没有更多内容了',
 					duration: 2000,
-					icon: "none"
+					icon: 'none'
 				});
 				uni.stopPullDownRefresh();
-				return false
-			}else{
-				this.page++
-				this.huoqu_list()
+				return false;
+			} else {
+				this.page++;
+				// this.huoqu_list()
 			}
-			},
-			navigateBack() {
-				uni.navigateBack()
-			},
-			// 切换tab
-			qiehuan(index) {
-				this.active = index
-				this.zhuangtai=index
-				
-				
-					this.zixunstate=index
-			if(index==0){
-				this.zixunstate=''
-			}					this.page=0
-					this.type_id=''
-					this.name = ''
-					this.xuanzc = '999'
-					this.zhuanchang_txt=''
-					this.zhuanchang_txt2=''
-					this.zixun_list=[]
-					this.is_all=false
-					this.huoqu_list()
-			},
-			huifu() {
-				// this.$refs.huifu.open()
-			},
-		
+		},
+		navigateBack() {
+			uni.navigateBack();
+		},
+		// 切换tab
+		qiehuan(index) {
+			this.active = index;
 
-		
-			
-		
-			huoqu_list(){
-				this.$http.post({
-						url: '/mapi/consult/zixunlists',
-						data: {
-							page: this.page,
-							state:1,
-							zixunstate:this.zixunstate,
-							lvshi:this.name
-						}
-					})
-					.then(res => {
-						console.log(res);
-						this.zixun_list=this.zixun_list.concat(res.data.consult);
-						console.log(this.zixun_list)
-					});
-			},
-			go_zhuye(id) {
-				uni.navigateTo({
-					url: 'ls_zhuye?lawyerid='+id
+			this.page = 0;
+			this.zixun_list = [];
+			this.is_all = false;
+			// this.huoqu_list()
+		},
+		huifu() {
+			// this.$refs.huifu.open()
+		},
+
+		huoqu_jingxuan() {
+			this.$http
+				.post({
+					url: '/mapi/consult/zixunlist',
+					data: {
+						page: this.page,
+						type: 2,
+					}
+				})
+				.then(res => {
+					console.log(res);
+					this.zixun_list = this.zixun_list.concat(res.data.consultlist);
+					console.log(this.zixun_list);
 				});
-			},
-		
+		},
 
+		swiperchang(e) {
+			this.current = e.detail.current;
+			
+		},
+		jingxuan_share(){
+			console.log('77777')
+			uni.share({
+			    provider: "weixin",
+			    scene: "WXSenceTimeline",
+			    type: 1,
+			    summary: "我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！",
+			    success: function (res) {
+			        console.log("success:" + JSON.stringify(res));
+			    },
+			    fail: function (err) {
+			        console.log("fail:" + JSON.stringify(err));
+			    }
+			});
 		}
 	}
+};
 </script>
 
 <style>
-	page {
-		background-color: #F7F7F7;
-		min-height: 100%;
-	}
+page {
+	background-color: #f7f7f7;
+	min-height: 100%;
+}
 
-	.tab_top {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 10rpx 38rpx;
-		background-color: #FFFFFF;
-		position: fixed;
-		top: 95rpx;
-		width: 100%;
-		box-sizing: border-box;
-		z-index: 9;
-	}
+.tab_top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10rpx 38rpx;
+	background-color: #ffffff;
+	position: fixed;
+	top: 95rpx;
+	width: 100%;
+	box-sizing: border-box;
+	z-index: 9;
+}
 
-	.head_right image {
-		width: 40rpx;
-		height: 41rpx;
-	}
+.head_right image {
+	width: 40rpx;
+	height: 41rpx;
+}
 
+button {
+	margin: 0;
+	border: none;
+}
 
+button::after {
+	content: none;
+}
 
-	button {
-		margin: 0;
-		border: none;
-	}
+.zhuanchang_arry {
+	display: flex;
+	margin-top: 20rpx;
+	flex-wrap: wrap;
+}
 
-	button::after {
-		content: none;
-	}
-
-	.zhuanchang_arry {
-		display: flex;
-		margin-top: 20rpx;
-		flex-wrap: wrap;
-
-	}
-
-	.zhuanchang_arry text {
-		border: 2rpx solid #E8E8E8;
-		border-radius: 20rpx;
-		padding: 4rpx 20rpx;
-		display: inline-block;
-		margin-right: 28rpx;
-		margin-bottom: 20rpx;
-		
-	}
-.tab_top text{
+.zhuanchang_arry text {
+	border: 2rpx solid #e8e8e8;
+	border-radius: 20rpx;
+	padding: 4rpx 20rpx;
+	display: inline-block;
+	margin-right: 28rpx;
+	margin-bottom: 20rpx;
+}
+.tab_top text {
 	padding: 4rpx 20rpx;
 }
-.sucai_active{
-		font-size: 28rpx;
-		color: #0eb77e;
-		background-color: #cff1ef;
-		border-radius: 20rpx;
-		
+.sucai_active {
+	font-size: 28rpx;
+	color: #0eb77e;
+	background-color: #cff1ef;
+	border-radius: 20rpx;
 }
-.jingxuan_body{
-	
-	
-	
-	}
-.xh_tx{
-		width: 82rpx;
-		height: 82rpx;
-		border-radius: 100%;
-		
+.jingxuan_body {
 }
-.jingxuan_item:first-child{
+.xh_tx {
+	width: 82rpx;
+	height: 82rpx;
+	border-radius: 100%;
+}
+.jingxuan_item:first-child {
 	margin-top: 28rpx;
 }
-.jingxuan_item{
+.jingxuan_item {
 	padding: 30rpx;
-	background-color: #FFFFFF;
+	background-color: #ffffff;
 	margin-bottom: 20rpx;
-	
 }
-.jingxuan_item_top{
+.jingxuan_item_top {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
-.jingxuan_item_top_left{
+.jingxuan_item_top_left {
 	display: flex;
 	align-items: center;
 }
-.jingxuan_item_top_r{
+.jingxuan_item_top_r {
 	margin-left: 18rpx;
 }
-.jingxuan_item_name{
+.jingxuan_item_name {
 	margin-bottom: 10rpx;
 }
-.jingxuan_ls_tx{
-		width: 51rpx;
-		height: 51rpx;
+.jingxuan_ls_tx {
+	width: 51rpx;
+	height: 51rpx;
 }
-.jingxuan_ls_ren{
+.jingxuan_ls_ren {
 	width: 15rpx;
-		height: 16rpx;
-		background-color: #FFFFFF;
-		border: solid 2rpx #ffffff;
-		position: relative;
-		right: 10rpx;
-		border-radius: 100%;
+	height: 16rpx;
+	background-color: #ffffff;
+	border: solid 2rpx #ffffff;
+	position: relative;
+	right: 10rpx;
+	border-radius: 100%;
 }
-.jingxuan_ls{
+.jingxuan_ls {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
-.jingxuan_ls_left{
+.jingxuan_ls_left {
 	display: flex;
 	align-items: center;
-	
 }
 .jingxuan_ls_name {
 	margin: 0rpx 20rpx 0 10rpx;
 }
-.jingxuan_ls_left_tx{
+.jingxuan_ls_left_tx {
 	position: relative;
 }
-.jing_fenxiang{
-		width: 161rpx;
-		height: 40rpx;
-		background-color: #ffffff;
-		border-radius: 20rpx;
-		border: solid 1rpx #0eb77e;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		
+.jing_fenxiang {
+	width: 161rpx;
+	height: 40rpx;
+	background-color: #ffffff;
+	border-radius: 20rpx;
+	border: solid 1rpx #0eb77e;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
-.jing_fenxiang image{
-		width: 21rpx;
-		height: 20rpx;
-		margin-right: 11rpx;
+.jing_fenxiang image {
+	width: 21rpx;
+	height: 20rpx;
+	margin-right: 11rpx;
 }
-.jingxuan_wenti{
+.jingxuan_wenti {
 	margin: 20rpx 0 20rpx;
 }
-.jingxuan_jieda{
+.jingxuan_jieda {
 	line-height: 40rpx;
 	margin-bottom: 20rpx;
 }
-.jingxuan_jieda text{
-		height: 30rpx;
-		background-color: #f43a51;
-		border-radius: 5rpx;
-		display: inline-block;
+.jingxuan_jieda text {
+	height: 30rpx;
+	background-color: #f43a51;
+	border-radius: 5rpx;
+	display: inline-block;
 	padding: 0 4rpx;
 	line-height: 30rpx;
 	margin-right: 4rpx;
-	
 }
 
 /* 营销素材 */
-.yingxiao_item_wen{
+.yingxiao_item_wen {
 	padding: 17rpx 0rpx 17rpx 80rpx;
 }
-.yingxiao_item_wen text{
-		width: 30rpx;
-		height: 30rpx;
-		background-color: #0eb77e;
-		border-radius: 5rpx;
+.kuang_txt {
+	width: 30rpx;
+	height: 30rpx;
+	background-color: #0eb77e;
+	border-radius: 5rpx;
+	display: inline-block;
+	line-height: 30rpx;
+	text-align: center;
+	margin-right: 13rpx;
+}
+.yingxiao_item_da {
+	border-top: 1px solid #dcdcdc;
+	display: flex;
+	padding: 17rpx 0rpx 17rpx 80rpx;
+}
+.yingxiao_item_da .kuang_txt {
+	width: 30rpx;
+	height: 30rpx;
+	background-color: #0eb77e;
+	border-radius: 5rpx;
+	display: inline-block;
+	line-height: 30rpx;
+	text-align: center;
+	margin-right: 13rpx;
+	position: relative;
+	top: 4rpx;
+}
+.yingxiao_item_da_item {
+	width: 90%;
+}
+.yingxiao_tx {
+	width: 51rpx;
+	height: 51rpx;
+	border-radius: 100%;
+}
+
+.yingxiao_ren {
+	width: 16rpx;
+	height: 16rpx;
+	background-color: #ffffff;
+	border-radius: 100%;
+	border: 2rpx solid #ffffff;
+	position: absolute;
+	right: 0rpx;
+	bottom: 0;
+}
+.yingxiao_item_da_item_tx {
+	position: relative;
+	width: 51rpx;
+	height: 51rpx;
+}
+.yingxiao_item_da_item_t {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20rpx;
+}
+.yingxiao_item_name {
+	margin: 0 15rpx 0 17rpx;
+}
+
+/* 分享海报 */
+.swiper {
+	height: 1020rpx;
+	position: relative;
+	padding: 0 20rpx;
+}
+
+.swiper-item {
+	height: 100%;
+	background-color: #ffffff;
+	box-shadow: 0rpx 0rpx 8rpx 0rpx rgba(0, 30, 20, 0.35);
+	border-radius: 10rpx;
+	position: relative;
+}
+
+.swiper-item image {
+	width: 100%;
+	height: 100%;
+	border-radius: 10rpx;
+}
+
+.dot {
+	width: 34rpx;
+	height: 34rpx;
+	border: solid 2rpx #a0a0a0;
+	border-radius: 100%;
+	margin-right: 6rpx;
+}
+
+.dots {
+	margin: auto;
+	position: absolute;
+	left: 0;
+	bottom: -25rpx;
+	right: 0;
+	display: flex;
+	height: 10rpx;
+	justify-content: center;
+}
+.active {
+	width: 34rpx;
+	height: 34rpx;
+	background: url(../../static/img/sucai_bg.png) no-repeat;
+	background-size: 100% 100%;
+	border: solid 2rpx #0eb77e;
+	
+}
+.sucai_body{
+	padding: 45rpx 0rpx 250rpx;
+}
+.lunbo{
+	position: relative;
+	padding: 0rpx 46rpx 0rpx;
+}
+.yaoqing_erweima{
+	width: 154rpx;
+	height: 154rpx;
+	background-color: #ffffff;
+	position: absolute;
+	bottom: 168rpx;
+	left: 50%;
+	transform: translate(-50%,0);
+
+	padding: 9rpx;
+	box-sizing: border-box;
+	}
+	.yaoqing_kuling{
+		width: 266rpx;
+			height: 58rpx;
+			background-color: #ffffff;
+			border-radius: 29rpx;
+			position: absolute;
+			
+			top: 523rpx;
+				font-size: 22rpx;
+				color: #83b364;
+				text-align: center;
+				line-height: 58rpx;
+				left: 50%;
+				transform: translate(-50%,0);
+				
+	}
+.yaoqing_erweima image{
+		width:100%;
+		height: 100%;
+}
+.haibao_bottom{
+	height: 98rpx;
+	width: 100%;
+	position: fixed;
+	bottom: 0rpx;
+}
+.haibao_bottom_left{
+	width: 50%;
+	background-color: #86DBBE;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.haibao_bottom_left image{
+	width: 23rpx;
+		height: 23rpx;
+		margin-right: 7rpx;
+}
+.haibao_bottom_right{
+	width: 50%;
+	background-color: #0eb77e;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+}
+.haibao_bottom_right image{
+	width: 22rpx;
+	height: 21rpx;
+		margin-right: 7rpx;
+}
+.haibao_bottom{
+	display: flex;
+}
+.shangxue_item_title text{
+	font-weight: 500;
+	width: 60rpx;
+		height: 28rpx;
+		background-color: #ffffff;
+		border-radius: 3rpx;
+		border: solid 1rpx #ff4d6d;
 		display: inline-block;
-		line-height: 30rpx;
+		line-height: 28rpx;
 		text-align: center;
-		margin-right: 9rpx;
-	}
-	.yingxiao_item_da{
-		border-top: 1px solid #dcdcdc;
-		display: flex;
-		padding: 17rpx 0rpx 17rpx 80rpx;
-	}
-	.yingxiao_item_da text{
-		width: 30rpx;
-		height: 30rpx;
-		background-color: #0eb77e;
-		border-radius: 5rpx;
-		display: inline-block;
-		line-height: 30rpx;
-		text-align: center;
-		margin-right: 9rpx;
-		
-	}
-	.yingxiao_item_da_item{
-		width: 90%;
-	}
+		color: #ff4d6d;
+		font-size: 20rpx;
+		margin-right: 7rpx;
+}
+.shangxue_item_title{
+	word-break: break-all;
+}
+.shangxue_list{
+	margin-top: 20rpx;
+}
+.shangxue_item{
+	background-color: #FFFFFF;
+	padding:19rpx 19rpx 19rpx 41rpx ;
+}
+.shangxue_item_time image{
+	width: 22rpx;
+		height: 22rpx;
+		margin-right: 10rpx;
+}
+.shangxue_item_left image{
+	width: 240rpx;
+		height: 172rpx;
+		background-color: #ededef;
+		border-radius: 10rpx;
+		margin-right: 19rpx;
+}
+.shangxue_item{
+	display: flex;
+	margin-bottom: 20rpx;
+}
+.shangxue_item_right{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
 </style>

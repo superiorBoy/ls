@@ -88,15 +88,15 @@
 					</view> -->
 					<view class="jiben_xixin_list hei_26" >
 						职&ensp;&ensp;&ensp;&ensp;务
-						<view class="jiben_xixin_list_right hui_26">{{ls_xinxi.lawyerauth.zhiwu}}</view>
+						<view class="jiben_xixin_list_right hui_26">{{ls_xinxi.lawyer.zhiwu}}</view>
 					</view>
 					<view class="jiben_xixin_list hei_26">
 						执业证号
-						<view class="jiben_xixin_list_right hui_26">{{ls_xinxi.lawyerauth.zhiye}}</view>
+						<view class="jiben_xixin_list_right hui_26">{{ls_xinxi.lawyer.zhiye}}</view>
 					</view>
 					<view class="jiben_xixin_list hei_26">
 						执业年份
-						<view class="jiben_xixin_list_right hui_26">{{ls_xinxi.lawyerauth.zhiyenianfen}}年</view>
+						<view class="jiben_xixin_list_right hui_26">{{ls_xinxi.lawyer.zhiyenianfen}}年</view>
 					</view>
 <!-- 					<view class="jiben_xixin_list hei_26">
 						团队描述
@@ -262,7 +262,7 @@
 						
 				<view class="zhanwei2" style="height: 120rpx;"></view>
 				<view class="bottom">
-					<view class="bottom_fenxiang">
+					<view class="bottom_fenxiang" @click="share">
 						<image src="@/static/img/share.png" mode=""></image>
 						<view class="hui_26">分享</view>
 					</view>
@@ -413,7 +413,13 @@ export default {
 			uni.navigateTo({
 				url:'pay?lawyerid='+lawyerid
 			})
-		}
+		},
+		// 分享
+		share(){
+			uni.navigateTo({
+				url:'sucai?state=1'
+			})
+		},
 	}
 };
 </script>

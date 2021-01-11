@@ -10,7 +10,7 @@
 			<view class="erji_weizhi hui_26_bold">
 				<text @click="go_index()">首页</text>	
 				<image src="@/static/img/zhishi_weizhi.png" mode=""></image>
-				<view @click="navigateBack()">最新咨询</view> 
+				<view @click="navigateBack()" v-if="data.consult">{{fenlei_list[data.consult.typeid].typename}}</view> 
 				<image src="@/static/img/zhishi_weizhi.png" mode=""></image>
 				<text class="hei_30">咨询详情</text>
 			</view>
@@ -98,7 +98,7 @@
 							<image :src="shou ? '../../static/img/yi_shoucang.png' : '../../static/img/zhu_shoucang.png'" mode="" style="width: 36rpx;height: 36rpx;"></image>
 							<view class="hei_20">收藏</view>
 						</view>
-						<view class="shipin_dibu_item ">
+						<view class="shipin_dibu_item " @click="share">
 							<image src="@/static/img/zhu_fenxiang.png" mode="" style="width: 36rpx;height: 36rpx;"></image>
 							<view class="hei_20">分享</view>
 						</view>
@@ -115,11 +115,25 @@
 
 <script>
 export default {
-	onShow() {},
+	onShow() {
+		
+	
+		
+	},
 	onLoad(option) {
 		console.log(option);
 		if (option.id != undefined) {
-			this.get_xq(option.id);
+			
+			// 获取分类
+			this.$http
+				.post({
+					url: '/mapi/index/gettype'
+				})
+				.then(res => {
+					this.fenlei_list = res.data.type;
+					this.get_xq(option.id);
+				});
+			
 			this.wenid = option.id;
 		}
 	},
@@ -129,9 +143,10 @@ export default {
 			shou: false,
 			img_url: uni.getStorageSync('img_url'),
 			data: '',
-			huifu_list: '',
+			huifu_list: [],
 			wenid: '',
-			is_all: false
+			is_all: false,
+			fenlei_list:[]
 		};
 	},
 	created() {},
@@ -211,7 +226,13 @@ export default {
 						this.huifu_list.push(res.data.consult_reply[i]);
 					}
 				});
-		}
+		},
+		// 分享
+		share(){
+			uni.navigateTo({
+				url:'sucai?state=1'
+			})
+		},
 	},
 	filters: {
 		timeStamp: function(value) {

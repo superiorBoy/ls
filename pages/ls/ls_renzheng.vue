@@ -12,14 +12,14 @@
 		</view>
 
 		<view class="zi_body shiming_body">
-            <navigator url="ls_geren">
+        <!--    <navigator url="ls_geren">
 			<view class="shiming_list hei_28" >
 				<view class="shiming_list_left">
 					个人简介
 				</view>
 				<image src="@/static/lsimg/go_r.png" mode=""></image>
 			</view>
-			</navigator>
+			</navigator> -->
 			<navigator url="ls_jiben">
 			<view class="shiming_list hei_28 border-bott">
 				<view class="shiming_list_left">
@@ -29,29 +29,29 @@
 			</view>
 			</navigator>
 			<navigator url="ls_ren_list?title=教育背景">
-			<view class="shiming_list hei_28"  >
+			<view class="shiming_list hei_28 border-bott"  >
 				<view class="shiming_list_left">
 					教育背景
 				</view>
 				<image src="@/static/lsimg/go_r.png" mode=""></image>
 			</view>
 			</navigator>
-			<navigator url="ls_lianxi">
+	<!-- 		<navigator url="ls_lianxi">
 			<view class="shiming_list hei_28">
 				<view class="shiming_list_left">
 					联系方式
 				</view>
 				<image src="@/static/lsimg/go_r.png" mode=""></image>
 			</view>
-			</navigator>
-			<navigator url="ls_more">
+			</navigator> -->
+	<!-- 		<navigator url="ls_more">
 			<view class="shiming_list hei_28 border-bott">
 				<view class="shiming_list_left">
 					更多信息
 				</view>
 				<image src="@/static/lsimg/go_r.png" mode=""></image>
 			</view>
-			</navigator>
+			</navigator> -->
 			<navigator url="ls_ren_list?title=工作经历">
 			<view class="shiming_list hei_28">
 				<view class="shiming_list_left">

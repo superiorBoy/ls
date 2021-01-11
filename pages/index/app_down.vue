@@ -52,11 +52,18 @@ export default {
 			.then(res => {
 				this.down = res.data.banben;
 			});
+			this.$http
+				.post({
+					url: '/mapi/user/yaoqing'
+				})
+				.then(res => {
+					this.yaoqing = res.data.randcode1;
+				});
 	},
 
 	data() {
 		return {
-			yaoqing: 'SJKAUIO45',
+			yaoqing: '',
 			down: ''
 		};
 	},

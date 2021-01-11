@@ -21,28 +21,28 @@
 		</view>
 
 		<view class="my_ziliao">
-			<view class="my_ziliao_item">
+			<navigator url="guanzhu" class="my_ziliao_item">
 				<view class="my_ziliao_item_top hei_28">0</view>
 				<view class="my_ziliao_item_bottom hei_22">关注</view>
-			</view>
-			<view class="my_ziliao_item">
+			</navigator>
+			<navigator url="fensi" class="my_ziliao_item">
 				<view class="my_ziliao_item_top hei_28">0</view>
 				<view class="my_ziliao_item_bottom hei_22">粉丝</view>
-			</view>
-			<view class="my_ziliao_item">
+			</navigator>
+			<navigator url="shoucang" class="my_ziliao_item">
 				<view class="my_ziliao_item_top hei_28">0</view>
 				<view class="my_ziliao_item_bottom hei_22">收藏</view>
-			</view>
-			<view class="my_ziliao_item">
-				<view class="my_ziliao_item_top hei_28_b">0</view>
+			</navigator>
+			<navigator url="tuandui" class="my_ziliao_item">
+				<view class="my_ziliao_item_top hei_28">0</view>
 				<view class="my_ziliao_item_bottom hei_22">团队</view>
-			</view>
+			</navigator>
 		</view>
 
 		<view class="my_bottom">
 			<navigator url="chat?lsid=7" class="xianshi">
 					<image src="../../static/img/hy_guanggao.png" mode=""></image>
-					<view class="jiage hei_22_bold">限时￥29</view>
+					<view class="jiage hei_20_bold">限时29元/小时</view>
 			</navigator>
 
 			<view class="my_guanli zixun_guanli">
@@ -82,18 +82,19 @@
 						<image src="../../static/img/hy_tuiguang1.png" mode=""></image>
 						<view class="hui_24 ">升级团长</view>
 					</navigator>
-					<view class="jiedan_item">
+					<navigator url="jiangli" class="jiedan_item">
 						<image src="../../static/img/hy_tuiguang2.png" mode=""></image>
 						<view class="hui_24 ">我的奖励</view>
-					</view>
-					<view class="jiedan_item">
+					</navigator>
+					<navigator url="tuandui" class="jiedan_item">
 						<image src="../../static/img/hy_tuiguang3.png" mode=""></image>
 						<view class="hui_24 ">我的团队</view>
-					</view>
-					<view class="jiedan_item">
+					</navigator>
+					
+					<navigator url="sucai?state=1" class="jiedan_item">
 						<image src="../../static/img/hy_tuiguang4.png" mode=""></image>
 						<view class="hui_24 ">营销素材</view>
-					</view>
+					</navigator>
 					<navigator url="app_down" class="jiedan_item">
 						<image src="../../static/img/hy_tuiguang5.png" mode=""></image>
 						<view class="hui_24 ">APP下载</view>
@@ -320,12 +321,12 @@ page {
 }
 .jiage {
 	position: absolute;
-	right: 28rpx;
+	right: 24rpx;
 	top: 50%;
 	text-align: center;
 	line-height: 48rpx;
 	transform: translate(-0%, -50%);
-	width: 140rpx;
+	width: 180rpx;
 	height: 48rpx;
 	background-color: #ffad2b;
 	border-radius: 24rpx;
