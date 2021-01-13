@@ -41,7 +41,7 @@
 					</view>
 				</view>
 
-				<textarea value="" placeholder="请在此评价律师服务，客观真实的评价有利于其他当事人选择律师（10字以上）。" maxlength="1000" class="hei_26 ping_shuru"
+				<textarea value="" placeholder="请在此评价律师服务，客观真实的评价有利于其他当事人选择律师（10字以上）。" maxlength="5000" class="hei_26 ping_shuru"
 				 v-model="shuru_txt" />
 				<view class="tu">
 		<view class="tu_arry">

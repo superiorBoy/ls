@@ -69,9 +69,10 @@
 			<view class="chat_bottom">
 				<view class="chat_bottom_top">
 					<image src="@/static/lsimg/chat_yuyin.png" mode=""></image>
-					<input type="text" value="" v-model="chat_txt" confirm-type="search" @confirm="send"class="hei_26" />
+					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send"class="hei_26"  @input="input_change"/>
 					<image src="@/static/lsimg/chat_biaoqing.png" mode=""  @tap="showEmj"></image>
-					<image src="@/static/lsimg/chat_jia.png" mode="" @click="jia"></image>
+					<image src="@/static/lsimg/chat_jia.png" mode="" @click="jia" v-if="!is_fa"></image>
+					<text class="fasong" v-if="is_fa" @click="send()">发送</text>
 				</view>
 				<emotion @emotion="handleEmj" v-if="isShowEmj"></emotion>
 				<view class="chat_bottom_bottom hui_26" v-if="bt_show">
@@ -146,7 +147,8 @@ import uParse from '@/components/feng-parse/parse.vue';
 				page: 0,
 				is_all: false,
 				userid: '',
-				dianhua:''
+				dianhua:'',
+				is_fa:false
 			}
 		},
 		//下拉刷新
@@ -233,6 +235,14 @@ import uParse from '@/components/feng-parse/parse.vue';
 				this.bt_show = !this.bt_show
 				this.isShowEmj=false
 			},
+			input_change(){
+				if(this.chat_txt==''){
+					this.is_fa=false
+				}else{
+					this.is_fa=true
+				}
+				
+			},
 			send() {
 				console.log(this.chat_txt)
 				
@@ -243,6 +253,14 @@ import uParse from '@/components/feng-parse/parse.vue';
 				
 			var txt = this.replace_em(this.chat_txt);
 			
+			if(txt==''){
+				uni.showToast({
+					title: '请输入内容',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false
+			}
 			this.$http
 				.post({
 					url: '/push/gatewayworker/sendmessage1.html',
@@ -334,7 +352,7 @@ import uParse from '@/components/feng-parse/parse.vue';
 				this.bt_show=false
 			},
 		connectSocketInit() {
-			var url = window.location.host;
+			var url = this.$http.baseUrl;
 			console.log(url);
 			var ws = new WebSocket('ws://' + url + ':3348');
 			ws.onopen = function(evt) {
@@ -583,7 +601,17 @@ import uParse from '@/components/feng-parse/parse.vue';
 	font-size: 20rpx;
 	left: 0;
 }
-
+.fasong{
+	background-color:#0eb77e ;
+	color: #FFFFFF;
+	font-size: 22rpx;
+	width: 70rpx;
+	height: 50rpx;
+	line-height: 50rpx;
+	text-align: center;
+	display: inline-block;
+	
+}
 
 
 </style>

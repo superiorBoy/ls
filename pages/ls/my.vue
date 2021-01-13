@@ -1,5 +1,5 @@
 <template>
-	<view class="">
+	<view class="" >
 		<!-- <view class="head">  
 			  <view class=""></view> 
 			  <view class="head_center hei_38_bold">接单</view> 
@@ -7,17 +7,18 @@
 			</view> -->
 		<view class="my_top">
 			<view class="my_top_left">
-				<image :src="img_url + user.photourl" mode="" class="ls_tx"></image>
+				<image :src="img_url + user.photourl" mode="" class="ls_tx" v-if="user"></image>
+				<image src="@/static/lsimg/moren_tx.png" mode="" class="ls_tx" v-if="!user"></image>
 				<view class="my_top_left_r" v-if="is_login">
 					<view class="my_name hei_30_bold">
-						{{ user.nickname }}律师
-						<view class="renzheng_xinxi">
+						{{ user?user.nickname:'' }}律师
+						<view class="renzheng_xinxi" v-if="user">
 							<image src="../../static/lsimg/yi_renzheng1.png" mode="" class="renzheng1" v-if="user.isreal == 1"></image>
-							<image src="../../static/lsimg/yi_renzheng2.png" mode="" class="renzheng2"></image>
+							<image src="../../static/lsimg/yi_renzheng2.png" mode="" class="renzheng2" v-if="user.iszhiye == 1"></image>
 							<image src="../../static/lsimg/yi_renzheng3.png" mode="" class="renzheng3" v-if="user.iszhiye == 1"></image>
 						</view>
 					</view>
-					<view class="renzheng bai_20" v-if="user.isreal == 1">认证律师</view>
+					<view class="renzheng bai_20" v-if="user&&user.isreal == 1">认证律师</view>
 				</view>
 				<view class="my_top_weoienglu hei_26" v-if="!is_login">
 					<navigator url="login" class="go_denglu">登录</navigator>
@@ -51,23 +52,23 @@
 				<view class="my_title hei_30_bold">接单管理</view>
 
 				<view class="my_list">
-					<navigator url="tiwen_guanli" class="jiedan_item">
+					<navigator url="" class="jiedan_item" @click="tiaozhuan('tiwen_guanli')">
 						<image src="../../static/lsimg/my_jiedan1.png" mode=""></image>
 						<view class="hui_24 ">提问管理</view>
 					</navigator>
-					<navigator url="tiwen_jilu" class="jiedan_item">
+					<navigator url="" class="jiedan_item" @click="tiaozhuan('tiwen_jilu')">
 						<image src="../../static/lsimg/my_jiedan2.png" mode=""></image>
 						<view class="hui_24 ">提问记录</view>
 					</navigator>
-					<navigator url="zaixian_list" class="jiedan_item">
+					<navigator url="" class="jiedan_item" @click="tiaozhuan('zaixian_list')">
 						<image src="../../static/lsimg/my_jiedan3.png" mode=""></image>
 						<view class="hui_24 ">在线咨询</view>
 					</navigator>
-					<navigator url="zixun_jilu" class="jiedan_item">
+					<navigator url="" class="jiedan_item" @click="tiaozhuan('zixun_jilu')">
 						<image src="../../static/lsimg/my_jiedan4.png" mode=""></image>
 						<view class="hui_24 ">咨询记录</view>
 					</navigator>
-					<navigator url="dianhua_zixun" class="jiedan_item">
+					<navigator url="" class="jiedan_item" @click="tiaozhuan('dianhua_zixun')">
 						<image src="../../static/lsimg/my_jiedan5.png" mode=""></image>
 						<view class="hui_24 ">电话咨询</view>
 					</navigator>
@@ -77,27 +78,27 @@
 			<view class="my_guanli ls_guanli">
 				<view class="my_title hei_30_bold">律师管理</view>
 				<view class="my_list">
-					<navigator url="shiming_renzheng" class="ls_item">
+					<navigator url="shiming_renzheng" class="ls_item" >
 						<image src="../../static/lsimg/my_ls1.png" mode=""></image>
 						<view class="hui_24 ">实名认证</view>
 					</navigator>
-					<navigator url="zhiye_renzheng" class="ls_item">
+					<navigator url="" class="ls_item" @click="tiaozhuan('zhiye_renzheng')">
 						<image src="../../static/lsimg/my_ls2.png" mode=""></image>
 						<view class="hui_24 ">执业认证</view>
 					</navigator>
-					<navigator url="ls_renzheng" class="ls_item">
+					<navigator url="" class="ls_item" @click="tiaozhuan('ls_renzheng')">
 						<image src="../../static/lsimg/my_ls3.png" mode="" style="width: 50rpx;height: 50rpx;"></image>
 						<view class="hui_24 ">律师认证</view>
 					</navigator>
-					<navigator url="anli" class="ls_item">
+					<navigator url="" class="ls_item" @click="tiaozhuan('anli')">
 						<image src="../../static/lsimg/my_ls4.png" mode="" style="width: 48rpx;height: 50rpx;"></image>
 						<view class="hui_24">成功案例</view>
 					</navigator>
-					<navigator url="zixun_baojia" class="ls_item">
+					<navigator url="" class="ls_item" @click="tiaozhuan('zixun_baojia')">
 						<image src="../../static/lsimg/my_ls5.png" mode=""></image>
 						<view class="hui_24 ">咨询报价</view>
 					</navigator>
-					<navigator url="fuwu_baojia" class="ls_item">
+					<navigator url="" class="ls_item" @click="tiaozhuan('fuwu_baojia')">
 						<image src="../../static/lsimg/my_ls6.png" mode=""></image>
 						<view class="hui_24 ">服务报价</view>
 					</navigator>
@@ -107,15 +108,15 @@
 			<view class="my_guanli">
 				<view class="my_title hei_30_bold">网站管理</view>
 				<view class="my_list">
-					<navigator url="kaitong" class="wangzhan_item">
+					<navigator url="" class="wangzhan_item" @click="tiaozhuan('kaitong')">
 						<image src="../../static/lsimg/my_wangzhan1.png" mode=""></image>
 						<view class="hui_24 ">开通站点</view>
 					</navigator>
-					<navigator url="peizhi" class="wangzhan_item">
+					<navigator url="" class="wangzhan_item" @click="tiaozhuan('peizhi')">
 						<image src="../../static/lsimg/my_wangzhan2.png" mode=""></image>
 						<view class="hui_24 ">网站配置</view>
 					</navigator>
-					<navigator url="shezhi" class="wangzhan_item">
+					<navigator url="" class="wangzhan_item" @click="tiaozhuan('shezhi')">
 						<image src="../../static/lsimg/my_wangzhan3.png" mode=""></image>
 						<view class="hui_24 ">信息设置</view>
 					</navigator>
@@ -132,15 +133,15 @@
 						<image src="../../static/lsimg/my_zhanghao1.png" mode="" style="width: 40rpx;height: 32rpx;margin-bottom: 32rpx;"></image>
 						<view class="hui_24 ">个人信息</view>
 					</navigator>
-					<navigator url="liushui?state=2" class="zhanghao_item">
+					<navigator url="" class="zhanghao_item" @click="tiaozhuan('liushui?state=2')">
 						<image src="../../static/lsimg/my_zhanghao2.png" mode="" style="width: 39rpx;height: 40rpx;"></image>
 						<view class="hui_24 ">流水明细</view>
 					</navigator>
-					<navigator url="tixian" class="zhanghao_item">
+					<navigator url="" class="zhanghao_item" @click="tiaozhuan('tixian')">
 						<image src="../../static/lsimg/my_zhanghao3.png" mode="" style="width: 40rpx;height: 39rpx;"></image>
 						<view class="hui_24 ">账号提现</view>
 					</navigator>
-					<navigator url="gaimima" class="zhanghao_item">
+					<navigator url="" class="zhanghao_item" @click="tiaozhuan('gaimima')">
 						<image src="../../static/lsimg/my_zhanghao4.png" mode="" style="width: 40rpx;height:40rpx;"></image>
 						<view class="hui_24 ">修改密码</view>
 					</navigator>
@@ -163,6 +164,24 @@ export default {
 	created() {},
 	onShow() {
 		this.huiqu_login();
+	},
+	onHide() {
+		// if(this.user){
+			
+		// 	 if(this.user.iszhiye==2){
+		// 		uni.navigateTo({
+		// 			url:'zhiye_renzheng'
+		// 		})
+		// 	}
+			
+		// }else{
+		// 	uni.navigateTo({
+		// 		url:'shiming_renzheng'
+		// 	})
+		// }
+	
+		
+		
 	},
 	data() {
 		return {
@@ -201,7 +220,34 @@ export default {
 						this.is_login = false;
 					}
 				});
-		}
+		},
+       tiaozhuan(url){
+		   
+		   if(this.user!=null){
+			   
+			   if(this.user.isreal==2){
+				   uni.navigateTo({
+				   	url:'shiming_renzheng'
+				   })
+				   
+			   }else if(this.user.iszhiye==2){
+				   uni.navigateTo({
+				   	url:'zhiye_renzheng'
+				   })
+			   }else{
+				   uni.navigateTo({
+				   	url:url
+				   })
+			   }
+
+		   }else{
+			   uni.navigateTo({
+			   	url:'shiming_renzheng'
+			   })
+			   
+		   }
+		 
+	   }
 	}
 };
 </script>

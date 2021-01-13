@@ -35,7 +35,7 @@
 						<text v-if="item.typeid && fenlei[item.typeid]">咨询类型：{{ fenlei[item.typeid].typename }}</text>  <text class="hong_26 zixun_item_jiage">￥{{item.paymoney}}/20分钟</text>
 					</view>
 					<view class="zixun_item_top_bottom">
-						<view class="fukuan lv_26" v-if="item.zixunstate==1" @click="pay(item.lawyerid)">
+						<view class="fukuan lv_26" v-if="item.zixunstate==1" @click="pay(item.lawyerid,item.consultid,item.information)">
 							立即付款
 						</view>
 						<view class="fukuan lv_26" v-if="item.zixunstate==2">
@@ -220,9 +220,10 @@ export default {
 
 			this.huoqu_list();
 		},
-		pay(id){
+		pay(id,consultid,information){
 			uni.navigateTo({
-				url:'pay?lawyerid='+id+'&type=1'
+				url:'pay?lawyerid='+id+'&type=2'+'&consultid='+consultid+'&information='+information
+				
 			})
 		},
 		huoqu_list() {

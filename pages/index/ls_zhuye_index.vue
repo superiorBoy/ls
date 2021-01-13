@@ -109,7 +109,7 @@
 				<view class=" ls_jilu"><text class="hei_28_bold">律师服务记录</text><navigator :url="'./ls_zhuye_huifu?lawyerid='+lvshi.userid" class="qian_28">更多>></navigator></view>
 				<!-- 图 -->
 
-					<view class="qiun-charts" >
+					<view class="qiun-charts" v-if="huifu_list.length!=0">
 						<canvas canvas-id="canvasRing" id="canvasRing" class="charts" @touchstart="touchRing"></canvas>
 					</view>
 		
@@ -134,7 +134,7 @@
 						<navigator :url="'ls_zhuye_tuwen?lawyerid='+lvshi.userid" class="qian_28">更多>></navigator>
 						
 					</view>
-					<scroll-view scroll-x="true" class="tuwen_list">
+					<scroll-view scroll-x="true" class="tuwen_list" v-if="tuwen_list.length!=0">
 						<view class="tuwen_item" v-for="item in tuwen_list" @click="tuwen_xq(item.lytuwenid)">
 							<image :src="img_url+item.pic" mode=""></image>
 							<view class="tuwen_bottom">
@@ -191,6 +191,10 @@
 							分享
 						</view>
 					</view>
+				<view class="bottom_guanzhu" @click="guanzhu">
+					<image src="@/static/img/guanzhu_icon.png" mode="" style="width: 28rpx;height: 28rpx;"></image>
+					<view class="hui_26">关注</view>
+				</view>
 					<view class="bottom_pingjia" @click="go_dianping()">
 						<image src="@/static/img/go_pingjia.png" mode=""></image>
 						<view class="hui_26">
@@ -462,6 +466,9 @@ export default {
 			uni.navigateTo({
 				url:'chat?lsid='+id
 			})
+		},
+		guanzhu(){
+			
 		},
 		// 主页提问详情
 		go_tiwen_xq(id){
@@ -937,7 +944,7 @@ export default {
 	background-color: #FFFFFF;
 	
 }
-.bottom_fenxiang,.bottom_pingjia{
+.bottom_fenxiang,.bottom_pingjia,.bottom_guanzhu{
 	text-align: center;
 	margin-right: 22rpx;
 }
@@ -951,7 +958,7 @@ export default {
 		height: 24rpx;
 }
 .dianhua{
-	width: 270rpx;
+	width: 230rpx;
 	height: 74rpx;
 	border: solid 1rpx #0eb77e;
 	box-sizing: border-box;
@@ -971,7 +978,7 @@ export default {
 		margin-right: 12rpx;
 	}
 	.zaixian{
-			width: 270rpx;
+			width: 230rpx;
 			height: 74rpx;
 			background-color: #0eb77e;
 			display: flex;

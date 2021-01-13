@@ -25,7 +25,7 @@
 			</view>
 			<view class="shuru">
 				<view class="shuru_box">
-					<textarea value="" placeholder="请输入您想要问的问题..." class="hei_26" maxlength="2000" @input="bianhua" v-model="shuru_txt" />
+					<textarea value="" placeholder="请输入您想要问的问题..." class="hei_26"  @input="bianhua" v-model="shuru_txt" maxlength="5000"/>
 					<view class="qian_24 jisuan_num">
 						
 					<picker mode="selector"  :range="fenlei_arry" @change="jiating_change" :range-key="'typename'">

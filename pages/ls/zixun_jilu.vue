@@ -11,21 +11,30 @@
 		<view class="zi_body tab_zi_body">
 			<view class="zixun_list">
 				<view class="zixun_item" v-for="(item, index) in jilu_list">
+					<view class="zixun_item_top">
+					
 					<view class="zixun_item_left">
 						<view class="zixun_item_tx"><image :src=img_url+item.photourl mode=""></image></view>
 						<view class="zixun_item_xinxi">
 							<view class="hei_26">{{item.nickname}}</view>
 							<view class="hong_26 zixun_item_feiyong">￥{{item.paymoney}}</view>
-							<view class="qian_22">{{ item.addtime | timeStamp }}</view>
+							<view class="qian_22 zixun_item_feiyong">{{ item.addtime | timeStamp }}</view>
 						</view>
 					</view>
                       <view class="zixun_item_right">
-					<view :class="['item_zhuangtai bai_26',  item.zixunstate == 1 ? 'daifu':item.zixunstate == 2?'yifu':item.zixunstate == 3?'zhengzai':'jieshu' ]">{{ item.zixunstate == 1 ? '未付款':item.zixunstate == 2?'已付款':item.zixunstate == 3?'接单中':'已完成' }}</view>
-                      	<view class="zixun hong_20" @click="go_chat(item.userid)">
+					<view :class="['',item.zixunstate == 4?'qian_26_bold':'hong_26_bold']">{{ item.zixunstate == 1 ? '未付款':item.zixunstate == 2?'已付款':item.zixunstate == 3?'接单中':'已完成' }}</view>
+                      	<!-- <view class="zixun hong_20" @click="go_chat(item.userid)">
 							<image src="@/static/lsimg/xiaoxi.png" mode=""></image>
                       		在线联系
-                      	</view>
+                      	</view> -->
                       </view>
+					  </view>
+					  <view class="zixun_item_top_bottom" >
+					  	
+					  	<view class="iten_lianxi hong_26" @click="go_chat(item.userid)">
+					  	 	<image src="@/static/lsimg/hong_zaixian.png" mode=""></image>在线联系
+					  	</view>
+					  </view>
 				</view>
 			</view>
 		</view>
@@ -240,16 +249,18 @@ page {
 }
 
 .zixun_item {
-	display: flex;
-	align-items: center;
-	height: 191rpx;
+
 	background-color: #ffffff;
 	margin-bottom: 20rpx;
 	justify-content: space-between;
-	padding: 0 49rpx 0 30rpx;
+	padding: 30rpx 49rpx 0rpx 30rpx;
 	box-sizing: border-box;
 }
-
+.zixun_item_top{
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+}
 .zixun_item:first-child {
 	margin-top: 20rpx;
 }
@@ -365,5 +376,43 @@ button::after {
 		width: 18rpx;
 		height: 18rpx;
 		margin-right: 5rpx;
+	}
+	.zixun_item_leixing{
+		
+		margin: 15rpx 0;
+	}
+	.zixun_item_jiage{
+		margin-left: 9rpx;
+	}
+	.iten_lianxi{
+			width: 186rpx;
+			height: 60rpx;
+			background-color: #ffffff;
+			border-radius: 30rpx;
+			border: solid 1rpx #f43a51;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+	}
+	.iten_lianxi image{
+			width: 28rpx;
+			height: 27rpx;
+			margin-right: 10rpx;
+	}
+	.zixun_item_top_bottom{
+		display: flex;
+		justify-content: flex-end;
+		border-top: 2rpx dashed #c6c6c6;
+		padding:  20rpx 0;
+	}
+	.fukuan{
+		width: 187rpx;
+			height: 60rpx;
+			background-color: #ffffff;
+			border-radius: 30rpx;
+			border: solid 1rpx #0eb77e;
+			line-height: 60rpx;
+			text-align: center;
+			margin-right: 20rpx;
 	}
 </style>

@@ -33,7 +33,7 @@
 				
 							<text v-if="chat_xinxi.phoneprice!=0">元/20分钟</text></text>
 						</view>
-						<button type="" @click="fufei(2)" v-if="chat_xinxi.phoneprice!=0">付费咨询</button>
+						<button type="" @click="go_zixun()" v-if="chat_xinxi.phoneprice!=0">付费咨询</button>
 						<button type=""v-if="chat_xinxi.phoneprice==0">未开启</button>
 					</view>
 					<view class="chat_jiage_item chat_jiage_item3">
@@ -90,9 +90,10 @@
 			<view class="chat_bottom">
 				<view class="chat_bottom_top">
 					<image src="@/static/lsimg/chat_yuyin.png" mode=""></image>
-					<input type="text" value="" v-model="chat_txt" confirm-type="search" @confirm="send" class="hei_26" />
+					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" 	 class="hei_26"  @input="input_change"/>
 					<image src="@/static/lsimg/chat_biaoqing.png" mode="" @tap="showEmj"></image>
-					<image src="@/static/lsimg/chat_jia.png" mode="" @click="jia"></image>
+					<image src="@/static/lsimg/chat_jia.png" mode="" @click="jia" v-if="!is_fa"></image>
+					<text class="fasong" v-if="is_fa" @click="send()">发送</text>
 				</view>
 				<emotion @emotion="handleEmj" v-if="isShowEmj"></emotion>
 				<view class="chat_bottom_bottom hui_26" v-if="bt_show">
@@ -161,7 +162,8 @@ export default {
 			dianhua: '',
 			chat_xinxi: '',
 			dian_num: '点击显示号码',
-			ls_xinxi:''
+			ls_xinxi:'',
+			is_fa:false
 		};
 	},
 	//下拉刷新
@@ -262,11 +264,26 @@ export default {
 			this.bt_show = !this.bt_show;
 			this.isShowEmj = false;
 		},
+		input_change(){
+			if(this.chat_txt==''){
+				this.is_fa=false
+			}else{
+				this.is_fa=true
+			}
+			
+		},
 
 		send() {
 			console.log(this.chat_txt);
 			var txt = this.replace_em(this.chat_txt);
-
+			if(txt==''){
+				uni.showToast({
+					title: '请输入内容',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false
+			}
 			this.$http
 				.post({
 					url: '/push/gatewayworker/sendmessage.html',
@@ -323,13 +340,32 @@ export default {
 		},
 		// 去付费
 		fufei(type){
-			uni.navigateTo({
-				url:'pay?lawyerid='+this.ls_id+'&type='+type
-			})
+			
+			this.$http
+				.post({
+					url: '/index/consult/addconsult_zaixian',
+					data: {
+						lawyerid: this.ls_id
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						uni.navigateTo({
+							url:'pay?lawyerid='+this.ls_id+'&type='+type+'&consultid='+res.data
+						})
+					}
+				});
+
+			},
+			go_zixun(){
+				uni.navigateTo({
+					url:'dianhua_tiwen?lawyerid='+this.ls_id
+				})
 			},
 		connectSocketInit() {
-			var url = window.location.host;
-			console.log(url);
+			var url = this.$http.baseUrl;
+			console.log(url)
+			// console.log(window);
 			var ws = new WebSocket('ws://' + url + ':3348');
 			ws.onopen = function(evt) {
 				console.log('Connection open ...');
@@ -644,5 +680,16 @@ button {
 }
 .top_title{
 	margin-top: -4rpx;
+}
+.fasong{
+	background-color:#0eb77e ;
+	color: #FFFFFF;
+	font-size: 22rpx;
+	width: 70rpx;
+	height: 50rpx;
+	line-height: 50rpx;
+	text-align: center;
+	display: inline-block;
+	
 }
 </style>

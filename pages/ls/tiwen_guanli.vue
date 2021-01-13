@@ -95,6 +95,8 @@ export default {
 			.then(res => {
 				this.fenlei = res.data.type;
 			});
+			
+	
 	},
 	onShow() {
 		this.zhuanchang_txt = '';
@@ -364,6 +366,7 @@ page {
 	font-size: 20rpx;
 	vertical-align: middle;
 	margin-right: 9rpx;
+	
 }
 .tiwen_ren {
 	display: flex;
@@ -409,6 +412,7 @@ page {
 
 .tiwen_item_top {
 	line-height: 36rpx;
+	word-break: break-all;
 }
 
 .aaaaaa {

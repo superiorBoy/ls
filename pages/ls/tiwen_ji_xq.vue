@@ -29,7 +29,7 @@
 						</view>
 					</view>
 				</view>
-				<view class="tiwen_huifu"><textarea value="" placeholder="说点什么吧..." class="hei_24" v-model="shuru_txt" /></view>
+				<view class="tiwen_huifu"><textarea value="" placeholder="说点什么吧..." class="hei_24" v-model="shuru_txt" maxlength="5000"/></view>
 				<view class="tiwen_huifu_btn"><button type="" class="bai_26" @click="huifu">回复</button></view>
 
 				<view class="xq_bottom">

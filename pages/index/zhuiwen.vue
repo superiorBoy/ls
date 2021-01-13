@@ -54,7 +54,7 @@
 					</view>
 				</view>
 				<view class="shu_zhuiwen" v-if="!bt_show">
-					<textarea value="" placeholder="请输入追问内容..." maxlength="500" class="hei_28" v-model="chat_txt" />
+					<textarea value="" placeholder="请输入追问内容..." maxlength="5000" class="hei_28" v-model="chat_txt" />
 					<button type="" class="bai_30" @click="send()">追问</button>
 				</view>
 				<view class="chat_bottom_bottom hui_26" v-if="bt_show">

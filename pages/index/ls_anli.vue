@@ -121,6 +121,10 @@
 						<image src="@/static/img/share.png" mode=""></image>
 						<view class="hui_26">分享</view>
 					</view>
+					<view class="bottom_guanzhu" @click="guanzhu">
+						<image src="@/static/img/guanzhu_icon.png" mode="" style="width: 28rpx;height: 28rpx;"></image>
+						<view class="hui_26">关注</view>
+					</view>
 					<view class="bottom_pingjia" @click="go_dianping()">
 						<image src="@/static/img/go_pingjia.png" mode=""></image>
 						<view class="hui_26">评价</view>
@@ -291,6 +295,9 @@ export default {
 			uni.navigateTo({
 				url:'pingjia?lsid='+this.lawyerid
 			})
+		},
+		guanzhu(){
+			
 		},
 		call(mobile) {
 			uni.makePhoneCall({
@@ -514,7 +521,8 @@ export default {
 	background-color: #ffffff;
 }
 .bottom_fenxiang,
-.bottom_pingjia {
+.bottom_pingjia
+,.bottom_guanzhu{
 	text-align: center;
 	margin-right: 22rpx;
 }
@@ -528,7 +536,7 @@ export default {
 	height: 24rpx;
 }
 .dianhua {
-	width: 270rpx;
+	width: 230rpx;
 	height: 74rpx;
 	border: solid 1rpx #0eb77e;
 	box-sizing: border-box;
@@ -548,7 +556,7 @@ export default {
 	margin-right: 12rpx;
 }
 .zaixian {
-	width: 270rpx;
+	width: 230rpx;
 	height: 74rpx;
 	background-color: #0eb77e;
 	display: flex;

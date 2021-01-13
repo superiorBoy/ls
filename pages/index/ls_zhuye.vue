@@ -109,7 +109,7 @@
 					<view class="ls_jianjie_title hei_28_bold">个人资料</view>
 					{{ lvshi.miaoshu }}
 				</view>
-				<view class="lianxi" v-if="ls_xinxi!=''">
+			<!-- 	<view class="lianxi" v-if="ls_xinxi!=''">
 					<view class=" xixin_title hei_28_bold">联系方式</view>
 					<view class="jiben_xixin_list hei_26">
 						联系电话：
@@ -127,7 +127,7 @@
 						联系地址：
 						<view class="lianxi_right hui_26">{{ ls_xinxi.lawyer.address }}</view>
 					</view>
-				</view>
+				</view> -->
 				<view class="jiben_xixin" v-if="ls_xinxi!=''">
 					<view class=" xixin_title hei_28_bold">基本信息</view>
 					<view class="jiben_xixin_list hei_26">
@@ -150,6 +150,14 @@
 						执业年份
 						<view class="jiben_xixin_list_right hui_26">{{ ls_xinxi.lawyer.zhiyenianfen }}年</view>
 					</view>
+					<view class="jiben_xixin_list hei_26">
+						联系电话
+						<view class="jiben_xixin_list_right hui_26">{{ ls_xinxi.lawyer.mobile }}</view>
+					</view>
+					<view class="jiben_xixin_list hei_26">
+						联系地址
+						<view class="jiben_xixin_list_right hui_26">{{ ls_xinxi.lawyer.address }}</view>
+					</view>
 					<!-- 					<view class="jiben_xixin_list hei_26">
 						团队描述
 						<view class="jiben_xixin_list_right hui_26">-</view>
@@ -161,7 +169,7 @@
 				</view>
 				<!-- 图 -->
 
-				<view class="qiun-charts"><canvas canvas-id="canvasRing" id="canvasRing" class="charts" @touchstart="touchRing"></canvas></view>
+				<view class="qiun-charts" v-if="huifu_list.length!=0"><canvas canvas-id="canvasRing" id="canvasRing" class="charts" @touchstart="touchRing"></canvas></view>
 
 				<view class="wenda_list">
 					<view class="wenda" v-for="item in huifu_list" @click="go_tiwen_xq(item.consultid)">
@@ -235,6 +243,10 @@
 					<view class="bottom_fenxiang" @click="share">
 						<image src="@/static/img/share.png" mode=""></image>
 						<view class="hui_26">分享</view>
+					</view>
+					<view class="bottom_guanzhu" @click="guanzhu">
+						<image src="@/static/img/guanzhu_icon.png" mode="" style="width: 28rpx;height: 28rpx;"></image>
+						<view class="hui_26">关注</view>
 					</view>
 					<view class="bottom_pingjia" @click="go_dianping()">
 						<image src="@/static/img/go_pingjia.png" mode=""></image>
@@ -516,6 +528,9 @@ export default {
 			uni.navigateTo({
 				url: 'zaixian_wen?user=' + id + '&mobile=' + mobile
 			});
+		},
+		guanzhu(){
+			
 		},
 		go_chat(id){
 			uni.navigateTo({
@@ -989,7 +1004,8 @@ export default {
 	background-color: #ffffff;
 }
 .bottom_fenxiang,
-.bottom_pingjia {
+.bottom_pingjia,
+.bottom_guanzhu{
 	text-align: center;
 	margin-right: 22rpx;
 }
@@ -1002,8 +1018,9 @@ export default {
 	width: 25rpx;
 	height: 24rpx;
 }
+
 .dianhua {
-	width: 270rpx;
+	width: 230rpx;
 	height: 74rpx;
 	border: solid 1rpx #0eb77e;
 	box-sizing: border-box;
@@ -1023,7 +1040,7 @@ export default {
 	margin-right: 12rpx;
 }
 .zaixian {
-	width: 270rpx;
+	width: 230rpx;
 	height: 74rpx;
 	background-color: #0eb77e;
 	display: flex;

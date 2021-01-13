@@ -56,7 +56,7 @@
 
 			<view class="jianjie hei_28">
 				网站描述
-				<textarea value="" placeholder="请简短的来描述一下网站" class="jianjie_txt" v-model="miaoshu" :disabled="is_dis"/>
+				<textarea value="" placeholder="请简短的来描述一下网站" class="jianjie_txt" v-model="miaoshu" :disabled="is_dis" maxlength="5000"/>
 				</view>
 				
 			<view class="baocun_btn">
@@ -93,7 +93,20 @@
 
 		},
 		onLoad(option) {
-           
+           this.$http
+           	.post({
+           		url: '/lawyer/login/islogin'
+           	})
+           	.then(res => {
+           		if (res.data.user == '') {
+           			uni.navigateTo({
+           				url:'login'
+           			})
+           			
+           		} else {
+           			
+           		}
+           	});
 		   // this.is_dis=true,
 		   // this.bt_txt='此网站已开通'
 		   

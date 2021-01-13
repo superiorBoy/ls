@@ -36,11 +36,12 @@
 					</view>
 
 					<view class="zixun_r">
-						<view class="zixun_leibie hei_26">
-							{{ fenlei[item.typeid].typename }}
+					
+						<view   :class="['zixun_leibie',item.zixunstate == 4?'qian_26_bold':'hong_26_bold']">
+							{{ item.zixunstate == 1 ? '未付款' : item.zixunstate == 2 ? '已付款' : item.zixunstate == 3 ? '接单中' : '已完成' }}
 						</view>
 						<view class="zixun_dianhua">
-							<image src="@/static/lsimg/dianhua.png" mode=""></image>{{item.phone}}
+							<image src="@/static/img/hy_dianhua.png" mode=""></image>{{item.phone}}
 						</view>
 					</view>
 				</view>
@@ -334,9 +335,9 @@
 		height: 50rpx;
 		background-color: #ffffff;
 		border-radius: 25rpx;
-		border: solid 1rpx #0eb77e;
+		border: solid 1rpx #f43a51;
 		font-size: 26rpx;
-			color: #0eb77e;
+			color: #f43a51;
 			display: flex;
 			align-items: center;
 			justify-content: center;

@@ -89,7 +89,20 @@
 
 		},
 		onLoad(option) {
-           
+           this.$http
+           	.post({
+           		url: '/lawyer/login/islogin'
+           	})
+           	.then(res => {
+           		if (res.data.user == '') {
+           			uni.navigateTo({
+           				url:'login'
+           			})
+           			
+           		} else {
+           			
+           		}
+           	});
 
 
 		},

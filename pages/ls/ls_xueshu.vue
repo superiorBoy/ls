@@ -43,7 +43,7 @@
 
 			<view class="jianjie hei_28">
 				成果
-				<textarea value="" placeholder="请填写具体学术成果内容" class="jianjie_txt" v-model="jianjie_txt" />
+				<textarea value="" placeholder="请填写具体学术成果内容" class="jianjie_txt" v-model="jianjie_txt" maxlength="5000"/>
 				</view>
 
 		</view>

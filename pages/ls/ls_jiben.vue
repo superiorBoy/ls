@@ -137,7 +137,7 @@
 			<!-- 个人简介 -->
 			<view class="jianjie hei_28">
 				个人简介
-				<textarea value="" disabled placeholder="请介绍一下自己，让大家更好的认识你..."maxlength="1000" class="jianjie_txt" v-model="jianjie" />
+				<textarea value="" disabled placeholder="请介绍一下自己，让大家更好的认识你..."maxlength="5000" class="jianjie_txt" v-model="jianjie" />
 			</view>
 			
 			

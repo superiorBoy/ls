@@ -46,7 +46,7 @@
 			<view class="zixun_item_leixing hui_26" >
 				<text v-if="item.typeid">咨询类型：{{ fenlei[item.typeid].typename }}</text>  <text class="hong_26 zixun_item_jiage">￥{{item.paymoney}}/小时</text>
 			</view>
-			<view class="zixun_item_top_bottom" @click="pay(item.lawyerid)">
+			<view class="zixun_item_top_bottom" @click="pay(item.lawyerid,item.consultid)">
 				<view class="fukuan lv_26" v-if="item.zixunstate == 1">
 					立即付款
 				</view>
@@ -248,9 +248,9 @@
 				this.huoqu_list()
 				
 			},
-			pay(id){
+			pay(id,consultid){
 				uni.navigateTo({
-					url:'pay?lawyerid='+id+'&type=1'
+					url:'pay?lawyerid='+id+'&type=1'+'&consultid='+consultid
 				})
 			},
 			huoqu_list(){

@@ -97,23 +97,31 @@ export default {
 						}
 	      		})
 	      		.then(res => {
-	      		
-	      			// if(res.code==0){
+	      		var that=this
+	      			if(res.code==0){
 					
 						uni.requestPayment({
 						       provider: 'alipay',
-						       orderInfo:res,
+						       orderInfo:res.data.response,
 						       success: function(res) {
 						           console.log('success:' + JSON.stringify(res));
-								   
-								   this.number=''
-								   this.huoqu_yue()
+								   uni.showToast({
+								   	title: '支付成功',
+								   	duration: 2000
+								   });
+								   that.number=''
+								   that.huoqu_yue()
 						       },
 						       fail: function(err) {
+								   uni.showToast({
+								   	title: '支付失败',
+								   	duration: 2000,
+									icon: 'none'
+								   });
 						           console.log('fail:' + JSON.stringify(err));
 						       }
 						   });
-					// }
+					}
 					
 					
 					console.log(res)

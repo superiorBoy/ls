@@ -11,7 +11,7 @@
 				<view class="pay_list">
 					<text class="qian_30">服务项目</text>
 					<text class="hei_30">
-						{{type==1?'在线咨询':'电话咨询'}}
+						{{type==1?'在线咨询(服务时长1小时)':'电话咨询(服务时长20分钟)'}}
 						
 					</text>
 				</view>
@@ -46,15 +46,18 @@
 					</view>
 					</view>
 				</view>
-				<view class="pay_list">
+		<!-- 		<view class="pay_list" v-if="typeid && fenlei[typeid]">
 					<text class="qian_30">咨询类型</text>
 					<text class="hei_30">
-						家庭婚姻
+						{{ fenlei[typeid].typename }}
 					</text>
-				</view>
+				</view> -->
 				<view class="pay_list wen_list">
 					<view class="qian_30 wen_list_top">咨询内容</view>
-					<textarea value="" placeholder="" class="hei_30 wen_neirong" v-model="neirong"/>
+					<view class="wen_neirong wen_neirong_txt hei_30" v-if="type==2">
+						{{information}}
+					</view>
+					<textarea value=""   placeholder="" class="hei_30 wen_neirong wen_neirong_textarea" v-model="neirong" v-if="type==1" maxlength="5000"/>
 					
 				</view>
 				
@@ -66,17 +69,17 @@
 							<text class="hong_30">￥{{type==1?lvshi.chatprice:lvshi.phoneprice  }}</text>
 						</text>
 					</view>
-					<view class="hei_30 qian_26 yuanjia">
+				<!-- 	<view class="hei_30 qian_26 yuanjia">
 						原价：
 						<text>99.00</text>
-					</view>
+					</view> -->
 				</view>
-				<view class="pay_list">
+			<!-- 	<view class="pay_list">
 					<text class="qian_30">咨询时长</text>
 					<text class="hong_30">
-						1小时
+						{{type==1?'1小时':'20分钟'}}
 					</text>
-				</view> 
+				</view> -->
 			</view>
 
 			<view class="fangshi_txt qian_30">请选择支付方式</view>
@@ -114,7 +117,11 @@ export default {
 			lvshi:'',
 			neirong:'',
 			zhuanchang_arry:[],
-			type:''
+			type:'',
+			consultid:'',
+			information:'',
+			typeid:'',
+			fenlei:[]
 		};
 	},
 	created() {
@@ -122,6 +129,26 @@ export default {
 	onLoad(option) {
 		this.lawyerid=option.lawyerid
 		this.type=option.type
+		// if(option.type==2){
+		// 	this.guoqu_zixun_xq()
+		// }
+		if(option.consultid){
+			this.consultid=option.consultid
+			
+		}if(option.information){
+			this.information=option.information
+			
+		}if(option.typeid){
+			this.typeid=option.typeid
+			// 获取分类
+			this.$http
+				.post({
+					url: '/mapi/index/gettype'
+				})
+				.then(res => {
+					this.fenlei = res.data.type;
+				});
+		}
 		this.$http
 			.post({
 				url: '/mapi/lawyer/getshanchang'
@@ -154,9 +181,60 @@ export default {
 		save() {
 			
 
-			
+			this.$http
+				.post({
+					url: '/mapi/consult/pay',
+					data: {
+						lawyerid: this.lawyerid,
+						type:this.type,
+						consultid:this.consultid,
+						information:this.neirong
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						uni.requestPayment({
+						       provider: 'alipay',
+						       orderInfo:res.data.response,
+						       success: function(res) {
+						           console.log('success:' + JSON.stringify(res));
+								   uni.showToast({
+								   	title: '支付成功',
+								   	duration: 2000
+								   });
+								   
+								  setTimeout(function(){
+								  				uni.navigateBack()
+								  },2000) 
+								   
+						       },
+						       fail: function(err) {
+								   uni.showToast({
+								   	title: '支付失败',
+								   	duration: 2000,
+									icon: 'none'
+								   });
+						           console.log('fail:' + JSON.stringify(err));
+						       }
+						   });
+					}
+				});
 
 			console.log(this.zhifu);
+		},
+		guoqu_zixun_xq(){
+			this.$http
+				.post({
+					url: '/mapi/consult/zixun_xq',
+					data: {
+						consultid: this.consultid
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						
+					}
+				});
 		},
 		radio(i) {
 			this.zhifu = i;
@@ -259,7 +337,7 @@ page {
 }
 
 .pay_list_jine {
-	height: 153rpx;
+	height: 92rpx;
 	box-sizing: border-box;
 	padding: 27rpx 0;
 }
@@ -305,6 +383,14 @@ page {
 		padding: 10rpx 16rpx;
 		box-sizing: border-box;
 		
+}
+.wen_neirong_txt{
+	height:100rpx;
+	overflow: auto;
+	word-break: break-all;
+}
+.wen_neirong_textarea{
+	height:100rpx;
 }
 .go_r{
 		width: 13rpx;

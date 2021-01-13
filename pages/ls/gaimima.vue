@@ -64,9 +64,16 @@ onLoad() {
 		})
 		.then(res => {
 			this.user = res.data.user;
-			
+			if (res.data.user == '') {
+				uni.navigateTo({
+					url:'login'
+				})
+				
+			}
 		});
 },
+
+ 
 
 		methods: {
 		

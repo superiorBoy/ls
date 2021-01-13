@@ -13,7 +13,7 @@
 
 		<view class="zi_body ">
 			<view class="up_neirong" @click="zhanshi">
-				<textarea value="" placeholder="" class=" hei_26" v-model="neirong_txt" maxlength="1000" />
+				<textarea value="" placeholder="" class=" hei_26" v-model="neirong_txt" maxlength="5000" />
 
 				</view>
 		

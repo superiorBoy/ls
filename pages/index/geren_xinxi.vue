@@ -48,7 +48,7 @@
 				<view class="youshi_top qian_28">
 					简介
 				</view>
-			<textarea value="" placeholder="请输入" class="hei_26" v-model="youshi"/>
+			<textarea value="" placeholder="请输入" class="hei_26" v-model="youshi" maxlength="5000"/>
 				
 			</view>
    <view class="tuichu hei_30" @click="tuichu">

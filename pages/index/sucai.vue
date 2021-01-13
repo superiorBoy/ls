@@ -10,7 +10,7 @@
 		</view>
 		<view class="zi_body tab_zi_body">
 			<view class="jingxuan_body" v-if="active == 0">
-				<view class="jingxuan_item" v-for="item in 10">
+				<view class="jingxuan_item" v-for="item in zixun_list">
 					<view class="jingxuan_item_top">
 						<view class="jingxuan_item_top_left">
 							<image src="@/static/img/xh_tx.png" mode="" class="xh_tx"></image>
@@ -291,16 +291,15 @@ export default {
 		huoqu_jingxuan() {
 			this.$http
 				.post({
-					url: '/mapi/consult/zixunlist',
+					url: '/mapi/extension/huifu',
 					data: {
-						page: this.page,
-						type: 2,
+						page: this.page
 					}
 				})
 				.then(res => {
-					console.log(res);
+					
 					this.zixun_list = this.zixun_list.concat(res.data.consultlist);
-					console.log(this.zixun_list);
+					
 				});
 		},
 
@@ -628,6 +627,7 @@ button::after {
 	width: 100%;
 	position: fixed;
 	bottom: 0rpx;
+	max-width: 750px;
 }
 .haibao_bottom_left{
 	width: 50%;

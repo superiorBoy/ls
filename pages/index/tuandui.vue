@@ -9,55 +9,55 @@
 			<view class="tuandui_top">
 				<view class="tuijian bai_20">
 					<image src="@/static/img/jian.png" mode=""></image>
-					您的推荐人
+					{{tuandui.recommended?'您的推荐人':"暂无推荐人"}}
 				</view>
 				
-				<view class="zanwu bai_26" @click="tianjia()">
+				<view class="zanwu bai_26" @click="tianjia()" v-if="!tuandui.recommended">
 					<image src="@/static/img/jia_tuijian.png" mode=""></image>添加推荐人
 				</view>
 				
-				<!-- <view class="tuijian_ren">
+				<view class="tuijian_ren" v-if="tuandui.recommended">
 					<view class="tuijian_ren_left bai_26">
-						<image src="@/static/lsimg/moren_tx.png" mode=""></image>
-						卖火柴的boy
+						<image :src="img_url+tuandui.recommended.photourl" mode=""></image>
+						{{tuandui.recommended.nickname}}
 					</view>
-					<view class="tuijian_ren_right bai_22">
+					<view class="tuijian_ren_right bai_22" @click="go_chat(tuandui.recommended.userid)">
 						联系推荐人
-						<text>146023</text>
+						<text>{{tuandui.recommended.mobile}}</text>
 						<image src="@/static/img/tuandui_lianxi.png" mode=""></image>
 					</view>
-				</view> -->
+				</view>
 
-				<view class="tuandui_xuan">
+				<view class="tuandui_xuan" v-if="tuandui!=''">
 					<view :class="['tuandui_xuan_item',active==1?'xuanzhong':'']" @click="xuan(1)">
-						<view class="num">0</view>
+						<view class="num">{{tuandui.count.invitecount}}</view>
 						<view class="tuandui_xuan_txt">直属粉丝</view>
 					</view>
 					<view :class="['tuandui_xuan_item',active==2?'xuanzhong':'']"@click="xuan(2)">
-						<view class="num">0</view>
+						<view class="num">{{tuandui.count.tuanzhangcount}}</view>
 						<view class="tuandui_xuan_txt">下级团长</view>
 					</view>
 					<view :class="['tuandui_xuan_item',active==3?'xuanzhong':'']"  @click="xuan(3)">
-						<view class="num">0</view>
+						<view class="num">{{tuandui.count.count}}</view>
 						<view class="tuandui_xuan_txt">全部</view>
 					</view>
 				</view>
 			</view>
-			<view class="tuandui_num">
+			<view class="tuandui_num" v-if="tuandui!=''" >
 				<view class="tuandui_num_item">
-					<view class="tuandui_num_item_top hei_30">0</view>
+					<view class="tuandui_num_item_top hei_30">{{tuandui.count.today}}</view>
 					<view class="tuandui_num_item_bottom hei_24">今日新增</view>
 				</view>
 				<view class="tuandui_num_item">
-					<view class="tuandui_num_item_top hei_30">0</view>
+					<view class="tuandui_num_item_top hei_30">{{tuandui.count.yesterday}}</view>
 					<view class="tuandui_num_item_bottom hei_24">昨日新增</view>
 				</view>
 				<view class="tuandui_num_item">
-					<view class="tuandui_num_item_top hei_30">0</view>
+					<view class="tuandui_num_item_top hei_30">{{tuandui.count.gen2}}</view>
 					<view class="tuandui_num_item_bottom hei_24">二代粉丝</view>
 				</view>
 				<view class="tuandui_num_item">
-					<view class="tuandui_num_item_top hei_30">0</view>
+					<view class="tuandui_num_item_top hei_30">{{tuandui.count.gen2after}}</view>
 					<view class="tuandui_num_item_bottom hei_24">二代以后</view>
 				</view>
 			</view>
@@ -98,7 +98,7 @@
 					添加推荐人
 				</view>
 				<view class="add_tuijian_shuru">
-					<input type="text" value="" placeholder="输入推荐人微信号" class="hei_20" v-model="shuru"/>
+					<input type="text" value="" placeholder="输入推荐码" class="hei_20" v-model="shuru"/>
 				</view>
 				<view class="add_tuijian_bottom">
 					<view class="quding bai_22" @click="queren">
@@ -127,10 +127,12 @@ export default {
 			is_tan:false,
 			page:0,
 			list:[],
-			is_all:false
+			is_all:false,
+			tuandui:''
 		};
 	},
 	onLoad() {
+		this.huoqu_tuandui()
 	this.huoqu_list()
 	},
 	methods: {
@@ -152,6 +154,16 @@ export default {
 		},
 		navigateBack() {
 			uni.navigateBack();
+		},
+		huoqu_tuandui(){
+			this.$http
+				.post({
+					url: '/mapi/user/yaoqingjilu'
+				})
+				.then(res => {
+					this.tuandui=res.data
+					
+				});
 		},
 		huoqu_list(){
 			this.$http
@@ -190,7 +202,37 @@ export default {
 				return false
 			}
 			console.log(this.shuru)
-			this.is_tan=false
+			
+			
+			this.$http
+				.post({
+					url: '/mapi/user/addline',
+					data:{
+						randcode:this.shuru
+					}
+			
+				})
+				.then(res => {
+					if(res.code==0){
+						
+						uni.showToast({
+							title: '添加成功',
+							duration: 2000
+						});	
+						this.huoqu_tuandui()
+						this.is_tan=false
+					}
+
+				});
+			
+			
+			
+			
+		},
+		go_chat(id){
+			uni.navigateTo({
+				url:'chat?lsid='+id
+			})
 		},
 		quxiao(){
 			this.is_tan=false
