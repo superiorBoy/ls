@@ -56,8 +56,8 @@
 					<view class="tiwen_item_center qian_22">
 						<view class="tiwen_item_shijian">
 							<image src="@/static/lsimg/shijian_icon.png" mode=""></image>
-							<text class="hong_22"></text>
-							{{ item.addtime | timeStamp }}
+							
+							 {{active==0?item.replytime:item.addtime | timeStamp }}
 						</view>
 						<view class="tiwen_item_biaoqian" v-if="fenlei != ''">
 							<image src="@/static/img/biaoqian.png" mode=""></image>

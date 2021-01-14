@@ -235,7 +235,7 @@
 			   	icon: 'none'
 			   });
 			  }
-			
+			})
 			
 			// this.$http
 			// 	.post({
@@ -262,7 +262,7 @@
 			// 		}
 			// 	});	
 			
-			})
+			
 			
 			console.log(this.xing_number,this.shuru_txt,this.arry_img,this.arry)
 		}

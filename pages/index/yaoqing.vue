@@ -126,15 +126,15 @@
 					})
 				}else{
 					  // #ifdef H5
-					                this.$copyText(this.lianjie).then(
-					                    res => {
-					                        uni.showToast({
-					                            title: '复制成功'
-					                        })
-					                    }
-					                )
-					                // #endif
-					                // #ifndef H5
+						this.$copyText(this.lianjie).then(
+							res => {
+								uni.showToast({
+									title: '复制成功'
+								})
+							}
+						)
+					   // #endif
+					   // #ifdef APP-PLUS
 					                uni.setClipboardData({
 					                    data: this.lianjie,
 					                    success: () => {
@@ -143,7 +143,7 @@
 					                        })
 					                    }
 					                })
-					                // #endif
+					    // #endif
 				}
 				
 			}

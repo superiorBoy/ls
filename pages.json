@@ -54,9 +54,7 @@
 		{
 			"path":"pages/index/weituo_xq"
 		},
-		{
-			"path":"pages/index/fensi"
-		},
+	
 		{
 			"path":"pages/index/tuandui"
 		},
@@ -217,6 +215,9 @@
 		},
 		{
 			"path":"pages/ls/yaoqing"
+		},
+		{
+			"path":"pages/ls/fensi"
 		},
 		{
 			"path":"pages/ls/ls_xueshu"

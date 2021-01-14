@@ -1,5 +1,6 @@
 
 let baseUrl = '';
+let WebSocket_url=''
 if (process.env.NODE_ENV == 'development') {
 
     baseUrl='/api'
@@ -9,13 +10,15 @@ if (process.env.NODE_ENV == 'development') {
 	// #endif
 	//#ifdef APP-PLUS
 	  baseUrl = 'http://xhlvshi.hongvv.com' // 生产环境
+	  WebSocket_url='xhlvshi.hongvv.com'
 	  // uni.setStorageSync("xian_url",baseUrl)
 	//#endif
 	
 } else {
-    baseUrl = '' // 生产环境
+        baseUrl = '' // 生产环境
 	  //#ifdef APP-PLUS
 	    baseUrl = 'http://xhlvshi.hongvv.com/' // 生产环境
+		WebSocket_url='xhlvshi.hongvv.com'
 	    uni.setStorageSync("xian_url",baseUrl)
 	  //#endif
 }
@@ -79,5 +82,6 @@ export default {
   request,
   get,
   post,
-  baseUrl
+  baseUrl,
+  WebSocket_url
 }

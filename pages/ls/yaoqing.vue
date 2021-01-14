@@ -137,7 +137,7 @@
 					                    }
 					                )
 					                // #endif
-					                // #ifndef H5
+					                // #ifdef APP-PLUS
 					                uni.setClipboardData({
 					                    data: this.lianjie,
 					                    success: () => {

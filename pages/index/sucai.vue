@@ -16,7 +16,7 @@
 							<image src="@/static/img/xh_tx.png" mode="" class="xh_tx"></image>
 							<view class="jingxuan_item_top_r">
 								<view class="hei_32 jingxuan_item_name">虎哥推荐</view>
-								<view class="qian_24">2020-01-05 15:20:14</view>
+								<view class="qian_24">{{ item.addtime | timeStamp }}</view>
 							</view>
 						</view>
 						<view class="jing_fenxiang lv_22" @click="jingxuan_share()">
@@ -25,31 +25,41 @@
 						</view>
 					</view>
 
-					<view class="jingxuan_wenti hei_26">丈夫挪用公款赌博妻子需要承担责任吗?</view>
+					<view class="jingxuan_wenti hei_26">{{ item.information }}</view>
 					<view class="jingxuan_jieda hui_24">
 						<text class="bai_20">精选解答</text>
-						丈夫挪用公款赌博，如果妻子不知情，是不用承担法律责任的。 只是调查过，没有证据完全可以证明妻子知情，或者证据不充分，
-						也不能作为证据使用，作为证据使用，必须形成证据链。如果妻 子明知丈夫挪用公款进行赌博，在司法机关调查时，还进行包庇，
-						情节严重的，依法应追究刑事责任。法律链接：《刑法》第三百 一十条 明知是犯罪的人而为其提供隐藏处所、财物，帮助其逃
-						匿或者作假证明包庇的，处三年以下有期徒刑、拘役或者管制； 情节严重的，处三年以上十年以下有期徒刑。
+						{{ item.consult_reply.information }}
 					</view>
 					<view class="jingxuan_ls">
 						<view class="jingxuan_ls_left">
 							<view class="jingxuan_ls_left_tx">
-								<image src="@/static/img/tx.png" mode="" class="jingxuan_ls_tx"></image>
+								<image :src="img_url + item.consult_reply.photourl" mode="" class="jingxuan_ls_tx"></image>
 								<image src="@/static/img/renzheng2.png" mode="" class="jingxuan_ls_ren"></image>
 							</view>
-							<text class="hei_26 jingxuan_ls_name">樊柯律师</text>
-							<text class="hui_22">18938874792</text>
+							<text class="hei_26 jingxuan_ls_name">{{ item.consult_reply.nickname }}律师</text>
+							<text class="hui_22">{{ item.consult_reply.mobile }}</text>
 						</view>
-						<text class="qian_24">2021-01-06 15:21:45</text>
+						<text class="qian_24">{{ item.consult_reply.addtime | timeStamp }}</text>
 					</view>
 				</view>
 			</view>
 
 			<!-- 营销素材 -->
 			<view class="jingxuan_body" v-if="active == 1">
-				<view class="jingxuan_item" v-for="item in 5">
+				<view class="shangxue_list">
+					<view class="shangxue_item" v-for="item in sucai_list">
+						<view class="shangxue_item_left"><image :src="img_url + zhuanhuan(item.picurl)" mode=""></image></view>
+						<view class="shangxue_item_right">
+							<view class="shangxue_item_title hei_28_bold">{{ item.title }}</view>
+							<view class="shangxue_item_time qian_24">
+								<image src="@/static/img/shipin_time.png" mode=""></image>
+								{{ item.addtime | timeStamp }}
+							</view>
+						</view>
+					</view>
+				</view>
+
+				<!-- <view class="jingxuan_item" v-for="item in 5">
 					<view class="jingxuan_item_top">
 						<view class="jingxuan_item_top_left">
 							<image src="@/static/img/xh_tx.png" mode="" class="xh_tx"></image>
@@ -105,7 +115,7 @@
 							</view>
 						</view>
 					</view>
-				</view>
+				</view> -->
 			</view>
 
 			<!-- 分享海报 -->
@@ -124,13 +134,10 @@
 						@change="swiperchang"
 					>
 						<swiper-item v-for="item in banner">
-							<view class="swiper-item"><image :src="item.img"></image>
-							<view class="yaoqing_kuling">
-								邀请口令:HM56A4XC
-							</view>
-							<view class="yaoqing_erweima">
-								<image src="@/static/img/erweima.png" mode=""></image>
-							</view>
+							<view class="swiper-item">
+								<image :src="item.img"></image>
+								<view class="yaoqing_kuling">邀请口令:{{ yaoqing.randcode1 }}</view>
+								<view class="yaoqing_erweima"><image src="@/static/img/erweima.png" mode=""></image></view>
 							</view>
 						</swiper-item>
 					</swiper>
@@ -140,85 +147,43 @@
 					</view>
 				</view>
 				<view class="haibao_bottom">
-					<view class="haibao_bottom_left hei_22">
-						<image src="@/static/img/haibao_lian.png" mode=""></image>复制分享链接
+					<view class="haibao_bottom_left hei_22" @click="copy">
+						<image src="@/static/img/haibao_lian.png" mode=""></image>
+						复制分享链接
 					</view>
 					<view class="haibao_bottom_right bai_22">
-						<image src="@/static/img/haibao_fen.png" mode=""></image>分享专属海报
+						<image src="@/static/img/haibao_fen.png" mode=""></image>
+						分享专属海报
 					</view>
 				</view>
 			</view>
-			
+
 			<!-- 商学院 -->
-			<view class="jingxuan_body " v-if="active ==3">
+			<view class="jingxuan_body " v-if="active == 3">
 				<view class="shangxue_list">
-					<view class="shangxue_item">
-						<view class="shangxue_item_left">
-						<image src="@/static/img/shangxue1.png" mode=""></image>
-						</view>
+					<view class="shangxue_item" v-for="item in shangxue_list">
+						<view class="shangxue_item_left"><image :src="img_url + item.picurl" mode=""></image></view>
 						<view class="shangxue_item_right">
 							<view class="shangxue_item_title hei_28_bold">
-							<text >置顶</text>	小虎律师 常见问题
+								<text>置顶</text>
+								{{ item.title }}
 							</view>
 							<view class="shangxue_item_time qian_24">
-								<image src="@/static/img/shipin_time.png" mode=""></image>2021-01-06
-							</view>
-						</view>
-					</view>
-					<view class="shangxue_item">
-						<view class="shangxue_item_left">
-						<image src="@/static/img/shangxue2.png" mode=""></image>
-						</view>
-						<view class="shangxue_item_right">
-							<view class="shangxue_item_title hei_28_bold">
-							<text >置顶</text>	如何升级做团长
-							</view>
-							<view class="shangxue_item_time qian_24">
-								<image src="@/static/img/shipin_time.png" mode=""></image>2021-01-06
-							</view>
-						</view>
-					</view>
-					<view class="shangxue_item">
-						<view class="shangxue_item_left">
-						<image src="@/static/img/shangxue3.png" mode=""></image>
-						</view>
-						<view class="shangxue_item_right">
-							<view class="shangxue_item_title hei_28_bold">
-							律师入驻须知
-							</view>
-							<view class="shangxue_item_time qian_24">
-								<image src="@/static/img/shipin_time.png" mode=""></image>2021-01-06
-							</view>
-						</view>
-					</view>
-					<view class="shangxue_item">
-						<view class="shangxue_item_left">
-						<image src="@/static/img/shangxue4.png" mode=""></image>
-						</view>
-						<view class="shangxue_item_right">
-							<view class="shangxue_item_title hei_28_bold">
-							小虎律师免责声明
-							</view>
-							<view class="shangxue_item_time qian_24">
-								<image src="@/static/img/shipin_time.png" mode=""></image>2021-01-06
+								<image src="@/static/img/shipin_time.png" mode=""></image>
+								{{ item.addtime | timeStamp }}
 							</view>
 						</view>
 					</view>
 				</view>
-				
 			</view>
-			
-			
 		</view>
 	</view>
 </template>
 
 <script>
+import clipboard from '@/common/copy.js';
 export default {
-	onShow() {
-		
-		
-	},
+	onShow() {},
 
 	data() {
 		return {
@@ -234,25 +199,28 @@ export default {
 				},
 				{
 					img: '../../static/img/haibao2.png'
-				},
-
+				}
 			],
-			current: 0
+			current: 0,
+			shangxue_list: [],
+			yaoqing: '',
+			sucai_list: []
 		};
 	},
 	created() {},
 	onLoad(option) {
-		if(option.state){
-			this.active=option.state
+		if (option.state) {
+			this.active = option.state;
+			if (option.state == 1) {
+				this.huoqu_sucai();
+			}
 		}
-		
-		this.huoqu_jingxuan()
+
+		this.huoqu_jingxuan();
+		this.huoqu_yaoqing();
 	},
 	//下拉刷新
-	onPullDownRefresh: function() {
-
-		
-	},
+	onPullDownRefresh: function() {},
 	// stopPullDownRefresh:function(){
 
 	// },
@@ -269,7 +237,12 @@ export default {
 				return false;
 			} else {
 				this.page++;
-				// this.huoqu_list()
+				if (this.active == 0) {
+					this.huoqu_jingxuan();
+				} else if (this.active == 3) {
+					this.huoqu_shangxue();
+				}
+				this.huoqu_jingxuan();
 			}
 		},
 		navigateBack() {
@@ -281,8 +254,16 @@ export default {
 
 			this.page = 0;
 			this.zixun_list = [];
+			this.shangxue_list = [];
+			this.sucai_list = [];
 			this.is_all = false;
-			// this.huoqu_list()
+			if (index == 0) {
+				this.huoqu_jingxuan();
+			} else if (index == 1) {
+				this.huoqu_sucai();
+			} else if (index == 3) {
+				this.huoqu_shangxue();
+			}
 		},
 		huifu() {
 			// this.$refs.huifu.open()
@@ -297,30 +278,113 @@ export default {
 					}
 				})
 				.then(res => {
-					
 					this.zixun_list = this.zixun_list.concat(res.data.consultlist);
-					
+					if (res.data.consultlist < 10) {
+						this.is_all = true;
+					}
 				});
 		},
-
+		huoqu_shangxue() {
+			this.$http
+				.post({
+					url: '/mapi/extension/shangxueyuanlist',
+					data: {
+						page: this.page
+					}
+				})
+				.then(res => {
+					this.shangxue_list = this.shangxue_list.concat(res.data.shangxueyuanlist);
+					if (res.data.shangxueyuanlist < 10) {
+						this.is_all = true;
+					}
+				});
+		},
+		huoqu_yaoqing() {
+			this.$http
+				.post({
+					url: '/mapi/user/yaoqing'
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.yaoqing = res.data;
+					}
+				});
+		},
+		huoqu_sucai() {
+			this.$http
+				.post({
+					url: '/mapi/extension/yingxiaosucailist',
+					data: {
+						page: this.page
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.sucai_list = this.sucai_list.concat(res.data.yingxiaosucailist);
+						if (res.data.yingxiaosucailist < 10) {
+							this.is_all = true;
+						}
+					}
+				});
+		},
 		swiperchang(e) {
 			this.current = e.detail.current;
-			
 		},
-		jingxuan_share(){
-			console.log('77777')
+		jingxuan_share() {
+			
 			uni.share({
-			    provider: "weixin",
-			    scene: "WXSenceTimeline",
-			    type: 1,
-			    summary: "我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！",
-			    success: function (res) {
-			        console.log("success:" + JSON.stringify(res));
-			    },
-			    fail: function (err) {
-			        console.log("fail:" + JSON.stringify(err));
-			    }
+				provider: 'weixin',
+				scene: 'WXSenceTimeline',
+				type: 1,
+				summary: '我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！',
+				success: function(res) {
+					console.log('success:' + JSON.stringify(res));
+				},
+				fail: function(err) {
+					console.log('fail:' + JSON.stringify(err));
+				}
 			});
+		},
+		copy() {
+			// #ifdef H5
+			this.$copyText(this.yaoqing.inviteurl).then(res => {
+				uni.showToast({
+					title: '复制成功'
+				});
+			});
+			// #endif
+			// #ifdef APP-PLUS
+			uni.setClipboardData({
+				data: this.yaoqing.inviteurl,
+				success: () => {
+					uni.showToast({
+						title: '复制成功'
+					});
+				}
+			});
+			// #endif
+		},
+		zhuanhuan(img) {
+			return JSON.parse(img)[0];
+		}
+	},
+	filters: {
+		timeStamp: function(value) {
+			if (value == null) {
+				return 'null';
+			}
+			var i = (value + '').length;
+			while (i++ < 13) value = value + '0';
+			value = Number(value);
+			var date = new Date(value);
+			//date.setTime(value);
+			var month = date.getMonth() + 1;
+			var hours = date.getHours();
+			if (hours < 10) hours = '0' + hours;
+			var minutes = date.getMinutes();
+			if (minutes < 10) minutes = '0' + minutes;
+			var time = date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + hours + ':' + minutes;
+			return time;
 		}
 	}
 };
@@ -415,6 +479,7 @@ button::after {
 .jingxuan_ls_tx {
 	width: 51rpx;
 	height: 51rpx;
+	border-radius: 100%;
 }
 .jingxuan_ls_ren {
 	width: 15rpx;
@@ -581,125 +646,122 @@ button::after {
 	background: url(../../static/img/sucai_bg.png) no-repeat;
 	background-size: 100% 100%;
 	border: solid 2rpx #0eb77e;
-	
 }
-.sucai_body{
+.sucai_body {
 	padding: 45rpx 0rpx 250rpx;
 }
-.lunbo{
+.lunbo {
 	position: relative;
 	padding: 0rpx 46rpx 0rpx;
 }
-.yaoqing_erweima{
+.yaoqing_erweima {
 	width: 154rpx;
 	height: 154rpx;
 	background-color: #ffffff;
 	position: absolute;
 	bottom: 168rpx;
 	left: 50%;
-	transform: translate(-50%,0);
+	transform: translate(-50%, 0);
 
 	padding: 9rpx;
 	box-sizing: border-box;
-	}
-	.yaoqing_kuling{
-		width: 266rpx;
-			height: 58rpx;
-			background-color: #ffffff;
-			border-radius: 29rpx;
-			position: absolute;
-			
-			top: 523rpx;
-				font-size: 22rpx;
-				color: #83b364;
-				text-align: center;
-				line-height: 58rpx;
-				left: 50%;
-				transform: translate(-50%,0);
-				
-	}
-.yaoqing_erweima image{
-		width:100%;
-		height: 100%;
 }
-.haibao_bottom{
+.yaoqing_kuling {
+	width: 266rpx;
+	height: 58rpx;
+	background-color: #ffffff;
+	border-radius: 29rpx;
+	position: absolute;
+
+	top: 523rpx;
+	font-size: 22rpx;
+	color: #83b364;
+	text-align: center;
+	line-height: 58rpx;
+	left: 50%;
+	transform: translate(-50%, 0);
+}
+.yaoqing_erweima image {
+	width: 100%;
+	height: 100%;
+}
+.haibao_bottom {
 	height: 98rpx;
 	width: 100%;
 	position: fixed;
 	bottom: 0rpx;
 	max-width: 750px;
 }
-.haibao_bottom_left{
+.haibao_bottom_left {
 	width: 50%;
-	background-color: #86DBBE;
+	background-color: #86dbbe;
 	height: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
-.haibao_bottom_left image{
+.haibao_bottom_left image {
 	width: 23rpx;
-		height: 23rpx;
-		margin-right: 7rpx;
+	height: 23rpx;
+	margin-right: 7rpx;
 }
-.haibao_bottom_right{
+.haibao_bottom_right {
 	width: 50%;
 	background-color: #0eb77e;
 	height: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	
 }
-.haibao_bottom_right image{
+.haibao_bottom_right image {
 	width: 22rpx;
 	height: 21rpx;
-		margin-right: 7rpx;
+	margin-right: 7rpx;
 }
-.haibao_bottom{
+.haibao_bottom {
 	display: flex;
 }
-.shangxue_item_title text{
+.shangxue_item_title text {
 	font-weight: 500;
 	width: 60rpx;
-		height: 28rpx;
-		background-color: #ffffff;
-		border-radius: 3rpx;
-		border: solid 1rpx #ff4d6d;
-		display: inline-block;
-		line-height: 28rpx;
-		text-align: center;
-		color: #ff4d6d;
-		font-size: 20rpx;
-		margin-right: 7rpx;
+	height: 28rpx;
+	background-color: #ffffff;
+	border-radius: 3rpx;
+	border: solid 1rpx #ff4d6d;
+	display: inline-block;
+	line-height: 28rpx;
+	text-align: center;
+	color: #ff4d6d;
+	font-size: 20rpx;
+	margin-right: 7rpx;
 }
-.shangxue_item_title{
+.shangxue_item_title {
 	word-break: break-all;
 }
-.shangxue_list{
+.shangxue_list {
 	margin-top: 20rpx;
 }
-.shangxue_item{
-	background-color: #FFFFFF;
-	padding:19rpx 19rpx 19rpx 41rpx ;
+.shangxue_item {
+	background-color: #ffffff;
+	padding: 19rpx 19rpx 19rpx 41rpx;
 }
-.shangxue_item_time image{
+.shangxue_item_time image {
 	width: 22rpx;
-		height: 22rpx;
-		margin-right: 10rpx;
+	height: 22rpx;
+	margin-right: 10rpx;
 }
-.shangxue_item_left image{
+.shangxue_item_left image {
 	width: 240rpx;
-		height: 172rpx;
-		background-color: #ededef;
-		border-radius: 10rpx;
-		margin-right: 19rpx;
+	height: 172rpx;
+	background-color: #ededef;
+	border-radius: 10rpx;
+	margin-right: 19rpx;
 }
-.shangxue_item{
+.shangxue_item {
 	display: flex;
 	margin-bottom: 20rpx;
 }
-.shangxue_item_right{
+.shangxue_item_right {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;

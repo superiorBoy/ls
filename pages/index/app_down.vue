@@ -81,7 +81,7 @@ export default {
 				});
 			});
 			// #endif
-			// #ifndef APP-PLUS
+			// #ifdef APP-PLUS
 			uni.setClipboardData({
 				data: this.yaoqing,
 				success: () => {

@@ -6,7 +6,7 @@
 	if (window.innerWidth > 750) {
 	window.innerWidth = 750;
 	timer_id = setInterval(function() {
-		console.log('77777')
+		
 	//适配尺寸
 	var el = document.querySelector('html');
 	var n = Number(el.style.fontSize.replace('px', ''));

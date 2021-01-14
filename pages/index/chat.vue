@@ -3,12 +3,8 @@
 		<view class="head">
 			<view class="head_back" style="width: 10%;"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
 			<view class="head_center " style="width: 80%;">
-				 <view class="hei_38_bold top_title">
-					{{ title }}
-				 </view> 
-			<view class="qian_20 chat_lvsuo">
-				{{ls_xinxi.lvsuo}}
-			</view>
+				<view class="hei_38_bold top_title">{{ title }}</view>
+				<view class="qian_20 chat_lvsuo">{{ ls_xinxi.lvsuo }}</view>
 			</view>
 			<view class=" head_right hei_30_bold" style="width: 10%;"></view>
 		</view>
@@ -19,22 +15,21 @@
 					<view class="chat_jiage_item chat_jiage_item1">
 						<view class="bai_28">在线图文咨询</view>
 						<view class="bai_20 chat_jiage_num">
-							<text class="bai_30" >{{ chat_xinxi.chatprice==0?'未报价':chat_xinxi.chatprice }} </text>
-							<text v-if="chat_xinxi.chatprice!=0">元/小时</text>
-						
+							<text class="bai_30">{{ chat_xinxi.chatprice == 0 ? '未报价' : chat_xinxi.chatprice }}</text>
+							<text v-if="chat_xinxi.chatprice != 0">元/小时</text>
 						</view>
-						<button type=""v-if="chat_xinxi.chatprice!=0" @click="fufei(1)">立即咨询</button>
-						<button type=""v-if="chat_xinxi.chatprice==0">未开启</button>
+						<button type="" v-if="chat_xinxi.chatprice != 0" @click="fufei(1)">立即咨询</button>
+						<button type="" v-if="chat_xinxi.chatprice == 0">未开启</button>
 					</view>
 					<view class="chat_jiage_item chat_jiage_item2">
 						<view class="bai_28">付费电话咨询</view>
 						<view class="bai_20 chat_jiage_num">
-							<text class="bai_30">{{ chat_xinxi.phoneprice==0?'未报价':chat_xinxi.phoneprice }}</text>
-				
-							<text v-if="chat_xinxi.phoneprice!=0">元/20分钟</text></text>
+							<text class="bai_30">{{ chat_xinxi.phoneprice == 0 ? '未报价' : chat_xinxi.phoneprice }}</text>
+
+							<text v-if="chat_xinxi.phoneprice != 0">元/20分钟</text>
 						</view>
-						<button type="" @click="go_zixun()" v-if="chat_xinxi.phoneprice!=0">付费咨询</button>
-						<button type=""v-if="chat_xinxi.phoneprice==0">未开启</button>
+						<button type="" @click="go_zixun()" v-if="chat_xinxi.phoneprice != 0">付费咨询</button>
+						<button type="" v-if="chat_xinxi.phoneprice == 0">未开启</button>
 					</view>
 					<view class="chat_jiage_item chat_jiage_item3">
 						<view class="bai_28">免费拨打电话</view>
@@ -45,11 +40,8 @@
 			</view>
 			<view :class="['chat_body', bt_show ? 'chat_body_jia' : '']" @click="tan_hide()">
 				<view class="time qian_20" v-if="message != ''">{{ message[0].addtime | timeStamp }}</view>
-				<view v-for="(item,index) in message">
-					
-					<view class="time qian_20" v-if="index>1 && message[index].addtime-message[index-1].addtime>300">
-				     {{ message[index].addtime | timeStamp }}
-					</view>
+				<view v-for="(item, index) in message">
+					<view class="time qian_20" v-if="index > 1 && message[index].addtime - message[index - 1].addtime > 300">{{ message[index].addtime | timeStamp }}</view>
 					<view class="chat_list chat_left" v-if="item.userid_from == ls_id">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
@@ -58,8 +50,7 @@
 							<view v-if="item.msgtype == 1"><u-parse :content="replace_em(item.content)"></u-parse></view>
 						</view>
 					</view>
-					
-					
+
 					<view class="chat_list chat_right" v-if="item.userid_from != ls_id">
 						<view class="chat_right_txt hei_30">
 							<!-- {{item.content}} -->
@@ -89,14 +80,18 @@
 			<view class="zhanwei" v-if="isShowEmj"></view>
 			<view class="chat_bottom">
 				<view class="chat_bottom_top">
-					<image src="@/static/lsimg/chat_yuyin.png" mode=""></image>
-					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" 	 class="hei_26"  @input="input_change"/>
+					<!-- <image src="@/static/lsimg/chat_yuyin.png" mode=""></image> -->
 					<image src="@/static/lsimg/chat_biaoqing.png" mode="" @tap="showEmj"></image>
-					<image src="@/static/lsimg/chat_jia.png" mode="" @click="jia" v-if="!is_fa"></image>
-					<text class="fasong" v-if="is_fa" @click="send()">发送</text>
+					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" class="hei_26" />
+					<image src="@/static/lsimg/chat_jia.png" mode="" @click="jia"></image>
+					<text class="fasong" @click="send()">发送</text>
 				</view>
 				<emotion @emotion="handleEmj" v-if="isShowEmj"></emotion>
 				<view class="chat_bottom_bottom hui_26" v-if="bt_show">
+					<view class="chat_bt_item" @click="up_img">
+						<image src="@/static/lsimg/chat_tupian.png" mode=""></image>
+						<view>发送图片</view>
+					</view>
 					<view class="chat_bt_item" @click="call">
 						<image src="@/static/lsimg/chat_dianhua.png" mode=""></image>
 						<view>电话咨询</view>
@@ -118,6 +113,7 @@
 <script>
 import emotion from '@/components/bkhumor-emoji/index.vue';
 import uParse from '@/components/feng-parse/parse.vue';
+import socket from 'plus-websocket';
 export default {
 	created() {},
 	components: {
@@ -136,12 +132,25 @@ export default {
 				this.user = res.data.user;
 			});
 
-		this.huqu_ls_xinxi()
+		this.huqu_ls_xinxi();
+		// #ifdef H5
 		this.connectSocketInit();
+		// #endif
 		// 进入这个页面的时候创建websocket连接【整个页面随时使用】
 		// this.connectSocketInit();
+		// #ifdef APP-PLUS
+
+		this.app_lianjie();
+		// #endif
 	},
 	onShow() {},
+	onHide() {},
+	onUnload() {
+		console.log('onUnload');
+		// #ifdef APP-PLUS
+		socket.closeSocket();
+		// #endif
+	},
 	data() {
 		return {
 			title: '',
@@ -162,8 +171,11 @@ export default {
 			dianhua: '',
 			chat_xinxi: '',
 			dian_num: '点击显示号码',
-			ls_xinxi:'',
-			is_fa:false
+			ls_xinxi: '',
+			is_fa: false,
+			socketTask: null,
+			// 确保websocket是打开状态
+			is_open_socket: false
 		};
 	},
 	//下拉刷新
@@ -193,7 +205,6 @@ export default {
 		navigateBack() {
 			uni.navigateBack();
 		},
-
 		huoqu_xiaoxi_list() {
 			this.$http
 				.post({
@@ -210,6 +221,76 @@ export default {
 					this.chat_xinxi = res.data.user_to;
 				});
 		},
+		app_lianjie() {
+			let that = this;
+			Object.assign(uni, socket);
+			console.log(Object.assign(uni, socket));
+			var url = that.$http.WebSocket_url;
+
+			socket.connectSocket({
+				url: 'ws://' + url + ':3348',
+				success(data) {
+					console.log('websocket已连接', JSON.stringify(data));
+				}
+			});
+			socket.onSocketOpen(function(res) {
+				console.log('WebSocket连接已打开！');
+			});
+			socket.onSocketError(function(res) {
+				console.log('WebSocket连接打开失败，请检查！', JSON.stringify(res));
+			});
+			socket.onSocketMessage(function(res) {
+				console.log('收到服务器内容：' + res.data);
+				var data = JSON.parse(res.data);
+
+				if (data.type == 'init') {
+					console.log('init');
+					console.log('client_id', data.client_id);
+					uni.request({
+						url: that.$http.baseUrl + '/push/gatewayworker/bind',
+						method: 'POST',
+						data: {
+							client_id: data.client_id
+						},
+
+						success: function(resp) {
+							console.log(resp, 'bind');
+						},
+						fail: function(resp) {}
+					});
+
+					// that.$http
+					// 	.post({
+					// 		url: '/push/gatewayworker/bind',
+					// 		data: {
+					// 			client_id: data.client_id
+					// 		}
+					// 	})
+					// 	.then(res => {
+					// 		console.log(res, 'bind');
+					// 	});
+				} else if (data.type == 'say') {
+					console.log('say');
+					if (data.state) {
+						var xiaoxi = {
+							photourl_form: data.userid_from_pic,
+							userid_to: data.userid_to,
+							photourl_to: data.userid_to_pic,
+							content: data.msg,
+							msgtype: data.state,
+							userid_from: that.ls_id
+						};
+						that.message.push(xiaoxi);
+					}
+				} else {
+					console.log('else');
+				}
+				console.log(data);
+			});
+			socket.onSocketClose(function(res) {
+				console.log('WebSocket 已关闭！');
+			});
+		},
 
 		dianzan() {
 			uni.showToast({
@@ -217,18 +298,16 @@ export default {
 				duration: 2000
 			});
 		},
-		huqu_ls_xinxi(){
-			
+		huqu_ls_xinxi() {
 			this.$http
 				.post({
 					url: '/mapi/lawyer/lawyer',
 					data: {
-						lawyerid:this.ls_id
+						lawyerid: this.ls_id
 					}
 				})
 				.then(res => {
-					   this.ls_xinxi=res.data.lawyer
-					   
+					this.ls_xinxi = res.data.lawyer;
 				});
 		},
 		replace_em(str) {
@@ -264,25 +343,79 @@ export default {
 			this.bt_show = !this.bt_show;
 			this.isShowEmj = false;
 		},
-		input_change(){
-			if(this.chat_txt==''){
-				this.is_fa=false
-			}else{
-				this.is_fa=true
-			}
-			
-		},
+		// input_change(){
+		// 	if(this.chat_txt==''){
+		// 		this.is_fa=false
+		// 	}else{
+		// 		this.is_fa=true
+		// 	}
 
+		// },
+		up_img() {
+			let that = this;
+			uni.chooseImage({
+				success(res) {
+					console.log(res);
+					// that.zhiye_zhao = res.tempFilePaths[0];
+
+					// that.urlTobase64(res.tempFilePaths[0])
+					uni.request({
+						url: res.tempFilePaths[0],
+						method: 'GET',
+						responseType: 'arraybuffer',
+						success: ress => {
+							let base64 = wx.arrayBufferToBase64(ress.data); //把arraybuffer转成base64
+							base64 = 'data:image/jpeg;base64,' + base64; //不加上这串字符，在页面无法显示的哦
+							console.log(base64);
+
+							that.$http
+								.post({
+									url: '/index/zixun/uploadimgmessage',
+									data: {
+										img: base64
+									}
+								})
+								.then(res => {
+									if (res.code == 0) {
+										that.send_img(res.data.img);
+									}
+								});
+						}
+					});
+				}
+			});
+		},
+		send_img(img) {
+			this.$http
+				.post({
+					url: '/push/gatewayworker/sendmessage.html',
+					data: {
+						userid_to: this.ls_id,
+						msg: img,
+						type: 2
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						var data = {
+							content: img,
+							msgtype: 2,
+							photourl_form: this.user.photourl
+						};
+						this.message.push(data);
+					}
+				});
+		},
 		send() {
 			console.log(this.chat_txt);
 			var txt = this.replace_em(this.chat_txt);
-			if(txt==''){
+			if (txt == '') {
 				uni.showToast({
 					title: '请输入内容',
 					duration: 2000,
 					icon: 'none'
 				});
-				return false
+				return false;
 			}
 			this.$http
 				.post({
@@ -308,7 +441,6 @@ export default {
 			// this.chat_txt=''
 		},
 		call() {
-			
 			uni.makePhoneCall({
 				phoneNumber: this.dianhua + '',
 				success: res => {
@@ -327,8 +459,8 @@ export default {
 		},
 		pingjia() {
 			uni.navigateTo({
-				url:'pingjia?lsid='+this.chat_xinxi.userid
-			})
+				url: 'pingjia?lsid=' + this.chat_xinxi.userid
+			});
 		},
 		tan_hide() {
 			this.isShowEmj = false;
@@ -339,8 +471,7 @@ export default {
 			this.dian_num = this.dianhua;
 		},
 		// 去付费
-		fufei(type){
-			
+		fufei(type) {
 			this.$http
 				.post({
 					url: '/index/consult/addconsult_zaixian',
@@ -351,57 +482,58 @@ export default {
 				.then(res => {
 					if (res.code == 0) {
 						uni.navigateTo({
-							url:'pay?lawyerid='+this.ls_id+'&type='+type+'&consultid='+res.data
-						})
+							url: 'pay?lawyerid=' + this.ls_id + '&type=' + type + '&consultid=' + res.data
+						});
 					}
 				});
-
-			},
-			go_zixun(){
-				uni.navigateTo({
-					url:'dianhua_tiwen?lawyerid='+this.ls_id
-				})
-			},
+		},
+		go_zixun() {
+			uni.navigateTo({
+				url: 'dianhua_tiwen?lawyerid=' + this.ls_id
+			});
+		},
 		connectSocketInit() {
-			var url = this.$http.baseUrl;
-			console.log(url)
-			// console.log(window);
+			let that = this;
+			var url = window.location.host;
 			var ws = new WebSocket('ws://' + url + ':3348');
 			ws.onopen = function(evt) {
 				console.log('Connection open ...');
 				// ws.send("你好");
 			};
 			ws.onmessage = function(evt) {
-				var that = this;
 				console.log('Received Message: ' + evt.data);
 				// json数据转换成js对象
 				var data = JSON.parse(evt.data);
-				console.log(data);
-				var type = data.type || '';
-				switch (type) {
-					// Events.php中返回的init类型的消息，将client_id发给后台进行uid绑定
-					case 'init':
-						// 利用jquery发起ajax请求，将client_id发给后端进行uid绑定
-						this.$http
-							.post({
-								url: 'push/gatewayworker/bind',
-								data: {
-									client_id: res.data.client_id
-								}
-							})
-							.then(res => {
-								console.log(res);
-							});
 
-						break;
-					case 'say':
-						// if (data.state == 1) {
-						// }
-						that.message.push(data);
-						break;
-					default:
-						console.log(evt.data);
-					// ws.close();
+				if (data.type == 'init') {
+					console.log('init');
+					console.log('client_id', data.client_id);
+
+					that.$http
+						.post({
+							url: '/push/gatewayworker/bind',
+							data: {
+								client_id: data.client_id
+							}
+						})
+						.then(res => {
+							console.log(res, 'bind');
+						});
+				} else if (data.type == 'say') {
+					console.log('say');
+					if (data.state) {
+						var xiaoxi = {
+							photourl_form: data.userid_from_pic,
+							userid_to: data.userid_to,
+							photourl_to: data.userid_to_pic,
+							content: data.msg,
+							msgtype: data.state,
+							userid_from: that.ls_id
+						};
+						that.message.push(xiaoxi);
+					}
+				} else {
+					console.log('else');
 				}
 			};
 			ws.onclose = function(evt) {
@@ -483,13 +615,12 @@ export default {
 	background-color: #f6f6f6;
 	position: relative;
 	top: 20rpx;
-	
 }
-.ls_name{
+.ls_name {
 	position: absolute;
 	top: -38rpx;
 	display: inline-block;
-	width:400rpx;
+	width: 400rpx;
 	font-size: 20rpx;
 	left: 0;
 }
@@ -557,7 +688,7 @@ export default {
 }
 
 .chat_bottom_top input {
-	width: 472rpx;
+	width: 438rpx;
 	height: 76rpx;
 	background-color: #ffffff;
 	border-radius: 8rpx;
@@ -675,21 +806,20 @@ button {
 	position: relative;
 	z-index: 99;
 }
-.chat_lvsuo{
-	
+.chat_lvsuo {
 }
-.top_title{
+.top_title {
 	margin-top: -4rpx;
 }
-.fasong{
-	background-color:#0eb77e ;
-	color: #FFFFFF;
-	font-size: 22rpx;
-	width: 70rpx;
-	height: 50rpx;
-	line-height: 50rpx;
+.fasong {
+	background-color: #07c160;
+	color: #ffffff;
+	border-radius: 10rpx;
+	font-size: 30rpx;
+	width: 98rpx;
+	height: 74rpx;
+	line-height: 74rpx;
 	text-align: center;
 	display: inline-block;
-	
 }
 </style>

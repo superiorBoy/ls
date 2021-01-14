@@ -56,6 +56,7 @@
         }
     },
     "dependencies": {
+        "plus-websocket": "^1.0.5",
         "vue-clipboard2": "^0.3.1"
     }
 }

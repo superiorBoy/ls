@@ -59,10 +59,13 @@
 				<text></text>	升级条件<text></text>
 				</view>
 				<view class="tiaojian_list">
+					<text class="yao_renshu">邀请{{peizhi.feizhishu}}个好友以上</text>
 					<image src="../../static/img/tiaojian1.png" mode=""></image>
 				</view>
 				<view class="tiaojian_list">
-					<image src="../../static/img/tiaojian1.png" mode=""></image>
+					<view class="sheng_jiage">￥<text>{{peizhi.leaderprice}}</text></view>
+					<text class="sheng_jiage_txt">充值{{peizhi.leaderprice}}元立即升级</text>
+					<image src="../../static/img/tiaojian2.png" mode=""></image>
 				</view>
 			</view>
 			<view class="liucheng bg_xian">
@@ -99,26 +102,26 @@
 				</view>	
 				<view class="guize_list_body hei_22">
 					<view class="guize_item">
-						<text class="bai_20">1</text>邀请新用户首次消费奖励2元！
+						<text class="bai_20">1</text>邀请新用户首次消费奖励{{peizhi.firstorder}}元！
 					</view>
 					<view class="guize_item">
-						<text class="bai_20">2</text>享受直属会员消费的10%提成！
+						<text class="bai_20">2</text>享受直属会员消费的{{peizhi.payreward}}%提成！
 					</view>
 				</view>
 				</view>
 			   <view class="guize_list">
 			   <view class="guize_list_title hei_30_bold">
-			   	<image src="@/static/img/guize_tuanzhang.png"style="width:27rpx ;" mode="widthFix"></image>会员邀请奖励
+			   	<image src="@/static/img/guize_tuanzhang.png"style="width:27rpx ;" mode="widthFix"></image>团长邀请奖励
 			   </view>	
 			   <view class="guize_list_body hei_22">
 			   	<view class="guize_item">
-			   		<text class="bai_20">1</text>请新用户首次消费奖励2元！ 
+			   		<text class="bai_20">1</text>请新用户首次消费奖励{{peizhi.firstorder}}元！ 
 			   	</view>
 			   	<view class="guize_item">
-			   		<text class="bai_20">2</text>享受直属会员消费的10%提成！
+			   		<text class="bai_20">2</text>享受直属会员消费的{{peizhi.leaderpayreward}}%提成！
 			   	</view>
 				<view class="guize_item">
-					<text class="bai_20">3</text>享受非直属会员消费的10%作为提成！
+					<text class="bai_20">3</text>享受非直属会员消费的{{peizhi.feipayreward}}%作为提成！
 				</view>
 				<view class="guize_item">
 					<text class="bai_20">4</text>非只属奖励给上线最近的团长！
@@ -174,7 +177,8 @@ export default {
 		deng_txt:'立即登录',  //复制邀请链接 --- 立即登录
 		user:'',
 		login:'2',
-		paihang:[]
+		paihang:[],
+		peizhi:''
 		};
 	},
 	created() {
@@ -208,7 +212,7 @@ export default {
 	      				this.login='1'
 	      				this.huoqu_lianjie()
 	      				this.huoqu_paihang()
-	      				
+	      				this.huoqu_peizhi()
 	      			}
 	      			
 	      		});
@@ -233,6 +237,16 @@ export default {
 						
 					}); 
 			 },
+			 huoqu_peizhi(){
+			 				this.$http
+			 					.post({
+			 						url: '/mapi/index/yaoqing'
+			 					})
+			 					.then(res => {
+			 						this.peizhi=res.data.info
+			 						
+			 					}); 
+			 },
 			 lianjiego(){
 			 	if(this.deng_txt=='立即登录'){
 			 		wx.navigateTo({
@@ -248,7 +262,7 @@ export default {
 			 		                    }
 			 		                )
 			 		                // #endif
-			 		                // #ifndef H5
+			 		                // #ifdef APP-PLUS
 			 		                uni.setClipboardData({
 			 		                    data: this.lianjie,
 			 		                    success: () => {
@@ -376,6 +390,28 @@ page {
 }
 .tiaojian_list{
 	margin-top: 30rpx ;
+	position: relative;
+}
+.yao_renshu,.sheng_jiage_txt{
+	position: absolute;
+	top: 24rpx;
+	left: 210rpx;
+	z-index: 9;
+	font-size: 38.51rpx;
+	color: #57270f;
+	font-weight: bold;
+}
+.sheng_jiage{
+	position: absolute;
+	left: 32rpx;
+	top: 26rpx;
+	z-index: 9;
+	color: #c73e32;
+	font-weight: bold;
+		font-size: 34.33rpx;
+}
+.sheng_jiage text{
+	font-size: 71.51rpx;
 }
 .tiaojian_list image{
 	height: 132rpx;

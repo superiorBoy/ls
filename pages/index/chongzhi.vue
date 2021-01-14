@@ -11,7 +11,7 @@
 				<view class="jine">{{ yue }}</view>
 				<view class="jine_xtx bai_30_bold">
 					<image src="@/static/lsimg/tixian_icon.png" mode=""></image>
-					可提现金额
+					账号余额
 				</view>
 			</view>
 			<view class="tixian_body">

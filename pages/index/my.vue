@@ -25,10 +25,6 @@
 				<view class="my_ziliao_item_top hei_28">0</view>
 				<view class="my_ziliao_item_bottom hei_22">关注</view>
 			</navigator>
-			<navigator url="fensi" class="my_ziliao_item">
-				<view class="my_ziliao_item_top hei_28">0</view>
-				<view class="my_ziliao_item_bottom hei_22">粉丝</view>
-			</navigator>
 			<navigator url="shoucang" class="my_ziliao_item">
 				<view class="my_ziliao_item_top hei_28">0</view>
 				<view class="my_ziliao_item_bottom hei_22">收藏</view>
@@ -37,6 +33,12 @@
 				<view class="my_ziliao_item_top hei_28">0</view>
 				<view class="my_ziliao_item_bottom hei_22">团队</view>
 			</navigator>
+			<navigator url="chongzhi" class="my_ziliao_item">
+				<view class="my_ziliao_item_top hei_28">0</view>
+				<view class="my_ziliao_item_bottom hei_22">余额</view>
+			</navigator>
+		
+		
 		</view>
 
 		<view class="my_bottom">

@@ -60,8 +60,11 @@
 							</view>
 						</view>
 					</view>
-					<view class="top_shijian qian_20">
+					<view class="top_shijian bai_20 ">
 						<!-- 10-16 -->
+						<!-- <view class="" v-for="item in xiaoxi_list" v-if="item.user_to &&item.user_to.userid==7"> -->
+						<!-- <text class="ke_weidu" v-if="item.messagecount!=0">{{item.messagecount}}</text>   -->
+						<!-- </view> -->
 					</view>
 				</view>
 			</view>
@@ -215,6 +218,7 @@
 		display: flex;
 		justify-content: space-between;
 		position: relative;
+		align-items: center;
 	}
 
 .xiaoxi_top_list::before{
@@ -318,5 +322,17 @@
 	overflow:hidden; 
 	text-overflow:ellipsis; 
 	white-space:nowrap;
+}
+.ke_weidu{
+	background-color: #ff5267;
+	border-radius: 100%;
+	width:32rpx;
+	height: 32rpx;
+	padding: 2rpx;
+	overflow:hidden; 
+	text-overflow:ellipsis; 
+	white-space:nowrap; 
+	text-align: center;
+	line-height: 35rpx;
 }
 </style>

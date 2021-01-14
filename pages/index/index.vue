@@ -162,7 +162,7 @@
 								<view class="shijian">
 									<image src="@/static/img/shijian.png" mode=""></image>
 									<!-- <text class="hong_22">5</text> -->
-									{{ item.addtime | timeStamp }}
+									{{ item.replytime | timeStamp }}
 								</view>
 								<view class="biaoqian">
 									<image src="@/static/img/biaoqian.png" mode=""></image>
@@ -428,34 +428,34 @@ export default {
 		//#ifdef APP-PLUS
 		
 		// 获取版本
-		this.$http
-		.post({
-			url: '/mapi/index/banben',
-		})
-			.then(res => {
-		       console.log(res.data.banben,'版本')
+		// this.$http
+		// .post({
+		// 	url: '/mapi/index/banben',
+		// })
+		// 	.then(res => {
+		//        console.log(res.data.banben,'版本')
 			   
 			   
-			   if(uni.getSystemInfoSync().platform == 'ios'){
-				   console.log("ios",this.banben)
-				   if(this.banben!=res.data.banben.ios){
-				   				   this.is_gengxin=true
-								   this.down_url=res.data.banben.iosurl
-				   				   uni.hideTabBar()
-				   }
-			   }else if(uni.getSystemInfoSync().platform === 'android'){
-				   console.log("android",this.banben)
-				   if(this.banben!=res.data.banben.android){
-				   				   this.is_gengxin=true
-								   this.down_url=res.data.banben.androidurl
-				   				   uni.hideTabBar()
-				   }
-			   }
+		// 	   if(uni.getSystemInfoSync().platform == 'ios'){
+		// 		   console.log("ios",this.banben)
+		// 		   if(this.banben!=res.data.banben.ios){
+		// 		   				   this.is_gengxin=true
+		// 						   this.down_url=res.data.banben.iosurl
+		// 		   				   uni.hideTabBar()
+		// 		   }
+		// 	   }else if(uni.getSystemInfoSync().platform === 'android'){
+		// 		   console.log("android",this.banben)
+		// 		   if(this.banben!=res.data.banben.android){
+		// 		   				   this.is_gengxin=true
+		// 						   this.down_url=res.data.banben.androidurl
+		// 		   				   uni.hideTabBar()
+		// 		   }
+		// 	   }
 			  
-			});
+		// 	});
 		
-			  const clientInfo = plus.push.getClientInfo()
-			  console.log(clientInfo,'6666')
+		// 	  const clientInfo = plus.push.getClientInfo()
+		// 	  console.log(clientInfo,'6666')
 		  //#endif		
 		
 	
