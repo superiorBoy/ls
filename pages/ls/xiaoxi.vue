@@ -62,6 +62,9 @@
 					</view>
 					<view class="top_shijian qian_20">
 						<!-- 10-16 -->
+						<view class="" v-for="item in xiaoxi_list" v-if="item.user_to &&item.user_to.userid==7">
+						<text class="ke_weidu" v-if="item.messagecount!=0">{{item.messagecount}}</text> 
+						</view>
 					</view>
 				</view>
 			</view>
@@ -106,7 +109,7 @@
 <script>
 	import uParse from '@/components/feng-parse/parse.vue';
 	import tabBar from '@/components/tabbar/tabbar.vue';
-	
+	import socket from 'plus-websocket';
 	export default {
 		components:{
 			uParse,
@@ -118,6 +121,14 @@
 		onShow() {
 			this.huoqu_xiaoxilist()
 		},
+		onLoad() {
+			// #ifdef H5
+			this.connectSocketInit();
+			// #endif
+		// #ifdef APP-PLUS
+		this.app_lianjie();
+		// #endif
+			},
 		data() {
 			return {
 				currentPage:'ls/xiaoxi',
@@ -128,6 +139,68 @@
 			}
 		},
 		methods: {
+			app_lianjie() {
+						let that = this;
+						Object.assign(uni, socket);
+						console.log(Object.assign(uni, socket));
+						var url = that.$http.WebSocket_url;
+			
+						socket.connectSocket({
+							url: 'ws://' + url + ':3348',
+							success(data) {
+								console.log('websocket已连接', JSON.stringify(data));
+							}
+						});
+						socket.onSocketOpen(function(res) {
+							console.log('WebSocket连接已打开！');
+						});
+						socket.onSocketError(function(res) {
+							console.log('WebSocket连接打开失败，请检查！', JSON.stringify(res));
+						});
+						socket.onSocketMessage(function(res) {
+							console.log('收到服务器内容：' + res.data);
+							var data = JSON.parse(res.data);
+			
+							if (data.type == 'init') {
+								console.log('init');
+								console.log('client_id', data.client_id);
+								uni.request({
+									url: that.$http.baseUrl + '/push/gatewayworker/bind',
+									method: 'POST',
+									data: {
+										client_id: data.client_id
+									},
+			
+									success: function(resp) {
+										console.log(resp, 'bind');
+									},
+									fail: function(resp) {}
+								});
+			
+								// that.$http
+								// 	.post({
+								// 		url: '/push/gatewayworker/bind',
+								// 		data: {
+								// 			client_id: data.client_id
+								// 		}
+								// 	})
+								// 	.then(res => {
+								// 		console.log(res, 'bind');
+								// 	});
+							} else if (data.type == 'say') {
+								console.log('say');
+								if (data.state) {
+								  that.huoqu_xiaoxilist()
+								}
+							} else {
+								console.log('else');
+							}
+							console.log(data);
+						});
+						socket.onSocketClose(function(res) {
+							console.log('WebSocket 已关闭！');
+						});
+					},
 			xiaoxi_qiehuan(index){
 				this.active=index
 				
@@ -164,6 +237,47 @@
 					});
 				
 				
+			},
+			connectSocketInit() {
+				let that = this;
+				var url = window.location.host;
+				var ws = new WebSocket('ws://' + url + ':3348');
+				ws.onopen = function(evt) {
+					console.log('Connection open ...');
+					// ws.send("你好");
+				};
+				ws.onmessage = function(evt) {
+					console.log('Received Message: ' + evt.data);
+					// json数据转换成js对象
+					var data = JSON.parse(evt.data);
+			
+					if (data.type == 'init') {
+						console.log('init');
+						console.log('client_id', data.client_id);
+			
+						that.$http
+							.post({
+								url: '/push/gatewayworker/bind',
+								data: {
+									client_id: data.client_id
+								}
+							})
+							.then(res => {
+								console.log(res, 'bind');
+							});
+					} else if (data.type == 'say') {
+						console.log('say');
+						that.huoqu_xiaoxilist()
+					} else {
+						console.log('else');
+					}
+				};
+				ws.onclose = function(evt) {
+					console.log('Connection closed.');
+				};
+				ws.onerror = function(evt) {
+					console.log('WebSocketError!', evt);
+				};
 			}
 			
 		},
@@ -203,6 +317,7 @@
 		display: flex;
 		justify-content: space-between;
 		position: relative;
+		align-items: center;
 	}
 
 .xiaoxi_top_list::before{
@@ -304,5 +419,18 @@
 	overflow:hidden; 
 	text-overflow:ellipsis; 
 	white-space:nowrap;
+}
+.ke_weidu{
+	background-color: #ff5267;
+	border-radius: 100%;
+	width:32rpx;
+	height: 32rpx;
+	display: inline-block;
+	padding: 2rpx;
+	overflow:hidden; 
+	text-overflow:ellipsis; 
+	white-space:nowrap; 
+	text-align: center;
+	line-height: 32rpx;
 }
 </style>

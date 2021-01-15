@@ -317,6 +317,10 @@ export default {
 
 .tiwen_item_top {
 	line-height: 36rpx;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	overflow: hidden;
 }
 
 .jiedan_tab {

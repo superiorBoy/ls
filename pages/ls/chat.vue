@@ -51,7 +51,7 @@
 				<view class="chat_bottom_top">
 					<!-- <image src="@/static/lsimg/chat_yuyin.png" mode=""></image> -->
 					<image src="@/static/lsimg/chat_biaoqing.png" mode="" @tap="showEmj"></image>
-					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" class="hei_26" />
+					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" class="hei_26"  @focus="huojiao" />
 
 					<image src="@/static/lsimg/chat_jia.png" mode="" @click="jia"></image>
 					<text class="fasong" @click="send()">发送</text>
@@ -177,7 +177,15 @@ export default {
 					this.message = res.data.message;
 					this.title = res.data.user_to.nickname;
 					this.dianhua = res.data.user_to.mobile;
+					setTimeout(() => {
+					   uni.pageScrollTo({scrollTop: 99999, duration: 0});
+					}, 100)
 				});
+		},
+		huojiao(){
+			setTimeout(() => {
+			   uni.pageScrollTo({scrollTop: 99999, duration: 0});
+			}, 100)
 		},
 		app_lianjie() {
 			let that = this;
@@ -243,6 +251,9 @@ export default {
 							userid_from: that.ls_id
 						};
 						that.message.push(xiaoxi);
+						setTimeout(() => {
+						   uni.pageScrollTo({scrollTop: 99999, duration: 0});
+						}, 100)
 					}
 				} else {
 					console.log('else');
@@ -338,6 +349,9 @@ export default {
 							photourl_form: this.user.photourl
 						};
 						this.message.push(data);
+						setTimeout(() => {
+						   uni.pageScrollTo({scrollTop: 99999, duration: 0});
+						}, 100)
 					}
 				});
 		},
@@ -407,6 +421,9 @@ export default {
 							photourl_form: this.user.photourl
 						};
 						this.message.push(data);
+						setTimeout(() => {
+						   uni.pageScrollTo({scrollTop: 99999, duration: 0});
+						}, 100)
 					}
 				});
 		},
@@ -458,6 +475,9 @@ export default {
 							userid_from: that.ls_id
 						};
 						that.message.push(xiaoxi);
+						setTimeout(() => {
+						   uni.pageScrollTo({scrollTop: 99999, duration: 0});
+						}, 100)
 					}
 				} else {
 					console.log('else');

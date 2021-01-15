@@ -301,6 +301,9 @@
 			"path":"pages/ls/tiwen_guanli_xq"
 		},
 		{
+			"path":"pages/ls/zhuiwen_xq"
+		},
+		{
 			"path":"pages/ls/shiming_renzheng"
 		},
 		{

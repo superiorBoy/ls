@@ -8,9 +8,9 @@
 
 		<view class="zi_body ">
 			<view class="xq_body">
-				<view class="xq_body_top">
-					<view class="xq_body_top_tx hui_24">
-						<image src="@/static/lsimg/moren_tx.png" mode=""></image>
+				<view class="xq_body_top" v-if="xq.user">
+					<view class="xq_body_top_tx hui_24" >
+						<image :src="img_url+xq.user.photourl" mode=""></image>
 						<text>{{ xq.user.nickname }}</text>
 					</view>
 					<view class="xq_wenti hei_26">{{ xq.consult.information }}</view>

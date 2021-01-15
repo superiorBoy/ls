@@ -194,7 +194,7 @@ export default {
 		},
 		go_chat(id){
 			uni.navigateTo({
-				url:'chat?lsid='+id
+				url:'pay?lawyerid='+id+'&type=1'
 			})
 		},
 		go_lvshi() {

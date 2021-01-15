@@ -28,7 +28,7 @@
 		<view class="zi_body tab_zi_body">
 			<view class="lvshi_list">
 				<view class="lvshi_item" v-for="(item, index) in lslist">
-					<view class="zixun bai_22" @click="go_chat(item.userid)">
+					<view class="zixun bai_22" @click="go_chat(item.userid,item.chatprice)">
 						<image src="@/static/img/bai_xiaoxi.png" mode=""></image>
 						在线咨询
 					</view>
@@ -203,10 +203,14 @@ export default {
 				url: 'zaixian_wen?user=' + id+'&mobile='+mobile
 			});
 		},
-		go_chat(id){
+		go_chat(id,price){
+			if(price==0){
+				return false
+			}
 			uni.navigateTo({
-				url:'chat?lsid='+id
+				url:'pay?lawyerid='+id+'&type=1'
 			})
+			
 		},
 		go_zhuye(id) {
 			uni.navigateTo({

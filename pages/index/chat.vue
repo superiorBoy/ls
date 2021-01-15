@@ -28,7 +28,7 @@
 
 							<text v-if="chat_xinxi.phoneprice != 0">元/20分钟</text>
 						</view>
-						<button type="" @click="go_zixun()" v-if="chat_xinxi.phoneprice != 0">付费咨询</button>
+						<button type="" @click="go_zixun(2)" v-if="chat_xinxi.phoneprice != 0">付费咨询</button>
 						<button type="" v-if="chat_xinxi.phoneprice == 0">未开启</button>
 					</view>
 					<view class="chat_jiage_item chat_jiage_item3">
@@ -75,6 +75,9 @@
 					</view>
 					<image src="@/static/lsimg/yh_tx.png" mode="" class="tx"></image>
 				</view> -->
+				<view class="aaaaaa">
+					
+				</view>
 			</view>
 
 			<view class="zhanwei" v-if="isShowEmj"></view>
@@ -82,7 +85,7 @@
 				<view class="chat_bottom_top">
 					<!-- <image src="@/static/lsimg/chat_yuyin.png" mode=""></image> -->
 					<image src="@/static/lsimg/chat_biaoqing.png" mode="" @tap="showEmj"></image>
-					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" class="hei_26" />
+					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" class="hei_26" @focus="huojiao" />
 					<image src="@/static/lsimg/chat_jia.png" mode="" @click="jia"></image>
 					<text class="fasong" @click="send()">发送</text>
 				</view>
@@ -143,12 +146,15 @@ export default {
 		this.app_lianjie();
 		// #endif
 	},
-	onShow() {},
+	onShow() {
+		
+
+	},
 	onHide() {},
 	onUnload() {
 		console.log('onUnload');
 		// #ifdef APP-PLUS
-		socket.closeSocket();
+		// socket.closeSocket();
 		// #endif
 	},
 	data() {
@@ -219,7 +225,17 @@ export default {
 					this.title = res.data.user_to.nickname;
 					this.dianhua = res.data.user_to.mobile;
 					this.chat_xinxi = res.data.user_to;
+					setTimeout(() => {
+					   uni.pageScrollTo({scrollTop: 99999, duration: 0});
+					}, 100)
 				});
+				
+				
+		},
+		huojiao(){
+			setTimeout(() => {
+			   uni.pageScrollTo({scrollTop: 99999, duration: 0});
+			}, 100)
 		},
 		app_lianjie() {
 			let that = this;
@@ -281,6 +297,9 @@ export default {
 							userid_from: that.ls_id
 						};
 						that.message.push(xiaoxi);
+						setTimeout(() => {
+						   uni.pageScrollTo({scrollTop: 99999, duration: 0});
+						}, 100)
 					}
 				} else {
 					console.log('else');
@@ -403,6 +422,9 @@ export default {
 							photourl_form: this.user.photourl
 						};
 						this.message.push(data);
+						setTimeout(() => {
+						   uni.pageScrollTo({scrollTop: 99999, duration: 0});
+						}, 100)
 					}
 				});
 		},
@@ -435,6 +457,9 @@ export default {
 							photourl_form: this.user.photourl
 						};
 						this.message.push(data);
+						setTimeout(() => {
+						   uni.pageScrollTo({scrollTop: 99999, duration: 0});
+						}, 100)
 					}
 				});
 
@@ -472,24 +497,13 @@ export default {
 		},
 		// 去付费
 		fufei(type) {
-			this.$http
-				.post({
-					url: '/index/consult/addconsult_zaixian',
-					data: {
-						lawyerid: this.ls_id
-					}
-				})
-				.then(res => {
-					if (res.code == 0) {
-						uni.navigateTo({
-							url: 'pay?lawyerid=' + this.ls_id + '&type=' + type + '&consultid=' + res.data
-						});
-					}
-				});
-		},
-		go_zixun() {
 			uni.navigateTo({
-				url: 'dianhua_tiwen?lawyerid=' + this.ls_id
+				url: 'pay?lawyerid=' + this.ls_id + '&type=' + type 
+			});
+		},
+		go_zixun(type) {
+			uni.navigateTo({
+				url: 'pay?lawyerid=' + this.ls_id + '&type=' + type 
 			});
 		},
 		connectSocketInit() {
@@ -531,6 +545,9 @@ export default {
 							userid_from: that.ls_id
 						};
 						that.message.push(xiaoxi);
+						setTimeout(() => {
+						   uni.pageScrollTo({scrollTop: 99999, duration: 0});
+						}, 100)
 					}
 				} else {
 					console.log('else');

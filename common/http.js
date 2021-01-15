@@ -6,7 +6,7 @@ if (process.env.NODE_ENV == 'development') {
     baseUrl='/api'
 	
 	// #ifndef H5
-	baseUrl='http://www.ls.xyz/'
+	   baseUrl='http://www.ls.xyz/'
 	// #endif
 	//#ifdef APP-PLUS
 	  baseUrl = 'http://xhlvshi.hongvv.com' // 生产环境

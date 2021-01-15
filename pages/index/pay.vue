@@ -9,11 +9,36 @@
 		<view class="zi_body ">
 			<view class="pay_top">
 				<view class="pay_list">
+					<text class="qian_30">手机号码</text>
+					<input type="text" value="" v-model="phone"/>
+				</view>
+			<!-- 	<view class="pay_list">
 					<text class="qian_30">服务项目</text>
 					<text class="hei_30">
 						{{type==1?'在线咨询(服务时长1小时)':'电话咨询(服务时长20分钟)'}}
 						
 					</text>
+				</view> -->
+				<view class="pay_list">
+					<text class="qian_30">服务项目</text>
+					<picker :range="xiangmu_arry" @change="paixu_change" >
+						<text class="hei_30">{{xiamgmu==''?'选择项目':xiamgmu}}</text>
+						<image src="@/static/img/shaixuan.png" mode="" style="width: 16rpx;height: 8rpx;margin-left: 6rpx;vertical-align: middle;"></image>
+					</picker>
+				</view>
+				<view class="pay_list">
+					<text class="qian_30">服务时长</text>
+					<picker :range="shichang_arry" @change="shichang_change" >
+						<text class="hei_30">{{shichang==''?'选择时长':shichang}}</text>
+						<image src="@/static/img/shaixuan.png" mode="" style="width: 16rpx;height: 8rpx;margin-left: 6rpx;vertical-align: middle;"></image>
+					</picker>
+				</view>
+				<view class="pay_list">
+					<text class="qian_30">咨询类型</text>
+					<picker :range="type_arry" @change="zhuanchang_change" :range-key="'typename'">
+						<text class="hei_30">{{leixing==''?'选择咨询类型':leixing}}</text>
+						<image src="@/static/img/shaixuan.png" mode="" style="width: 16rpx;height: 8rpx;margin-left: 6rpx;vertical-align: middle;"></image>
+					</picker>
 				</view>
 				<view class="pay_list height_auto dis_fir">
 					<text class="qian_30">服务律师</text>
@@ -54,10 +79,8 @@
 				</view> -->
 				<view class="pay_list wen_list">
 					<view class="qian_30 wen_list_top">咨询内容</view>
-					<view class="wen_neirong wen_neirong_txt hei_30" v-if="type==2">
-						{{information}}
-					</view>
-					<textarea value=""   placeholder="" class="hei_30 wen_neirong wen_neirong_textarea" v-model="neirong" v-if="type==1" maxlength="5000"/>
+				
+					<textarea value=""   placeholder="" class="hei_30 wen_neirong wen_neirong_textarea" v-model="neirong" maxlength="5000"/>
 					
 				</view>
 				
@@ -66,7 +89,7 @@
 						<text class="qian_30">支付金额</text>
 						<text class="hei_30">
 							实付款：
-							<text class="hong_30">￥{{type==1?lvshi.chatprice:lvshi.phoneprice  }}</text>
+							<text class="hong_30">￥{{pay_money}}</text>
 						</text>
 					</view>
 				<!-- 	<view class="hei_30 qian_26 yuanjia">
@@ -99,15 +122,23 @@
 					</view>
 					<label class="radio"><radio value="2" :checked="zhifu == 2" /></label>
 				</view>
+				<view class="fangshi_list_pay" @click="radio(3)">
+					<view class="fangshi_left hei_28">
+						<image src="@/static/img/yue_pay.png" mode="" style="width:36rpx ;height: 31rpx;"></image>
+						余额支付
+					</view>
+					<label class="radio"><radio value="3" :checked="zhifu == 3" /></label>
+				</view>
 			</view>
 			<view class="pay_btn">
-				<button type="" class="tixian_btn bai_30" @click="save">去支付（{{ type==1?lvshi.chatprice:lvshi.phoneprice }}）</button>
+				<button type="" class="tixian_btn bai_30" @click="save">去支付（{{pay_money}}）</button>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import pickerAddress2 from '@/components/wangding-pickerAddress/wangding-pickerAddress.vue';
 export default {
 	data() {
 		return {
@@ -116,39 +147,59 @@ export default {
 			img_url: uni.getStorageSync('img_url'),
 			lvshi:'',
 			neirong:'',
-			zhuanchang_arry:[],
+			xiangmu_arry: ['在线咨询', '电话咨询','合同文书','诉讼委托'],
+			shichang_arry:['20分钟','1小时','1天','3天','30天','365天'],
+			zhuanchang_arry: [],
+			type_arry:[],
 			type:'',
 			consultid:'',
 			information:'',
 			typeid:'',
-			fenlei:[]
+			fenlei:[],
+			phone:'',
+			xiamgmu:'',
+			shichang:'',
+			leixing:'',
+			zixun_xinxi:'',
+			laiyuan:1,
+			pay_money:0
+			
 		};
+	},
+	components: {
+		pickerAddress2
 	},
 	created() {
 	},
 	onLoad(option) {
 		this.lawyerid=option.lawyerid
 		this.type=option.type
-		// if(option.type==2){
-		// 	this.guoqu_zixun_xq()
-		// }
-		if(option.consultid){
-			this.consultid=option.consultid
-			
-		}if(option.information){
-			this.information=option.information
-			
-		}if(option.typeid){
-			this.typeid=option.typeid
-			// 获取分类
-			this.$http
-				.post({
-					url: '/mapi/index/gettype'
-				})
-				.then(res => {
-					this.fenlei = res.data.type;
-				});
+		if(option.type==2){
+			this.xiamgmu='电话咨询'
+		}else if(option.type==1){
+			this.xiamgmu='在线咨询'
 		}
+		if(option.consultid){
+			this.laiyuan=2
+			this.consultid=option.consultid
+			this.diangdan_xinxi()
+		}else{
+			this.laiyuan=1
+		}
+		
+		// 获取分类
+		this.$http
+			.post({
+				url: '/mapi/index/gettype'
+			})
+			.then(res => {
+				this.fenlei = res.data.type;
+				var array = [];
+				for (var key in res.data.type) {
+					array.push(res.data.type[key]);
+				}
+				this.type_arry = array;
+			});
 		this.$http
 			.post({
 				url: '/mapi/lawyer/getshanchang'
@@ -163,6 +214,21 @@ export default {
 		navigateBack() {
 			uni.navigateBack();
 		},
+		diangdan_xinxi(){
+			this.$http
+				.post({
+					url: '/mapi/consult/consult_xq',
+					data:{
+						consultid:this.consultid
+					}
+				})
+				.then(res => {
+					this.zixun_xinxi=res.data.consult
+					this.neirong=res.data.consult.information
+					this.pay_money=res.data.consult.paymoney
+				});
+		},
+		
 // 律师信息
 		huoqu_lvshi() {
 			this.$http
@@ -175,20 +241,94 @@ export default {
 				.then(res => {
 					if (res.code == 0) {
 						this.lvshi = res.data.lawyer;
+						this.phone=res.data.lawyer.mobile
+						if(this.laiyuan==1){
+							if(this.type==1){
+								this.pay_money=res.data.lawyer.chatprice
+							}else{
+								this.pay_money=res.data.lawyer.phoneprice
+							}
+						}
 					}
 				});
 		},
 		save() {
 			
+			if(this.phone==''){
+				uni.showToast({
+					title: '请填写手机号码',
+					duration: 2000
+				});
+				return false
+			}
+			if(this.xiamgmu==''){
+				uni.showToast({
+					title: '请选择服务项目',
+					duration: 2000
+				});
+				return false
+			}
+			if(this.shichang==''){
+				uni.showToast({
+					title: '请选择服务时长',
+					duration: 2000
+				});
+				return false
+			}
+			if(this.neirong==''){
+				uni.showToast({
+					title: '请输入咨询内容',
+					duration: 2000
+				});
+				return false
+			}
+			
+			
+			if(this.laiyuan==1){
+				var ls=this.lawyerid
+			}else{
+				var ls=''
+			}
 
+			this.$http
+				.post({
+					url: '/index/consult/addconsultpay',
+					data: {
+						information: this.neirong,
+						typeid:this.typeid,
+						phone:this.phone,
+						shichang:this.shichang,
+						xiangmu:this.xiamgmu,
+						lawyerid:ls,
+						consultid:this.consultid
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						if(this.zhifu==2){
+							this.zfb_pay(res.data.consultid)
+						}else if(this.zhifu==3){
+							this.yue_pay(res.data.consultid)
+						}
+						
+					}
+				});
+			
+			
+			
+			return false
+
+			
+
+			console.log(this.zhifu);
+		},
+		
+		zfb_pay(consultid){
 			this.$http
 				.post({
 					url: '/mapi/consult/pay',
 					data: {
-						lawyerid: this.lawyerid,
-						type:this.type,
-						consultid:this.consultid,
-						information:this.neirong
+						consultid:consultid
 					}
 				})
 				.then(res => {
@@ -219,8 +359,44 @@ export default {
 						   });
 					}
 				});
+		},
+		yue_pay(consultid){
+			this.$http
+				.post({
+					url: '/index/consult/accountpay',
+					data: {
+						consultid:consultid,
 
-			console.log(this.zhifu);
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+					uni.showToast({
+						title: '支付成功',
+						duration: 2000
+											
+					});
+						
+					}
+				});
+		},
+		// 项目选择
+		paixu_change(e) {
+			
+			this.xiamgmu = this.xiangmu_arry[e.detail.value];
+			console.log(this.xiamgmu)
+		},
+		// 时长选择
+		shichang_change(e){
+			
+			this.shichang = this.shichang_arry[e.detail.value];
+			console.log(this.shichang)
+		},
+		// 类型选择
+		zhuanchang_change(e) {
+			this.leixing = this.type_arry[e.detail.value].typename;
+			this.typeid = this.type_arry[e.detail.value].typeid;
+			console.log(this.typeid);
 		},
 		guoqu_zixun_xq(){
 			this.$http
@@ -324,7 +500,9 @@ page {
 	align-items: center;
 	justify-content: space-between;
 }
-
+.pay_list input{
+	text-align: right;
+}
 .pay_top {
 	background-color: #ffffff;
 	padding: 0 30rpx;

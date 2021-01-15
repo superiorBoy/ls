@@ -8,7 +8,7 @@
 		<view class="zi_body">
 			
 			<view :class="['chat_body', bt_show ? 'chat_body_jia' : '']" @click="bt_show=!bt_show">
-				<view v-for="item in xq_item.zhuiwen" v-if="xq_item!=''">
+				<view v-for="item in zixun_list">
 					<view class="chat_list chat_right" v-if="item.type == 1">
 						<view class="chat_right_txt bai_26">
 							<text>{{ item.information }}</text>
@@ -123,15 +123,16 @@ export default {
 			lawyerid:'',
 			lvshi:'',
 			consultid:'',
-			zixun_list:'',
+			zixun_list:[],
 			xq_item:'',
-			my:''
+			my:'',
+			crid:''
 		};
 	},
 	onLoad(option) {
 		this.lawyerid=option.lawyerid
-		this.consultid=option.consultid
-		this.xq_item=JSON.parse(option.item)
+		this.crid=option.crid
+		
 		this.huoqu_lvshi()
 		this.huoqu_zixun_xq()
 		console.log(this.xq_item)
@@ -194,14 +195,14 @@ export default {
 		huoqu_zixun_xq(){
 			this.$http
 				.post({
-					url: '/mapi/consult/zixun_xq',
+					url: '/mapi/consult/zuiwen',
 					data: {
-						consultid:this.consultid
+						crid:this.crid
 					}
 				})
 				.then(res => {
 					if (res.code == 0) {
-						this.zixun_list=res.data.consult
+						this.zixun_list=res.data.zhuiwen
 						
 					}
 				});	
@@ -235,10 +236,10 @@ export default {
 			
 			this.$http
 				.post({
-					url: '/lawyer/index/zhuiwen',
+					url: '/index/zixun/zhuiwen',
 					data: {
-						consultid:this.consultid,
-						text:this.chat_txt
+						crid:this.crid,
+						txt:this.chat_txt
 					}
 				})
 				.then(res => {
@@ -258,7 +259,7 @@ export default {
 				type: '1'
 			};
 
-			this.xq_item.zhuiwen.push(data);
+			this.zixun_list.push(data);
 			this.chat_txt = '';
 			this.bt_show = true;
 		},

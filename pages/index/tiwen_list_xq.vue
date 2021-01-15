@@ -53,7 +53,7 @@
 							<view class="ls_item_right_bottom_list">
 							<text class="qian_26 huida_txt">{{item.information}}</text>
 							</view>
-							<view class="zhuiwen bai_24" @click="zhuiwen(item.userid,item.consultid,item)">
+							<view class="zhuiwen bai_24" @click="zhuiwen(item.userid,item.crid)">
 								追问
 							</view>
 						
@@ -118,10 +118,10 @@ onLoad(option) {
 			zhan() {
 				this.is_zhankai = !this.is_zhankai
 			},
-			zhuiwen(lawyerid,consultid,item){
+			zhuiwen(lawyerid,crid){
 			
 				uni.navigateTo({
-					url:'zhuiwen?lawyerid='+lawyerid+'&consultid='+consultid+'&item='+JSON.stringify(item)
+					url:'zhuiwen?lawyerid='+lawyerid+'&crid='+crid
 				})
 			},
 			get_xq(id) {

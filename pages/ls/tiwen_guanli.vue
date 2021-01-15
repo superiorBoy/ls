@@ -30,16 +30,17 @@
 						</view>
 					</view>
 					<view class="huifu_btn">
-						<view class="tiwen_ren hui_24"><!-- <image src="@/static/lsimg/yh_tx.png" mode=""></image>兔子的眼泪 --></view>
+						<view class="tiwen_ren hui_24">
+							<image :src="img_url+item.user.photourl" mode=""></image>{{item.user.nickname}}
+							</view>
 						<button type="" class="huifu bai_24" @click="huifu(item.consultid)">
 							回复
 						</button>
 					</view>
-					<!-- 	<view class="zhuiwen hui_26" v-if="active==2">
+						<view class="zhuiwen hui_26" v-if="active==2">
 						<view class="zhuiwen_txt bai_20">追问</view>
-						<view class="zhuiwen_body">二审有新的证据可以在二审审判程序中向二审法院递交
-						的新证据嘛？</view>
-					</view> -->
+						<view class="zhuiwen_body">{{item.zhuiwen.information}}</view>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -203,10 +204,18 @@ export default {
 				});
 		},
 		huifu(id) {
-			uni.navigateTo({
-				url:
-					'/pages/ls/tiwen_guanli_xq?id='+id
-			});
+			if(this.active==2){
+				uni.navigateTo({
+					url:
+						'/pages/ls/zhuiwen_xq?id='+id
+				});
+			}else{
+				uni.navigateTo({
+					url:
+						'/pages/ls/tiwen_guanli_xq?id='+id
+				});
+			}
+		
 		},
 		// 底部弹窗
 		tan() {
