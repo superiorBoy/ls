@@ -22,7 +22,7 @@
 						</view>
 						<view class="xiaoxi_item_left_name">
 							<view class="hei_30_bold xiaoxi_item_name">
-								{{item.user_to.nickname}}
+								{{item.user_to.mobile}}
 							</view>
 							<view class="qian_26 txt_over">
 								<view class="" v-if="item.msgtype==1">
@@ -138,10 +138,11 @@
 						}
 					})
 					.then(res => {
-						if(res.data.consult<10){
-							this.is_all=true
-						}
+				
 						this.jilu_list=this.jilu_list.concat(res.data.consult);
+						if (res.data.consult.length < 10) {
+							this.is_all = true;
+						}
 						
 					});
 				

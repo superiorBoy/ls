@@ -28,6 +28,7 @@ export default {
 		uni.setStorageSync("img_url",res.data.url)
 		})
 		// uni.hideTabBar({})
+
 	},
 
 	onShow: function() {

@@ -285,7 +285,7 @@ export default {
 		},
 		go_shendu(){
 			uni.navigateTo({
-				url: 'shendu_pay'
+				url: 'pay?lawyerid='+this.lawyerid+'&type=1'
 			});
 		},
 		

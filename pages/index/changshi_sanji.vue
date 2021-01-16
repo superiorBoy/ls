@@ -173,8 +173,8 @@ export default {
 		},
 		swiperchang(e) {
 			this.current = e.detail.current;
-			console.log(this.current);
-			console.log(this.banner.length);
+			
+			
 		},
 		// jiedan_qiehuan(index) {
 		// 	this.active = index;

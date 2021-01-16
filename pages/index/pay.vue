@@ -328,7 +328,10 @@ export default {
 				.post({
 					url: '/mapi/consult/pay',
 					data: {
-						consultid:consultid
+						consultid:consultid,
+						type:this.type,
+						lawyerid:this.lawyerid,
+						information:this.neirong
 					}
 				})
 				.then(res => {

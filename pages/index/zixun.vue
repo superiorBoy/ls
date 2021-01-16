@@ -319,7 +319,7 @@ export default {
 	line-height: 36rpx;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 3;
+	-webkit-line-clamp:3;
 	overflow: hidden;
 }
 

@@ -93,6 +93,9 @@
 					})
 					.then(res => {
 						this.anli_list=this.anli_list.concat(res.data.anli);
+						if (res.data.anli.length < 10) {
+							this.is_all = true;
+						}
 					});
 			},
 			add() {

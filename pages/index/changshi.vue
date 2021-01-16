@@ -220,11 +220,11 @@ export default {
 						}
 					})
 					.then(res => {
-						if(res.data.knowledgelist<10){
-							this.is_all=true
-						}
-						console.log(res.data.knowledgelist)
+					
 						this.remenlist=this.remenlist.concat(res.data.knowledgelist);
+						if (res.data.knowledgelist.length < 10) {
+							this.is_all = true;
+						}
 							
 					});
 		},
@@ -283,7 +283,6 @@ uni-swiper {
 .lun_num {
 	width: 124rpx;
 	height: 66rpx;
-
 	border-radius: 33rpx;
 	background-color: rgba(0, 0, 0, 0.4);
 	line-height: 66rpx;
@@ -366,7 +365,6 @@ uni-swiper {
 .tuijian_item {
 	display: flex;
 	padding: 20rpx 30rpx;
-
 	border-bottom: 2rpx solid #f7f7f7;
 }
 .tuijian_item_top {

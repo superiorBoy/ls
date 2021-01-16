@@ -17,10 +17,10 @@
 
 			<view class="zixun_list">
 				<view class="zixun_item" v-for="(item,index) in jilu_list">
-
+          <view class="zixun_item_top">
 					<view class="zixun_item_left">
 						<view class="zixun_item_tx">
-							<image :src=img_url+item.photourl></image>
+							<image :src="img_url+item.photourl"></image>
 						</view>
 						<view class="zixun_item_xinxi">
 							<view class="hei_26">
@@ -29,7 +29,7 @@
 							<view class="hong_26 zixun_item_feiyong">
 								￥{{item.paymoney}}
 							</view>
-							<view class="qian_22">
+							<view class="qian_22 zixun_item_feiyong">
 								{{ item.addtime | timeStamp }}
 							</view>
 						</view>
@@ -37,13 +37,31 @@
 
 					<view class="zixun_r">
 					
-						<view   :class="['zixun_leibie',item.zixunstate == 4?'qian_26_bold':'hong_26_bold']">
+						<view  :class="['zixun_leibie',item.zixunstate == 4?'qian_26_bold':'hong_26_bold']">
 							{{ item.zixunstate == 1 ? '未付款' : item.zixunstate == 2 ? '已付款' : item.zixunstate == 3 ? '接单中' : '已完成' }}
 						</view>
 						<view class="zixun_dianhua">
 							<image src="@/static/img/hy_dianhua.png" mode=""></image>{{item.phone}}
 						</view>
 					</view>
+					</view>
+					
+					<view class="zixun_item_top_bottom" >
+						<view class="iten_lianxi hong_26" v-if="item.zixunstate==2" @click="jiadan(item.consultid)">
+							立即接单
+						</view>
+						<view class="iten_lianxi hong_26" @click="go_chat(item.userid)">
+						 	<image src="@/static/lsimg/hong_zaixian.png" mode=""></image>在线联系
+						</view>
+					</view>
+					
+					
+					
+					
+					
+					
+					
+					
 				</view>
 			</view>
 		</view>
@@ -191,10 +209,10 @@
 						}
 					})
 					.then(res => {
-						if(res.data.consult<10){
-							this.is_all=true
-						}
 						this.jilu_list=this.jilu_list.concat(res.data.consult);
+						if (res.data.consult.length < 10) {
+							this.is_all = true;
+						}
 						
 					});
 				
@@ -222,6 +240,23 @@
 			tan() {
 				this.$refs.popup.open()
 
+			},
+			//接单
+			jiadan(consultid){
+					  this.$http
+					  	.post({
+					  		url: '/lawyer/index/upconsult',
+					  		data:{
+					  			consultid: consultid,
+					  			type:'jiedan'
+					  		}
+					  	})
+					  	.then(res => {
+					  		console.log(res)
+					  		if(res.code==0){
+								this.qiehuan(3)
+							}
+					  	});
 			},
 	// 专长选择
 			xuanzhuangchang(index, item,id) {
@@ -258,7 +293,11 @@
 				this.zhuan_show = !this.zhuan_show
 			
 			},
-
+            go_chat(id){
+			uni.navigateTo({
+				url:'chat?userid='+id
+			})
+		},
 		},
 		filters: {
 			timeStamp: function(value) {
@@ -303,16 +342,17 @@
 	}
 
 	.zixun_item {
-		display: flex;
-		align-items: center;
-		height: 191rpx;
 		background-color: #ffffff;
 		margin-bottom: 20rpx;
-		justify-content: space-between;
-		padding: 0 49rpx 0 30rpx;
+		padding: 30rpx 49rpx 0rpx 30rpx;
 		box-sizing: border-box;
 	}
-
+.zixun_item_top{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	
+}
 	.zixun_item:first-child {
 		margin-top: 20rpx;
 	}
@@ -468,5 +508,27 @@
 		width: 100%;
 		box-sizing: border-box;
 		z-index: 9;
+	}
+	.zixun_item_top_bottom{
+		display: flex;
+		justify-content: flex-end;
+		border-top: 2rpx dashed #c6c6c6;
+		padding:  20rpx 0;
+	}
+	.iten_lianxi image{
+			width: 28rpx;
+			height: 27rpx;
+			margin-right: 10rpx;
+	}
+	.iten_lianxi{
+			width: 186rpx;
+			height: 60rpx;
+			background-color: #ffffff;
+			border-radius: 30rpx;
+			border: solid 1rpx #f43a51;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-left: 20rpx;
 	}
 </style>

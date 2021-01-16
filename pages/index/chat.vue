@@ -227,7 +227,7 @@ export default {
 					this.chat_xinxi = res.data.user_to;
 					setTimeout(() => {
 					   uni.pageScrollTo({scrollTop: 99999, duration: 0});
-					}, 100)
+					}, 200)
 				});
 				
 				

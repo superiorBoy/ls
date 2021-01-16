@@ -31,7 +31,7 @@
 					</view>
 					<view class="huifu_btn">
 						<view class="tiwen_ren hui_24">
-							<image :src="img_url+item.user.photourl" mode=""></image>{{item.user.nickname}}
+							<image :src="img_url+item.user.photourl" mode=""></image>{{item.user.mobile}}
 							</view>
 						<button type="" class="huifu bai_24" @click="huifu(item.consultid)">
 							回复
@@ -197,10 +197,10 @@ export default {
 					}
 				})
 				.then(res => {
-					if (res.data.list < 10) {
+					this.jilu_list = this.jilu_list.concat(res.data.list);
+					if (res.data.list.length < 10) {
 						this.is_all = true;
 					}
-					this.jilu_list = this.jilu_list.concat(res.data.list);
 				});
 		},
 		huifu(id) {

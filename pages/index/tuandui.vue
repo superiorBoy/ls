@@ -178,8 +178,8 @@ export default {
 				.then(res => {
 					
 					this.list=this.list.concat(res.data.invitelist)
-					if(res.data.invitelist<10){
-						this.is_all=true
+					if (res.data.invitelist.length < 10) {
+						this.is_all = true;
 					}
 				});
 		},

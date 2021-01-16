@@ -22,19 +22,19 @@
 
 		<view class="my_ziliao">
 			<navigator url="guanzhu" class="my_ziliao_item">
-				<view class="my_ziliao_item_top hei_28">0</view>
+				<view class="my_ziliao_item_top hei_28">{{geshu.guanzhu}}</view>
 				<view class="my_ziliao_item_bottom hei_22">关注</view>
 			</navigator>
 			<navigator url="shoucang" class="my_ziliao_item">
-				<view class="my_ziliao_item_top hei_28">0</view>
+				<view class="my_ziliao_item_top hei_28">{{geshu.shoucang}}</view>
 				<view class="my_ziliao_item_bottom hei_22">收藏</view>
 			</navigator>
 			<navigator url="tuandui" class="my_ziliao_item">
-				<view class="my_ziliao_item_top hei_28">0</view>
+				<view class="my_ziliao_item_top hei_28">{{geshu.tuandui}}</view>
 				<view class="my_ziliao_item_bottom hei_22">团队</view>
 			</navigator>
 			<navigator url="chongzhi" class="my_ziliao_item">
-				<view class="my_ziliao_item_top hei_28">0</view>
+				<view class="my_ziliao_item_top hei_28">{{user.rmb}}</view>
 				<view class="my_ziliao_item_bottom hei_22">余额</view>
 			</navigator>
 		
@@ -43,7 +43,7 @@
 
 		<view class="my_bottom">
 			<navigator url="chat?lsid=7" class="xianshi">
-					<image src="../../static/img/hy_guanggao.png" mode=""></image>
+					<image src="@/static/img/hy_guanggao.png" mode=""></image>
 					<view class="jiage hei_20_bold">限时29元/小时</view>
 			</navigator>
 
@@ -51,27 +51,27 @@
 				<view class="my_title hei_30_bold">咨询管理</view>
 				<view class="my_list">
 					<navigator url="tiwen" class="ls_item">
-							<image src="../../static/img/hy_tiwen_icon.png" mode="" style="width: 37rpx;height: 40rpx;"></image>
+							<image src="@/static/img/hy_tiwen_icon.png" mode="" style="width: 37rpx;height: 40rpx;"></image>
 							<view class="hui_24 ">我要提问</view>
 					</navigator>
 					<navigator url="tiwen_list" class="ls_item">
-						<image src="../../static/img/hy_tiwen_jilu_icon.png" mode="" style="width: 34rpx;height: 40rpx;"></image>
+						<image src="@/static/img/hy_tiwen_jilu_icon.png" mode="" style="width: 34rpx;height: 40rpx;"></image>
 						<view class="hui_24 ">提问记录</view>
 					</navigator>
 					<navigator url="zaixian_list" class="ls_item">
-						<image src="../../static/img/hy_kefu.png" mode="" style="width: 44rpx;height: 40rpx;"></image>
+						<image src="@/static/img/hy_kefu.png" mode="" style="width: 44rpx;height: 40rpx;"></image>
 						<view class="hui_24 ">在线咨询</view>
 					</navigator>
 					<navigator url="zixun_jilu" class="ls_item">
-						<image src="../../static/img/hy_zixun_jilu.png" mode="" style="width: 36rpx;height: 40rpx;"></image>
+						<image src="@/static/img/hy_zixun_jilu.png" mode="" style="width: 36rpx;height: 40rpx;"></image>
 						<view class="hui_24 ">咨询记录</view>
 					</navigator>
 					<navigator url="dianhua_jilu" class="ls_item">
-						<image src="../../static/img/hy_dianhua.png" mode="" style="width: 40rpx;height: 40rpx;"></image>
+						<image src="@/static/img/hy_dianhua.png" mode="" style="width: 40rpx;height: 40rpx;"></image>
 						<view class="hui_24 ">电话咨询</view>
 					</navigator>
 					<navigator url="weituo_list" class="ls_item">
-						<image src="../../static/img/hy_weituo.png" mode="" style="width: 36rpx;height: 40rpx;"></image>
+						<image src="@/static/img/hy_weituo.png" mode="" style="width: 36rpx;height: 40rpx;"></image>
 						<view class="hui_24 ">委托记录</view>
 					</navigator>
 				</view>
@@ -81,24 +81,24 @@
 				<view class="my_title hei_30_bold">推广中心</view>
 				<view class="my_list">
 					<navigator url="tuanzhang" class="jiedan_item">
-						<image src="../../static/img/hy_tuiguang1.png" mode=""></image>
+						<image src="@/static/img/hy_tuiguang1.png" mode=""></image>
 						<view class="hui_24 ">升级团长</view>
 					</navigator>
 					<navigator url="jiangli" class="jiedan_item">
-						<image src="../../static/img/hy_tuiguang2.png" mode=""></image>
+						<image src="@/static/img/hy_tuiguang2.png" mode=""></image>
 						<view class="hui_24 ">我的奖励</view>
 					</navigator>
 					<navigator url="tuandui" class="jiedan_item">
-						<image src="../../static/img/hy_tuiguang3.png" mode=""></image>
+						<image src="@/static/img/hy_tuiguang3.png" mode=""></image>
 						<view class="hui_24 ">我的团队</view>
 					</navigator>
 					
 					<navigator url="sucai?state=1" class="jiedan_item">
-						<image src="../../static/img/hy_tuiguang4.png" mode=""></image>
+						<image src="@/static/img/hy_tuiguang4.png" mode=""></image>
 						<view class="hui_24 ">营销素材</view>
 					</navigator>
 					<navigator url="app_down" class="jiedan_item">
-						<image src="../../static/img/hy_tuiguang5.png" mode=""></image>
+						<image src="@/static/img/hy_tuiguang5.png" mode=""></image>
 						<view class="hui_24 ">APP下载</view>
 					</navigator>
 				</view>
@@ -108,27 +108,27 @@
 				<view class="my_title hei_30_bold">账户管理</view>
 				<view class="my_list">
 					<navigator url="geren_xinxi" class="zhanghao_item">
-						<image src="../../static/img/hy_xinxi.png" mode="" style="width: 50rpx;height: 46rpx;"></image>
+						<image src="@/static/img/hy_xinxi.png" mode="" style="width: 50rpx;height: 46rpx;"></image>
 						<view class="hui_24 ">个人信息</view>
 					</navigator>
 					<navigator url="ls_tixian" class="zhanghao_item">
-						<image src="../../static/img/hy_tixian.png" mode="" style="width: 45rpx;height: 52rpx;"></image>
+						<image src="@/static/img/hy_tixian.png" mode="" style="width: 45rpx;height: 52rpx;"></image>
 						<view class="hui_24 ">账号提现</view>
 					</navigator>
 					<navigator url="chongzhi" class="zhanghao_item">
-						<image src="../../static/img/hy_chongzhi.png" mode="" style="width: 56rpx;height: 49rpx;"></image>
+						<image src="@/static/img/hy_chongzhi.png" mode="" style="width: 56rpx;height: 49rpx;"></image>
 						<view class="hui_24 ">我要充值</view>
 					</navigator>
 					<navigator url="ls_liushui" class="zhanghao_item">
-						<image src="../../static/img/hy_liushui.png" mode="" style="width: 50rpx;height: 56rpx;"></image>
+						<image src="@/static/img/hy_liushui.png" mode="" style="width: 50rpx;height: 56rpx;"></image>
 						<view class="hui_24 ">流水明细</view>
 					</navigator>
 					<navigator url="help" class="zhanghao_item">
-						<image src="../../static/img/hy_help.png" mode="" style="width: 47rpx;height: 54rpx;"></image>
+						<image src="@/static/img/hy_help.png" mode="" style="width: 47rpx;height: 54rpx;"></image>
 						<view class="hui_24 ">帮助中心</view>
 					</navigator>
 					<navigator url="gonggao" class="zhanghao_item">
-						<image src="../../static/img/hy_gonggao.png" mode="" style="width: 50rpx;height: 50rpx;"></image>
+						<image src="@/static/img/hy_gonggao.png" mode="" style="width: 50rpx;height: 50rpx;"></image>
 						<view class="hui_24 ">网站公告</view>
 					</navigator>
 				</view>
@@ -148,7 +148,7 @@ export default {
 			user:'',
 			img_url: uni.getStorageSync('img_url'),
 			is_login:false,
-			
+			geshu:''
 			
 		};
 	},
@@ -170,8 +170,6 @@ export default {
 				});
 		},
 		huiqu_login(){
-			
-
 			this.$http
 				.post({
 					url: '/index/login/islogin'
@@ -180,12 +178,21 @@ export default {
 					if(res.data.user!=''){
 						this.is_login=true
 						this.huoqu_user()
+						this.huoqu_geshu()
 					}else{
 						this.is_login=false
 					}
-					
 				});
-			
+		},
+		huoqu_geshu(){
+			this.$http
+				.post({
+					url: '/mapi/index/usercount'
+				})
+				.then(res => {
+					
+					this.geshu=res.data.count
+				});
 		}
 	},
 	

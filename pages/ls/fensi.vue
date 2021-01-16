@@ -26,9 +26,9 @@
 			</view>
 		</view>
 	</view>
-	<view class="fensi_list_right weiguan lv_26">
+	<!-- <view class="fensi_list_right weiguan lv_26">
 		+ 关注
-	</view>
+	</view> -->
 	<!-- <view class="fensi_list_right huanguan qian_26">
 		<image src="@/static/img/huguan.png" mode=""></image> 互关
 	</view> -->
@@ -111,11 +111,11 @@ huoqu_list(){
 			}
 		})
 		.then(res => {
-			if(res.data.consult<10){
-				this.is_all=true
-			}
+
 			this.jilu_list=this.jilu_list.concat(res.data.consult);
-			
+			if (res.data.consult.length < 10) {
+				this.is_all = true;
+			}
 		});
 	
 },

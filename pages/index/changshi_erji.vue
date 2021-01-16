@@ -175,8 +175,8 @@ export default {
 		},
 		swiperchang(e) {
 			this.current = e.detail.current;
-			console.log(this.current);
-			console.log(this.banner.length);
+			
+			
 		},
 		// jiedan_qiehuan(index) {
 		// 	this.active = index;
@@ -219,11 +219,12 @@ export default {
 					}
 				})
 				.then(res => {
-					if (res.data.knowledgelist < 10) {
+		
+					
+					this.remenlist = this.remenlist.concat(res.data.knowledgelist);
+					if (res.data.knowledgelist.length < 10) {
 						this.is_all = true;
 					}
-					console.log(res.data.knowledgelist);
-					this.remenlist = this.remenlist.concat(res.data.knowledgelist);
 				});
 		},
 

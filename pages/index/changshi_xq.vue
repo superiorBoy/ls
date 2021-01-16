@@ -92,7 +92,7 @@ export default {
 	},
 	created() {},
 	onLoad(option) {
-		console.log(option);
+		
 		if (option.knowledgeid != undefined) {
 			this.knowledgeid = option.knowledgeid;
 			this.huoqu_xq();
@@ -105,7 +105,6 @@ export default {
 							url: '/mapi/index/knowledgetype',
 						})
 						.then(res => {
-								
 								for (var item in res.data.type[1]){
 									if(res.data.type[1][item].knowledgetypeid==option.yiid)
 									this.yiji_title=res.data.type[1][item].knowledgetypename

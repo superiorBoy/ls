@@ -266,6 +266,7 @@
 <script>
 import WucTab from '@/components/wuc-tab/wuc-tab.vue';
 import pickerAddress from '@/components/wangding-pickerAddress/wangding-pickerAddress.vue';
+import socket from 'plus-websocket';
 //#ifdef H5
 import $ from '@/common/jquery-3.4.1.min.js'
 import { loadBMap } from '@/common/map.js';
@@ -377,18 +378,20 @@ export default {
 		//    } else {
 		//      alert("pc端");
 		//    }
-
+		//#ifdef APP-PLUS
+		plus.runtime.getProperty(plus.runtime.appid,(wgtinfo)=>{
+			  console.log(JSON.stringify(wgtinfo));
+			  console.log("版本号",wgtinfo.versionCode);//应用版本号
+			  this.banben=wgtinfo.versionCode	
+			  this.huiqu_banben()
+		})
+		
+		this.kaiqi()
+		 //#endif	
 		
 	},
 	onShow() {
-		//#ifdef APP-PLUS
-		plus.runtime.getProperty(plus.runtime.appid,(wgtinfo)=>{
-									  console.log(JSON.stringify(wgtinfo));
-									  console.log("版本号",wgtinfo.versionCode);//应用版本号
-									  this.banben=wgtinfo.versionCode
-									  
-		})
-		 //#endif	
+
 		
 		this.$http
 			.post({
@@ -425,41 +428,6 @@ export default {
 		this.fa_zhishi=res.data.type[1]
 					});
 						
-		//#ifdef APP-PLUS
-		
-		// 获取版本
-		this.$http
-		.post({
-			url: '/mapi/index/banben',
-		})
-			.then(res => {
-		       console.log(res.data.banben,'版本')
-			   
-			   
-			   if(uni.getSystemInfoSync().platform == 'ios'){
-				   console.log("ios",this.banben)
-				   if(this.banben!=res.data.banben.ios){
-				   				   this.is_gengxin=true
-								   this.down_url=res.data.banben.iosurl
-				   				   uni.hideTabBar()
-				   }
-			   }else if(uni.getSystemInfoSync().platform === 'android'){
-				   console.log("android",this.banben)
-				   if(this.banben!=res.data.banben.android){
-				   				   this.is_gengxin=true
-								   this.down_url=res.data.banben.androidurl
-				   				   uni.hideTabBar()
-				   }
-			   }
-			  
-			});
-		
-			  const clientInfo = plus.push.getClientInfo()
-			  console.log(clientInfo,'6666')
-		  //#endif		
-		
-	
-		
 			
 	},
 	methods: {
@@ -468,49 +436,86 @@ export default {
 			  var urlStr = encodeURI(this.down_url)//把字符串作为url进行编码
 			  plus.runtime.openURL(urlStr);
 			  //#endif	
-			// //#ifdef H5
-			// window.location.href = this.down_url;
-			// //#endif	
-			
-			
-			// var that=this
-			// uni.downloadFile({
-			// 		url: that.down_url,//下载地址接口返回
-			// 		success: (data) => {
-			// 			if (data.statusCode === 200) {
-			// 				//文件保存到本地
-			// 				uni.saveFile({
-			// 					tempFilePath: data.tempFilePath, //临时路径
-			// 					success: function(res) {
-			// 						uni.showToast({
-			// 							icon: 'none',
-			// 							mask: true,
-			// 							title: '文件已保存：' + res.savedFilePath, //保存路径
-			// 							duration: 1000,
-			// 						});
-			// 						setTimeout(() => {
-			// 							//打开文档查看
-			// 							uni.openDocument({
-			// 								filePath: res.savedFilePath,
-			// 								success: function(res) {
-			// 									console.log('打开文件成功');
-			// 								}
-			// 							});
-			// 						}, 1000)
-			// 					}
-			// 				});
-			// 			}
-			// 		},
-			// 		fail: (err) => {
-			// 			console.log(err);
-			// 			uni.showToast({
-			// 				icon: 'none',
-			// 				mask: true,
-			// 				title: '失败请重新下载',
-			// 			});
-			// 		},
-			// 	});
 				
+		},
+		huiqu_banben(){
+			this.$http
+			.post({
+				url: '/mapi/index/banben',
+			})
+				.then(res => {
+			       console.log(res.data.banben,'版本')
+				   if(uni.getSystemInfoSync().platform == 'ios'){
+					   console.log("ios",this.banben)
+					   if(this.banben!=res.data.banben.ios){
+					   				   this.is_gengxin=true
+									   this.down_url=res.data.banben.iosurl
+					   				   uni.hideTabBar()
+					   }
+				   }else if(uni.getSystemInfoSync().platform === 'android'){
+					   console.log("android",this.banben)
+					   if(this.banben!=res.data.banben.android){
+					   				   this.is_gengxin=true
+									   this.down_url=res.data.banben.androidurl
+					   				   uni.hideTabBar()
+					   }
+				   }
+				  
+				});
+			
+				  const clientInfo = plus.push.getClientInfo()
+				  console.log(clientInfo,'6666')
+		},
+		kaiqi(){
+			let that = this;
+			Object.assign(uni, socket);
+			console.log(Object.assign(uni, socket));
+			var url = that.$http.WebSocket_url;
+			socket.connectSocket({
+				url: 'ws://' + url + ':3348',
+				success(data) {
+					console.log('websocket已连接', JSON.stringify(data));
+				}
+			});
+			socket.onSocketOpen(function(res) {
+				console.log('WebSocket连接已打开！');
+			});
+			socket.onSocketError(function(res) {
+				console.log('WebSocket连接打开失败，请检查！', JSON.stringify(res));
+			});
+			socket.onSocketMessage(function(res) {
+				console.log('收到服务器内容：' + res.data);
+				var data = JSON.parse(res.data);
+			
+				if (data.type == 'init') {
+					console.log('init');
+					console.log('client_id', data.client_id);
+					uni.request({
+						url: that.$http.baseUrl + '/push/gatewayworker/bind',
+						method: 'POST',
+						data: {
+							client_id: data.client_id
+						},
+			
+						success: function(resp) {
+							console.log(resp, 'bind');
+						},
+						fail: function(resp) {}
+					});
+				} else if (data.type == 'say') {
+					console.log('say');
+					if (data.state) {
+					  
+					  void plus.push.createMessage( '收到一条新消息' );
+					}
+				} else {
+					console.log('else');
+				}
+				console.log(data);
+			});
+			socket.onSocketClose(function(res) {
+				console.log('WebSocket 已关闭！');
+			});
 		},
 		tabChange(index) {
 			this.TabCur = index;
@@ -575,7 +580,7 @@ export default {
 		},
 		tochat(id) {
 			uni.navigateTo({
-				url:'chat?lsid='+id
+				url:'pay?lawyerid='+id+'&type=1'
 			})
 		},
 		go_ls_list() {

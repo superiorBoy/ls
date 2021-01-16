@@ -179,8 +179,9 @@ export default {
 					this.dianhua = res.data.user_to.mobile;
 					setTimeout(() => {
 					   uni.pageScrollTo({scrollTop: 99999, duration: 0});
-					}, 100)
+					}, 200)
 				});
+			
 		},
 		huojiao(){
 			setTimeout(() => {
@@ -250,7 +251,11 @@ export default {
 							msgtype: data.state,
 							userid_from: that.ls_id
 						};
+						
+						if(that.user.userid!=data.userid_from){
+
 						that.message.push(xiaoxi);
+						}
 						setTimeout(() => {
 						   uni.pageScrollTo({scrollTop: 99999, duration: 0});
 						}, 100)

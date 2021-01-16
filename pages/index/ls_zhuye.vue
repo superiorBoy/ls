@@ -77,7 +77,7 @@
 							<text v-if="lvshi.chatprice!=0">{{lvshi.chatprice}}元/小时</text>
 							<text v-if="lvshi.chatprice==0">未报价</text>
 						</view>
-						<view class="lv_20 lei_btn zaixian_btn" v-if="lvshi.chatprice!=0" @click="go_chat(lawyerid)"><text>立即咨询</text></view>
+						<view class="lv_20 lei_btn zaixian_btn" v-if="lvshi.chatprice!=0" @click="go_chat(lawyerid,1)"><text>立即咨询</text></view>
 						<view class="lv_20 lei_btn zaixian_btn" v-if="lvshi.chatprice==0"><text>未开启</text></view>
 					</view>
 					<view class="fuwu_lei">
@@ -101,7 +101,7 @@
 							<text v-if="lvshi.phoneprice!=0">{{lvshi.phoneprice}}元/20分钟</text>
 							<text v-if="lvshi.phoneprice==0">未报价</text>
 						</view>
-						<view class="lei_btn tuwen_btn" v-if="lvshi.phoneprice!=0" @click="go_chat(lawyerid)"><text>立即咨询</text></view>
+						<view class="lei_btn tuwen_btn" v-if="lvshi.phoneprice!=0" @click="go_chat(lawyerid,2)"><text>立即咨询</text></view>
 						<view class="lei_btn tuwen_btn" v-if="lvshi.phoneprice==0"><text>未开启</text></view>
 					</view>
 				</view>
@@ -245,18 +245,18 @@
 						<view class="hui_26">分享</view>
 					</view>
 					<view class="bottom_guanzhu" @click="guanzhu">
-						<image src="@/static/img/guanzhu_icon.png" mode="" style="width: 28rpx;height: 28rpx;"></image>
-						<view class="hui_26">关注</view>
+						<image :src="type==1 ? '../../static/img/yi_shoucang.png' : '../../static/img/zhu_shoucang.png'"    mode="" style="width: 28rpx;height: 28rpx;"></image>
+						<view class="hui_26">{{type==1?'已关注':'关注'}}</view>
 					</view>
 					<view class="bottom_pingjia" @click="go_dianping()">
 						<image src="@/static/img/go_pingjia.png" mode=""></image>
 						<view class="hui_26">评价</view>
 					</view>
-					<view class="dianhua lv_26" @click="go_chat(lvshi.userid)">
+					<view class="dianhua lv_26" @click="go_chat(lvshi.userid,2)">
 						<image src="@/static/img/dianhua_lv.png" mode=""></image>
 						电话咨询
 					</view>
-					<view class="zaixian bai_26" @click="go_chat(lawyerid)">
+					<view class="zaixian bai_26" @click="go_chat(lawyerid,1)">
 						<image src="@/static/img/zaixian_bai.png" mode=""></image>
 						在线咨询
 					</view>
@@ -292,7 +292,8 @@ export default {
 			tuwen_list: [],
 			pingjia_list: [],
 			pingjiatype: '',
-			ls_xinxi: ''
+			ls_xinxi: '',
+			type:2
 		};
 	},
 	created() {},
@@ -313,7 +314,7 @@ export default {
 				this.zhuanchang_arry = res.data.shanchang;
 				this.huoqu_lvshi();
 			});
-
+  
 		this.lawyerid = option.lawyerid;
 		this.huoqu_bili();
 		this.huiqu_huifu_list();
@@ -321,13 +322,24 @@ export default {
 		this.huiqu_pingjia_list();
 		this.huoqu_pingjiatype();
 		this.huoqu_xinxi();
+		// 检测是否关注
+		this.$http
+			.post({
+				url: '/mapi/index/findbrowse',
+				data:{
+					state:2,
+					lawyerid:this.lawyerid
+				}
+			})
+			.then(res => {
+				this.type=res.data.type
+			});
 	},
 	onShow() {
 		var aaa = this.decodeUnicode(
 			'["\u670d\u52a1\u4f18\u8d28","\u5b66\u8bc6\u6e0a\u535a","\u7ecf\u9a8c\u4e30\u5bcc","\u5f85\u4eba\u8bda\u6073","\u4e50\u4e8e\u52a9\u4eba","\u56de\u590d\u5f88\u5feb","\u5f62\u8c61\u4e13\u4e1a","\u503c\u5f97\u63a8\u8350"]'
 		);
 
-		console.log(eval(aaa));
 	},
 	methods: {
 		navigateBack() {
@@ -359,7 +371,7 @@ export default {
 			this.active = index;
 		},
 		getServerData() {
-			console.log('4444');
+			
 			_self.showRing('canvasRing', this.chartData);
 		},
 		// 律师信息
@@ -374,7 +386,7 @@ export default {
 				.then(res => {
 					if (res.code == 0) {
 						this.lvshi = res.data.lawyer;
-						console.log(res.data.lawyer);
+						
 					}
 				});
 		},
@@ -398,11 +410,9 @@ export default {
 					if (res.code == 0) {
 						var tu_arry = [];
 						res.data.consulttu.forEach((item, index) => {
-							console.log(item);
 							tu_arry.push({ name: this.type_list[item.typeid].typename, data: item.value });
 						});
-						console.log(tu_arry);
-						console.log(this.chartData.series);
+
 						this.chartData.series = tu_arry;
 						this.chartData.series = tu_arry;
 						_self = this;
@@ -531,10 +541,28 @@ export default {
 		},
 		guanzhu(){
 			
+			this.$http
+				.post({
+					url: '/mapi/index/guanzhu',
+					data: {
+						lawyerid: this.lawyerid
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.type=res.data.type
+						uni.showToast({
+							title: res.message,
+							duration: 2000,
+							icon: 'none'
+						});
+					}
+				});
+			
 		},
-		go_chat(id){
+		go_chat(id,type){
 			uni.navigateTo({
-				url:'chat?lsid='+id
+				url:'pay?lawyerid='+id+'&type='+type
 			})
 		},
 		// 主页提问详情

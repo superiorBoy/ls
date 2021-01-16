@@ -95,8 +95,8 @@
 							<view class="hei_20">首页</view>
 						</view>
 						<view class="shipin_dibu_item " @click="shoucang">
-							<image :src="shou ? '../../static/img/yi_shoucang.png' : '../../static/img/zhu_shoucang.png'" mode="" style="width: 36rpx;height: 36rpx;"></image>
-							<view class="hei_20">收藏</view>
+							<image :src="type==1 ? '../../static/img/yi_shoucang.png' : '../../static/img/zhu_shoucang.png'" mode="" style="width: 36rpx;height: 36rpx;"></image>
+							<view class="hei_20">{{type==1?'已收藏':'收藏'}}</view>
 						</view>
 						<view class="shipin_dibu_item " @click="share">
 							<image src="@/static/img/zhu_fenxiang.png" mode="" style="width: 36rpx;height: 36rpx;"></image>
@@ -136,17 +136,30 @@ export default {
 			
 			this.wenid = option.id;
 		}
+		// 检测是否收藏
+		this.$http
+			.post({
+				url: '/mapi/index/findbrowse',
+				data:{
+					state:1,
+					consultid:this.wenid
+				}
+			})
+			.then(res => {
+				this.type=res.data.type
+			});
+		
 	},
 	data() {
 		return {
 			is_zhankai: true,
-			shou: false,
 			img_url: uni.getStorageSync('img_url'),
 			data: '',
 			huifu_list: [],
 			wenid: '',
 			is_all: false,
-			fenlei_list:[]
+			fenlei_list:[],
+			type:2
 		};
 	},
 	created() {},
@@ -181,6 +194,27 @@ export default {
 			});
 		},
 		shoucang() {
+			
+			this.$http
+				.post({
+					url: '/mapi/index/shoucang',
+					data: {
+						consultid: this.wenid
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.type=res.data.type
+						uni.showToast({
+							title: res.message,
+							duration: 2000,
+							icon: 'none'
+						});
+					}
+				});
+			
+			
+			
 			uni.showToast({
 				title: '已收藏',
 				duration: 2000

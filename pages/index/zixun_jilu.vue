@@ -265,8 +265,11 @@
 					})
 					.then(res => {
 						console.log(res);
+				
 						this.zixun_list=this.zixun_list.concat(res.data.consult);
-						console.log(this.zixun_list)
+						if (res.data.consult.length < 10) {
+							this.is_all = true;
+						}
 					});
 			},
 			go_zhuye(id) {

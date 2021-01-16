@@ -16,7 +16,7 @@
 					<view class="zixun_item_left">
 						<view class="zixun_item_tx"><image :src=img_url+item.photourl mode=""></image></view>
 						<view class="zixun_item_xinxi">
-							<view class="hei_26">{{item.nickname}}</view>
+							<view class="hei_26">{{item.mobile}}</view>
 							<view class="hong_26 zixun_item_feiyong">￥{{item.paymoney}}</view>
 							<view class="qian_22 zixun_item_feiyong">{{ item.addtime | timeStamp }}</view>
 						</view>
@@ -30,7 +30,9 @@
                       </view>
 					  </view>
 					  <view class="zixun_item_top_bottom" >
-					  	
+					  	<view class="iten_lianxi hong_26" v-if="item.zixunstate==2" @click="jiadan(item.consultid)">
+					  		立即接单
+					  	</view>
 					  	<view class="iten_lianxi hong_26" @click="go_chat(item.userid)">
 					  	 	<image src="@/static/lsimg/hong_zaixian.png" mode=""></image>在线联系
 					  	</view>
@@ -136,10 +138,11 @@ export default {
 					}
 				})
 				.then(res => {
-					if(res.data.consult<10){
-						this.is_all=true
-					}
+				
 					this.jilu_list=this.jilu_list.concat(res.data.consult);
+					if (res.data.consult.length < 10) {
+						this.is_all = true;
+					}
 					
 				});
 			
@@ -172,7 +175,23 @@ export default {
 		tan() {
 			this.$refs.popup.open();
 		},
-
+		//接单
+      jiadan(consultid){
+		  this.$http
+		  	.post({
+		  		url: '/lawyer/index/upconsult',
+		  		data:{
+		  			consultid: consultid,
+		  			type:'jiedan'
+		  		}
+		  	})
+		  	.then(res => {
+		  		console.log(res)
+		  		if(res.code==0){
+		  			this.qiehuan(3)
+		  		}
+		  	});
+	  },
 		// 取消搜索
 		quxiao_btn() {
 			this.name = ''
@@ -252,7 +271,6 @@ page {
 
 	background-color: #ffffff;
 	margin-bottom: 20rpx;
-	justify-content: space-between;
 	padding: 30rpx 49rpx 0rpx 30rpx;
 	box-sizing: border-box;
 }
@@ -393,6 +411,7 @@ button::after {
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			margin-left: 20rpx;
 	}
 	.iten_lianxi image{
 			width: 28rpx;

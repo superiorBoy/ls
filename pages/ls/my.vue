@@ -29,21 +29,22 @@
 		</view>
 
 		<view class="my_ziliao">
-			<view  class="my_ziliao_item" @click="tiaozhuan('../index/guanzhu')">
-				<view class="my_ziliao_item_top hei_28">0</view>
-				<view class="my_ziliao_item_bottom hei_22">关注</view>
-			</view>
 			<view  class="my_ziliao_item" @click="tiaozhuan('fensi')">
-				<view class="my_ziliao_item_top hei_28">0</view>
+				<view class="my_ziliao_item_top hei_28">{{geshu.fensi}}</view>
 				<view class="my_ziliao_item_bottom hei_22">粉丝</view>
 			</view>
-			<view  class="my_ziliao_item" @click="tiaozhuan('../index/shoucang')">
-				<view class="my_ziliao_item_top hei_28">0</view>
-				<view class="my_ziliao_item_bottom hei_22">收藏</view>
+			<view  class="my_ziliao_item" @click="tiaozhuan('tiwen_guanli')">
+				<view class="my_ziliao_item_top hei_28">{{geshu.tiwen}}</view>
+				<view class="my_ziliao_item_bottom hei_22">提问</view>
 			</view>
-			<view  class="my_ziliao_item" @click="tiaozhuan('../index/tuandui')">
-				<view class="my_ziliao_item_top hei_28_b">0</view>
-				<view class="my_ziliao_item_bottom hei_22">团队</view>
+			
+			<view  class="my_ziliao_item" @click="tiaozhuan('zixun_jilu')">
+				<view class="my_ziliao_item_top hei_28">{{geshu.zaixian}}</view>
+				<view class="my_ziliao_item_bottom hei_22">在线</view>
+			</view>
+			<view  class="my_ziliao_item" @click="tiaozhuan('dianhua_zixun')">
+				<view class="my_ziliao_item_top hei_28">{{geshu.dianhua}}</view>
+				<view class="my_ziliao_item_bottom hei_22">电话</view>
 			</view>
 		</view>
 
@@ -156,7 +157,7 @@
 
 <script>
 import tabBar from '@/components/tabbar/tabbar.vue';
-
+import socket from 'plus-websocket';
 export default {
 	components: {
 		tabBar
@@ -179,16 +180,14 @@ export default {
 		// 		url:'shiming_renzheng'
 		// 	})
 		// }
-	
-		
-		
 	},
 	data() {
 		return {
 			currentPage: 'ls/my',
 			user: '',
 			img_url: uni.getStorageSync('img_url'),
-			is_login: false
+			is_login: false,
+			geshu:''
 		};
 	},
 	methods: {
@@ -216,9 +215,21 @@ export default {
 					if (res.data.user != '') {
 						this.is_login = true;
 						this.huoqu_user();
+				       this.huoqu_geshu()
+						
 					} else {
 						this.is_login = false;
 					}
+				});
+		},
+		huoqu_geshu(){
+			this.$http
+				.post({
+					url: '/mlawyerapi/user/lawyercount'
+				})
+				.then(res => {
+					
+					this.geshu=res.data.count
 				});
 		},
        tiaozhuan(url){

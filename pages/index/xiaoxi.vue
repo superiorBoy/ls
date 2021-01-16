@@ -204,6 +204,7 @@ app_lianjie() {
 					console.log('say');
 					if (data.state) {
 					  that.huoqu_xiaoxilist()
+					  
 					}
 				} else {
 					console.log('else');

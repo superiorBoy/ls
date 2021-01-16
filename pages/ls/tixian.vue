@@ -26,7 +26,7 @@
 					<view class="tixian_list_left">
 						用户姓名
 					</view>
-					{{name}}
+					<input type="text" value="" v-model="name" class="hei_30" placeholder="请输入用户姓名"/>
 				</view>
 				<view class="tixian_list hei_30">
 					<view class="tixian_list_left">
@@ -87,7 +87,7 @@
 			.then(res => {
 				
 				this.yue=res.data.user.rmb
-			    this.name=res.data.user.nickname
+			    
 			});
 		},
 		methods: {
@@ -99,8 +99,14 @@
 				this.jine = this.yue
 			},
 			save() {
-
-				if (this.zhifubao == '') {
+              if (this.name == '') {
+					uni.showToast({
+						title: '请填写用户姓名',
+						duration: 2000,
+						icon: "none"
+					});
+					return false
+				}else if (this.zhifubao == '') {
 					uni.showToast({
 						title: '请填写支付宝账号',
 						duration: 2000,
@@ -128,7 +134,8 @@
 						url: '/lawyer/user/zx_tixian',
 						data:{
 							alipayuser:this.zhifubao,
-							rmb:this.jine	
+							rmb:this.jine,
+							myname:this.name	
 						}
 					})
 					.then(res => {

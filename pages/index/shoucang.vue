@@ -8,22 +8,22 @@
 
 		<view class="zi_body ">
 			<view class="jingxuan_body ">
-				<view class="shangxue_list">
+				<view class="shangxue_list" v-for="item in shoucang_list">
 					<view class="shangxue_item">
-						<view class="shangxue_item_left"><image src="@/static/img/shangxue1.png" mode=""></image></view>
+						<view class="shangxue_item_left" @click="go_xq(item.consultid)"><image src="@/static/img/shangxue1.png" mode=""></image></view>
 						<view class="shangxue_item_right">
 							<view class="shangxue_item_title hei_28_bold">
-								<text class="shoucang_wenzhang bai_22">文章</text>
-								小虎律师 常见问题
+								<text class="shoucang_wenzhang bai_22">咨询</text>
+								<!-- 小虎律师 常见问题 -->
 							</view>
-							<view class="shangxue_item_body hui_26">我国对于法定结婚年龄是如何规定的呢，那么中国男女结婚法定年龄是多少，我...</view>
+							<view class="shangxue_item_body hui_26" @click="go_xq(item.consultid)">{{item.information}}</view>
 							<view class="quxiao qian_24">
 								<view class="quxiao_left hei_24"></view>
-								<view class="quxiao_btn">取消收藏</view>
+								<view class="quxiao_btn" @click="quxiao(item.consultid)">取消收藏</view>
 							</view>
 						</view>
 					</view>
-					<view class="shangxue_item">
+					<!-- <view class="shangxue_item">
 						<view class="shangxue_item_left"><image src="@/static/img/shangxue2.png" mode=""></image></view>
 						<view class="shangxue_item_right ">
 							<view class="shangxue_item_tit_anli hei_28_bold ">
@@ -41,26 +41,8 @@
 								<view class="quxiao_btn">取消收藏</view>
 							</view>
 						</view>
-					</view>
-					<view class="shangxue_item">
-						<view class="shangxue_item_left"><image src="@/static/img/shangxue2.png" mode=""></image></view>
-						<view class="shangxue_item_right ">
-							<view class="shangxue_item_tit_anli hei_28_bold">
-								<text class="shoucang_anli bai_22">案例</text>
-								开发商延期协助办理房屋所有
-								权证和土地使用权证，律师为70余
-								户业主争取到赔偿款
-							</view>
-						
-							<view class="quxiao qian_24">
-								<view class="quxiao_left hei_24">
-									<image src="@/static/lsimg/moren_tx.png" mode=""></image>
-									李正霞律师
-								</view>
-								<view class="quxiao_btn">取消收藏</view>
-							</view>
-						</view>
-					</view>
+					</view> -->
+				
 				</view>
 			</view>
 		</view>
@@ -74,86 +56,60 @@ export default {
 	data() {
 		return {
 			img_url: uni.getStorageSync('img_url'),
-			page: 0,
-			is_all: false,
-			zixun_list: []
+			shoucang_list: []
 		};
 	},
 	created() {},
 	onLoad(option) {
-		console.log(option);
-		if (option.state) {
-			this.active = option.state;
-		}
+		this.huoqu_shoucang()
 	},
-	//下拉刷新
-	onPullDownRefresh: function() {},
-	// stopPullDownRefresh:function(){
 
-	// },
 	methods: {
-		//上拉加载
-		onReachBottom() {
-			if (this.is_all) {
-				uni.showToast({
-					title: '没有更多内容了',
-					duration: 2000,
-					icon: 'none'
-				});
-				uni.stopPullDownRefresh();
-				return false;
-			} else {
-				this.page++;
-				// this.huoqu_list()
-			}
-		},
+	
 		navigateBack() {
 			uni.navigateBack();
 		},
-		// 切换tab
-		qiehuan(index) {
-			this.active = index;
-			this.zhuangtai = index;
-
-			this.zixunstate = index;
-			if (index == 0) {
-				this.zixunstate = '';
-			}
-			this.page = 0;
-			this.type_id = '';
-			this.name = '';
-			this.xuanzc = '999';
-			this.zhuanchang_txt = '';
-			this.zhuanchang_txt2 = '';
-			this.zixun_list = [];
-			this.is_all = false;
-			// this.huoqu_list()
-		},
+	
 		huifu() {
 			// this.$refs.huifu.open()
 		},
 
-		huoqu_jingxuan() {
+		huoqu_shoucang() {
 			this.$http
 				.post({
-					url: '/mapi/consult/zixunlists',
-					data: {
-						page: this.page,
-						state: 1,
-						zixunstate: this.zixunstate,
-						lvshi: this.name
+					url: '/mapi/index/shoucanglist'
+				})
+				.then(res => {
+					this.shoucang_list=res.data.list
+				});
+		},
+		quxiao(consultid){
+			this.$http
+				.post({
+					url: '/mapi/index/shoucang',
+					data:{
+						consultid:consultid
 					}
 				})
 				.then(res => {
-					console.log(res);
-					this.zixun_list = this.zixun_list.concat(res.data.consult);
-					console.log(this.zixun_list);
+					if(res.code==0){
+						
+						uni.showToast({
+							title: res.message,
+							duration: 2000,
+							icon: 'none'
+						});
+						this.huoqu_shoucang()
+					}
 				});
 		},
-
-		swiperchang(e) {
-			this.current = e.detail.current;
+		go_xq(consultid){
+			uni.navigateTo({
+				url: 'zhuye_zixun_xq?id=' + consultid
+			});
 		}
+
+	
 	}
 };
 </script>

@@ -48,10 +48,10 @@
 								</text>
 							</view>
 						</view>
-						<view class="zixun_dianhua qian_20" @click="call(item.mobile)">
+						<!-- <view class="zixun_dianhua qian_20" @click="call(item.mobile)">
 							<image src="@/static/img/mianfei_dianhua.png" mode=""></image>
 							免费电话拨打
-						</view>
+						</view> -->
 					</view>
 				</view>
 			</view>

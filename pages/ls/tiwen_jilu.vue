@@ -169,11 +169,11 @@ onLoad() {
 						}
 					})
 					.then(res => {
-						if(res.data.list<10){
-							this.is_all=true
-						}
+				
 						this.jilu_list=this.jilu_list.concat(res.data.list);
-						
+						if (res.data.list.length < 10) {
+							this.is_all = true;
+						}
 					});
 				
 			},

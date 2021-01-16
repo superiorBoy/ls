@@ -267,18 +267,18 @@
 						<view class="hui_26">分享</view>
 					</view>
 					<view class="bottom_guanzhu" @click="guanzhu">
-						<image src="@/static/img/guanzhu_icon.png" mode="" style="width: 28rpx;height: 28rpx;"></image>
-						<view class="hui_26">关注</view>
+						<image :src="type==1 ? '../../static/img/yi_shoucang.png' : '../../static/img/zhu_shoucang.png'"    mode="" style="width: 28rpx;height: 28rpx;"></image>
+						<view class="hui_26">{{type==1?'已关注':'关注'}}</view>
 					</view>
 					<view class="bottom_pingjia" @click="go_dianping()">
 						<image src="@/static/img/go_pingjia.png" mode=""></image>
 						<view class="hui_26">评价</view>
 					</view>
-					<view class="dianhua lv_26" @click="go_chat(lvshi.userid)">
+					<view class="dianhua lv_26" @click="go_chat(lvshi.userid,2)">
 						<image src="@/static/img/dianhua_lv.png" mode=""></image>
 						电话咨询
 					</view>
-					<view class="zaixian bai_26" @click="go_chat(lvshi.userid)">
+					<view class="zaixian bai_26" @click="go_chat(lvshi.userid,1)">
 						<image src="@/static/img/zaixian_bai.png" mode=""></image>
 						在线咨询
 					</view>
@@ -301,7 +301,8 @@ export default {
 			  zhuanchang_arry:'',
 			  img_url: uni.getStorageSync('img_url'),
 			  ls_xinxi:'',
-			  xueli_type:''
+			  xueli_type:'',
+			  type:2
 		};
 	},
 	created() {},
@@ -318,6 +319,18 @@ export default {
 			
 		
 			this.huoqu_xinxi()
+			// 检测是否关注
+			this.$http
+				.post({
+					url: '/mapi/index/findbrowse',
+					data:{
+						state:2,
+						lawyerid:this.lawyerid
+					}
+				})
+				.then(res => {
+					this.type=res.data.type
+				});
 			// this.huiqu_xueli()
 	},
 	methods: {
@@ -338,7 +351,7 @@ export default {
 				.then(res => {
 					if (res.code == 0) {
 						this.lvshi=res.data.lawyer
-						console.log(res.data.lawyer)
+						
 					}
 				});	
 		},
@@ -389,13 +402,29 @@ export default {
 				url: 'zaixian_wen?user=' + id+'&mobile='+mobile
 			});
 		},
-		go_chat(id){
+		go_chat(id,type){
 			uni.navigateTo({
-				url:'chat?lsid='+id
+				url:'pay?lawyerid='+id+'&type='+type
 			})
 		},
 		guanzhu(){
-			
+			this.$http
+				.post({
+					url: '/mapi/index/guanzhu',
+					data: {
+						lawyerid: this.lawyerid
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.type=res.data.type
+						uni.showToast({
+							title: res.message,
+							duration: 2000,
+							icon: 'none'
+						});
+					}
+				});
 		},
 		go_dianping(){
 			uni.navigateTo({

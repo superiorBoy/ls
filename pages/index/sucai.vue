@@ -279,7 +279,7 @@ export default {
 				})
 				.then(res => {
 					this.zixun_list = this.zixun_list.concat(res.data.consultlist);
-					if (res.data.consultlist < 10) {
+					if (res.data.consultlist.length < 10) {
 						this.is_all = true;
 					}
 				});
@@ -321,7 +321,7 @@ export default {
 				.then(res => {
 					if (res.code == 0) {
 						this.sucai_list = this.sucai_list.concat(res.data.yingxiaosucailist);
-						if (res.data.yingxiaosucailist < 10) {
+						if (res.data.yingxiaosucailist.length < 10) {
 							this.is_all = true;
 						}
 					}

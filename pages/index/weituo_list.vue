@@ -269,6 +269,9 @@ onLoad() {
 					})
 					.then(res => {
 						this.weituo_list=this.weituo_list.concat(res.data.entrustlist);
+						if (res.data.entrustlist.length < 10) {
+							this.is_all = true;
+						}
 					});
 				
 				
