@@ -148,7 +148,7 @@ export default {
 			lvshi:'',
 			neirong:'',
 			xiangmu_arry: ['在线咨询', '电话咨询','合同文书','诉讼委托'],
-			shichang_arry:['20分钟','1小时','1天','3天','30天','365天'],
+			shichang_arry:['1天','3天','1个月'],
 			zhuanchang_arry: [],
 			type_arry:[],
 			type:'',

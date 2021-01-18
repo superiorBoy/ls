@@ -93,7 +93,7 @@
 
 		},
 		onLoad(option) {
-            this.lawyerid=option.lsid
+            this.lawyerid=option.lawyerid
 			this.huoqu_lvshi()
 		},
 		methods: {

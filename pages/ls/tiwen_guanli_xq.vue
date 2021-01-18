@@ -114,7 +114,7 @@ export default {
 			}
 			this.$http
 				.post({
-					url: '/lawyer/index/consult_reply',
+					url: '/lawyer/index/zhuiwen',
 					data: {
 						consultid: this.id,
 						text: this.shuru_txt

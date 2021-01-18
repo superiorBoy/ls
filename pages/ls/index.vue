@@ -59,7 +59,7 @@
 		
 		},
 		onShow() {
-			
+			this.huoqu_user()
 		},
 		data() {
 			return {
@@ -69,10 +69,33 @@
 			}
 		},
 		methods: {
+			huoqu_user() {
+				// 获取用户信息
+				this.$http
+					.post({
+						url: '/mlawyerapi/user/getlawyer'
+					})
+					.then(res => {
+						if(res.data.user.isreal==2){
+							uni.navigateTo({
+								url:'shiming_renzheng'
+							})
+						}else if(res.data.user.iszhiye==2){
+							uni.navigateTo({
+								url:'zhiye_renzheng'
+							})
+						}else{
+							this.huoqu_lianjie()
+							
+						}
+					});
+			},
+			
 			jiedan_qiehuan(index){
 				this.active=index
 				
 			},
+			
 			jiedan(){
 				uni.navigateTo({
 					url:'jiedan_xq'

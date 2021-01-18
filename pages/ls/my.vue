@@ -57,14 +57,14 @@
 						<image src="../../static/lsimg/my_jiedan1.png" mode=""></image>
 						<view class="hui_24 ">提问管理</view>
 					</view>
-					<view  class="jiedan_item" @click="tiaozhuan('tiwen_jilu')">
+					<!-- <view  class="jiedan_item" @click="tiaozhuan('tiwen_jilu')">
 						<image src="../../static/lsimg/my_jiedan2.png" mode=""></image>
 						<view class="hui_24 ">提问记录</view>
-					</view>
-					<view  class="jiedan_item" @click="tiaozhuan('zaixian_list')">
+					</view> -->
+				<!-- 	<view  class="jiedan_item" @click="tiaozhuan('zaixian_list')">
 						<image src="../../static/lsimg/my_jiedan3.png" mode=""></image>
 						<view class="hui_24 ">在线咨询</view>
-					</view>
+					</view> -->
 					<view  class="jiedan_item" @click="tiaozhuan('zixun_jilu')">
 						<image src="../../static/lsimg/my_jiedan4.png" mode=""></image>
 						<view class="hui_24 ">咨询记录</view>

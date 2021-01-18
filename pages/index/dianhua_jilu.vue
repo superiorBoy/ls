@@ -31,7 +31,7 @@
 						{{ item.zixunstate == 1 ? '未付款' : item.zixunstate == 2 ? '已付款' : item.zixunstate == 3 ? '接单中' : '已完成' }}
 					</view>
 					</view>
-					<view class="zixun_item_leixing hui_26" @click="xq(item)">
+					<view class="zixun_item_leixing hui_26" >
 						<text v-if="item.typeid && fenlei[item.typeid]">咨询类型：{{ fenlei[item.typeid].typename }}</text>  <text class="hong_26 zixun_item_jiage">￥{{item.paymoney}}/20分钟</text>
 					</view>
 					<view class="zixun_item_top_bottom">
@@ -41,8 +41,14 @@
 						<view class="fukuan lv_26" v-if="item.zixunstate==2">
 							确认完成
 						</view>
+						<view class="fukuan lv_26" v-if="item.zixunstate == 4" @click="go_pingjia(item.lawyerid)">
+							我要评价
+						</view>
 						<view class="iten_lianxi lv_26" @click="go_chat(item.lawyerid)">
 						 	<image src="@/static/img/zaixian_chat.png" mode=""></image>在线联系
+						</view>
+						<view class="iten_lianxi lv_26" @click="xq(item)" style="margin-left: 20rpx;">
+						 	查看详情
 						</view>
 					</view>
 					
@@ -254,13 +260,18 @@ export default {
 		},
 		go_chat(id){
 			uni.navigateTo({
-				url:'chat?lsid='+id
+				url:'chat?lawyerid='+id
 			})
 		},
 		xq(item){
 			
 			uni.navigateTo({
 				url:'dianhua_jilu_xq?item=' +JSON.stringify(item)
+			})
+		},
+		go_pingjia(lawyerid){
+			uni.navigateTo({
+				url:'pingjia?lawyerid='+lawyerid
 			})
 		}
 		

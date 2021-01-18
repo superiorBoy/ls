@@ -85,10 +85,10 @@
 				url: '/mlawyerapi/user/getlawyer'
 			})
 			.then(res => {
-				
 				this.yue=res.data.user.rmb
-			    
+			    this.name=res.data.user.nickname
 			});
+	
 		},
 		methods: {
 			navigateBack() {

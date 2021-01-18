@@ -14,7 +14,7 @@
 						{{ item.zixunstate == 1 ? '未付款' : item.zixunstate == 2 ? '已付款' : item.zixunstate == 3 ? '接单中' : '已完成' }}
 					</view>
 					<text class="hei_30">
-						电话咨询
+						电话咨询/20分钟
 					</text>
 				</view>
 				<view class="pay_list height_auto dis_fir">
@@ -59,24 +59,16 @@
 					</view>
 				</view>
 				<view class="pay_list_jine">
-					<view class="pay_list_top">
+					<!-- <view class="pay_list_top"> -->
 						<text class="qian_30">支付金额</text>
 						<text class="hei_30">
 							实付款：
 							<text class="hong_30">￥{{item.paymoney}}</text>
 						</text>
-					</view>
-					<view class="hei_30 qian_26 yuanjia">
-						原价：
-						<text>99.00</text>
-					</view>
+					<!-- </view> -->
+					
 				</view>
-				<view class="pay_list ">
-					<text class="qian_30">咨询时长</text>
-					<text class="hong_30">
-						20分钟
-					</text>
-				</view>
+				
 			</view>
 
 			
@@ -265,9 +257,11 @@ page {
 }
 
 .pay_list_jine {
-	height: 153rpx;
+	height: 120rpx;
 	box-sizing: border-box;
-	padding: 27rpx 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	border-bottom: 2rpx solid #f7f7f7;
 }
 
@@ -428,5 +422,9 @@ page {
 		-moz-transform:rotate(-30deg); 	
 		-webkit-transform:rotate(-30deg); 
 		-o-transform:rotate(-30deg);	
+		position: absolute;
+		left: 50%;
+		margin-left: -60rpx;
+
 }
 </style>

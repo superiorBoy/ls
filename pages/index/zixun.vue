@@ -234,7 +234,7 @@ export default {
 		},
 		zixun(id) {
 			uni.navigateTo({
-				url: 'chat?lsid=' + id
+				url: 'chat?lawyerid=' + id
 			});
 		},
 		zixun_xq(id) {

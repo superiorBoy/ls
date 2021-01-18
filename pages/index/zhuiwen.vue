@@ -280,7 +280,7 @@ export default {
 
 		pingjia() {
 			uni.navigateTo({
-				url:'pingjia?lsid='+this.lawyerid
+				url:'pingjia?lawyerid='+this.lawyerid
 			})
 		},
 		go_shendu(){

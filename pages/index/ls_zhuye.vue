@@ -65,6 +65,7 @@
 
 				<!-- <view :class="['ls_tab_item', index == active ? 'ls_tab_item_active' : '']" v-for="(tab, index) in tabs" @click="qiehuan(index)">{{ tab }}</view> -->
 			</view>
+			
 			<view class="fuwu_body">
 				<view class="fuwu_lei_list">
 					<view class="fuwu_lei">
@@ -74,11 +75,11 @@
 						</view>
 						<view class=" dianhua_btn bai_30" >
 							<image src="@/static/img/zhuye_tab1.png" mode="widthFix" style="width: 17rpx;"></image>
-							<text v-if="lvshi.chatprice!=0">{{lvshi.chatprice}}元/小时</text>
-							<text v-if="lvshi.chatprice==0">未报价</text>
+							<text v-if="baojia&&baojia.zaixian1 ">{{baojia.zaixian1}}元/小时</text>
+							<text v-if="!baojia || !baojia.zaixian1 ">未报价</text>
 						</view>
-						<view class="lv_20 lei_btn zaixian_btn" v-if="lvshi.chatprice!=0" @click="go_chat(lawyerid,1)"><text>立即咨询</text></view>
-						<view class="lv_20 lei_btn zaixian_btn" v-if="lvshi.chatprice==0"><text>未开启</text></view>
+						<view class="lv_20 lei_btn zaixian_btn" v-if="baojia&&baojia.zaixian1 " @click="go_pay(lawyerid,1)"><text>立即咨询</text></view>
+						<view class="lv_20 lei_btn zaixian_btn" v-if="!baojia || !baojia.zaixian1 "><text>未开启</text></view>
 					</view>
 					<view class="fuwu_lei">
 						<view class="fuwu_lei_left">
@@ -98,11 +99,11 @@
 						</view>
 						<view class=" dianhua_btn bai_30" >
 							<image src="@/static/img/zhuye_tab3.png" mode="widthFix"  style="width: 16rpx;"></image>
-							<text v-if="lvshi.phoneprice!=0">{{lvshi.phoneprice}}元/20分钟</text>
-							<text v-if="lvshi.phoneprice==0">未报价</text>
+							<text v-if="baojia&&baojia.dianhua ">{{baojia.dianhua}}元/20分钟</text>
+							<text v-if="!baojia || !baojia.dianhua ">未报价</text>
 						</view>
-						<view class="lei_btn tuwen_btn" v-if="lvshi.phoneprice!=0" @click="go_chat(lawyerid,2)"><text>立即咨询</text></view>
-						<view class="lei_btn tuwen_btn" v-if="lvshi.phoneprice==0"><text>未开启</text></view>
+						<view class="lei_btn tuwen_btn" v-if="baojia&&baojia.dianhua " @click="go_pay(lawyerid,2)"><text>立即咨询</text></view>
+						<view class="lei_btn tuwen_btn" v-if="!baojia || !baojia.dianhua "><text>未开启</text></view>
 					</view>
 				</view>
 				<view class="ls_jianjie hei_24">
@@ -245,29 +246,114 @@
 						<view class="hui_26">分享</view>
 					</view>
 					<view class="bottom_guanzhu" @click="guanzhu">
-						<image :src="type==1 ? '../../static/img/yi_shoucang.png' : '../../static/img/zhu_shoucang.png'"    mode="" style="width: 28rpx;height: 28rpx;"></image>
+						<image :src="type==1 ? '../../static/img/guanzhu_on_icon.png' : '../../static/img/guanzhu_icon.png'"    mode="" style="width: 41rpx;height: 38rpx;"></image>
 						<view class="hui_26">{{type==1?'已关注':'关注'}}</view>
 					</view>
-					<view class="bottom_pingjia" @click="go_dianping()">
-						<image src="@/static/img/go_pingjia.png" mode=""></image>
-						<view class="hui_26">评价</view>
+					<view class="bottom_pingjia" @click="go_chat()">
+						<image src="@/static/img/siliao.png" mode=""></image>
+						<view class="hui_26">私聊</view>
 					</view>
-					<view class="dianhua lv_26" @click="go_chat(lvshi.userid,2)">
-						<image src="@/static/img/dianhua_lv.png" mode=""></image>
-						电话咨询
+					<view class="dianhua lv_26" @click="tan()">
+						<!-- <image src="@/static/img/dianhua_lv.png" mode=""></image> -->
+					 <view class="lv_24 bottom_jiage" v-if="baojia&&baojia.jianmian">
+					 	￥<text class="lv_32">{{baojia.jianmian}}</text>
+					 </view>
+					 <view class="bai_24 bottom_jiage" v-if="!baojia || !baojia.jianmian ">
+					 	<text class="lv_32">未报价</text>
+					 </view>
+						见面咨询
 					</view>
-					<view class="zaixian bai_26" @click="go_chat(lawyerid,1)">
-						<image src="@/static/img/zaixian_bai.png" mode=""></image>
+					<view class="zaixian bai_26" @click="tan()">
+						<!-- <image src="@/static/img/zaixian_bai.png" mode=""></image> -->
+						<view class="bai_24 bottom_jiage" v-if="baojia&&baojia.zaixian1">
+							￥<text class="bai_32">{{baojia.zaixian1}}</text>
+						</view>
+						<view class="bai_24 bottom_jiage" v-if="!baojia || !baojia.zaixian1 ">
+							<text class="bai_32">未报价</text>
+						</view>
 						在线咨询
 					</view>
 				</view>
 			</view>
 		</view>
+		
+	<uni-popup type="bottom" ref="popup">
+		<view class="tan_jiage">
+		<view class="tan_jiage_top">
+			<image :src="img_url + lvshi.photourl" mode=""></image>
+		<view class="tan_jiage_top_right">
+			<view class="hong_24">
+				￥<text class="hong_38">{{pay_money}}</text>
+			</view>
+			<view class="tan_shanchang hui_26">
+				擅长：		
+			  <text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise1].shanchangname">{{zhuanchang_arry[lvshi.expertise1].shanchangname}}</text>
+			  <text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise2].shanchangname">{{zhuanchang_arry[lvshi.expertise2].shanchangname}}</text>
+			  <text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise3].shanchangname">{{zhuanchang_arry[lvshi.expertise3].shanchangname}}</text>
+			</view>
+			<view class="hui_24">
+				{{tan_jia_jianjie}}
+			</view>
+		</view>		
+			
+		</view>	
+			
+		<view class="tan_jiage_bottom" v-if="baojia">
+			<view class="tan_jiage_title hei_28_bold">
+				服务类型
+			</view>
+			<view class="tan_jiage_title_list hui_26 tan_jiage_title_leixing">
+				<text @click="huan_leixing(0)" :class="leixing_index==0?'tan_xuan_active':''" v-if="baojia.jianmian">见面咨询</text>
+				<text @click="huan_leixing(1)" :class="leixing_index==1?'tan_xuan_active':''" v-if="baojia.zaixian1 || baojia.zaixian3 ||baojia.zaixian30 ">在线咨询</text>
+				<text @click="huan_leixing(2)" :class="leixing_index==2?'tan_xuan_active':''" v-if="baojia.dianhua || baojia.dianhua1 || baojia.dianhua3 || baojia.dianhua30 ">电话咨询</text>
+				<text @click="huan_leixing(3)" :class="leixing_index==3?'tan_xuan_active':''" v-if="baojia.hetong_daixie || baojia.hetong_shenhe || baojia.hetong_wenshu ">合同事务</text>
+				<text @click="huan_leixing(4)" :class="leixing_index==4?'tan_xuan_active':''" v-if="baojia.lvshi_huijian || baojia.lvshihan || baojia.anjianzhidao ">诉讼委托</text>
+			</view>
+			<view class="tan_jiage_title hei_28_bold">
+				服务时长
+			</view>
+			<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==0">
+				<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.jianmian,'1次')" v-if="baojia.jianmian" >1次</text>
+			</view>
+			<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==1">
+				<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.zaixian1,'1天')" v-if="baojia.zaixian1" >1天</text>
+				<text :class="shichang_index==2?'tan_xuan_active':''" @click="huan_shichang(2,baojia.zaixian3,'3天')" v-if="baojia.zaixian3" >3天</text>
+				<text :class="shichang_index==3?'tan_xuan_active':''" @click="huan_shichang(3,baojia.zaixian30,'1个月')" v-if="baojia.zaixian30" >1个月</text>
+			</view>
+			<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==2">
+				<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.dianhua,'20分钟')" v-if="baojia.dianhua" >20分钟</text>
+				<text :class="shichang_index==2?'tan_xuan_active':''" @click="huan_shichang(2,baojia.dianhua1,'1天')" v-if="baojia.dianhua1" >1天</text>
+				<text :class="shichang_index==3?'tan_xuan_active':''" @click="huan_shichang(3,baojia.dianhua3,'3天')" v-if="baojia.dianhua3" >3天</text>
+				<text :class="shichang_index==4?'tan_xuan_active':''" @click="huan_shichang(4,baojia.dianhua30,'1个月')" v-if="baojia.dianhua30" >1个月</text>
+			</view>
+			<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==3">
+				<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.hetong_daixie,'合同审核')" v-if="baojia.hetong_daixie">合同审核</text>
+				<text :class="shichang_index==2?'tan_xuan_active':''" @click="huan_shichang(2,baojia.hetong_shenhe,'代写合同')" v-if="baojia.hetong_shenhe" >代写合同</text>
+				<text :class="shichang_index==3?'tan_xuan_active':''" @click="huan_shichang(3,baojia.hetong_wenshu,'代写文书')" v-if="baojia.hetong_wenshu">代写文书</text>
+			</view>
+			<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==4">
+				<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.lvshi_huijian,'律师会见')"  v-if="baojia.lvshi_huijian" >律师会见</text>
+				<text :class="shichang_index==2?'tan_xuan_active':''" @click="huan_shichang(2,baojia.lvshihan,'发律师函')"  v-if="baojia.lvshihan" >发律师函</text>
+				<text :class="shichang_index==3?'tan_xuan_active':''" @click="huan_shichang(3,baojia.anjianzhidao,'案件指导')"  v-if="baojia.anjianzhidao">案件指导</text>
+			</view>
+		</view>		
+				
+			<view class="tan_jiage_btn">
+				<button type="" @click="go_pay(lawyerid,1)">立即购买</button>
+			</view>
+			
+		</view>	
+	</uni-popup>	
+		
+		
+		
+		
 	</view>
 </template>
 
 <script>
 import uCharts from '@/components/u-charts/u-charts.js';
+import unpopup from '@/components/uni-popup/uni-popup-share.vue';
 var _self;
 var canvaRing = null;
 export default {
@@ -293,11 +379,23 @@ export default {
 			pingjia_list: [],
 			pingjiatype: '',
 			ls_xinxi: '',
-			type:2
+			type:2,
+			leixing_index:1,
+			shichang_arry:['1天','3天','1个月'],
+			shichang_index:-1,
+			tan_jia_jianjie:'实时聊天，快速沟通，高效解答，服务期内提问100%解答，可查看聊天记录。',
+			baojia:'',
+            pay_money:0,
+			shichang_txt:''
 		};
 	},
+	components: {
+		unpopup
+	},
+	
 	created() {},
 	onLoad(option) {
+		
 		// 获取分类
 		this.$http
 			.post({
@@ -322,6 +420,7 @@ export default {
 		this.huiqu_pingjia_list();
 		this.huoqu_pingjiatype();
 		this.huoqu_xinxi();
+		this.huoqu_baojia()
 		// 检测是否关注
 		this.$http
 			.post({
@@ -340,6 +439,7 @@ export default {
 			'["\u670d\u52a1\u4f18\u8d28","\u5b66\u8bc6\u6e0a\u535a","\u7ecf\u9a8c\u4e30\u5bcc","\u5f85\u4eba\u8bda\u6073","\u4e50\u4e8e\u52a9\u4eba","\u56de\u590d\u5f88\u5feb","\u5f62\u8c61\u4e13\u4e1a","\u503c\u5f97\u63a8\u8350"]'
 		);
 
+
 	},
 	methods: {
 		navigateBack() {
@@ -349,6 +449,21 @@ export default {
 			str = str.replace(/\\/g, '%');
 			return unescape(str);
 		},
+        huoqu_baojia(){
+			this.$http
+				.post({
+					url: '/mapi/index/baojia',
+					data: {
+						lawyerid: this.lawyerid
+					}
+				})
+				.then(res => {
+					this.baojia=res.data.baojia
+				});
+			
+			
+		},
+		
 		// 获取信息
 		huoqu_xinxi() {
 			this.$http
@@ -558,13 +673,14 @@ export default {
 						});
 					}
 				});
-			
 		},
-		go_chat(id,type){
+		go_chat(){
+		
 			uni.navigateTo({
-				url:'pay?lawyerid='+id+'&type='+type
+				url:'chat?lawyerid='+lawyerid
 			})
 		},
+
 		// 主页提问详情
 		go_tiwen_xq(id) {
 			uni.navigateTo({
@@ -578,7 +694,7 @@ export default {
 		},
 		go_dianping() {
 			uni.navigateTo({
-				url: 'pingjia?lsid=' + this.lawyerid
+				url: 'pingjia?lawyerid=' + this.lawyerid
 			});
 		},
 		quzheng(num) {
@@ -598,11 +714,49 @@ export default {
 				}
 			});
 		},
-		go_pay(lawyerid){
+		go_pay(lawyerid,type){
+			
+			console.log(this.leixing_index,this.shichang_txt)
 			uni.navigateTo({
-				url:'pay?lawyerid='+lawyerid
+				url:'pay?lawyerid='+lawyerid+'&type='+type
 			})
-		}
+		},
+		// 底部弹窗
+		tan() {
+			if(!this.baojia){
+				return false
+			}
+			this.$refs.popup.open();
+		},
+		huan_leixing(index){
+			
+			this.leixing_index=index
+			this.pay_money=0
+			this.shichang_index = -1
+			if(index==0){
+				this.tan_jia_jianjie=''
+			    
+			}
+			if(index==1){
+				this.tan_jia_jianjie='实时聊天，快速沟通，高效解答，服务期内提问100%解答，可查看聊天记录。'
+			    
+			}else if(index==2){
+				this.tan_jia_jianjie='实时对话，快速沟通，高效解答，服务期内提问100%解答，规定时间内不限拨打次数。'
+			    
+			}else if(index==3){
+				this.tan_jia_jianjie='3天内交付，7天有效期内不限修改次数。'
+				
+			}else if(index==4){
+				this.tan_jia_jianjie='会见当事人，了解真实案例，监督侦察工作，提前保存证据，保障当事人合法权益。'
+			    
+			}
+		},
+		huan_shichang(index,money,text){
+			this.shichang_index=index
+			this.pay_money=money
+            this.shichang_txt=text
+		},
+
 		
 	},
 	filters: {
@@ -1023,8 +1177,8 @@ export default {
 }
 .bottom {
 	display: flex;
-	padding: 0 30rpx;
-	height: 100rpx;
+	padding: 10rpx 0 0;
+	height: 120rpx;
 	align-items: center;
 	position: fixed;
 	bottom: 0;
@@ -1035,26 +1189,25 @@ export default {
 .bottom_pingjia,
 .bottom_guanzhu{
 	text-align: center;
-	margin-right: 22rpx;
+	
+	width: 100rpx;
 }
 .bottom_fenxiang image {
-	width: 24rpx;
-	height: 23rpx;
+	width: 38rpx;
+	height: 36rpx;
 }
 
 .bottom_pingjia image {
-	width: 25rpx;
-	height: 24rpx;
+	width: 38rpx;
+	height: 38rpx;
 }
 
 .dianhua {
-	width: 230rpx;
-	height: 74rpx;
-	border: solid 1rpx #0eb77e;
+	width: 225rpx;
+	height: 100%;
 	box-sizing: border-box;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	text-align: center;
+	background-color: #ceffee;
 	border-radius: 10rpx 0 0 10rpx;
 }
 .dianhua image {
@@ -1068,12 +1221,10 @@ export default {
 	margin-right: 12rpx;
 }
 .zaixian {
-	width: 230rpx;
-	height: 74rpx;
+	width: 225rpx;
+	height: 100%;
 	background-color: #0eb77e;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	text-align: center;
 	border-radius: 0 10rpx 10rpx 0;
 }
 
@@ -1118,5 +1269,82 @@ export default {
 .lianxi_right {
 	max-width: 77%;
 	margin-left: 25rpx;
+}
+.bottom_jiage{
+	margin: 16rpx 0 6rpx;
+}
+
+.tan_jiage_top{
+	display: flex;
+}
+.tan_jiage_top image{
+	width: 151rpx;
+		height: 151rpx;
+		border-radius: 100%;
+}
+.tan_jiage_top_right{
+	margin-left: 20rpx;
+	width: 550rpx;
+}
+.tan_shanchang{
+	margin: 6rpx 0;
+}
+.tan_shanchang text{
+		height: 43rpx;
+		background-color: #f5f5f5;
+		display: inline-block;
+		padding:  0 20rpx;
+		margin-right: 8rpx;
+}
+.tan_shanchang text:last-child{
+	margin-right: 0;
+}
+.tan_jiage{
+	padding:30rpx;
+	background-color: #FFFFFF;
+	padding-bottom: 50rpx;
+}
+
+.tan_jiage_title_leixing{
+	display: flex;
+}
+.tan_jiage_title_leixing text{
+		width: 158rpx;
+		height: 57rpx;
+		background-color: #ffffff;
+		border-radius: 5rpx;
+		border: solid 2rpx #c6c6c6;
+		display: inline-block;
+		line-height: 57rpx;
+		text-align: center;
+		margin-right: 18rpx;
+}
+.tan_jiage_title_list_shichang text{
+	display: inline-block;
+	height: 57rpx;
+		border-radius: 5rpx;
+		border: solid 2rpx #c6c6c6;
+		padding: 0 20rpx;
+		line-height: 57rpx;
+		text-align: center;
+		margin-right: 18rpx;
+}
+	
+.tan_jiage_title {
+	line-height: 80rpx;
+}
+.tan_jiage_btn{
+	margin-top: 120rpx;
+}
+.tan_jiage_btn button{
+		height: 88rpx;
+		background-color: #0eb77e;
+		border-radius: 44rpx;
+		font-size: 38rpx;
+		color: #FFFFFF;
+	}
+.tan_xuan_active{
+		border: solid 2rpx #0eb77e !important;
+		color:#0eb77e ;
 }
 </style>

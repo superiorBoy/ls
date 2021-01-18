@@ -43,12 +43,15 @@
 			</view> -->
 			</view>
 			</view>
-			<view class="zixun_item_leixing hui_26" >
+			<view class="zixun_item_leixing hui_26" v-if="fenlei">
 				<text v-if="item.typeid">咨询类型：{{ fenlei[item.typeid].typename }}</text>  <text class="hong_26 zixun_item_jiage">￥{{item.paymoney}}/小时</text>
 			</view>
-			<view class="zixun_item_top_bottom" @click="pay(item.lawyerid,item.consultid)">
-				<view class="fukuan lv_26" v-if="item.zixunstate == 1">
+			<view class="zixun_item_top_bottom" >
+				<view class="fukuan lv_26" v-if="item.zixunstate == 1" @click="pay(item.lawyerid,item.consultid)">
 					立即付款
+				</view>
+				<view class="fukuan lv_26" v-if="item.zixunstate == 4" @click="go_pingjia(item.lawyerid)">
+					我要评价
 				</view>
 				<view class="iten_lianxi lv_26" @click="go_chat(item.lawyerid)">
 				 	<image src="@/static/img/zaixian_chat.png" mode=""></image>在线联系
@@ -57,8 +60,7 @@
 			
 				</view>
 				
-				
-				
+
 				
 			</view>
 		</view>
@@ -279,10 +281,14 @@
 			},
 			go_chat(id){
 				uni.navigateTo({
-					url:'chat?lsid='+id
+					url:'chat?lawyerid='+id
 				})
 			},
-
+            go_pingjia(lawyerid){
+				uni.navigateTo({
+					url:'pingjia?lawyerid='+lawyerid
+				})
+			}
 		},
 		filters: {
 			timeStamp: function(value) {

@@ -228,12 +228,12 @@ app_lianjie() {
 			},
 			go_chat(id){
 				uni.navigateTo({
-					url:'chat?lsid='+id
+					url:'chat?lawyerid='+id
 				})
 			},
 			go_kefu(){
 				uni.navigateTo({
-					url:'chat?lsid=7'
+					url:'chat?lawyerid=7'
 				});
 			},
 			go_gonggao(){

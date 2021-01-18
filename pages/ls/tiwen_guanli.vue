@@ -38,9 +38,9 @@
 						</button>
 					</view>
 						<view class="zhuiwen hui_26" v-if="active==2">
-						<view class="zhuiwen_txt bai_20">追问</view>
-						<view class="zhuiwen_body">{{item.zhuiwen.information}}</view>
-					</view>
+						  <view class="zhuiwen_txt bai_20">追问</view>
+						  <view class="zhuiwen_body">{{item.zhuiwen.information}}</view>
+					    </view>
 				</view>
 			</view>
 		</view>

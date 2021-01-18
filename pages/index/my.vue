@@ -42,7 +42,7 @@
 		</view>
 
 		<view class="my_bottom">
-			<navigator url="chat?lsid=7" class="xianshi">
+			<navigator url="chat?lawyerid=7" class="xianshi">
 					<image src="@/static/img/hy_guanggao.png" mode=""></image>
 					<view class="jiage hei_20_bold">限时29元/小时</view>
 			</navigator>

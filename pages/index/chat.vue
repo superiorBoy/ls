@@ -124,7 +124,7 @@ export default {
 		uParse
 	},
 	onLoad(option) {
-		this.ls_id = option.lsid;
+		this.ls_id = option.lawyerid;
 		this.huoqu_xiaoxi_list();
 		// 获取用户信息
 		this.$http
@@ -484,7 +484,7 @@ export default {
 		},
 		pingjia() {
 			uni.navigateTo({
-				url: 'pingjia?lsid=' + this.chat_xinxi.userid
+				url: 'pingjia?lawyerid=' + this.chat_xinxi.userid
 			});
 		},
 		tan_hide() {

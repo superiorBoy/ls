@@ -51,7 +51,7 @@
 							<text class="xiaoxi_num bai_20" v-if="item.messagecount > 0">{{ item.messagecount }}</text>
 						</view>
 						<view class="xiaoxi_item_left_name">
-							<view class="hei_30_bold xiaoxi_item_name">{{ item.user_to.nickname }}</view>
+							<view class="hei_30_bold xiaoxi_item_name">{{ item.user_to.mobile }}</view>
 							<view class="qian_26 txt_over">
 								<view class="" v-if="item.msgtype == 1"><u-parse :content="replace_em(item.content)"></u-parse></view>
 								<view class="" v-if="item.msgtype == 2">[图片]</view>
@@ -79,6 +79,7 @@ export default {
 	created() {},
 	onShow() {
 		this.huoqu_xiaoxilist();
+		this.huoqu_user()
 	},
 	onLoad() {
 		// #ifdef H5
@@ -98,6 +99,28 @@ export default {
 		};
 	},
 	methods: {
+		huoqu_user() {
+			
+			// 获取用户信息
+			this.$http
+				.post({
+					url: '/mlawyerapi/user/getlawyer'
+				})
+				.then(res => {
+					if(res.data.user.isreal==2){
+						uni.navigateTo({
+							url:'shiming_renzheng'
+						})
+					}else if(res.data.user.iszhiye==2){
+						uni.navigateTo({
+							url:'zhiye_renzheng'
+						})
+					}else{
+						
+						
+					}
+				});
+		},
 		app_lianjie() {
 			let that = this;
 			Object.assign(uni, socket);

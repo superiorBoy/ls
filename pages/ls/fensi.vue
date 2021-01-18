@@ -11,18 +11,18 @@
 
 		<view class="zi_body ">
 			<view class="fensi_body">
-<view class="fensi_list" v-for="item in 5">
+<view class="fensi_list" v-for="item in fensi_list">
 	<view class="fensi_list_left">
 		<view class="fensi_list_left_tx">
-			<image src="@/static/lsimg/tx.png" mode="" class="fensi_list_tx"></image>
-			<image src="@/static/img/renzheng2.png" mode="" class="fensi_list_ren"></image>
+			<image :src="img_url+ item.photourl" mode="" class="fensi_list_tx"></image>
+			
 		</view>
 		<view class="fensi_list_left_r">
 			<view class="hei_26 fensi_list_name">
-				佘春鹏律师
+				{{item.nickname}}
 			</view>
 			<view class="hui_24">
-				150个粉丝
+				
 			</view>
 		</view>
 	</view>
@@ -56,7 +56,7 @@ onLoad() {
 		data() {
 			return {
                       zhuangtai:2,
-					  jilu_list:[],
+					  fensi_list:[],
 					  page:0,
 					  is_all:false,
 					  img_url: uni.getStorageSync('img_url'),
@@ -101,21 +101,14 @@ xq(id){
 		url:'tiwen_list_xq?id='+id
 	})
 },
-	// 获取提问记录列表
+	// 获取粉丝列表
 huoqu_list(){
 	this.$http
 		.post({
-			url: '/mapi/consult/tiwenlist',
-			data:{
-				page: this.page
-			}
+			url: '/mlawyerapi/user/feisilist'
 		})
 		.then(res => {
-
-			this.jilu_list=this.jilu_list.concat(res.data.consult);
-			if (res.data.consult.length < 10) {
-				this.is_all = true;
-			}
+			this.fensi_list=res.data.list;
 		});
 	
 },
@@ -152,6 +145,7 @@ huoqu_list(){
 .fensi_list_tx{
 width: 100%;
 height: 100%;
+border-radius: 100%;
 		
 }
 	

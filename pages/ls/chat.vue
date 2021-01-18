@@ -1,10 +1,14 @@
 <template>
 	<view class="">
 		<view class="head">
-			<view class="head_back"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
-			<view class="head_center hei_38_bold">{{ title }}</view>
-			<view class=" head_right hei_30_bold"></view>
+			<view class="head_back" style="width: 10%;"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
+			<view class="head_center " style="width: 80%;">
+				<view class="hei_38_bold top_title">{{ title }}</view>
+				<view class="qian_20 chat_lvsuo">{{ dianhua }}</view>
+			</view>
+			<view class=" head_right hei_30_bold" style="width: 10%;"></view>
 		</view>
+	
 		<view class="zi_body">
 			<view :class="['chat_body', bt_show ? 'chat_body_jia' : '']" @click="tan_hide">
 				<view class="time qian_20" v-if="message != ''">{{ message[0].addtime | timeStamp }}</view>

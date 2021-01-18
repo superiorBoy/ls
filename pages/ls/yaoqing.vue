@@ -107,7 +107,9 @@
 						this.deng_txt=='立即登录'
 					}else{
 						this.user=res.data.user
-						this.huoqu_lianjie()
+						this.huoqu_user()
+						
+						
 					}
 					
 				});
@@ -121,6 +123,28 @@
 						   		this.deng_txt='复制邀请链接'
 								this.lianjie=res.data.inviteurl
 						   	});
+			},
+			huoqu_user() {
+				// 获取用户信息
+				var that=this
+				this.$http
+					.post({
+						url: '/mlawyerapi/user/getlawyer'
+					})
+					.then(res => {
+						if(res.data.user.isreal==2){
+							uni.navigateTo({
+								url:'shiming_renzheng'
+							})
+						}else if(res.data.user.iszhiye==2){
+							uni.navigateTo({
+								url:'zhiye_renzheng'
+							})
+						}else{
+							that.huoqu_lianjie()
+							
+						}
+					});
 			},
 			lianjiego(){
 				if(this.deng_txt=='立即登录'){

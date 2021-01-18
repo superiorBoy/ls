@@ -166,7 +166,7 @@ import uParse from '@/components/feng-parse/parse.vue';
 			kan(id) {
 				
 				uni.navigateTo({
-					url:'chat?lsid='+id
+					url:'chat?lawyerid='+id
 				})
 				
 				

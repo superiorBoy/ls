@@ -26,11 +26,11 @@
 					</view>
 
 					<view class="jingxuan_wenti hei_26">{{ item.information }}</view>
-					<view class="jingxuan_jieda hui_24">
+					<view class="jingxuan_jieda hui_24" v-if="item.consult_reply">
 						<text class="bai_20">精选解答</text>
 						{{ item.consult_reply.information }}
 					</view>
-					<view class="jingxuan_ls">
+					<view class="jingxuan_ls" v-if="item.consult_reply">
 						<view class="jingxuan_ls_left">
 							<view class="jingxuan_ls_left_tx">
 								<image :src="img_url + item.consult_reply.photourl" mode="" class="jingxuan_ls_tx"></image>
