@@ -320,7 +320,7 @@ export default {
 					}
 				})
 				.then(res => {
-					this.baojia=res.data.baojia
+					this.baojia=res.data.lawyer
 				});
 			
 			

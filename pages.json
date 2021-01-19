@@ -164,6 +164,9 @@
 			"path":"pages/index/pay"
 		},
 		{
+			"path":"pages/index/zhineng_pay"
+		},
+		{
 			"path":"pages/index/tiwen"
 		},
 		{
@@ -242,6 +245,12 @@
 		},
 		{
 			"path":"pages/ls/zixun_baojia"
+		},
+		{
+			"path":"pages/ls/baojia_jianmian"
+		},
+		{
+			"path":"pages/ls/baojia_list"
 		},
 		{
 			"path":"pages/ls/jiedan_xq"

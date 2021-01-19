@@ -8,7 +8,6 @@
 				current == 0 ? 'index_top0' : current == 1 ? 'index_top1' : current == 2 ? 'index_top2' : current == 3 ? 'index_top3' : current == 4 ? 'index_top4' : ''
 			]"
 		>
-		
 			<view class="index_top_dingwei" :style="{ background: topbg }">
 				<view class="dingwei bai_20">
 					<image src="@/static/img/dingwei.png" mode=""></image>
@@ -19,9 +18,8 @@
 					<image src="@/static/img/sousuo.png" mode=""></image>
 					<input confirm-type="search" @confirm="confirm" type="text" v-model="sou_txt" placeholder="详实输入案情经过，获得更精准的解答" class="hei_26" />
 				</view>
-			
 			</view>
-			
+
 			<view class="tab">
 				<wuc-tab :tab-list="tabList" :tabCur.sync="TabCur" @change="tabChange" class="fenlei bai_26"></wuc-tab>
 				<image src="@/static/img/qita.png" mode=""></image>
@@ -126,6 +124,27 @@
 			</view>
 		</view>
 
+		<view class="zhineng">
+			<navigator url="zhineng_pay?type=1" class="zhineng_item zhineng_zaixian">
+				<view class="hei_26_bold zhineng_item_type">
+					在线咨询
+					<image src="@/static/img/index_remen.png" mode=""></image>
+				</view>
+				<view class="hui_20 zhineng_item_jiage">1小时 /￥19.00</view>
+				<view class="qian_22 zhineng_item_txt">律师在线解答,</view>
+				<view class="qian_22">规定范围内不限次数。</view>
+			</navigator>
+			<navigator url="zhineng_pay?type=2" class="zhineng_item zhineng_dianhua">
+				<view class="hei_26_bold zhineng_item_type">
+					电话咨询
+					<image src="@/static/img/index_tuijian.png" mode=""></image>
+				</view>
+				<view class="hui_20 zhineng_item_jiage">20分钟 /￥29.00</view>
+				<view class="qian_22 zhineng_item_txt">律师主动打电话与您联系，</view>
+				<view class="qian_22">沟通效率更高。</view>
+			</navigator>
+		</view>
+
 		<view class="index_zixun">
 			<view class="zixun_tab qian_28">
 				<text @tap="change(1)" :class="{ hei: btnnum == 1 }">最新解答</text>
@@ -178,7 +197,10 @@
 				</block>
 			</view>
 		</view>
-		<button type="" class="qian_26 ls_more" @click="tiaozhuan_zixun"><image src="@/static/img/gengduo.png" mode=""></image>查看更多咨询>></button>
+		<button type="" class="qian_26 ls_more" @click="tiaozhuan_zixun">
+			<image src="@/static/img/gengduo.png" mode=""></image>
+			查看更多咨询>>
+		</button>
 		<view class="tuijian">
 			<view class="tuijian_top"><image src="@/static/img/tuijian_title.png" mode=""></image></view>
 			<view class="tuijian_list">
@@ -222,44 +244,40 @@
 					</view>
 				</block>
 			</view>
-			<button type="" class="qian_26 ls_more" @click="tiaozhuan"><image src="@/static/img/gengduo.png" mode=""></image>查看更多律师>></button>
+			<button type="" class="qian_26 ls_more" @click="tiaozhuan">
+				<image src="@/static/img/gengduo.png" mode=""></image>
+				查看更多律师>>
+			</button>
 		</view>
 		<div id="allmap" style="display: none"></div>
 		<view class="zhuanti">
-			<view class="index_fazhi hei_32_bold"><image src="@/static/img/index_fazhi.png" mode=""></image>法律知识</view>
+			<view class="index_fazhi hei_32_bold">
+				<image src="@/static/img/index_fazhi.png" mode=""></image>
+				法律知识
+			</view>
 			<view class="zhuanti_list hei_26">
-				
-				<view class="" v-for="item in fa_zhishi" @click="go_zhishi_xq(item.knowledgetypeid,item.knowledgetypename)">{{item.knowledgetypename}}</view>
-			<!-- 	<view class="hot">醉酒驾驶处罚的新标准</view>
+				<view class="" v-for="item in fa_zhishi" @click="go_zhishi_xq(item.knowledgetypeid, item.knowledgetypename)">{{ item.knowledgetypename }}</view>
+				<!-- 	<view class="hot">醉酒驾驶处罚的新标准</view>
 				<view class="">拆迁法规</view>
 				<view class="hot">交通事故怎么赔偿</view>
 			     -->
 			</view>
-			<navigator url="changshi" class="qian_26 more_zhuanti"><image src="@/static/img/gengduo.png" mode=""></image>查看更多热门专题>></navigator>
-			
+			<navigator url="changshi" class="qian_26 more_zhuanti">
+				<image src="@/static/img/gengduo.png" mode=""></image>
+				查看更多热门专题>>
+			</navigator>
+
 			<view class="tab_bg" v-if="is_gengxin">
 				<view class="tan">
-					<view class="tan_top">
-						<image src="@/static/img/gengxin.png" mode=""></image>	
-					</view>
+					<view class="tan_top"><image src="@/static/img/gengxin.png" mode=""></image></view>
 					<view class="tan_bottom hui_27">
-						<view class="">
-							解决了旧版本中已知BUG
-						</view>
-						<view class="tan_txt">
-							优化了一部分不合理的功能
-						</view>
+						<view class="">解决了旧版本中已知BUG</view>
+						<view class="tan_txt">优化了一部分不合理的功能</view>
 						<image src="@/static/img/gengxin_btn.png" mode="widthFix" @click="down"></image>
 					</view>
-					
-							
 				</view>
 			</view>
-			
-			
-			
 		</view>
-		
 	</view>
 </template>
 
@@ -268,7 +286,7 @@ import WucTab from '@/components/wuc-tab/wuc-tab.vue';
 import pickerAddress from '@/components/wangding-pickerAddress/wangding-pickerAddress.vue';
 import socket from 'plus-websocket';
 //#ifdef H5
-import $ from '@/common/jquery-3.4.1.min.js'
+import $ from '@/common/jquery-3.4.1.min.js';
 import { loadBMap } from '@/common/map.js';
 //#endif
 export default {
@@ -320,10 +338,10 @@ export default {
 				}
 			],
 			btnnum: 1,
-			fa_zhishi:'',
-			is_gengxin:false,
-			banben:'',
-			down_url:''
+			fa_zhishi: '',
+			is_gengxin: false,
+			banben: '',
+			down_url: ''
 		};
 	},
 	components: {
@@ -341,7 +359,7 @@ export default {
 					url: 'http://api.map.baidu.com/geocoder/v2/?ak=GPCxs0BGTWyIpUmkft16DNzH9wUUofzQ&output=json&pois=1&location=' + res.latitude + ',' + res.longitude,
 					success(res) {
 						console.log(res);
-						
+
 						that.dizhi = res.data.result.addressComponent.city;
 						// console.log(res.data.result.addressComponent.city,'')
 						uni.setStorage({
@@ -379,20 +397,17 @@ export default {
 		//      alert("pc端");
 		//    }
 		//#ifdef APP-PLUS
-		plus.runtime.getProperty(plus.runtime.appid,(wgtinfo)=>{
-			  console.log(JSON.stringify(wgtinfo));
-			  console.log("版本号",wgtinfo.versionCode);//应用版本号
-			  this.banben=wgtinfo.versionCode	
-			  this.huiqu_banben()
-		})
-		
-		this.kaiqi()
-		 //#endif	
-		
+		plus.runtime.getProperty(plus.runtime.appid, wgtinfo => {
+			console.log(JSON.stringify(wgtinfo));
+			console.log('版本号', wgtinfo.versionCode); //应用版本号
+			this.banben = wgtinfo.versionCode;
+			this.huiqu_banben();
+		});
+
+		this.kaiqi();
+		//#endif
 	},
 	onShow() {
-
-		
 		this.$http
 			.post({
 				url: '/mapi/index/geturl'
@@ -419,54 +434,50 @@ export default {
 			.then(res => {
 				this.data = res.data;
 			});
-	// 获取知识一级
+		// 获取知识一级
 		this.$http
-		.post({
-			url: '/mapi/index/knowledgetype',
-		})
+			.post({
+				url: '/mapi/index/knowledgetype'
+			})
 			.then(res => {
-		this.fa_zhishi=res.data.type[1]
-					});
-						
-			
+				this.fa_zhishi = res.data.type[1];
+			});
 	},
 	methods: {
-		down(){
+		down() {
 			//#ifdef APP-PLUS
-			  var urlStr = encodeURI(this.down_url)//把字符串作为url进行编码
-			  plus.runtime.openURL(urlStr);
-			  //#endif	
-				
+			var urlStr = encodeURI(this.down_url); //把字符串作为url进行编码
+			plus.runtime.openURL(urlStr);
+			//#endif
 		},
-		huiqu_banben(){
+		huiqu_banben() {
 			this.$http
-			.post({
-				url: '/mapi/index/banben',
-			})
+				.post({
+					url: '/mapi/index/banben'
+				})
 				.then(res => {
-			       console.log(res.data.banben,'版本')
-				   if(uni.getSystemInfoSync().platform == 'ios'){
-					   console.log("ios",this.banben)
-					   if(this.banben!=res.data.banben.ios){
-					   				   this.is_gengxin=true
-									   this.down_url=res.data.banben.iosurl
-					   				   uni.hideTabBar()
-					   }
-				   }else if(uni.getSystemInfoSync().platform === 'android'){
-					   console.log("android",this.banben)
-					   if(this.banben!=res.data.banben.android){
-					   				   this.is_gengxin=true
-									   this.down_url=res.data.banben.androidurl
-					   				   uni.hideTabBar()
-					   }
-				   }
-				  
+					console.log(res.data.banben, '版本');
+					if (uni.getSystemInfoSync().platform == 'ios') {
+						console.log('ios', this.banben);
+						if (this.banben != res.data.banben.ios) {
+							this.is_gengxin = true;
+							this.down_url = res.data.banben.iosurl;
+							uni.hideTabBar();
+						}
+					} else if (uni.getSystemInfoSync().platform === 'android') {
+						console.log('android', this.banben);
+						if (this.banben != res.data.banben.android) {
+							this.is_gengxin = true;
+							this.down_url = res.data.banben.androidurl;
+							uni.hideTabBar();
+						}
+					}
 				});
-			
-				  const clientInfo = plus.push.getClientInfo()
-				  console.log(clientInfo,'6666')
+
+			const clientInfo = plus.push.getClientInfo();
+			console.log(clientInfo, '6666');
 		},
-		kaiqi(){
+		kaiqi() {
 			let that = this;
 			Object.assign(uni, socket);
 			console.log(Object.assign(uni, socket));
@@ -486,7 +497,7 @@ export default {
 			socket.onSocketMessage(function(res) {
 				console.log('收到服务器内容：' + res.data);
 				var data = JSON.parse(res.data);
-			
+
 				if (data.type == 'init') {
 					console.log('init');
 					console.log('client_id', data.client_id);
@@ -496,7 +507,7 @@ export default {
 						data: {
 							client_id: data.client_id
 						},
-			
+
 						success: function(resp) {
 							console.log(resp, 'bind');
 						},
@@ -505,8 +516,7 @@ export default {
 				} else if (data.type == 'say') {
 					console.log('say');
 					if (data.state) {
-					  
-					  void plus.push.createMessage( '收到一条新消息' );
+						void plus.push.createMessage('收到一条新消息');
 					}
 				} else {
 					console.log('else');
@@ -568,7 +578,7 @@ export default {
 				url: 'lvshi'
 			});
 		},
-		tiaozhuan_zixun(){
+		tiaozhuan_zixun() {
 			uni.switchTab({
 				url: 'zixun'
 			});
@@ -580,8 +590,8 @@ export default {
 		},
 		tochat(id) {
 			uni.navigateTo({
-				url:'pay?lawyerid='+id+'&type=1'
-			})
+				url: 'pay?lawyerid=' + id + '&type=1'
+			});
 		},
 		go_ls_list() {
 			uni.switchTab({
@@ -590,7 +600,7 @@ export default {
 		},
 		go_zhuye(id) {
 			uni.navigateTo({
-				url: 'ls_zhuye?lawyerid='+id
+				url: 'ls_zhuye?lawyerid=' + id
 			});
 		},
 
@@ -598,7 +608,7 @@ export default {
 		getlocation() {
 			const that = this;
 			// var wei_url=''
-			
+
 			// if (process.env.NODE_ENV == 'development') {
 			//     wei_url='/dpc'
 			// 	// #ifndef H5
@@ -607,33 +617,32 @@ export default {
 			// } else {
 			//     wei_url = 'http://api.map.baidu.com' // 生产环境
 			// }
-			
+
 			this.$nextTick(function() {
 				try {
 					const geolocation = new BMap.Geolocation();
 					geolocation.getCurrentPosition(function(r) {
-$.ajax({
-    url: 'http://api.map.baidu.com/geocoder/v2/?ak=eIxDStjzbtH0WtU50gqdXYCz&output=json&pois=1&location=' + r.latitude + ',' + r.longitude,
-    type: 'GET',
-    async:false,//设置同步。ajax默认异步
-    dataType: 'jsonp',
-    jsonp:'callback',//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
-    jsonpCallback:"callback",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
-    timeout: 5000,
-    contentType: 'application/json; charset=utf-8',
-    success: function (res){
-        		that.dizhi = res.result.addressComponent.city;
-						uni.setStorage({
-							key: 'dizhi',
-							data: {
-								sheng: res.result.addressComponent.province,
-								shi: res.result.addressComponent.city,
-								qu: res.result.addressComponent.district
+						$.ajax({
+							url: 'http://api.map.baidu.com/geocoder/v2/?ak=eIxDStjzbtH0WtU50gqdXYCz&output=json&pois=1&location=' + r.latitude + ',' + r.longitude,
+							type: 'GET',
+							async: false, //设置同步。ajax默认异步
+							dataType: 'jsonp',
+							jsonp: 'callback', //传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+							jsonpCallback: 'callback', //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
+							timeout: 5000,
+							contentType: 'application/json; charset=utf-8',
+							success: function(res) {
+								that.dizhi = res.result.addressComponent.city;
+								uni.setStorage({
+									key: 'dizhi',
+									data: {
+										sheng: res.result.addressComponent.province,
+										shi: res.result.addressComponent.city,
+										qu: res.result.addressComponent.district
+									}
+								});
 							}
 						});
-				
-			}
-		})
 						// var url = wei_url+'/geocoder/v2/?ak=eIxDStjzbtH0WtU50gqdXYCz&output=json&pois=1&location=' + r.latitude + ',' + r.longitude;
 						// uni.request({
 						// 	url: url,
@@ -657,17 +666,17 @@ $.ajax({
 				}
 			});
 		},
-		go_zhishi_xq(knowledgetypeid,name){
+		go_zhishi_xq(knowledgetypeid, name) {
 			uni.navigateTo({
-				url:'changshi_erji?typeid='+knowledgetypeid+'&name='+name
+				url: 'changshi_erji?typeid=' + knowledgetypeid + '&name=' + name
 			});
 		}
 	},
 
 	filters: {
 		timeStamp: function(value) {
-			if(value==null){
-				return 'null'
+			if (value == null) {
+				return 'null';
 			}
 			var i = (value + '').length;
 			while (i++ < 13) value = value + '0';
@@ -967,7 +976,6 @@ scroll-view ::-webkit-scrollbar {
 }
 
 .tuijian {
-	
 	border-bottom: 20rpx solid #f7f7f7;
 	padding-bottom: 13rpx;
 }
@@ -1107,11 +1115,10 @@ scroll-view ::-webkit-scrollbar {
 	align-items: center;
 	justify-content: center;
 }
-.ls_more image{
-		width: 27rpx;
-		height: 27rpx;
-		margin-right: 11rpx;
-		
+.ls_more image {
+	width: 27rpx;
+	height: 27rpx;
+	margin-right: 11rpx;
 }
 
 .ls_more::after {
@@ -1180,11 +1187,10 @@ scroll-view ::-webkit-scrollbar {
 	align-items: center;
 	justify-content: center;
 }
-.more_zhuanti image{
-		width: 27rpx;
-		height: 27rpx;
-		margin-right: 11rpx;
-		
+.more_zhuanti image {
+	width: 27rpx;
+	height: 27rpx;
+	margin-right: 11rpx;
 }
 .lunbo {
 	position: relative;
@@ -1216,49 +1222,79 @@ scroll-view ::-webkit-scrollbar {
 	background-color: #ffffff;
 	border-radius: 10rpx;
 }
-.index_fazhi image{
+.index_fazhi image {
 	margin-right: 9rpx;
-		width: 47rpx;
-		height: 35rpx;
+	width: 47rpx;
+	height: 35rpx;
 }
-.index_fazhi{
+.index_fazhi {
 	padding-left: 25rpx;
 	margin: 30rpx 0 40rpx;
 }
-.tan{
+.tan {
 	width: 523rpx;
-		height: 627rpx;
-		background-color: #ffffff;
-		border-radius: 25rpx;
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%,-50%);
-		 
-
+	height: 627rpx;
+	background-color: #ffffff;
+	border-radius: 25rpx;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
 }
-.tan_top image{
+.tan_top image {
 	width: 100%;
 	height: 354rpx;
 }
-.tan_bottom{
+.tan_bottom {
 	text-align: center;
 	padding: 20rpx 0 0;
 }
-.tan_bottom image{
+.tan_bottom image {
 	width: 126rpx;
 }
-.tan_txt{
+.tan_txt {
 	margin: 10rpx 0;
 }
-.tab_bg{
+.tab_bg {
 	position: fixed;
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0,0,0,0.3);
+	background-color: rgba(0, 0, 0, 0.3);
 	z-index: 99999;
-	
 }
 
+.zhineng {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 40rpx 20rpx;
+	border-top: 20rpx solid #f7f7f7;
+	border-bottom: 20rpx solid #f7f7f7;
+}
+.zhineng_item {
+	width: 345rpx;
+	height: 210rpx;
+	padding: 30rpx 0 0 28rpx;
+	box-sizing: border-box;
+}
+.zhineng_zaixian {
+	background: url(../../static/img/zhineng1_bg.png) no-repeat;
+	background-size: 100% 100%;
+}
+.zhineng_dianhua {
+	background: url(../../static/img/zhineng2_bg.png) no-repeat;
+	background-size: 100% 100%;
+}
+.zhineng_item_type image {
+	width: 36rpx;
+	height: 20rpx;
+	margin-left: 8rpx;
+}
+.zhineng_item_jiage {
+	margin: 6rpx 0 6rpx;
+}
+.zhineng_item_txt {
+	margin-bottom: 6rpx;
+}
 </style>

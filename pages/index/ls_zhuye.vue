@@ -70,40 +70,46 @@
 				<view class="fuwu_lei_list">
 					<view class="fuwu_lei">
 						<view class="fuwu_lei_left">
-							<view class="bai_26" style="margin-right: 15rpx;">在线文字咨询</view>
-							<text class="bai_22">简易需求,在线解答</text>
+							<view class="bai_26 fuwu_lei_top" >
+							<text class="hei_22_bold">在线咨询</text>	 
+							<text v-if="baojia&&baojia.chatprice" class="hong_28"><text class="hong_22">￥</text>{{baojia.chatprice}}</text>
+							<text v-if="!baojia || !baojia.chatprice ">未报价</text>
+							
+							</view>
+							<text class="hui_20 fuwu_lei_title">简易需求,在线解答</text>
 						</view>
-						<view class=" dianhua_btn bai_30" >
-							<image src="@/static/img/zhuye_tab1.png" mode="widthFix" style="width: 17rpx;"></image>
-							<text v-if="baojia&&baojia.zaixian1 ">{{baojia.zaixian1}}元/小时</text>
-							<text v-if="!baojia || !baojia.zaixian1 ">未报价</text>
+					
+						<view class="bai_24 lei_btn zaixian_btn" v-if="baojia&&baojia.chatprice " @click="tan()"><text>立即咨询</text></view>
+						<view class="bai_24 lei_btn zaixian_btn" v-if="!baojia || !baojia.chatprice "><text>未开启</text></view>
+					</view>
+				
+					<view class="fuwu_lei">
+						<view class="fuwu_lei_left">
+							<view class="bai_26 fuwu_lei_top" >
+								<text class="hei_22_bold">电话咨询</text>
+								<text v-if="baojia&&baojia.phoneprice "class="hong_28"><text class="hong_22">￥</text>{{baojia.phoneprice}}</text>
+								<text v-if="!baojia || !baojia.phoneprice ">未报价</text>
+							</view>
+							<text class="hui_20 fuwu_lei_title">沟通方便，效率高</text>
 						</view>
-						<view class="lv_20 lei_btn zaixian_btn" v-if="baojia&&baojia.zaixian1 " @click="go_pay(lawyerid,1)"><text>立即咨询</text></view>
-						<view class="lv_20 lei_btn zaixian_btn" v-if="!baojia || !baojia.zaixian1 "><text>未开启</text></view>
+
+						<view class="lei_btn tuwen_btn bai_24" v-if="baojia&&baojia.phoneprice " @click="tan()"><text>立即咨询</text></view>
+						<view class="lei_btn tuwen_btn bai_24" v-if="!baojia || !baojia.phoneprice "><text>未开启</text></view>
 					</view>
 					<view class="fuwu_lei">
 						<view class="fuwu_lei_left">
-							<view class="bai_26 " style="margin-right: 15rpx;">电话语音咨询</view>
-							<text class="bai_22">电话直呼,方便快捷</text>
+							<view class="bai_26 fuwu_lei_top" >
+								<text class="hei_22_bold">免费电话</text>
+								<text class="hong_28"><text class="hong_22">￥</text>0</text>
+
+							</view>
+							<text class="hui_20 fuwu_lei_title">免费电话,方便快捷</text>
 						</view>
-						<view class=" dianhua_btn bai_30" v-if="lvshi!=''">
+					<!-- 	<view class=" dianhua_btn bai_30" v-if="lvshi!=''">
 							<image src="@/static/img/zhuye_tab2.png" mode="widthFix" style="width: 12rpx;"></image>
 							<text>{{ lvshi.mobile }}</text>
-						</view>
-						<view class="lei_btn tuwen_btn" @click="call(lvshi.mobile)"><text>免费拨打</text></view>
-					</view>
-					<view class="fuwu_lei">
-						<view class="fuwu_lei_left">
-							<view class="bai_26" style="margin-right: 15rpx;">付费电话咨询</view>
-							<text class="bai_22">隐私咨询，一步到位</text>
-						</view>
-						<view class=" dianhua_btn bai_30" >
-							<image src="@/static/img/zhuye_tab3.png" mode="widthFix"  style="width: 16rpx;"></image>
-							<text v-if="baojia&&baojia.dianhua ">{{baojia.dianhua}}元/20分钟</text>
-							<text v-if="!baojia || !baojia.dianhua ">未报价</text>
-						</view>
-						<view class="lei_btn tuwen_btn" v-if="baojia&&baojia.dianhua " @click="go_pay(lawyerid,2)"><text>立即咨询</text></view>
-						<view class="lei_btn tuwen_btn" v-if="!baojia || !baojia.dianhua "><text>未开启</text></view>
+						</view> -->
+						<view class="lei_btn boda_btn bai_24" @click="call(lvshi.mobile)"><text>拨打电话</text></view>
 					</view>
 				</view>
 				<view class="ls_jianjie hei_24">
@@ -265,10 +271,10 @@
 					</view>
 					<view class="zaixian bai_26" @click="tan()">
 						<!-- <image src="@/static/img/zaixian_bai.png" mode=""></image> -->
-						<view class="bai_24 bottom_jiage" v-if="baojia&&baojia.zaixian1">
-							￥<text class="bai_32">{{baojia.zaixian1}}</text>
+						<view class="bai_24 bottom_jiage" v-if="baojia&&baojia.chatprice">
+							￥<text class="bai_32">{{baojia.chatprice}}</text>
 						</view>
-						<view class="bai_24 bottom_jiage" v-if="!baojia || !baojia.zaixian1 ">
+						<view class="bai_24 bottom_jiage" v-if="!baojia || !baojia.chatprice ">
 							<text class="bai_32">未报价</text>
 						</view>
 						在线咨询
@@ -304,7 +310,7 @@
 			</view>
 			<view class="tan_jiage_title_list hui_26 tan_jiage_title_leixing">
 				<text @click="huan_leixing(0)" :class="leixing_index==0?'tan_xuan_active':''" v-if="baojia.jianmian">见面咨询</text>
-				<text @click="huan_leixing(1)" :class="leixing_index==1?'tan_xuan_active':''" v-if="baojia.zaixian1 || baojia.zaixian3 ||baojia.zaixian30 ">在线咨询</text>
+				<text @click="huan_leixing(1)" :class="leixing_index==1?'tan_xuan_active':''" v-if="baojia.chatprice || baojia.zaixian3 ||baojia.zaixian30 ">在线咨询</text>
 				<text @click="huan_leixing(2)" :class="leixing_index==2?'tan_xuan_active':''" v-if="baojia.dianhua || baojia.dianhua1 || baojia.dianhua3 || baojia.dianhua30 ">电话咨询</text>
 				<text @click="huan_leixing(3)" :class="leixing_index==3?'tan_xuan_active':''" v-if="baojia.hetong_daixie || baojia.hetong_shenhe || baojia.hetong_wenshu ">合同事务</text>
 				<text @click="huan_leixing(4)" :class="leixing_index==4?'tan_xuan_active':''" v-if="baojia.lvshi_huijian || baojia.lvshihan || baojia.anjianzhidao ">诉讼委托</text>
@@ -316,7 +322,7 @@
 				<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.jianmian,'1次')" v-if="baojia.jianmian" >1次</text>
 			</view>
 			<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==1">
-				<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.zaixian1,'1天')" v-if="baojia.zaixian1" >1天</text>
+				<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.chatprice,'1天')" v-if="baojia.chatprice" >1天</text>
 				<text :class="shichang_index==2?'tan_xuan_active':''" @click="huan_shichang(2,baojia.zaixian3,'3天')" v-if="baojia.zaixian3" >3天</text>
 				<text :class="shichang_index==3?'tan_xuan_active':''" @click="huan_shichang(3,baojia.zaixian30,'1个月')" v-if="baojia.zaixian30" >1个月</text>
 			</view>
@@ -458,7 +464,7 @@ export default {
 					}
 				})
 				.then(res => {
-					this.baojia=res.data.baojia
+					this.baojia=res.data.lawyer
 				});
 			
 			
@@ -936,18 +942,21 @@ export default {
 	margin-left: -35rpx;
 }
 .fuwu_lei_list {
-	padding: 25rpx 30rpx 0;
-}
-.fuwu_lei {
-	height: 90rpx;
-	background-color: #11b790;
-	border-radius: 10rpx;
+	padding: 25rpx 30rpx 30rpx;
 	display: flex;
 	align-items: center;
-	margin-bottom: 18rpx;
 	justify-content: space-between;
-	padding: 0rpx 104rpx 0 20rpx;
+	border-bottom: 20rpx solid #F7F7F7 ;
+}
+.fuwu_lei {
+	width: 220rpx;
+	/* height: 180rpx; */
+	box-shadow: 0rpx -3rpx 7rpx 0rpx 
+			rgba(0, 0, 0, 0.07);
+	border-radius: 10rpx;
+	background-color: #11b790;
 	box-sizing: border-box;
+	padding: 20rpx 8rpx 24rpx  8rpx;
 }
 .fuwu_lei:nth-child(1) {
 	background: url(../../static/img/ls_lei1.png) no-repeat;
@@ -972,22 +981,26 @@ export default {
 	font-size: 16rpx;
 }
 .zaixian_btn {
-	height: 30rpx;
-	background-color: #ffffff;
+	width: 165rpx;
+	height: 40rpx;
+	background-color: #82dbbd;
 	border-radius: 15rpx;
-	line-height: 30rpx;
+	line-height: 40rpx;
 	text-align: center;
-	padding: 0 6rpx;
+	margin: 0 auto;
 }
 .dianhua_btn {
-	height: 31rpx;
+	width: 165rpx;
+	height: 40rpx;
 	border-radius: 15rpx;
 	box-sizing: border-box;
 	color: #FFFFFF;
-	display: flex;
+	
 	/* padding: 0 6rpx; */
 	/* width: 162rpx; */
-	align-items: center;
+	line-height: 40rpx;
+	text-align: center;
+	margin: 0 auto;
 }
 .dianhua_btn image {
 	width: 10rpx;
@@ -1004,13 +1017,24 @@ export default {
 	left: 18rpx;
 }
 .tuwen_btn {
-	height: 30rpx;
-	background-color: #ffffff;
+		width: 165rpx;
+		height: 40rpx;
+		background-color: #fedd77;
+		border-radius: 20rpx;
+	line-height: 40rpx;
 	text-align: center;
-	border-radius: 15rpx;
-	color: #bcb198;
-	line-height: 30rpx;
-	padding: 0 6rpx;
+	margin: 0 auto;
+	color: #FFFFFF;
+}
+.boda_btn{
+	width: 165rpx;
+		height: 40rpx;
+		background-color: #74aaff;
+		border-radius: 20rpx;
+	line-height: 40rpx;
+	text-align: center;
+	margin: 0 auto;
+	color: #FFFFFF;
 }
 .ls_jilu {
 	padding: 20rpx 30rpx;
@@ -1019,6 +1043,11 @@ export default {
 }
 .fuwu_lei_left {
 	max-width: 460rpx;
+}
+.fuwu_lei_top{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 .wenda {
 	border-bottom: 2rpx solid #f7f7f7;
@@ -1050,6 +1079,7 @@ export default {
 	max-width: 520rpx;
 	margin-left: 6rpx;
 	line-height: 40rpx;
+	word-break: break-all;
 }
 .tuwen {
 	border-bottom: 20rpx solid #f7f7f7;
@@ -1168,6 +1198,9 @@ export default {
 .ping_time {
 	margin-top: 7rpx;
 	text-align: right;
+}
+.ping_txt{
+	word-break: break-all;
 }
 .ping_more {
 	height: 90rpx;
@@ -1346,5 +1379,13 @@ export default {
 .tan_xuan_active{
 		border: solid 2rpx #0eb77e !important;
 		color:#0eb77e ;
+}
+.fuwu_lei_title{
+	margin: 14rpx 0;
+	display: inline-block;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	width: 100%;
 }
 </style>

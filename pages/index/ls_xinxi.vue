@@ -285,10 +285,10 @@
 					</view>
 					<view class="zaixian bai_26" @click="tan()">
 						<!-- <image src="@/static/img/zaixian_bai.png" mode=""></image> -->
-						<view class="bai_24 bottom_jiage" v-if="baojia&&baojia.zaixian1">
-							￥<text class="bai_32">{{baojia.zaixian1}}</text>
+						<view class="bai_24 bottom_jiage" v-if="baojia&&baojia.chatprice">
+							￥<text class="bai_32">{{baojia.chatprice}}</text>
 						</view>
-						<view class="bai_24 bottom_jiage" v-if="!baojia || !baojia.zaixian1 ">
+						<view class="bai_24 bottom_jiage" v-if="!baojia || !baojia.chatprice ">
 							<text class="bai_32">未报价</text>
 						</view>
 						在线咨询
@@ -324,7 +324,7 @@
 			</view>
 			<view class="tan_jiage_title_list hui_26 tan_jiage_title_leixing">
 				<text @click="huan_leixing(0)" :class="leixing_index==0?'tan_xuan_active':''" v-if="baojia.jianmian">见面咨询</text>
-				<text @click="huan_leixing(1)" :class="leixing_index==1?'tan_xuan_active':''" v-if="baojia.zaixian1 || baojia.zaixian3 ||baojia.zaixian30 ">在线咨询</text>
+				<text @click="huan_leixing(1)" :class="leixing_index==1?'tan_xuan_active':''" v-if="baojia.chatprice || baojia.zaixian3 ||baojia.zaixian30 ">在线咨询</text>
 				<text @click="huan_leixing(2)" :class="leixing_index==2?'tan_xuan_active':''" v-if="baojia.dianhua || baojia.dianhua1 || baojia.dianhua3 || baojia.dianhua30 ">电话咨询</text>
 				<text @click="huan_leixing(3)" :class="leixing_index==3?'tan_xuan_active':''" v-if="baojia.hetong_daixie || baojia.hetong_shenhe || baojia.hetong_wenshu ">合同事务</text>
 				<text @click="huan_leixing(4)" :class="leixing_index==4?'tan_xuan_active':''" v-if="baojia.lvshi_huijian || baojia.lvshihan || baojia.anjianzhidao ">诉讼委托</text>
@@ -336,7 +336,7 @@
 				<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.jianmian,'1次')" v-if="baojia.jianmian" >1次</text>
 			</view>
 			<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==1">
-				<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.zaixian1,'1天')" v-if="baojia.zaixian1" >1天</text>
+				<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.chatprice,'1天')" v-if="baojia.chatprice" >1天</text>
 				<text :class="shichang_index==2?'tan_xuan_active':''" @click="huan_shichang(2,baojia.zaixian3,'3天')" v-if="baojia.zaixian3" >3天</text>
 				<text :class="shichang_index==3?'tan_xuan_active':''" @click="huan_shichang(3,baojia.zaixian30,'1个月')" v-if="baojia.zaixian30" >1个月</text>
 			</view>
@@ -452,7 +452,7 @@ export default {
 					}
 				})
 				.then(res => {
-					this.baojia=res.data.baojia
+					this.baojia=res.data.lawyer
 				});
 			
 			

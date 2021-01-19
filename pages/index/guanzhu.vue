@@ -16,7 +16,7 @@
 						</view>
 						<view class="fensi_list_left_r">
 							<view class="hei_26 fensi_list_name" @click="go_zhuye(item.userid)">{{ item.nickname }}</view>
-							<view class="hui_24">{{item.browseid}}个粉丝</view>
+							<view class="hui_24">{{item.fensi}}个粉丝</view>
 						</view>
 					</view>
 					<view class="fensi_list_right yiguan qian_26">已关注</view>
