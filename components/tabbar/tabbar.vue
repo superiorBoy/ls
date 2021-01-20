@@ -4,7 +4,7 @@
 			<image v-if="item.url == currentPage" :src="item.imgClick" mode=""></image>
 
 			<image v-else :src="item.imgNormal" mode=""></image>
-
+            <text v-if="index==1&&num>0" class="weidu">{{num}}</text>
 			<view class="text">{{ item.text }}</view>
 		</view>
 	</view>
@@ -16,6 +16,11 @@ export default {
 		currentPage: {
 			type: String,
 			default: 'index'
+		},
+		num:{
+			type: String,
+			default: "num"
+			
 		}
 	},
 	data() {
@@ -46,7 +51,9 @@ export default {
 					imgClick: '/static/lsimg/tab_my_on.png'
 				}
 			],
-			level: '3'
+			level: '3',
+			weidu:0,
+			
 		};
 	},
 	mounted() {
@@ -112,6 +119,7 @@ export default {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	position: relative;
 }
 .tabBar .active {
 	/* border-left: $isBorder;
@@ -125,5 +133,22 @@ export default {
 	height:42upx;
 	margin-left: 5upx;
 	margin-bottom: 8rpx;
+}
+.weidu{
+	    width: auto;
+	    height: 32rpx;
+	    line-height: 32rpx;
+	    border-radius: 32rpx;
+	    min-width:32rpx;
+	    padding: 0 4rpx;
+	    font-size: 24rpx;
+	    text-align: center;
+	    white-space: nowrap;
+		position: absolute;
+		top: 0;
+		right: 30%;
+		box-sizing: border-box;
+		background-color:#f43a51 ;
+		color: #FFFFFF;
 }
 </style>

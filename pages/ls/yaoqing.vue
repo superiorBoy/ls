@@ -61,7 +61,7 @@
 
 			</view>
 			<view class="padding_bottom" ></view>
-			<tabBar :currentPage="currentPage" ></tabBar>
+			<tabBar :currentPage="currentPage":num='weidu' ></tabBar>
 			
 		</view>
 	
@@ -88,7 +88,7 @@
 				currentPage:'ls/yaoqing',
 				lianjie:'登录后即可生成邀请好友的专属链接',
 				deng_txt:'立即登录',  //复制邀请链接 --- 立即登录
-				
+				weidu:0
 				
 			}
 		},
@@ -108,7 +108,20 @@
 					}else{
 						this.user=res.data.user
 						this.huoqu_user()
-						
+						this.$http
+							.post({
+								url: '/mlawyerapi/consult/messagelist'
+							})
+							.then(res => {
+								
+								var num=0
+								for (var i in res.data.messagelist){
+								num+=res.data.messagelist[i].messagecount
+								}
+								
+								this.weidu=num
+								
+							});
 						
 					}
 					

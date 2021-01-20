@@ -24,26 +24,36 @@
 				</view>
 			</view>
 			<view class="shuru">
+					<view class="hei_30 tiwen_title">
+						问题描述
+					</view>
 				<view class="shuru_box">
+					<view class="shuru_box_body">
 					<textarea value="" placeholder="请输入您想要问的问题..." class="hei_26"  @input="bianhua" v-model="shuru_txt" maxlength="5000"/>
-					<view class="qian_24 jisuan_num">
-						
+					<view class="yishuru qian_24">
+						{{ yishu_num }}/2000
+					</view>
+					</view>
+				</view>
+				<view class="tiwen_bottom">
+					<view class="qian_24 xuan_list xaunleibie">
+						<image src="@/static/img/tiwen_lei.png" mode=""></image>
 					<picker mode="selector"  :range="fenlei_arry" @change="jiating_change" :range-key="'typename'">
 						<view :class="['zhuanchang_xuan',fenlei=='选择类别'?'qian_26':'hei_26']">{{fenlei}}
 						</view>
 					</picker>
-					<text>{{ yishu_num }}/2000</text>
-					
-					
 					</view>
+					<view class="dizhi hei_24 xuan_list" id="allmap">
+						<pickerAddress @change="change" class="aaaaaa">
+							<image src="@/static/img/tiwen_dizhi.png" mode=""></image>
+							{{ dizhi }}
+						</pickerAddress>
+					</view>
+					
 				</view>
+				
 			</view>
-			<view class="dizhi qian_24" id="allmap">
-				<pickerAddress @change="change" class="aaaaaa">
-					<image src="@/static/img/xuandizhi.png" mode=""></image>
-					{{ dizhi }}
-				</pickerAddress>
-			</view>
+		
 			<view class="tiwen_bottom">
 				<button type="" class="bai_30" @click="tijiao">提交</button>
 				<view class="qian_24">
@@ -168,6 +178,7 @@ export default {
 			
 			var di=this.dizhi.split('-');  
 			console.log(di)
+			
 			if(this.shuru_txt==''){
 				uni.showToast({
 					title: '请输入问题',
@@ -201,7 +212,19 @@ export default {
 				return false
 				
 			}
-			
+			var data={
+				lei:this.fenlei,
+				neirong:this.shuru_txt,
+				dizhi:this.dizhi,
+				typeid:this.leiid
+				
+			}
+		
+		    uni.navigateTo({
+		    	url:'xuanshang?data='+JSON.stringify(data)
+		    })
+
+			 return false
 			this.$http.post({
 				url: '/mapi/consult/addconsult',
 				data:{
@@ -221,7 +244,7 @@ export default {
 					this.shuru_txt=''
 					setTimeout(function(){
 									uni.navigateTo({
-										url:'tiwen_list'
+										url:'xuanshang'
 									})
 								},2000)
 					
@@ -312,15 +335,32 @@ page {
 	background-color: #ffffff;
 }
 .shuru {
-	padding: 38rpx 30rpx 0;
+	
 	background-color: #ffffff;
 }
+.tiwen_title{
+	line-height: 84rpx;
+	padding-left: 30rpx;
+}
 .shuru_box {
-	border-bottom: 2rpx solid #dcdcdc;
-	padding-bottom: 26rpx;
+	border-bottom: 20rpx solid #f8f8f8;
+		border-radius: 5rpx;
+		padding: 0rpx 30rpx 26rpx;
+}
+.shuru_box_body{
+	background-color: #f8f8f8;
+}
+.yishuru{
+	text-align: right;
+	padding-right: 20rpx;
+	padding-bottom: 20rpx;
 }
 .shuru_box textarea {
 	width: 100%;
+	
+	padding: 20rpx ;
+	box-sizing: border-box;
+	
 }
 .jisuan_num {
 	display: flex;
@@ -332,7 +372,7 @@ page {
 	align-items: center;
 	height: 86rpx;
 	background-color: #ffffff;
-	padding: 0 30rpx;
+	
 }
 .dizhi image {
 	width: 22rpx;
@@ -351,11 +391,27 @@ page {
 	line-height: 88rpx;
 	margin: 164rpx 0 18rpx;
 }
+.xuan_list{
+	height: 90rpx;
+	align-content: center;
+	
+}
 .zhuanchang_xuan image {
 		width: 13rpx;
 		height: 23rpx;
 		position: absolute;
 		right: 30rpx;
 
+	}
+		
+	.xaunleibie{
+		display: flex;
+		align-items: center;
+		border-bottom: 2rpx solid #dcdcdc;
+	}
+	.xaunleibie image{
+			width: 27rpx;
+			height: 27rpx;
+			margin-right: 13rpx;
 	}
 </style>

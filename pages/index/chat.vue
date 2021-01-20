@@ -4,14 +4,74 @@
 			<view class="head_back" style="width: 10%;"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
 			<view class="head_center " style="width: 80%;">
 				<view class="hei_38_bold top_title">{{ title }}</view>
-				<view class="qian_20 chat_lvsuo">{{ ls_xinxi.lvsuo }}</view>
+				<view class="hong_20 chat_lvsuo">剩余咨询时间:0天09:00:00</view>
 			</view>
 			<view class=" head_right hei_30_bold" style="width: 10%;"></view>
 		</view>
 
-		<view class="zi_body">
+		<view class="zi_body" >
+			<!-- <view class="send_xuanze hei_26">
+				<view>描述完之后，选择一下您方便的咨询的方式：</view>
+				<view class="hong_26">【在线咨询-可看记录】</view>
+				<view class="hong_26">【电话咨询-时时对话】</view>
+			</view> -->
+
+			<!-- 价格 -->
+			<!-- <view class="send_jia_html">
+				<view class="send_jia_top">
+					<image src="../../static/lsimg/tx.png" mode=""></image>
+					<view class="send_jia_top_r hui_20">
+						<view class="hui_24">
+							马俊哲律师
+							<text class="qian_20 send_jia_top_zhiwei">高级合伙人</text>
+						</view>
+						<view class="send_jia_top_r_dizhi">
+							<image src="@/static/img/chat_dizhi.png" mode=""></image>
+							浙江-杭州-江干区
+						</view>
+						<view class="send_jia_lvsuo">
+							<image src="@/static/img/chat_lvsuo.png" mode=""></image>
+							北京京师(杭州)律师事务所
+						</view>
+					</view>
+				</view>
+				<view class="send_jia_shangchang hei_24">
+					擅长:
+					<text>劳动工伤</text>
+					<text>刑事辩护</text>
+					<text>婚姻家庭</text>
+				</view>
+				<view class="send_jia_bottom style_hei_14">
+					<view class="hong_24">
+						￥
+						<text class="hong_24">68.00</text>
+						/1小时
+					</view>
+					<button type="button" class="bai_24">立即购买</button>
+				</view>
+			</view> -->
+
+			<!-- 付款成功 -->
+			<!-- <view class="send_fukuan_success">
+				<view class="lv_24_bold send_fukuan_title">
+					<image src="@/static/img/chat_duihao.png" mode=""></image>
+					付款成功
+				</view>
+				<view class="end_pay_leixing hei_24">
+					电话咨询
+					<view class="hong_24">&ensp;￥98.00/20分钟</view>
+				</view>
+				<view class="send_pay_ls">
+					<image src="@/static/lsimg/tx.png" mode=""></image>
+					<view class="send_pay_ls_riht">
+						<view class="hui_24">马俊哲律师</view>
+						<view class="qian_20 send_pay_ls_zhiwu">高级合伙人</view>
+					</view>
+				</view>
+			</view> -->
+
 			<view class="chat_jiage_wai">
-				<view class="chat_jiage">
+				<!-- <view class="chat_jiage">
 					<view class="chat_jiage_item chat_jiage_item1">
 						<view class="bai_28">在线图文咨询</view>
 						<view class="bai_20 chat_jiage_num">
@@ -35,6 +95,60 @@
 						<view class="bai_28">免费拨打电话</view>
 						<view class="bai_20 xianshi_dianhua">{{ dian_num }}</view>
 						<button type="" @click="xianshi()">点击查看</button>
+					</view>
+				</view> -->
+
+				<view class="chat_top chat_jiage">
+					<view class="chat_top_top">
+						<view class="chat_top_left">
+							<view class="chat_top_left_tx">
+								<image src="@/static/lsimg/moren_tx.png" mode="" class="chat_top_left_tx_img"></image>
+								<image src="@/static/img/renzheng2.png" mode="" class="chat_top_left_tx_ren"></image>
+							</view>
+							<view class="">
+								<view class="hui_22">{{ ls_xinxi.nickname }}律师</view>
+								<view class="qian_20 chat_top_left_zhiwu">高级合伙人</view>
+							</view>
+						</view>
+						<view class="chat_top_right">
+							<view class="chat_top_right_top">
+								<view class="chat_top_xinxi_item">
+									<view class="hei_22 chat_top_xinxi_item_num">2</view>
+									<view class="qian_22">执业年限</view>
+								</view>
+								<view class="chat_top_xinxi_item">
+									<view class="hei_22 chat_top_xinxi_item_num">14511</view>
+									<view class="qian_22">咨询人数</view>
+								</view>
+								<view class="chat_top_xinxi_item">
+									<view class="hei_22 chat_top_xinxi_item_num">{{ ls_xinxi.pingfen }}</view>
+									<view class="qian_22">综合评分</view>
+								</view>
+							</view>
+							<view class="chat_top_right_bottom hui_26">
+								擅长：
+								<text>劳动工伤</text>
+								<text>刑事辩护</text>
+								<text>婚姻家庭</text>
+							</view>
+						</view>
+					</view>
+
+					<view class="chat_top_bottom">
+						<view class="chat_top_jia">
+							<view class="qian_22 chat_top_jia_num ">
+								在线咨询
+								<text class="hei_22">{{ ls_xinxi.chatprice }}元/1小时</text>
+							</view>
+							<button type="" class="chat_jia_pay lv_20 ">立即购买</button>
+						</view>
+						<view class="chat_top_jia">
+							<view class="qian_22 chat_top_jia_num ">
+								电话咨询
+								<text class="hei_22">{{ ls_xinxi.phoneprice }}元/20分钟</text>
+							</view>
+							<button type="" class="chat_jia_pay lv_20 ">立即购买</button>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -75,13 +189,16 @@
 					</view>
 					<image src="@/static/lsimg/yh_tx.png" mode="" class="tx"></image>
 				</view> -->
-				<view class="aaaaaa">
-					
-				</view>
+				<view class="aaaaaa"></view>
 			</view>
 
 			<view class="zhanwei" v-if="isShowEmj"></view>
 			<view class="chat_bottom">
+				<view class="chat_yao hei_28">
+					我要
+					<text>购买在线服务</text>
+					<text>购买电话服务</text>
+				</view>
 				<view class="chat_bottom_top">
 					<!-- <image src="@/static/lsimg/chat_yuyin.png" mode=""></image> -->
 					<image src="@/static/lsimg/chat_biaoqing.png" mode="" @tap="showEmj"></image>
@@ -146,10 +263,7 @@ export default {
 		this.app_lianjie();
 		// #endif
 	},
-	onShow() {
-		
-
-	},
+	onShow() {},
 	onHide() {},
 	onUnload() {
 		console.log('onUnload');
@@ -226,16 +340,14 @@ export default {
 					this.dianhua = res.data.user_to.mobile;
 					this.chat_xinxi = res.data.user_to;
 					setTimeout(() => {
-					   uni.pageScrollTo({scrollTop: 99999, duration: 0});
-					}, 200)
+						uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+					}, 200);
 				});
-				
-				
 		},
-		huojiao(){
+		huojiao() {
 			setTimeout(() => {
-			   uni.pageScrollTo({scrollTop: 99999, duration: 0});
-			}, 100)
+				uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+			}, 100);
 		},
 		app_lianjie() {
 			let that = this;
@@ -298,8 +410,8 @@ export default {
 						};
 						that.message.push(xiaoxi);
 						setTimeout(() => {
-						   uni.pageScrollTo({scrollTop: 99999, duration: 0});
-						}, 100)
+							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+						}, 100);
 					}
 				} else {
 					console.log('else');
@@ -423,8 +535,8 @@ export default {
 						};
 						this.message.push(data);
 						setTimeout(() => {
-						   uni.pageScrollTo({scrollTop: 99999, duration: 0});
-						}, 100)
+							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+						}, 100);
 					}
 				});
 		},
@@ -458,8 +570,8 @@ export default {
 						};
 						this.message.push(data);
 						setTimeout(() => {
-						   uni.pageScrollTo({scrollTop: 99999, duration: 0});
-						}, 100)
+							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+						}, 100);
 					}
 				});
 
@@ -498,12 +610,12 @@ export default {
 		// 去付费
 		fufei(type) {
 			uni.navigateTo({
-				url: 'pay?lawyerid=' + this.ls_id + '&type=' + type 
+				url: 'pay?lawyerid=' + this.ls_id + '&type=' + type
 			});
 		},
 		go_zixun(type) {
 			uni.navigateTo({
-				url: 'pay?lawyerid=' + this.ls_id + '&type=' + type 
+				url: 'pay?lawyerid=' + this.ls_id + '&type=' + type
 			});
 		},
 		connectSocketInit() {
@@ -546,8 +658,8 @@ export default {
 						};
 						that.message.push(xiaoxi);
 						setTimeout(() => {
-						   uni.pageScrollTo({scrollTop: 99999, duration: 0});
-						}, 100)
+							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+						}, 100);
 					}
 				} else {
 					console.log('else');
@@ -585,9 +697,14 @@ export default {
 
 <style>
 .head {
-	border-bottom: 2rpx solid #e8e8e8;
+	border-bottom: 2rpx solid #d9d9d9;
+	padding-top: 10rpx;
+	padding-bottom: 6rpx;
 }
-
+page {
+	background-color: #f7f7f7;
+	text-size-adjust: none;
+}
 .time {
 	margin: 24rpx auto 40rpx;
 	text-align: center;
@@ -616,7 +733,7 @@ export default {
 }
 
 .chat_body {
-	padding: 0 30rpx 100rpx;
+	padding: 0 30rpx 194rpx;
 	overflow: auto;
 }
 
@@ -629,7 +746,7 @@ export default {
 	word-break: break-all;
 	padding: 10rpx 20rpx;
 	border-radius: 10rpx;
-	background-color: #f6f6f6;
+	background-color: #ffffff;
 	position: relative;
 	top: 20rpx;
 }
@@ -643,12 +760,13 @@ export default {
 }
 .chat_right_txt {
 	max-width: 470rpx;
-	border: solid 2rpx #d9d9d9;
+	/* border: solid 2rpx #d9d9d9; */
 	position: relative;
 	padding: 10rpx 20rpx;
 	border-radius: 10rpx;
 	top: 20rpx;
 	word-break: break-all;
+	background-color: #e6e6e6;
 }
 
 .chat_left_txt::before {
@@ -676,7 +794,7 @@ export default {
 	right: -10rpx;
 	width: 10rpx;
 	height: 16rpx;
-	background: url(../../static/img/index_chat_r.png) no-repeat;
+	background: url(../../static/img/index_chat_r_new.png) no-repeat;
 	background-size: 100% 100%;
 }
 
@@ -819,14 +937,13 @@ button {
 	margin: 20rpx 0 20rpx;
 }
 .chat_jiage_wai {
-	height: 260rpx;
+	height: 300rpx;
 	position: relative;
 	z-index: 99;
 }
-.chat_lvsuo {
-}
+
 .top_title {
-	margin-top: -4rpx;
+	margin-top: 0rpx;
 }
 .fasong {
 	background-color: #07c160;
@@ -838,5 +955,263 @@ button {
 	line-height: 74rpx;
 	text-align: center;
 	display: inline-block;
+}
+
+.chat_top_left_tx {
+	width: 90rpx;
+	height: 90rpx;
+	position: relative;
+	margin: 0 auto 8rpx;
+}
+.chat_top_left_zhiwu {
+	/* margin-top: 4rpx; */
+}
+.chat_top_left_tx_img {
+	border-radius: 100%;
+	width: 100%;
+	height: 100%;
+}
+.chat_top_left_tx_ren {
+	width: 16rpx;
+	height: 16rpx;
+	background-color: #ffffff;
+	position: absolute;
+	bottom: 6rpx;
+	right: 8rpx;
+	border-radius: 100%;
+	border: 2rpx solid #ffffff;
+}
+.chat_top_right_top_l {
+	display: flex;
+	padding-top: 13rpx;
+	width: 280rpx;
+	justify-content: space-between;
+	padding: 13rpx 2rpx 0;
+}
+.chat_top_xinxi_item {
+	width: 33.33%;
+	text-align: center;
+}
+.chat_top_xinxi_item_num {
+	margin-bottom: 16rpx;
+	margin-top: 16rpx;
+}
+.chat_jia_pay {
+	display: inline-block;
+	background-color: #ffffff;
+	border-radius: 6rpx;
+	border: solid 1rpx #0eb77e;
+	line-height: 26rpx;
+	padding: 6rpx 10rpx;
+}
+.chat_top {
+	background-color: #ffffff;
+	padding: 0;
+	display: block;
+}
+.chat_top_top {
+	display: flex;
+	width: 100%;
+}
+.chat_top_left {
+	border-right: 2rpx solid #e6e6e6;
+	width: 30%;
+	text-align: center;
+	padding: 13rpx 0 8rpx;
+}
+.chat_top_right {
+	width: 70%;
+}
+.chat_top_right_top {
+	display: flex;
+	height: 110rpx;
+}
+.chat_top_bottom {
+	display: flex;
+	border-top: 2rpx solid #e6e6e6;
+	height: 120rpx;
+}
+.chat_top_jia {
+	border-left: 2rpx solid #e6e6e6;
+	padding: 10rpx 0 4rpx;
+	text-align: center;
+	width: 50%;
+}
+.chat_top_jia_num {
+	margin: 4rpx 0 14rpx;
+}
+.chat_top_jia_num text {
+	margin-left: 4rpx;
+}
+.suoxiao {
+	transform: scale(0.9);
+	display: inline-block;
+}
+.suoxiao2 {
+	transform: scale(0.8);
+	display: inline-block;
+}
+.chat_lvsuo {
+	transform: scale(0.9);
+	/* position: relative;
+	top: -4rpx; */
+}
+.chat_top_right_bottom {
+	border-top: 2rpx solid #e6e6e6;
+	line-height: 70rpx;
+	padding-left: 45rpx;
+}
+.chat_top_right_bottom text {
+	margin-right: 20rpx;
+}
+.chat_yao {
+	height: 94rpx;
+	background-color: #ffffff;
+	display: flex;
+	align-items: center;
+	padding-left: 30rpx;
+}
+.chat_yao text {
+	height: 54rpx;
+	background-color: #ffffff;
+	border-radius: 27rpx;
+	border: solid 2rpx #d2d2d2;
+	line-height: 54rpx;
+	padding: 0 35rpx;
+	margin-left: 20rpx;
+}
+
+/* 发送价格 */
+
+.send_jia_html {
+	width: 467rpx;
+	display: inline-block;
+	background-color: #ffffff;
+	padding: 24rpx 0 0 30rpx;
+	box-sizing: border-box;
+}
+.send_jia_top {
+	display: flex;
+	align-items: flex-start;
+}
+.send_jia_top image {
+	width: 80rpx;
+	height: 80rpx;
+	border-radius: 100%;
+}
+.send_jia_top_r {
+	margin-left: 10rpx;
+}
+.send_jia_shangchang {
+	margin: 20rpx 0 20rpx;
+}
+.send_jia_shangchang text:first-child {
+	margin-left: 5rpx;
+}
+.send_jia_shangchang text {
+	display: inline-block;
+	height: 40rpx;
+	background-color: #ececec;
+	line-height: 40rpx;
+	padding: 0 8rpx;
+	margin-right: 10rpx;
+}
+
+.send_jia_bottom {
+	line-height: 60px;
+	display: flex;
+	align-items: center;
+	border-top: 2rpx solid #e5e5e5;
+	justify-content: space-between;
+	padding: 0 24rpx 0 0rpx;
+}
+.send_jia_top_r_dizhi {
+	margin: 8rpx 0;
+}
+.send_jia_top_r_dizhi image {
+	width: 22rpx;
+	height: 20rpx;
+	margin-right: 8rpx;
+}
+.send_jia_top_zhiwei {
+	margin-left: 14rpx;
+}
+.send_jia_top_r p {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.send_xuanze {
+	background-color: #ffffff;
+	padding: 20rpx 20rpx;
+	width: 470rpx;
+	box-sizing: border-box;
+}
+.send_xuanze view:nth-child(2) {
+	margin: 12rpx 0 8rpx;
+}
+
+.send_jia_lvsuo image {
+	width: 21rpx;
+	height: 20rpx;
+	margin-right: 8rpx;
+}
+.send_pay_ls {
+	display: flex;
+	margin-left: 25rpx;
+	align-items: center;
+	border-top: 2rpx solid #ffffff;
+	height: 118rpx;
+}
+.send_pay_ls image {
+	width: 80rpx;
+	height: 80rpx;
+	background-color: #ffffff;
+	border-radius: 100%;
+}
+.send_pay_ls_riht {
+	margin-left: 16rpx;
+}
+.send_fukuan_success {
+	width: 476rpx;
+	padding: 10rpx 0 0;
+	height: 218rpx;
+	background-color: #e6e6e6;
+}
+.send_pay_bottom {
+	padding: 9px 0;
+}
+.end_pay_leixing {
+	display: flex;
+	align-items: center;
+	padding-left: 26rpx;
+	margin: 8rpx 0 12rpx;
+}
+.send_pay_ls_zhiwu {
+	margin-top: 8rpx;
+}
+
+.send_pay_bottom_neirong {
+	word-break: break-all;
+}
+.send_fukuan_title {
+	display: flex;
+	align-items: center;
+	padding-left: 26rpx;
+}
+.send_fukuan_title image {
+	margin-right: 9rpx;
+	width: 16rpx;
+	height: 13rpx;
+}
+
+.send_jia_bottom button {
+	width: 115rpx;
+	height: 40rpx;
+	background-color: #0eb77e;
+	border-radius: 5rpx;
+	line-height: 40rpx;
+	margin: 0;
 }
 </style>

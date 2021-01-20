@@ -4,12 +4,123 @@
 			<view class="head_back" style="width: 10%;"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
 			<view class="head_center " style="width: 80%;">
 				<view class="hei_38_bold top_title">{{ title }}</view>
-				<view class="qian_20 chat_lvsuo">{{ dianhua }}</view>
+				<view class="hong_20 chat_lvsuo">剩余咨询时间:0天09:00:00</view>
 			</view>
 			<view class=" head_right hei_30_bold" style="width: 10%;"></view>
 		</view>
-	
-		<view class="zi_body">
+
+		<view class="zi_body" >
+			<!-- <view class="send_xuanze hei_26">
+				<view>描述完之后，选择一下您方便的咨询的方式：</view>
+				<view class="hong_26">【在线咨询-可看记录】</view>
+				<view class="hong_26">【电话咨询-时时对话】</view>
+			</view> -->
+
+			<!-- 价格 -->
+			<!-- <view class="send_jia_html">
+				<view class="send_jia_top">
+					<image src="../../static/lsimg/tx.png" mode=""></image>
+					<view class="send_jia_top_r hui_20">
+						<view class="hui_24">
+							马俊哲律师
+							<text class="qian_20 send_jia_top_zhiwei">高级合伙人</text>
+						</view>
+						<view class="send_jia_top_r_dizhi">
+							<image src="@/static/img/chat_dizhi.png" mode=""></image>
+							浙江-杭州-江干区
+						</view>
+						<view class="send_jia_lvsuo">
+							<image src="@/static/img/chat_lvsuo.png" mode=""></image>
+							北京京师(杭州)律师事务所
+						</view>
+					</view>
+				</view>
+				<view class="send_jia_shangchang hei_24">
+					擅长:
+					<text>劳动工伤</text>
+					<text>刑事辩护</text>
+					<text>婚姻家庭</text>
+				</view>
+				<view class="send_jia_bottom style_hei_14">
+					<view>
+						<text class="hei_24" style="margin-right: 20rpx;">在线咨询</text>
+						<text class="hong_24">￥68.00/1小时</text>
+					</view>
+				</view>
+			</view> -->
+
+			<!-- 付款成功 -->
+			<!-- <view class="send_fukuan_success">
+				<view class="lv_26 send_fukuan_title">
+					<image src="@/static/img/chat_duihao.png" mode=""></image>
+					付款成功
+				</view>
+				<view class="send_pay_ls">
+					<image src="@/static/img/tx.png" mode=""></image>
+					<view class="send_pay_ls_riht">
+						<view class="end_pay_leixing hei_26">
+							电话咨询
+							<view class="hong_26">
+								&ensp;￥
+								<text class="style_hong_16_bold">98.00</text>
+								/20分钟
+							</view>
+						</view>
+						<view class="hei_20">
+							马俊哲律师
+							<text class="qian_20 send_pay_ls_zhiwu">高级合伙人</text>
+						</view>
+					</view>
+				</view>
+				<view class="send_pay_bottom hei_24">
+					<view>
+						手机号码：13122223333
+						<text class="send_pay_call bai_24">打电话给他</text>
+					</view>
+					<view>咨询类型：债权债务</view>
+					<view class="send_pay_bottom_neirong">咨询内容：欠条多久有效，个人之间欠条多久不给钱，可以起诉?</view>
+				</view>
+			</view> -->
+
+			<view class="chat_jiage_wai">
+				<view class="chat_top chat_jiage">
+					<view class="chat_top_left">
+						<image :src="img_url + yh_user.photourl" mode="" class="chat_top_left_tx"></image>
+						<view class="hei_22 chat_top_left_dizhi">
+							<image src="@/static/lsimg/chat_dizhi.png" mode=""></image>
+							浙江-杭州
+						</view>
+					</view>
+					<view class="chat_top_left_right">
+						<view class="chat_top_left_right_top">
+							<view class="chat_top_zaixian">
+								<view class="hei_26 chat_top_zaixian_num">3</view>
+								<view class="qian_24">咨询订单</view>
+							</view>
+							<view class="chat_top_zaixian">
+								<view class="hei_26 chat_top_zaixian_num">14</view>
+								<view class="qian_24">电话订单</view>
+							</view>
+							<view class="chat_top_shoufei">
+								<image src="@/static/lsimg/chat_zixun.png" mode=""></image>
+								<view class="qian_24">咨询收费</view>
+							</view>
+							<view class="chat_top_shoufei">
+								<image src="@/static/lsimg/chat_dianhua_icon.png" mode=""></image>
+								<view class="qian_24">电话收费</view>
+							</view>
+						</view>
+						<view class="chat_top_left_right_bottom">
+							<view class="hei_22 chat_top_bottom">
+								<image src="@/static/lsimg/chat_shouji.png" mode=""></image>
+								{{ yh_user.mobile }}
+							</view>
+							<button type="" class="hong_24">给TA打电话</button>
+						</view>
+					</view>
+				</view>
+			</view>
+
 			<view :class="['chat_body', bt_show ? 'chat_body_jia' : '']" @click="tan_hide">
 				<view class="time qian_20" v-if="message != ''">{{ message[0].addtime | timeStamp }}</view>
 				<view v-for="(item, index) in message">
@@ -55,7 +166,7 @@
 				<view class="chat_bottom_top">
 					<!-- <image src="@/static/lsimg/chat_yuyin.png" mode=""></image> -->
 					<image src="@/static/lsimg/chat_biaoqing.png" mode="" @tap="showEmj"></image>
-					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" class="hei_26"  @focus="huojiao" />
+					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" class="hei_26" @focus="huojiao" />
 
 					<image src="@/static/lsimg/chat_jia.png" mode="" @click="jia"></image>
 					<text class="fasong" @click="send()">发送</text>
@@ -137,7 +248,8 @@ export default {
 			is_all: false,
 			userid: '',
 			dianhua: '',
-			is_fa: false
+			is_fa: false,
+			yh_user: ''
 		};
 	},
 	//下拉刷新
@@ -181,23 +293,23 @@ export default {
 					this.message = res.data.message;
 					this.title = res.data.user_to.nickname;
 					this.dianhua = res.data.user_to.mobile;
+					this.yh_user = res.data.user_to;
 					setTimeout(() => {
-					   uni.pageScrollTo({scrollTop: 99999, duration: 0});
-					}, 200)
+						uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+					}, 200);
 				});
-			
 		},
-		huojiao(){
+		huojiao() {
 			setTimeout(() => {
-			   uni.pageScrollTo({scrollTop: 99999, duration: 0});
-			}, 100)
+				uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+			}, 100);
 		},
 		app_lianjie() {
 			let that = this;
 			Object.assign(uni, socket);
 			console.log(Object.assign(uni, socket));
-			var url = that.$http.WebSocket_url
-			
+			var url = that.$http.WebSocket_url;
+
 			socket.connectSocket({
 				url: 'ws://' + url + ':3348',
 				success(data) {
@@ -218,22 +330,18 @@ export default {
 				if (data.type == 'init') {
 					console.log('init');
 					console.log('client_id', data.client_id);
-				  uni.request({
-							  url: that.$http.baseUrl + '/push/gatewayworker/bind',
-							  method:'POST',
-							  data: {
-								client_id: data.client_id
-							  },
+					uni.request({
+						url: that.$http.baseUrl + '/push/gatewayworker/bind',
+						method: 'POST',
+						data: {
+							client_id: data.client_id
+						},
 
-							  success: function(resp) {
-								
+						success: function(resp) {
 							console.log(resp, 'bind');
-							
-							  },
-							  fail: function(resp) {
-							  
-							  }
-							})
+						},
+						fail: function(resp) {}
+					});
 					// that.$http
 					// 	.post({
 					// 		url: '/push/gatewayworker/bind',
@@ -255,14 +363,13 @@ export default {
 							msgtype: data.state,
 							userid_from: that.ls_id
 						};
-						
-						if(that.user.userid!=data.userid_from){
 
-						that.message.push(xiaoxi);
+						if (that.user.userid != data.userid_from) {
+							that.message.push(xiaoxi);
 						}
 						setTimeout(() => {
-						   uni.pageScrollTo({scrollTop: 99999, duration: 0});
-						}, 100)
+							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+						}, 100);
 					}
 				} else {
 					console.log('else');
@@ -359,8 +466,8 @@ export default {
 						};
 						this.message.push(data);
 						setTimeout(() => {
-						   uni.pageScrollTo({scrollTop: 99999, duration: 0});
-						}, 100)
+							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+						}, 100);
 					}
 				});
 		},
@@ -431,8 +538,8 @@ export default {
 						};
 						this.message.push(data);
 						setTimeout(() => {
-						   uni.pageScrollTo({scrollTop: 99999, duration: 0});
-						}, 100)
+							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+						}, 100);
 					}
 				});
 		},
@@ -485,8 +592,8 @@ export default {
 						};
 						that.message.push(xiaoxi);
 						setTimeout(() => {
-						   uni.pageScrollTo({scrollTop: 99999, duration: 0});
-						}, 100)
+							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+						}, 100);
 					}
 				} else {
 					console.log('else');
@@ -523,8 +630,13 @@ export default {
 </script>
 
 <style>
+page {
+	background-color: #f7f7f7;
+}
 .head {
-	border-bottom: 2rpx solid #e8e8e8;
+	border-bottom: 2rpx solid #d9d9d9;
+	padding-top: 10rpx;
+	padding-bottom: 6rpx;
 }
 
 .time {
@@ -536,6 +648,9 @@ export default {
 	border-radius: 14rpx;
 	text-align: center;
 	line-height: 28rpx;
+}
+.chat_lvsuo {
+	transform: scale(0.9);
 }
 
 .chat_list {
@@ -591,7 +706,7 @@ export default {
 }
 .chat_right_txt {
 	max-width: 470rpx;
-	background-color: #f6f6f6;
+	background-color: #e6e6e6;
 	position: relative;
 	padding: 10rpx 20rpx;
 	border-radius: 10rpx;
@@ -607,7 +722,7 @@ export default {
 	right: -10rpx;
 	width: 10rpx;
 	height: 16rpx;
-	background: url(../../static/lsimg/chat_r.png) no-repeat;
+	background: url(../../static/lsimg/chat_r_icon.png) no-repeat;
 	background-size: 100% 100%;
 }
 
@@ -709,5 +824,247 @@ export default {
 	text-align: center;
 	display: inline-block;
 	border-radius: 10rpx;
+}
+
+.chat_jiage_wai {
+	height: 200rpx;
+	position: relative;
+	z-index: 99;
+}
+.chat_top {
+	background-color: #ffffff;
+	padding: 0;
+	display: flex;
+	position: fixed;
+	top: 100rpx;
+	width: 100%;
+	height: 190rpx;
+}
+.chat_top_left {
+	width: 20%;
+	text-align: center;
+	border-right: 2rpx solid #d9d9d9;
+}
+.chat_top_left_right {
+	width: 80%;
+}
+.chat_top_left_tx {
+	width: 94rpx;
+	height: 94rpx;
+	margin-top: 12rpx;
+	border-radius: 100%;
+}
+.chat_top_left_dizhi {
+	margin-top: 10rpx;
+}
+.chat_top_left_dizhi image {
+	width: 16rpx;
+	height: 22rpx;
+	margin-right: 6rpx;
+}
+.chat_top_shoufei image {
+	width: 30rpx;
+	height: 30rpx;
+}
+.chat_top_left_right_top {
+	display: flex;
+	height: 112rpx;
+}
+.chat_top_zaixian {
+	width: 28%;
+	text-align: center;
+	border-right: 2rpx solid #d9d9d9;
+}
+.chat_top_zaixian_num {
+	margin: 20rpx 0 6rpx;
+}
+.chat_top_shoufei {
+	width: 22%;
+	text-align: center;
+	border-right: 2rpx solid #d9d9d9;
+}
+
+.chat_top_shoufei image {
+	margin: 22rpx 0 6rpx;
+}
+.chat_top_shoufei:last-child {
+}
+.chat_top_left_right_bottom {
+	border-top: solid 2rpx #d9d9d9;
+	height: 74rpx;
+	display: flex;
+	align-items: center;
+	padding-left: 26rpx;
+}
+.chat_top_left_right_bottom button {
+	width: 154rpx;
+	height: 40rpx;
+	background-color: #ffffff;
+	border-radius: 5rpx;
+	border: solid 1rpx #f43a51;
+	line-height: 38rpx;
+	margin: 0;
+}
+.chat_top_left_right_bottom image {
+	width: 13rpx;
+	height: 18rpx;
+	margin-right: 8rpx;
+}
+.chat_top_bottom {
+	margin-right: 26rpx;
+}
+
+/* 发送价格 */
+
+.send_jia_html {
+	width: 467rpx;
+	display: inline-block;
+	background-color: #e6e6e6;
+	padding: 24rpx 0 0 30rpx;
+	box-sizing: border-box;
+}
+.send_jia_top {
+	display: flex;
+	align-items: flex-start;
+}
+.send_jia_top image {
+	width: 80rpx;
+	height: 80rpx;
+	border-radius: 100%;
+}
+.send_jia_top_r {
+	margin-left: 10rpx;
+}
+.send_jia_shangchang {
+	margin: 20rpx 0 20rpx;
+}
+.send_jia_shangchang text:first-child {
+	margin-left: 5rpx;
+}
+.send_jia_shangchang text {
+	display: inline-block;
+	height: 40rpx;
+	background-color: #ececec;
+	line-height: 40rpx;
+	padding: 0 8rpx;
+	margin-right: 10rpx;
+}
+
+.send_jia_bottom {
+	line-height: 60px;
+	display: flex;
+	align-items: center;
+	border-top: 2rpx solid #ffffff;
+	justify-content: space-between;
+}
+.send_jia_top_r_dizhi {
+	margin: 8rpx 0;
+}
+.send_jia_top_r_dizhi image {
+	width: 22rpx;
+	height: 20rpx;
+	margin-right: 8rpx;
+}
+
+.send_jia_top_r p {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.send_xuanze {
+	background-color: #e6e6e6;
+	padding: 20rpx 20rpx;
+	width: 470rpx;
+	box-sizing: border-box;
+}
+.send_xuanze view:nth-child(2) {
+	margin: 12rpx 0 8rpx;
+}
+.send_pay_call {
+	width: 146rpx;
+	height: 44rpx;
+	background-color: #f43a51;
+	border-radius: 5rpx;
+	line-height: 44rpx;
+	display: inline-block;
+	text-align: center;
+	margin-left: 22rpx;
+}
+.send_jia_lvsuo image {
+	width: 20rpx;
+	height: 20rpx;
+	margin-right: 8rpx;
+}
+.send_pay_ls {
+	display: flex;
+	margin-left: 25rpx;
+	align-items: center;
+	border-top: 2rpx solid #ffffff;
+	height: 118rpx;
+}
+.send_pay_ls image {
+	width: 80rpx;
+	height: 80rpx;
+	background-color: #ffffff;
+	border-radius: 100%;
+}
+.send_pay_ls_riht {
+	margin-left: 16rpx;
+}
+
+.send_pay_bottom {
+	background-color: #ffffff;
+	padding: 13rpx 0rpx 13rpx 20rpx;
+	border-top: 2rpx solid #d9d9d9;
+}
+.end_pay_leixing {
+	display: flex;
+	align-items: center;
+
+	margin: 4rpx 0 8rpx;
+}
+.send_pay_ls_zhiwu {
+	margin-top: 8rpx;
+	margin-left: 14rpx;
+}
+
+.send_fukuan_title {
+	display: flex;
+	align-items: center;
+	padding-left: 26rpx;
+}
+.send_fukuan_title image {
+	margin-right: 9rpx;
+	width: 16rpx;
+	height: 13rpx;
+}
+
+.send_jia__bottom button {
+	width: 115rpx;
+	height: 40rpx;
+	background-color: #0eb77e;
+	border-radius: 5rpx;
+	line-height: 40rpx;
+	margin: 0;
+}
+.send_jia__bottom {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.send_fukuan_success {
+	width: 472rpx;
+	padding: 10rpx 0 0;
+	height: 218rpx;
+	background-color: #ffffff;
+}
+
+.send_pay_bottom_neirong {
+	word-break: break-all;
+}
+.send_jia_top_zhiwei{
+	margin-left: 14rpx;
 }
 </style>

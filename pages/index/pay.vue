@@ -9,38 +9,50 @@
 		<view class="zi_body ">
 			<view class="pay_top">
 				<view class="pay_list">
+					<text class="qian_30">服务方式</text>
+					<text class="hei_30">
+						{{type==1?'在线咨询':'电话咨询'}}
+					</text>
+				</view>
+				<view class="pay_list">
+					<text class="qian_30">服务时长</text>
+					<text class="hei_30">
+						10分钟
+					</text>
+				</view>
+				<view class="pay_list">
+					<text class="qian_30">支付金额</text>
+					<text class="hong_30">
+						￥29.00
+					</text>
+				</view>
+				<view class="pay_list">
 					<text class="qian_30">手机号码</text>
 					<input type="text" value="" v-model="phone"/>
 				</view>
+				
 			<!-- 	<view class="pay_list">
-					<text class="qian_30">服务项目</text>
-					<text class="hei_30">
-						{{type==1?'在线咨询(服务时长1小时)':'电话咨询(服务时长20分钟)'}}
-						
-					</text>
-				</view> -->
-				<view class="pay_list">
 					<text class="qian_30">服务项目</text>
 					<picker :range="xiangmu_arry" @change="paixu_change" >
 						<text class="hei_30">{{xiamgmu==''?'选择项目':xiamgmu}}</text>
 						<image src="@/static/img/shaixuan.png" mode="" style="width: 16rpx;height: 8rpx;margin-left: 6rpx;vertical-align: middle;"></image>
 					</picker>
-				</view>
-				<view class="pay_list">
+				</view> -->
+				<!-- <view class="pay_list">
 					<text class="qian_30">服务时长</text>
 					<picker :range="shichang_arry" @change="shichang_change" >
 						<text class="hei_30">{{shichang==''?'选择时长':shichang}}</text>
 						<image src="@/static/img/shaixuan.png" mode="" style="width: 16rpx;height: 8rpx;margin-left: 6rpx;vertical-align: middle;"></image>
 					</picker>
-				</view>
+				</view> -->
 				<view class="pay_list">
 					<text class="qian_30">咨询类型</text>
 					<picker :range="type_arry" @change="zhuanchang_change" :range-key="'typename'">
 						<text class="hei_30">{{leixing==''?'选择咨询类型':leixing}}</text>
-						<image src="@/static/img/shaixuan.png" mode="" style="width: 16rpx;height: 8rpx;margin-left: 6rpx;vertical-align: middle;"></image>
+						<image src="@/static/lsimg/go_r.png" mode="" style="width: 12rpx;height: 21rpx;margin-left: 6rpx;vertical-align: middle;"></image>
 					</picker>
 				</view>
-				<view class="pay_list height_auto dis_fir">
+			<!-- 	<view class="pay_list height_auto dis_fir">
 					<text class="qian_30">服务律师</text>
 					<view class="ls_item">
 						<view class="ls_item_top">
@@ -70,7 +82,7 @@
 						</view>
 					</view>
 					</view>
-				</view>
+				</view> -->
 		<!-- 		<view class="pay_list" v-if="typeid && fenlei[typeid]">
 					<text class="qian_30">咨询类型</text>
 					<text class="hei_30">
@@ -84,14 +96,14 @@
 					
 				</view>
 				
-				<view class="pay_list_jine">
+			<!-- 	<view class="pay_list_jine">
 					<view class="pay_list_top">
 						<text class="qian_30">支付金额</text>
 						<text class="hei_30">
 							实付款：
 							<text class="hong_30">￥{{pay_money}}</text>
 						</text>
-					</view>
+					</view> -->
 				<!-- 	<view class="hei_30 qian_26 yuanjia">
 						原价：
 						<text>99.00</text>
@@ -131,7 +143,7 @@
 				</view>
 			</view>
 			<view class="pay_btn">
-				<button type="" class="tixian_btn bai_30" @click="save">去支付（{{pay_money}}）</button>
+				<button type="" class="tixian_btn bai_30" @click="save">支付</button>
 			</view>
 		</view>
 	</view>
@@ -571,7 +583,7 @@ page {
 	word-break: break-all;
 }
 .wen_neirong_textarea{
-	height:100rpx;
+		height: 264rpx;
 }
 .go_r{
 		width: 13rpx;

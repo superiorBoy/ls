@@ -42,7 +42,7 @@
 			
 			</view>
 			<view class="padding_bottom"></view>
-			<tabBar :currentPage="currentPage"></tabBar>
+			<tabBar :currentPage="currentPage" :num='weidu'></tabBar>
 			
 		</view>
 	
@@ -64,8 +64,9 @@
 		data() {
 			return {
 				currentPage:'ls/index',
-				tabs:['图文咨询','电话咨询'],
-				active:'0'
+				tabs:['在线咨询','电话咨询'],
+				active:'0',
+				weidu:0
 			}
 		},
 		methods: {
@@ -85,7 +86,20 @@
 								url:'zhiye_renzheng'
 							})
 						}else{
-							this.huoqu_lianjie()
+							this.$http
+								.post({
+									url: '/mlawyerapi/consult/messagelist'
+								})
+								.then(res => {
+									
+									var num=0
+									for (var i in res.data.messagelist){
+									num+=res.data.messagelist[i].messagecount
+									}
+									
+									this.weidu=num
+									
+								});
 							
 						}
 					});

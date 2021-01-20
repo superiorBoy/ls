@@ -63,7 +63,7 @@
 			</view>
 		</view>
 		<view class="padding_bottom"></view>
-		<tabBar :currentPage="currentPage"></tabBar>
+		<tabBar :currentPage="currentPage" :num='weidu'></tabBar>
 	</view>
 </template>
 
@@ -91,11 +91,12 @@ export default {
 	},
 	data() {
 		return {
-			currentPage: 'ls/xiaoxi',
+			currentPage:'ls/xiaoxi',
 			tabs: ['图文咨询', '电话咨询'],
 			img_url: uni.getStorageSync('img_url'),
 			active: '0',
-			xiaoxi_list: []
+			xiaoxi_list: [],
+			weidu:0
 		};
 	},
 	methods: {
@@ -215,6 +216,13 @@ export default {
 				})
 				.then(res => {
 					this.xiaoxi_list = res.data.messagelist;
+					var num=0
+					for (var i in res.data.messagelist){
+					num+=res.data.messagelist[i].messagecount
+					}
+					
+					this.weidu=num
+					
 				});
 		},
 		connectSocketInit() {

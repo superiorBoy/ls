@@ -63,9 +63,9 @@
 
 				<view class="jiedan_zhanwei"></view>
 			<view class="baocun_btn">
-				<view class="qian_22 jiedan_tishi">
+			<!-- 	<view class="qian_22 jiedan_tishi">
 					<image src="@/static/lsimg/xiaolian.png" mode=""></image><view class="suoxiao">您是非认证律师,通过网站认证以后才能接洽本案哦~<navigator url="ls_renzheng">立即去认证</navigator></view>
-				</view>
+				</view> -->
 				<view class="baocun_btn_bott">
 			<button type="" class="bai_30 baocun_b" @click="save">确认接单</button>
 				</view>	
@@ -218,10 +218,10 @@
 			vertical-align: middle;
 	}
 	.jiedan_zhanwei{
-		height:200rpx;
+		height:158rpx;
 	}
 	.baocun_btn{
-		padding: 10rpx 0rpx 60rpx 30rpx;
+		padding: 10rpx 0rpx 40rpx 30rpx;
 		margin-top: 90rpx;
 		position: fixed;
 		bottom:0rpx;
@@ -229,6 +229,7 @@
 		box-sizing: border-box;
 		background-color: #FFFFFF;
 		border-top: 2rpx solid #E8E8E8;
+		max-width: 750px;
 	}
 	.baocun_b {
 			height: 88rpx;
@@ -239,6 +240,7 @@
 	}
 	.baocun_btn_bott{
 		padding-right: 30rpx;
+		padding-top: 20rpx;
 	}
 	.hui{
 		background-color: #999999;

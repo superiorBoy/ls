@@ -170,6 +170,9 @@
 			"path":"pages/index/tiwen"
 		},
 		{
+			"path":"pages/index/xuanshang"
+		},
+		{
 			"path":"pages/index/zaixian_list"
 		},
 		{

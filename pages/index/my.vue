@@ -42,7 +42,7 @@
 		</view>
 
 		<view class="my_bottom">
-			<navigator url="chat?lawyerid=7" class="xianshi">
+			<navigator url="zhineng_pay" class="xianshi">
 					<image src="@/static/img/hy_guanggao.png" mode=""></image>
 					<view class="jiage hei_20_bold">限时29元/小时</view>
 			</navigator>
@@ -58,10 +58,7 @@
 						<image src="@/static/img/hy_tiwen_jilu_icon.png" mode="" style="width: 34rpx;height: 40rpx;"></image>
 						<view class="hui_24 ">提问记录</view>
 					</navigator>
-					<navigator url="zaixian_list" class="ls_item">
-						<image src="@/static/img/hy_kefu.png" mode="" style="width: 44rpx;height: 40rpx;"></image>
-						<view class="hui_24 ">在线咨询</view>
-					</navigator>
+				
 					<navigator url="zixun_jilu" class="ls_item">
 						<image src="@/static/img/hy_zixun_jilu.png" mode="" style="width: 36rpx;height: 40rpx;"></image>
 						<view class="hui_24 ">咨询记录</view>
@@ -69,6 +66,10 @@
 					<navigator url="dianhua_jilu" class="ls_item">
 						<image src="@/static/img/hy_dianhua.png" mode="" style="width: 40rpx;height: 40rpx;"></image>
 						<view class="hui_24 ">电话咨询</view>
+					</navigator>
+					<navigator url="zaixian_list" class="ls_item">
+						<image src="@/static/img/hy_other.png" mode="" style="width: 40rpx;height: 41rpx;"></image>
+						<view class="hui_24 ">其他服务</view>
 					</navigator>
 					<navigator url="weituo_list" class="ls_item">
 						<image src="@/static/img/hy_weituo.png" mode="" style="width: 36rpx;height: 40rpx;"></image>
@@ -179,6 +180,29 @@ export default {
 						this.is_login=true
 						this.huoqu_user()
 						this.huoqu_geshu()
+						
+						this.$http
+							.post({
+								url: '/mapi/consult/messagelist'
+							})
+							.then(res => {
+								var num=0
+								for (var i in res.data.messagelist){
+								num+=res.data.messagelist[i].messagecount
+								}
+								if(num>0){
+									uni.setTabBarBadge({
+									  index: 3,
+									  text: ''+num
+									})
+								}else{
+									 uni.removeTabBarBadge({
+											 index:3
+									})
+								}
+							});
+						
+						
 					}else{
 						this.is_login=false
 					}

@@ -49,13 +49,63 @@
 		</view>
 
 		<view class="my_bottom">
-			<view class="my_guanli">
-				<view class="my_title hei_30_bold">接单管理</view>
+			<view class="my_guanli jiedan_guanli">
+				<view class="my_title hei_30_bold jiedan_title">接单管理</view>
 
 				<view class="my_list">
 					<view  class="jiedan_item" @click="tiaozhuan('tiwen_guanli')">
-						<image src="../../static/lsimg/my_jiedan1.png" mode=""></image>
-						<view class="hui_24 ">提问管理</view>
+						<view  class="jiedan_item_left">
+							<image src="@/static/lsimg/jiedan1.png" mode="" class="jiedan_img" style="width: 42rpx;height: 42rpx;"></image>
+							<image src="@/static/lsimg/new.png" mode="" class="new"></image>
+						</view>	
+						<view  class="jiedan_item_right">
+							<view  class="jiedan_item_right_txt">
+								<view class="hei_24">
+									优质咨询
+								</view>
+								<view class="qian_20 jiedan_item_txt">
+									快速提交咨询问题，高效匹配专业律师，解答完成获得悬赏！
+								</view>
+							</view>	
+						</view>	
+						
+						
+					</view>
+					<view  class="jiedan_item" @click="tiaozhuan('zixun_jilu')">
+						<view  class="jiedan_item_left">
+							<image src="@/static/lsimg/jiedan2.png" mode="" class="jiedan_img" style="width: 42rpx;height: 42rpx;"></image>
+							<image src="@/static/lsimg/new.png" mode="" class="new"></image>
+						</view>	
+						<view  class="jiedan_item_right">
+							<view  class="jiedan_item_right_txt">
+								<view class="hei_24">
+									咨询记录
+								</view>
+								<view class="qian_20 jiedan_item_txt">
+									文字/语音/图片等多种沟通方式，适应不同问题的在线咨询！
+								</view>
+							</view>	
+						</view>	
+						
+						
+					</view>
+					<view  class="jiedan_item" @click="tiaozhuan('dianhua_zixun')">
+						<view  class="jiedan_item_left">
+							<image src="@/static/lsimg/jiedan3.png" mode="" class="jiedan_img" style="width: 42rpx;height: 42rpx;"></image>
+							<image src="@/static/lsimg/new.png" mode="" class="new"></image>
+						</view>	
+						<view  class="jiedan_item_right">
+							<view  class="jiedan_item_right_txt">
+								<view class="hei_24">
+									电话咨询
+								</view>
+								<view class="qian_20 jiedan_item_txt">
+									律师给您电话针对性解答，能让您快速解决法律问题！
+								</view>
+							</view>	
+						</view>	
+						
+						
 					</view>
 					<!-- <view  class="jiedan_item" @click="tiaozhuan('tiwen_jilu')">
 						<image src="../../static/lsimg/my_jiedan2.png" mode=""></image>
@@ -65,14 +115,14 @@
 						<image src="../../static/lsimg/my_jiedan3.png" mode=""></image>
 						<view class="hui_24 ">在线咨询</view>
 					</view> -->
-					<view  class="jiedan_item" @click="tiaozhuan('zixun_jilu')">
+					<!-- <view  class="jiedan_item" @click="tiaozhuan('zixun_jilu')">
 						<image src="../../static/lsimg/my_jiedan4.png" mode=""></image>
 						<view class="hui_24 ">咨询记录</view>
 					</view>
 					<view  class="jiedan_item" @click="tiaozhuan('dianhua_zixun')">
 						<image src="../../static/lsimg/my_jiedan5.png" mode=""></image>
 						<view class="hui_24 ">电话咨询</view>
-					</view>
+					</view> -->
 				</view>
 			</view>
 
@@ -151,7 +201,7 @@
 		</view>
 
 		<view class="padding_bottom"></view>
-		<tabBar :currentPage="currentPage"></tabBar>
+		<tabBar :currentPage="currentPage" :num='weidu'></tabBar>
 	</view>
 </template>
 
@@ -187,7 +237,8 @@ export default {
 			user: '',
 			img_url: uni.getStorageSync('img_url'),
 			is_login: false,
-			geshu:''
+			geshu:'',
+		     weidu:0
 		};
 	},
 	methods: {
@@ -216,7 +267,20 @@ export default {
 						this.is_login = true;
 						this.huoqu_user();
 				       this.huoqu_geshu()
-						
+						this.$http
+							.post({
+								url: '/mlawyerapi/consult/messagelist'
+							})
+							.then(res => {
+								
+								var num=0
+								for (var i in res.data.messagelist){
+								num+=res.data.messagelist[i].messagecount
+								}
+								
+								this.weidu=num
+								
+							});
 					} else {
 						this.is_login = false;
 					}
@@ -349,18 +413,51 @@ page {
 	margin-top: 20rpx;
 	padding: 0 18rpx 40rpx;
 }
-
+.jiedan_guanli{
+	padding-bottom: 0;
+}
 .jiedan_item {
-	text-align: center;
-	width: 20%;
+	align-items: center;
+	display: flex;
+	height: 140rpx;
+	border-bottom: 2rpx dashed #e2e2e2;
 }
-
-.jiedan_item image {
-	width: 78rpx;
-	height: 79rpx;
-	margin-bottom: 20rpx;
+.jiedan_item:last-child{
+	border: none;
 }
-
+.jiedan_item_left{
+	position: relative;
+}
+.jiedan_title{
+	margin-bottom: 0;
+}
+.new{
+	width: 26rpx;
+	height: 26rpx;
+	position: absolute;
+	top: -12rpx;
+	right: -12rpx;
+}
+.jiedan_item_right{
+	margin-left: 30rpx;
+	padding-right: 30rpx;
+	position: relative;
+}
+.jiedan_item_txt{
+	margin-top: 2rpx;
+}
+.jiedan_item_right::before{
+	content: '';
+	display: inline-block;
+	 width: 12rpx;
+		height: 22rpx;
+		background: url(../../static/lsimg/go_r.png) no-repeat;
+		background-size: 100% 100%;
+		position: absolute;
+		right: 2rpx;
+		top: 50%;
+		transform: translate(0,-50%);
+}
 .my_list {
 	display: flex;
 	/* justify-content: space-between; */

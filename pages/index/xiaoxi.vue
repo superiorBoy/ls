@@ -249,6 +249,20 @@ app_lianjie() {
 					})
 					.then(res => {
 						this.xiaoxi_list=res.data.messagelist
+						var num=0
+						for (var i in this.xiaoxi_list){
+						num+=this.xiaoxi_list[i].messagecount
+						}
+						if(num>0){
+							uni.setTabBarBadge({
+							  index: 3,
+							  text: ''+num
+							})
+						}else{
+							 uni.removeTabBarBadge({
+									 index:3
+							})
+						}
 						
 					});
 				

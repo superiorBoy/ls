@@ -32,7 +32,11 @@ export default {
 	},
 
 	onShow: function() {
+		
+	
+		
 		console.log('App Show');
+		
 	},
 	onHide: function() {
 		console.log('App Hide');
@@ -113,7 +117,7 @@ uni-checkbox:not([disabled]) .uni-checkbox-input:hover,uni-radio:not([disabled])
 /* APP-PLUS */
    /* #ifdef APP-PLUS */
   .head{
-  	padding-top: 70rpx;
+  	padding-top: 70rpx !important;
   }
   .zi_body {
   	padding-top: 148rpx;
@@ -131,7 +135,7 @@ uni-checkbox:not([disabled]) .uni-checkbox-input:hover,uni-radio:not([disabled])
   	padding-top: 84rpx !important;
   }
   .chat_jiage{
-	  top: 144rpx !important;
+	  top: 160rpx !important;
   }
   .index_top_dingwei{
 	  padding-top: 74rpx !important;

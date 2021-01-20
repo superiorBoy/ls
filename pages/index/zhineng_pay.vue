@@ -24,6 +24,21 @@
 	            	<text class="qian_30">支付金额</text>
 	            	<text class="hong_30">￥29.00</text>
 	            </view>
+				<view class="pay_list">
+					<text class="qian_30">手机号码</text>
+					<input type="text" value="" v-model="phone"/>
+				</view>
+				<view class="pay_list">
+					<text class="qian_30">咨询类型</text>
+					<picker :range="type_arry" @change="zhuanchang_change" :range-key="'typename'">
+						<text class="hei_30">{{leixing==''?'选择咨询类型':leixing}}</text>
+						<image src="@/static/lsimg/go_r.png" mode="" style="width: 12rpx;height: 21rpx;margin-left: 6rpx;vertical-align: middle;"></image>
+					</picker>
+				</view>
+				<view class="pay_list wen_list">
+					<view class="qian_30 wen_list_top">咨询内容</view>
+					<textarea value=""   placeholder="" class="hei_30 wen_neirong wen_neirong_textarea" v-model="neirong" maxlength="5000"/>
+				</view>
 			</view>
 
 			<view class="fangshi_txt qian_30">请选择支付方式</view>
@@ -59,30 +74,68 @@
 </template>
 
 <script>
-	
+	import pickerAddress2 from '@/components/wangding-pickerAddress/wangding-pickerAddress.vue';
 export default {
 	data() {
 		return {
 			img_url: uni.getStorageSync('img_url'),
-			type:1
+			type:1,
+			zhifu:2,
+			type_arry:[],
+			zhuanchang_arry: [],
+			leixing:'',
+			neirong:'',
+			phone:'13122223333',
+			typeid:''
+			
 		};
 	},
-
+	components: {
+		pickerAddress2
+	},
 	created() {
 	},
 	onLoad(option) {
 	 this.type=option.type
-		
+		// 获取分类
+		this.$http
+			.post({
+				url: '/mapi/index/gettype'
+			})
+			.then(res => {
+				this.fenlei = res.data.type;
+				var array = [];
+				for (var key in res.data.type) {
+					array.push(res.data.type[key]);
+				}
+				this.type_arry = array;
+			});
+		this.$http
+			.post({
+				url: '/mapi/lawyer/getshanchang'
+			})
+			.then(res => {
+				this.zhuanchang_arry = res.data.shanchang;
+			});
 	},
 	methods: {
 		navigateBack() {
 			uni.navigateBack();
 		},
-
+		// 类型选择
+		zhuanchang_change(e) {
+			this.leixing = this.type_arry[e.detail.value].typename;
+			this.typeid = this.type_arry[e.detail.value].typeid;
+			console.log(this.typeid);
+		},
 
 		radio(i) {
 			this.zhifu = i;
 		},
+		save(){
+			console.log(this.neirong,this.typeid)
+		},
+		
 		zfb_pay(consultid){
 			this.$http
 				.post({
@@ -123,6 +176,7 @@ export default {
 					}
 				});
 		},
+		
 		yue_pay(consultid){
 			this.$http
 				.post({
@@ -198,7 +252,9 @@ page {
 	background-color: #FFFFFF;
 	padding: 0 30rpx;
 }
-
+.pay_list input{
+	text-align: right;
+}
 
 
 .fangshi {
@@ -218,7 +274,34 @@ page {
 .pay_btn {
 	padding: 0 30rpx;
 }
-
-
+.wen_list{
+	display: block;
+	padding-bottom: 30rpx;
+	height: auto;
+	
+}
+.wen_list_top{
+	line-height: 80rpx;
+}
+.wen_neirong{
+		background-color: #f8f8f8;
+		width: 100%;
+		padding: 10rpx 16rpx;
+		box-sizing: border-box;
+		
+}
+.wen_neirong_txt{
+	height:100rpx;
+	overflow: auto;
+	word-break: break-all;
+}
+.wen_neirong_textarea{
+		height: 264rpx;
+}
+.go_r{
+		width: 13rpx;
+		height: 24rpx;
+		margin-left: 17rpx;
+}
 
 </style>

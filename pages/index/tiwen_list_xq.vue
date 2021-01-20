@@ -7,20 +7,40 @@
 			</view>
 			<view class="head_center hei_38_bold">咨询详情</view>
 			<view class=" head_right">
-				<navigator url="tiwen_list" class="hei_30_bold" >我的提问</navigator>
+				<navigator url="tiwen_list" class="hei_30_bold" >提问记录</navigator>
 				
 			</view>
 		</view>
 
 		<view class="zi_body ">
-			<view class="wenti hei_28">
-				<view class="" :class="['',is_zhankai?'zhankai':'zhankai_none']">
+			
+			<view class="wenti hei_28" v-if="xinxi">
+				<view class="wenti_top">
+					<image :src="img_url+data.user.photourl" mode=""></image> {{data.user.nickname}}
+				</view>
+				<view class="" :class="['',is_zhankai?'zhankai':'zhankai']">
 					{{xinxi.information}}
 				</view>
-				<view class="wenti_zhankai lv_28" @click="zhan">
+				<view class="tiwen_item_center qian_22">
+					<view class="tiwen_item_biaoqian" v-if="fenlei != ''">
+						<image src="@/static/img/biaoqian.png" mode=""></image>
+						{{ fenlei[xinxi.typeid].typename }}
+					</view>
+					<view class="tiwen_item_dizhi">
+						<image src="@/static/img/dizhi.png" mode=""></image>
+						{{xinxi.province}}-{{xinxi.city}}
+					</view>
+					<view class="tiwen_item_shijian">
+						<image src="@/static/lsimg/shijian_icon.png" mode=""></image>
+					  {{ xinxi.addtime | timeStamp }}
+					</view>
+					
+					
+				</view>
+			<!-- 	<view class="wenti_zhankai lv_28" @click="zhan">
 					{{is_zhankai?'收起':'展开'}}
 					<image src="@/static/img/zhankai.png" mode="" :class="is_zhankai?'zhuan':''"></image>
-				</view>
+				</view> -->
 			</view>
 			
 			<view class="none" v-if="huifu_list.length==0">
@@ -89,7 +109,24 @@ onLoad(option) {
 	this.wenid = option.id;
 },
 		onShow() {
-
+	// 获取分类
+		this.$http
+			.post({
+				url: '/mapi/index/gettype'
+			})
+			.then(res => {
+				this.fenlei = res.data.type;
+				
+				var array = [];
+				for (var key in res.data.type) {
+					array.push(res.data.type[key]);
+				}
+				this.zhuanchang_arry = array;
+				
+				
+				
+			});
+			
 		},
 
 		data() {
@@ -101,7 +138,8 @@ onLoad(option) {
 				wenid: '',
 				huifu_list:[],
 				img_url: uni.getStorageSync('img_url'),
-				data:''
+				data:'',
+				zhuanchang_arry:[]
 
 			}
 		},
@@ -207,7 +245,16 @@ onLoad(option) {
 		background-color: #FFFFFF;
 		margin-bottom: 20rpx;
 	}
-
+	.wenti_top{
+		display: flex;
+		align-items: center;
+	}
+.wenti_top image{
+		width: 98rpx;
+		height: 97rpx;
+		margin-right: 23rpx;
+		border-radius: 100%;
+}
 	.wenti_zhankai {
 		display: flex;
 		align-items: center;
@@ -232,6 +279,7 @@ onLoad(option) {
 
 	.zhankai {
 		/* zhakai */
+		word-break: break-all;
 	}
 
 	.zhankai_none {
@@ -356,5 +404,32 @@ onLoad(option) {
 		    line-height: 17px;
 		    white-space: normal;
 			word-break : break-all;
+	}
+	
+	.tiwen_item_center {
+		display: flex;
+		align-items: center;
+		margin: 18rpx 0 10rpx;
+		justify-content: space-between;
+	}
+	
+	.tiwen_item_dizhi image {
+		width: 18rpx;
+		height: 20rpx;
+		margin-right: 8rpx;
+	}
+	.tiwen_item_biaoqian {
+		
+	}
+	.tiwen_item_biaoqian image {
+		width: 21rpx;
+		height: 20rpx;
+		margin-right: 8rpx;
+	}
+	
+	.tiwen_item_shijian image {
+		width: 21rpx;
+		height: 21rpx;
+		margin-right: 8rpx;
 	}
 </style>
