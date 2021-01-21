@@ -89,7 +89,14 @@ export default {
 		//         that.zhuanchang=res.data
 		//     }
 		// })
-      this.lslist=[]
+		  this.page=0,
+		  this.is_all=false,
+		  this.lslist=[],
+		  this.sheng='',
+		  this.shi='',
+		  this.dizhi= '不限地区',
+		  this.zhuanchang= '不限专长',
+		  this.shanchang_id='',
 		this.get_shanchang();
 		this.get_lvshilist();
 	  },

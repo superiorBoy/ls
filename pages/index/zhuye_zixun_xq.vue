@@ -53,13 +53,44 @@
 						</view>
 					</view>
 					<view class="hei_26 huida_txt">{{ item.information }}</view>
+					<view class="qian_24 huida_time">{{ item.addtime | timeStamp }}回答</view>
 					<view class="zhui_list">
 						<view class="zhui_item" v-for="zhui_item in item.zhuiwen">
-							<text class="zhuiwen qian_20">{{ zhui_item.type == 1 ? '追问' : '追答' }}</text>
-							<text class="zhuiwen_body qian_24">{{ zhui_item.information }}</text>
+							<view class="zhui_item_xq" v-if="zhui_item.type == 1">
+								<view class="zhui_item_xq_top">
+									<view class="ls_item_top_tx"><image :src="img_url + data.user.photourl" mode="" class="ls_item_top_tx_img"></image></view>
+									<view class="ls_item_right_top">
+										<view class="hei_30 ls_item_name" @click="go_zhuye(item.userid)">{{ data.user.nickname }}</view>
+							
+										<view class="qian_24">{{ item.addtime | timeStamp }}</view>
+									</view>
+								</view>
+								<view class="zhuiwen_body hui_26">
+									{{ zhui_item.information }}
+								</view>
+							</view>
+							<view class="zhui_item_xq" v-if="zhui_item.type == 2">
+								<view class="zhui_item_xq_top">
+									<view class="ls_item_top_tx">
+										<image :src="img_url + item.photourl" mode="" class="ls_item_top_tx_img" @click="go_zhuye(item.userid)"></image>
+										<image src="@/static/img/renzheng2.png" mode="" class="ls_item_top_tx_ren"></image>
+									</view>
+									<view class="ls_item_right_top">
+										<view class="hei_30 ls_item_name" @click="go_zhuye(item.userid)">{{ item.nickname }}律师</view>
+							
+										<view class="qian_24">{{ item.addtime | timeStamp }}</view>
+									</view>
+								</view>
+								<view class="zhuiwen_body hui_26">
+									{{ zhui_item.information }}
+								</view>
+							</view>
+							<!-- <text class="zhuiwen qian_20">{{ zhui_item.type == 1 ? '追问' : '追答' }}</text>
+							
+							<text class="zhuiwen_body qian_24">{{ zhui_item.information }}</text> -->
 						</view>
 					</view>
-					<view class="qian_24 huida_time">{{ item.addtime | timeStamp }}回答</view>
+					
 				</view>
 			</view>
 
@@ -372,11 +403,16 @@ page {
 	border-radius: 22rpx;
 	line-height: 44rpx;
 	margin: 0;
-	padding: 0;
+	padding: 0; 
 }
 
 .huida_txt {
-	margin: 20rpx 0 15rpx;
+	margin: 20rpx 0 6rpx;
+	padding-left: 123rpx;
+}
+.huida_time{
+	padding-left: 123rpx;
+	margin-bottom: 8rpx;
 }
 .manyi {
 	padding: 0 80rpx;
@@ -449,6 +485,7 @@ page {
 }
 .zhui_list {
 	margin-bottom: 6rpx;
+	padding-left: 123rpx;
 }
 .zhuiwen {
 	
@@ -489,5 +526,51 @@ page {
 	margin: 0 13rpx 0 20rpx;
 	width: 24rpx;
 	height: 100%;
+}
+
+
+.zhui_item_xq {
+	border-top: 2rpx solid #dcdcdc;
+	width: 100%;
+	padding: 24rpx 0 0;
+}
+.ls_item_top_tx {
+	width: 95rpx;
+	height: 95rpx;
+	margin-right: 23rpx;
+	position: relative;
+}
+
+.ls_item_top_tx_img {
+	width: 100%;
+	height: 100%;
+	border-radius: 100%;
+}
+.ls_item_top_tx_ren {
+	position: absolute;
+	bottom: 0rpx;
+	right: 10rpx;
+	width: 16rpx;
+	height: 16rpx;
+	border: 2rpx;
+	isolation: #ffffff;
+	background-color: #ffffff;
+	border-radius: 100%;
+}
+
+.zhui_item_xq_top {
+	display: flex;
+}
+.ls_item_name{
+	margin: 12rpx 0 6rpx;
+}
+.zhuiwen_body {
+	max-width: 100%;
+	
+	line-height: 34rpx;
+	line-height: 17px;
+	white-space: normal;
+	word-break: break-all;
+	margin: 20rpx 0;
 }
 </style>
