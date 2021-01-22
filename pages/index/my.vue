@@ -183,14 +183,11 @@ export default {
 						
 						this.$http
 							.post({
-								url: '/mapi/consult/messagelist'
+								url: '/mapi/consult/messagecount'
 							})
 							.then(res => {
-								var num=0
-								for (var i in res.data.messagelist){
-								num+=res.data.messagelist[i].messagecount
-								}
-								if(num>0){
+								
+								if(res.data.messagecount>0){
 									uni.setTabBarBadge({
 									  index: 3,
 									  text: ''+num

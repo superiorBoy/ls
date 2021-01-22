@@ -130,7 +130,7 @@
 					在线咨询
 					<image src="@/static/img/index_remen.png" mode=""></image>
 				</view>
-				<view class="hui_20 zhineng_item_jiage">1小时 /￥19.00</view>
+				<view class="hui_20 zhineng_item_jiage">{{zhineng.zaixiantime}}小时 /￥{{zhineng.zaixianprice}}</view>
 				<view class="qian_22 zhineng_item_txt">律师在线解答,</view>
 				<view class="qian_22">规定范围内不限次数。</view>
 			</navigator>
@@ -139,7 +139,7 @@
 					电话咨询
 					<image src="@/static/img/index_tuijian.png" mode=""></image>
 				</view>
-				<view class="hui_20 zhineng_item_jiage">20分钟 /￥29.00</view>
+				<view class="hui_20 zhineng_item_jiage">{{zhineng.dianhuatime}}分钟 /￥{{zhineng.dianhuaprice}}</view>
 				<view class="qian_22 zhineng_item_txt">律师主动打电话与您联系，</view>
 				<view class="qian_22">沟通效率更高。</view>
 			</navigator>
@@ -341,7 +341,9 @@ export default {
 			fa_zhishi: '',
 			is_gengxin: false,
 			banben: '',
-			down_url: ''
+			down_url: '',
+			tiao_type:1,
+			zhineng:''
 		};
 	},
 	components: {
@@ -442,6 +444,25 @@ export default {
 			.then(res => {
 				this.fa_zhishi = res.data.type[1];
 			});
+			
+			// 获取跳转链接
+			this.$http
+				.post({
+					url: '/mapi/index/getzixunjump'
+				})
+				.then(res => {
+			
+					this.tiao_type = res.data.zhan.zixunjump;
+				});
+				// 查看只能服务报价
+				this.$http
+					.post({
+						url: '/mapi/index/getzixun'
+					})
+					.then(res => {
+				
+						this.zhineng = res.data.zhan;
+					});
 	},
 	methods: {
 		down() {
@@ -588,10 +609,16 @@ export default {
 				url: 'zhuye_zixun_xq?id=' + id
 			});
 		},
-		tochat(id) {
-			uni.navigateTo({
-				url: 'pay?lawyerid=' + id + '&type=1'
-			});
+		tochat(lawyerid) {
+			if(this.tiao_type==1){
+				uni.navigateTo({
+					url:'chat?lawyerid='+lawyerid
+				})
+			}else{
+				uni.navigateTo({
+					url:'ls_zhuye?lawyerid='+lawyerid
+				})
+			}
 		},
 		go_ls_list() {
 			uni.switchTab({

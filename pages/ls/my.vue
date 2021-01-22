@@ -269,16 +269,10 @@ export default {
 				       this.huoqu_geshu()
 						this.$http
 							.post({
-								url: '/mlawyerapi/consult/messagelist'
+								url: '/mlawyerapi/consult/messagecount'
 							})
 							.then(res => {
-								
-								var num=0
-								for (var i in res.data.messagelist){
-								num+=res.data.messagelist[i].messagecount
-								}
-								
-								this.weidu=num
+								this.weidu=res.data.messagecount
 								
 							});
 					} else {

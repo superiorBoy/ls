@@ -60,6 +60,9 @@
 								次
 							</view>
 						</view>
+						<view class="caina" v-if="data.consult.lawyerid==item.userid">
+							<image src="@/static/img/caina.png" mode=""></image>
+						</view>
 						<view class="guanzhu bai_24">
 						<image src="@/static/img/guan_no.png" mode=""></image>	关注
 						</view>
@@ -119,8 +122,8 @@
 					</view>
 
 					<view class="tiwen_caozuo lv_26">
-						<view class="zhuiwen_caozuo zhuiwen_txt" @click="tan(item.crid)"><image src="@/static/img/wen_zhui.png" mode="" style="width: 26rpx;height: 26rpx;"></image>追问</view>
-						<view class="zhuiwen_caozuo caina_txt"@click="xuanshang_tan(item.userid,item.photourl,item.nickname,item.replynum)"><image src="@/static/img/wen_caina.png" mode="" style="width: 23rpx;height: 27rpx;"></image>采纳悬赏</view>
+						<view class="zhuiwen_caozuo zhuiwen_txt" @click="tan(item.crid)" v-if="data.consult.tiwenstate!=4"><image src="@/static/img/wen_zhui.png" mode="" style="width: 26rpx;height: 26rpx;"></image>追问</view>
+						<view class="zhuiwen_caozuo caina_txt"@click="xuanshang_tan(item.userid,item.photourl,item.nickname,item.replynum)" v-if="data.consult.tiwenstate==2"><image src="@/static/img/wen_caina.png" mode="" style="width: 23rpx;height: 27rpx;"></image>采纳悬赏</view>
 					   <navigator :url="'ls_zhuye?lawyerid='+item.userid" class="zhuiwen_caozuo lianxi_txt">
 						<image src="@/static/img/wen_zaixian.png" mode="" style="width: 28rpx;height: 27rpx;"></image>在线联系
 						</navigator>
@@ -475,6 +478,15 @@ page {
 		justify-content: center;
 		text-align: center;
 }
+.caina{
+	position: absolute;
+	left: 150rpx;
+	top:20rpx
+}
+.caina image{
+	width: 82rpx;
+	height: 72rpx;	
+}
 .guanzhu image{
 		width: 24rpx;
 		height: 20rpx;
@@ -550,7 +562,7 @@ page {
 }
 .zhui_list {
 	margin-bottom: 6rpx;
-	
+	padding-left: 123rpx;
 	margin-top: 20rpx;
 }
 .zhuiwen_txt {
@@ -579,7 +591,7 @@ page {
 	margin-top: 4rpx;
 }
 .zhuiwen_body {
-	max-width: 83%;
+	max-width: 100%;
 	line-height: 34rpx;
 	line-height: 17px;
 	white-space: normal;
@@ -618,7 +630,7 @@ page {
 
 .tiwen_caozuo {
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	/* border-top: 2rpx solid #dcdcdc; */
 	border-bottom: 2rpx solid #dcdcdc;
 	padding-bottom: 30rpx;
@@ -632,6 +644,10 @@ page {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	margin-left: 15rpx;
+}
+.zhuiwen_caozuo:first-child{
+	margin-left: 0;
 }
 .zhuiwen_caozuo image {
 	margin-right: 10rpx;

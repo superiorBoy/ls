@@ -103,7 +103,7 @@
 			</view>
 			
 			<view class="baocun_btn">
-				<button type="" class="bai_30">立即添加</button>
+				<button type="" class="bai_30" @click="save">立即添加</button>
 			</view>
 			
 			
@@ -129,54 +129,130 @@ export default {
 				 lvshihan:'',
 				 anjianzhidao:'', 
 				 type:1,
-				 title:'在线咨询'
+				 title:'在线咨询',
+				 baojia:''
 		};
 	},
 	created() {},
 	onLoad(option) {
 		this.type=option.type
-
+       this.$http
+       	.post({
+       		url: '/mlawyerapi/lawyer/baojia'
+       	})
+       	.then(res => {
+       		this.baojia=res.data.lawyer
+			this.chatprice=res.data.lawyer.chatprice
+			this.zaixian3=res.data.lawyer.zaixian3
+			this.zaixian30=res.data.lawyer.zaixian30
+			this.phoneprice=res.data.lawyer.phoneprice
+			this.dianhua1=res.data.lawyer.dianhua1
+			this.dianhua3=res.data.lawyer.dianhua3
+			this.dianhua30=res.data.lawyer.dianhua30
+			this.hetong_shenhe=res.data.lawyer.hetong_shenhe
+			this.hetong_daixie=res.data.lawyer.hetong_daixie
+			this.hetong_wenshu=res.data.lawyer.hetong_wenshu
+			this.lvshi_huijian=res.data.lawyer.lvshi_huijian
+			this.lvshihan=res.data.lawyer.lvshihan
+       		this.anjianzhidao=res.data.lawyer.anjianzhidao
+       	});
 	},
 	methods: {
 		navigateBack() {
 			uni.navigateBack();
 		},
 
-		// save() {
-		// 	if (this.zaixian == '') {
-		// 		uni.showToast({
-		// 			title: '请填写在线咨询费用',
-		// 			duration: 2000,
-		// 			icon: 'none'
-		// 		});
-		// 		return false;
-		// 	} else if (this.dianhua == '') {
-		// 		uni.showToast({
-		// 			title: '请填写电话咨询费用',
-		// 			duration: 2000,
-		// 			icon: 'none'
-		// 		});
-		// 		return false;
-		// 	}
+		save() {
+			
+			if(this.type==1){
+				if (this.chatprice == '' || this.zaixian3=='' || this.zaixian30=='') {
+					uni.showToast({
+						title: '请填写完整',
+						duration: 2000,
+						icon: 'none'
+					});
+					return false;
+				} 
+				
+					var data={
+					state: 2,
+					zaixian1:this.chatprice,
+					zaixian3:this.zaixian3,
+					zaixian30:this.zaixian30
+				}
+				
+			}
+		   if(this.type==2){
+		   	if (this.phoneprice == '' || this.dianhua1=='' || this.dianhua3=='' || this.dianhua30=='') {
+		   		uni.showToast({
+		   			title: '请填写完整',
+		   			duration: 2000,
+		   			icon: 'none'
+		   		});
+		   		return false;
+		   	} 
+              	var data={
+				  state: 3,
+              	dianhua:this.phoneprice,
+              	dianhua1:this.dianhua1,
+              	dianhua3:this.zaixian3,
+				dianhua30:this.zaixian30,
+              }
+		   }
+		   if(this.type==3){
+		   	if (this.hetong_shenhe == '' || this.hetong_daixie=='' || this.hetong_wenshu=='') {
+		   		uni.showToast({
+		   			title: '请填写完整',
+		   			duration: 2000,
+		   			icon: 'none'
+		   		});
+		   		return false;
+		   	} 
+				var data={
+				state: 4,
+				hetong_shenhe:this.hetong_shenhe,
+				hetong_daixie:this.hetong_daixie,
+				hetong_wenshu:this.hetong_wenshu
+			}
+		   
+		   }
+		   if(this.type==4){
+		   	if (this.lvshi_huijian == '' || this.lvshihan=='' || this.anjianzhidao=='') {
+		   		uni.showToast({
+		   			title: '请填写完整',
+		   			duration: 2000,
+		   			icon: 'none'
+		   		});
+		   		return false;
+		   	} 
+			var data={
+				state: 5,
+				lvshi_huijian:this.lvshi_huijian,
+				lvshihan:this.lvshihan,
+				anjianzhidao:this.anjianzhidao
+			}
+		   
+		   }
 
-		// 	this.$http
-		// 		.post({
-		// 			url: '/lawyer/lawyer/zx_baojia',
-		// 			data: {
-		// 				zaixian: this.zaixian,
-		// 				dianhua: this.dianhua
-		// 			}
-		// 		})
-		// 		.then(res => {
-		// 			uni.showToast({
-		// 				title: '修改成功',
-		// 				duration: 2000,
-		// 				icon: 'none'
-		// 			});
-		// 		});
+
+		this.$http
+			.post({
+				url: '/mlawyerapi/lawyer/upbaojia',
+				data:data
+			})
+			.then(res => {
+				uni.showToast({
+					title: '修改成功',
+					duration: 2000,
+					icon: 'none'
+				});
+				setTimeout(function(){
+				uni.navigateBack()
+							},2000)
+			});
 
 		// 	console.log(this.zaixian, this.dianhua);
-		// }
+		}
 	}
 };
 </script>

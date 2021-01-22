@@ -10,33 +10,35 @@
 				<image src="@/static/lsimg/sousuo.png" mode="" @click="tan"></image>
 			</view>
 		</view>
-<view class="tab_top hui_26">
+         <view class="tab_top hui_26">
 			<text v-for="(item,index) in tab_arry" :class="['' ,index==active?'hong_26_bold': '']" @click="qiehuan(index)">{{item}}</text>
 		</view>
 		<view class="zi_body tab_zi_body">
 			<view class="tiwen_list" v-for="item in jilu_list">
 				<view class="tiwen_list_top">
 					<view class="zhuangtai bai_22"  :class="['zhuangtai bai_22',zhuangtai==1?'zanwu':'huida']">
-						{{item.reply.length==0?'暂无解答':'已回复'}}
+						{{item.tiwenstate==2?'待悬赏':item.tiwenstate==2?'已悬赏':item.tiwenstate==4?'已完成':''}}
 					</view>
-					<text class="qian_22">{{ item.addtime | timeStamp }}</text>
+					<text v-if="item.tiwenstate==4" class="hong_26_bold">悬赏{{item.paymoney}}元</text>
 				</view>
 				<view class="tiwen_list_wenti hei_28">
 					{{item.information}}
+				</view>
+				<view class="">
+					<text class="qian_22">{{ item.addtime | timeStamp }}</text>
 				</view>
 				<view class="tiwen_list_bottom qian_26">
 					<view class="tiwen_list_huida_no" v-if="item.reply.length==0">
 					<image src="@/static/img/shijian.png" mode="" class="shijian"></image>等待律师回复
 					</view>
 					<view class="tiwen_list_huida" v-if="item.reply.length!=0">
-						<block v-for="(ls,ls_index) in item.reply"  v-if="ls_index<3">
-					<image :src=img_url+ls.photourl mode="">
-				    <!-- 	<image src="../../static/img/tx.png" mode="">
-					<image src="../../static/img/tx.png" mode=""></image> -->
-					</block>
+						<view v-for="(ls,ls_index) in item.reply"  v-if="ls_index<3">
+					         <image :src=img_url+ls.photourl mode="">
+				 
+					     </view>
 					<text class="zhanwei"></text>等<text class="hong_26">{{item.replynum}}</text>位律师回复
 					</view>
-						<text class="lv_26" @click="xq(item.consultid)">查看详情></text>
+						<text class="lv_26" @click="xq(item.consultid)">{{item.tiwenstate==2?'去悬赏':'查看详情'}}></text>
 				</view>
 			</view>
 
@@ -64,7 +66,10 @@
 				<view class="tan_list hei_26 tan_list_shijian">
 					<text>提问时间</text>
 				<picker mode='date' @change="time_change">
-				   <text :class="['',time==''?'qian_26':'hei_26']">	{{time==''?'请选择时间':time}} </text>
+				   <text :class="['',time==''?'qian_26':'hei_26']">	{{time==''?'开始时间':time}} </text>
+				</picker>
+				<picker mode='date' @change="time_change2">
+				   <text :class="['',time2==''?'qian_26':'hei_26']">	{{time2==''?'结束时间':time2}} </text>
 				</picker>
 				 </view>
 				<view class="tan_buttom " >
@@ -101,7 +106,9 @@ onLoad() {
 					  img_url: uni.getStorageSync('img_url'),
 					  name:'',
 					  neirong:'',
-					  time:''
+					  time:'',
+					  state:0,
+					  time2:''
 			}
 		},
 		created() {
@@ -111,6 +118,10 @@ onLoad() {
 		onPullDownRefresh: function() {
 			this.page=0
 			this.jilu_list=[]
+			this.name=''
+			this.neirong=''
+			this.time=''
+			this.time2=''
 			this.is_all=false
 			this.huoqu_list()
 		},
@@ -140,6 +151,9 @@ onLoad() {
 				this.time = data.detail.value
 			
 			},
+			time_change2(data){
+				this.time2 = data.detail.value
+			},
 
 xq(id){
 	
@@ -147,13 +161,48 @@ xq(id){
 		url:'tiwen_list_xq?id='+id
 	})
 },
+qiehuan(index){
+	console.log(index)
+	this.active=index
+	this.name=''
+	this.neirong=''
+	this.time=''
+	this.time2=''
+	this.page=0
+	this.jilu_list=[]
+	this.is_all=false
+	this.huoqu_list()
+},
 	// 获取提问记录列表
 huoqu_list(){
+	if(this.active==0){
+		this.state=0
+	}else if(this.active==1){
+		
+		this.state=1
+	}else if(this.active==2){
+		
+		this.state=3
+	}else if(this.active==3){
+		
+		this.state=4
+	}
+	console.log(this.time)
+	 
+	 if(this.time!=''&&this.time2!=''){
+		 var riqi = this.time+' - '+this.time2
+	 }else{
+		 var riqi = ''
+	 }
 	this.$http
 		.post({
 			url: '/mapi/consult/tiwenlist',
 			data:{
-				page: this.page
+				page: this.page,
+				state:this.state,
+				jine:this.name,
+				neirong:this.neirong,
+				riqi:riqi
 			}
 		})
 		.then(res => {
@@ -180,12 +229,12 @@ huoqu_list(){
 		},
 		// 确定搜索
 		queding_btn() {
-			console.log(this.name, this.neirong,this.time)
-			// this.$refs.popup.close()
-			// this.page=0
-			// this.zixun_list=[]
-			// this.is_all=false
-			// this.huoqu_list()
+			console.log(this.time,this.name, this.neirong)
+			this.$refs.popup.close()
+			this.page=0
+			this.jilu_list=[]
+			this.is_all=false
+			this.huoqu_list()
 			
 		},
 		},
@@ -247,6 +296,7 @@ huoqu_list(){
 		align-items: center;
 		padding-left: 20rpx;
 		justify-content: space-between;
+		margin-top: 11rpx;
 	}
 .tiwen_list_bottom .shijian{
 		width: 24rpx;
@@ -287,7 +337,7 @@ huoqu_list(){
 		background-color: #494949;
 }
 	.tiwen_list_wenti {
-		margin: 22rpx 0 22rpx;
+		margin: 22rpx 0 0rpx;
 	}
 	.tan {
 		width: 100%;

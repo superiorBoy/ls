@@ -99,6 +99,18 @@ export default {
 		  this.shanchang_id='',
 		this.get_shanchang();
 		this.get_lvshilist();
+		
+		
+		// 获取跳转链接
+		this.$http
+			.post({
+				url: '/mapi/index/getzixunjump'
+			})
+			.then(res => {
+		
+				this.tiao_type = res.data.zhan.zixunjump;
+			});
+
 	  },
 
 	data() {
@@ -117,7 +129,8 @@ export default {
 			sheng: '',
 			shi: '',
 			is_all:false,
-			type:1
+			type:1,
+			tiao_type:1
 		};
 	},
 	created() {
@@ -210,13 +223,17 @@ export default {
 				url: 'zaixian_wen?user=' + id+'&mobile='+mobile
 			});
 		},
-		go_chat(id,price){
-			if(price==0){
-				return false
+		go_chat(lawyerid,price){
+			if(this.tiao_type==1){
+				uni.navigateTo({
+					url:'chat?lawyerid='+lawyerid
+				})
+			}else{
+				uni.navigateTo({
+					url:'ls_zhuye?lawyerid='+lawyerid
+				})
 			}
-			uni.navigateTo({
-				url:'pay?lawyerid='+id+'&type=1'
-			})
+			
 			
 		},
 		go_zhuye(id) {

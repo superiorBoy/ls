@@ -65,7 +65,8 @@ export default {
 			  riqi_index:1,
 			  time_index:1,
 			  price:'',
-			  dizhi:''
+			  dizhi:'',
+			  baojia:''
 		};
 	},
 	created() {},
@@ -75,8 +76,8 @@ export default {
 				url: '/mlawyerapi/lawyer/baojia'
 			})
 			.then(res => {
-				
-				
+				this.baojia=res.data.lawyer
+				this.price=res.data.lawyer.jianmian
 			});
 	},
 	methods: {
@@ -101,30 +102,28 @@ export default {
 					icon: 'none'
 				});
 				return false;
-			} else if (this.dizhi == '') {
-				uni.showToast({
-					title: '请填写地址',
-					duration: 2000,
-					icon: 'none'
-				});
-				return false;
-			}
+			} 
 
-			// this.$http
-			// 	.post({
-			// 		url: '/lawyer/lawyer/zx_baojia',
-			// 		data: {
-			// 			zaixian: this.zaixian,
-			// 			dianhua: this.dianhua
-			// 		}
-			// 	})
-			// 	.then(res => {
-			// 		uni.showToast({
-			// 			title: '修改成功',
-			// 			duration: 2000,
-			// 			icon: 'none'
-			// 		});
-			// 	});
+			this.$http
+				.post({
+					url: '/mlawyerapi/lawyer/upbaojia',
+					data: {
+						state: 1,
+						jianmian: this.price
+					}
+				})
+				.then(res => {
+					uni.showToast({
+						title: '修改成功',
+						duration: 2000,
+						icon: 'none'
+					});
+					setTimeout(function(){
+					uni.navigateBack()
+								},2000)
+				});
+
+
 
 			console.log(this.price, this.dizhi);
 		}

@@ -148,7 +148,15 @@
 export default {
 	onShow() {
 		
+	// 获取跳转链接
+	this.$http
+		.post({
+			url: '/mapi/index/getzixunjump'
+		})
+		.then(res => {
 	
+			this.tiao_type = res.data.zhan.zixunjump;
+		});
 		
 	},
 	onLoad(option) {
@@ -190,7 +198,8 @@ export default {
 			wenid: '',
 			is_all: false,
 			fenlei_list:[],
-			type:2
+			type:2,
+			tiao_type:1
 		};
 	},
 	created() {},
@@ -257,10 +266,16 @@ export default {
 				url: 'zaixian_wen?user=' + id+'&mobile='+mobile
 			});
 		},
-		go_chat(id){
-			uni.navigateTo({
-				url:'pay?lawyerid='+id+'&type=1'
-			})
+		go_chat(lawyerid){
+			if(this.tiao_type==1){
+				uni.navigateTo({
+					url:'chat?lawyerid='+lawyerid
+				})
+			}else{
+				uni.navigateTo({
+					url:'ls_zhuye?lawyerid='+lawyerid
+				})
+			}
 		},
 		go_lvshi() {
 			uni.switchTab({

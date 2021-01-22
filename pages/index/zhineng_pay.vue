@@ -18,11 +18,11 @@
 				</view>
 			   <view class="pay_list">
 			   	<text class="qian_30">服务时长</text>
-			   	<text class="hei_30">{{type==1?'1小时':'20分钟'}}</text>
+			   	<text class="hei_30">{{type==1?zhineng.zaixiantime+'小时':zhineng.dianhuatime+'分钟'}}</text>
 			   </view>
 	            <view class="pay_list">
 	            	<text class="qian_30">支付金额</text>
-	            	<text class="hong_30">￥29.00</text>
+	            	<text class="hong_30">￥{{type==1?zhineng.zaixianprice:zhineng.dianhuaprice}}</text>
 	            </view>
 				<view class="pay_list">
 					<text class="qian_30">手机号码</text>
@@ -86,7 +86,8 @@ export default {
 			leixing:'',
 			neirong:'',
 			phone:'13122223333',
-			typeid:''
+			typeid:'',
+			zhineng:''
 			
 		};
 	},
@@ -117,6 +118,18 @@ export default {
 			.then(res => {
 				this.zhuanchang_arry = res.data.shanchang;
 			});
+			
+		// 查看只能服务报价
+		this.$http
+			.post({
+				url: '/mapi/index/getzixun'
+			})
+			.then(res => {
+		
+				this.zhineng = res.data.zhan;
+			});	
+			
+			
 	},
 	methods: {
 		navigateBack() {

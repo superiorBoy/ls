@@ -86,6 +86,9 @@
 								<view class="" v-if="item.msgtype==2">
 									[图片]
 								</view>
+								<view class="" v-if="item.msgtype!=2&&item.msgtype!=1">
+									{{item.content}}
+								</view>
 							</view>
 						</view>
 					</view>

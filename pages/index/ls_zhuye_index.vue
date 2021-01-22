@@ -70,36 +70,33 @@
 					<view class="fuwu_lei">
 						<view class="fuwu_lei_left">
 							<view class="bai_26 fuwu_lei_top" >
-							<text class="hei_24_bold">在线咨询</text>	 
-							<text v-if="baojia&&baojia.chatprice" class="hong_28"><text class="hong_22">￥</text>{{baojia.chatprice}}</text>
-							<text v-if="!baojia || !baojia.chatprice ">未报价</text>
-							
+							<text class="hei_22_bold" style="color: #12ab83;">在线咨询</text>	 
+				
 							</view>
 							<text class="hui_20 fuwu_lei_title">简易需求,在线解答</text>
 						</view>
 					
-						<view class="bai_24 lei_btn zaixian_btn" v-if="baojia&&baojia.chatprice " @click="tan()"><text>立即咨询</text></view>
-						<view class="bai_24 lei_btn zaixian_btn" v-if="!baojia || !baojia.chatprice "><text>未开启</text></view>
+						<view class="  zaixian_btn hong_24" v-if="baojia&&baojia.chatprice " @click="tan()" >￥<text class="hong34_bold">{{baojia.chatprice}}</text>/天</view>
+						
 					</view>
 				
 					<view class="fuwu_lei">
 						<view class="fuwu_lei_left">
 							<view class="bai_26 fuwu_lei_top" >
-								<text class="hei_24_bold">电话咨询</text>
-								<text v-if="baojia&&baojia.phoneprice "class="hong_28"><text class="hong_22">￥</text>{{baojia.phoneprice}}</text>
+								<text class="hei_22_bold" style="color: #bf9a13;">电话咨询</text>
+								
 								<text v-if="!baojia || !baojia.phoneprice ">未报价</text>
 							</view>
 							<text class="hui_20 fuwu_lei_title">沟通方便，效率高</text>
 						</view>
 				
-						<view class="lei_btn tuwen_btn bai_24" v-if="baojia&&baojia.phoneprice " @click="tan()"><text>立即咨询</text></view>
-						<view class="lei_btn tuwen_btn bai_24" v-if="!baojia || !baojia.phoneprice "><text>未开启</text></view>
+						<view class=" tuwen_btn hong_24" v-if="baojia&&baojia.phoneprice " @click="tan()">￥<text class="hong34_bold" >{{baojia.phoneprice}}</text>/20分钟</view>
+						
 					</view>
 					<view class="fuwu_lei">
 						<view class="fuwu_lei_left">
 							<view class="bai_26 fuwu_lei_top" >
-								<text class="hei_24_bold">免费电话</text>
-								<text class="hong_28"><text class="hong_22">￥</text>0</text>
+								<text class="hei_22_bold" style="color: #245cb2;">免费电话</text>
 				
 							</view>
 							<text class="hui_20 fuwu_lei_title">免费电话,方便快捷</text>
@@ -108,7 +105,7 @@
 							<image src="@/static/img/zhuye_tab2.png" mode="widthFix" style="width: 12rpx;"></image>
 							<text>{{ lvshi.mobile }}</text>
 						</view> -->
-						<view class="lei_btn boda_btn bai_24" @click="call(lvshi.mobile)"><text>拨打电话</text></view>
+						<view class="lei_btn boda_btn hong_28" @click="call(lvshi.mobile)">拨打电话</view>
 					</view>
 				</view>
 
@@ -875,9 +872,10 @@ export default {
 	align-items: center;
 	justify-content: space-between;
 	border-bottom: 20rpx solid #F7F7F7 ;
+	
 }
 .fuwu_lei {
-	width: 216rpx;
+	width: 220rpx;
 	
 	box-shadow: 0rpx -3rpx 7rpx 0rpx 
 			rgba(0, 0, 0, 0.07);
@@ -909,26 +907,14 @@ export default {
 	font-size: 16rpx;
 }
 .zaixian_btn {
-	width: 165rpx;
-	height: 40rpx;
-	background-color: #82dbbd;
-	border-radius: 15rpx;
-	line-height: 40rpx;
-	text-align: center;
-	margin: 0 auto;
+	display: flex;
+	align-items: center;
+
 }
 .dianhua_btn {
-	width: 165rpx;
-	height: 40rpx;
-	border-radius: 15rpx;
-	box-sizing: border-box;
-	color: #FFFFFF;
+display: flex;
+	align-items: center;
 	
-	/* padding: 0 6rpx; */
-	/* width: 162rpx; */
-	line-height: 40rpx;
-	text-align: center;
-	margin: 0 auto;
 }
 .dianhua_btn image {
 	width: 10rpx;
@@ -945,24 +931,11 @@ export default {
 	left: 18rpx;
 }
 .tuwen_btn {
-		width: 165rpx;
-		height: 40rpx;
-		background-color: #fedd77;
-		border-radius: 20rpx;
-	line-height: 40rpx;
-	text-align: center;
-	margin: 0 auto;
-	color: #FFFFFF;
+display: flex;
+align-items: center;
 }
 .boda_btn{
-	width: 165rpx;
-		height: 40rpx;
-		background-color: #74aaff;
-		border-radius: 20rpx;
-	line-height: 40rpx;
-	text-align: center;
-	margin: 0 auto;
-	color: #FFFFFF;
+
 }
 .ls_jilu {
 	padding: 0 30rpx;
@@ -1304,5 +1277,9 @@ export default {
 		text-overflow:ellipsis;
 		white-space: nowrap;
 		width: 100%;
+	}
+	.hong34_bold{
+		font-size: 34rpx !important;
+		font-weight: bold;
 	}
 </style>

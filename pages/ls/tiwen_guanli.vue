@@ -6,16 +6,30 @@
 			<view class=" head_right"><image src="@/static/lsimg/sousuo.png" mode="" @click="tan"></image></view>
 		</view>
 		<view class="tab_top hui_26">
+			
 			<text v-for="(item, index) in tab_arry" :class="['', index == active ? 'hong_26_bold' : '']" @click="qiehuan(index)">{{ item }}</text>
 		</view>
 		<view class="zi_body tab_zi_body">
 			<view class="tiwen_list">
 				<view class="tiwen_item" v-for="(item, index) in jilu_list">
+					<view class="tiwen_item_name">
+						<view class="tiwen_item_name_l ">
+							<image :src="img_url+item.user.photourl" mode=""></image>
+						</view>
+						<view class="tiwen_item_name_r">
+							<view class="hui_24 tiwen_item_name_phone">
+								{{item.user.mobile}}
+							</view>
+							<view class="hui_24 qian_22">
+								{{ item.addtime | timeStamp }}
+							</view>
+						</view>
+					</view>
 					<view class="tiwen_item_top hui_26">
-						<text class="zhuangtai" v-if="active == 0">新</text>
+						<text class="zhuangtai" v-if="item.replynum == 0">新</text>
 						{{ item.information }}
 					</view>
-					<view class="tiwen_item_center qian_22">
+					<!-- <view class="tiwen_item_center qian_22">
 						<view class="tiwen_item_dizhi">
 							<image src="@/static/img/dizhi.png" mode=""></image>
 							{{ item.province }}-{{ item.city }}
@@ -28,19 +42,21 @@
 							<image src="@/static/lsimg/shijian_icon.png" mode=""></image>
 							{{ item.addtime | timeStamp }}
 						</view>
+					</view> -->
+					<view class="zhuiwen hui_26" v-if="item.zhuiwen">
+						
+					  <view class="zhuiwen_txt bai_20">追问</view>
+					  <view class="zhuiwen_body">{{item.zhuiwen.information}}</view>
 					</view>
 					<view class="huifu_btn">
-						<view class="tiwen_ren hui_24">
+						<!-- <view class="tiwen_ren hui_24">
 							<image :src="img_url+item.user.photourl" mode=""></image>{{item.user.mobile}}
-							</view>
-						<button type="" class="huifu bai_24" @click="huifu(item.consultid)">
+							</view> -->
+						<button type="" class="huifu hong_24" @click="huifu(item.consultid)">
 							回复
 						</button>
 					</view>
-						<view class="zhuiwen hui_26" v-if="active==2">
-						  <view class="zhuiwen_txt bai_20">追问</view>
-						  <view class="zhuiwen_body">{{item.zhuiwen.information}}</view>
-					    </view>
+					
 				</view>
 			</view>
 		</view>
@@ -115,7 +131,7 @@ export default {
 
 	data() {
 		return {
-			tab_arry: ['最新咨询', '我回复的', '追问我的'],
+			tab_arry: ['最新咨询','全部咨询', '我回复的', '追问我的'],
 			active: '0',
 			dizhi: '',
 			zhuanchang: [],
@@ -130,7 +146,8 @@ export default {
 			fenlei: '',
 			type_id: '',
 			sheng: '',
-			shi: ''
+			shi: '',
+			state:1
 		};
 	},
 	created() {},
@@ -182,15 +199,29 @@ export default {
 			this.jilu_list = [];
 			this.is_all = false;
 			this.huoqu_list();
+
 		},
 		// 获取提问记录列表
 		huoqu_list() {
+			
+			if(this.active==0){
+				this.state=1
+			}else if(this.active==1){
+				this.state=4
+			}else if(this.active==2){
+				this.state=2
+			}
+			else if(this.active==3){
+				this.state=3
+			}
+			
+			
 			this.$http
 				.post({
 					url: '/mlawyerapi/consult/tiwen_guanli',
 					data: {
 						page: this.page,
-						state: Number(this.active) + 1,
+						state: this.state,
 						typeid: this.type_id,
 						province: this.sheng,
 						city: this.shi
@@ -198,23 +229,24 @@ export default {
 				})
 				.then(res => {
 					this.jilu_list = this.jilu_list.concat(res.data.list);
+					this.tab_arry[3]='追问我的'+'('+res.data.weihuifu.length+')'
 					if (res.data.list.length < 10) {
 						this.is_all = true;
 					}
 				});
 		},
 		huifu(id) {
-			if(this.active==2){
+			// if(this.active==2){
 				uni.navigateTo({
 					url:
 						'/pages/ls/zhuiwen_xq?id='+id
 				});
-			}else{
-				uni.navigateTo({
-					url:
-						'/pages/ls/tiwen_guanli_xq?id='+id
-				});
-			}
+			// }else{
+			// 	uni.navigateTo({
+			// 		url:
+			// 			'/pages/ls/tiwen_guanli_xq?id='+id
+			// 	});
+			// }
 		
 		},
 		// 底部弹窗
@@ -311,7 +343,9 @@ page {
 .huifu {
 	width: 160rpx;
 	height: 56rpx;
-	background-color: #f43a51;
+	background-color: #ffffff;
+	border-radius: 28rpx;
+	border: solid 2rpx #f43a51;
 	border-radius: 28rpx;
 	line-height: 56rpx;
 	margin: 0;
@@ -357,7 +391,9 @@ page {
 .huifu_btn {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: flex-end;
+	border-top: 2rpx dashed #c6c6c6;
+	height: 105rpx;
 }
 .huifu_btn image {
 	width: 50rpx;
@@ -422,6 +458,7 @@ page {
 .tiwen_item_top {
 	line-height: 36rpx;
 	word-break: break-all;
+	margin: 8rpx 0 18rpx;
 }
 
 .aaaaaa {
@@ -487,8 +524,12 @@ button::after {
 
 .zhuiwen {
 	display: flex;
-	align-items: flex-start;
+	align-items: center;
 	margin-top: 20rpx;
+	
+	border-top: 2rpx dashed #c6c6c6;
+	height: 68rpx;
+
 }
 .zhuiwen .zhuiwen_txt {
 	padding: 2rpx 4rpx;
@@ -500,7 +541,26 @@ button::after {
 	margin-top: 6rpx;
 }
 .zhuiwen_body {
-	max-width: 90%;
+	max-width: 86%;
 	line-height: 38rpx;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap; 
+}
+.tiwen_item_name_l{
+	margin-right: 13rpx;
+}
+.tiwen_item_name_l image{
+		width: 66rpx;
+		height: 66rpx;
+		border-radius: 100%;
+}
+.tiwen_item_name{
+	display: flex;
+	align-items: center;
+}
+	
+.tiwen_item_name_phone{
+	margin: 0rpx 0 2rpx;
 }
 </style>

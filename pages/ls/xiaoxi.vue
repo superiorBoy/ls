@@ -55,6 +55,9 @@
 							<view class="qian_26 txt_over">
 								<view class="" v-if="item.msgtype == 1"><u-parse :content="replace_em(item.content)"></u-parse></view>
 								<view class="" v-if="item.msgtype == 2">[图片]</view>
+								<view class="" v-if="item.msgtype!=2&&item.msgtype!=1">
+									{{item.content}}
+								</view>
 							</view>
 						</view>
 					</view>

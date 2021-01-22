@@ -11,67 +11,62 @@
 				<view class="baojia_list_top hei_28">
 					<text>当面咨询</text>
 					<navigator url="baojia_jianmian" class="baojia_list_top_right qian_28">
-						<text>请添加</text>
+						<text>{{baojia.jianmian}}/1次</text>
 						<image src="@/static/lsimg/go_r.png" mode=""></image>
 					</navigator>
 				</view>
 
-				<!-- <view class="baojia_list_bottom qian_26">
-				<text>￥19/20分钟</text><text>￥19/20分钟</text><text>￥19/20分钟</text>
-				<text>￥19/20分钟</text><text>￥19/20分钟</text>
-			</view> -->
 			</view>
 			<view class="baojia_list" style="border-bottom: 20rpx solid #E8E8E8;">
 				<view class="baojia_list_top hei_28">
 					<text>在线咨询</text>
 					<view class="baojia_list_top_right qian_28" @click="go_baojia(1)">
-						<text>请添加</text>
+						<text>修改</text>
 						<image src="@/static/lsimg/go_r.png" mode=""></image>
 					</view>
 				</view>
-				<!-- <view class="baojia_list_bottom qian_26">
-				<text>￥19/20分钟</text><text>￥19/20分钟</text><text>￥19/20分钟</text>
-				<text>￥19/20分钟</text><text>￥19/20分钟</text>
-			</view> -->
+				<view class="baojia_list_bottom qian_26" v-if="baojia">
+				<text>￥{{baojia.chatprice}}/1天</text><text>￥{{baojia.zaixian3}}/3天</text><text>￥{{baojia.zaixian30}}/30天</text>
+				
+			</view>
 			</view>
 			<view class="baojia_list" style="border-bottom: 20rpx solid #E8E8E8;">
 				<view class="baojia_list_top hei_28">
 					<text>电话咨询</text>
 					<view class="baojia_list_top_right qian_28" @click="go_baojia(2)">
-						<text>请添加</text>
+						<text>修改</text>
 						<image src="@/static/lsimg/go_r.png" mode=""></image>
 					</view>
 				</view>
-				<!-- <view class="baojia_list_bottom qian_26">
-				<text>￥19/20分钟</text><text>￥19/20分钟</text><text>￥19/20分钟</text>
-				<text>￥19/20分钟</text><text>￥19/20分钟</text>
-			</view> -->
+				<view class="baojia_list_bottom qian_26">
+				<text>￥{{baojia.phoneprice}}/20分钟</text><text>￥{{baojia.dianhua1}}/1天</text><text>￥{{baojia.dianhua3}}/3天</text>
+				<text>￥{{baojia.dianhua30}}/30天</text>
+			</view>
 			</view>
 			<view class="baojia_list" style="border-bottom: 20rpx solid #E8E8E8;">
 				<view class="baojia_list_top hei_28">
 					<text>合同文书</text>
 					<view class="baojia_list_top_right qian_28" @click="go_baojia(3)">
-						<text>请添加</text>
+						<text>修改</text>
 						<image src="@/static/lsimg/go_r.png" mode=""></image>
 					</view>
 				</view>
-				<!-- <view class="baojia_list_bottom qian_26">
-				<text>￥19/20分钟</text><text>￥19/20分钟</text><text>￥19/20分钟</text>
-				<text>￥19/20分钟</text><text>￥19/20分钟</text>
-			</view> -->
+				<view class="baojia_list_bottom qian_26 wen_txt">
+				<text>￥{{baojia.hetong_daixie}}/代写合同</text><text>￥{{baojia.hetong_shenhe}}/合同审核</text><text>￥{{baojia.hetong_wenshu}}/代写文书</text>
+			</view>
 			</view>
 			<view class="baojia_list" style="border-bottom: 20rpx solid #E8E8E8;">
 				<view class="baojia_list_top hei_28">
 					<text>诉讼委托</text>
 					<view class="baojia_list_top_right qian_28" @click="go_baojia(4)">
-						<text>请添加</text>
+						<text>修改</text>
 						<image src="@/static/lsimg/go_r.png" mode=""></image>
 					</view>
 				</view>
-				<!-- <view class="baojia_list_bottom qian_26">
-				<text>￥19/20分钟</text><text>￥19/20分钟</text><text>￥19/20分钟</text>
-				<text>￥19/20分钟</text><text>￥19/20分钟</text>
-			</view> -->
+				<view class="baojia_list_bottom qian_26 wen_txt">
+				<text>￥{{baojia.anjianzhidao}}/案件指导</text><text>￥{{baojia.lvshihan}}/发律师函</text><text>￥{{baojia.lvshi_huijian}}/律师会见</text>
+				
+			</view>
 			</view>
 		</view>
 	</view>
@@ -80,15 +75,23 @@
 <script>
 export default {
 	data() {
-		return {};
+		return {
+			baojia:''
+		};
 	},
 	created() {},
 	onLoad(option) {
+		
+	},
+	onShow() {
 		this.$http
 			.post({
 				url: '/mlawyerapi/lawyer/baojia'
 			})
-			.then(res => {});
+			.then(res => {
+				this.baojia=res.data.lawyer
+				
+			});
 	},
 	methods: {
 		navigateBack() {
@@ -124,6 +127,9 @@ export default {
 	text-align: center;
 	margin-right: 30rpx;
 	margin-bottom: 20rpx;
+}
+.wen_txt text{
+	width: 260rpx;
 }
 .baojia_list_bottom text:nth-child(3n) {
 	margin-right: 0;
