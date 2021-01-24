@@ -4,7 +4,7 @@
 			<view class="head_back" style="width: 10%;"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
 			<view class="head_center " style="width: 80%;">
 				<view class="hei_38_bold top_title">{{ title }}</view>
-				<view class="hong_20 chat_lvsuo">剩余咨询时间:0天09:00:00</view>
+				<view class="hong_20 chat_lvsuo">剩余咨询时间:{{day}}天{{hour}}:{{minute}}:{{seconds}}</view>
 			</view>
 			<view class=" head_right hei_30_bold" style="width: 10%;"></view>
 		</view>
@@ -101,7 +101,7 @@
 						<view class="chat_top_xinxi_top_right">
 							<view class="chat_top_xinxi_r hei_26">
 								<view class="chat_top_xinxi_r_num">
-									3
+									{{zixuncount.zaixian}}
 								</view>
 								<view class="qian_24">
 									咨询订单 
@@ -109,7 +109,7 @@
 							</view>
 							<view class="chat_top_xinxi_r hei_26">
 								<view class="chat_top_xinxi_r_num">
-									14
+									{{zixuncount.dianhua}}
 								</view>
 								<view class="qian_24">
 									电话订单 
@@ -120,13 +120,13 @@
 					</view>
 					<view class="chat_top_xinxi_bottom hong_24">
 						<view class="chat_top_xinxi_bottom_item" @click="send_huanying()">
-							<image src="@/static/lsimg/send_huanying.png" mode="" style="width:18rpx ;height: 21rpx;"></image>欢迎语
+							<image src="@/static/lsimg/send_huanying.png" mode="" style="width:18rpx ;height: 21rpx;"></image>发送欢迎语
 						</view>
 						<view class="chat_top_xinxi_bottom_item" @click="send_zaixian()">
-						<image src="@/static/lsimg/send_xiaoxi.png" mode="" style="width: 22rpx;height: 23rpx;"></image>	咨询收费
+						<image src="@/static/lsimg/send_xiaoxi.png" mode="" style="width: 22rpx;height: 23rpx;"></image>发送咨询收费
 						</view>
 						<view class="chat_top_xinxi_bottom_item" @click="send_dianhua()">
-						<image src="@/static/lsimg/send_dianhua.png" mode="" style="width:20rpx ;height: 20rpx;"></image>	电话收费
+						<image src="@/static/lsimg/send_dianhua.png" mode="" style="width:20rpx ;height: 20rpx;"></image>发送电话收费
 						</view>
 					</view>
 				</view>
@@ -237,7 +237,6 @@
  <view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype==5">
 		  	<view class="chat_right_txt hei_30">
 		  		<view class="send_xuanze hei_26">
-		  
 		  			<view>描述完之后，选择一下您方便的咨询的方式：</view>
 		  			<view class="hong_26" style="margin-bottom: 10rpx;"  @click="send_zaixian()">【在线咨询-可看记录】</view>
 		  			<view class="hong_26"  @click="send_dianhua()">【电话咨询-时时对话】</view>
@@ -630,6 +629,7 @@ export default {
 	onShow() {},
 	onUnload() {
 		console.log('onUnload');
+		this.time1='0'
 		// #ifdef APP-PLUS
 		socket.closeSocket();
 		// #endif
@@ -654,7 +654,13 @@ export default {
 			is_fa: false,
 			yh_user: '',
 			renzheng:'',
-			zhuanchang_arry:[]
+			zhuanchang_arry:[],
+			day:0,
+			hour:'00',
+			minute:'00',
+			seconds:'00',
+			time1:'0',
+			zixuncount:''
 		};
 	},
 	//下拉刷新
@@ -687,6 +693,7 @@ export default {
 		},
 
 		huoqu_xiaoxi_list() {
+			var that=this
 			this.$http
 				.post({
 					url: '/mlawyerapi/consult/chatdeatils',
@@ -700,9 +707,37 @@ export default {
 					this.title = res.data.user_to.mobile;
 					this.dianhua = res.data.user_to.mobile;
 					this.yh_user = res.data.user_to;
+					this.zixuncount=res.data.zixuncount
 					setTimeout(() => {
 						uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 					}, 200);
+					that.time1 = res.data.shijian
+					console.log(that.time1)
+					// 倒计时
+					var interval = setInterval(function () {
+					    var to = new Date(that.time1.replace(/-/g, "/"));
+					    var now = new Date();
+					    var time = to.getTime() - now.getTime();
+						
+					    if(time < 0){
+					        clearInterval(interval);
+					    }else {
+					
+					        var day = parseInt(time / 1000 / 60 / 60 / 24);
+					        var hour = parseInt(time / 1000 / 60 / 60 % 24);
+					        var minute = parseInt(time / 1000 / 60 % 60);
+					        var seconds = parseInt(time / 1000 % 60);
+					        if (minute <= 9) minute = '0' + minute;
+					        if (seconds <= 9) seconds = '0' + seconds;
+					
+					       that.day=day
+						   that.hour=hour
+						   that.minute=minute
+						   that.seconds=seconds
+								
+					    }
+						
+					}, 1000);
 				});
 		},
 		huoqu_renzheng(){
@@ -904,7 +939,7 @@ export default {
 					if (res.code == 0) {
 						this.chat_txt = '';
 						var data = {
-							content: txt,
+							content: '[欢迎]',
 							msgtype: 5,
 							photourl_form: this.user.photourl
 						};
@@ -927,7 +962,7 @@ export default {
 					if (res.code == 0) {
 						this.chat_txt = '';
 						var data = {
-							content: txt,
+							content: '[在线咨询]',
 							msgtype: 4,
 							photourl_form: this.user.photourl
 						};
@@ -950,7 +985,7 @@ export default {
 					if (res.code == 0) {
 						this.chat_txt = '';
 						var data = {
-							content: txt,
+							content: '[电话咨询]',
 							msgtype: 3,
 							photourl_form: this.user.photourl
 						};

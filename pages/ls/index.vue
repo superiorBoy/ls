@@ -15,23 +15,26 @@
 			<view class="jiedan_list">
 				
 				
-				<view class="jiedan_item" v-for="index in 10">
+				<view class="jiedan_item" v-for="item in list">
 					<view class="jiedan_item_left">
-						<image src="../../static/lsimg/jiedan_tx.png" mode=""></image>
+						<image :src="img_url+item.photourl" mode=""></image>
 						<view class="jiedan_item_left_name">
 							<view class="hei_26 jiedan_item_name">
-								18147514420
+								{{item.phone}}
 							</view>
 							<view class="qian_22">
-								2020-10-14 11:42:08
+								{{ item.addtime | timeStamp }}
 							</view>
 						</view>
 					</view>
 					<view class="jiedan_item_right hong_26">
-						<view class="">
-							20分钟/98元
+						<view class=""v-if="active==0">
+							{{item.paymoney}}元/{{item.zixunshicahng==24?'1天':item.zixunshicahng==72?'3天':item.zixunshicahng==720?'1个月':item.zixunshicahng+'小时'}}
 						</view>
-						<view class="jiedan_btn" @click="jiedan">
+						<view class=""v-if="active==1" >
+							{{item.paymoney}}元/{{item.zixunshicahng==24?'1天':item.zixunshicahng==72?'3天':item.zixunshicahng==720?'1个月':item.zixunshicahng+'分钟'}}
+						</view>
+						<view class="jiedan_btn" @click="jiedan(item)">
 							接单
 						</view>
 					</view>
@@ -59,17 +62,48 @@
 		
 		},
 		onShow() {
+			this.list=[],
 			this.huoqu_user()
+			
 		},
 		data() {
 			return {
+				img_url: uni.getStorageSync('img_url'),
 				currentPage:'ls/index',
 				tabs:['在线咨询','电话咨询'],
-				active:'0',
-				weidu:0
+				active:0,
+				weidu:0,
+				page:0,
+				is_all:false,
+				list:[]
 			}
 		},
+		//下拉刷新
+		onPullDownRefresh: function() {
+			this.page=0,
+			this.is_all=false,
+			this.list=[],
+			this.jiedan_list()
+		
+		},
 		methods: {
+			
+			//上拉加载
+			onReachBottom() {
+				
+				if(this.is_all){
+					uni.showToast({
+						title: '没有更多内容了',
+						duration: 2000,
+						icon: "none"
+					});
+					uni.stopPullDownRefresh();
+					return false
+				}else{
+					this.page++
+					this.jiedan_list()
+				}
+			},
 			huoqu_user() {
 				// 获取用户信息
 				this.$http
@@ -94,6 +128,7 @@
 									this.weidu=res.data.messagecount
 									
 								});
+								this.jiedan_list()
 							
 						}
 					});
@@ -101,13 +136,53 @@
 			
 			jiedan_qiehuan(index){
 				this.active=index
-				
+				this.page=0,
+				this.is_all=false,
+				this.list=[],
+				this.jiedan_list()
 			},
-			
-			jiedan(){
+			jiedan_list(){
+				this.$http
+					.post({
+						url: '/mlawyerapi/consult/qiangdanlist',
+						data:{
+							page:this.page,
+							type:this.active+1
+							
+						}
+					})
+					.then(res => {
+						
+						this.list=this.list.concat(res.data.consult)
+						if (res.data.consult.length < 10) {
+							this.is_all = true;
+						}
+					})
+			},
+			jiedan(item){
+				
 				uni.navigateTo({
-					url:'jiedan_xq'
+					url:'jiedan_xq?item='+JSON.stringify(item)
 				})
+			}
+		},
+		filters: {
+			timeStamp: function(value) {
+				if(value==null){
+					return 'null'
+				}
+				var i = (value + '').length;
+				while (i++ < 13) value = value + '0';
+				value = Number(value);
+				var date = new Date(value);
+				//date.setTime(value);
+				var month = date.getMonth() + 1;
+				var hours = date.getHours();
+				if (hours < 10) hours = '0' + hours;
+				var minutes = date.getMinutes();
+				if (minutes < 10) minutes = '0' + minutes;
+				var time = date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + hours + ':' + minutes;
+				return time;
 			}
 		}
 	}

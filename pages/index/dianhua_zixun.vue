@@ -122,6 +122,18 @@ export default {
 				this.zhuanchang_arry = res.data.shanchang;
 				that.huoqulist();
 			});
+			
+		// 获取跳转链接
+		this.$http
+			.post({
+				url: '/mapi/index/getzixunjump'
+			})
+			.then(res => {
+		
+				this.tiao_type = res.data.zhan.zixunjump;
+			});
+			
+			
 	},
 	onShow() {},
 
@@ -141,7 +153,8 @@ export default {
 			is_all: false,
 			page: 0,
 			dianhua_list: [],
-			zhuanchang_arry: ''
+			zhuanchang_arry: '',
+			tiao_type:1
 		};
 	},
 	created() {},
@@ -190,9 +203,15 @@ export default {
 		},
 		// 去支付
 		go_pay(lawyerid,type) {
-			uni.navigateTo({
-				url:'pay?lawyerid='+lawyerid+'&type='+type
-			});
+			if(this.tiao_type==1){
+				uni.navigateTo({
+					url:'chat?lawyerid='+lawyerid
+				})
+			}else{
+				uni.navigateTo({
+					url:'ls_zhuye?lawyerid='+lawyerid
+				})
+			}
 		},
 		huoqulist() {
 			this.$http
@@ -294,6 +313,7 @@ page {
 	height: 81rpx;
 	box-sizing: border-box;
 	margin-right: 18rpx;
+	border-radius: 100%;
 }
 
 .zixun_item {

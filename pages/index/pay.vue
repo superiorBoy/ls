@@ -11,7 +11,7 @@
 				<view class="pay_list">
 					<text class="qian_30">服务项目</text>
 					<text class="hei_30">
-						{{type==1?'在线咨询':'电话咨询'}}(20分钟)
+						{{type==1?'在线咨询':type==2?'电话咨询':type==3?'合同事务':type==4?'诉讼委托':'见面咨询'}}({{time}})
 					</text>
 				</view>
 			<!-- 	<view class="pay_list">
@@ -21,10 +21,7 @@
 					</text>
 				</view> -->
 				
-			<!-- 	<view class="pay_list">
-					<text class="qian_30">手机号码</text>
-					<input type="text" value="" v-model="phone"/>
-				</view> -->
+			
 				
 			<!-- 	<view class="pay_list">
 					<text class="qian_30">服务项目</text>
@@ -72,6 +69,10 @@
 					</view>
 					</view>
 				</view>
+				<view class="pay_list">
+					<text class="qian_30">手机号码</text>
+					<input type="text" value="" v-model="phone" placeholder="请输入手机号码" class="hei_30"/>
+				</view>
 		<!-- 		<view class="pay_list" v-if="typeid && fenlei[typeid]">
 					<text class="qian_30">咨询类型</text>
 					<text class="hei_30">
@@ -94,7 +95,7 @@
 				<view class="pay_list">
 					<text class="qian_30">支付金额</text>
 					<text class="hong_30">
-						￥29.00
+						￥{{pay_money}}
 					</text>
 				</view>
 			<!-- 	<view class="pay_list_jine">
@@ -160,8 +161,6 @@ export default {
 			img_url: uni.getStorageSync('img_url'),
 			lvshi:'',
 			neirong:'',
-			xiangmu_arry: ['在线咨询', '电话咨询','合同文书','诉讼委托'],
-			shichang_arry:['1天','3天','1个月'],
 			zhuanchang_arry: [],
 			type_arry:[],
 			type:'',
@@ -175,7 +174,8 @@ export default {
 			leixing:'',
 			zixun_xinxi:'',
 			laiyuan:1,
-			pay_money:0
+			pay_money:0,
+			time:''
 			
 		};
 	},
@@ -187,32 +187,48 @@ export default {
 	onLoad(option) {
 		this.lawyerid=option.lawyerid
 		this.type=option.type
-		if(option.type==2){
-			this.xiamgmu='电话咨询'
-		}else if(option.type==1){
-			this.xiamgmu='在线咨询'
+		if(option.pay_money){
+			this.pay_money=option.pay_money
+		}
+		if(option.time){
+			this.time=option.time
 		}
 		if(option.consultid){
 			this.laiyuan=2
 			this.consultid=option.consultid
-			this.diangdan_xinxi()
+			// 获取分类
+			this.$http
+				.post({
+					url: '/mapi/index/gettype'
+				})
+				.then(res => {
+					this.fenlei = res.data.type;
+					var array = [];
+					for (var key in res.data.type) {
+						array.push(res.data.type[key]);
+					}
+					this.type_arry = array;
+					this.diangdan_xinxi()
+				});
+			
 		}else{
 			this.laiyuan=1
+			// 获取分类
+			this.$http
+				.post({
+					url: '/mapi/index/gettype'
+				})
+				.then(res => {
+					this.fenlei = res.data.type;
+					var array = [];
+					for (var key in res.data.type) {
+						array.push(res.data.type[key]);
+					}
+					this.type_arry = array;
+				});
 		}
 		
-		// 获取分类
-		this.$http
-			.post({
-				url: '/mapi/index/gettype'
-			})
-			.then(res => {
-				this.fenlei = res.data.type;
-				var array = [];
-				for (var key in res.data.type) {
-					array.push(res.data.type[key]);
-				}
-				this.type_arry = array;
-			});
+		
 		this.$http
 			.post({
 				url: '/mapi/lawyer/getshanchang'
@@ -239,6 +255,20 @@ export default {
 					this.zixun_xinxi=res.data.consult
 					this.neirong=res.data.consult.information
 					this.pay_money=res.data.consult.paymoney
+					this.typeid=res.data.consult.typeid
+					this.time=res.data.consult.zixunshicahng
+					if(res.data.consult.zixunshicahng==20){
+						this.time='20分钟'
+						
+					}else if(res.data.consult.zixunshicahng==24){
+						this.time='1天'
+					}else if(res.data.consult.zixunshicahng==72){
+						this.time='3天'
+					}else if(res.data.consult.zixunshicahng==720){
+						this.time='1个月'
+					}
+					
+					this.leixing = this.type_arry[res.data.consult.typeid].typename;
 				});
 		},
 		
@@ -255,13 +285,7 @@ export default {
 					if (res.code == 0) {
 						this.lvshi = res.data.lawyer;
 						this.phone=res.data.lawyer.mobile
-						if(this.laiyuan==1){
-							if(this.type==1){
-								this.pay_money=res.data.lawyer.chatprice
-							}else{
-								this.pay_money=res.data.lawyer.phoneprice
-							}
-						}
+						
 					}
 				});
 		},
@@ -270,31 +294,43 @@ export default {
 			if(this.phone==''){
 				uni.showToast({
 					title: '请填写手机号码',
-					duration: 2000
+					duration: 2000,
+					icon: 'none'
 				});
 				return false
 			}
-			if(this.xiamgmu==''){
-				uni.showToast({
-					title: '请选择服务项目',
-					duration: 2000
-				});
-				return false
-			}
-			if(this.shichang==''){
-				uni.showToast({
-					title: '请选择服务时长',
-					duration: 2000
-				});
-				return false
-			}
+		
 			if(this.neirong==''){
 				uni.showToast({
 					title: '请输入咨询内容',
-					duration: 2000
+					duration: 2000,
+					icon: 'none'
 				});
 				return false
 			}
+			if(this.typeid==''){
+				uni.showToast({
+					title: '请选择咨询类别',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false
+			}
+			
+			
+			if(this.type==0){
+				var xiangmu='见面咨询'
+			}else if(this.type==1){
+				var xiangmu='在线咨询'
+			}else if(this.type==2){
+				var xiangmu='电话咨询'
+			}else if(this.type==3){
+				var xiangmu='合同文书'
+			}else if(this.type==4){
+				var xiangmu='诉讼委托'
+			}
+			
+		console.log(this.type,this.neirong,this.phone,this.typeid,this.time)	
 			
 			
 			if(this.laiyuan==1){
@@ -310,8 +346,8 @@ export default {
 						information: this.neirong,
 						typeid:this.typeid,
 						phone:this.phone,
-						shichang:this.shichang,
-						xiangmu:this.xiamgmu,
+						shichang:this.time,
+						xiangmu:xiangmu,
 						lawyerid:ls,
 						consultid:this.consultid
 					}
@@ -337,6 +373,7 @@ export default {
 		},
 		
 		zfb_pay(consultid){
+			var that=this
 			this.$http
 				.post({
 					url: '/mapi/consult/pay',
@@ -359,9 +396,23 @@ export default {
 								   	duration: 2000
 								   });
 								   
-								  setTimeout(function(){
-								  				uni.navigateBack()
-								  },2000) 
+								   setTimeout(function(){
+								   	if(that.type==1){
+								   		uni.navigateTo({
+								   			url:'zixun_jilu'
+								   		})
+								   	}else if(that.type==2){
+								   		uni.navigateTo({
+								   			url:'dianhua_jilu'
+								   		})
+								   	}else{
+								   		uni.navigateTo({
+								   			url:'qita_jilu'
+								   		})
+								   	}
+								   	
+								   },2000) 
+								
 								   
 						       },
 						       fail: function(err) {
@@ -377,6 +428,7 @@ export default {
 				});
 		},
 		yue_pay(consultid){
+			var that=this
 			this.$http
 				.post({
 					url: '/index/consult/accountpay',
@@ -392,6 +444,22 @@ export default {
 						duration: 2000
 											
 					});
+					setTimeout(function(){
+						if(that.type==1){
+							uni.navigateTo({
+								url:'zixun_jilu'
+							})
+						}else if(that.type==2){
+							uni.navigateTo({
+								url:'dianhua_jilu'
+							})
+						}else{
+							uni.navigateTo({
+								url:'qita_jilu'
+							})
+						}
+						
+					},2000) 
 						
 					}
 				});

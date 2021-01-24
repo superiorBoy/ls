@@ -26,7 +26,7 @@
 	            </view>
 				<view class="pay_list">
 					<text class="qian_30">手机号码</text>
-					<input type="text" value="" v-model="phone"/>
+					<input type="text" value="" v-model="phone" placeholder="请输入手机号码" class="hei_30"/>
 				</view>
 				<view class="pay_list">
 					<text class="qian_30">咨询类型</text>
@@ -85,9 +85,10 @@ export default {
 			zhuanchang_arry: [],
 			leixing:'',
 			neirong:'',
-			phone:'13122223333',
+			phone:'',
 			typeid:'',
-			zhineng:''
+			zhineng:'',
+			consultid:''
 			
 		};
 	},
@@ -118,7 +119,13 @@ export default {
 			.then(res => {
 				this.zhuanchang_arry = res.data.shanchang;
 			});
-			
+			this.$http
+				.post({
+					url: '/mapi/user/user'
+				})
+				.then(res => {
+					this.phone = res.data.user.mobile;
+				});
 		// 查看只能服务报价
 		this.$http
 			.post({
@@ -146,18 +153,64 @@ export default {
 			this.zhifu = i;
 		},
 		save(){
-			console.log(this.neirong,this.typeid)
+			if(this.phone==''){
+				uni.showToast({
+					title: '请填写手机号',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false
+			}
+			if(this.neirong==''){
+				uni.showToast({
+					title: '请填写咨询内容',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false
+			}
+			if(this.typeid==''){
+				uni.showToast({
+					title: '请填写咨询类型',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false
+			}
+			this.$http
+				.post({
+					url: '/index/consult/addzhinengpay',
+					data: {
+						type:this.type,
+						information:this.neirong,
+						typeid:this.typeid,
+						phone:this.phone
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.consultid=res.data.consultid
+						
+						if(this.zhifu==2){
+							this.zfb_pay(res.data.consultid)
+						}else if(this.zhifu==3){
+							this.yue_pay(res.data.consultid)
+						}
+						
+						
+					}
+				});
+			
+			
+			
 		},
 		
 		zfb_pay(consultid){
 			this.$http
 				.post({
-					url: '/mapi/consult/pay',
+					url: '/mapi/consult/zhinengpay',
 					data: {
-						consultid:consultid,
-						type:this.type,
-						lawyerid:this.lawyerid,
-						information:this.neirong
+						consultid:consultid
 					}
 				})
 				.then(res => {
@@ -193,19 +246,20 @@ export default {
 		yue_pay(consultid){
 			this.$http
 				.post({
-					url: '/index/consult/accountpay',
+					url: '/index/consult/zhinengaccountpay',
 					data: {
 						consultid:consultid,
-		
 					}
 				})
 				.then(res => {
 					if (res.code == 0) {
 					uni.showToast({
 						title: '支付成功',
-						duration: 2000
-											
+						duration: 2000					
 					});
+					setTimeout(function(){
+									uni.navigateBack()
+					},2000) 
 						
 					}
 				});

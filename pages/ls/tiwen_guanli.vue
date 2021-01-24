@@ -24,6 +24,14 @@
 								{{ item.addtime | timeStamp }}
 							</view>
 						</view>
+						<view class="xuanshang_zhuangtai" v-if="item.tiwenstate!=4">
+						<text class=" hong_26">{{item.tiwenstate==2?'待悬赏':item.tiwenstate==3?'已悬赏':''}}</text>
+							
+						</view>
+						<view class="xuanshang_zhuangtai" v-if="item.tiwenstate==4">
+						<text class=" hong_26">{{item.lawyerid==item.userid?'已悬赏已中奖':'已悬赏未 中奖'}}</text>
+							
+						</view>
 					</view>
 					<view class="tiwen_item_top hui_26">
 						<text class="zhuangtai" v-if="item.replynum == 0">新</text>
@@ -52,6 +60,7 @@
 						<!-- <view class="tiwen_ren hui_24">
 							<image :src="img_url+item.user.photourl" mode=""></image>{{item.user.mobile}}
 							</view> -->
+							<text class="hong_26">悬赏金额: {{item.paymoney}}元</text>
 						<button type="" class="huifu hong_24" @click="huifu(item.consultid)">
 							回复
 						</button>
@@ -391,7 +400,7 @@ page {
 .huifu_btn {
 	display: flex;
 	align-items: center;
-	justify-content: flex-end;
+	justify-content: space-between;
 	border-top: 2rpx dashed #c6c6c6;
 	height: 105rpx;
 }
@@ -558,6 +567,12 @@ button::after {
 .tiwen_item_name{
 	display: flex;
 	align-items: center;
+	position: relative;
+	
+}
+.xuanshang_zhuangtai{
+	position: absolute;
+	right: 0;
 }
 	
 .tiwen_item_name_phone{

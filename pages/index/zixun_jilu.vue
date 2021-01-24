@@ -21,12 +21,16 @@
 <view class="zixun_item_top">
 	
 					<view class="zixun_item_left">
-						<view class="zixun_item_tx" @click="go_zhuye(item.lawyerid)">
+						<view class="zixun_item_tx" @click="go_zhuye(item.lawyerid)"v-if="!item.lawyerid">
+							<image src="@/static/img/mohu.png" mode=""class="zixun_item_tx_img"></image>
+						</view>
+						<view class="zixun_item_tx" @click="go_zhuye(item.lawyerid)"v-if="item.lawyerid">
 							<image :src="img_url+item.photourl" mode="" class="zixun_item_tx_img"></image>
 							<image src="@/static/img/renzheng2.png" mode="" class="zixun_item_ren"></image>
 						</view>
 						<view class="zixun_item_xinxi">
-							<view class="hei_26" @click="go_zhuye(item.lawyerid)">
+							<view class="hei_26" @click="go_zhuye(item.lawyerid)"v-if="!item.lawyerid"><image src="@/static/img/dian_mohu.png" mode="" class="mohu"></image></view>
+							<view class="hei_26" @click="go_zhuye(item.lawyerid)" v-if="item.lawyerid">
 								{{item.nickname}}律师
 							</view>
 							<view class="qian_22 zixun_item_feiyong">
@@ -44,7 +48,8 @@
 			</view>
 			</view>
 			<view class="zixun_item_leixing hui_26" v-if="fenlei">
-				<text v-if="item.typeid">咨询类型：{{ fenlei[item.typeid].typename }}</text>  <text class="hong_26 zixun_item_jiage">￥{{item.paymoney}}/{{item.zixunshicahng==24?'1天':item.zixunshicahng==72?'3天':item.zixunshicahng==720?'1个月':item.zixunshicahng+'小时'}}</text>
+				<text v-if="item.typeid">咨询类型：{{ fenlei[item.typeid].typename }}</text>  
+				<text class="hong_26 zixun_item_jiage">￥{{item.paymoney}}/{{item.zixunshicahng==24?'1天':item.zixunshicahng==72?'3天':item.zixunshicahng==720?'1个月':item.zixunshicahng+'小时'}}</text>
 			</view>
 			<view class="zixun_item_top_bottom" >
 				<view class="fukuan lv_26" v-if="item.zixunstate == 1" @click="pay(item.lawyerid,item.consultid)">
@@ -566,5 +571,17 @@
 			line-height: 60rpx;
 			text-align: center;
 			margin-right: 20rpx;
+	}
+	
+	.zixun_item_tx_img  {
+	width: 100%;
+	height: 100%;
+		box-sizing: border-box;
+		
+		border-radius: 100%;
+	}
+	.mohu{
+		width: 150rpx;
+		height: 30rpx;
 	}
 </style>

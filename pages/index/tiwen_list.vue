@@ -11,16 +11,34 @@
 			</view>
 		</view>
          <view class="tab_top hui_26">
-			<text v-for="(item,index) in tab_arry" :class="['' ,index==active?'hong_26_bold': '']" @click="qiehuan(index)">{{item}}</text>
+			<text v-for="(item,index) in tab_arry" :class="['' ,index==active?'lv_26_bold': '']" @click="qiehuan(index)">{{item}}</text>
 		</view>
 		<view class="zi_body tab_zi_body">
 			<view class="tiwen_list" v-for="item in jilu_list">
-				<view class="tiwen_list_top">
+				<view class="tiwen_list_name">
+					<view class="tiwen_list_name_l">
+					<image :src="img_url+item.reply[0].photourl" mode="" v-if="item.replynum!=0" class="tiwen_list_name_tx"></image>
+					<image src="@/static/img/mohu.png" mode=""v-if="item.replynum==0" class="tiwen_list_name_tx"></image>
+					<view class="tiwen_list_name_right">
+						<view class="hui_24 tiwen_list_name_right_dianhua"v-if="item.replynum!=0">
+						  	{{item.reply[0].mobile}}
+						</view>	
+						<view class="hui_24 tiwen_list_name_right_dianhua"v-if="item.replynum==0">
+						  	<image src="@/static/img/dian_mohu.png" mode=""></image>
+						</view>	
+						<view class="hong_24">
+							悬赏：{{item.paymoney}}元
+						</view>	
+					</view>	
+					</view>	
+					<text class="hong_26">{{item.tiwenstate==2?'待悬赏':item.tiwenstate==3?'已悬赏':item.tiwenstate==4?'已完成':''}}</text>
+				</view>	
+			<!-- 	<view class="tiwen_list_top">
 					<view class="zhuangtai bai_22"  :class="['zhuangtai bai_22',zhuangtai==1?'zanwu':'huida']">
 						{{item.tiwenstate==2?'待悬赏':item.tiwenstate==2?'已悬赏':item.tiwenstate==4?'已完成':''}}
 					</view>
 					<text v-if="item.tiwenstate==4" class="hong_26_bold">悬赏{{item.paymoney}}元</text>
-				</view>
+				</view> -->
 				<view class="tiwen_list_wenti hei_28">
 					{{item.information}}
 				</view>
@@ -32,13 +50,19 @@
 					<image src="@/static/img/shijian.png" mode="" class="shijian"></image>等待律师回复
 					</view>
 					<view class="tiwen_list_huida" v-if="item.reply.length!=0">
-						<view v-for="(ls,ls_index) in item.reply"  v-if="ls_index<3">
-					         <image :src=img_url+ls.photourl mode="">
+						
+					         <image src="@/static/img/yihui.png" mode="">
 				 
-					     </view>
+					    
 					<text class="zhanwei"></text>等<text class="hong_26">{{item.replynum}}</text>位律师回复
 					</view>
-						<text class="lv_26" @click="xq(item.consultid)">{{item.tiwenstate==2?'去悬赏':'查看详情'}}></text>
+						<!-- <text class="lv_26" @click="xq(item.consultid)">{{item.tiwenstate==2?'去悬赏':'查看详情'}}></text> -->
+					<view class="tiwen_caozuo lv_24">
+						<text v-if="item.ispay==1" @click="pay(item.consultid)">立即支付</text>
+						<text v-if="item.tiwenstate==4" class="pingjia" @click="go_pingjia(item.reply[0].userid)"><image src="@/static/img/wen_pingjia.png" mode=""></image>评价</text>
+						<text v-if="item.tiwenstate==2" @click="xq(item.consultid)">去悬赏</text>
+						<text @click="xq(item.consultid)">详情</text>
+					</view>
 				</view>
 			</view>
 
@@ -161,6 +185,16 @@ xq(id){
 		url:'tiwen_list_xq?id='+id
 	})
 },
+pay(consultid){
+	uni.navigateTo({
+		url:'xuanshang?consultid='+consultid
+	})
+},
+go_pingjia(lawyerid){
+	uni.navigateTo({
+		url:'pingjia?lawyerid='+lawyerid
+	})
+},
 qiehuan(index){
 	console.log(index)
 	this.active=index
@@ -281,7 +315,7 @@ huoqu_list(){
 }
 	.tiwen_list {
 		padding: 18rpx 30rpx;
-		border-bottom: 2rpx solid #E8E8E8;
+		border-bottom: 20rpx solid #f5f5f5;
 		
 	}
 
@@ -290,13 +324,13 @@ huoqu_list(){
 		height: 41rpx;
 	}
 	.tiwen_list_bottom {
-		height: 68rpx;
-		background-color: #f3f5f7;
+		height: 105rpx;
 		display: flex;
 		align-items: center;
 		padding-left: 20rpx;
 		justify-content: space-between;
 		margin-top: 11rpx;
+		border-top: 2rpx solid #c6c6c6;
 	}
 .tiwen_list_bottom .shijian{
 		width: 24rpx;
@@ -312,10 +346,10 @@ huoqu_list(){
 		margin-left: 8rpx;
 	}
 	.tiwen_list_huida image{
-		width: 46rpx;
-			height: 46rpx;
+		width: 24rpx;
+		height: 24rpx;
 			border-radius: 100%;
-			border: solid 1rpx #ffffff;
+			
 			margin-left: -8rpx;
 	}
 	.tiwen_list_top {
@@ -338,6 +372,7 @@ huoqu_list(){
 }
 	.tiwen_list_wenti {
 		margin: 22rpx 0 0rpx;
+	     word-break: break-all;
 	}
 	.tan {
 		width: 100%;
@@ -461,5 +496,45 @@ huoqu_list(){
 		border-bottom: 2rpx solid #E8E8E8;
 		height: 98rpx;
 		justify-content: space-between;
+	}
+	.tiwen_list_name{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.tiwen_list_name_tx {
+			width: 66rpx;
+			height: 66rpx;
+			margin-right: 10rpx;
+			border-radius: 100%;
+	}
+	.tiwen_list_name_l{
+		display: flex;
+	}
+	.tiwen_list_name_right_dianhua{
+		margin-bottom: 4rpx;
+	}
+	.tiwen_list_name_right_dianhua image{
+		width: 100rpx;
+		height: 30rpx;
+	}
+	.tiwen_caozuo text{
+		display: inline-block;
+		height: 56rpx;
+			background-color: #ffffff;
+			border-radius: 28rpx;
+			border: solid 1rpx #0eb77e;
+			line-height: 56rpx;
+			padding: 0 30rpx;
+			margin-left: 20rpx;
+	}
+	
+	.pingjia image{
+			width: 28rpx;
+			height: 28rpx;
+			margin-right: 2rpx;
+			vertical-align: middle;
+			position: relative;
+			top: -2rpx;
 	}
 </style>

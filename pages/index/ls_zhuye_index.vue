@@ -67,7 +67,7 @@
 			</view>
 			<view class="fuwu_body">
 				<view class="fuwu_lei_list">
-					<view class="fuwu_lei">
+					<view class="fuwu_lei" @click="tan(1,baojia.chatprice)">
 						<view class="fuwu_lei_left">
 							<view class="bai_26 fuwu_lei_top" >
 							<text class="hei_22_bold" style="color: #12ab83;">在线咨询</text>	 
@@ -76,11 +76,11 @@
 							<text class="hui_20 fuwu_lei_title">简易需求,在线解答</text>
 						</view>
 					
-						<view class="  zaixian_btn hong_24" v-if="baojia&&baojia.chatprice " @click="tan()" >￥<text class="hong34_bold">{{baojia.chatprice}}</text>/天</view>
+						<view class="  zaixian_btn hong_24" v-if="baojia&&baojia.chatprice "  >￥<text class="hong34_bold">{{baojia.chatprice}}</text>/天</view>
 						
 					</view>
 				
-					<view class="fuwu_lei">
+					<view class="fuwu_lei" @click="tan(2,baojia.phoneprice)">
 						<view class="fuwu_lei_left">
 							<view class="bai_26 fuwu_lei_top" >
 								<text class="hei_22_bold" style="color: #bf9a13;">电话咨询</text>
@@ -90,7 +90,7 @@
 							<text class="hui_20 fuwu_lei_title">沟通方便，效率高</text>
 						</view>
 				
-						<view class=" tuwen_btn hong_24" v-if="baojia&&baojia.phoneprice " @click="tan()">￥<text class="hong34_bold" >{{baojia.phoneprice}}</text>/20分钟</view>
+						<view class=" tuwen_btn hong_24" v-if="baojia&&baojia.phoneprice ">￥<text class="hong34_bold" >{{baojia.phoneprice}}</text>/20分钟</view>
 						
 					</view>
 					<view class="fuwu_lei">
@@ -200,9 +200,9 @@
 						<image src="@/static/img/siliao.png" mode=""></image>
 						<view class="hui_26">私聊</view>
 					</view>
-					<view class="dianhua lv_26" @click="tan()">
+					<view class="dianhua lv_26" >
 						<!-- <image src="@/static/img/dianhua_lv.png" mode=""></image> -->
-					 <view class="lv_24 bottom_jiage" v-if="baojia&&baojia.jianmian">
+					 <view class="lv_24 bottom_jiage" v-if="baojia&&baojia.jianmian" @click="tan(0,baojia.jianmian)">
 					 	￥<text class="lv_32">{{baojia.jianmian}}</text>
 					 </view>
 					 <view class="bai_24 bottom_jiage" v-if="!baojia || !baojia.jianmian ">
@@ -210,9 +210,9 @@
 					 </view>
 						见面咨询
 					</view>
-					<view class="zaixian bai_26" @click="tan()">
+					<view class="zaixian bai_26" >
 						<!-- <image src="@/static/img/zaixian_bai.png" mode=""></image> -->
-						<view class="bai_24 bottom_jiage" v-if="baojia&&baojia.chatprice">
+						<view class="bai_24 bottom_jiage" v-if="baojia&&baojia.chatprice" @click="tan(1,baojia.chatprice)">
 							￥<text class="bai_32">{{baojia.chatprice}}</text>
 						</view>
 						<view class="bai_24 bottom_jiage" v-if="!baojia || !baojia.chatprice ">
@@ -251,11 +251,11 @@
 					服务类型
 				</view>
 				<view class="tan_jiage_title_list hui_26 tan_jiage_title_leixing">
-					<text @click="huan_leixing(0)" :class="leixing_index==0?'tan_xuan_active':''" v-if="baojia.jianmian">见面咨询</text>
 					<text @click="huan_leixing(1)" :class="leixing_index==1?'tan_xuan_active':''" v-if="baojia.chatprice || baojia.zaixian3 ||baojia.zaixian30 ">在线咨询</text>
 					<text @click="huan_leixing(2)" :class="leixing_index==2?'tan_xuan_active':''" v-if="baojia.dianhua || baojia.dianhua1 || baojia.dianhua3 || baojia.dianhua30 ">电话咨询</text>
 					<text @click="huan_leixing(3)" :class="leixing_index==3?'tan_xuan_active':''" v-if="baojia.hetong_daixie || baojia.hetong_shenhe || baojia.hetong_wenshu ">合同事务</text>
 					<text @click="huan_leixing(4)" :class="leixing_index==4?'tan_xuan_active':''" v-if="baojia.lvshi_huijian || baojia.lvshihan || baojia.anjianzhidao ">诉讼委托</text>
+					<text @click="huan_leixing(0)" :class="leixing_index==0?'tan_xuan_active':''" v-if="baojia.jianmian">见面咨询</text>
 				</view>
 				<view class="tan_jiage_title hei_28_bold">
 					服务时长
@@ -658,8 +658,22 @@ export default {
 			})
 		},
 		// 底部弹窗
-		tan() {
+		tan(type,money) {
+			if(!this.baojia){
+				return false
+			}
 			this.$refs.popup.open();
+			this.pay_money=money
+			this.shichang_index=1
+			this.leixing_index=type
+			if(type==1){
+				this.shichang_txt='1天'
+			}else if(type==2){
+				this.shichang_txt='20分钟'
+			}else{
+				this.shichang_txt='1次'
+			}
+			
 		},
 		huan_leixing(index){
 			

@@ -14,19 +14,19 @@
 			<view class="pay_top">
 				<view class="pay_list">
 					<text class="qian_30">咨询地区</text>
-					<text class="hei_30">{{data.dizhi}}</text>
+					<text class="hei_30">{{data.province}}-{{data.city}}-{{data.area}}</text>
 				</view>
-				<view class="pay_list">
+				<view class="pay_list" v-if="fenlei_arry.length>0">
 					<text class="qian_30">咨询类型</text>
-					<text class="hei_30">{{data.lei}}</text>
+					<text class="hei_30">{{fenlei_arry[data.typeid].typename}}</text>
 				</view>
-				<view class="pay_list">
+				<!-- <view class="pay_list">
 					<text class="qian_30">手机号码</text>
 					<input type="text" value="" v-model="phone" placeholder="请输入" class="hei_30" />
-				</view>
+				</view> -->
 				<view class="pay_list wen_list">
 					<view class="qian_30 wen_list_top">咨询内容</view>
-					<view class="hei_30 wen_neirong "> {{data.neirong}}</view>
+					<view class="hei_30 wen_neirong "> {{data.information}}</view>
 				</view>
 			</view>
 		</view>
@@ -59,18 +59,33 @@
 export default {
 	data() {
 		return {
-			neirong: '',
-			phone: '',
+			
+			
 			jine_arry: ['1.00', '3.00', '5.00', '10.00', '20.00'],
 			xuan_index: 0,
-			data:''
+			data:'',
+			consultid:'',
+			fenlei_arry:[]
 		};
 	},
 
 	created() {},
 	onLoad(option) {
-		this.data=JSON.parse(option.data)
-		console.log(this.data)
+	
+		this.consultid=option.consultid
+		// 获取分类
+				this.$http.post({
+					url: '/mapi/index/gettype',
+				}).then(res => {
+				  
+				      var array = [];
+				       for(var key in res.data.type){
+				          array.push(res.data.type[key]);
+				       }
+					this.fenlei_arry=array		
+					this.huoqu_xq()
+				})
+		
 		
 	},
 	methods: {
@@ -80,10 +95,89 @@ export default {
 		xuan(index) {
 			this.xuan_index = index;
 		},
-		save(){
-			uni.navigateTo({
-				url:'tiwen_list'
+		huoqu_xq(){
+			this.$http.post({
+				url: '/mapi/consult/zixun_xq',
+				data:{
+					consultid:this.consultid
+				},
+				
+			}).then(res => {
+				if(res.code==0){
+					this.data=res.data.consult
+				}
+				console.log(res)
+			
 			})
+		},
+		save(){
+			this.$http.post({
+				url: '/mapi/consult/pay',
+				data:{
+					consultid:this.consultid,
+					paymoney:this.jine_arry[this.xuan_index]
+				},
+				
+			}).then(res => {
+				if(res.code==0){
+					
+					
+					
+					uni.requestPayment({
+					       provider: 'alipay',
+					       orderInfo:res.data.response,
+					       success: function(res) {
+					           console.log('success:' + JSON.stringify(res));
+							   uni.showToast({
+							   	title: '支付成功',
+							   	duration: 2000
+							   });
+							 this.shuru_txt=''
+							 setTimeout(function(){
+							 				uni.navigateTo({
+							 					url:'tiwen_list'
+							 				})
+							 },2000)
+							   
+					       },
+					       fail: function(err) {
+							   uni.showToast({
+							   	title: '支付失败',
+							   	duration: 2000,
+								icon: 'none'
+							   });
+					           console.log('fail:' + JSON.stringify(err));
+					       }
+					   });
+				}
+			})
+			
+		},
+		pay(consultid){
+			uni.requestPayment({
+			       provider: 'alipay',
+			       orderInfo:res.data.response,
+			       success: function(res) {
+			           console.log('success:' + JSON.stringify(res));
+					   uni.showToast({
+					   	title: '支付成功',
+					   	duration: 2000
+					   });
+					   
+					  setTimeout(function(){
+					  				uni.navigateBack()
+					  },2000) 
+					   
+			       },
+			       fail: function(err) {
+					   uni.showToast({
+					   	title: '支付失败',
+					   	duration: 2000,
+						icon: 'none'
+					   });
+			           console.log('fail:' + JSON.stringify(err));
+			       }
+			   });
 		},
 		zanbu(){
 			uni.navigateTo({

@@ -959,6 +959,10 @@ scroll-view ::-webkit-scrollbar {
 .zixun_title {
 	margin-bottom: 14rpx;
 	line-height: 36rpx;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
 }
 
 .shijian image {

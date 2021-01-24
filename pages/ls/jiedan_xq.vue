@@ -15,20 +15,20 @@
 
 		
 			<view class="jiedan_top">
-				<image src="@/static/lsimg/moren_tx.png" mode="" class="jiedan_tx"></image>
+				<image :src="img_url+item.photourl" mode="" class="jiedan_tx"></image>
 				<view class="jiedan_top_right">
 					<view class="hei_30">
-						张晓霞女士
+						{{item.nickname}}
 					</view>
 					<view class="hui_26 dianhua">
-						151****1010  <text class="kejian bai_26">接洽后可见</text>
+						{{yincang(item.phone) }}  <text class="kejian bai_26">接洽后可见</text>
 					</view>
 					<view class="jiedan_top_bot qian_22">
 						<view class="dizhi">
-							<image src="@/static/img/dizhi.png" mode=""></image>陕西-西安
+							<image src="@/static/img/dizhi.png" mode=""></image>{{item.province}}-{{item.city}}
 						</view>
 						<view class="time">
-							<image src="@/static/lsimg/shijian_icon.png" mode=""></image>2020-08-12 09:20:46
+							<image src="@/static/lsimg/shijian_icon.png" mode=""></image>{{ item.addtime | timeStamp }}
 						</view>
 					</view>
 				</view>
@@ -38,22 +38,15 @@
 				<view class="anjian_xinxi_title hei_30_bold">
 					案件关键信息
 				</view>
-				<view class="guanjian hui_26">
+				<view class="guanjian hui_26" v-if="fenlei_list.length>0">
 					案件关键词：<view class=" hei_26 guanjian_r">
-						债务债权纠纷
+						{{fenlei_list[item.typeid].typename}}
 					</view>
 				</view>
 				<view class="guanjian hui_26">
 					<text class="xq">案情详情：</text>
 					<view class=" hei_26 guanjian_r">
-						共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?
-						共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?
-						共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?
-						共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?
-						共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?
-						共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?
-						共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?
-						共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?共计7万多,现在不还款,我已整理了借款的明细,想走法律程序告他,具体需要怎么做?
+						{{item.information}}
 					</view>
 				</view>
 			</view>
@@ -84,7 +77,7 @@
 
 		data() {
 			return {
-
+                img_url: uni.getStorageSync('img_url'),
 				yuming: '',
 				beianhao: '',
 				xingming: '',
@@ -94,18 +87,27 @@
 				weixin: '',
 				youshi_txt:'',
 				is_dis:false,
-				bt_txt:'提交申请'
+				bt_txt:'提交申请',
+				item:'',
+				fenlei_list:[]
 			}
 		},
 		created() {
 
 		},
 		onLoad(option) {
-           
+           this.item=JSON.parse(option.item)
 		   // this.is_dis=true,
 		   // this.bt_txt='此网站已开通'
-		   
-
+		   console.log(this.item)
+          // 获取分类
+          this.$http
+          	.post({
+          		url: '/mapi/index/gettype'
+          	})
+          	.then(res => {
+          		this.fenlei_list = res.data.type;
+          	});
 		},
 		methods: {
 			navigateBack() {
@@ -114,12 +116,51 @@
 
 
 			save() {
-
-			
-
-				
+			this.$http
+				.post({
+					url: '/mlawyerapi/consult/qiangdan',
+					data:{
+						consultid:this.item.consultid
+					}
+				})
+				.then(res => {
+					if(res.code==0){
+						uni.showToast({
+							title: '抢单成功',
+							duration: 2000
+						});
+						setTimeout(function(){
+						 uni.navigateTo({
+						 	url:'zixun_jilu'
+						 })
+						},2000) 
+					}
+				})
+			},
+			yincang(num){
+		        num =num.replace(/^(\d{3})\d{4}(\d+)/,"$1****$2")
+				return num
 			}
 
+		},
+		filters: {
+			timeStamp: function(value) {
+				if(value==null){
+					return 'null'
+				}
+				var i = (value + '').length;
+				while (i++ < 13) value = value + '0';
+				value = Number(value);
+				var date = new Date(value);
+				//date.setTime(value);
+				var month = date.getMonth() + 1;
+				var hours = date.getHours();
+				if (hours < 10) hours = '0' + hours;
+				var minutes = date.getMinutes();
+				if (minutes < 10) minutes = '0' + minutes;
+				var time = date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + hours + ':' + minutes;
+				return time;
+			}
 		}
 	}
 </script>

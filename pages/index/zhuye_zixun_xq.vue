@@ -89,7 +89,11 @@
 							
 							<text class="zhuiwen_body qian_24">{{ zhui_item.information }}</text> -->
 						</view>
+						<view class="qian_26 zantong">
+						 <text @click="zantong(item.crid)"><image src="@/static/img/zantong.png" mode=""></image>{{item.zantong==1?'已赞同':'赞同'}}</text>	{{item.agreenum}}人赞同了该回答
+						</view>
 					</view>
+					
 					
 				</view>
 			</view>
@@ -199,7 +203,8 @@ export default {
 			is_all: false,
 			fenlei_list:[],
 			type:2,
-			tiao_type:1
+			tiao_type:1,
+			consultid:''
 		};
 	},
 	created() {},
@@ -208,11 +213,11 @@ export default {
 		navigateBack() {
 			uni.navigateBack();
 		},
-		get_xq(id) {
+		get_xq() {
 			this.$http.post({
 					url: '/mapi/consult/zixun_xq',
 					data: {
-						consultid: id
+						consultid: this.wenid
 					}
 				})
 				.then(res => {
@@ -250,6 +255,7 @@ export default {
 							duration: 2000,
 							icon: 'none'
 						});
+						
 					}
 				});
 			
@@ -313,6 +319,25 @@ export default {
 				url:'sucai?state=1'
 			})
 		},
+		zantong(crid){
+			this.$http.post({
+					url: '/index/consult/zantong',
+					data: {
+						crid: crid
+					}
+				})
+				.then(res => {
+					if(res.code==0){
+						uni.showToast({
+							title: ''+res.message,
+							duration: 2000
+						});	
+						this.get_xq()
+					}
+
+				});
+			
+		}
 	},
 	filters: {
 		timeStamp: function(value) {
@@ -587,5 +612,19 @@ page {
 	white-space: normal;
 	word-break: break-all;
 	margin: 20rpx 0;
+}
+.zantong image{
+	width: 22rpx;
+	height: 22rpx;
+	margin-right: 4rpx;
+}
+.zantong text{
+	padding: 0 6rpx;
+	
+	background-color: #dcebfa;
+	border-radius: 2rpx;
+	font-size: 26rpx;
+	color:#46a0f8 ;
+	margin-right: 20rpx;
 }
 </style>

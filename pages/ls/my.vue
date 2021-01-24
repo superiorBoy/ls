@@ -60,12 +60,15 @@
 						</view>	
 						<view  class="jiedan_item_right">
 							<view  class="jiedan_item_right_txt">
+								<view  class="jiedan_item_right_txt_left">
 								<view class="hei_24">
 									优质咨询
 								</view>
 								<view class="qian_20 jiedan_item_txt">
 									快速提交咨询问题，高效匹配专业律师，解答完成获得悬赏！
 								</view>
+								</view>	
+								<text class="zixun_num">+{{geshu.tiwen}}</text>
 							</view>	
 						</view>	
 						
@@ -78,12 +81,15 @@
 						</view>	
 						<view  class="jiedan_item_right">
 							<view  class="jiedan_item_right_txt">
+								<view  class="jiedan_item_right_txt_left">
 								<view class="hei_24">
 									咨询记录
 								</view>
 								<view class="qian_20 jiedan_item_txt">
 									文字/语音/图片等多种沟通方式，适应不同问题的在线咨询！
 								</view>
+								</view>
+								<text class="zixun_num">+{{geshu.zaixian}}</text>
 							</view>	
 						</view>	
 						
@@ -96,12 +102,36 @@
 						</view>	
 						<view  class="jiedan_item_right">
 							<view  class="jiedan_item_right_txt">
+								<view  class="jiedan_item_right_txt_left">
 								<view class="hei_24">
 									电话咨询
 								</view>
 								<view class="qian_20 jiedan_item_txt">
 									律师给您电话针对性解答，能让您快速解决法律问题！
 								</view>
+								</view>	
+								<text class="zixun_num">+{{geshu.dianhua}}</text>
+							</view>	
+						</view>	
+						
+						
+					</view>
+					<view  class="jiedan_item" @click="tiaozhuan('qita_jilu')">
+						<view  class="jiedan_item_left">
+							<image src="@/static/lsimg/jiedan4.png" mode="" class="jiedan_img" style="width: 46rpx;height: 46rpx;"></image>
+							<image src="@/static/lsimg/new.png" mode="" class="new"></image>
+						</view>	
+						<view  class="jiedan_item_right">
+							<view  class="jiedan_item_right_txt">
+								<view  class="jiedan_item_right_txt_left">
+								<view class="hei_24">
+									其他咨询
+								</view>
+								<view class="qian_20 jiedan_item_txt">
+									了解真实案例，监督侦察工作，保障当事人合法权益！
+								</view>
+								</view>	
+							<text class="zixun_num">+{{geshu.other}}</text>
 							</view>	
 						</view>	
 						
@@ -415,6 +445,7 @@ page {
 	display: flex;
 	height: 140rpx;
 	border-bottom: 2rpx dashed #e2e2e2;
+	width: 100%;
 }
 .jiedan_item:last-child{
 	border: none;
@@ -434,8 +465,9 @@ page {
 }
 .jiedan_item_right{
 	margin-left: 30rpx;
-	padding-right: 30rpx;
+	padding-right: 20rpx;
 	position: relative;
+	width: 100%;
 }
 .jiedan_item_txt{
 	margin-top: 2rpx;
@@ -522,5 +554,20 @@ page {
 	line-height: 50rpx;
 	border: 2rpx solid #eeeeee;
 	text-align: center;
+}
+.jiedan_item_right_txt{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.jiedan_item_right_txt_left{
+	width: 89%;
+}
+.zixun_num{
+	background-color: #f43a51;
+	border-radius: 20rpx;
+	color: #FFFFFF;
+	font-size: 22rpx;
+	padding: 2rpx 6rpx;
 }
 </style>

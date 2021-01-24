@@ -42,9 +42,9 @@
 		</view>
 
 		<view class="my_bottom">
-			<navigator url="zhineng_pay" class="xianshi">
+			<navigator url="zhineng_pay?type=1" class="xianshi">
 					<image src="@/static/img/hy_guanggao.png" mode=""></image>
-					<view class="jiage hei_20_bold">限时29元/小时</view>
+					<view class="jiage hei_20_bold">限时{{baojia.zaixianprice}}元/{{baojia.zaixiantime}}小时</view>
 			</navigator>
 
 			<view class="my_guanli zixun_guanli">
@@ -67,7 +67,7 @@
 						<image src="@/static/img/hy_dianhua.png" mode="" style="width: 40rpx;height: 40rpx;"></image>
 						<view class="hui_24 ">电话咨询</view>
 					</navigator>
-					<navigator url="zaixian_list" class="ls_item">
+					<navigator url="qita_jilu" class="ls_item">
 						<image src="@/static/img/hy_other.png" mode="" style="width: 40rpx;height: 41rpx;"></image>
 						<view class="hui_24 ">其他服务</view>
 					</navigator>
@@ -149,7 +149,8 @@ export default {
 			user:'',
 			img_url: uni.getStorageSync('img_url'),
 			is_login:false,
-			geshu:''
+			geshu:'',
+			baojia:''
 			
 		};
 	},
@@ -180,7 +181,7 @@ export default {
 						this.is_login=true
 						this.huoqu_user()
 						this.huoqu_geshu()
-						
+						this.huoqu_baojia()
 						this.$http
 							.post({
 								url: '/mapi/consult/messagecount'
@@ -190,7 +191,7 @@ export default {
 								if(res.data.messagecount>0){
 									uni.setTabBarBadge({
 									  index: 3,
-									  text: ''+num
+									  text: ''+res.data.messagecount
 									})
 								}else{
 									 uni.removeTabBarBadge({
@@ -213,6 +214,16 @@ export default {
 				.then(res => {
 					
 					this.geshu=res.data.count
+				});
+		},
+		huoqu_baojia(){
+			this.$http
+				.post({
+					url: '/mapi/index/getzixun'
+				})
+				.then(res => {
+					
+					this.baojia=res.data.zhan
 				});
 		}
 	},
@@ -351,15 +362,18 @@ page {
 }
 .jiage {
 	position: absolute;
-	right: 24rpx;
-	top: 50%;
+	right:-32rpx;
+	top: 26%;
 	text-align: center;
 	line-height: 48rpx;
 	transform: translate(-0%, -50%);
-	width: 180rpx;
+	width: 280rpx;
 	height: 48rpx;
 	background-color: #ffad2b;
 	border-radius: 24rpx;
+	transform: scale(0.7);
+	
+
 }
 .xianshi image {
 	width: 100%;

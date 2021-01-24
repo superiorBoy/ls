@@ -212,19 +212,7 @@ export default {
 				return false
 				
 			}
-			var data={
-				lei:this.fenlei,
-				neirong:this.shuru_txt,
-				dizhi:this.dizhi,
-				typeid:this.leiid
-				
-			}
-		
-		    uni.navigateTo({
-		    	url:'xuanshang?data='+JSON.stringify(data)
-		    })
-
-			 return false
+	
 			this.$http.post({
 				url: '/mapi/consult/addconsult',
 				data:{
@@ -237,16 +225,10 @@ export default {
 				
 			}).then(res => {
 				if(res.code==0){
-					uni.showToast({
-						title: '提交成功',
-						duration: 2000
-					});
-					this.shuru_txt=''
-					setTimeout(function(){
-									uni.navigateTo({
-										url:'xuanshang'
-									})
-								},2000)
+					
+					uni.navigateTo({
+						url:'xuanshang?consultid='+res.data
+					})
 					
 				}
 				console.log(res)

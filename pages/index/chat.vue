@@ -4,7 +4,7 @@
 			<view class="head_back" style="width: 10%;"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
 			<view class="head_center " style="width: 80%;">
 				<view class="hei_38_bold top_title">{{ title }}</view>
-				<view class="hong_20 chat_lvsuo">剩余咨询时间:0天09:00:00</view>
+				<view class="hong_20 chat_lvsuo">剩余咨询时间:{{day}}天{{hour}}:{{minute}}:{{seconds}}</view>
 			</view>
 			<view class=" head_right hei_30_bold" style="width: 10%;"></view>
 		</view>
@@ -110,11 +110,11 @@
 						<view class="chat_top_right">
 							<view class="chat_top_right_top">
 								<view class="chat_top_xinxi_item">
-									<view class="hei_22 chat_top_xinxi_item_num">2</view>
+									<view class="hei_22 chat_top_xinxi_item_num">{{xinxi.zhiyenianfen}}</view>
 									<view class="qian_22">执业年限</view>
 								</view>
 								<view class="chat_top_xinxi_item">
-									<view class="hei_22 chat_top_xinxi_item_num">14511</view>
+									<view class="hei_22 chat_top_xinxi_item_num">{{ls_xinxi.replynum}}</view>
 									<view class="qian_22">咨询人数</view>
 								</view>
 								<view class="chat_top_xinxi_item">
@@ -127,10 +127,10 @@
 					</view>
 
 					<view class="chat_top_bottom lv_24">
-						<view class="chat_top_jia">
+						<view class="chat_top_jia"@click="go_zhuye()">
 								在线咨询{{ ls_xinxi.chatprice }}元/天
 						</view>
-						<view class="chat_top_jia">
+						<view class="chat_top_jia" @click="go_zhuye()">
 								电话咨询{{ ls_xinxi.phoneprice }}元/20分钟
 						</view>
 					</view>
@@ -166,7 +166,7 @@
 									<view class="send_jia_top_r hui_20">
 										<view class="hui_24">
 											{{ls_xinxi.nickname}}律师
-											<text class="qian_20 send_jia_top_zhiwei">{{zhiwu}}</text>
+											<text class="qian_20 send_jia_top_zhiwei">{{xinxi.zhiwu}}</text>
 										</view>
 										<view class="send_jia_top_r_dizhi">
 											<image src="@/static/img/chat_dizhi.png" mode=""></image>
@@ -210,7 +210,7 @@
 													<view class="send_jia_top_r hui_20">
 														<view class="hui_24">
 															{{ls_xinxi.nickname}}律师
-															<text class="qian_20 send_jia_top_zhiwei">{{zhiwu}}</text>
+															<text class="qian_20 send_jia_top_zhiwei">{{xinxi.zhiwu}}</text>
 														</view>
 														<view class="send_jia_top_r_dizhi">
 															<image src="@/static/img/chat_dizhi.png" mode=""></image>
@@ -247,7 +247,9 @@
 									<view class="chat_left_txt hei_30">
 										<text class="ls_name">{{ title }}</text>
 										<view class="send_xuanze hei_26">
-											
+											<view class="">
+												您好：遇到什么问题了，请先详细描述一下事情经过，我好根据您的情况解答！
+											</view>
 											<view>描述完之后，选择一下您方便的咨询的方式：</view>
 											<view class="hong_26" @click="send_zaixian()">【在线咨询-可看记录】</view>
 											<view class="hong_26" @click="send_dianhua()">【电话咨询-时时对话】</view>
@@ -274,7 +276,7 @@
 														<image :src="img_url+ls_xinxi.photourl" mode=""></image>
 														<view class="send_pay_ls_riht">
 															<view class="hui_24">{{ls_xinxi.nickname}}律师</view>
-															<view class="qian_20 send_pay_ls_zhiwu">{{zhiwu}}</view>
+															<view class="qian_20 send_pay_ls_zhiwu">{{xinxi.zhiwu}}</view>
 														</view>
 													</view>
 												</view>
@@ -300,7 +302,7 @@
 															<image :src="img_url+ls_xinxi.photourl" mode=""></image>
 															<view class="send_pay_ls_riht">
 																<view class="hui_24">{{ls_xinxi.nickname}}律师</view>
-																<view class="qian_20 send_pay_ls_zhiwu">{{zhiwu}}</view>
+																<view class="qian_20 send_pay_ls_zhiwu">{{xinxi.zhiwu}}</view>
 															</view>
 														</view>
 													</view>
@@ -346,7 +348,7 @@
 								<view class="send_jia_top_r hui_20">
 									<view class="hui_24">
 										{{ls_xinxi.nickname}}律师
-										<text class="qian_20 send_jia_top_zhiwei">{{zhiwu}}</text>
+										<text class="qian_20 send_jia_top_zhiwei">{{xinxi.zhiwu}}</text>
 									</view>
 									<view class="send_jia_top_r_dizhi">
 										<image src="@/static/img/chat_dizhi.png" mode=""></image>
@@ -386,7 +388,7 @@
 								<view class="send_jia_top_r hui_20">
 									<view class="hui_24">
 										{{ls_xinxi.nickname}}律师
-										<text class="qian_20 send_jia_top_zhiwei">{{zhiwu}}</text>
+										<text class="qian_20 send_jia_top_zhiwei">{{xinxi.zhiwu}}</text>
 									</view>
 									<view class="send_jia_top_r_dizhi">
 										<image src="@/static/img/chat_dizhi.png" mode=""></image>
@@ -421,6 +423,9 @@
 				<view class="chat_list chat_right" v-if="item.userid_from != ls_id&&item.msgtype == 5">
 					<view class="chat_right_txt hei_30">
 						<view class="send_xuanze hei_26">
+							<view class="">
+								您好：遇到什么问题了，请先详细描述一下事情经过，我好根据您的情况解答！
+							</view>
 							<view>描述完之后，选择一下您方便的咨询的方式：</view>
 							<view class="hong_26" @click="send_zaixian()">【在线咨询-可看记录】</view>
 							<view class="hong_26" @click="send_dianhua()">【电话咨询-时时对话】</view>
@@ -455,7 +460,7 @@
 								<image :src="img_url+ls_xinxi.photourl" mode=""></image>
 								<view class="send_pay_ls_riht">
 									<view class="hui_24">{{ls_xinxi.nickname}}律师</view>
-									<view class="qian_20 send_pay_ls_zhiwu">{{zhiwu}}</view>
+									<view class="qian_20 send_pay_ls_zhiwu">{{xinxi.zhiwu}}</view>
 								</view>
 							</view>
 						</view>
@@ -478,7 +483,7 @@
 								<image :src="img_url+ls_xinxi.photourl" mode=""></image>
 								<view class="send_pay_ls_riht">
 									<view class="hui_24">{{ls_xinxi.nickname}}律师</view>
-									<view class="qian_20 send_pay_ls_zhiwu">{{zhiwu}}</view>
+									<view class="qian_20 send_pay_ls_zhiwu">{{xinxi.zhiwu}}</view>
 								</view>
 							</view>
 						</view>
@@ -579,9 +584,12 @@ export default {
 		// #endif
 	},
 	onShow() {},
-	onHide() {},
+	onHide() {
+		
+	},
 	onUnload() {
 		console.log('onUnload');
+		this.time1='0'
 		// #ifdef APP-PLUS
 		// socket.closeSocket();
 		// #endif
@@ -612,7 +620,12 @@ export default {
 			// 确保websocket是打开状态
 			is_open_socket: false,
 			zhuanchang_arry:'',
-			zhiwu:''
+			xinxi:'',
+			day:0,
+			hour:'00',
+			minute:'00',
+			seconds:'00',
+			time1:'0'
 		};
 	},
 	//下拉刷新
@@ -694,6 +707,7 @@ export default {
 			})
 		},
 		huoqu_xiaoxi_list() {
+			var that=this
 			this.$http
 				.post({
 					url: '/mapi/consult/chatdeatils',
@@ -710,6 +724,35 @@ export default {
 					setTimeout(() => {
 						uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 					}, 200);
+					
+				  	that.time1 = res.data.shijian
+					
+					// 倒计时
+					var interval = setInterval(function () {
+					    var to = new Date(that.time1.replace(/-/g, "/"));
+					    var now = new Date();
+					    var time = to.getTime() - now.getTime();
+						
+					    if(time < 0){
+					        clearInterval(interval);
+					    }else {
+					
+					        var day = parseInt(time / 1000 / 60 / 60 / 24);
+					        var hour = parseInt(time / 1000 / 60 / 60 % 24);
+					        var minute = parseInt(time / 1000 / 60 % 60);
+					        var seconds = parseInt(time / 1000 % 60);
+					        if (minute <= 9) minute = '0' + minute;
+					        if (seconds <= 9) seconds = '0' + seconds;
+
+					       that.day=day
+						   that.hour=hour
+						   that.minute=minute
+						   that.seconds=seconds
+			
+					    }
+						
+					}, 1000);
+					
 				});
 		},
 		huojiao() {
@@ -818,7 +861,8 @@ export default {
 					}
 				})
 				.then(res => {
-					this.zhiwu = res.data.lawyer.zhiwu;
+					
+					this.xinxi = res.data.lawyer;
 				});
 		},
 		replace_em(str) {
@@ -1375,7 +1419,7 @@ button {
 	text-align: center;
 }
 .chat_top_xinxi_item_num {
-	margin-bottom: 16rpx;
+	margin-bottom: 12rpx;
 	margin-top: 16rpx;
 }
 .chat_jia_pay {

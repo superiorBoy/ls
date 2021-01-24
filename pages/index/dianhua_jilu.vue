@@ -14,12 +14,17 @@
 					<view class="zixun_item_top">
 					
 					<view class="zixun_item_left">
-						<view class="zixun_item_tx" @click="go_zhuye(item.lawyerid)">
+						<view class="zixun_item_tx" @click="go_zhuye(item.lawyerid)" v-if="!item.lawyerid">
+							<image src="@/static/img/mohu.png" mode=""class="zixun_item_tx_img"></image>
+						</view>
+						<view class="zixun_item_tx" @click="go_zhuye(item.lawyerid)"v-if="item.lawyerid">
 							<image :src="img_url+item.photourl" mode="" class="zixun_item_tx_img"></image>
 							<image src="@/static/img/renzheng2.png" mode="" class="zixun_item_ren"></image>
-							</view>
+						</view>
 						<view class="zixun_item_xinxi">
-							<view class="hei_26" @click="go_zhuye(item.lawyerid)">{{ item.nickname }}律师</view>
+							<view class="hei_26" @click="go_zhuye(item.lawyerid)"v-if="!item.lawyerid"><image src="@/static/img/dian_mohu.png" mode="" class="mohu"></image></view>
+							<view class="hei_26" @click="go_zhuye(item.lawyerid)" v-if="item.lawyerid">{{ item.nickname }}律师</view>
+		
 							<view class="qian_22 zixun_item_feiyong">
 							        {{ item.addtime | timeStamp }}
 							</view>
@@ -32,7 +37,8 @@
 					</view>
 					</view>
 					<view class="zixun_item_leixing hui_26" >
-						<text v-if="item.typeid && fenlei[item.typeid]">咨询类型：{{ fenlei[item.typeid].typename }}</text>  <text class="hong_26 zixun_item_jiage">￥{{item.paymoney}}/{{item.zixunshicahng*20}}分钟</text>
+						<text v-if="item.typeid && fenlei[item.typeid]">咨询类型：{{ fenlei[item.typeid].typename }}</text>  
+						<text class="hong_26 zixun_item_jiage">￥{{item.paymoney}}/{{item.baojiamode=='zhineng_dianhua'?item.zixunshicahng+'分钟':item.baojiamode=='phoneprice'?'20分钟':item.baojiamode=='dianhua1'?'1天':item.baojiamode=='dianhua3'?'3天':item.baojiamode=='dianhua30'?'1月':''}}</text>
 					</view>
 					<view class="zixun_item_top_bottom">
 						<view class="fukuan lv_26" v-if="item.zixunstate==1" @click="pay(item.lawyerid,item.consultid,item.information)">
@@ -555,5 +561,9 @@ button::after {
 			line-height: 60rpx;
 			text-align: center;
 			margin-right: 20rpx;
+	}
+	.mohu{
+		width: 150rpx;
+		height: 30rpx;
 	}
 </style>
