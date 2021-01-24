@@ -135,11 +135,14 @@ uni-checkbox:not([disabled]) .uni-checkbox-input:hover,uni-radio:not([disabled])
   	padding-top: 84rpx !important;
   }
   .chat_jiage{
-	  top: 160rpx !important;
+	  top: 158rpx !important;
   }
   .index_top_dingwei{
 	  padding-top: 74rpx !important;
 	  
+  }
+  .chat_body{
+	  padding-top: 40rpx !important;
   }
 /*  .tab{
 	  margin-top: 80rpx !important;

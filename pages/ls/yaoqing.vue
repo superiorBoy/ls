@@ -37,26 +37,15 @@
 			</view>
 			<view class="mingdan">
 			
-			<view class="none">
+			<view class="none" v-if="list.length==0">
 				<image src="../../static/lsimg/none_mingdan.png" mode=""></image>
 			</view>
-			<!-- <view class="mimgdan_list bai_30">
-				<text class="paixu">1</text> <text>188****5555</text> <text>12人</text>
+		   <view class="mimgdan_list bai_30" v-for="(item,index) in list"v-if="list.length>0&&index<5">
+								<text class="paixu">{{index+1}}</text> <text>{{item.mobile}}</text> <text>{{item.usercount}}人</text>
 			</view>
-			<view class="mimgdan_list bai_30">
-				<text class="paixu">2</text> <text>188****5555</text> <text>12人</text>
+			
 			</view>
-			<view class="mimgdan_list bai_30">
-				<text class="paixu">3</text> <text>188****5555</text> <text>12人</text>
-			</view>
-			<view class="mimgdan_list bai_30">
-				<text class="paixu">4</text> <text>188****5555</text> <text>12人</text>
-			</view>
-			<view class="mimgdan_list bai_30">
-				<text class="paixu">5</text> <text>188****5555</text> <text>12人</text>
-			</view> -->
-			</view>
-			<button type="default" class="fenxiang">立即分享给好友</button>
+			<button type="default" class="fenxiang" @click="lianjiego">立即分享给好友</button>
 			</view>
 
 			</view>
@@ -86,9 +75,10 @@
 		data() {
 			return {
 				currentPage:'ls/yaoqing',
-				lianjie:'登录后即可生成邀请好友的专属链接',
+				lianjie:'用户端登录后即可生成邀请好友的专属链接',
 				deng_txt:'立即登录',  //复制邀请链接 --- 立即登录
-				weidu:0
+				weidu:0,
+				list:[]
 				
 			}
 		},
@@ -100,26 +90,52 @@
 			
 			this.$http
 				.post({
-					url: '/lawyer/login/islogin'
+					url: '/index/login/islogin'
 				})
 				.then(res => {
 					if(res.data.user==''){
 						this.deng_txt=='立即登录'
 					}else{
-						this.user=res.data.user
-						this.huoqu_user()
-						this.$http
-							.post({
-								url: '/mlawyerapi/consult/messagecount'
-							})
-							.then(res => {
-								this.weidu=res.data.messagecount
-								
-							});
-						
+	                     this.huoqu_ls_login()
+						 this.huoqu_lianjie()
+						 this.huoqu_list()
 					}
 					
 				});
+			},
+			huoqu_list(){
+						   this.$http
+						   	.post({
+						   		url: '/mapi/user/invitecount'
+						   	})
+						   	.then(res => {
+						   		
+								this.list=res.data.rewardlist
+						   	});
+			},
+			huoqu_ls_login(){
+				this.$http
+					.post({
+						url: '/lawyer/login/islogin'
+					})
+					.then(res => {
+						if(res.data.user==''){
+							
+						}else{
+							this.user=res.data.user
+							this.huoqu_user()
+							this.$http
+								.post({
+									url: '/mlawyerapi/consult/messagecount'
+								})
+								.then(res => {
+									this.weidu=res.data.messagecount
+									
+								});
+							
+						}
+						
+					});
 			},
 			huoqu_lianjie(){
 						   this.$http
@@ -148,7 +164,7 @@
 								url:'zhiye_renzheng'
 							})
 						}else{
-							that.huoqu_lianjie()
+
 							
 						}
 					});
@@ -156,7 +172,7 @@
 			lianjiego(){
 				if(this.deng_txt=='立即登录'){
 					wx.navigateTo({
-						url:'login'
+						url:'../index/login?type=3'
 					})
 				}else{
 					  // #ifdef H5

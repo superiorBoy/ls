@@ -25,7 +25,7 @@
 					<navigator url="../index/zhuce?state=2" class="go_denglu">注册</navigator>
 				</view>
 			</view>
-			<view class="my_top_right hei_30_bold" @click="qiehuan">切换到用户中心</view>
+			<view class="my_top_right hei_30_bold" @click="qiehuan" v-if="type==1">切换到用户中心</view>
 		</view>
 
 		<view class="my_ziliao">
@@ -68,7 +68,7 @@
 									快速提交咨询问题，高效匹配专业律师，解答完成获得悬赏！
 								</view>
 								</view>	
-								<text class="zixun_num">+{{geshu.tiwen}}</text>
+								<text class="zixun_num" v-if="geshu.tiwen>0">+{{geshu.tiwen}}</text>
 							</view>	
 						</view>	
 						
@@ -89,7 +89,7 @@
 									文字/语音/图片等多种沟通方式，适应不同问题的在线咨询！
 								</view>
 								</view>
-								<text class="zixun_num">+{{geshu.zaixian}}</text>
+								<text class="zixun_num" v-if="geshu.zaixian>0">+{{geshu.zaixian}}</text>
 							</view>	
 						</view>	
 						
@@ -110,7 +110,7 @@
 									律师给您电话针对性解答，能让您快速解决法律问题！
 								</view>
 								</view>	
-								<text class="zixun_num">+{{geshu.dianhua}}</text>
+								<text class="zixun_num" v-if="geshu.dianhua>0">+{{geshu.dianhua}}</text>
 							</view>	
 						</view>	
 						
@@ -131,7 +131,7 @@
 									了解真实案例，监督侦察工作，保障当事人合法权益！
 								</view>
 								</view>	
-							<text class="zixun_num">+{{geshu.other}}</text>
+							<text class="zixun_num" v-if="geshu.other>0">+{{geshu.other}}</text>
 							</view>	
 						</view>	
 						
@@ -246,6 +246,14 @@ export default {
 	onShow() {
 		this.huiqu_login();
 	},
+	onLoad(option) {
+		if(option.type){
+			this.type=option.type
+		}
+		//#ifdef APP-PLUS
+	  	this.kaiqi();  
+		//#endif
+	},
 	onHide() {
 		// if(this.user){
 			
@@ -268,7 +276,8 @@ export default {
 			img_url: uni.getStorageSync('img_url'),
 			is_login: false,
 			geshu:'',
-		     weidu:0
+		     weidu:0,
+			 type:1
 		};
 	},
 	methods: {
@@ -297,17 +306,20 @@ export default {
 						this.is_login = true;
 						this.huoqu_user();
 				       this.huoqu_geshu()
-						this.$http
-							.post({
-								url: '/mlawyerapi/consult/messagecount'
-							})
-							.then(res => {
-								this.weidu=res.data.messagecount
-								
-							});
+						this.huoshu_weidu()
 					} else {
 						this.is_login = false;
 					}
+				});
+		},
+		huoshu_weidu(){
+			this.$http
+				.post({
+					url: '/mlawyerapi/consult/messagecount'
+				})
+				.then(res => {
+					this.weidu=res.data.messagecount
+					
 				});
 		},
 		huoqu_geshu(){
@@ -346,8 +358,62 @@ export default {
 			   
 		   }
 		 
-	   }
-	}
+	   },
+	   kaiqi() {
+	   	let that = this;
+	   	Object.assign(uni, socket);
+	   	console.log(Object.assign(uni, socket));
+	   	var url = that.$http.WebSocket_url;
+	   	socket.connectSocket({
+	   		url: 'ws://' + url + ':3348',
+	   		success(data) {
+	   			console.log('websocket已连接', JSON.stringify(data));
+	   		}
+	   	});
+	   	socket.onSocketOpen(function(res) {
+	   		console.log('WebSocket连接已打开！');
+	   	});
+	   	socket.onSocketError(function(res) {
+	   		console.log('WebSocket连接打开失败，请检查！', JSON.stringify(res));
+	   	});
+	   	socket.onSocketMessage(function(res) {
+	   		console.log('收到服务器内容：' + res.data);
+	   		var data = JSON.parse(res.data);
+	   
+	   		if (data.type == 'init') {
+	   			console.log('init');
+	   			console.log('client_id', data.client_id);
+	   			uni.request({
+	   				url: that.$http.baseUrl + '/push/gatewayworker/bind',
+	   				method: 'POST',
+	   				data: {
+	   					client_id: data.client_id,
+	   					type:1
+	   				},
+	   
+	   				success: function(resp) {
+	   					console.log(resp, 'bind');
+	   				},
+	   				fail: function(resp) {}
+	   			});
+	   		} else if (data.type == 'say') {
+	   			
+	   			if (data.state) {
+					console.log('say');
+					that.huoshu_weidu()
+	   				void plus.push.createMessage('律师端收到一条新消息');
+	   			}
+	   		} else {
+	   			console.log('else');
+	   		}
+	   		console.log(data);
+	   	});
+	   	socket.onSocketClose(function(res) {
+	   		console.log('WebSocket 已关闭！');
+	   	});
+	   },
+	},
+
 };
 </script>
 

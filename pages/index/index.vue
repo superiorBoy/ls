@@ -498,6 +498,25 @@ export default {
 			const clientInfo = plus.push.getClientInfo();
 			console.log(clientInfo, '6666');
 		},
+		huoqu_weidu(){
+			this.$http
+				.post({
+					url: '/mapi/consult/messagecount'
+				})
+				.then(res => {
+					
+					if(res.data.messagecount>0){
+						uni.setTabBarBadge({
+						  index: 3,
+						  text: ''+res.data.messagecount
+						})
+					}else{
+						 uni.removeTabBarBadge({
+								 index:3
+						})
+					}
+				});
+		},
 		kaiqi() {
 			let that = this;
 			Object.assign(uni, socket);
@@ -537,7 +556,8 @@ export default {
 				} else if (data.type == 'say') {
 					console.log('say');
 					if (data.state) {
-						void plus.push.createMessage('收到一条新消息');
+						void plus.push.createMessage('用户端收到一条新消息');
+						that.huoqu_weidu()
 					}
 				} else {
 					console.log('else');

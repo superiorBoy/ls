@@ -16,18 +16,18 @@
 		<view class="zi_body tab_zi_body">
 			<view class="tiwen_list" v-for="item in jilu_list">
 				<view class="tiwen_list_name">
-					<view class="tiwen_list_name_l">
+					<view class="tiwen_list_name_l" @click="go_zhuye(item.reply[0].userid)">
 					<image :src="img_url+item.reply[0].photourl" mode="" v-if="item.replynum!=0" class="tiwen_list_name_tx"></image>
 					<image src="@/static/img/mohu.png" mode=""v-if="item.replynum==0" class="tiwen_list_name_tx"></image>
 					<view class="tiwen_list_name_right">
-						<view class="hui_24 tiwen_list_name_right_dianhua"v-if="item.replynum!=0">
+						<view class="hui_24 tiwen_list_name_right_dianhua"v-if="item.replynum!=0"  @click="go_zhuye(item.reply[0].userid)">
 						  	{{item.reply[0].mobile}}
 						</view>	
 						<view class="hui_24 tiwen_list_name_right_dianhua"v-if="item.replynum==0">
 						  	<image src="@/static/img/dian_mohu.png" mode=""></image>
 						</view>	
 						<view class="hong_24">
-							悬赏：{{item.paymoney}}元
+							悬赏：{{item.ispay==2?item.paymoney:'0'}}元
 						</view>	
 					</view>	
 					</view>	
@@ -121,7 +121,7 @@ onLoad() {
 
 		data() {
 			return {
-				    tab_arry: ['全部', '待付款', '待悬赏','已悬赏'],
+				    tab_arry: ['全部', '待付款','已付款','待悬赏','已悬赏'],
                       zhuangtai:2,
 					  active:0,
 					  jilu_list:[],
@@ -207,20 +207,14 @@ qiehuan(index){
 	this.is_all=false
 	this.huoqu_list()
 },
+go_zhuye(lawyerid){
+	uni.navigateTo({
+		url: 'ls_zhuye?lawyerid=' + lawyerid
+	});
+},
 	// 获取提问记录列表
 huoqu_list(){
-	if(this.active==0){
-		this.state=0
-	}else if(this.active==1){
-		
-		this.state=1
-	}else if(this.active==2){
-		
-		this.state=3
-	}else if(this.active==3){
-		
-		this.state=4
-	}
+
 	console.log(this.time)
 	 
 	 if(this.time!=''&&this.time2!=''){
@@ -233,7 +227,7 @@ huoqu_list(){
 			url: '/mapi/consult/tiwenlist',
 			data:{
 				page: this.page,
-				state:this.state,
+				state:this.active,
 				jine:this.name,
 				neirong:this.neirong,
 				riqi:riqi
@@ -526,9 +520,11 @@ huoqu_list(){
 			border: solid 1rpx #0eb77e;
 			line-height: 56rpx;
 			padding: 0 30rpx;
-			margin-left: 20rpx;
+			margin-left: 16rpx;
 	}
-	
+	.tiwen_caozuo text:first-child{
+		margin-left: 0;
+	}
 	.pingjia image{
 			width: 28rpx;
 			height: 28rpx;

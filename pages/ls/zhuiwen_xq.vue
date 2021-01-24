@@ -48,7 +48,7 @@
 									<view class="hui_24">{{ item.nickname }}律师</view>
 									<view class="qian_22 xq_ls_time">{{ item.addtime | timeStamp }}</view>
 								</view>
-								<text class="hong_30 jiang_num" v-if="xq.consult.lawyerid==item.userid">奖励{{xq.consult.paymoney}}元</text>
+								<text class="hong_30 jiang_num" v-if="xq.consult.lawyerid==item.userid">奖励{{xq.ispay==2?xq.consult.paymoney:'0'}}元</text>
 							</view>
 						</view>
 						<view class="hui_26 hui_fir_ls">{{ item.information }}</view>
@@ -90,7 +90,7 @@
 				</view>
 
 				<view class="huifu_anxiu hui_22">
-					<input type="text" value="" v-model="huifu_txt" />
+					<textarea type="text" value="" v-model="huifu_txt" maxlength="5000" class="hei_26"/>
 					<button type="" class="bai_26" @click="huifu">回复</button>
 				</view>
 			</view>
@@ -277,7 +277,7 @@ export default {
 }
 .xq_bottom {
 	border-top: 2rpx solid #e8e8e8;
-	padding: 0rpx 30rpx 200rpx;
+	padding: 0rpx 30rpx 240rpx;
 }
 
 .xq_ls {
@@ -338,24 +338,25 @@ export default {
 
 .huifu_anxiu {
 	display: flex;
-
-	padding: 4rpx 30rpx 0;
+align-items: center;
+	padding: 40rpx 30rpx 40rpx;
 	box-sizing: border-box;
 	position: fixed;
 	bottom: 0rpx;
-	height: 150rpx;
+	/* height: 150rpx; */
 	width: 100%;
 	justify-content: space-between;
 	background-color: #ffffff;
 }
 
-.huifu_anxiu input {
+.huifu_anxiu textarea {
 	width: 575rpx;
-	height: 60rpx;
+	height: 150rpx;
 	background-color: #f5f5f5;
 	border-radius: 10rpx;
 	border: solid 1rpx #d5d5d5;
 	padding-left: 10rpx;
+	padding: 8rpx;
 	box-sizing: border-box;
 }
 

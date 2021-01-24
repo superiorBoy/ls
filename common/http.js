@@ -9,16 +9,16 @@ if (process.env.NODE_ENV == 'development') {
 	   baseUrl='http://www.ls.xyz/'
 	// #endif
 	//#ifdef APP-PLUS
-	  baseUrl = 'http://xhlvshi.hongvv.com' // 生产环境
-	  WebSocket_url='xhlvshi.hongvv.com'
+	  baseUrl = 'http://www.xhlvshi.com' // 生产环境
+	  WebSocket_url='www.xhlvshi.com'
 	  // uni.setStorageSync("xian_url",baseUrl)
 	//#endif
 	
 } else {
         baseUrl = '' // 生产环境
 	  //#ifdef APP-PLUS
-	    baseUrl = 'http://xhlvshi.hongvv.com/' // 生产环境
-		WebSocket_url='xhlvshi.hongvv.com'
+	    baseUrl = 'http://www.xhlvshi.com/' // 生产环境
+		WebSocket_url='www.xhlvshi.com'
 	    uni.setStorageSync("xian_url",baseUrl)
 	  //#endif
 }

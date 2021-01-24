@@ -60,7 +60,7 @@
 						<!-- <view class="tiwen_ren hui_24">
 							<image :src="img_url+item.user.photourl" mode=""></image>{{item.user.mobile}}
 							</view> -->
-							<text class="hong_26">悬赏金额: {{item.paymoney}}元</text>
+							<text class="hong_26">悬赏金额: {{item.is_pay==2?item.paymoney:'0'}}元</text>
 						<button type="" class="huifu hong_24" @click="huifu(item.consultid)">
 							回复
 						</button>

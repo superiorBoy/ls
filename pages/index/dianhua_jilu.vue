@@ -14,7 +14,7 @@
 					<view class="zixun_item_top">
 					
 					<view class="zixun_item_left">
-						<view class="zixun_item_tx" @click="go_zhuye(item.lawyerid)" v-if="!item.lawyerid">
+						<view class="zixun_item_tx"  v-if="!item.lawyerid">
 							<image src="@/static/img/mohu.png" mode=""class="zixun_item_tx_img"></image>
 						</view>
 						<view class="zixun_item_tx" @click="go_zhuye(item.lawyerid)"v-if="item.lawyerid">
@@ -22,7 +22,7 @@
 							<image src="@/static/img/renzheng2.png" mode="" class="zixun_item_ren"></image>
 						</view>
 						<view class="zixun_item_xinxi">
-							<view class="hei_26" @click="go_zhuye(item.lawyerid)"v-if="!item.lawyerid"><image src="@/static/img/dian_mohu.png" mode="" class="mohu"></image></view>
+							<view class="hei_26" v-if="!item.lawyerid"><image src="@/static/img/dian_mohu.png" mode="" class="mohu"></image></view>
 							<view class="hei_26" @click="go_zhuye(item.lawyerid)" v-if="item.lawyerid">{{ item.nickname }}律师</view>
 		
 							<view class="qian_22 zixun_item_feiyong">

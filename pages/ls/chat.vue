@@ -83,7 +83,7 @@
 			</view> -->
 
 			<view class="chat_jiage_wai">
-				<view class="chat_top_xinxi chat_top">
+				<view class="chat_top_xinxi chat_top chat_jiage">
 					<view class="chat_top_xinxi_top">
 						<view class="chat_top_xinxi_top_left">
 							<image :src="img_url+yh_user.photourl" mode="" class="chat_top_xinxi_tx"></image>
@@ -788,7 +788,8 @@ export default {
 						url: that.$http.baseUrl + '/push/gatewayworker/bind',
 						method: 'POST',
 						data: {
-							client_id: data.client_id
+							client_id: data.client_id,
+							type:1
 						},
 
 						success: function(resp) {
@@ -815,7 +816,7 @@ export default {
 							photourl_to: data.userid_to_pic,
 							content: data.msg,
 							msgtype: data.state,
-							userid_from: that.ls_id
+							userid_from: data.userid_from
 						};
 
 						if (that.user.userid != data.userid_from) {
@@ -944,6 +945,9 @@ export default {
 							photourl_form: this.user.photourl
 						};
 						this.message.push(data);
+						setTimeout(() => {
+							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+						}, 100);
 					
 					}
 				});
@@ -967,7 +971,9 @@ export default {
 							photourl_form: this.user.photourl
 						};
 						this.message.push(data);
-					
+					setTimeout(() => {
+						uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+					}, 100);
 					}
 				});
 		},	
@@ -990,7 +996,9 @@ export default {
 							photourl_form: this.user.photourl
 						};
 						this.message.push(data);
-					
+					setTimeout(() => {
+						uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+					}, 100);
 					}
 				});
 		},	
@@ -1091,6 +1099,7 @@ export default {
 		},
 		
 		connectSocketInit() {
+			let that = this;
 			var url = window.location.host;
 			console.log(url);
 			var ws = new WebSocket('ws://' + url + ':3348');
@@ -1099,7 +1108,7 @@ export default {
 				// ws.send("你好");
 			};
 			ws.onmessage = function(evt) {
-				var that = this;
+				
 				console.log('Received Message: ' + evt.data);
 				// json数据转换成js对象
 				var data = JSON.parse(evt.data);
@@ -1111,7 +1120,8 @@ export default {
 						.post({
 							url: '/push/gatewayworker/bind',
 							data: {
-								client_id: data.client_id
+								client_id: data.client_id,
+								type:1
 							}
 						})
 						.then(res => {
@@ -1126,7 +1136,7 @@ export default {
 							photourl_to: data.userid_to_pic,
 							content: data.msg,
 							msgtype: data.state,
-							userid_from: that.ls_id
+							userid_from: data.userid_from
 						};
 						that.message.push(xiaoxi);
 						setTimeout(() => {
@@ -1194,7 +1204,7 @@ page {
 .chat_list {
 	display: flex;
 	align-items: flex-start;
-	margin-bottom: 30rpx;
+	margin-bottom: 34rpx;
 }
 
 .chat_list .tx {

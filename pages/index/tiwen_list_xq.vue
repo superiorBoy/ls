@@ -63,8 +63,11 @@
 						<view class="caina" v-if="data.consult.lawyerid==item.userid">
 							<image src="@/static/img/caina.png" mode=""></image>
 						</view>
-						<view class="guanzhu bai_24">
+						<view class="guanzhu bai_24"v-if="item.guanzhu==2" @click="guanzhu(item.userid)">
 						<image src="@/static/img/guan_no.png" mode=""></image>	关注
+						</view>
+						<view class="yiguanzhu bai_24"v-if="item.guanzhu==1" >
+						      已关注
 						</view>
 					</view>
 
@@ -317,8 +320,47 @@ export default {
 			this.$refs.popup2.close();
 		},
 		shang(){
-			console.log(this.shang_id)
+			console.log(this.shang_id,this.consultid)
+			
+			this.$http
+				.post({
+					url: '/index/zixun/xuanshang',
+					data: {
+						consultid: this.consultid,
+						lawyerid:this.shang_id
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						uni.showToast({
+							title: '采纳成功',
+							duration: 2000,
+							icon: 'none'
+						});
+						this.get_xq()
+					}
+				});
+			
 			this.$refs.popup2.close();
+		},
+		guanzhu(lawyerid){
+			this.$http
+				.post({
+					url: '/mapi/index/guanzhu',
+					data: {
+						lawyerid: lawyerid
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						uni.showToast({
+							title: res.message,
+							duration: 2000,
+							icon: 'none'
+						});
+						this.get_xq()
+					}
+				});
 		},
 		// 添加追问
 		send(){
@@ -478,6 +520,17 @@ page {
 		justify-content: center;
 		text-align: center;
 }
+.yiguanzhu{
+	position: absolute;
+	right: 0;
+		width: 100rpx;
+		height: 36rpx;
+		background-color: #f43a51;
+		border-radius: 3rpx;
+		text-align: center;
+		line-height: 36rpx;
+		
+}
 .caina{
 	position: absolute;
 	left: 150rpx;
@@ -529,7 +582,7 @@ page {
 	margin: 12rpx 0;
 }
 .ls_item_right_bottom_list {
-	max-width: 85%;
+	
 }
 .zhuiwen {
 	width: 75rpx;
@@ -541,7 +594,7 @@ page {
 }
 
 .ls_item_right {
-	width: 82%;
+	
 }
 
 .mianfei {

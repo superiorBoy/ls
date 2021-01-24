@@ -53,6 +53,9 @@ export default {
 			if (option.type == 'back') {
 				this.back = true;
 			}
+			if (option.type == '3') {
+				this.type=option.type
+			}
 		}
 	},
 	methods: {
@@ -84,14 +87,44 @@ export default {
 				})
 				.then(res => {
 					if(res.code==0){
-						uni.switchTab({
-							url:'index'
-						})
+						if(this.type==3){
+							uni.reLaunch({
+								url:'../ls/yaoqing'
+							})
+						}else if(res.data.grade==2){
+						   this.ls_login()
+						}else{
+							uni.switchTab({
+								url:'index'
+							})
+						}
+					
 					
 					}
 					console.log(res);
 				});
 
+			console.log(this.shouji, this.mima, this.isCheck);
+		},
+		ls_login() {
+			this.$http
+				.post({
+					url: '/lawyer/login/login',
+					data: {
+						mobile: this.shouji,
+						password: this.mima
+					}
+				})
+				.then(res => {
+					if(res.code==0){
+						uni.reLaunch({
+							url:'../ls/my?type=2'
+						})
+					
+					}
+					console.log(res);
+				});
+		
 			console.log(this.shouji, this.mima, this.isCheck);
 		},
 		mimashu(e) {

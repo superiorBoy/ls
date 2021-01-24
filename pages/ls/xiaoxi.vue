@@ -154,7 +154,8 @@ export default {
 						url: that.$http.baseUrl + '/push/gatewayworker/bind',
 						method: 'POST',
 						data: {
-							client_id: data.client_id
+							client_id: data.client_id,
+							type:1
 						},
 
 						success: function(resp) {
@@ -249,7 +250,8 @@ export default {
 						.post({
 							url: '/push/gatewayworker/bind',
 							data: {
-								client_id: data.client_id
+								client_id: data.client_id,
+								type:1
 							}
 						})
 						.then(res => {

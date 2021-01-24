@@ -3,7 +3,7 @@
 		<view class="head">
 			<view class="head_back" style="width: 10%;"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
 			<view class="head_center " style="width: 80%;">
-				<view class="hei_38_bold top_title">{{ title }}</view>
+				<view class="hei_38_bold top_title"@click="go_zhuye()">{{ title }}</view>
 				<view class="hong_20 chat_lvsuo">剩余咨询时间:{{day}}天{{hour}}:{{minute}}:{{seconds}}</view>
 			</view>
 			<view class=" head_right hei_30_bold" style="width: 10%;"></view>
@@ -101,7 +101,7 @@
 				<view class="chat_top chat_jiage">
 					<view class="chat_top_top">
 						<view class="chat_top_left">
-							<view class="chat_top_left_tx">
+							<view class="chat_top_left_tx" @click="go_zhuye()">
 								<image :src="img_url+ls_xinxi.photourl" mode="" class="chat_top_left_tx_img"></image>
 								<image src="@/static/img/renzheng2.png" mode="" class="chat_top_left_tx_ren"></image>
 							</view>
@@ -625,7 +625,7 @@ export default {
 			hour:'00',
 			minute:'00',
 			seconds:'00',
-			time1:'0'
+			time1:'0',
 		};
 	},
 	//下拉刷新
@@ -672,9 +672,13 @@ export default {
 						var data = {
 							content: '4',
 							msgtype: 4,
-							photourl_form: this.user.photourl
+							userid_from: that.ls_id,
+							photourl_form: this.chat_xinxi.photourl
 						};
 						that.message.push(data);
+						setTimeout(() => {
+							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+						}, 100);
 					}
 				});
 		},
@@ -695,10 +699,15 @@ export default {
 						var data = {
 							content: '3',
 							msgtype: 3,
-							photourl_form: this.user.photourl
+							photourl_form: this.chat_xinxi.photourl,
+							userid_from: that.ls_id
 						};
 						that.message.push(data);
+						setTimeout(() => {
+							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+						}, 100);
 					}
+					
 				});
 		},
 		go_zhuye(){

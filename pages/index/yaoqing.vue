@@ -37,26 +37,15 @@
 			</view>
 			<view class="mingdan">
 			
-			<view class="none">
-				<image src="../../static/lsimg/none_mingdan.png" mode=""></image>
+			<view class="none" v-if="list.length==0">
+				<image src="@/static/lsimg/none_mingdan.png" mode=""></image>
 			</view>
-			<!-- <view class="mimgdan_list bai_30">
-				<text class="paixu">1</text> <text>188****5555</text> <text>12人</text>
+			<view class="mimgdan_list bai_30" v-for="(item,index) in list"v-if="list.length>0&&index<5">
+				<text class="paixu">{{index+1}}</text> <text>{{item.mobile}}</text> <text>{{item.usercount}}人</text>
 			</view>
-			<view class="mimgdan_list bai_30">
-				<text class="paixu">2</text> <text>188****5555</text> <text>12人</text>
+			
 			</view>
-			<view class="mimgdan_list bai_30">
-				<text class="paixu">3</text> <text>188****5555</text> <text>12人</text>
-			</view>
-			<view class="mimgdan_list bai_30">
-				<text class="paixu">4</text> <text>188****5555</text> <text>12人</text>
-			</view>
-			<view class="mimgdan_list bai_30">
-				<text class="paixu">5</text> <text>188****5555</text> <text>12人</text>
-			</view> -->
-			</view>
-			<button type="default" class="fenxiang">立即分享给好友</button>
+			<button type="default" class="fenxiang" @click="lianjiego">立即分享给好友</button>
 			</view>
 
 			</view>
@@ -85,6 +74,7 @@
 				lianjie:'登录后即可生成邀请好友的专属链接',
 				deng_txt:'立即登录',  //复制邀请链接 --- 立即登录
 				user:'',
+				list:[]
 			}
 		},
 		methods: {
@@ -103,7 +93,7 @@
 					}else{
 						
 						this.huoqu_lianjie()
-						
+						this.huoqu_list()
 						
 					}
 					
@@ -118,6 +108,16 @@
 			   		this.deng_txt='复制邀请链接'
 					this.lianjie=res.data.inviteurl
 			   	});
+		   },
+		   huoqu_list(){
+		   			   this.$http
+		   			   	.post({
+		   			   		url: '/mapi/user/invitecount'
+		   			   	})
+		   			   	.then(res => {
+		   			   		
+		   					this.list=res.data.rewardlist
+		   			   	});
 		   },
 			lianjiego(){
 				if(this.deng_txt=='立即登录'){
