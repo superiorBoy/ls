@@ -40,7 +40,7 @@
 						<view  :class="['zixun_leibie',item.zixunstate == 4?'qian_26_bold':'hong_26_bold']">
 							{{ item.zixunstate == 1 ? '未付款' : item.zixunstate == 2 ? '已付款' : item.zixunstate == 3 ? '接单中' : '已完成' }}
 						</view>
-						<view class="zixun_dianhua">
+						<view class="zixun_dianhua" @click="call(item.phone)">
 							<image src="@/static/img/hy_dianhua.png" mode=""></image>{{item.phone}}
 						</view>
 					</view>
@@ -235,6 +235,20 @@
 			},
 			huifu() {
 				// this.$refs.huifu.open()
+			},
+			call(mobile) {
+				uni.makePhoneCall({
+					// 手机号
+					phoneNumber: ''+mobile,
+					// 成功回调
+					success: res => {
+						console.log('调用成功!');
+					},
+					// 失败回调
+					fail: res => {
+						console.log('调用失败!');
+					}
+				});
 			},
 			// 底部弹窗
 			tan() {

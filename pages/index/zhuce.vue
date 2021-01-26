@@ -110,7 +110,8 @@
 				isdisabled:false,
 				yan1_zhuangtai:'../../static/lsimg/yanguan.png',
 				yan2_zhuangtai:'../../static/lsimg/yanguan.png',
-				is_xinxi:''
+				is_xinxi:'',
+				dianji:true
 			}
 		},
 onLoad(option) {
@@ -223,6 +224,7 @@ onLoad(option) {
 				this.isCheck = !this.isCheck
 			},
 			zhuce() {
+				var that=this
 			console.log(this.active)
 			if(this.shouji==''||this.mima==''||this.agamima==''){
 				uni.showToast({
@@ -239,6 +241,10 @@ onLoad(option) {
 				});
 				return false
 			}
+			
+			if(this.dianji){
+				
+			 this.dianji=false
 				if(this.active=="0"){
 
 					this.$http
@@ -259,6 +265,7 @@ onLoad(option) {
 									url:'login'
 								})
 							}
+							that.dianji=true
 						});
 					
 					
@@ -285,9 +292,17 @@ onLoad(option) {
 								})
 								
 							}
+							that.dianji=true
 						});
 					
 					}
+
+              }else{
+				 
+			  }
+
+         
+
 
 				console.log(this.isCheck)
 			},

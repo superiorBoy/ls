@@ -48,7 +48,7 @@
 									<view class="hui_24">{{ item.nickname }}律师</view>
 									<view class="qian_22 xq_ls_time">{{ item.addtime | timeStamp }}</view>
 								</view>
-								<text class="hong_30 jiang_num" v-if="xq.consult.lawyerid==item.userid">奖励{{xq.ispay==2?xq.consult.paymoney:'0'}}元</text>
+								<text class="hong_30 jiang_num" v-if="xq.consult.lawyerid==item.userid">奖励{{xq.consult.ispay==2?xq.consult.paymoney:'0'}}元</text>
 							</view>
 						</view>
 						<view class="hui_26 hui_fir_ls">{{ item.information }}</view>

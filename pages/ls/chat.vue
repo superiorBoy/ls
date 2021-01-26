@@ -92,9 +92,9 @@
 									<image src="@/static/lsimg/chat_shouji.png" mode="" style="width: 13rpx;height: 17rpx;margin-right: 8rpx;"></image>
 									{{dianhua}}
 								</view>
-								<view class="chat_top_xinxi_dizhi">
+								<!-- <view class="chat_top_xinxi_dizhi">
 									<image src="@/static/lsimg/chat_dizhi.png" style="width: 16rpx;height: 22rpx;margin-right: 8rpx;" mode=""></image>浙江-杭州
-								</view>
+								</view> -->
 							</view>
 							
 						</view>
@@ -140,9 +140,9 @@
 						<view class="chat_right_txt hei_30">
 							<!-- {{item.content}} -->
 							<!-- <image :src="url+img"  mode="" v-if="item.msgtype==4" style="height: 40rpx;width: 40rpx;"></image> -->
-							<image :src="img_url + item.content" mode="widthFix"  style="max-width: 100rpx;"></image>
+							<image :src="img_url + item.content" mode="widthFix"  style="max-width: 100rpx;" @click="clickImg(img_url + item.content)"></image>
 						
-							<image :src="item.content" mode="widthFix" v-if="item.to != undefined" style="max-width: 100rpx;"></image>
+							<!-- <image :src="item.content" mode="widthFix" v-if="item.to != undefined" style="max-width: 100rpx;" ></image> -->
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
@@ -253,7 +253,7 @@
 		  		  				付款成功
 		  		  			</view>
 		  		  			<view class="send_pay_ls">
-		  		  				<image src="@/static/img/tx.png" mode=""></image>
+		  		  				<image :src="img_url + user.photourl" mode=""></image>
 		  		  				<view class="send_pay_ls_riht">
 		  		  					<view class="end_pay_leixing hei_26">
 		  		  						电话咨询
@@ -290,7 +290,7 @@
 				  		  				付款成功
 				  		  			</view>
 				  		  			<view class="send_pay_ls">
-				  		  				<image src="@/static/img/tx.png" mode=""></image>
+				  		  				<image :src="img_url + user.photourl" mode=""></image>
 				  		  				<view class="send_pay_ls_riht">
 				  		  					<view class="end_pay_leixing hei_26">
 				  		  						电话咨询
@@ -345,7 +345,7 @@
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<text class="ls_name">{{ title }}</text>
-							<image :src="img_url + item.content" mode="widthFix"  style="max-width: 100rpx;"></image>
+							<image :src="img_url + item.content" mode="widthFix"  style="max-width: 100rpx;" @click="clickImg(img_url + item.content)"></image>
 							
 						</view>
 					</view>
@@ -452,7 +452,7 @@
 									付款成功
 								</view>
 								<view class="send_pay_ls">
-									<image src="@/static/img/tx.png" mode=""></image>
+									<image :src="img_url + user.photourl" mode=""></image>
 									<view class="send_pay_ls_riht">
 										<view class="end_pay_leixing hei_26">
 											电话咨询
@@ -490,7 +490,7 @@
 									付款成功
 								</view>
 								<view class="send_pay_ls">
-									<image src="@/static/img/tx.png" mode=""></image>
+									<image :src="img_url + user.photourl" mode=""></image>
 									<view class="send_pay_ls_riht">
 										<view class="end_pay_leixing hei_26">
 											电话咨询
@@ -1097,7 +1097,15 @@ export default {
 			this.isShowEmj = false;
 			this.bt_show = false;
 		},
-		
+		clickImg(img){
+				uni.previewImage({
+								urls: [""+img], //需要预览的图片http链接列表，多张的时候，url直接写在后面就行了
+								current: '', // 当前显示图片的http链接，默认是第一个
+								success: function(res) {},
+								fail: function(res) {},
+								complete: function(res) {},
+							})
+		},
 		connectSocketInit() {
 			let that = this;
 			var url = window.location.host;
@@ -1586,6 +1594,8 @@ page {
 	}
 	.chat_top_xinxi_top_left_r{
 		width: 210rpx;
+		display: flex;
+		    align-items: center;
 	}
 	.chat_top_xinxi_bottom{
 		display: flex;

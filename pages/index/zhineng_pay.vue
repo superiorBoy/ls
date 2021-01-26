@@ -208,37 +208,46 @@ export default {
 		zfb_pay(consultid){
 			this.$http
 				.post({
-					url: '/mapi/consult/zhinengpay',
+					url: '/mapi/consult/zhinengpayh5',
 					data: {
 						consultid:consultid
 					}
 				})
 				.then(res => {
 					if (res.code == 0) {
-						uni.requestPayment({
-						       provider: 'alipay',
-						       orderInfo:res.data.response,
-						       success: function(res) {
-						           console.log('success:' + JSON.stringify(res));
-								   uni.showToast({
-								   	title: '支付成功',
-								   	duration: 2000
-								   });
+						
+						// #ifdef H5
+						  window.open(''+res.data.response);
+						 // #endif
+						 // #ifdef APP-PLUS
+						 plus.runtime.openURL(''+res.data.response)
+						 // #endif
+						
+						
+						// uni.requestPayment({
+						//        provider: 'alipay',
+						//        orderInfo:res.data.response,
+						//        success: function(res) {
+						//            console.log('success:' + JSON.stringify(res));
+						// 		   uni.showToast({
+						// 		   	title: '支付成功',
+						// 		   	duration: 2000
+						// 		   });
 								   
-								  setTimeout(function(){
-								  				uni.navigateBack()
-								  },2000) 
+						// 		  setTimeout(function(){
+						// 		  				uni.navigateBack()
+						// 		  },2000) 
 								   
-						       },
-						       fail: function(err) {
-								   uni.showToast({
-								   	title: '支付失败',
-								   	duration: 2000,
-									icon: 'none'
-								   });
-						           console.log('fail:' + JSON.stringify(err));
-						       }
-						   });
+						//        },
+						//        fail: function(err) {
+						// 		   uni.showToast({
+						// 		   	title: '支付失败',
+						// 		   	duration: 2000,
+						// 			icon: 'none'
+						// 		   });
+						//            console.log('fail:' + JSON.stringify(err));
+						//        }
+						//    });
 					}
 				});
 		},

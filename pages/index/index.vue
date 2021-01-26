@@ -1,12 +1,6 @@
 <template>
 	<view class="body">
-		<view
-			class="index_top"
-			:style="{ background: topbg }"
-			:class="[
-				'index_top',
-				current == 0 ? 'index_top0' : current == 1 ? 'index_top1' : current == 2 ? 'index_top2' : current == 3 ? 'index_top3' : current == 4 ? 'index_top4' : ''
-			]"
+		<view class="index_top" :style="{ background: topbg }" :class="[ 'index_top', current == 0 ? 'index_top0' : current == 1 ? 'index_top1' : current == 2 ? 'index_top2' : current == 3 ? 'index_top3' : current == 4 ? 'index_top4' : '']"
 		>
 			<view class="index_top_dingwei" :style="{ background: topbg }">
 				<view class="dingwei bai_20">
@@ -130,7 +124,7 @@
 					在线咨询
 					<image src="@/static/img/index_remen.png" mode=""></image>
 				</view>
-				<view class="hui_20 zhineng_item_jiage">{{zhineng.zaixiantime}}小时 /￥{{zhineng.zaixianprice}}</view>
+				<view class="hui_20 zhineng_item_jiage">{{ zhineng.zaixiantime }}小时 /￥{{ zhineng.zaixianprice }}</view>
 				<view class="qian_22 zhineng_item_txt">律师在线解答,</view>
 				<view class="qian_22">规定范围内不限次数。</view>
 			</navigator>
@@ -139,7 +133,7 @@
 					电话咨询
 					<image src="@/static/img/index_tuijian.png" mode=""></image>
 				</view>
-				<view class="hui_20 zhineng_item_jiage">{{zhineng.dianhuatime}}分钟 /￥{{zhineng.dianhuaprice}}</view>
+				<view class="hui_20 zhineng_item_jiage">{{ zhineng.dianhuatime }}分钟 /￥{{ zhineng.dianhuaprice }}</view>
 				<view class="qian_22 zhineng_item_txt">律师主动打电话与您联系，</view>
 				<view class="qian_22">沟通效率更高。</view>
 			</navigator>
@@ -342,8 +336,8 @@ export default {
 			is_gengxin: false,
 			banben: '',
 			down_url: '',
-			tiao_type:1,
-			zhineng:''
+			tiao_type: 1,
+			zhineng: ''
 		};
 	},
 	components: {
@@ -444,25 +438,23 @@ export default {
 			.then(res => {
 				this.fa_zhishi = res.data.type[1];
 			});
-			
-			// 获取跳转链接
-			this.$http
-				.post({
-					url: '/mapi/index/getzixunjump'
-				})
-				.then(res => {
-			
-					this.tiao_type = res.data.zhan.zixunjump;
-				});
-				// 查看只能服务报价
-				this.$http
-					.post({
-						url: '/mapi/index/getzixun'
-					})
-					.then(res => {
-				
-						this.zhineng = res.data.zhan;
-					});
+
+		// 获取跳转链接
+		this.$http
+			.post({
+				url: '/mapi/index/getzixunjump'
+			})
+			.then(res => {
+				this.tiao_type = res.data.zhan.zixunjump;
+			});
+		// 查看只能服务报价
+		this.$http
+			.post({
+				url: '/mapi/index/getzixun'
+			})
+			.then(res => {
+				this.zhineng = res.data.zhan;
+			});
 	},
 	methods: {
 		down() {
@@ -498,22 +490,21 @@ export default {
 			const clientInfo = plus.push.getClientInfo();
 			console.log(clientInfo, '6666');
 		},
-		huoqu_weidu(){
+		huoqu_weidu() {
 			this.$http
 				.post({
 					url: '/mapi/consult/messagecount'
 				})
 				.then(res => {
-					
-					if(res.data.messagecount>0){
+					if (res.data.messagecount > 0) {
 						uni.setTabBarBadge({
-						  index: 3,
-						  text: ''+res.data.messagecount
-						})
-					}else{
-						 uni.removeTabBarBadge({
-								 index:3
-						})
+							index: 3,
+							text: '' + res.data.messagecount
+						});
+					} else {
+						uni.removeTabBarBadge({
+							index: 3
+						});
 					}
 				});
 		},
@@ -557,7 +548,7 @@ export default {
 					console.log('say');
 					if (data.state) {
 						void plus.push.createMessage('用户端收到一条新消息');
-						that.huoqu_weidu()
+						that.huoqu_weidu();
 					}
 				} else {
 					console.log('else');
@@ -630,14 +621,14 @@ export default {
 			});
 		},
 		tochat(lawyerid) {
-			if(this.tiao_type==1){
+			if (this.tiao_type == 1) {
 				uni.navigateTo({
-					url:'chat?lawyerid='+lawyerid
-				})
-			}else{
+					url: 'chat?lawyerid=' + lawyerid
+				});
+			} else {
 				uni.navigateTo({
-					url:'ls_zhuye?lawyerid='+lawyerid
-				})
+					url: 'ls_zhuye?lawyerid=' + lawyerid
+				});
 			}
 		},
 		go_ls_list() {

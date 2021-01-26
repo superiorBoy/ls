@@ -112,7 +112,7 @@ export default {
 		},
 		save(){
 			this.$http.post({
-				url: '/mapi/consult/pay',
+				url: '/mapi/consult/payh5',
 				data:{
 					consultid:this.consultid,
 					paymoney:this.jine_arry[this.xuan_index]
@@ -121,34 +121,39 @@ export default {
 			}).then(res => {
 				if(res.code==0){
 					
+					// #ifdef H5
+					  window.open(''+res.data.response);
+					 // #endif
+					 // #ifdef APP-PLUS
+					 plus.runtime.openURL(''+res.data.response)
+					 // #endif
 					
-					
-					uni.requestPayment({
-					       provider: 'alipay',
-					       orderInfo:res.data.response,
-					       success: function(res) {
-					           console.log('success:' + JSON.stringify(res));
-							   uni.showToast({
-							   	title: '支付成功',
-							   	duration: 2000
-							   });
-							 this.shuru_txt=''
-							 setTimeout(function(){
-							 				uni.navigateTo({
-							 					url:'tiwen_list'
-							 				})
-							 },2000)
+					// uni.requestPayment({
+					//        provider: 'alipay',
+					//        orderInfo:res.data.response,
+					//        success: function(res) {
+					//            console.log('success:' + JSON.stringify(res));
+					// 		   uni.showToast({
+					// 		   	title: '支付成功',
+					// 		   	duration: 2000
+					// 		   });
+					// 		 this.shuru_txt=''
+					// 		 setTimeout(function(){
+					// 		 				uni.navigateTo({
+					// 		 					url:'tiwen_list'
+					// 		 				})
+					// 		 },2000)
 							   
-					       },
-					       fail: function(err) {
-							   uni.showToast({
-							   	title: '支付失败',
-							   	duration: 2000,
-								icon: 'none'
-							   });
-					           console.log('fail:' + JSON.stringify(err));
-					       }
-					   });
+					//        },
+					//        fail: function(err) {
+					// 		   uni.showToast({
+					// 		   	title: '支付失败',
+					// 		   	duration: 2000,
+					// 			icon: 'none'
+					// 		   });
+					//            console.log('fail:' + JSON.stringify(err));
+					//        }
+					//    });
 				}
 			})
 			

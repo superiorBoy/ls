@@ -45,7 +45,8 @@ export default {
 			type1: 'password',
 			isCheck: true,
 			yan1_zhuangtai: '../../static/lsimg/yanguan.png',
-			back: false
+			back: false,
+			dianji:true
 		};
 	},
 	onLoad(option) {
@@ -74,23 +75,33 @@ export default {
 			}
 		},
 		login() {
-			this.$http
-				.post({
-					url: '/lawyer/login/login',
-					data: {
-						mobile: this.shouji,
-						password: this.mima
-					}
-				})
-				.then(res => {
-					if(res.code==0){
-						uni.reLaunch({
-							url:'my'
-						})
+			var that=this
+			if(this.dianji){
+				this.dianji=false
+				this.$http
+					.post({
+						url: '/lawyer/login/login',
+						data: {
+							mobile: this.shouji,
+							password: this.mima
+						}
+					})
+					.then(res => {
+						if(res.code==0){
+							uni.reLaunch({
+								url:'my'
+							})
+						
+						}
+						that.dianji=true
+						console.log(res);
+					})
 					
-					}
-					console.log(res);
-				});
+			}else{
+			
+				  
+			  }
+			
 
 			console.log(this.shouji, this.mima, this.isCheck);
 		},

@@ -18,7 +18,7 @@
 					人
 				</view>
 				<view class="">
-					律师已解答：
+					今日律师解答：
 					<text class="hong_26">{{shujv.reply}}</text>
 					问题
 				</view>

@@ -376,54 +376,59 @@ export default {
 			var that=this
 			this.$http
 				.post({
-					url: '/mapi/consult/pay',
+					url: '/mapi/consult/payh5',
 					data: {
-						consultid:consultid,
-						type:this.type,
-						lawyerid:this.lawyerid,
-						information:this.neirong
+						consultid:consultid
 					}
 				})
 				.then(res => {
 					if (res.code == 0) {
-						uni.requestPayment({
-						       provider: 'alipay',
-						       orderInfo:res.data.response,
-						       success: function(res) {
-						           console.log('success:' + JSON.stringify(res));
-								   uni.showToast({
-								   	title: '支付成功',
-								   	duration: 2000
-								   });
+						
+						// #ifdef H5
+						  window.open(''+res.data.response);
+						 // #endif
+						 // #ifdef APP-PLUS
+						 plus.runtime.openURL(''+res.data.response)
+						 // #endif
+						
+						// uni.requestPayment({
+						//        provider: 'alipay',
+						//        orderInfo:res.data.response,
+						//        success: function(res) {
+						//            console.log('success:' + JSON.stringify(res));
+						// 		   uni.showToast({
+						// 		   	title: '支付成功',
+						// 		   	duration: 2000
+						// 		   });
 								   
-								   setTimeout(function(){
-								   	if(that.type==1){
-								   		uni.navigateTo({
-								   			url:'zixun_jilu'
-								   		})
-								   	}else if(that.type==2){
-								   		uni.navigateTo({
-								   			url:'dianhua_jilu'
-								   		})
-								   	}else{
-								   		uni.navigateTo({
-								   			url:'qita_jilu'
-								   		})
-								   	}
+						// 		   setTimeout(function(){
+						// 		   	if(that.type==1){
+						// 		   		uni.navigateTo({
+						// 		   			url:'zixun_jilu'
+						// 		   		})
+						// 		   	}else if(that.type==2){
+						// 		   		uni.navigateTo({
+						// 		   			url:'dianhua_jilu'
+						// 		   		})
+						// 		   	}else{
+						// 		   		uni.navigateTo({
+						// 		   			url:'qita_jilu'
+						// 		   		})
+						// 		   	}
 								   	
-								   },2000) 
+						// 		   },2000) 
 								
 								   
-						       },
-						       fail: function(err) {
-								   uni.showToast({
-								   	title: '支付失败',
-								   	duration: 2000,
-									icon: 'none'
-								   });
-						           console.log('fail:' + JSON.stringify(err));
-						       }
-						   });
+						//        },
+						//        fail: function(err) {
+						// 		   uni.showToast({
+						// 		   	title: '支付失败',
+						// 		   	duration: 2000,
+						// 			icon: 'none'
+						// 		   });
+						//            console.log('fail:' + JSON.stringify(err));
+						//        }
+						//    });
 					}
 				});
 		},

@@ -41,23 +41,30 @@
 				<button type="" class="tixian_btn bai_30" @click="save">确认充值</button>
 			</view>
 		</view>
+ 
 	</view>
 </template>
 
 <script>
+	
 export default {
 	data() {
 		return {
 			number: '',
 			yue: '0.00',
 			zhifu: '2'
+			
 		};
 	},
 	created() {},
 	onLoad(option) {
 		
-		this.huoqu_yue()
 		
+	     
+	},
+	onShow() {
+		this.number=''
+		this.huoqu_yue()
 	},
 	methods: {
 		navigateBack() {
@@ -87,11 +94,11 @@ export default {
 				});
 				return false;
 			}
-
+			
 
  	     this.$http
 	      		.post({
-	      			url: '/mapi/user/chongzhi',
+	      			url: '/mapi/user/chongzhih5',
 					data:{
 						paymoney:this.number
 						}
@@ -100,35 +107,47 @@ export default {
 	      		var that=this
 	      			if(res.code==0){
 					
-						uni.requestPayment({
-						       provider: 'alipay',
-						       orderInfo:res.data.response,
-						       success: function(res) {
-						           console.log('success:' + JSON.stringify(res));
-								   uni.showToast({
-								   	title: '支付成功',
-								   	duration: 2000
-								   });
-								   that.number=''
-								   that.huoqu_yue()
-						       },
-						       fail: function(err) {
-								   uni.showToast({
-								   	title: '支付失败',
-								   	duration: 2000,
-									icon: 'none'
-								   });
-						           console.log('fail:' + JSON.stringify(err));
-						       }
-						   });
+					   // #ifdef H5
+					     window.open(''+res.data.response);
+					    // #endif
+					    // #ifdef APP-PLUS
+					    plus.runtime.openURL(''+res.data.response)
+					    // #endif
+					
+					// const div = document.createElement('div');
+					// div.innerHTML = res.data.response;
+					// document.body.appendChild(div);
+					// document.forms[0].submit();
+							
+						// uni.requestPayment({
+						//        provider: 'alipay',
+						//        orderInfo:res.data.response,
+						//        success: function(res) {
+						//            console.log('success:' + JSON.stringify(res));
+						// 		   uni.showToast({
+						// 		   	title: '支付成功',
+						// 		   	duration: 2000
+						// 		   });
+						// 		   that.number=''
+						// 		   that.huoqu_yue()
+						//        },
+						//        fail: function(err) {
+						// 		   uni.showToast({
+						// 		   	title: '支付失败',
+						// 		   	duration: 2000,
+						// 			icon: 'none'
+						// 		   });
+						//            console.log('fail:' + JSON.stringify(err));
+						//        }
+						//    });
+						
+						
 					}
 					
 					
 					console.log(res)
 					
 	      		});
-
-
 
 
 			console.log(this.number, this.zhifu);

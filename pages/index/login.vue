@@ -26,7 +26,7 @@
 					我已阅读并同意
 					<text class="hong_24">《小虎律师网协议》</text>
 				</view>
-				<button type="" class="zhuce bai_30" @click="login">立即登录</button>
+				<button type="" class="zhuce bai_30" @click="login" >立即登录</button>
 				<view class="zhuce_tishi qian_24">
 					暂无账号？
 					<navigator url="zhuce" class="hong_24">请注册</navigator>
@@ -45,7 +45,8 @@ export default {
 			type1: 'password',
 			isCheck: true,
 			yan1_zhuangtai: '../../static/lsimg/yanguan.png',
-			back: false
+			back: false,
+			dianji:true
 		};
 	},
 	onLoad(option) {
@@ -77,36 +78,48 @@ export default {
 			}
 		},
 		login() {
-			this.$http
-				.post({
-					url: '/index/login/login',
-					data: {
-						mobile: this.shouji,
-						password: this.mima
-					}
-				})
-				.then(res => {
-					if(res.code==0){
-						if(this.type==3){
-							uni.reLaunch({
-								url:'../ls/yaoqing'
-							})
-						}else if(res.data.grade==2){
-						   this.ls_login()
-						}else{
-							uni.switchTab({
-								url:'index'
-							})
+			var that=this
+			if(this.dianji){
+				this.dianji=false
+				this.$http
+					.post({
+						url: '/index/login/login',
+						data: {
+							mobile: this.shouji,
+							password: this.mima
 						}
+					})
+					.then(res => {
+						if(res.code==0){
+							if(this.type==3){
+								uni.reLaunch({
+									url:'../ls/yaoqing'
+								})
+							}else if(res.data.grade==2){
+							   this.ls_login()
+							}else{
+								uni.switchTab({
+									url:'index'
+								})
+							}
+                         
+						}
+						console.log(res);
+						setTimeout(function(){
+							that.dianji=true
+						},500)
+						
+					})
 					
-					
-					}
-					console.log(res);
-				});
+			}else{
+				
+			  }
 
+		
 			console.log(this.shouji, this.mima, this.isCheck);
 		},
 		ls_login() {
+
 			this.$http
 				.post({
 					url: '/lawyer/login/login',
@@ -118,9 +131,9 @@ export default {
 				.then(res => {
 					if(res.code==0){
 						uni.reLaunch({
-							url:'../ls/my?type=2'
+							url:'../ls/my'
 						})
-					
+					 
 					}
 					console.log(res);
 				});

@@ -27,7 +27,7 @@
 						  	<image src="@/static/img/dian_mohu.png" mode=""></image>
 						</view>	
 						<view class="hong_24">
-							悬赏：{{item.ispay==2?item.paymoney:'0'}}元
+							悬赏：{{item.paymoney}}元
 						</view>	
 					</view>	
 					</view>	

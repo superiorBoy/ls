@@ -152,7 +152,7 @@
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<text class="ls_name">{{ title }}</text>
-							<image :src="img_url + item.content" mode="widthFix"  style="max-width: 100rpx;"></image>
+							<image :src="img_url + item.content" mode="widthFix"  style="max-width: 100rpx;" @click="clickImg(img_url + item.content)"></image>
 							
 						</view>
 					</view>
@@ -335,7 +335,7 @@
 					</view>
 					<view class="chat_list chat_right" v-if="item.userid_from != ls_id&&item.msgtype == 2">
 						<view class="chat_right_txt hei_30">
-							<image :src="img_url + item.content" mode="widthFix" style="max-width: 100rpx;"></image>
+							<image :src="img_url + item.content" mode="widthFix" style="max-width: 100rpx;"  @click="clickImg(img_url + item.content)"></image>
 							
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
@@ -1050,6 +1050,15 @@ export default {
 			uni.navigateTo({
 				url: 'pay?lawyerid=' + this.ls_id + '&type=' + type
 			});
+		},
+		clickImg(img){
+				uni.previewImage({
+								urls: [""+img], //需要预览的图片http链接列表，多张的时候，url直接写在后面就行了
+								current: '', // 当前显示图片的http链接，默认是第一个
+								success: function(res) {},
+								fail: function(res) {},
+								complete: function(res) {},
+							})
 		},
 		connectSocketInit() {
 			let that = this;

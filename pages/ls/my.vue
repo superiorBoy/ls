@@ -25,7 +25,7 @@
 					<navigator url="../index/zhuce?state=2" class="go_denglu">注册</navigator>
 				</view>
 			</view>
-			<view class="my_top_right hei_30_bold" @click="qiehuan" v-if="type==1">切换到用户中心</view>
+			<view class="my_top_right hei_30_bold" @click="qiehuan" >切换到用户中心</view>
 		</view>
 
 		<view class="my_ziliao">
@@ -247,9 +247,7 @@ export default {
 		this.huiqu_login();
 	},
 	onLoad(option) {
-		if(option.type){
-			this.type=option.type
-		}
+	
 		//#ifdef APP-PLUS
 	  	this.kaiqi();  
 		//#endif
@@ -277,7 +275,7 @@ export default {
 			is_login: false,
 			geshu:'',
 		     weidu:0,
-			 type:1
+			 type:2
 		};
 	},
 	methods: {
@@ -294,6 +292,7 @@ export default {
 				})
 				.then(res => {
 					this.user = res.data.user;
+					
 				});
 		},
 		huiqu_login() {
@@ -309,6 +308,7 @@ export default {
 						this.huoshu_weidu()
 					} else {
 						this.is_login = false;
+						
 					}
 				});
 		},
