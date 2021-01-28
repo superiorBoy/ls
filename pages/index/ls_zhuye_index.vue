@@ -96,16 +96,17 @@
 					<view class="fuwu_lei">
 						<view class="fuwu_lei_left">
 							<view class="bai_26 fuwu_lei_top" >
-								<text class="hei_22_bold" style="color: #245cb2;">免费电话</text>
+								<text class="hei_22_bold" style="color: #245cb2;">见面咨询</text>
 				
 							</view>
-							<text class="hui_20 fuwu_lei_title">免费电话,方便快捷</text>
+							<text class="hui_20 fuwu_lei_title">实时聊天,快速沟通</text>
 						</view>
 					<!-- 	<view class=" dianhua_btn bai_30" v-if="lvshi!=''">
 							<image src="@/static/img/zhuye_tab2.png" mode="widthFix" style="width: 12rpx;"></image>
 							<text>{{ lvshi.mobile }}</text>
 						</view> -->
-						<view class="lei_btn boda_btn hong_28" @click="call(lvshi.mobile)">拨打电话</view>
+						<view class="lei_btn boda_btn hong_28" @click="tan(0,baojia.jianmian)" v-if="baojia.jianmian"><text class="hong34_bold"> {{baojia.jianmian}}</text>/次</view>
+						<view class="lei_btn boda_btn hong_28" v-if="!baojia.jianmian" >未报价 </view>
 					</view>
 				</view>
 
@@ -915,7 +916,7 @@ export default {
 }
 .lei_btn text {
 	-webkit-transform: scale(0.8);
-	display: inline-block;
+	
 	margin: 0;
 	padding: 0;
 	font-size: 16rpx;

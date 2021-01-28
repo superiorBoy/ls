@@ -74,7 +74,7 @@
 
 			<navigator url="tuanzhang" class="index_tab_item">
 				<image src="@/static/img/tab7.png" mode=""></image>
-				<view>VIP</view>
+				<view>升级团长</view>
 			</navigator>
 
 			<navigator url="yaoqing" class="index_tab_item">
@@ -547,7 +547,7 @@ export default {
 				} else if (data.type == 'say') {
 					console.log('say');
 					if (data.state) {
-						void plus.push.createMessage('用户端收到一条新消息');
+						// void plus.push.createMessage('用户端收到一条新消息');
 						that.huoqu_weidu();
 					}
 				} else {

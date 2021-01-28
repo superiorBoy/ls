@@ -46,7 +46,7 @@
 
 		<view class="pay_btn">
 			<button type="" class="xuanshang bai_30" @click="save">支付</button>
-			<button type="" class="zanbu qian_30" @click="zanbu">暂不悬赏</button>
+			<button type="" class="zanbu qian_30" @click="zanbu">返回</button>
 		</view>
 		<view class="xuan_tishi qian_26">
 			<view class="xuan_tishi_fir">悬赏提问，律师一分钟内优先解答！</view>
@@ -59,9 +59,7 @@
 export default {
 	data() {
 		return {
-			
-			
-			jine_arry: ['1.00', '3.00', '5.00', '10.00', '20.00'],
+			jine_arry: ['3.00', '5.00', '10.00', '20.00'],
 			xuan_index: 0,
 			data:'',
 			consultid:'',
@@ -185,9 +183,7 @@ export default {
 			   });
 		},
 		zanbu(){
-			uni.navigateTo({
-				url:'tiwen_list'
-			})
+			uni.navigateBack();
 		}
 	}
 };

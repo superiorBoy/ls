@@ -69,8 +69,13 @@
 				</view> -->
 				<view class="xieyi qian_24">
 
-					<checkbox :checked="isCheck" @click="checkBox($event)" />我已阅读并同意<text class="hong_24">《小虎律师网协议》</text>
+					<checkbox :checked="isCheck" @click="checkBox($event)" />我已阅读并同意
+					
 
+					<navigator url="xieyi"  class="hong_24">《用户协议》</navigator>
+					   和
+					<navigator url="yinsi"  class="hong_24">《隐私政策》</navigator>
+				</view>
 				</view>
 				<button type="" class="zhuce bai_30" @click="zhuce">立即注册</button>
 				<view class="zhuce_tishi qian_24">
@@ -438,6 +443,9 @@ onLoad(option) {
 	.xieyi {
 		margin: 76rpx 0 50rpx 0;
 		text-align: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.zhuce {

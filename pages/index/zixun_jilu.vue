@@ -117,7 +117,15 @@
 		},
 
 		onShow() {
-
+			this.page=0
+			this.type_id=''
+			this.name = ''
+			this.xuanzc = '999'
+			this.zhuanchang_txt=''
+			this.zhuanchang_txt2=''
+			this.zixun_list=[]
+			this.is_all=false
+           this.huoqu_list()
 		},
 
 		data() {
@@ -144,7 +152,7 @@
 
 		},
 		onLoad() {
-			this.huoqu_list()
+			
 			// 获取分类
 			this.$http
 				.post({
@@ -256,9 +264,16 @@
 				
 			},
 			pay(id,consultid){
-				uni.navigateTo({
-					url:'pay?lawyerid='+id+'&type=1'+'&consultid='+consultid
-				})
+				if(id){
+					uni.navigateTo({
+						url:'pay?lawyerid='+id+'&type=1'+'&consultid='+consultid
+					})
+				}else{
+					uni.navigateTo({
+						url:'zhineng_pay?type=1'+'&consultid='+consultid
+					})
+				}
+				
 			},
 			huoqu_list(){
 				this.$http.post({

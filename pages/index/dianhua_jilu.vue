@@ -40,13 +40,16 @@
 						<text v-if="item.typeid && fenlei[item.typeid]">咨询类型：{{ fenlei[item.typeid].typename }}</text>  
 						<text class="hong_26 zixun_item_jiage">￥{{item.paymoney}}/{{item.baojiamode=='zhineng_dianhua'?item.zixunshicahng+'分钟':item.baojiamode=='phoneprice'?'20分钟':item.baojiamode=='dianhua1'?'1天':item.baojiamode=='dianhua3'?'3天':item.baojiamode=='dianhua30'?'1月':''}}</text>
 					</view>
+					<view class="zixun_item_leixing hui_26" v-if="item.mobile">
+						律师电话：{{item.mobile}}
+					</view>
 					<view class="zixun_item_top_bottom">
 						<view class="fukuan lv_26" v-if="item.zixunstate==1" @click="pay(item.lawyerid,item.consultid,item.information)">
 							立即付款
 						</view>
-						<view class="fukuan lv_26" v-if="item.zixunstate==2">
+					<!-- 	<view class="fukuan lv_26" v-if="item.zixunstate==2">
 							确认完成
-						</view>
+						</view> -->
 						<view class="fukuan lv_26" v-if="item.zixunstate == 4" @click="go_pingjia(item.lawyerid)">
 							我要评价
 						</view>
@@ -105,7 +108,15 @@ export default {
 	},
 
 	onShow() {
-		
+		this.page = 0;
+		this.type_id = '';
+		this.name = '';
+		this.xuanzc = '999';
+		this.zhuanchang_txt = '';
+		this.zhuanchang_txt2 = '';
+		this.zixun_list = [];
+		this.is_all = false;
+		this.huoqu_list();
 	},
 
 	data() {
@@ -129,7 +140,7 @@ export default {
 	},
 	created() {},
 	onLoad() {
-		this.huoqu_list();
+		
 		// 获取分类
 		this.$http
 			.post({
@@ -233,10 +244,18 @@ export default {
 			this.huoqu_list();
 		},
 		pay(id,consultid,information){
-			uni.navigateTo({
-				url:'pay?lawyerid='+id+'&type=2'+'&consultid='+consultid+'&information='+information
-				
-			})
+			if(id){
+				uni.navigateTo({
+					url:'pay?lawyerid='+id+'&type=2'+'&consultid='+consultid+'&information='+information
+					
+				})
+			}else{
+				uni.navigateTo({
+					url:'zhineng_pay?type=2'+'&consultid='+consultid
+					
+				})
+			}
+		
 		},
 		huoqu_list() {
 			this.$http

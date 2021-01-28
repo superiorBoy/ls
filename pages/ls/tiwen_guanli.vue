@@ -21,7 +21,7 @@
 								{{item.user.mobile}}
 							</view>
 							<view class="hui_24 qian_22">
-								{{ item.addtime | timeStamp }}
+								{{ item.addtime | timeStamp }}<text style="margin-left: 20rpx;"> {{item.province}}-{{item.city}}</text>
 							</view>
 						</view>
 						<view class="xuanshang_zhuangtai" v-if="item.tiwenstate!=4">
@@ -363,7 +363,7 @@ page {
 }
 
 .tiwen_item {
-	padding: 20rpx 30rpx;
+	padding: 20rpx 30rpx 0;
 	margin-bottom: 20rpx;
 	background-color: #ffffff;
 }

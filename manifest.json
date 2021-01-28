@@ -2,8 +2,8 @@
     "name" : "小虎律师",
     "appid" : "__UNI__6204E51",
     "description" : "小虎律师-在线法律咨询-专业律师咨询",
-    "versionName" : "1.0.9",
-    "versionCode" : 109,
+    "versionName" : "1.1.0",
+    "versionCode" : 110,
     "transformPx" : false,
     "app-plus" : {
         "nvueCompiler" : "uni-app",
@@ -11,8 +11,6 @@
         "modules" : {
             "Payment" : {},
             "Maps" : {},
-            "Push" : {},
-            "Share" : {},
             "SQLite" : {}
         },
         "compatible" : {
@@ -48,7 +46,9 @@
                 ],
                 "abiFilters" : [ "armeabi-v7a", "x86" ]
             },
-            "ios" : {},
+            "ios" : {
+                "idfa" : false
+            },
             "sdkConfigs" : {
                 "ad" : {},
                 "push" : {

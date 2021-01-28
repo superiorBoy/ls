@@ -10,70 +10,65 @@
 			<view class="pay_top">
 				<view class="pay_list ">
 					<text class="qian_30">服务项目</text>
-					<view class="zhuangtai lv_20">
-						{{ item.zixunstate == 1 ? '未付款' : item.zixunstate == 2 ? '已付款' : item.zixunstate == 3 ? '接单中' : '已完成' }}
-					</view>
-					<text class="hei_30">
-						电话咨询/20分钟
-					</text>
+					<view class="zhuangtai lv_20">{{ item.zixunstate == 1 ? '未付款' : item.zixunstate == 2 ? '已付款' : item.zixunstate == 3 ? '接单中' : '已完成' }}</view>
+					<text class="hei_30">电话咨询/20分钟</text>
 				</view>
-				<view class="pay_list height_auto dis_fir">
+				<view class="pay_list height_auto dis_fir" v-if="lvshi">
 					<text class="qian_30">服务律师</text>
 					<view class="ls_item">
 						<view class="ls_item_top">
-						<view class="ls_item_left">
-							<image :src="img_url+lvshi.photourl" mode="" class="ls_item_left_tx"></image>
-							<image src="@/static/img/renzheng2.png" mode="" class="ls_item_left_ren"></image>
-						</view>
-						<view class="ls_item_right">
-							<view class="hui_24 ls_item_right_top">
-								<text class="hei_28_bold">{{lvshi.nickname}}律师</text>
-								<text class="ls_dianhua"><image src="@/static/img/dianhua_icon.png" mode="" class="dianhua_dizhi"></image>{{lvshi.mobile}}</text>
+							<view class="ls_item_left">
+								<image :src="img_url + lvshi.photourl" mode="" class="ls_item_left_tx"></image>
+								<image src="@/static/img/renzheng2.png" mode="" class="ls_item_left_ren"></image>
 							</view>
-							<view class="ls_dizhi hui_24">
-								<image src="@/static/img/dianhua_dizhi.png" mode="" class="dianhua_dizhi"></image>{{lvshi.province}}-{{lvshi.city}}-{{lvshi.area}}
+							<view class="ls_item_right">
+								<view class="hui_24 ls_item_right_top">
+									<text class="hei_28_bold">{{ lvshi.nickname }}律师</text>
+									<text class="ls_dianhua">
+										<image src="@/static/img/dianhua_icon.png" mode="" class="dianhua_dizhi"></image>
+										{{ lvshi.mobile }}
+									</text>
+								</view>
+								<view class="ls_dizhi hui_24">
+									<image src="@/static/img/dianhua_dizhi.png" mode="" class="dianhua_dizhi"></image>
+									{{ lvshi.province }}-{{ lvshi.city }}-{{ lvshi.area }}
+								</view>
 							</view>
-						</view>
 						</view>
 						<view class="hui_26 techang">
 							<view class="shanchang">擅长:</view>
 							<view class="techang_list hui_20">
-								
-								<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise1].shanchangname">{{zhuanchang_arry[lvshi.expertise1].shanchangname}}</text>
-								<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise2].shanchangname">{{zhuanchang_arry[lvshi.expertise2].shanchangname}}</text>
-								<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise3].shanchangname">{{zhuanchang_arry[lvshi.expertise3].shanchangname}}</text>
+								<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise1].shanchangname">
+									{{ zhuanchang_arry[lvshi.expertise1].shanchangname }}
+								</text>
+								<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise2].shanchangname">
+									{{ zhuanchang_arry[lvshi.expertise2].shanchangname }}
+								</text>
+								<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise3].shanchangname">
+									{{ zhuanchang_arry[lvshi.expertise3].shanchangname }}
+								</text>
 							</view>
 						</view>
 					</view>
 				</view>
 				<view class="pay_list ">
 					<text class="qian_30">咨询类型</text>
-					<text class="hei_30" v-if="item.typeid && fenlei[item.typeid]">
-						{{fenlei[item.typeid].typename}}
-					</text>
+					<text class="hei_30" v-if="item.typeid && fenlei[item.typeid]">{{ fenlei[item.typeid].typename }}</text>
 				</view>
 				<view class="pay_list wen_list">
 					<view class="qian_30 wen_list_top">咨询内容</view>
-					<view class=" wen_list_body" :class="['',item.zixunstate == 4 ? 'qian_30' : 'hei_30']">
-						{{item.information}}
-					</view>
+					<view class=" wen_list_body" :class="['', item.zixunstate == 4 ? 'qian_30' : 'hei_30']">{{ item.information }}</view>
 				</view>
 				<view class="pay_list_jine">
 					<!-- <view class="pay_list_top"> -->
-						<text class="qian_30">支付金额</text>
-						<text class="hei_30">
-							实付款：
-							<text class="hong_30">￥{{item.paymoney}}</text>
-						</text>
+					<text class="qian_30">支付金额</text>
+					<text class="hei_30">
+						实付款：
+						<text class="hong_30">￥{{ item.paymoney }}</text>
+					</text>
 					<!-- </view> -->
-					
 				</view>
-				
 			</view>
-
-			
-		
-			
 		</view>
 	</view>
 </template>
@@ -83,18 +78,17 @@ export default {
 	data() {
 		return {
 			zhifu: '2',
-			lawyerid:'',
+			lawyerid: '',
 			img_url: uni.getStorageSync('img_url'),
-			lvshi:'',
-			neirong:'',
-			zhuanchang_arry:[],
-			type:'',
-			item:'',
-			fenlei:[]
+			lvshi: '',
+			neirong: '',
+			zhuanchang_arry: [],
+			type: '',
+			item: '',
+			fenlei: []
 		};
 	},
-	created() {
-	},
+	created() {},
 	onLoad(option) {
 		// 获取分类
 		this.$http
@@ -104,37 +98,35 @@ export default {
 			.then(res => {
 				this.fenlei = res.data.type;
 			});
-		
-		if(option.item!=undefined){
-			var item =JSON.parse(option.item)
-			this.item=item
-				this.time=item.starttime
-				this.time2=item.endtime
-				this.jigou=item.school
-				this.zhiwu=item.zhuanye
-				this.lawyerid=item.lawyerid
-				console.log(item)
-			}
-		
-		
-		
-		
-		this.type=option.type
+
+		if (option.item != undefined) {
+			var item = JSON.parse(option.item);
+			this.item = item;
+			this.time = item.starttime;
+			this.time2 = item.endtime;
+			this.jigou = item.school;
+			this.zhiwu = item.zhuanye;
+			this.lawyerid = item.lawyerid;
+			console.log(item);
+		}
+
+		this.type = option.type;
 		this.$http
 			.post({
 				url: '/mapi/lawyer/getshanchang'
 			})
 			.then(res => {
 				this.zhuanchang_arry = res.data.shanchang;
-				this.huoqu_lvshi();
+				if (this.lawyerid) {
+					this.huoqu_lvshi();
+				}
 			});
-		
 	},
 	methods: {
 		navigateBack() {
 			uni.navigateBack();
 		},
-// 律师信息
+		// 律师信息
 		huoqu_lvshi() {
 			this.$http
 				.post({
@@ -150,10 +142,6 @@ export default {
 				});
 		},
 		save() {
-			
-
-			
-
 			console.log(this.zhifu);
 		},
 		radio(i) {
@@ -291,67 +279,63 @@ page {
 .pay_btn {
 	padding: 0 30rpx;
 }
-.wen_list{
+.wen_list {
 	display: block;
 	padding-bottom: 30rpx;
 	height: auto;
-	
 }
-.wen_list_top{
+.wen_list_top {
 	line-height: 80rpx;
 }
-.wen_neirong{
-		background-color: #f8f8f8;
-		width: 100%;
-		padding: 10rpx 16rpx;
-		box-sizing: border-box;
-		
+.wen_neirong {
+	background-color: #f8f8f8;
+	width: 100%;
+	padding: 10rpx 16rpx;
+	box-sizing: border-box;
 }
-.wen_list_body{
+.wen_list_body {
 	word-break: break-all;
 }
-.go_r{
-		width: 13rpx;
-		height: 24rpx;
-		margin-left: 17rpx;
+.go_r {
+	width: 13rpx;
+	height: 24rpx;
+	margin-left: 17rpx;
 }
-.ls_item{
-	
+.ls_item {
 	background-color: #f8f8f8;
 	padding: 34rpx 14rpx 34rpx 46rpx;
 	width: 560rpx;
 	box-sizing: border-box;
 }
-.ls_item_top{
+.ls_item_top {
 	display: flex;
 	align-items: center;
 }
-.ls_item_left{
+.ls_item_left {
 	margin-right: 15rpx;
 	position: relative;
 }
-.ls_item_left_tx{
-		width: 81rpx;
-		height: 81rpx;
-		border-radius: 100%;
+.ls_item_left_tx {
+	width: 81rpx;
+	height: 81rpx;
+	border-radius: 100%;
 }
-.ls_item_left_ren{
+.ls_item_left_ren {
 	position: absolute;
 	right: 8rpx;
 	bottom: 6rpx;
-		width: 15rpx;
-		height: 16rpx;
-		border: 2rpx solid #FFFFFF;
-		background-color: #FFFFFF;
-		border-radius: 100%;
+	width: 15rpx;
+	height: 16rpx;
+	border: 2rpx solid #ffffff;
+	background-color: #ffffff;
+	border-radius: 100%;
 }
-.dianhua_dizhi{
-		width: 20rpx;
-		height: 24rpx;
-		margin-right: 17rpx;
+.dianhua_dizhi {
+	width: 20rpx;
+	height: 24rpx;
+	margin-right: 17rpx;
 }
 .techang {
-	
 	display: flex;
 	align-items: center;
 	margin-top: 20rpx;
@@ -360,20 +344,18 @@ page {
 	width: 90rpx;
 	height: 36rpx;
 	background-color: #e7e7e7;
-	margin-right:8rpx;
+	margin-right: 8rpx;
 	text-align: center;
-	
 }
-.techang_list{
+.techang_list {
 	display: flex;
 	flex-wrap: wrap;
-	}
+}
 .techang_list text {
 	line-height: 30rpx;
-	margin-right:8rpx;
+	margin-right: 8rpx;
 	padding: 2rpx 10rpx;
 	color: #ffffff;
-	
 }
 .techang_list text:nth-child(1) {
 	background-color: #01af63;
@@ -385,46 +367,42 @@ page {
 	background-color: #7acea4;
 	margin-right: 0;
 }
-.height_auto{
+.height_auto {
 	height: auto;
-	padding:20rpx 0 ;
+	padding: 20rpx 0;
 }
-.ls_item_right{
-	
+.ls_item_right {
 }
-.ls_item_right_top{
+.ls_item_right_top {
 	margin-bottom: 20rpx;
 }
-.ls_dizhi{
-	
+.ls_dizhi {
 }
-.ls_dianhua{
-	
+.ls_dianhua {
 	margin-left: 20rpx;
 }
-.ls_dianhua image{
-		width: 23rpx;
-		height: 24rpx;
-		margin-right: 5rpx;
+.ls_dianhua image {
+	width: 23rpx;
+	height: 24rpx;
+	margin-right: 5rpx;
 }
-.dis_fir{
+.dis_fir {
 	align-items: flex-start;
 }
-.zhuangtai{
+.zhuangtai {
 	background: url(../../static/img/dianhua_xq_bg.png) no-repeat;
-		width: 120rpx;
-		height: 120rpx;
-		background-size: 100% 100%;
-		text-align: center;
-		line-height: 116rpx;
-		transform:rotate(-30deg);
-		-ms-transform:rotate(-30deg); 	
-		-moz-transform:rotate(-30deg); 	
-		-webkit-transform:rotate(-30deg); 
-		-o-transform:rotate(-30deg);	
-		position: absolute;
-		left: 50%;
-		margin-left: -60rpx;
-
+	width: 120rpx;
+	height: 120rpx;
+	background-size: 100% 100%;
+	text-align: center;
+	line-height: 116rpx;
+	transform: rotate(-30deg);
+	-ms-transform: rotate(-30deg);
+	-moz-transform: rotate(-30deg);
+	-webkit-transform: rotate(-30deg);
+	-o-transform: rotate(-30deg);
+	position: absolute;
+	left: 50%;
+	margin-left: -60rpx;
 }
 </style>

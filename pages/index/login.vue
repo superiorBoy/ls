@@ -24,7 +24,9 @@
 				<view class="xieyi qian_24">
 					<checkbox :checked="isCheck" @click="checkBox($event)" />
 					我已阅读并同意
-					<text class="hong_24">《小虎律师网协议》</text>
+					<navigator url="xieyi"  class="hong_24">《用户协议》</navigator>
+					   和
+					<navigator url="yinsi"  class="hong_24">《隐私政策》</navigator>
 				</view>
 				<button type="" class="zhuce bai_30" @click="login" >立即登录</button>
 				<view class="zhuce_tishi qian_24">
@@ -201,6 +203,8 @@ button {
 .xieyi {
 	margin: 76rpx 0 50rpx 0;
 	text-align: center;
+	display: flex;
+	justify-content: center;
 }
 
 .zhuce {
