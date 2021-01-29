@@ -67,16 +67,19 @@
 				</view>
 			</view>
 		</view>
+		<tabBar :currentPage="currentPage" :num='weidu'></tabBar>
 	</view>
 </template>
 
 <script>
 import unpopup from '@/components/uni-popup/uni-popup-share.vue';
 import pickerAddress2 from '@/components/wangding-pickerAddress/wangding-pickerAddress.vue';
+import tabBar from '@/components/y_tabbar/tabbar.vue';
 export default {
 	components: {
 		unpopup,
-		pickerAddress2
+		pickerAddress2,
+		tabBar
 	},
 	onLoad(option) {
 		
@@ -89,6 +92,7 @@ export default {
 		//         that.zhuanchang=res.data
 		//     }
 		// })
+		
 		  this.page=0,
 		  this.is_all=false,
 		  this.lslist=[],
@@ -115,6 +119,7 @@ export default {
 
 	data() {
 		return {
+			currentPage:'index/lvshi',
 			dizhi: '不限地区',
 			zhuanchang: '不限专长',
 			zhuanchang_arry: [],

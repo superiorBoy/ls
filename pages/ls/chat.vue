@@ -180,8 +180,8 @@
 		  			<view class="send_jia_shangchang hei_24">
 		  				擅长:
 		  				<text v-if="zhuanchang_arry[renzheng.expertise1] && zhuanchang_arry[renzheng.expertise1].shanchangname">{{zhuanchang_arry[renzheng.expertise1].shanchangname}}</text>
-		  				<text v-if="zhuanchang_arry[renzheng.expertise1] && zhuanchang_arry[renzheng.expertise2].shanchangname">{{zhuanchang_arry[renzheng.expertise2].shanchangname}}</text>
-		  				<text v-if="zhuanchang_arry[renzheng.expertise1] && zhuanchang_arry[renzheng.expertise3].shanchangname">{{zhuanchang_arry[renzheng.expertise3].shanchangname}}</text>
+		  				<text v-if="zhuanchang_arry[renzheng.expertise2] && zhuanchang_arry[renzheng.expertise2].shanchangname">{{zhuanchang_arry[renzheng.expertise2].shanchangname}}</text>
+		  				<text v-if="zhuanchang_arry[renzheng.expertise3] && zhuanchang_arry[renzheng.expertise3].shanchangname">{{zhuanchang_arry[renzheng.expertise3].shanchangname}}</text>
 		  			</view>
 		  			<view class="send_jia_bottom style_hei_14">
 		  				<view>
@@ -219,8 +219,8 @@
 		  			<view class="send_jia_shangchang hei_24">
 		  				擅长:
 		  				<text v-if="zhuanchang_arry[renzheng.expertise1] && zhuanchang_arry[renzheng.expertise1].shanchangname">{{zhuanchang_arry[renzheng.expertise1].shanchangname}}</text>
-		  				<text v-if="zhuanchang_arry[renzheng.expertise1] && zhuanchang_arry[renzheng.expertise2].shanchangname">{{zhuanchang_arry[renzheng.expertise2].shanchangname}}</text>
-		  				<text v-if="zhuanchang_arry[renzheng.expertise1] && zhuanchang_arry[renzheng.expertise3].shanchangname">{{zhuanchang_arry[renzheng.expertise3].shanchangname}}</text>
+		  				<text v-if="zhuanchang_arry[renzheng.expertise2] && zhuanchang_arry[renzheng.expertise2].shanchangname">{{zhuanchang_arry[renzheng.expertise2].shanchangname}}</text>
+		  				<text v-if="zhuanchang_arry[renzheng.expertise3] && zhuanchang_arry[renzheng.expertise3].shanchangname">{{zhuanchang_arry[renzheng.expertise3].shanchangname}}</text>
 		  			</view>
 		  			<view class="send_jia_bottom style_hei_14">
 		  				<view>
@@ -375,8 +375,8 @@
 								<view class="send_jia_shangchang hei_24">
 									擅长:
 									<text v-if="zhuanchang_arry[renzheng.expertise1] && zhuanchang_arry[renzheng.expertise1].shanchangname">{{zhuanchang_arry[renzheng.expertise1].shanchangname}}</text>
-									<text v-if="zhuanchang_arry[renzheng.expertise1] && zhuanchang_arry[renzheng.expertise2].shanchangname">{{zhuanchang_arry[renzheng.expertise2].shanchangname}}</text>
-									<text v-if="zhuanchang_arry[renzheng.expertise1] && zhuanchang_arry[renzheng.expertise3].shanchangname">{{zhuanchang_arry[renzheng.expertise3].shanchangname}}</text>
+									<text v-if="zhuanchang_arry[renzheng.expertise2] && zhuanchang_arry[renzheng.expertise2].shanchangname">{{zhuanchang_arry[renzheng.expertise2].shanchangname}}</text>
+									<text v-if="zhuanchang_arry[renzheng.expertise3] && zhuanchang_arry[renzheng.expertise3].shanchangname">{{zhuanchang_arry[renzheng.expertise3].shanchangname}}</text>
 								</view>
 								<view class="send_jia_bottom style_hei_14">
 									<view>
@@ -415,8 +415,8 @@
 								<view class="send_jia_shangchang hei_24">
 									擅长:
 									<text v-if="zhuanchang_arry[renzheng.expertise1] && zhuanchang_arry[renzheng.expertise1].shanchangname">{{zhuanchang_arry[renzheng.expertise1].shanchangname}}</text>
-									<text v-if="zhuanchang_arry[renzheng.expertise1] && zhuanchang_arry[renzheng.expertise2].shanchangname">{{zhuanchang_arry[renzheng.expertise2].shanchangname}}</text>
-									<text v-if="zhuanchang_arry[renzheng.expertise1] && zhuanchang_arry[renzheng.expertise3].shanchangname">{{zhuanchang_arry[renzheng.expertise3].shanchangname}}</text>
+									<text v-if="zhuanchang_arry[renzheng.expertise2] && zhuanchang_arry[renzheng.expertise2].shanchangname">{{zhuanchang_arry[renzheng.expertise2].shanchangname}}</text>
+									<text v-if="zhuanchang_arry[renzheng.expertise3] && zhuanchang_arry[renzheng.expertise3].shanchangname">{{zhuanchang_arry[renzheng.expertise3].shanchangname}}</text>
 								</view>
 								<view class="send_jia_bottom style_hei_14">
 									<view>

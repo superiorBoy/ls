@@ -22,9 +22,9 @@
 						<text>专职律师</text>
 					</view>
 					<view class="hui_26 techang" v-if="lvshi!=''">
-						<text>{{zhuanchang_arry[lvshi.expertise1].shanchangname}}</text>
-						<text>{{zhuanchang_arry[lvshi.expertise2].shanchangname}}</text>
-						<text>{{zhuanchang_arry[lvshi.expertise3].shanchangname}}</text>
+						<text  v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise1].shanchangname">{{zhuanchang_arry[lvshi.expertise1].shanchangname}}</text>
+						<text  v-if="zhuanchang_arry[lvshi.expertise2] && zhuanchang_arry[lvshi.expertise2].shanchangname">{{zhuanchang_arry[lvshi.expertise2].shanchangname}}</text>
+						<text  v-if="zhuanchang_arry[lvshi.expertise3] && zhuanchang_arry[lvshi.expertise3].shanchangname">{{zhuanchang_arry[lvshi.expertise3].shanchangname}}</text>
 					</view>
 					<view class="ls_gaikuo">
 						<view class="ls_gaikuo_item">
@@ -129,8 +129,8 @@
 				<view class="tan_shanchang hui_26">
 					擅长：		
 				  <text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise1].shanchangname">{{zhuanchang_arry[lvshi.expertise1].shanchangname}}</text>
-				  <text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise2].shanchangname">{{zhuanchang_arry[lvshi.expertise2].shanchangname}}</text>
-				  <text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise3].shanchangname">{{zhuanchang_arry[lvshi.expertise3].shanchangname}}</text>
+				  <text v-if="zhuanchang_arry[lvshi.expertise2] && zhuanchang_arry[lvshi.expertise2].shanchangname">{{zhuanchang_arry[lvshi.expertise2].shanchangname}}</text>
+				  <text v-if="zhuanchang_arry[lvshi.expertise3] && zhuanchang_arry[lvshi.expertise3].shanchangname">{{zhuanchang_arry[lvshi.expertise3].shanchangname}}</text>
 				</view>
 				<view class="hui_24">
 					{{tan_jia_jianjie}}

@@ -135,17 +135,24 @@
 				</view>
 			</view>
 		</view>
+		<tabBar :currentPage="currentPage" :num='weidu'></tabBar>
 	</view>
 </template>
 
 <script>
+	import tabBar from '@/components/y_tabbar/tabbar.vue';
 export default {
 	created() {},
 	onShow() {
 		this.huiqu_login()
 	},
+	components: {
+
+		tabBar
+	},
 	data() {
 		return {
+			currentPage:'index/my',
 			user:'',
 			img_url: uni.getStorageSync('img_url'),
 			is_login:false,

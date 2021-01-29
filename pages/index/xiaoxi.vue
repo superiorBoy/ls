@@ -103,7 +103,7 @@
 			
 			</view>
 			
-			
+			<tabBar :currentPage="currentPage" :num='weidu'></tabBar>
 			
 		</view>
 	
@@ -112,13 +112,15 @@
 <script>
 	import uParse from '@/components/feng-parse/parse.vue';
 	import socket from 'plus-websocket';
+	import tabBar from '@/components/y_tabbar/tabbar.vue';
 	export default {
 	
 		created() {
 		
 		},
 		components:{
-			uParse
+			uParse,
+			tabBar
 		},
 		onShow() {
 			this.$http
@@ -146,7 +148,7 @@
 		},
 		data() {
 			return {
-				currentPage:'ls/xiaoxi',
+				currentPage:'index/xiaoxi',
 				tabs:['图文咨询','电话咨询'],
 				img_url: uni.getStorageSync('img_url'),
 				active:'0',

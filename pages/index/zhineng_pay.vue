@@ -98,7 +98,7 @@ export default {
 	created() {},
 	onLoad(option) {
 		if (option.consultid) {
-			this.laiyuan = 1;
+			
 			this.consultid = option.consultid;
 			this.$http
 				.post({
@@ -143,13 +143,7 @@ export default {
 					}
 					this.type_arry = array;
 				});
-			this.$http
-				.post({
-					url: '/mapi/lawyer/getshanchang'
-				})
-				.then(res => {
-					this.zhuanchang_arry = res.data.shanchang;
-				});
+		
 			this.$http
 				.post({
 					url: '/mapi/user/user'

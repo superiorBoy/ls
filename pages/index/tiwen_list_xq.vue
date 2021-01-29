@@ -646,7 +646,7 @@ page {
 .zhuiwen_body {
 	max-width: 100%;
 	line-height: 34rpx;
-	line-height: 17px;
+	
 	white-space: normal;
 	word-break: break-all;
 	margin: 20rpx 0;

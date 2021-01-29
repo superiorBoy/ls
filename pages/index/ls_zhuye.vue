@@ -23,8 +23,8 @@
 					</view>
 					<view class="hui_26 techang" v-if="lvshi != ''">
 					<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise1].shanchangname">{{zhuanchang_arry[lvshi.expertise1].shanchangname}}</text>
-					<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise2].shanchangname">{{zhuanchang_arry[lvshi.expertise2].shanchangname}}</text>
-					<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise3].shanchangname">{{zhuanchang_arry[lvshi.expertise3].shanchangname}}</text>
+					<text v-if="zhuanchang_arry[lvshi.expertise2] && zhuanchang_arry[lvshi.expertise2].shanchangname">{{zhuanchang_arry[lvshi.expertise2].shanchangname}}</text>
+					<text v-if="zhuanchang_arry[lvshi.expertise3] && zhuanchang_arry[lvshi.expertise3].shanchangname">{{zhuanchang_arry[lvshi.expertise3].shanchangname}}</text>
 					</view>
 					<view class="ls_gaikuo">
 						<view class="ls_gaikuo_item">
@@ -292,8 +292,8 @@
 			<view class="tan_shanchang hui_26">
 				擅长：		
 			  <text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise1].shanchangname">{{zhuanchang_arry[lvshi.expertise1].shanchangname}}</text>
-			  <text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise2].shanchangname">{{zhuanchang_arry[lvshi.expertise2].shanchangname}}</text>
-			  <text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise3].shanchangname">{{zhuanchang_arry[lvshi.expertise3].shanchangname}}</text>
+			  <text v-if="zhuanchang_arry[lvshi.expertise2] && zhuanchang_arry[lvshi.expertise2].shanchangname">{{zhuanchang_arry[lvshi.expertise2].shanchangname}}</text>
+			  <text v-if="zhuanchang_arry[lvshi.expertise3] && zhuanchang_arry[lvshi.expertise3].shanchangname">{{zhuanchang_arry[lvshi.expertise3].shanchangname}}</text>
 			</view>
 			<view class="hui_24">
 				{{tan_jia_jianjie}}
@@ -443,8 +443,6 @@ export default {
 		var aaa = this.decodeUnicode(
 			'["\u670d\u52a1\u4f18\u8d28","\u5b66\u8bc6\u6e0a\u535a","\u7ecf\u9a8c\u4e30\u5bcc","\u5f85\u4eba\u8bda\u6073","\u4e50\u4e8e\u52a9\u4eba","\u56de\u590d\u5f88\u5feb","\u5f62\u8c61\u4e13\u4e1a","\u503c\u5f97\u63a8\u8350"]'
 		);
-
-
 	},
 	methods: {
 		navigateBack() {

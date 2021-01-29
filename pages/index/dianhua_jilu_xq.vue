@@ -41,10 +41,10 @@
 								<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise1].shanchangname">
 									{{ zhuanchang_arry[lvshi.expertise1].shanchangname }}
 								</text>
-								<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise2].shanchangname">
+								<text v-if="zhuanchang_arry[lvshi.expertise2] && zhuanchang_arry[lvshi.expertise2].shanchangname">
 									{{ zhuanchang_arry[lvshi.expertise2].shanchangname }}
 								</text>
-								<text v-if="zhuanchang_arry[lvshi.expertise1] && zhuanchang_arry[lvshi.expertise3].shanchangname">
+								<text v-if="zhuanchang_arry[lvshi.expertise3] && zhuanchang_arry[lvshi.expertise3].shanchangname">
 									{{ zhuanchang_arry[lvshi.expertise3].shanchangname }}
 								</text>
 							</view>

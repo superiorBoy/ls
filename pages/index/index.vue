@@ -272,6 +272,8 @@
 				</view>
 			</view>
 		</view>
+		
+		<tabBar :currentPage="currentPage" :num='weidu'></tabBar>
 	</view>
 </template>
 
@@ -279,6 +281,7 @@
 import WucTab from '@/components/wuc-tab/wuc-tab.vue';
 import pickerAddress from '@/components/wangding-pickerAddress/wangding-pickerAddress.vue';
 import socket from 'plus-websocket';
+import tabBar from '@/components/y_tabbar/tabbar.vue';
 //#ifdef H5
 import $ from '@/common/jquery-3.4.1.min.js';
 import { loadBMap } from '@/common/map.js';
@@ -292,6 +295,7 @@ export default {
 			url: uni.getStorageSync('img_url'),
 			data: '',
 			tabList: '',
+			currentPage:'index/index',
 			TabCur: 0,
 			// tabList: [
 			// 	{
@@ -342,7 +346,8 @@ export default {
 	},
 	components: {
 		WucTab,
-		pickerAddress
+		pickerAddress,
+		tabBar
 	},
 	created() {
 		var that = this;
@@ -547,7 +552,7 @@ export default {
 				} else if (data.type == 'say') {
 					console.log('say');
 					if (data.state) {
-						// void plus.push.createMessage('用户端收到一条新消息');
+						void plus.push.createMessage('用户端收到一条新消息');
 						that.huoqu_weidu();
 					}
 				} else {

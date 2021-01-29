@@ -11,7 +11,8 @@
         "modules" : {
             "Payment" : {},
             "Maps" : {},
-            "SQLite" : {}
+            "SQLite" : {},
+            "Push" : {}
         },
         "compatible" : {
             "ignoreVersion" : true //true表示忽略版本检查提示框，HBuilderX1.9.0及以上版本支持  
@@ -47,7 +48,17 @@
                 "abiFilters" : [ "armeabi-v7a", "x86" ]
             },
             "ios" : {
-                "idfa" : false
+                "idfa" : false,
+                "privacyDescription" : {
+                    "NSPhotoLibraryUsageDescription" : "用户点击同意，读取用户相册，选择用户相册图片，用于头像制作或者图片发布上传",
+                    "NSPhotoLibraryAddUsageDescription" : "用户点击同意，读取用户相册，选择用户相册图片，用于头像制作或者图片发布上传",
+                    "NSCameraUsageDescription" : "用户点击同意，获取摄像头用于拍照/摄影/扫描二维码",
+                    "NSMicrophoneUsageDescription" : "用户点击同意，使用麦克风录制音频文件/语音识别",
+                    "NSLocationWhenInUseUsageDescription" : "获取用户当前位置，推荐附近上架并导航到商家门店",
+                    "NSLocationAlwaysUsageDescription" : "获取用户当前位置，推荐附近上架商品并导航到商家门店",
+                    "NSLocationAlwaysAndWhenInUseUsageDescription" : "获取用户当前位置，推荐附近上架并导航到商家门店",
+                    "NSContactsUsageDescription" : "该应用需要读取你的通讯录，以便与买家联系"
+                }
             },
             "sdkConfigs" : {
                 "ad" : {},

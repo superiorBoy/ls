@@ -543,10 +543,7 @@ page {
 	align-items: flex-start;
 	margin-bottom: 8rpx;
 }
-.zhuiwen_body {
-	max-width: 90%;
-	line-height: 34rpx;
-}
+
 .get_more {
 	height: 90rpx;
 	background-color: #dcdcdc;
@@ -606,9 +603,7 @@ page {
 }
 .zhuiwen_body {
 	max-width: 100%;
-	
 	line-height: 34rpx;
-	line-height: 17px;
 	white-space: normal;
 	word-break: break-all;
 	margin: 20rpx 0;
