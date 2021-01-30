@@ -45,7 +45,7 @@
 			
 			</view>
 			<view class="padding_bottom"></view>
-			<tabBar :currentPage="currentPage" :num='weidu'></tabBar>
+			<tabBar :currentPage="currentPage" ></tabBar>
 			
 		</view>
 	
@@ -120,14 +120,14 @@
 								url:'zhiye_renzheng'
 							})
 						}else{
-							this.$http
-								.post({
-									url: '/mlawyerapi/consult/messagecount'
-								})
-								.then(res => {
-									this.weidu=res.data.messagecount
+							// this.$http
+							// 	.post({
+							// 		url: '/mlawyerapi/consult/messagecount'
+							// 	})
+							// 	.then(res => {
+							// 		this.weidu=res.data.messagecount
 									
-								});
+							// 	});
 								this.jiedan_list()
 							
 						}

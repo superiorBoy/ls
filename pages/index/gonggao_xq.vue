@@ -92,11 +92,7 @@ COOKIE信息，更安全。</view>
 			navigateBack() {
 				uni.navigateBack()
 			},
-			xq() {
-				uni.navigateTo({
-					url: 'help_xq?id=' + this.id1,
-				})
-			}
+	
 		},
 		filters: {
 			timeStamp: function(value) {

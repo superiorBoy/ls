@@ -273,7 +273,7 @@
 			</view>
 		</view>
 		
-		<tabBar :currentPage="currentPage" :num='weidu'></tabBar>
+		<tabBar :currentPage="currentPage" ></tabBar>
 	</view>
 </template>
 
@@ -477,14 +477,14 @@ export default {
 					console.log(res.data.banben, '版本');
 					if (uni.getSystemInfoSync().platform == 'ios') {
 						console.log('ios', this.banben);
-						if (this.banben != res.data.banben.ios) {
+						if (this.banben < res.data.banben.ios) {
 							this.is_gengxin = true;
 							this.down_url = res.data.banben.iosurl;
 							uni.hideTabBar();
 						}
 					} else if (uni.getSystemInfoSync().platform === 'android') {
 						console.log('android', this.banben);
-						if (this.banben != res.data.banben.android) {
+						if (this.banben < res.data.banben.android) {
 							this.is_gengxin = true;
 							this.down_url = res.data.banben.androidurl;
 							uni.hideTabBar();
@@ -1263,7 +1263,7 @@ scroll-view ::-webkit-scrollbar {
 	justify-content: center;
 }
 
-.active {
+.dots .active {
 	width: 30rpx;
 	height: 8rpx;
 	background-color: #ffffff;
@@ -1344,4 +1344,8 @@ scroll-view ::-webkit-scrollbar {
 .zhineng_item_txt {
 	margin-bottom: 6rpx;
 }
+.body{
+	padding-bottom: 150rpx;
+}
+
 </style>

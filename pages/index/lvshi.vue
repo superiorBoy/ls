@@ -67,7 +67,7 @@
 				</view>
 			</view>
 		</view>
-		<tabBar :currentPage="currentPage" :num='weidu'></tabBar>
+		<tabBar :currentPage="currentPage" ></tabBar>
 	</view>
 </template>
 
@@ -436,5 +436,8 @@ page {
 	border-radius: 28rpx;
 	padding-left: 20rpx;
 	box-sizing: border-box;
+}
+.body{
+	padding-bottom: 150rpx;
 }
 </style>

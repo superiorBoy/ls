@@ -16,12 +16,8 @@ export default {
 		currentPage: {
 			type: String,
 			default: 'index'
-		},
-		num:{
-			type: String,
-			default: "num"
-			
 		}
+
 	},
 	data() {
 		return {
@@ -52,7 +48,7 @@ export default {
 				}
 			],
 			level: '3',
-			weidu:0,
+			num:0,
 			
 		};
 	},
@@ -69,6 +65,7 @@ export default {
 	},
 	created() {
 		uni.hideTabBar({});
+		this.huiqu_login()
 	},
 	methods: {
 		navTo(item, index) {
@@ -84,6 +81,31 @@ export default {
 			} else {
 				/* this.$parent.toTop() */
 			}
+		},
+		huiqu_login() {
+			this.$http
+				.post({
+					url: '/lawyer/login/islogin'
+				})
+				.then(res => {
+					if (res.data.user != '') {
+						this.huoqunum()
+					} else {
+						
+						
+					}
+				});
+		},
+		huoqunum(){
+			this.$http
+				.post({
+					url: '/mlawyerapi/consult/messagecount'
+				})
+				.then(res => {
+					if(res.code==0){
+					this.num=	res.data.messagecount
+					}
+				});
 		}
 	}
 };

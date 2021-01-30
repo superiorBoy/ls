@@ -135,7 +135,7 @@
 				</view>
 			</view>
 		</view>
-		<tabBar :currentPage="currentPage" :num='weidu'></tabBar>
+		<tabBar :currentPage="currentPage" ></tabBar>
 	</view>
 </template>
 
@@ -189,23 +189,7 @@ export default {
 						this.huoqu_user()
 						this.huoqu_geshu()
 						this.huoqu_baojia()
-						this.$http
-							.post({
-								url: '/mapi/consult/messagecount'
-							})
-							.then(res => {
-								
-								if(res.data.messagecount>0){
-									uni.setTabBarBadge({
-									  index: 3,
-									  text: ''+res.data.messagecount
-									})
-								}else{
-									 uni.removeTabBarBadge({
-											 index:3
-									})
-								}
-							});
+						
 						
 						
 					}else{
@@ -413,5 +397,8 @@ page {
 		line-height: 50rpx;
 		border: 2rpx solid #EEEEEE;
 		text-align: center;
+	}
+	.my_bottom{
+		padding-bottom: 150rpx;
 	}
 </style>

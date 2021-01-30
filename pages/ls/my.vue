@@ -231,7 +231,7 @@
 		</view>
 
 		<view class="padding_bottom"></view>
-		<tabBar :currentPage="currentPage" :num='weidu'></tabBar>
+		<tabBar :currentPage="currentPage" ></tabBar>
 	</view>
 </template>
 
@@ -305,7 +305,7 @@ export default {
 						this.is_login = true;
 						this.huoqu_user();
 				       this.huoqu_geshu()
-						this.huoshu_weidu()
+						// this.huoshu_weidu()
 					} else {
 						this.is_login = false;
 						

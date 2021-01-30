@@ -66,7 +66,7 @@
 			</view>
 		</view>
 		<view class="padding_bottom"></view>
-		<tabBar :currentPage="currentPage" :num='weidu'></tabBar>
+		<tabBar :currentPage="currentPage" ></tabBar>
 	</view>
 </template>
 
@@ -220,12 +220,12 @@ export default {
 				})
 				.then(res => {
 					this.xiaoxi_list = res.data.messagelist;
-					var num=0
-					for (var i in res.data.messagelist){
-					num+=res.data.messagelist[i].messagecount
-					}
+					// var num=0
+					// for (var i in res.data.messagelist){
+					// num+=res.data.messagelist[i].messagecount
+					// }
 					
-					this.weidu=num
+					// this.weidu=num
 					
 				});
 		},

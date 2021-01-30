@@ -50,7 +50,7 @@
 
 			</view>
 			<view class="padding_bottom" ></view>
-			<tabBar :currentPage="currentPage":num='weidu' ></tabBar>
+			<tabBar :currentPage="currentPage" ></tabBar>
 			
 		</view>
 	
@@ -124,14 +124,14 @@
 						}else{
 							this.user=res.data.user
 							this.huoqu_user()
-							this.$http
-								.post({
-									url: '/mlawyerapi/consult/messagecount'
-								})
-								.then(res => {
-									this.weidu=res.data.messagecount
+							// this.$http
+							// 	.post({
+							// 		url: '/mlawyerapi/consult/messagecount'
+							// 	})
+							// 	.then(res => {
+							// 		this.weidu=res.data.messagecount
 									
-								});
+							// 	});
 							
 						}
 						

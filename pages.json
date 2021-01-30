@@ -423,7 +423,46 @@
 				"query": "" //启动参数，在页面的onLoad函数里面得到
 			}
 		]
-	}
+	},
+		"tabBar": {
+				"color":"#8a8a8a",
+				"selectedColor":"#0eb77e",
+				"borderStyle":"black",
+				"backgroundColor":"#ffffff",
+				"list": [
+					{
+						"pagePath":"pages/index/index",
+						"text":"首页",
+						"iconPath":"static/img/shouye_icon.png",
+						"selectedIconPath":"static/img/on_shouye_icon.png"
+					},
+					{
+						"pagePath":"pages/index/zixun",
+						"text":"咨询",
+						"iconPath":"static/img/zixun_icon.png",
+						"selectedIconPath":"static/img/on_zixun_icon.png"
+					},
+					{
+						"pagePath":"pages/index/lvshi",
+						"text":"律师",
+						"iconPath":"static/img/lvshi_icon.png",
+						"selectedIconPath":"static/img/on_lvshi_icon.png"
+					},
+					{
+						"pagePath":"pages/index/xiaoxi",
+						"text":"消息",
+						"iconPath":"static/img/xiaoxi_icon.png",
+						"selectedIconPath":"static/img/on_xiaoxi_icon.png"
+					},
+					{
+						"pagePath":"pages/index/my",
+						"text":"我的",
+						"iconPath":"static/img/my_icon.png",
+						"selectedIconPath":"static/img/on_my_icon.png"
+					}
+				
+				]	
+			 }
 
 
 }

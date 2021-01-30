@@ -103,7 +103,7 @@
 			
 			</view>
 			
-			<tabBar :currentPage="currentPage" :num='weidu'></tabBar>
+			<tabBar :currentPage="currentPage" ></tabBar>
 			
 		</view>
 	
@@ -468,5 +468,8 @@ app_lianjie() {
 	white-space:nowrap; 
 	text-align: center;
 	line-height: 32rpx;
+}
+.zi_body{
+	padding-bottom: 150rpx;
 }
 </style>

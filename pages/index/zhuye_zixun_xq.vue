@@ -449,6 +449,7 @@ page {
 .huida_txt {
 	margin: 20rpx 0 6rpx;
 	padding-left: 123rpx;
+	word-break: break-all;
 }
 .huida_time{
 	padding-left: 123rpx;

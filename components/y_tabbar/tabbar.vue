@@ -1,16 +1,14 @@
 <template>
 	<view class="tabBar">
 		<view v-for="(item, index) in tabBar" :key="item.url" class="tabbar_item" :class="{ active: item.url == currentPage }" @click="navTo(item, index)">
+		<view class="">
 			<image v-if="item.url == currentPage" :src="item.imgClick" mode=""></image>
-			<view class=""v-if="index!=2">
-			<image v-if="item.url != currentPage" :src="item.imgNormal" mode="" ></image>
-			</view>
-			<view class="tuqi"v-if="index==2">
-				<image :src="item.imgNormal" mode=""></image>
-			</view>
-			
-            <text v-if="index==1&&num>0" class="weidu">{{num}}</text>
-			<view class="text" v-if="index!=2">{{ item.text }}</view>
+		</view>	
+			<view class="" v-if="index != 2"><image v-if="item.url != currentPage" :src="item.imgNormal" mode=""></image></view>
+			<view class="tuqi" v-if="index == 2"><image :src="item.imgNormal" mode=""></image></view>
+
+			<text v-if="index == 3 && num > 0" class="weidu">{{ num }}</text>
+			<view class="text" v-if="index != 2">{{ item.text }}</view>
 		</view>
 	</view>
 </template>
@@ -21,11 +19,6 @@ export default {
 		currentPage: {
 			type: String,
 			default: 'index'
-		},
-		num:{
-			type: String,
-			default: "num"
-			
 		}
 	},
 	data() {
@@ -44,7 +37,7 @@ export default {
 					imgClick: '/static/img/on_lvshi_icon.png'
 				},
 				{
-					url: 'ls/tiwen',
+					url: 'index/tiwen',
 					text: '按钮',
 					imgNormal: '/static/img/fly.png',
 					imgClick: '/static/img/fly.png'
@@ -63,8 +56,7 @@ export default {
 				}
 			],
 			level: '3',
-			weidu:0,
-			
+			num: 0
 		};
 	},
 	mounted() {
@@ -80,21 +72,56 @@ export default {
 	},
 	created() {
 		uni.hideTabBar({});
+		this.is_login()
+		
 	},
 	methods: {
 		navTo(item, index) {
 			let _this = this;
 			console.log(item.url);
-
-			if (item.url !== _this.currentPage) {
-				var isUrl = `/pages/${item.url}`;
-				const that = this;
-				uni.redirectTo({
-					url: isUrl
+			if (item.url == 'index/tiwen') {
+				uni.navigateTo({
+					url: '../../pages/index/tiwen'
 				});
 			} else {
-				/* this.$parent.toTop() */
+				if (item.url !== _this.currentPage) {
+					var isUrl = `/pages/${item.url}`;
+					const that = this;
+					// uni.redirectTo({
+					// 	url: isUrl
+					// });
+					uni.switchTab({
+						url:isUrl
+					})
+				} else {
+					/* this.$parent.toTop() */
+				}
 			}
+		},
+		is_login(){
+			this.$http
+				.post({
+					url: '/index/login/islogin'
+				})
+				.then(res => {
+					if(res.data.user!=''){
+	                 console.log('login')
+						this.huoqunum()
+					}else{
+						console.log('no')
+					}
+				});
+		},
+		huoqunum(){
+			this.$http
+				.post({
+					url: '/mapi/consult/messagecount'
+				})
+				.then(res => {
+					if(res.code==0){
+					this.num=	res.data.messagecount
+					}
+				});
 		}
 	}
 };
@@ -119,11 +146,11 @@ export default {
 	justify-content: space-around;
 
 	box-sizing: border-box;
-	box-shadow:  0px 0px 10px rgba(0,0,0,.2);
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 	max-width: 750px;
 }
 .tabBar .tabbar_item {
-	width: 25%;
+	width: 20% !important;
 	font-size: 12px;
 	display: flex;
 	flex-direction: column;
@@ -136,45 +163,65 @@ export default {
                 border-top: $isBorder; */
 	background: white;
 	color: #0eb77e;
+	width: 20% !important;
 }
 
 .tabBar image {
 	width: 42upx;
-	height:42upx;
+	height: 42upx;
 	margin-left: 5upx;
-	margin-bottom: 8rpx;
+	margin-bottom: 2rpx;
 }
-.weidu{
-	    width: auto;
-	    height: 32rpx;
-	    line-height: 32rpx;
-	    border-radius: 32rpx;
-	    min-width:32rpx;
-	    padding: 0 4rpx;
-	    font-size: 24rpx;
-	    text-align: center;
-	    white-space: nowrap;
-		position: absolute;
-		top: 0;
-		right: 30%;
-		box-sizing: border-box;
-		background-color:#f43a51 ;
-		color: #FFFFFF;
+.active image{
+	width: 42upx;
+	height: 42upx;
+	margin-left: 5upx;
+	margin-bottom: 2rpx;
 }
-.tuqi{
+.weidu {
+	width: auto;
+	height: 32rpx;
+	line-height: 32rpx;
+	border-radius: 32rpx;
+	min-width: 32rpx;
+	padding: 0 4rpx;
+	font-size: 24rpx;
+	text-align: center;
+	white-space: nowrap;
+	position: absolute;
+	top: 0;
+	right: 21%;
+	box-sizing: border-box;
+	background-color: #f43a51;
+	color: #ffffff;
+}
+.tuqi {
 	position: relative;
 	top: -20rpx;
-	border: 10rpx solid #FFFFFF;
-	background-color: #FFFFFF;
+	border: 10rpx solid #ffffff;
+	background-color: #ffffff;
 	border-radius: 100%;
-	padding: 10rpx;
-	
+	border: 10rpx solid #ffffff;
+	background-color: #ffffff;
+	box-shadow: -2px -2px 2px #dddddd;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	transform: rotate(45deg);
+	-ms-transform: rotate(45deg); /* IE 9 */
+	-moz-transform: rotate(45deg); /* Firefox */
+	-webkit-transform: rotate(45deg); /* Safari 和 Chrome */
+	-o-transform: rotate(45deg); /* Opera */
 }
-.tuqi image{
-		width: 98rpx;
-		height: 98rpx;
+.tuqi image {
+	width: 98rpx;
+	height: 98rpx;
+	transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg); /* IE 9 */
+	-moz-transform: rotate(-45deg); /* Firefox */
+	-webkit-transform: rotate(-45deg); /* Safari 和 Chrome */
+	-o-transform: rotate(-45deg); /* Opera */
+	position: relative;
+	left: -2rpx;
 }
 </style>
