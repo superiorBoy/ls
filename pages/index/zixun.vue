@@ -73,15 +73,18 @@
 
 		
 		</view>
+		<tabBar  ></tabBar>
 	</view>
 </template>
 
 <script>
 	import pickerAddress2 from '@/components/wangding-pickerAddress/wangding-pickerAddress.vue';
+	import tabBar from '@/components/y_tabbar/tabbar.vue';
 export default {
 	components: {
 		
-		pickerAddress2
+		pickerAddress2,
+		tabBar
 	},
 	data() {
 		return {
@@ -271,7 +274,9 @@ export default {
 .head {
 	
 }
-
+.zi_body{
+	padding-bottom: 100rpx;
+}
 .head_right image {
 	width: 40rpx;
 	height: 41rpx;
@@ -293,6 +298,7 @@ export default {
 	display: flex;
 	align-items: center;
 	margin: 18rpx 0 10rpx;
+	justify-content: space-between;
 }
 
 .tiwen_item_dizhi image {
@@ -301,7 +307,7 @@ export default {
 	margin-right: 8rpx;
 }
 .tiwen_item_biaoqian {
-	margin: 0 98rpx 0 50rpx;
+	
 }
 .tiwen_item_biaoqian image {
 	width: 21rpx;

@@ -6,7 +6,11 @@
 					<view class="head2">
 						<view class="head_back"><image src="@/static/img/bai_back.png" mode="" @click="navigateBack()"></image></view>
 						<view class="head_center bai_38_bold">律师主页</view>
-						<view class=" head_right hei_30_bold"></view>
+						<view class=" head_right hei_30_bold">
+							<image :src="type==1 ? '../../static/img/guanzhu_on_icon.png' : '../../static/img/guan_no.png'"    mode="" style="width: 41rpx;height: 38rpx;margin-right: 30rpx;"  @click="guanzhu"></image>
+							<!-- <image src="@/static/img/guan_no.png" mode=""style="width: 40rpx;height: 38rpx;margin-right: 30rpx;"></image> -->
+							<image src="@/static/img/fenxiang.png" mode=""style="width: 38rpx;height: 36rpx;"  @click="share"></image>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -245,7 +249,7 @@
 				</view>
 				<view class="zhanwei2" style="height: 120rpx;"></view>
 				<view class="bottom">
-					<view class="bottom_fenxiang" @click="share">
+					<!-- <view class="bottom_fenxiang" @click="share">
 						<image src="@/static/img/share.png" mode=""></image>
 						<view class="hui_26">分享</view>
 					</view>
@@ -256,8 +260,14 @@
 					<view class="bottom_pingjia" @click="go_chat()">
 						<image src="@/static/img/siliao.png" mode=""></image>
 						<view class="hui_26">私聊</view>
+					</view> -->
+					<view class="liao lv_30" @click="go_chat()">
+						<image src="@/static/img/lawyer_chat.png" mode=""></image>
+					<view class="">
+						聊一聊
+					</view>	
 					</view>
-					<view class="dianhua lv_26" >
+					<view class="dianhua lv_30" >
 						<!-- <image src="@/static/img/dianhua_lv.png" mode=""></image> -->
 					 <view class="lv_24 bottom_jiage" v-if="baojia&&baojia.jianmian" @click="tan(0,baojia.jianmian)">
 					 	￥<text class="lv_32">{{baojia.jianmian}}</text>
@@ -267,7 +277,7 @@
 					 </view>
 						见面咨询
 					</view>
-					<view class="zaixian bai_26" >
+					<view class="zaixian bai_30" >
 						<!-- <image src="@/static/img/zaixian_bai.png" mode=""></image> -->
 						<view class="bai_24 bottom_jiage" v-if="baojia&&baojia.chatprice" @click="tan(1,baojia.chatprice)">
 							￥<text class="bai_32">{{baojia.chatprice}}</text>
@@ -1202,6 +1212,7 @@ display: flex;
 	bottom: 0;
 	width: 100%;
 	background-color: #ffffff;
+	
 }
 .bottom_fenxiang,
 .bottom_pingjia,
@@ -1221,7 +1232,7 @@ display: flex;
 }
 
 .dianhua {
-	width: 225rpx;
+	width: 33.33%;
 	height: 100%;
 	box-sizing: border-box;
 	text-align: center;
@@ -1239,7 +1250,7 @@ display: flex;
 	margin-right: 12rpx;
 }
 .zaixian {
-	width: 225rpx;
+	width: 33.33%;
 	height: 100%;
 	background-color: #0eb77e;
 	text-align: center;
@@ -1377,5 +1388,16 @@ display: flex;
 	font-size: 34rpx !important;
 	font-weight: bold;
 }
-
+.liao{
+	text-align: center;
+	width: 33%;
+	background-color: #96ffe3;
+	height: 100%;
+	padding-top: 20rpx;
+	box-sizing: border-box;
+}
+.liao image{
+width: 45rpx;
+	height: 42rpx;	
+}
 </style>

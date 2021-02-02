@@ -3,18 +3,18 @@
 		<view class="head">
 			<view class="head_back"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
 			<view class="head_center hei_38_bold">下载页</view>
-			<view class=" head_right"><image src="@/static/img/dian.png" mode=""></image></view>
+			<view class=" head_right"></view>
 		</view>
 
 		<view class="zi_body ">
 			<image src="@/static/img/app.png" mode="" class="app_top"></image>
 
 			<view class="app_bottom">
-				<view class="yaoqingma hei_24">
+				<view class="yaoqingma hei_24" v-if="yaoqing">
 					{{ yaoqing }}
 					<view class="copy bai_24" @click="copy">复制</view>
 				</view>
-				<view class="hei_26">
+				<view class="hei_26"  v-if="yaoqing">
 					请先
 					<text class="hong_26">复制邀请码</text>
 					,该邀请码用于
@@ -52,13 +52,13 @@ export default {
 			.then(res => {
 				this.down = res.data.banben;
 			});
-			this.$http
-				.post({
-					url: '/mapi/user/yaoqing'
-				})
-				.then(res => {
-					this.yaoqing = res.data.randcode1;
-				});
+		// 	this.$http
+		// 		.post({
+		// 			url: '/mapi/user/yaoqing'
+		// 		})
+		// 		.then(res => {
+		// 			this.yaoqing = res.data.randcode1;
+		// 		});
 	},
 
 	data() {
@@ -68,7 +68,9 @@ export default {
 		};
 	},
 	created() {},
-
+    onLoad(option) {
+    	this.yaoqing=option.lianjie
+    },
 	methods: {
 		navigateBack() {
 			uni.navigateBack();

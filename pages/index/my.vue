@@ -29,7 +29,7 @@
 				<view class="my_ziliao_item_top hei_28">{{geshu.shoucang}}</view>
 				<view class="my_ziliao_item_bottom hei_22">收藏</view>
 			</navigator>
-			<navigator url="tuandui" class="my_ziliao_item">
+			<navigator url="tuandui" class="my_ziliao_item" v-if="is_yaoqing==1">
 				<view class="my_ziliao_item_top hei_28">{{geshu.tuandui}}</view>
 				<view class="my_ziliao_item_bottom hei_22">团队</view>
 			</navigator>
@@ -78,7 +78,7 @@
 				</view>
 			</view>
 
-			<view class="my_guanli tuiguang_guanli">
+			<view class="my_guanli tuiguang_guanli" v-if="is_yaoqing==1">
 				<view class="my_title hei_30_bold">推广中心</view>
 				<view class="my_list">
 					<navigator url="tuanzhang" class="jiedan_item">
@@ -98,10 +98,10 @@
 						<image src="@/static/img/hy_tuiguang4.png" mode=""></image>
 						<view class="hui_24 ">营销素材</view>
 					</navigator>
-					<navigator url="app_down" class="jiedan_item">
+					<view class="jiedan_item" @click='go_yaoqing'>
 						<image src="@/static/img/hy_tuiguang5.png" mode=""></image>
 						<view class="hui_24 ">APP下载</view>
-					</navigator>
+					</view>
 				</view>
 			</view>
 
@@ -145,6 +145,7 @@ export default {
 	created() {},
 	onShow() {
 		this.huiqu_login()
+		this.huo_qu_is_yaoqing()
 	},
 	components: {
 
@@ -157,7 +158,9 @@ export default {
 			img_url: uni.getStorageSync('img_url'),
 			is_login:false,
 			geshu:'',
-			baojia:''
+			baojia:'',
+			yaoqing:'',
+			is_yaoqing:2
 			
 		};
 	},
@@ -178,6 +181,35 @@ export default {
 					
 				});
 		},
+		huo_qu_is_yaoqing(){
+			this.$http
+				.post({
+					url: '/mapi/index/openinvite'
+				})
+				.then(res => {
+					
+					this.is_yaoqing=res.data.openinvite
+				});
+		},
+		go_yaoqing(){
+			if(this.is_login){
+				/* #ifdef APP-PLUS */
+				uni.navigateTo({
+					url:'app_down?lianjie='+this.yaoqing
+				})
+				  /* #endif */
+				  /* #ifdef H5 */
+				  window.open('/m/#/pages/index/app_down?lianjie='+this.yaoqing)
+				    /* #endif */
+				
+			}else{
+				uni.navigateTo({
+					url:'login'
+				})
+				return false
+			}
+			
+		},
 		huiqu_login(){
 			this.$http
 				.post({
@@ -189,7 +221,7 @@ export default {
 						this.huoqu_user()
 						this.huoqu_geshu()
 						this.huoqu_baojia()
-						
+						this.huoqu_lianjie()
 						
 						
 					}else{
@@ -197,6 +229,18 @@ export default {
 					}
 				});
 		},
+		huoqu_lianjie(){
+			// 获取下载
+	
+				this.$http
+					.post({
+						url: '/mapi/user/yaoqing'
+					})
+					.then(res => {
+						this.yaoqing = res.data.randcode1;
+					});
+		},
+	
 		huoqu_geshu(){
 			this.$http
 				.post({

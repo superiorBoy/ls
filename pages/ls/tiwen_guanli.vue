@@ -11,7 +11,7 @@
 		</view>
 		<view class="zi_body tab_zi_body">
 			<view class="tiwen_list">
-				<view class="tiwen_item" v-for="(item, index) in jilu_list">
+				<view class="tiwen_item" v-for="(item, index) in jilu_list" v-if="active!=3">
 					<view class="tiwen_item_name">
 						<view class="tiwen_item_name_l ">
 							<image :src="img_url+item.user.photourl" mode=""></image>
@@ -51,22 +51,65 @@
 							{{ item.addtime | timeStamp }}
 						</view>
 					</view> -->
-					<view class="zhuiwen hui_26" v-if="item.zhuiwen">
+					<!-- <view class="zhuiwen hui_26" v-if="item.zhuiwen">
 						
 					  <view class="zhuiwen_txt bai_20">追问</view>
 					  <view class="zhuiwen_body">{{item.zhuiwen.information}}</view>
-					</view>
+					</view> -->
 					<view class="huifu_btn">
 						<!-- <view class="tiwen_ren hui_24">
 							<image :src="img_url+item.user.photourl" mode=""></image>{{item.user.mobile}}
 							</view> -->
-							<text class="hong_26">悬赏金额: {{item.ispay==2?item.paymoney:'0'}}元</text>
+							<view class="hong_26">悬赏金额: {{item.ispay==2?item.paymoney:'0'}}元  <text style="margin-left: 20rpx;">回复人数：{{item.replynum}}</text></view>
 						<button type="" class="huifu hong_24" @click="huifu(item.consultid)">
 							回复
 						</button>
 					</view>
 					
 				</view>
+				<view class="" v-for="wei_item in weihui"v-if="active==3">
+					
+				
+				<view class="tiwen_item" v-for="(item, index) in jilu_list" v-if="wei_item.consultid==item.consultid">
+					
+					<view class="tiwen_item_name">
+						<view class="tiwen_item_name_l ">
+							<image :src="img_url+item.user.photourl" mode=""></image>
+						</view>
+						<view class="tiwen_item_name_r">
+							<view class="hui_24 tiwen_item_name_phone">
+								{{item.user.mobile}}
+							</view>
+							<view class="hui_24 qian_22">
+								{{ item.addtime | timeStamp }}<text style="margin-left: 20rpx;"> {{item.province}}-{{item.city}}</text>
+							</view>
+						</view>
+						<view class="xuanshang_zhuangtai" v-if="item.tiwenstate!=4">
+						<text class=" hong_26">{{item.tiwenstate==2?'待悬赏':item.tiwenstate==3?'已悬赏':''}}</text>
+							
+						</view>
+						<view class="xuanshang_zhuangtai" v-if="item.tiwenstate==4">
+						<text class=" hong_26">{{item.lawyerid==item.userid?'已悬赏已中奖':'已悬赏未 中奖'}}</text>
+							
+						</view>
+					</view>
+					<view class="tiwen_item_top hui_26">
+						<text class="zhuangtai" v-if="item.replynum == 0">新</text>
+						{{ item.information }}
+					</view>
+					
+					<view class="huifu_btn">
+							<view class="hong_26">悬赏金额: {{item.ispay==2?item.paymoney:'0'}}元  <text style="margin-left: 20rpx;">回复人数：{{item.replynum}}</text></view>
+						<button type="" class="huifu hong_24" @click="huifu(item.consultid)">
+							回复
+						</button>
+					</view>
+					
+				</view>
+				
+			</view>	
+				
+				
 			</view>
 		</view>
 
@@ -106,7 +149,7 @@
 
 <script>
 import unpopup from '@/components/uni-popup/uni-popup-share.vue';
-import pickerAddress from '@/components/wangding-pickerAddress/wangding-pickerAddress.vue';
+import pickerAddress from '@/components/pickerAddress_buxian/wangding-pickerAddress.vue';
 export default {
 	components: {
 		unpopup,
@@ -121,7 +164,7 @@ export default {
 			.then(res => {
 				this.fenlei = res.data.type;
 			});
-			
+		this.huoqu_dihzi()	
 	
 	},
 	onShow() {
@@ -133,6 +176,7 @@ export default {
 		this.xuanzc = '9999';
 		this.page = 0;
 		this.jilu_list = [];
+		this.weihui=[]
 		this.is_all = false;
 		this.huoqu_list();
 		
@@ -140,7 +184,7 @@ export default {
 
 	data() {
 		return {
-			tab_arry: ['最新咨询','全部咨询', '我回复的', '追问我的'],
+			tab_arry: ['全部咨询','当地咨询', '我回复的', '追问我的'],
 			active: '0',
 			dizhi: '',
 			zhuanchang: [],
@@ -156,7 +200,9 @@ export default {
 			type_id: '',
 			sheng: '',
 			shi: '',
-			state:1
+			state:1,
+			lsdizhi:'',
+			weihui:[]
 		};
 	},
 	created() {},
@@ -164,6 +210,7 @@ export default {
 	onPullDownRefresh: function() {
 		this.page = 0;
 		this.jilu_list = [];
+		this.weihui=[]
 		this.is_all = false;
 		this.zhuanchang_txt = '';
 		this.dizhi = '';
@@ -206,24 +253,51 @@ export default {
 			this.xuanzc = '9999';
 			this.page = 0;
 			this.jilu_list = [];
+			this.weihui=[]
 			this.is_all = false;
-			this.huoqu_list();
-
-		},
-		// 获取提问记录列表
-		huoqu_list() {
-			
 			if(this.active==0){
 				this.state=1
 			}else if(this.active==1){
 				this.state=4
+				
+				this.sheng=this.lsdizhi.province
+				this.shi=this.lsdizhi.city
 			}else if(this.active==2){
 				this.state=2
 			}
 			else if(this.active==3){
 				this.state=3
 			}
+			this.huoqu_list();
+
+		},
+		huoqu_dihzi(){
+			this.$http
+				.post({
+					url: '/mlawyerapi/lawyer/auth',
+					data: {
+						type:2
+					}
+				})
+				.then(res => {
+					this.lsdizhi=
+					{
+						province:res.data.lawyerauth.province,
+						city:res.data.lawyerauth.city,
+						area:res.data.lawyerauth.area,
+					}
+					
+					
+				});
+		},
+		// 获取提问记录列表
+		huoqu_list() {
 			
+			
+			if(this.sheng=='不限地区'){
+				this.sheng=''
+                 this.shi=''
+			}
 			
 			this.$http
 				.post({
@@ -238,6 +312,7 @@ export default {
 				})
 				.then(res => {
 					this.jilu_list = this.jilu_list.concat(res.data.list);
+					this.weihui=this.weihui.concat(res.data.weihuifu)
 					this.tab_arry[3]='追问我的'+'('+res.data.weihuifu.length+')'
 					if (res.data.list.length < 10) {
 						this.is_all = true;
@@ -468,6 +543,11 @@ page {
 	line-height: 36rpx;
 	word-break: break-all;
 	margin: 8rpx 0 18rpx;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	overflow: hidden;
+	
 }
 
 .aaaaaa {

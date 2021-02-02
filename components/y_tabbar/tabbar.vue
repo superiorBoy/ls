@@ -198,30 +198,19 @@ export default {
 .tuqi {
 	position: relative;
 	top: -20rpx;
-	border: 10rpx solid #ffffff;
-	background-color: #ffffff;
 	border-radius: 100%;
-	border: 10rpx solid #ffffff;
-	background-color: #ffffff;
-	box-shadow: -2px -2px 2px #dddddd;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	transform: rotate(45deg);
-	-ms-transform: rotate(45deg); /* IE 9 */
-	-moz-transform: rotate(45deg); /* Firefox */
-	-webkit-transform: rotate(45deg); /* Safari 和 Chrome */
-	-o-transform: rotate(45deg); /* Opera */
+
 }
 .tuqi image {
 	width: 98rpx;
 	height: 98rpx;
-	transform: rotate(-45deg);
-	-ms-transform: rotate(-45deg); /* IE 9 */
-	-moz-transform: rotate(-45deg); /* Firefox */
-	-webkit-transform: rotate(-45deg); /* Safari 和 Chrome */
-	-o-transform: rotate(-45deg); /* Opera */
+	box-shadow: 0px -2px 2px #dddddd;
 	position: relative;
 	left: -2rpx;
+	border: 10rpx solid #FFFFFF;
+	border-radius: 100%;
 }
 </style>

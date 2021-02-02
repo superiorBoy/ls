@@ -78,7 +78,9 @@ export default {
 .padding_bottom{height: 100rpx;}
 input{border: none !important;}
 .uni-picker-container{z-index: 9;}
-
+view{
+	max-width: 750px;
+}
 uni-checkbox .uni-checkbox-input.uni-checkbox-input-checked:before,uni-radio .uni-radio-input.uni-radio-input-checked:before{
 	content: none !important;
 }

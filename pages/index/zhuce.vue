@@ -266,8 +266,8 @@ onLoad(option) {
 						.then(res => {
 							console.log(res);
 							if(res.code==0){
-								uni.reLaunch({
-									url:'login'
+								uni.switchTab({
+									url:'index'
 								})
 							}
 							that.dianji=true
@@ -293,7 +293,7 @@ onLoad(option) {
 							console.log(res);
 							if(res.code==0){
 								wx.reLaunch({
-									url:'../ls/login'
+									url:'../ls/my'
 								})
 								
 							}

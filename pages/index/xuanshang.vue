@@ -63,27 +63,53 @@ export default {
 			xuan_index: 0,
 			data:'',
 			consultid:'',
-			fenlei_arry:[]
+			fenlei_arry:[],
+			laiyuan:2
 		};
 	},
 
 	created() {},
 	onLoad(option) {
 	
-		this.consultid=option.consultid
-		// 获取分类
-				this.$http.post({
-					url: '/mapi/index/gettype',
-				}).then(res => {
-				  
-				      var array = [];
-				       for(var key in res.data.type){
-				          array.push(res.data.type[key]);
-				       }
-					this.fenlei_arry=array		
-					this.huoqu_xq()
-				})
 		
+		// 获取分类
+			
+		if(option.information){
+			
+			this.data={
+				information:option.information,
+				typeid:option.typeid,
+				province:option.province,
+				city:option.city,
+				area:option.area,
+			}
+			this.laiyuan=1
+			this.$http.post({
+				url: '/mapi/index/gettype',
+			}).then(res => {
+			  
+			      var array = [];
+			       for(var key in res.data.type){
+			          array.push(res.data.type[key]);
+			       }
+				this.fenlei_arry=array		
+				
+			})
+		}else{
+			
+			this.consultid=option.consultid
+			this.$http.post({
+				url: '/mapi/index/gettype',
+			}).then(res => {
+			  
+			      var array = [];
+			       for(var key in res.data.type){
+			          array.push(res.data.type[key]);
+			       }
+				this.fenlei_arry=array		
+				this.huoqu_xq()
+			})
+		}
 		
 	},
 	methods: {
@@ -109,6 +135,31 @@ export default {
 			})
 		},
 		save(){
+			if(this.laiyuan==1){
+				this.$http.post({
+					url: '/mapi/consult/addconsult',
+					data:{
+						information:this.data.information,
+						typeid:this.data.typeid,
+						province:this.data.province,
+						city:this.data.city,
+						area:this.data.area
+					},
+					
+				}).then(res => {
+					if(res.code==0){
+						this.consultid=res.data
+						this.fukuan()
+					}
+					console.log(res)
+				})
+				
+			}else{
+				this.fukuan()
+			}
+			
+		},
+		fukuan(){
 			this.$http.post({
 				url: '/mapi/consult/payh5',
 				data:{
@@ -154,7 +205,6 @@ export default {
 					//    });
 				}
 			})
-			
 		},
 		pay(consultid){
 			uni.requestPayment({
@@ -298,6 +348,7 @@ page {
 	width: 100%;
 	padding: 0rpx 16rpx 10rpx 0;
 	box-sizing: border-box;
+	word-break: break-all;
 }
 .wen_neirong_txt {
 	height: 100rpx;

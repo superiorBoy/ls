@@ -174,7 +174,7 @@
 .hong_30_bold{font-size: 30rpx;color: #f43a51; font-weight: bold;}
 .hong_31_bold{font-size: 31rpx;color: #f43a51; font-weight: bold;}
 .hong_32_bold{font-size: 32rpx;color: #f43a51; font-weight: bold;}
-
+.hong_38_bold{font-size: 38rpx;color: #f43a51; font-weight: bold;}
 
 
 .zhuce_list input{
@@ -220,7 +220,8 @@ button::after{
 			height: 0;
 			background-color: transparent;
 		} 
+.weituo_list_lianxi uni-radio .uni-radio-input{width: 26rpx;height: 26rpx;margin-right: 0;}
+.weituo_list_lianxi  uni-radio .uni-radio-input.uni-radio-input-checked{width: 26rpx;
+	height: 26rpx; background:url(@/static/img/weituo_sex.png) no-repeat !important;background-size: 100% 100% !important; }		
 		
-		
-		
-		
+

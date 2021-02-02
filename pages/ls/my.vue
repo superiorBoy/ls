@@ -179,9 +179,9 @@
 						<image src="../../static/lsimg/my_ls5.png" mode=""></image>
 						<view class="hui_24 ">咨询报价</view>
 					</view>
-					<view  class="ls_item" @click="tiaozhuan('fuwu_baojia')">
+					<view  class="ls_item" @click="tiaozhuan('fuwu_guanli')">
 						<image src="../../static/lsimg/my_ls6.png" mode=""></image>
-						<view class="hui_24 ">服务报价</view>
+						<view class="hui_24 ">服务管理</view>
 					</view>
 				</view>
 			</view>
@@ -201,7 +201,7 @@
 						<image src="../../static/lsimg/my_wangzhan3.png" mode=""></image>
 						<view class="hui_24 ">信息设置</view>
 					</view>
-					<view class="wangzhan_item">
+					<view class="wangzhan_item" v-if="is_yaoqing==1">
 						<image src="../../static/lsimg/my_wangzhan4.png" mode=""></image>
 						<view class="hui_24 ">选择设置</view>
 					</view>
@@ -245,6 +245,7 @@ export default {
 	created() {},
 	onShow() {
 		this.huiqu_login();
+		this.huo_qu_is_yaoqing()
 	},
 	onLoad(option) {
 	
@@ -275,7 +276,8 @@ export default {
 			is_login: false,
 			geshu:'',
 		     weidu:0,
-			 type:2
+			 type:2,
+			 is_yaoqing:2
 		};
 	},
 	methods: {
@@ -283,6 +285,16 @@ export default {
 			uni.switchTab({
 				url: '/pages/index/my'
 			});
+		},
+		huo_qu_is_yaoqing(){
+			this.$http
+				.post({
+					url: '/mapi/index/openinvite'
+				})
+				.then(res => {
+					
+					this.is_yaoqing=res.data.openinvite
+				});
 		},
 		huoqu_user() {
 			// 获取用户信息

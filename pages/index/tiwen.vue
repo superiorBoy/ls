@@ -2,15 +2,17 @@
 	<view class="body">
 		<view class="head">
 			<view class="head_back"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
-			<view class="head_center hei_38_bold">我要提问</view>
+			<view class="head_center hei_38_bold">我要咨询</view>
 			<view class=" head_right"></view>
 		</view>
 
 		<view class="zi_body ">
-			<view class="tishi hong_24" v-if="is_tishi">
+			<!-- <view class="tishi hong_24" v-if="is_tishi"> -->
+				<navigator url="zhineng_pay?type=1" class="tishi hong_24" v-if="is_tishi">
 				<text>问题紧急，现在就想得到解答？ 立即在线咨询></text>
 				<text class="hong_20_bold" @click="close">x</text>
-			</view>
+			<!-- </view> -->
+			</navigator>
 			<view class="zixun_num qian_26">
 				<view class="">
 					今日咨询人数：
@@ -51,10 +53,34 @@
 					</view>
 					
 				</view>
-				
+				<view class="jiedan_ls">
+					<view class="jiedan_ls_title hui_20">
+						<text class="hei_30_bold">以下律师正在等待接单！</text>大数据会匹配最佳一位律师为您服务
+					</view>
+					<view class="jiedan_ls_list">
+						<view class="jiedan_ls_item" v-for="item in lvshi">
+							<image :src="img_url+item.photourl" mode=""></image>
+							<view class="hei_26 jiedan_ls_name">
+								{{item.nickname}}
+							</view>
+							<view class="qian_22 shanchang_txt">
+								<text v-if="zhuanchang_arry[item.expertise1] && zhuanchang_arry[item.expertise1].shanchangname">{{zhuanchang_arry[item.expertise1].shanchangname}}</text>
+							</view>
+						</view>
+						
+					</view>
+					<view class="jiedan_bottom hui_22">
+						<text class="hong_24_bold">服务保障</text>
+						<text class=""><image src="@/static/img/zhineng_duihao.png" mode=""></image>服务保障</text>
+						<text class=""><image src="@/static/img/zhineng_duihao.png" mode=""></image>极速响应</text>
+						<text class=""><image src="@/static/img/zhineng_duihao.png" mode=""></image>1对1解答</text>
+						<text class=""><image src="@/static/img/zhineng_duihao.png" mode=""></image>隐私保护</text>
+					</view>
+					
+				</view>
 			</view>
 		
-			<view class="tiwen_bottom">
+			<view class="tiwen_bottom_btn">
 				<button type="" class="bai_30" @click="tijiao">提交</button>
 				<view class="qian_24">
 					<checkbox :checked="isCheck" @click="checkBox($event)" />
@@ -79,6 +105,7 @@ import { loadBMap } from '@/common/map.js';
 export default {
 	data() {
 		return {
+			img_url: uni.getStorageSync('img_url'),
 			dizhi: '请选择省-市-区',
 			isCheck: true,
 			shuru_txt: '',
@@ -87,7 +114,9 @@ export default {
 			is_tishi: true,
 			fenlei: '选择类别',
 			fenlei_arry: [],
-			leiid:''
+			leiid:'',
+			lvshi:[],
+			zhuanchang_arry:[]
 		};
 	},
 	created() {
@@ -151,16 +180,43 @@ export default {
 				          array.push(res.data.type[key]);
 				       }
 					this.fenlei_arry=array		
+					
 				})
+			this.$http
+				.post({
+					url: '/mapi/lawyer/getshanchang'
+				})
+				.then(res => {
+					this.zhuanchang_arry = res.data.shanchang;
+					this.huoqu_lvshi()
+				});	
+				
 	},
 	methods: {
 		navigateBack() {
 			uni.navigateBack();
 		},
+		huoqu_lvshi(){
+			
+			this.$http.post({
+				url: '/mapi/lawyer/lvshilist',
+				data:{
+					type:1,
+					page:0
+				}
+			
+			}).then(res => {
+				if(res.code==0){
+					this.lvshi=res.data.lawyer
+				}
+				console.log(res)
+			})
+		},
 	        jiating_change(data) {
 				this.fenlei = this.fenlei_arry[data.detail.value].typename
 				this.leiid=this.fenlei_arry[data.detail.value].typeid
 			},
+			
 		change(data) {
 			console.log(data);
 			this.dizhi = data.data.join('-');
@@ -212,27 +268,37 @@ export default {
 				return false
 				
 			}
-	
-			this.$http.post({
-				url: '/mapi/consult/addconsult',
-				data:{
-					information:this.shuru_txt,
-					typeid:this.leiid,
-					province:di[0],
-					city:di[1],
-					area:di[2]
-				},
+	var data={
+				information:this.shuru_txt,
+				typeid:this.leiid,
+				province:di[0],
+				city:di[1],
+				area:di[2]
+	}
+
+	uni.navigateTo({
+		url:'tiwen_pay_fs?data='+JSON.stringify(data)
+	})
+			// this.$http.post({
+			// 	url: '/mapi/consult/addconsult',
+			// 	data:{
+			// 		information:this.shuru_txt,
+			// 		typeid:this.leiid,
+			// 		province:di[0],
+			// 		city:di[1],
+			// 		area:di[2]
+			// 	},
 				
-			}).then(res => {
-				if(res.code==0){
+			// }).then(res => {
+			// 	if(res.code==0){
 					
-					uni.navigateTo({
-						url:'xuanshang?consultid='+res.data
-					})
+			// 		uni.navigateTo({
+			// 			url:'tiwen_pay_fs?consultid='+res.data
+			// 		})
 					
-				}
-				console.log(res)
-			})
+			// 	}
+			// 	console.log(res)
+			// })
 			
 
 		},
@@ -317,8 +383,8 @@ page {
 	background-color: #ffffff;
 }
 .shuru {
-	
 	background-color: #ffffff;
+	padding-bottom: 200rpx;
 }
 .tiwen_title{
 	line-height: 84rpx;
@@ -363,20 +429,39 @@ page {
 	vertical-align: text-bottom;
 }
 .tiwen_bottom {
-	padding: 0 30rpx;
+	padding:0 30rpx;
 	text-align: center;
+	
+
+	box-sizing: border-box;
+	background-color: #FFFFFF;
 }
-.tiwen_bottom button {
+.tiwen_bottom_btn{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	box-sizing: border-box;
+	background-color: #FFFFFF;
+	text-align: center;
+	padding: 30rpx 0;
+	border-top: 2rpx solid #EEEEEE;
+}
+.tiwen_bottom_btn button {
+	
 	height: 88rpx;
 	background-color: #0eb77e;
 	border-radius: 44rpx;
 	line-height: 88rpx;
-	margin: 164rpx 0 18rpx;
+	margin:0rpx 0 18rpx;
 }
 .xuan_list{
 	height: 90rpx;
 	align-content: center;
 	
+}
+.zhuanchang_xuan {
+	width:600rpx;
+	text-align: left;
 }
 .zhuanchang_xuan image {
 		width: 13rpx;
@@ -395,5 +480,58 @@ page {
 			width: 27rpx;
 			height: 27rpx;
 			margin-right: 13rpx;
+	}
+	.jiedan_ls{
+		height: 420rpx;
+		background-color: #FFFFFF;
+		padding-left: 30rpx;
+	}
+	.jiedan_ls_title{
+		line-height: 84rpx;
+	}
+	.jiedan_ls_list{
+		display: flex;
+		overflow-x: auto;
+		scrollbar-width: none; /* Firefox */
+		-ms-overflow-style: none; /* IE 10+ */
+	}
+	.jiedan_ls_list::-webkit-scrollbar {
+	  display: none; /* Chrome Safari */
+	}
+	.jiedan_ls_item{
+		text-align: center;
+		width: 150rpx;
+		margin-right: 50rpx;
+	}
+	.jiedan_ls_item image{
+		width: 110rpx;
+			height: 110rpx;
+			border-radius: 100%;
+			vertical-align: bottom;
+	}
+	.shanchang_txt{
+		overflow:hidden; 
+		text-overflow:ellipsis; 
+		white-space:nowrap; 
+	}
+	.jiedan_ls_name{
+		margin: 10rpx 0 6rpx;
+	}
+	.jiedan_bottom{
+		height:78rpx ;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		border-top: 2rpx solid #dcdcdc;
+		margin-top: 20rpx;
+		padding-right: 30rpx;
+	}
+	.jiedan_bottom image{
+		width: 20rpx;
+			height: 20rpx;
+			margin-right: 4rpx;
+	}
+	.jiedan_bottom text{
+		
 	}
 </style>

@@ -8,10 +8,12 @@
 					<pickerAddress @change="xuandizhi">{{ dizhi }}</pickerAddress>
 					<!-- <text>{{dizhi}}</text> -->
 				</view>
-				<view class="index_sousuo qian_24">
-					<image src="@/static/img/sousuo.png" mode=""></image>
-					<input confirm-type="search" @confirm="confirm" type="text" v-model="sou_txt" placeholder="详实输入案情经过，获得更精准的解答" class="hei_26" />
-				</view>
+				<navigator url="tiwen">
+				       <view class="index_sousuo qian_24">
+					     <image src="@/static/img/sousuo.png" mode=""></image>
+					     <input confirm-type="search" @confirm="confirm" type="text" v-model="sou_txt" placeholder="详实输入案情经过，获得更精准的解答" class="hei_26" />
+				       </view>
+			    </navigator>
 			</view>
 
 			<view class="tab">
@@ -55,13 +57,13 @@
 				<image src="@/static/img/tab2.png" mode=""></image>
 				<view>找律师</view>
 			</view>
-			<navigator url="changshi" class="index_tab_item">
+			<view class="index_tab_item" @click="tiao_jingxuan">
 				<image src="@/static/img/tab3.png" mode=""></image>
-				<view>法律知识</view>
-			</navigator>
+				<view>精选问答</view>
+			</view>
 			<navigator url="changshi" class="index_tab_item">
 				<image src="@/static/img/tab4_4.png" mode=""></image>
-				<view>法律法规</view>
+				<view>法律知识</view>
 			</navigator>
 			<view class="index_tab_item" @click="go_ls_list">
 				<image src="@/static/img/tab5.png" mode=""></image>
@@ -71,16 +73,22 @@
 				<image src="@/static/img/tab6.png" mode=""></image>
 				<view>电话咨询</view>
 			</navigator>
-
-			<navigator url="tuanzhang" class="index_tab_item">
+           <navigator url="weituo" class="index_tab_item">
+				<image src="@/static/img/tab7_1.png" mode=""></image>
+				<view>案件委托</view>
+			</navigator>
+			<navigator url="tuanzhang" class="index_tab_item" v-if="is_yaoqing==1">
 				<image src="@/static/img/tab7.png" mode=""></image>
 				<view>升级团长</view>
 			</navigator>
-
-			<navigator url="yaoqing" class="index_tab_item">
-				<image src="@/static/img/tab8.png" mode=""></image>
-				<view>邀请好友</view>
+			<navigator url="changshi" class="index_tab_item" v-if="is_yaoqing==2">
+			<!-- <view  class="index_tab_item" v-if="is_yaoqing==2"> -->
+				<image src="@/static/img/tab7.png" mode=""></image>
+				<view>法律百科</view>
+			<!-- </view> -->
 			</navigator>
+ 
+			
 		</view>
 
 		<view class="index_wenti">
@@ -138,7 +146,54 @@
 				<view class="qian_22">沟通效率更高。</view>
 			</navigator>
 		</view>
-
+		<view class="tuijian">
+			<view class="tuijian_top"><image src="@/static/img/tuijian_title.png" mode=""></image></view>
+			<view class="tuijian_list">
+				<block v-for="item in data.loginlawyer">
+					<view class="tuijian_item">
+						<view class="tuijian_item_left" @click="go_zhuye(item.userid)"><image :src="url + item.photourl" mode=""></image></view>
+						<view class="tuijian_item_right">
+							<view class="ls_name">
+								<view class="ls_name_left hei_30_bold" @click="go_zhuye(item.userid)">
+									{{ item.nickname }}
+									<image src="@/static/img/renzheng.png" mode=""></image>
+								</view>
+								<view class="ls_name_right lv_20" @click="tochat(item.userid)">
+									<image src="@/static/img/xiaoxi.png" mode=""></image>
+									在线咨询
+								</view>
+							</view>
+							<view class="ls_gongsi hui_24">
+								<text class="bai_20 tese_ls">特色律师</text>
+								{{ item.zhiwu }}
+							</view>
+							<view class="ls_dizhi qian_22">
+								<image src="@/static/img/dizhi.png" mode=""></image>
+								{{ item.lvsuo }}
+							</view>
+							<view class="ls_bottom qian_22">
+								<view class="ls_fuwu">
+									<image src="@/static/img/xin.png" mode=""></image>
+									已服务
+									<text class="lv_22">{{ item.replynum }}</text>
+									人
+								</view>
+								<view class="ls_pingjia">
+									<image src="@/static/img/pingjia.png" mode=""></image>
+									评价
+									<text class="lv_22">{{ item.haopingnum }}</text>
+									人
+								</view>
+							</view>
+						</view>
+					</view>
+				</block>
+			</view>
+			<button type="" class="qian_26 ls_more" @click="tiaozhuan">
+				<image src="@/static/img/gengduo.png" mode=""></image>
+				查看更多律师>>
+			</button>
+		</view>
 		<view class="index_zixun">
 			<view class="zixun_tab qian_28">
 				<text @tap="change(1)" :class="{ hei: btnnum == 1 }">最新解答</text>
@@ -195,54 +250,7 @@
 			<image src="@/static/img/gengduo.png" mode=""></image>
 			查看更多咨询>>
 		</button>
-		<view class="tuijian">
-			<view class="tuijian_top"><image src="@/static/img/tuijian_title.png" mode=""></image></view>
-			<view class="tuijian_list">
-				<block v-for="item in data.loginlawyer">
-					<view class="tuijian_item">
-						<view class="tuijian_item_left" @click="go_zhuye(item.userid)"><image :src="url + item.photourl" mode=""></image></view>
-						<view class="tuijian_item_right">
-							<view class="ls_name">
-								<view class="ls_name_left hei_30_bold" @click="go_zhuye(item.userid)">
-									{{ item.nickname }}
-									<image src="@/static/img/renzheng.png" mode=""></image>
-								</view>
-								<view class="ls_name_right lv_20" @click="tochat(item.userid)">
-									<image src="@/static/img/xiaoxi.png" mode=""></image>
-									在线咨询
-								</view>
-							</view>
-							<view class="ls_gongsi hui_24">
-								<text class="bai_20 tese_ls">特色律师</text>
-								{{ item.zhiwu }}
-							</view>
-							<view class="ls_dizhi qian_22">
-								<image src="@/static/img/dizhi.png" mode=""></image>
-								{{ item.lvsuo }}
-							</view>
-							<view class="ls_bottom qian_22">
-								<view class="ls_fuwu">
-									<image src="@/static/img/xin.png" mode=""></image>
-									已服务
-									<text class="lv_22">{{ item.replynum }}</text>
-									人
-								</view>
-								<view class="ls_pingjia">
-									<image src="@/static/img/pingjia.png" mode=""></image>
-									评价
-									<text class="lv_22">{{ item.haopingnum }}</text>
-									人
-								</view>
-							</view>
-						</view>
-					</view>
-				</block>
-			</view>
-			<button type="" class="qian_26 ls_more" @click="tiaozhuan">
-				<image src="@/static/img/gengduo.png" mode=""></image>
-				查看更多律师>>
-			</button>
-		</view>
+
 		<div id="allmap" style="display: none"></div>
 		<view class="zhuanti">
 			<view class="index_fazhi hei_32_bold">
@@ -263,11 +271,16 @@
 
 			<view class="tab_bg" v-if="is_gengxin">
 				<view class="tan">
-					<view class="tan_top"><image src="@/static/img/gengxin.png" mode=""></image></view>
-					<view class="tan_bottom hui_27">
+					<!-- <view class="tan_top"><image src="@/static/img/gengxin.png" mode=""></image></view> -->
+					<view class="tan_bottom hui_27" v-if="!is_xiazai">
 						<view class="">解决了旧版本中已知BUG</view>
 						<view class="tan_txt">优化了一部分不合理的功能</view>
 						<image src="@/static/img/gengxin_btn.png" mode="widthFix" @click="down"></image>
+					</view>
+					<view class="tan_bottom hui_27 is_xia_bottom" v-if="is_xiazai">
+						<view class="xiazai_tishi"><text>正在下载中，请稍后...</text><text>{{baifen}}%</text></view>
+						<view class="tan_jindu"><text :style="{width:baifen+'%'}"></text></view>
+						<button  class="bai_30" @click="quxiao">取消</button>
 					</view>
 				</view>
 			</view>
@@ -341,7 +354,10 @@ export default {
 			banben: '',
 			down_url: '',
 			tiao_type: 1,
-			zhineng: ''
+			zhineng: '',
+			is_yaoqing:2,
+			is_xiazai:false,
+			baifen:0
 		};
 	},
 	components: {
@@ -460,13 +476,105 @@ export default {
 			.then(res => {
 				this.zhineng = res.data.zhan;
 			});
+			this.huo_qu_is_yaoqing()
 	},
 	methods: {
 		down() {
+			
 			//#ifdef APP-PLUS
 			var urlStr = encodeURI(this.down_url); //把字符串作为url进行编码
-			plus.runtime.openURL(urlStr);
+			// plus.runtime.openURL(urlStr);
+			var that=this
+		var dtask = plus.downloader.createDownload(
+		
+			urlStr, {},
+			function(d, status) {
+				uni.showToast({
+					title: '下载完成',
+					mask: false,
+					duration: 1000
+				});
+				// 下载完成
+				if (status == 200) {
+					plus.runtime.install(plus.io.convertLocalFileSystemURL(d.filename), {}, e => e, function(error) {
+						uni.showToast({
+							title: '安装失败-01',
+							mask: false,
+							duration: 1500
+						});
+					})
+				} else {
+					uni.showToast({
+						title: '更新失败-02',
+						mask: false,
+						duration: 1500
+					});
+				}
+			});
+		 try {
+			dtask.start(); // 开启下载的任务
+			that.is_xiazai=true
+			var prg = 0;
+			// var showLoading = plus.nativeUI.showWaiting("正在下载");  //创建一个showWaiting对象 
+			dtask.addEventListener('statechanged', function(
+			  task,
+			  status
+			) {
+			  // 给下载任务设置一个监听 并根据状态  做操作
+			  switch (task.state) {
+				case 1:
+				  // showLoading.setTitle("正在下载");
+				  
+				  break;
+				case 2:
+				  // showLoading.setTitle("已连接到服务器");
+				  break;
+				case 3:
+				  prg = parseInt(
+					(parseFloat(task.downloadedSize) /
+					  parseFloat(task.totalSize)) *
+					  100
+				  );
+				  // showLoading.setTitle("  正在下载" + prg + "%  ");
+				  that.baifen=prg
+				  break;
+				case 4:
+				   plus.nativeUI.closeWaiting();
+					//下载完成
+				  break;
+			  }
+			});
+		  } catch (err) {
+			  plus.nativeUI.closeWaiting();
+			  uni.showToast({
+			  	title: '更新失败-03',
+			  	mask: false,
+			  	duration: 1500
+			  });
+		  }	
+			
+
 			//#endif
+		},
+		quxiao(){
+			plus.downloader.clear();
+			this.is_xiazai=false
+			this.baifen=0
+			uni.showToast({
+				title: '下载已取消',
+				duration: 2000,
+				icon: 'none'
+			});
+		},
+		huo_qu_is_yaoqing(){
+			this.$http
+				.post({
+					url: '/mapi/index/openinvite'
+				})
+				.then(res => {
+					
+					this.is_yaoqing=res.data.openinvite
+				});
 		},
 		huiqu_banben() {
 			this.$http
@@ -613,6 +721,11 @@ export default {
 		tiaozhuan() {
 			uni.switchTab({
 				url: 'lvshi'
+			});
+		},
+		tiao_jingxuan(){
+			uni.switchTab({
+				url: 'zixun'
 			});
 		},
 		tiaozhuan_zixun() {
@@ -1280,8 +1393,9 @@ scroll-view ::-webkit-scrollbar {
 }
 .tan {
 	width: 523rpx;
-	height: 627rpx;
-	background-color: #ffffff;
+	height: 740rpx;
+	background: url(../../static/img/gengxin_bg.png) no-repeat;
+	background-size: 100% 100%;
 	border-radius: 25rpx;
 	position: absolute;
 	left: 50%;
@@ -1295,6 +1409,7 @@ scroll-view ::-webkit-scrollbar {
 .tan_bottom {
 	text-align: center;
 	padding: 20rpx 0 0;
+	margin-top: 470rpx;
 }
 .tan_bottom image {
 	width: 126rpx;
@@ -1310,6 +1425,40 @@ scroll-view ::-webkit-scrollbar {
 	background-color: rgba(0, 0, 0, 0.3);
 	z-index: 99999;
 }
+.xiazai_tishi{
+	display: flex;
+	justify-content: space-between;
+	
+}
+.is_xia_bottom{
+	padding: 20rpx 60rpx 0;
+}
+.tan_jindu{
+		height: 11rpx;
+		background-color: #f4f4f4;
+		border-radius: 6rpx;
+		margin: 20rpx 0 85rpx;
+		position: relative;
+}
+.tan_jindu text{
+	position: absolute;
+	left: 0;
+	
+	    height: 11rpx;
+		background-color: #0eb77e;
+		border-radius: 6rpx;
+		display: inline-block;
+}
+.is_xia_bottom button{
+	width: 300rpx;
+		height: 60rpx;
+		background-color: #c6c6c6;
+		border-radius: 30rpx;
+		line-height: 60rpx;
+}
+
+
+
 
 .zhineng {
 	display: flex;

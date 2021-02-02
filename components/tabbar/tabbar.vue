@@ -8,6 +8,7 @@
 			<view class="text">{{ item.text }}</view>
 		</view>
 	</view>
+	
 </template>
 
 <script>
@@ -21,7 +22,7 @@ export default {
 	},
 	data() {
 		return {
-			tabBar: [
+			tabBar2: [
 				{
 					url: 'ls/index',
 					text: '接单',
@@ -47,8 +48,30 @@ export default {
 					imgClick: '/static/lsimg/tab_my_on.png'
 				}
 			],
+			tabBar: [
+				{
+					url: 'ls/index',
+					text: '接单',
+					imgNormal: '/static/lsimg/tab_jiedan_no.png',
+					imgClick: '/static/lsimg/tab_jiedan_on.png'
+				},
+				{
+					url: 'ls/xiaoxi',
+					text: '消息',
+					imgNormal: '/static/lsimg/tab_xiaoxi_no.png',
+					imgClick: '/static/lsimg/tab_xiaoxi_on.png'
+				},
+				
+				{
+					url: 'ls/my',
+					text: '我的',
+					imgNormal: '/static/lsimg/tab_my_no.png',
+					imgClick: '/static/lsimg/tab_my_on.png'
+				}
+			],
 			level: '3',
 			num:0,
+			
 			
 		};
 	},
@@ -66,6 +89,7 @@ export default {
 	created() {
 		uni.hideTabBar({});
 		this.huiqu_login()
+		this.huo_qu_is_yaoqing()
 	},
 	methods: {
 		navTo(item, index) {
@@ -81,6 +105,19 @@ export default {
 			} else {
 				/* this.$parent.toTop() */
 			}
+		},
+		huo_qu_is_yaoqing(){
+			this.$http
+				.post({
+					url: '/mapi/index/openinvite'
+				})
+				.then(res => {
+					
+					this.is_yaoqing=res.data.openinvite
+					if(res.data.openinvite==1){
+						this.tabBar=this.tabBar2
+					}
+				});
 		},
 		huiqu_login() {
 			this.$http

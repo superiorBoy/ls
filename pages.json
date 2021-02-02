@@ -17,11 +17,21 @@
 		},
 		{
 			"path":"pages/index/tiwen_list_xq"
-		
+		},
+		{
+			"path":"pages/index/pipei"
+		},
+		{
+			"path":"pages/index/tishi"
+		},
+		{
+			"path":"pages/index/weituo"
+		},
+		{
+			"path":"pages/index/tiwen_pay_fs"
 		},
 		{
 			"path":"pages/index/xieyi"
-		
 		},
 		{
 			"path":"pages/index/yinsi"
@@ -248,6 +258,9 @@
 		},
 		{
 			"path":"pages/ls/ls_xueshu"
+		},
+		{
+			"path":"pages/ls/fuwu_guanli"
 		},
 		{
 			"path":"pages/ls/anli",
