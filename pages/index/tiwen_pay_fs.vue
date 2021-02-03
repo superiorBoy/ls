@@ -35,7 +35,7 @@
 						<text class="hei_30_bold" style="margin-right: 24rpx;">悬赏提问</text>
 						<text class="hong_26">
 							￥
-							<text class="hong_38_bold">3</text>
+							<text class="hong_38_bold">{{min_num}}</text>
 							/提问
 						</text>
 					</view>
@@ -165,7 +165,8 @@ export default {
 			baojia:'',
 			addtime:new Date().getTime(),
 			lvshi:'',
-			user:''
+			user:'',
+			min_num:0
 			 
 		};
 	},
@@ -179,6 +180,7 @@ export default {
 		this.huoqu_jiage()
 		this.huoqu_lvshi()
 		this.huoqu_user()
+		this.huoqu_xuanshang_num()
 	},
 	methods: {
 		navigateBack() {
@@ -207,6 +209,26 @@ export default {
 				console.log(res)
 			})
 		},
+		huoqu_xuanshang_num(){
+			
+			this.$http.post({
+				url: '/mapi/index/getxuanshang',
+			}).then(res => {
+				var array = [];
+				for (var key in res.data.zhan) {
+					
+					array.push(res.data.zhan[key]);
+				}
+				array.sort((old,New)=>{
+				return old -New
+				})
+				
+				this.min_num=array[0]
+				
+				
+			})
+		},
+		
 		huoqu_lvshi(){
 			
 			this.$http.post({
@@ -252,28 +274,31 @@ export default {
 			this.is_tan=false
 		},
 		go_xuanshang(){
-			uni.navigateTo({
-				url:'xuanshang?information='+this.data.information+'&typeid='+this.data.typeid+'&province='+this.data.province+'&city='+this.data.city+'&area='+this.data.area
-			})
-			// this.$http.post({
-			// 	url: '/mapi/consult/addconsult',
-			// 	data:{
-			// 		information:this.data.information,
-			// 		typeid:this.data.typeid,
-			// 		province:this.data.province,
-			// 		city:this.data.city,
-			// 		area:this.data.area
-			// 	},
-				
-			// }).then(res => {
-			// 	if(res.code==0){
-			// 		uni.navigateTo({
-			// 			url:'xuanshang?information='+this.data.information+'&typeid='+this.data.typeid+'&province='+this.data.province+'&city='+this.data.city+'&area='+this.data.area
-			// 		})
-					
-			// 	}
-			// 	console.log(res)
+			// uni.navigateTo({
+			// 	url:'xuanshang?information='+this.data.information+'&typeid='+this.data.typeid+'&province='+this.data.province+'&city='+this.data.city+'&area='+this.data.area
 			// })
+			this.$http.post({
+				url: '/mapi/consult/addconsult',
+				data:{
+					information:this.data.information,
+					typeid:this.data.typeid,
+					province:this.data.province,
+					city:this.data.city,
+					area:this.data.area
+				},
+				
+			}).then(res => {
+				if(res.code==0){
+					// uni.navigateTo({
+					// 	url:'xuanshang?information='+this.data.information+'&typeid='+this.data.typeid+'&province='+this.data.province+'&city='+this.data.city+'&area='+this.data.area
+					// })
+					uni.navigateTo({
+						url:'xuanshang?consultid='+res.data
+					})
+					
+				}
+			// 	console.log(res)
+			})
 			
 		},
 		go_zaixian(){

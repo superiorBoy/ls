@@ -52,13 +52,14 @@ export default {
 		return {
 			number: '',
 			yue: '0.00',
-			zhifu: '2'
+			zhifu: '2',
+			apppaytype:''
 			
 		};
 	},
 	created() {},
 	onLoad(option) {
-		
+		this.huoqu_pay_fs()
 		
 	     
 	},
@@ -70,7 +71,18 @@ export default {
 		navigateBack() {
 			uni.navigateBack();
 		},
-
+         huoqu_pay_fs(){
+			this.$http
+				.post({
+					url: '/mapi/index/getapppaytype'
+				})
+				.then(res => {
+					if (res.code == 0) {
+						
+						this.apppaytype=res.data.zhan.apppaytype
+					}
+				});
+		},
 		all() {
 			this.jine = this.yue;
 		},
@@ -95,62 +107,106 @@ export default {
 				return false;
 			}
 			
-
- 	     this.$http
-	      		.post({
-	      			url: '/mapi/user/chongzhih5',
-					data:{
-						paymoney:this.number
-						}
-	      		})
-	      		.then(res => {
-	      		var that=this
-	      			if(res.code==0){
-					
-					   // #ifdef H5
-					     window.open(''+res.data.response);
-					    // #endif
-					    // #ifdef APP-PLUS
-					    plus.runtime.openURL(''+res.data.response)
-					    // #endif
-					
-					// const div = document.createElement('div');
-					// div.innerHTML = res.data.response;
-					// document.body.appendChild(div);
-					// document.forms[0].submit();
+if(this.apppaytype==1){
+	this.$http
+	 		.post({
+	 			url: '/mapi/user/chongzhih5',
+						data:{
+							paymoney:this.number
+							}
+	 		})
+	 		.then(res => {
+	 		var that=this
+	 			if(res.code==0){
+						
+						   // #ifdef H5
+						     window.open(''+res.data.response);
+						    // #endif
+						    // #ifdef APP-PLUS
+						    plus.runtime.openURL(''+res.data.response)
+						    // #endif
+						
+						// const div = document.createElement('div');
+						// div.innerHTML = res.data.response;
+						// document.body.appendChild(div);
+						// document.forms[0].submit();
+								
+							// uni.requestPayment({
+							//        provider: 'alipay',
+							//        orderInfo:res.data.response,
+							//        success: function(res) {
+							//            console.log('success:' + JSON.stringify(res));
+							// 		   uni.showToast({
+							// 		   	title: '支付成功',
+							// 		   	duration: 2000
+							// 		   });
+							// 		   that.number=''
+							// 		   that.huoqu_yue()
+							//        },
+							//        fail: function(err) {
+							// 		   uni.showToast({
+							// 		   	title: '支付失败',
+							// 		   	duration: 2000,
+							// 			icon: 'none'
+							// 		   });
+							//            console.log('fail:' + JSON.stringify(err));
+							//        }
+							//    });
 							
-						// uni.requestPayment({
-						//        provider: 'alipay',
-						//        orderInfo:res.data.response,
-						//        success: function(res) {
-						//            console.log('success:' + JSON.stringify(res));
-						// 		   uni.showToast({
-						// 		   	title: '支付成功',
-						// 		   	duration: 2000
-						// 		   });
-						// 		   that.number=''
-						// 		   that.huoqu_yue()
-						//        },
-						//        fail: function(err) {
-						// 		   uni.showToast({
-						// 		   	title: '支付失败',
-						// 		   	duration: 2000,
-						// 			icon: 'none'
-						// 		   });
-						//            console.log('fail:' + JSON.stringify(err));
-						//        }
-						//    });
+							
+						}
 						
 						
-					}
-					
-					
-					console.log(res)
-					
-	      		});
+						console.log(res)
+						
+	 		});
+}else{
+	this.app_pay()
+}
+ 	   
 
 
 			console.log(this.number, this.zhifu);
+		},
+		
+		app_pay(){
+			this.$http
+			 		.post({
+			 			url: '/mapi/user/chongzhi',
+								data:{
+									paymoney:this.number
+									}
+			 		})
+			 		.then(res => {
+			 		var that=this
+			 			if(res.code==0){
+									uni.requestPayment({
+									       provider: 'alipay',
+									       orderInfo:res.data.response,
+									       success: function(res) {
+									           console.log('success:' + JSON.stringify(res));
+											   uni.showToast({
+											   	title: '支付成功',
+											   	duration: 2000
+											   });
+											   that.number=''
+											   that.huoqu_yue()
+									       },
+									       fail: function(err) {
+											   uni.showToast({
+											   	title: '支付失败',
+											   	duration: 2000,
+												icon: 'none'
+											   });
+									           console.log('fail:' + JSON.stringify(err));
+									       }
+									   });
+								}
+								
+								
+								console.log(res)
+								
+			 		});
 		},
 		radio(i) {
 			this.zhifu = i;

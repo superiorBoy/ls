@@ -52,7 +52,7 @@
 				<text class="hong_26 zixun_item_jiage">￥{{item.paymoney}}/{{item.zixunshicahng==24?'1天':item.zixunshicahng==72?'3天':item.zixunshicahng==720?'1个月':item.zixunshicahng+'小时'}}</text>
 			</view>
 			<view class="zixun_item_top_bottom" >
-				<view class="fukuan lv_26" v-if="item.zixunstate == 1" @click="pay(item.lawyerid,item.consultid)">
+				<view class="fukuan lv_26" v-if="item.zixunstate == 1" @click="pay(item.lawyerid,item.consultid,item.baojiamode)">
 					立即付款
 				</view>
 				<view class="fukuan lv_26" v-if="item.zixunstate == 4" @click="go_pingjia(item.lawyerid)">
@@ -263,14 +263,15 @@
 				this.huoqu_list()
 				
 			},
-			pay(id,consultid){
-				if(id){
-					uni.navigateTo({
-						url:'pay?lawyerid='+id+'&type=1'+'&consultid='+consultid
-					})
-				}else{
+			pay(id,consultid,baojiamode){
+				if(baojiamode=='zhineng_zaixian'){
 					uni.navigateTo({
 						url:'zhineng_pay?type=1'+'&consultid='+consultid
+					})
+					
+				}else{
+					uni.navigateTo({
+						url:'pay?lawyerid='+id+'&type=1'+'&consultid='+consultid
 					})
 				}
 				

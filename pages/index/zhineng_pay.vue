@@ -149,6 +149,7 @@ export default {
 			dizhi: '',
 			yishu_num: 0,
 			lvshi:[],
+			apppaytype:''
 		};
 	},
 	components: {
@@ -156,6 +157,7 @@ export default {
 	},
 	created() {},
 	onLoad(option) {
+		this.type = option.type;
 		if (option.consultid) {
 			this.consultid = option.consultid;
 			this.$http
@@ -180,8 +182,9 @@ export default {
 							this.time = res.data.consult.zixunshicahng;
 							this.pay_money = res.data.consult.paymoney;
 							this.phone = res.data.consult.phone;
-							this.leixing = this.type_arry[res.data.consult.typeid].typename;
+							this.leixing = this.fenlei[res.data.consult.typeid].typename;
 							this.neirong = res.data.consult.information;
+							this.yishu_num=res.data.consult.information.length
 							this.typeid = res.data.consult.typeid;
 							if (res.data.consult.province) {
 								this.dizhi = res.data.consult.province + '-' + res.data.consult.city + '-' + res.data.consult.area;
@@ -195,7 +198,7 @@ export default {
 				});
 			// 获取分类
 		} else {
-			this.type = option.type;
+			
 			// 获取分类
 			this.$http
 				.post({
@@ -211,7 +214,7 @@ export default {
 					if (option.information) {
 						this.neirong = option.information;
 						this.dizhi = option.province + '-' + option.city + '-' + option.area;
-						this.leixing = this.type_arry[option.typeid].typename;
+						this.leixing = this.fenlei[option.typeid].typename;
 						this.typeid = option.typeid;
 					}
 				});
@@ -223,32 +226,46 @@ export default {
 				.then(res => {
 					this.phone = res.data.user.mobile;
 				});
-			// 查看只能服务报价
-			this.$http
-				.post({
-					url: '/mapi/index/getzixun'
-				})
-				.then(res => {
-					this.zhineng = res.data.zhan;
-					if (this.type == 1) {
-						this.pay_money = res.data.zhan.zaixianprice;
-						this.time = res.data.zhan.zaixiantime;
-					} else {
-						this.pay_money = res.data.zhan.dianhuaprice;
-						this.time = res.data.zhan.dianhuatime;
-					}
-				});
+			
 
 			var cun_dizhi = uni.getStorageSync('dizhi');
 			if (cun_dizhi) {
 				this.dizhi = cun_dizhi.sheng + '-' + cun_dizhi.shi + '-' + cun_dizhi.qu;
 			}
 		}
+		// 查看只能服务报价
+		this.$http
+			.post({
+				url: '/mapi/index/getzixun'
+			})
+			.then(res => {
+				this.zhineng = res.data.zhan;
+				if (this.type == 1) {
+					this.pay_money = res.data.zhan.zaixianprice;
+					this.time = res.data.zhan.zaixiantime;
+				} else {
+					this.pay_money = res.data.zhan.dianhuaprice;
+					this.time = res.data.zhan.dianhuatime;
+				}
+			});
 		this.huoqu_lvshi()
+		this.huoqu_pay_fs()
 	},
 	methods: {
 		navigateBack() {
 			uni.navigateBack();
+		},
+		huoqu_pay_fs(){
+			this.$http
+				.post({
+					url: '/mapi/index/getapppaytype'
+				})
+				.then(res => {
+					if (res.code == 0) {
+						
+						this.apppaytype=res.data.zhan.apppaytype
+					}
+				});
 		},
 		huoqu_lvshi(){
 			
@@ -342,7 +359,12 @@ export default {
 						this.consultid = res.data.consultid;
 
 						if (this.zhifu == 2) {
-							this.zfb_pay(res.data.consultid);
+							
+							if(this.apppaytype==1){
+								this.zfb_pay(res.data.consultid);
+							}else{
+								this.app_pay(res.data.consultid)
+							}
 						} else if (this.zhifu == 3) {
 							this.yue_pay(res.data.consultid);
 						}
@@ -394,7 +416,45 @@ export default {
 					}
 				});
 		},
-
+app_pay(consultid){
+	this.$http
+		.post({
+			url: '/mapi/consult/zhinengpay',
+			data: {
+				consultid: consultid
+			}
+		})
+		.then(res => {
+			if (res.code == 0) {
+				uni.requestPayment({
+				       provider: 'alipay',
+				       orderInfo:res.data.response,
+				       success: function(res) {
+				           console.log('success:' + JSON.stringify(res));
+						   uni.showToast({
+						   	title: '支付成功',
+						   	duration: 2000
+						   });
+	
+						  setTimeout(function() {
+						  	uni.navigateTo({
+						  		url: 'pipei?consultid=' + consultid
+						  	});
+						  }, 1000);
+	
+				       },
+				       fail: function(err) {
+						   uni.showToast({
+						   	title: '支付失败',
+						   	duration: 2000,
+							icon: 'none'
+						   });
+				           console.log('fail:' + JSON.stringify(err));
+				       }
+				   });
+			}
+		});
+},
 		yue_pay(consultid) {
 			this.$http
 				.post({

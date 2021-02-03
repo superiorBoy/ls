@@ -55,7 +55,7 @@
 				<text v-if="item.typeid">咨询项目：{{ item.state==1?'提问':item.state==4?'见面咨询':item.state==5?'合同文书':'诉讼委托'}}</text>  </text>
 			</view>
 			<view class="zixun_item_top_bottom" >
-				<view class="fukuan lv_26" v-if="item.zixunstate == 1" @click="pay(item.lawyerid,item.consultid)">
+				<view class="fukuan lv_26" v-if="item.zixunstate == 1" @click="pay(item.lawyerid,item.consultid,item.baojiamode)">
 					立即付款
 				</view>
 				<view class="fukuan lv_26" v-if="item.zixunstate == 4" @click="go_pingjia(item.lawyerid)">
@@ -258,10 +258,13 @@
 				this.huoqu_list()
 				
 			},
-			pay(id,consultid){
+			pay(lawyerid,consultid,baojiamode){
 				uni.navigateTo({
-					url:'pay?lawyerid='+id+'&type=1'+'&consultid='+consultid
+					url:'pay?lawyerid='+lawyerid +'&consultid='+consultid +'&baojiamode='+baojiamode
 				})
+				// uni.navigateTo({
+				// 	url:'pay?lawyerid='+id'+'&consultid='+ consultid +'&baojiamode='+ baojiamode
+				// })
 			},
 			huoqu_list(){
 				this.$http.post({

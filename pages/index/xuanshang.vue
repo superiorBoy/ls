@@ -16,9 +16,9 @@
 					<text class="qian_30">咨询地区</text>
 					<text class="hei_30">{{data.province}}-{{data.city}}-{{data.area}}</text>
 				</view>
-				<view class="pay_list" v-if="fenlei_arry.length>0">
+				<view class="pay_list" v-if="leibie_arry&&leibie_arry[data.typeid]">
 					<text class="qian_30">咨询类型</text>
-					<text class="hei_30">{{fenlei_arry[data.typeid].typename}}</text>
+					<text class="hei_30">{{leibie_arry[data.typeid].typename}}</text>
 				</view>
 				<!-- <view class="pay_list">
 					<text class="qian_30">手机号码</text>
@@ -64,7 +64,9 @@ export default {
 			data:'',
 			consultid:'',
 			fenlei_arry:[],
-			laiyuan:2
+			leibie_arry:[],
+			laiyuan:2,
+			apppaytype:''
 		};
 	},
 
@@ -87,13 +89,13 @@ export default {
 			this.$http.post({
 				url: '/mapi/index/gettype',
 			}).then(res => {
-			  
+			  this.leibie_arry=res.data.type
 			      var array = [];
 			       for(var key in res.data.type){
 			          array.push(res.data.type[key]);
 			       }
 				this.fenlei_arry=array		
-				
+			
 			})
 		}else{
 			
@@ -101,20 +103,34 @@ export default {
 			this.$http.post({
 				url: '/mapi/index/gettype',
 			}).then(res => {
-			  
+			  this.leibie_arry=res.data.type
 			      var array = [];
 			       for(var key in res.data.type){
 			          array.push(res.data.type[key]);
 			       }
 				this.fenlei_arry=array		
 				this.huoqu_xq()
+				
 			})
 		}
+		
+		this.huoqu_pay_fs()
 		
 	},
 	methods: {
 		navigateBack() {
 			uni.navigateBack();
+		},
+		huoqu_pay_fs(){
+			this.$http
+				.post({
+					url: '/mapi/index/getapppaytype'
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.apppaytype=res.data.zhan.apppaytype
+					}
+				});
 		},
 		xuan(index) {
 			this.xuan_index = index;
@@ -160,6 +176,11 @@ export default {
 			
 		},
 		fukuan(){
+			
+			if(this.apppaytype==1){
+				
+			
+			
 			this.$http.post({
 				url: '/mapi/consult/payh5',
 				data:{
@@ -203,6 +224,52 @@ export default {
 					//            console.log('fail:' + JSON.stringify(err));
 					//        }
 					//    });
+				}
+			})
+			
+		}else{
+			this.app_pay()
+		}	
+			
+			
+		},
+		app_pay(){
+			this.$http.post({
+				url: '/mapi/consult/pay',
+				data:{
+					consultid:this.consultid,
+					paymoney:this.jine_arry[this.xuan_index]
+				},
+				
+			}).then(res => {
+				if(res.code==0){
+
+					uni.requestPayment({
+					       provider: 'alipay',
+					       orderInfo:res.data.response,
+					       success: function(res) {
+					           console.log('success:' + JSON.stringify(res));
+							   uni.showToast({
+							   	title: '支付成功',
+							   	duration: 2000
+							   });
+							 this.shuru_txt=''
+							 setTimeout(function(){
+							 				uni.navigateTo({
+							 					url:'tiwen_list'
+							 				})
+							 },2000)
+							   
+					       },
+					       fail: function(err) {
+							   uni.showToast({
+							   	title: '支付失败',
+							   	duration: 2000,
+								icon: 'none'
+							   });
+					           console.log('fail:' + JSON.stringify(err));
+					       }
+					   });
 				}
 			})
 		},

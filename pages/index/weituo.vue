@@ -95,7 +95,8 @@ export default {
 			dizhi:'',
 			lianxi:'',
 			sex:'',
-			dianhua:''
+			dianhua:'',
+			fenlei:''
 		
 		};
 	},
@@ -135,8 +136,8 @@ export default {
 		// 类型选择
 		lei_change(e){
 		
-				this.leixing = this.type_arry[e.detail.value].typename;
-				this.typeid = this.type_arry[e.detail.value].typeid;
+				this.leixing = this.fenlei[e.detail.value].typename;
+				this.typeid = this.fenlei[e.detail.value].typeid;
 				console.log(this.typeid);
 			
 		},

@@ -44,7 +44,7 @@
 						律师电话：{{item.mobile}}
 					</view>
 					<view class="zixun_item_top_bottom">
-						<view class="fukuan lv_26" v-if="item.zixunstate==1" @click="pay(item.lawyerid,item.consultid,item.information)">
+						<view class="fukuan lv_26" v-if="item.zixunstate==1" @click="pay(item.lawyerid,item.consultid,item.baojiamode)">
 							立即付款
 						</view>
 					<!-- 	<view class="fukuan lv_26" v-if="item.zixunstate==2">
@@ -243,15 +243,16 @@ export default {
 
 			this.huoqu_list();
 		},
-		pay(id,consultid,information){
-			if(id){
+		pay(id,consultid,baojiamode){
+			if(baojiamode=='zhineng_dianhua'){
+				
 				uni.navigateTo({
-					url:'pay?lawyerid='+id+'&type=2'+'&consultid='+consultid+'&information='+information
+					url:'zhineng_pay?type=2'+'&consultid='+consultid
 					
 				})
 			}else{
 				uni.navigateTo({
-					url:'zhineng_pay?type=2'+'&consultid='+consultid
+					url:'pay?lawyerid='+id+'&type=2'+'&consultid='+consultid
 					
 				})
 			}

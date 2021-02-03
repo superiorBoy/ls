@@ -175,7 +175,8 @@ export default {
 			zixun_xinxi:'',
 			laiyuan:1,
 			pay_money:0,
-			time:''
+			time:'',
+			apppaytype:''
 			
 		};
 	},
@@ -186,7 +187,11 @@ export default {
 	},
 	onLoad(option) {
 		this.lawyerid=option.lawyerid
+			
+		if(option.type){
+			
 		this.type=option.type
+		}
 		if(option.pay_money){
 			this.pay_money=option.pay_money
 		}
@@ -210,6 +215,8 @@ export default {
 					this.type_arry = array;
 					this.diangdan_xinxi()
 				});
+		
+				
 			
 		}else{
 			this.laiyuan=1
@@ -237,11 +244,32 @@ export default {
 				this.zhuanchang_arry = res.data.shanchang;
 				this.huoqu_lvshi();
 			});
+		// 获取手机号	
+	this.$http
+		.post({
+			url: '/mapi/user/user'
+		})
+		.then(res => {
+			this.phone=res.data.user.mobile
+		});		
 		
+		this.huoqu_pay_fs()
 	},
 	methods: {
 		navigateBack() {
 			uni.navigateBack();
+		},
+		huoqu_pay_fs(){
+			this.$http
+				.post({
+					url: '/mapi/index/getapppaytype'
+				})
+				.then(res => {
+					if (res.code == 0) {
+						
+						this.apppaytype=res.data.zhan.apppaytype
+					}
+				});
 		},
 		diangdan_xinxi(){
 			this.$http
@@ -257,7 +285,7 @@ export default {
 					this.pay_money=res.data.consult.paymoney
 					this.typeid=res.data.consult.typeid
 					this.time=res.data.consult.zixunshicahng
-					if(res.data.consult.zixunshicahng==20){
+					if(res.data.consult.zixunshicahng==1){
 						this.time='20分钟'
 						
 					}else if(res.data.consult.zixunshicahng==24){
@@ -266,9 +294,41 @@ export default {
 						this.time='3天'
 					}else if(res.data.consult.zixunshicahng==720){
 						this.time='1个月'
+					}else{
+						this.time=res.data.consult.zixunshicahng+'小时'
 					}
 					
-					this.leixing = this.type_arry[res.data.consult.typeid].typename;
+					if(res.data.consult.baojiamode=='hetong_shenhe'){
+						this.time='合同审核'
+						this.type=3
+					}
+					if(res.data.consult.baojiamode=='hetong_daixie'){
+						this.time='代写合同'
+						this.type=3
+					}
+					if(res.data.consult.baojiamode=='hetong_wenshu'){
+						this.time='代写文书'
+						this.type=3
+					}
+					if(res.data.consult.baojiamode=='lvshi_huijian'){
+						this.time='律师会见'
+						this.type=4
+					}
+
+					if(res.data.consult.baojiamode=='lvshihan'){
+						this.time='发律师函'
+						this.type=4
+					}
+					if(res.data.consult.baojiamode=='anjianzhidao'){
+						this.time='案件指导'
+						this.type=4
+					}
+					if(res.data.consult.baojiamode=='jianmian'){
+						this.time='1次'
+						this.type=0
+					}
+					
+					this.leixing = this.fenlei[res.data.consult.typeid].typename;
 				});
 		},
 		
@@ -284,7 +344,7 @@ export default {
 				.then(res => {
 					if (res.code == 0) {
 						this.lvshi = res.data.lawyer;
-						this.phone=res.data.lawyer.mobile
+						
 						
 					}
 				});
@@ -355,7 +415,12 @@ export default {
 				.then(res => {
 					if (res.code == 0) {
 						if(this.zhifu==2){
-							this.zfb_pay(res.data.consultid)
+							if(this.apppaytype==1){
+								this.zfb_pay(res.data.consultid)
+							}else{
+								this.app_pay(res.data.consultid)
+							}
+							
 						}else if(this.zhifu==3){
 							this.yue_pay(res.data.consultid)
 						}
@@ -429,6 +494,59 @@ export default {
 						//            console.log('fail:' + JSON.stringify(err));
 						//        }
 						//    });
+					}
+				});
+		},
+		app_pay(consultid){
+			
+			var that=this
+			this.$http
+				.post({
+					url: '/mapi/consult/pay',
+					data: {
+						consultid:consultid
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						uni.requestPayment({
+						       provider: 'alipay',
+						       orderInfo:res.data.response,
+						       success: function(res) {
+						           console.log('success:' + JSON.stringify(res));
+								   uni.showToast({
+								   	title: '支付成功',
+								   	duration: 2000
+								   });
+								   
+								   setTimeout(function(){
+								   	if(that.type==1){
+								   		uni.navigateTo({
+								   			url:'zixun_jilu'
+								   		})
+								   	}else if(that.type==2){
+								   		uni.navigateTo({
+								   			url:'dianhua_jilu'
+								   		})
+								   	}else{
+								   		uni.navigateTo({
+								   			url:'qita_jilu'
+								   		})
+								   	}
+								   	
+								   },2000) 
+								
+								   
+						       },
+						       fail: function(err) {
+								   uni.showToast({
+								   	title: '支付失败',
+								   	duration: 2000,
+									icon: 'none'
+								   });
+						           console.log('fail:' + JSON.stringify(err));
+						       }
+						   });
 					}
 				});
 		},
