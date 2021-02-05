@@ -91,6 +91,7 @@ export default {
 		// #ifdef APP-PLUS
 		this.app_lianjie();
 		// #endif
+		
 	},
 	data() {
 		return {
@@ -176,8 +177,10 @@ export default {
 					// 	});
 				} else if (data.type == 'say') {
 					console.log('say');
+					that.huoqu_xiaoxilist();
+					void plus.push.createMessage('律师端收到一条新消息');
 					if (data.state) {
-						that.huoqu_xiaoxilist();
+					
 					}
 				} else {
 					console.log('else');
@@ -214,6 +217,7 @@ export default {
 			});
 		},
 		huoqu_xiaoxilist() {
+			
 			this.$http
 				.post({
 					url: '/mlawyerapi/consult/messagelist'
@@ -260,6 +264,8 @@ export default {
 				} else if (data.type == 'say') {
 					console.log('say');
 					that.huoqu_xiaoxilist();
+					
+					
 				} else {
 					console.log('else');
 				}

@@ -139,6 +139,7 @@
 
 		},
 		onLoad() {
+			
 			// #ifdef H5
 			this.connectSocketInit();
 			// #endif
@@ -303,6 +304,7 @@ app_lianjie() {
 					} else if (data.type == 'say') {
 						console.log('say');
 						that.huoqu_xiaoxilist()
+						void plus.push.createMessage('用户端收到一条新消息');
 					} else {
 						console.log('else');
 					}

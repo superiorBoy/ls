@@ -33,7 +33,7 @@
 				<view class="pay_fs_item">
 					<view class="pay_fs_item_top">
 						<text class="hei_30_bold" style="margin-right: 24rpx;">悬赏提问</text>
-						<text class="hong_26">
+						<text class="hong_26" >
 							￥
 							<text class="hong_38_bold">{{min_num}}</text>
 							/提问

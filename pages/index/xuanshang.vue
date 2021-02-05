@@ -37,7 +37,7 @@
 		</view>
 
 		<view class="jine_list qian_30">
-			<view class="" v-for="(item, index) in jine_arry" :class="['jine_item', index == xuan_index ? 'xuan_active' : '']" @click="xuan(index)">
+			<view class="" v-for="(item, index) in jine_arry" :class="['jine_item', money == item ? 'xuan_active' : '']" @click="xuan(index)" v-if="item!=0">
 				<image src="@/static/img/qian_on.png" mode="" class="qian_on"></image>
 				<image src="@/static/img/qian_no.png" mode="" class="qian_no"></image>
 				{{ item }}元
@@ -59,14 +59,15 @@
 export default {
 	data() {
 		return {
-			jine_arry: ['3.00', '5.00', '10.00', '20.00'],
+			jine_arry: [],
 			xuan_index: 0,
 			data:'',
 			consultid:'',
 			fenlei_arry:[],
 			leibie_arry:[],
 			laiyuan:2,
-			apppaytype:''
+			apppaytype:'',
+			money:''
 		};
 	},
 
@@ -115,11 +116,26 @@ export default {
 		}
 		
 		this.huoqu_pay_fs()
-		
+		this.huoqu_xuanshang_num()
 	},
 	methods: {
 		navigateBack() {
 			uni.navigateBack();
+		},
+		huoqu_xuanshang_num(){
+			
+			this.$http.post({
+				url: '/mapi/index/getxuanshang',
+			}).then(res => {
+				var array = [];
+				for (var key in res.data.zhan) {
+					
+					array.push(res.data.zhan[key]);
+				}
+				this.jine_arry=array
+				this.money=res.data.zhan.xuanshang1
+				
+			})
 		},
 		huoqu_pay_fs(){
 			this.$http
@@ -134,6 +150,7 @@ export default {
 		},
 		xuan(index) {
 			this.xuan_index = index;
+			this.money=this.jine_arry[index]
 		},
 		huoqu_xq(){
 			this.$http.post({
@@ -145,12 +162,18 @@ export default {
 			}).then(res => {
 				if(res.code==0){
 					this.data=res.data.consult
+					if(this.jine_arry.includes(res.data.consult.paymoney)){
+						this.money=res.data.consult.paymoney
+					}else{
+						
+					}
 				}
 				console.log(res)
 			
 			})
 		},
 		save(){
+
 			if(this.laiyuan==1){
 				this.$http.post({
 					url: '/mapi/consult/addconsult',
@@ -178,14 +201,11 @@ export default {
 		fukuan(){
 			
 			if(this.apppaytype==1){
-				
-			
-			
 			this.$http.post({
 				url: '/mapi/consult/payh5',
 				data:{
 					consultid:this.consultid,
-					paymoney:this.jine_arry[this.xuan_index]
+					paymoney:this.money
 				},
 				
 			}).then(res => {
@@ -238,7 +258,7 @@ export default {
 				url: '/mapi/consult/pay',
 				data:{
 					consultid:this.consultid,
-					paymoney:this.jine_arry[this.xuan_index]
+					paymoney:this.money
 				},
 				
 			}).then(res => {

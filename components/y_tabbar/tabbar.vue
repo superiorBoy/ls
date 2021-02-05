@@ -73,7 +73,17 @@ export default {
 	created() {
 		uni.hideTabBar({});
 		this.is_login()
-		
+		this.$http
+			.post({
+				url: '/mapi/index/getopenshenhe'
+			})
+			.then(res => {
+				if(res.data.zhan.openshenhe==1){
+					this.tabBar[3].text='咨询'
+					this.tabBar[3].url='index/tiwen'
+				}
+			});
+			
 	},
 	methods: {
 		navTo(item, index) {

@@ -325,6 +325,7 @@ export default {
 				});
 		},
 		huoshu_weidu(){
+			console.log('huoqu')
 			this.$http
 				.post({
 					url: '/mlawyerapi/consult/messagecount'

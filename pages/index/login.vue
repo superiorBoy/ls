@@ -45,7 +45,7 @@ export default {
 			mima: '',
 			shouji: '',
 			type1: 'password',
-			isCheck: true,
+			isCheck: false,
 			yan1_zhuangtai: '../../static/lsimg/yanguan.png',
 			back: false,
 			dianji:true
@@ -60,6 +60,15 @@ export default {
 				this.type=option.type
 			}
 		}
+	this.$http
+		.post({
+			url: '/mapi/index/getopenshenhe'
+		})
+		.then(res => {
+			if(res.data.zhan.openshenhe==2){
+				this.isCheck=true
+			}
+		});
 	},
 	methods: {
 		navigateBack() {
@@ -80,6 +89,16 @@ export default {
 			}
 		},
 		login() {
+			
+			if(!this.isCheck){
+				uni.showToast({
+					title: '请同意用户协议和隐私政策',
+					duration: 2000,
+					icon: "none"
+				});
+				return false
+			}
+			
 			var that=this
 			if(this.dianji){
 				this.dianji=false

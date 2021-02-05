@@ -90,6 +90,16 @@ export default {
 		uni.hideTabBar({});
 		this.huiqu_login()
 		this.huo_qu_is_yaoqing()
+		this.$http
+			.post({
+				url: '/mapi/index/getopenshenhe'
+			})
+			.then(res => {
+				if(res.data.zhan.openshenhe==1){
+					this.tabBar[1].text='咨询'
+					this.tabBar[1].url='index/tiwen'
+				}
+			});
 	},
 	methods: {
 		navTo(item, index) {
@@ -141,6 +151,11 @@ export default {
 				.then(res => {
 					if(res.code==0){
 					this.num=	res.data.messagecount
+					if(res.data.messagecount>0){
+						
+						void plus.push.createMessage('律师端有未读消息');
+						console.log('111')
+					}
 					}
 				});
 		}

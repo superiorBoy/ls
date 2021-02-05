@@ -44,6 +44,25 @@
 				</view>
 				<input type="text" value="" placeholder="请输入电子邮箱" class="hei_26" v-model="youxiang" />
 			</view>
+			<navigator url="xieyi"  class="shiming_list hei_28">
+				<view class="shiming_list_left">
+					用户协议
+				</view>
+				<image src="@/static/lsimg/go_r.png" mode="" style="width: 20rpx;height: 30rpx;"></image>
+			</navigator>
+			<navigator url="yinsi"  class="shiming_list hei_28">
+				<view class="shiming_list_left">
+					隐私政策
+				</view>
+				<image src="@/static/lsimg/go_r.png" mode=""style="width: 20rpx;height: 30rpx;"></image>
+			
+			</navigator>
+			<view class="shiming_list hei_28">
+				<view class="shiming_list_left">
+					客服电话
+				</view>
+				<text>0576-83885500</text>
+			</view>
 			<view class="youshi">
 				<view class="youshi_top qian_28">
 					简介
@@ -172,9 +191,14 @@
 	.youshi {
 		padding-left: 30rpx;
 		padding-right: 30rpx;
+		height: 240rpx;
 	}
 	.youshi textarea{
 		width: 100%;
+		height: 100rpx;
+		background-color: #fcfcfc;
+		padding: 10rpx;
+		box-sizing: border-box;
 	}
 
 	.youshi_top {

@@ -2,7 +2,7 @@
 	<view class="body">
 		<view class="head">
 			<view class="head_back"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
-			<view class="head_center hei_38_bold">下载页</view>
+			<view class="head_center hei_38_bold"></view>
 			<view class=" head_right"></view>
 		</view>
 
@@ -12,7 +12,7 @@
 			<view class="app_bottom">
 				<view class="yaoqingma hei_24" v-if="yaoqing">
 					{{ yaoqing }}
-					<view class="copy bai_24" @click="copy">复制</view>
+					<view class="copy bai_24 " @click="copy">复制</view>
 				</view>
 				<view class="hei_26"  v-if="yaoqing">
 					请先
@@ -196,13 +196,21 @@ export default {
 
 <style>
 .head {
-	border-bottom: 2rpx solid #e8e8e8;
+	border-bottom: 2rpx solid #ade6d3;
+	background-color: #ade6d3;
 }
 .head_right image {
 	width: 50rpx;
 	height: 10rpx;
 }
-
+.zi_body{
+	padding-top: 102rpx;
+}
+/* #ifdef APP-PLUS */
+.zi_body{
+	padding-top: 146rpx;
+}
+ /* #endif */
 .app_top {
 	width: 100%;
 	height: 720rpx;

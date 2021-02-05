@@ -120,34 +120,50 @@ export default {
 		};
 	},
 	created() {
+		// #ifdef APP-PLUS
 		var that = this;
-		uni.getLocation({
-			type: 'gcj02',
-			geocode: true, //设置该参数为true可直接获取经纬度及城市信息
-			success: function(res) {
-				console.log(res);
-				uni.request({
-					url: 'http://api.map.baidu.com/geocoder/v2/?ak=GPCxs0BGTWyIpUmkft16DNzH9wUUofzQ&output=json&pois=1&location=' + res.latitude + ',' + res.longitude,
-					success(res) {
-					uni.setStorage({
-					    key: 'dizhi',　　　　　　　　　　　　
-					    data: {sheng:res.data.result.addressComponent.province,shi:res.data.result.addressComponent.city,qu:res.data.result.addressComponent.district},　　　
-					}) 
-						that.dizhi =res.data.result.addressComponent.province+'-'+res.data.result.addressComponent.city+'-'+res.data.result.addressComponent.district;
-						console.log(res);
-					},
-					fail(err) {
-						console.log(err);
-					}
-				});
-			},
-			fail: function() {
-				// uni.showToast({
-				// 	title: '获取地址失败,请手动选择',
-				// 	icon: 'none'
-				// });
-			}
-		});
+			plus.geolocation.getCurrentPosition(function(p){
+						that.dizhi = p.address.province+'-'+ p.address.city+'-'+ p.address.district;
+						uni.setStorage({
+							key: 'dizhi',
+							data: {
+								sheng: p.address.province,
+								shi: p.address.city,
+								qu: p.address.district
+							},
+							})
+					}, function(e){
+						
+			      })
+			// #endif
+		// var that = this;
+		// uni.getLocation({
+		// 	type: 'gcj02',
+		// 	geocode: true, //设置该参数为true可直接获取经纬度及城市信息
+		// 	success: function(res) {
+		// 		console.log(res);
+		// 		uni.request({
+		// 			url: 'http://api.map.baidu.com/geocoder/v2/?ak=GPCxs0BGTWyIpUmkft16DNzH9wUUofzQ&output=json&pois=1&location=' + res.latitude + ',' + res.longitude,
+		// 			success(res) {
+		// 			uni.setStorage({
+		// 			    key: 'dizhi',　　　　　　　　　　　　
+		// 			    data: {sheng:res.data.result.addressComponent.province,shi:res.data.result.addressComponent.city,qu:res.data.result.addressComponent.district},　　　
+		// 			}) 
+		// 				that.dizhi =res.data.result.addressComponent.province+'-'+res.data.result.addressComponent.city+'-'+res.data.result.addressComponent.district;
+		// 				console.log(res);
+		// 			},
+		// 			fail(err) {
+		// 				console.log(err);
+		// 			}
+		// 		});
+		// 	},
+		// 	fail: function() {
+		// 		// uni.showToast({
+		// 		// 	title: '获取地址失败,请手动选择',
+		// 		// 	icon: 'none'
+		// 		// });
+		// 	}
+		// });
 
 		// #ifdef H5
 		window.initBaiduMapScript = () => {

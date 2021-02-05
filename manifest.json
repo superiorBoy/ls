@@ -2,8 +2,8 @@
     "name" : "小虎律师",
     "appid" : "__UNI__6204E51",
     "description" : "小虎律师-在线法律咨询-专业律师咨询",
-    "versionName" : "1.1.4",
-    "versionCode" : 111,
+    "versionName" : "1.1.5",
+    "versionCode" : 115,
     "transformPx" : false,
     "app-plus" : {
         "nvueCompiler" : "uni-app",
@@ -12,7 +12,8 @@
             "Payment" : {},
             "Maps" : {},
             "SQLite" : {},
-            "Push" : {}
+            "Push" : {},
+            "Geolocation" : {}
         },
         "compatible" : {
             "ignoreVersion" : true //true表示忽略版本检查提示框，HBuilderX1.9.0及以上版本支持  
@@ -38,12 +39,15 @@
                     "<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
                     "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
                     "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_SMS\"/>",
                     "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
+                    "<uses-permission android:name=\"android.permission.SEND_SMS\"/>",
                     "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
                     "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_SMS\"/>"
                 ],
                 "abiFilters" : [ "armeabi-v7a", "x86" ]
             },
@@ -78,6 +82,14 @@
                 },
                 "maps" : {
                     "baidu" : {
+                        "appkey_ios" : "GPCxs0BGTWyIpUmkft16DNzH9wUUofzQ",
+                        "appkey_android" : "GPCxs0BGTWyIpUmkft16DNzH9wUUofzQ"
+                    }
+                },
+                "oauth" : {},
+                "geolocation" : {
+                    "baidu" : {
+                        "__platform__" : [ "ios", "android" ],
                         "appkey_ios" : "GPCxs0BGTWyIpUmkft16DNzH9wUUofzQ",
                         "appkey_android" : "GPCxs0BGTWyIpUmkft16DNzH9wUUofzQ"
                     }

@@ -284,6 +284,27 @@
 					</view>
 				</view>
 			</view>
+			
+		<view class="tab_bg" v-if="is_xieyi">
+			<view class="tan_xiyi hei_26">
+			<view class="tan_xiyi_title hei_30">温馨提示</view>
+			<view class="tan_xiyi_txt">
+				欢迎您使用 “小虎律师” 软件及相关的服务
+			</view>
+			<view class="tan_xiyi_txt">
+				“小虎律师”软件服务由台州律易网络科技有限公司 (以下简称 “ 我们” )开发并发布。我们依据法律法规收集、使用个人信息。
+			</view>
+			<view class="tan_xiyi_txt ">
+				在使用“小虎律师” 软件及相关服务前，请您务必仔细阅读并理解我们的《用户协议》及《隐私政策》。您一旦选择“同意”，即意味着您授权我们收集、保存、使用、共享、披露及保护您的信息。点击查看
+				<text class="hong_26" @click="go_xieyi">《用户协议》 </text>和 <text class="hong_26" @click="go_yinsi">《隐私政策》</text>。
+			</view>
+			<view class="tan_xiyi_bottom">
+				<button type="" class="tan_xiyi_butongyi bai_26" @click="butongyi">不同意</button>
+				<button type="" class="tan_xiyi_tongyi bai_26" @click="tongyi">同意</button>
+			</view>
+			</view>
+		</view>	
+			
 		</view>
 		
 		<tabBar :currentPage="currentPage" ></tabBar>
@@ -357,7 +378,8 @@ export default {
 			zhineng: '',
 			is_yaoqing:2,
 			is_xiazai:false,
-			baifen:0
+			baifen:0,
+			is_xieyi:false
 		};
 	},
 	components: {
@@ -366,38 +388,55 @@ export default {
 		tabBar
 	},
 	created() {
-		var that = this;
-		uni.getLocation({
-			type: 'gcj02',
-			geocode: true, //设置该参数为true可直接获取经纬度及城市信息
-			success: function(res) {
-				console.log(res, '');
-				uni.request({
-					url: 'http://api.map.baidu.com/geocoder/v2/?ak=GPCxs0BGTWyIpUmkft16DNzH9wUUofzQ&output=json&pois=1&location=' + res.latitude + ',' + res.longitude,
-					success(res) {
-						console.log(res);
+	
+	// #ifdef APP-PLUS
+	var that = this;
+		plus.geolocation.getCurrentPosition(function(p){
+					that.dizhi = p.address.city;
+					uni.setStorage({
+						key: 'dizhi',
+						data: {
+							sheng: p.address.province,
+							shi: p.address.city,
+							qu: p.address.district
+						},
+						})
+				}, function(e){
+					
+		      })
+		// #endif
+		// var that = this;
+		// uni.getLocation({
+		// 	type: 'gcj02',
+		// 	geocode: true, //设置该参数为true可直接获取经纬度及城市信息
+		// 	success: function(res) {
+		// 		console.log(res, '');
+		// 		uni.request({
+		// 			url: 'http://api.map.baidu.com/geocoder/v2/?ak=GPCxs0BGTWyIpUmkft16DNzH9wUUofzQ&output=json&pois=1&location=' + res.latitude + ',' + res.longitude,
+		// 			success(res) {
+		// 				console.log(res);
 
-						that.dizhi = res.data.result.addressComponent.city;
-						// console.log(res.data.result.addressComponent.city,'')
-						uni.setStorage({
-							key: 'dizhi',
-							data: {
-								sheng: res.data.result.addressComponent.province,
-								shi: res.data.result.addressComponent.city,
-								qu: res.data.result.addressComponent.district
-							}
-						});
-					}
-				});
-			},
-			fail: function(err) {
-				console.log(err);
-				// uni.showToast({
-				// 	title: '获取地址失败,请手动选择',
-				// 	icon: 'none'
-				// });
-			}
-		});
+		// 				that.dizhi = res.data.result.addressComponent.city;
+		// 				// console.log(res.data.result.addressComponent.city,'')
+		// 				uni.setStorage({
+		// 					key: 'dizhi',
+		// 					data: {
+		// 						sheng: res.data.result.addressComponent.province,
+		// 						shi: res.data.result.addressComponent.city,
+		// 						qu: res.data.result.addressComponent.district
+		// 					}
+		// 				});
+		// 			}
+		// 		});
+		// 	},
+		// 	fail: function(err) {
+		// 		console.log(err);
+		// 		// uni.showToast({
+		// 		// 	title: '获取地址失败,请手动选择',
+		// 		// 	icon: 'none'
+		// 		// });
+		// 	}
+		// });
 
 		// #ifdef H5
 		window.initBaiduMapScript = () => {
@@ -405,7 +444,7 @@ export default {
 			this.getlocation();
 		};
 		loadBMap('initBaiduMapScript');
-		//#endif
+		// #endif
 	},
 	onLoad() {
 		// if (this._isMobile()) {
@@ -413,6 +452,7 @@ export default {
 		//    } else {
 		//      alert("pc端");
 		//    }
+		
 		//#ifdef APP-PLUS
 		plus.runtime.getProperty(plus.runtime.appid, wgtinfo => {
 			console.log(JSON.stringify(wgtinfo));
@@ -423,6 +463,20 @@ export default {
 
 		this.kaiqi();
 		//#endif
+		this.$http
+			.post({
+				url: '/mapi/index/getopenshenhe'
+			})
+			.then(res => {
+				if(res.data.zhan.openshenhe==1){
+					
+					if(uni.getStorageSync('is_tongyi')){
+						
+					}else{
+						this.is_xieyi=true
+					}
+				}
+			});
 	},
 	onShow() {
 		this.$http
@@ -432,7 +486,9 @@ export default {
 			.then(res => {
 				this.url = res.data.url;
 				uni.setStorageSync('img_url', res.data.url);
+				
 			});
+			
 
 		// 获取分类
 		this.$http
@@ -759,7 +815,35 @@ export default {
 				url: 'ls_zhuye?lawyerid=' + id
 			});
 		},
+      go_xieyi(){
+		uni.navigateTo({
+			url: 'xieyi'
+		});  
+	  },
+	  go_yinsi(){
+		  uni.navigateTo({
+		  	url: 'yinsi'
+		  });  
+	  },
+	  butongyi(){
+		   // #ifdef APP-PLUS
+		  			 if (plus.os.name.toLowerCase() === 'android') {
+		  					 plus.runtime.quit();
+		  				 }
+		  				 else{ 
+		  					 const threadClass = plus.ios.importClass("NSThread");
+		  					 const mainThread = plus.ios.invoke(threadClass, "mainThread");
+		  					 plus.ios.invoke(mainThread, "exit");
+		  					 // ios11
+		  					 plus.ios.import("UIApplication").sharedApplication().performSelector("exit")
+		  				 }
+		  // #endif
 
+	  },
+	  tongyi(){
+		  this.is_xieyi=false
+		  uni.setStorageSync("is_tongyi",true)
+	  },
 		// 获取经纬度
 		getlocation() {
 			const that = this;
@@ -1496,5 +1580,47 @@ scroll-view ::-webkit-scrollbar {
 .body{
 	padding-bottom: 150rpx;
 }
-
+.tan_xiyi{
+	background-color: #FFFFFF;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	width: 600rpx;
+	border-radius: 20rpx;
+	padding: 0rpx 30rpx 10rpx;
+	box-sizing: border-box;
+}
+.tan_xiyi_bottom {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 30rpx 0 20rpx;
+}
+.tan_xiyi_bottom button{
+	width: 200rpx;
+	height:60rpx;
+	line-height: 60rpx;
+}
+.tan_xiyi_butongyi{
+	    background-color: #999999 ;
+	    box-shadow: 0 16rpx 16rpx #b7b2b7 ;
+		border-radius: 30rpx;
+}
+.tan_xiyi_tongyi{
+	    background-color: #fd386c;
+	    border-radius: 30rpx;
+	    margin-left: 30rpx;
+	    box-shadow: 0 16rpx 16rpx #ff8e99;
+}
+.tan_xiyi_title{
+	text-align: center;
+	line-height: 100rpx;
+}
+.tan_xiyi_txt{
+	line-height: 40rpx;
+}
+.tan_xiyi_txt_flex{
+	display: flex;
+}
 </style>

@@ -104,7 +104,7 @@
 				shouji: '',
 				type1: 'password',
 				type2: 'password',
-				isCheck: true,
+				isCheck: false,
 				name: '',
 				zhengjian: '',
 				diqu: '',
@@ -127,6 +127,17 @@ onLoad(option) {
 		this.active=0
 	}
 	this.is_duanxin()
+	
+	this.$http
+		.post({
+			url: '/mapi/index/getopenshenhe'
+		})
+		.then(res => {
+			console.log(res.data)
+			if(res.data.zhan.openshenhe==2){
+				this.isCheck=true
+			}
+		});
 },
 		components: {
 			pickerAddress
@@ -241,6 +252,15 @@ onLoad(option) {
 			}else if(this.mima!=this.agamima){
 				uni.showToast({
 					title: '两次密码不一致',
+					duration: 2000,
+					icon: "none"
+				});
+				return false
+			}
+			
+			if(!this.isCheck){
+				uni.showToast({
+					title: '请同意用户协议和隐私政策',
 					duration: 2000,
 					icon: "none"
 				});

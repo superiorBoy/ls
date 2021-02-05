@@ -46,7 +46,7 @@ export default {
 			mima: '',
 			shouji: '',
 			type1: 'password',
-			isCheck: true,
+			isCheck: false,
 			yan1_zhuangtai: '../../static/lsimg/yanguan.png',
 			back: false,
 			dianji:true
@@ -58,6 +58,16 @@ export default {
 				this.back = true;
 			}
 		}
+		this.$http
+			.post({
+				url: '/mapi/index/getopenshenhe'
+			})
+			.then(res => {
+				console.log(res)
+				if(res.data.zhan.openshenhe==2){
+					this.isCheck=true 
+				}
+			});
 	},
 	methods: {
 		navigateBack() {
