@@ -231,7 +231,7 @@
 		</view>
 
 		<view class="padding_bottom"></view>
-		<tabBar :currentPage="currentPage" ></tabBar>
+		<tabBar :currentPage="currentPage" ref="ls_mainindex"></tabBar>
 	</view>
 </template>
 
@@ -249,9 +249,7 @@ export default {
 	},
 	onLoad(option) {
 	
-		//#ifdef APP-PLUS
-	  	this.kaiqi();  
-		//#endif
+		
 	},
 	onHide() {
 		// if(this.user){
@@ -282,6 +280,16 @@ export default {
 	},
 	methods: {
 		qiehuan() {
+			var that=this
+			var url = that.$http.WebSocket_url;
+			socket.closeSocket({
+			  url: 'ws://' + url + ':3348',
+			});
+
+			socket.onSocketClose(function (res) {
+			  console.log('WebSocket 已关闭！');
+			});
+
 			uni.switchTab({
 				url: '/pages/index/my'
 			});
@@ -318,6 +326,9 @@ export default {
 						this.huoqu_user();
 				       this.huoqu_geshu()
 						// this.huoshu_weidu()
+						//#ifdef APP-PLUS
+						this.kaiqi();  
+						//#endif
 					} else {
 						this.is_login = false;
 						
@@ -415,6 +426,7 @@ export default {
 					console.log('say');
 					that.huoshu_weidu()
 	   				void plus.push.createMessage('律师端收到一条新消息');
+					that.$refs.ls_mainindex.huoqunum();
 	   			}
 	   		} else {
 	   			console.log('else');

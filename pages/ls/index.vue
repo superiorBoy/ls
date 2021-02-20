@@ -45,7 +45,7 @@
 			
 			</view>
 			<view class="padding_bottom"></view>
-			<tabBar :currentPage="currentPage" ></tabBar>
+			<tabBar :currentPage="currentPage" ref="ls_mainindex"></tabBar>
 			
 		</view>
 	
@@ -64,7 +64,18 @@
 		onShow() {
 			this.list=[],
 			this.huoqu_user()
-			
+			this.$http
+				.post({
+					url: '/lawyer/login/islogin'
+				})
+				.then(res => {
+					if (res.data.user != '') {
+					this.$refs.ls_mainindex.huoqunum();
+					} else {
+						this.is_login = false;
+						
+					}
+				});
 		},
 		data() {
 			return {

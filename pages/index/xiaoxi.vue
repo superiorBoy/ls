@@ -103,7 +103,7 @@
 			
 			</view>
 			
-			<tabBar :currentPage="currentPage" ></tabBar>
+			<tabBar :currentPage="currentPage"  ref="mainindex"></tabBar>
 			
 		</view>
 	
@@ -131,6 +131,7 @@
 					if(res.data.user!=''){
 						
 						this.huoqu_xiaoxilist()
+						this.$refs.mainindex.huoqunum();
 					}else{
 						
 					}

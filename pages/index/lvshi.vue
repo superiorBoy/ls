@@ -67,7 +67,7 @@
 				</view>
 			</view>
 		</view>
-		<tabBar :currentPage="currentPage" ></tabBar>
+		<tabBar :currentPage="currentPage"  ref="mainindex"></tabBar>
 	</view>
 </template>
 
@@ -114,7 +114,22 @@ export default {
 		
 				this.tiao_type = res.data.zhan.zixunjump;
 			});
-
+			
+		this.$http
+			.post({
+				url: '/index/login/islogin'
+			})
+			.then(res => {
+				if(res.data.user!=''){
+					this.$refs.mainindex.huoqunum();
+					
+				}else{
+					
+				}
+			});	
+			
+			
+           
 	  },
 
 	data() {

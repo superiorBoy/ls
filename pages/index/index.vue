@@ -307,7 +307,7 @@
 			
 		</view>
 		
-		<tabBar :currentPage="currentPage" ></tabBar>
+		<tabBar :currentPage="currentPage" ref="mainindex"></tabBar>
 	</view>
 </template>
 
@@ -718,6 +718,8 @@ export default {
 					if (data.state) {
 						void plus.push.createMessage('用户端收到一条新消息');
 						that.huoqu_weidu();
+						 that.$refs.mainindex.huoqunum();
+
 					}
 				} else {
 					console.log('else');

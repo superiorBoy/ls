@@ -135,12 +135,13 @@
 				</view>
 			</view>
 		</view>
-		<tabBar :currentPage="currentPage" ></tabBar>
+		<tabBar :currentPage="currentPage"  ref="mainindex"></tabBar>
 	</view>
 </template>
 
 <script>
 	import tabBar from '@/components/y_tabbar/tabbar.vue';
+	import socket from 'plus-websocket';
 export default {
 	created() {},
 	onShow() {
@@ -150,6 +151,9 @@ export default {
 	components: {
 
 		tabBar
+	},
+	onLoad() {
+		
 	},
 	data() {
 		return {
@@ -165,10 +169,77 @@ export default {
 		};
 	},
 	methods: {
+		kaiqi() {
+			let that = this;
+			Object.assign(uni, socket);
+			console.log(Object.assign(uni, socket));
+			var url = that.$http.WebSocket_url;
+			socket.connectSocket({
+				url: 'ws://' + url + ':3348',
+				success(data) {
+					console.log('websocket已连接', JSON.stringify(data));
+				}
+			});
+			socket.onSocketOpen(function(res) {
+				console.log('WebSocket连接已打开！');
+			});
+			socket.onSocketError(function(res) {
+				console.log('WebSocket连接打开失败，请检查！', JSON.stringify(res));
+			});
+			socket.onSocketMessage(function(res) {
+				console.log('收到服务器内容：' + res.data);
+				var data = JSON.parse(res.data);
+		
+				if (data.type == 'init') {
+					console.log('init');
+					console.log('client_id', data.client_id);
+					uni.request({
+						url: that.$http.baseUrl + '/push/gatewayworker/bind',
+						method: 'POST',
+						data: {
+							client_id: data.client_id
+						},
+		
+						success: function(resp) {
+							console.log(resp, 'bind');
+						},
+						fail: function(resp) {}
+					});
+				} else if (data.type == 'say') {
+					console.log('say');
+					if (data.state) {
+						void plus.push.createMessage('用户端收到一条新消息');
+						
+						 that.$refs.mainindex.huoqunum();
+		
+					}
+				} else {
+					console.log('else');
+				}
+				console.log(data);
+			});
+			socket.onSocketClose(function(res) {
+				console.log('WebSocket 已关闭！');
+			});
+		},
 		qiehuan() {
+			var that=this
+			var url = that.$http.WebSocket_url;
+			socket.closeSocket({
+			  url: 'ws://' + url + ':3348',
+			});
+			
+
+			socket.onSocketClose(function (res) {
+			  console.log('WebSocket 已关闭！');
+			});
+			
 			uni.reLaunch({
 				url: '../ls/my'
 			});
+			
+			
+			
 		},
 		huoqu_user(){
 			// 获取用户信息
@@ -222,7 +293,7 @@ export default {
 						this.huoqu_geshu()
 						this.huoqu_baojia()
 						this.huoqu_lianjie()
-						
+						this.kaiqi();
 						
 					}else{
 						this.is_login=false

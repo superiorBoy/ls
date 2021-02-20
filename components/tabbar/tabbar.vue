@@ -108,10 +108,18 @@ export default {
 
 			if (item.url !== _this.currentPage) {
 				var isUrl = `/pages/${item.url}`;
+				console.log(isUrl)
 				const that = this;
-				uni.redirectTo({
-					url: isUrl
-				});
+				if(isUrl=='/pages/index/tiwen'){
+					uni.navigateTo({
+						url:'/pages/index/tiwen'
+					})
+				}else{
+					uni.redirectTo({
+						url: isUrl
+					});
+				}
+				
 			} else {
 				/* this.$parent.toTop() */
 			}
@@ -137,6 +145,7 @@ export default {
 				.then(res => {
 					if (res.data.user != '') {
 						this.huoqunum()
+
 					} else {
 						
 						
@@ -144,6 +153,7 @@ export default {
 				});
 		},
 		huoqunum(){
+			console.log('ls未读')
 			this.$http
 				.post({
 					url: '/mlawyerapi/consult/messagecount'
@@ -153,8 +163,8 @@ export default {
 					this.num=	res.data.messagecount
 					if(res.data.messagecount>0){
 						
-						void plus.push.createMessage('律师端有未读消息');
-						console.log('111')
+						// void plus.push.createMessage('律师端有未读消息');
+						// console.log('111')
 					}
 					}
 				});

@@ -50,7 +50,7 @@
 
 			</view>
 			<view class="padding_bottom" ></view>
-			<tabBar :currentPage="currentPage" ></tabBar>
+			<tabBar :currentPage="currentPage" ref="ls_mainindex"></tabBar>
 			
 		</view>
 	
@@ -99,6 +99,7 @@
 	                     this.huoqu_ls_login()
 						 this.huoqu_lianjie()
 						 this.huoqu_list()
+						 this.$refs.ls_mainindex.huoqunum();
 					}
 					
 				});

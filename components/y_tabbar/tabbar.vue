@@ -85,10 +85,10 @@ export default {
 			});
 			
 	},
+
 	methods: {
 		navTo(item, index) {
 			let _this = this;
-			console.log(item.url);
 			if (item.url == 'index/tiwen') {
 				uni.navigateTo({
 					url: '../../pages/index/tiwen'
@@ -117,12 +117,16 @@ export default {
 					if(res.data.user!=''){
 	                 console.log('login')
 						this.huoqunum()
+						//  setInterval( () => {
+						//    	this.huoqunum()	
+						// }, 1000)
 					}else{
 						console.log('no')
 					}
 				});
 		},
 		huoqunum(){
+			console.log('获取未读')
 			this.$http
 				.post({
 					url: '/mapi/consult/messagecount'
