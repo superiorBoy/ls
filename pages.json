@@ -347,7 +347,14 @@
 			"path":"pages/ls/tiwen_guanli_xq"
 		},
 		{
-			"path":"pages/ls/zhuiwen_xq"
+			"path":"pages/ls/zhuiwen_xq",
+			
+			"style": {
+			//手机软键盘升起不让其将页面头部上推
+			"app-plus": {
+				"softinputMode": "adjustResize"
+			}
+			}
 		},
 		{
 			"path":"pages/ls/shiming_renzheng"

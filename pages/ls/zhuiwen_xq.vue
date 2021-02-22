@@ -51,7 +51,10 @@
 								<text class="hong_30 jiang_num" v-if="xq.consult.lawyerid==item.userid">奖励{{xq.consult.ispay==2?xq.consult.paymoney:'0'}}元</text>
 							</view>
 						</view>
-						<view class="hui_26 hui_fir_ls">{{ item.information }}</view>
+						<view class="hui_26 hui_fir_ls">
+						<u-parse :content="replace_em(item.information)"></u-parse>
+						<!-- {{replace_em(item.information)}} -->
+						</view>
 						<view class="xq_huifu_txt hui_26">
 							<view class="zhui_list" v-for="iten in item.zhuiwen">
 								<view class="zhuiwen hui_26" v-if="iten.type == 1">
@@ -64,7 +67,8 @@
 									</view>
 									<view class="zhuiwen_body_yh">
 										<view class="zhuiwen_txt bai_20">追问</view>
-										{{ iten.information }}
+										<!-- {{ iten.information }} -->
+										<u-parse :content="replace_em(iten.information)"></u-parse>
 									</view>
 								</view>
 
@@ -81,24 +85,32 @@
 									</view>
 									<view class="hui_zhuiwen_body">
 										<text class="bai_20">回复</text>
-										{{ iten.information }}
+										<!-- {{ iten.information }} -->
+										<u-parse :content="replace_em(iten.information)"></u-parse>
 									</view>
 								</view>
 							</view>
 						</view>
 					</view>
 				</view>
-
+    <view class="huifu_bottom">
 				<view class="huifu_anxiu hui_22">
-					<textarea type="text" value="" v-model="huifu_txt" maxlength="5000" class="hei_26"/>
+					<image src="@/static/lsimg/chat_biaoqing.png" mode="" @tap="showEmj"></image>
+					<textarea type="text" value="" v-model="huifu_txt" maxlength="5000" class="hei_26" />
 					<button type="" class="bai_26" @click="huifu">回复</button>
 				</view>
+				<view class="zhanwei" v-if="isShowEmj"></view>
+				<emotion @emotion="handleEmj" v-if="isShowEmj"></emotion>
+    </view>
+				
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import emotion from '@/components/bkhumor-emoji/index.vue';
+	import uParse from '@/components/feng-parse/parse.vue';
 export default {
 	data() {
 		return {
@@ -106,10 +118,15 @@ export default {
 			title: '提问详情',
 			huifu_txt: '',
 			id: '',
-			xq: ''
+			xq: '',
+			isShowEmj:false
 		};
 	},
 	created() {},
+	components: {
+		emotion,
+		uParse
+	},
 	onLoad(option) {
 		console.log(option);
 
@@ -179,7 +196,36 @@ export default {
 					}
 				});
 			console.log(this.huifu_txt);
-		}
+		},
+		replace_em(str) {
+			str = str.replace(/\</g, '&lt;');
+			str = str.replace(/\>/g, '&gt;');
+			str = str.replace(/\n/g, '<br/>');
+			str = str.replace(/\[em_([0-9]*)\]/g, '<img src="../../static/bkhumor-emoji/$1.gif" border="0" style="width:40rpx"/>');
+			return str;
+		},
+		handleEmj(i) {
+			console.log(i);
+			if (i == '[em_98]') {
+				//匹配最后一个表情符号并删除。
+				this.huifu_txt = this.chat_txt.replace(/(\[[^\]]+\]|[\s\S])$/, '');
+			} else {
+				this.huifu_txt += i;
+			}
+			this.isShowEmj = false;
+		},
+		showEmj() {
+			let bool = !this.isShowEmj;
+			if (bool) {
+				this.emojiIcon = 'cuIcon-keyboard';
+				this.bt_show = false;
+			} else {
+				this.emojiIcon = 'cuIcon-emoji';
+			}
+		
+			this.isShowEmj = bool;
+			this.$emit('show');
+		},
 	},
 	filters: {
 		timeStamp: function(value) {
@@ -341,8 +387,8 @@ export default {
 align-items: center;
 	padding: 40rpx 30rpx 40rpx;
 	box-sizing: border-box;
-	position: fixed;
-	bottom: 0rpx;
+	
+	
 	/* height: 150rpx; */
 	width: 100%;
 	justify-content: space-between;
@@ -350,7 +396,7 @@ align-items: center;
 }
 
 .huifu_anxiu textarea {
-	width: 575rpx;
+	width: 505rpx;
 	height: 150rpx;
 	background-color: #f5f5f5;
 	border-radius: 10rpx;
@@ -437,5 +483,16 @@ align-items: center;
 	border-bottom: 2rpx solid #d9d9d9;
 	padding: 0 0 30rpx;
 	margin-top: 4rpx;
+}
+.huifu_anxiu image{
+	width: 56rpx;
+	height: 56rpx;
+	margin-right: 10rpx;
+}
+.huifu_bottom{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	box-sizing: border-box;
 }
 </style>

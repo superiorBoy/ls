@@ -336,7 +336,7 @@
 					<view class="chat_list chat_left" v-if="item.userid_from == userid &&item.msgtype == 1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
-							<text class="ls_name">{{ title }}</text>
+							<!-- <text class="ls_name">{{ title }}</text> -->
 							
 							<view v-if="item.msgtype == 1"><u-parse :content="replace_em(item.content)"></u-parse></view>
 						</view>
@@ -344,7 +344,7 @@
 					<view class="chat_list chat_left" v-if="item.userid_from == userid &&item.msgtype == 2">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
-							<text class="ls_name">{{ title }}</text>
+							<!-- <text class="ls_name">{{ title }}</text> -->
 							<image :src="img_url + item.content" mode="widthFix"  style="max-width: 100rpx;" @click="clickImg(img_url + item.content)"></image>
 							
 						</view>
@@ -353,7 +353,7 @@
 					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==3">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
-							<text class="ls_name">{{ title }}</text>
+							<!-- <text class="ls_name">{{ title }}</text> -->
 							<view class="send_jia_html">
 								<view class="send_jia_top">
 									<image :src="img_url+user.photourl" mode=""></image>
@@ -393,7 +393,7 @@
 					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==4">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
-							<text class="ls_name">{{ title }}</text>
+							<!-- <text class="ls_name">{{ title }}</text> -->
 							<view class="send_jia_html">
 								<view class="send_jia_top">
 									<image :src="img_url+user.photourl" mode=""></image>
@@ -432,7 +432,7 @@
 					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==5">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
-							<text class="ls_name">{{ title }}</text>
+							<!-- <text class="ls_name">{{ title }}</text> -->
 							<view class="send_xuanze hei_26">
 	
 								<view>描述完之后，选择一下您方便的咨询的方式：</view>
@@ -445,7 +445,7 @@
 					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==6">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
-							<text class="ls_name">{{ title }}</text>
+							<!-- <text class="ls_name">{{ title }}</text> -->
 							<view class="send_fukuan_success">
 								<view class="lv_26 send_fukuan_title">
 									<image src="@/static/img/chat_duihao.png" mode=""></image>
@@ -483,7 +483,7 @@
 					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==7">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
-							<text class="ls_name">{{ title }}</text>
+							<!-- <text class="ls_name">{{ title }}</text> -->
 							<view class="send_fukuan_success">
 								<view class="lv_26 send_fukuan_title">
 									<image src="@/static/img/chat_duihao.png" mode=""></image>
@@ -521,7 +521,7 @@
 					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==8">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
-							<text class="ls_name">{{ title }}</text>
+							<!-- <text class="ls_name">{{ title }}</text> -->
 							<view class="send_xuanze hei_26">
 								<view class="">
 									您的服务已到期，请重新订购服务

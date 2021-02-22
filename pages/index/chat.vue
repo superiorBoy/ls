@@ -143,7 +143,7 @@
 				<view class="chat_list chat_left" v-if="item.userid_from == ls_id&&item.msgtype == 1">
 					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					<view class="chat_left_txt hei_30">
-						<text class="ls_name">{{ title }}</text>
+						<!-- <text class="ls_name">{{ title }}</text> -->
 
 						<u-parse :content="replace_em(item.content)"></u-parse>
 					</view>
@@ -151,7 +151,7 @@
 					<view class="chat_list chat_left" v-if="item.userid_from == ls_id&&item.msgtype == 2">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
-							<text class="ls_name">{{ title }}</text>
+							<!-- <text class="ls_name">{{ title }}</text> -->
 							<image :src="img_url + item.content" mode="widthFix"  style="max-width: 100rpx;" @click="clickImg(img_url + item.content)"></image>
 							
 						</view>
@@ -159,7 +159,7 @@
                   <view class="chat_list chat_left" v-if="item.userid_from == ls_id&&item.msgtype == 3">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
-							<text class="ls_name">{{ title }}</text>
+							<!-- <text class="ls_name">{{ title }}</text> -->
 							<view class="send_jia_html">
 								<view class="send_jia_top">
 									<image :src="img_url+ls_xinxi.photourl" mode=""></image>
@@ -191,7 +191,7 @@
 										<text class="hong_24">￥{{ls_xinxi.phoneprice}}/20分钟</text>
 										
 									</view>
-									<button type="button" class="bai_24" @click="go_zhuye()">立即购买</button>
+									<button type="button" class="bai_24"@click="dh_pay(ls_xinxi.phoneprice,'20分钟')">立即购买</button>
 								</view>
 							</view>
 							
@@ -203,7 +203,7 @@
 				<view class="chat_list chat_left" v-if="item.userid_from == ls_id&&item.msgtype == 4">
 										<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 										<view class="chat_left_txt hei_30">
-											<text class="ls_name">{{ title }}</text>
+											<!-- <text class="ls_name">{{ title }}</text> -->
 											<view class="send_jia_html">
 												<view class="send_jia_top">
 													<image :src="img_url+ls_xinxi.photourl" mode=""></image>
@@ -234,7 +234,7 @@
 														<text class="hong_24">￥{{ls_xinxi.chatprice}}/天</text>
 														
 													</view>
-													<button type="button" class="bai_24"@click="go_zhuye()">立即购买</button>
+													<button type="button" class="bai_24"@click="zaixian_pay(ls_xinxi.chatprice,'1天')">立即购买</button>
 												</view>
 											</view>
 											
@@ -245,7 +245,7 @@
 			<view class="chat_list chat_left" v-if="item.userid_from == ls_id&&item.msgtype == 5">
 									<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 									<view class="chat_left_txt hei_30">
-										<text class="ls_name">{{ title }}</text>
+										<!-- <text class="ls_name">{{ title }}</text> -->
 										<view class="send_xuanze hei_26">
 											<view class="">
 												您好：遇到什么问题了，请先详细描述一下事情经过，我好根据您的情况解答！
@@ -262,7 +262,7 @@
 					<view class="chat_list chat_left" v-if="item.userid_from == ls_id&&item.msgtype == 6">
 											<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 											<view class="chat_left_txt hei_30">
-												<text class="ls_name">{{ title }}</text>
+												<!-- <text class="ls_name">{{ title }}</text> -->
 												<view class="send_fukuan_success">
 													<view class="lv_24_bold send_fukuan_title">
 														<image src="@/static/img/chat_duihao.png" mode=""></image>
@@ -288,7 +288,7 @@
 						<view class="chat_list chat_left" v-if="item.userid_from == ls_id&&item.msgtype == 7">
 												<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 												<view class="chat_left_txt hei_30">
-													<text class="ls_name">{{ title }}</text>
+													<!-- <text class="ls_name">{{ title }}</text> -->
 													<view class="send_fukuan_success">
 														<view class="lv_24_bold send_fukuan_title">
 															<image src="@/static/img/chat_duihao.png" mode=""></image>
@@ -314,7 +314,7 @@
 					<view class="chat_list chat_left" v-if="item.userid_from == ls_id&&item.msgtype == 8">
 											<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 											<view class="chat_left_txt hei_30">
-												<text class="ls_name">{{ title }}</text>
+												<!-- <text class="ls_name">{{ title }}</text> -->
 												<view class="send_xuanze hei_26">
 													<view>您的服务已到期，请重新订购服务</view>
 													<view>描述完之后，选择一下您方便的咨询的方式：</view>
@@ -373,7 +373,7 @@
 									<text class="hong_24">￥{{ls_xinxi.phoneprice}}/20分钟</text>
 									
 								</view>
-								<button type="button" class="bai_24"@click="go_zhuye()">立即购买</button>
+								<button type="button" class="bai_24"@click="dh_pay(ls_xinxi.phoneprice,'20分钟')">立即购买</button>
 							</view>
 						</view>
 						
@@ -410,10 +410,10 @@
 								<view class="hei_24">
 									
 									<text>在线咨询</text>
-									<text class="hong_24">￥{{ls_xinxi.chatprice}}/20分钟</text>
+									<text class="hong_24">￥{{ls_xinxi.chatprice}}/天</text>
 									
 								</view>
-								<button type="button" class="bai_24" @click="go_zhuye()">立即购买</button>
+								<button type="button" class="bai_24"@click="zaixian_pay(ls_xinxi.chatprice,'1天')">立即购买</button>
 							</view>
 						</view>
 						
@@ -714,6 +714,15 @@ export default {
 			uni.navigateTo({
 				url:'ls_zhuye?lawyerid='+this.ls_id
 			})
+		},
+		zaixian_pay(price,time){
+			uni.navigateTo({
+				url:'pay?type=1&lawyerid='+this.ls_id+'&time='+time+'&pay_money='+price
+			})
+			
+		},
+		dh_pay(price,time){
+				url:'pay?type=2&lawyerid='+this.ls_id+'&time='+time+'&pay_money='+price
 		},
 		huoqu_xiaoxi_list() {
 			var that=this

@@ -121,19 +121,24 @@ export default {
 	},
 	created() {
 		// #ifdef APP-PLUS
+		
 		var that = this;
 			plus.geolocation.getCurrentPosition(function(p){
+						if(p.address.province!=undefined){
 						that.dizhi = p.address.province+'-'+ p.address.city+'-'+ p.address.district;
-						uni.setStorage({
-							key: 'dizhi',
-							data: {
-								sheng: p.address.province,
-								shi: p.address.city,
-								qu: p.address.district
-							},
-							})
+							uni.setStorage({
+								key: 'dizhi',
+								data: {
+									sheng: p.address.province,
+									shi: p.address.city,
+									qu: p.address.district
+								},
+								})
+						}
+						
 					}, function(e){
 						
+					
 			      })
 			// #endif
 		// var that = this;
@@ -166,6 +171,7 @@ export default {
 		// });
 
 		// #ifdef H5
+		
 		window.initBaiduMapScript = () => {
 			// console.log(BMap);
 			this.getlocation();
