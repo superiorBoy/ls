@@ -70,6 +70,22 @@
 					</view> -->
 				</view>
 			</view>
+			<view class="changshi_bottom">
+				<view class="changshi_bottom_left">
+					<image src="@/static/img/changshi_xiaoxi.png" mode="" class="changshi_xiaoxi" style="width: 60rpx;height: 55rpx;"></image>
+					<view class="changshi_bottom_l hei_28">
+						<view class="">
+							当前在线律师<text class="hong_28">1000+</text>人
+						</view>
+						<view class="">
+							获取解答只需要<text class="hong_28">1分钟</text>
+						</view>
+					</view>
+				</view>
+				<navigator url="tiwen" class="changshi_bottom_right bai_30">
+					我要问律师
+				</navigator>
+			</view>
 		</view>
 	</view>
 </template>
@@ -172,6 +188,7 @@ export default {
 .zhishi_xq {
 	padding-left: 30rpx;
 	padding-right: 30rpx;
+	padding-bottom: 108rpx;
 }
 .xq_title {
 	margin: 15rpx 0;
@@ -225,5 +242,33 @@ export default {
 	margin: 0 13rpx 0 20rpx;
 	width: 24rpx;
 	height: 100%;
+}
+.changshi_bottom{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	height: 108rpx;
+	background-color: #FFFFFF;
+	box-shadow: -1rpx -6rpx 10rpx 0rpx 
+			rgba(158, 158, 158, 0.38);
+}
+.changshi_bottom_left{
+	display: flex;
+	align-items: center;
+	width: 60%;
+	justify-content: center;
+}
+.changshi_bottom_right{
+		width: 40%;
+		background-color: #0eb77e;
+		height: 100%;
+		text-align: center;
+		line-height: 108rpx;
+}
+.changshi_xiaoxi{
+	margin-right: 20rpx;
 }
 </style>

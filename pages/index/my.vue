@@ -94,10 +94,10 @@
 						<view class="hui_24 ">我的团队</view>
 					</navigator>
 					
-					<navigator url="sucai?state=1" class="jiedan_item">
+					<!-- <navigator url="sucai?state=1" class="jiedan_item">
 						<image src="@/static/img/hy_tuiguang4.png" mode=""></image>
 						<view class="hui_24 ">营销素材</view>
-					</navigator>
+					</navigator> -->
 					<view class="jiedan_item" @click='go_yaoqing'>
 						<image src="@/static/img/hy_tuiguang5.png" mode=""></image>
 						<view class="hui_24 ">APP下载</view>
@@ -147,6 +147,7 @@ export default {
 	onShow() {
 		this.huiqu_login()
 		this.huo_qu_is_yaoqing()
+		
 	},
 	components: {
 
@@ -288,11 +289,13 @@ export default {
 				})
 				.then(res => {
 					if(res.data.user!=''){
+						this.$refs.mainindex.huoqunum();
 						this.is_login=true
 						this.huoqu_user()
 						this.huoqu_geshu()
 						this.huoqu_baojia()
 						this.huoqu_lianjie()
+						
 						this.kaiqi();
 						
 					}else{
@@ -410,7 +413,7 @@ page {
 
 .jiedan_item {
 	text-align: center;
-	width: 20%;
+	width: 25%;
 }
 
 .jiedan_item image {

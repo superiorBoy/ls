@@ -326,6 +326,49 @@
 												
 											</view>
 										</view>	
+										
+				<!-- 	<view class="chat_list chat_left" >
+											<image src="@/static/img/xitong.png" mode="" class="tx"></image>
+											<view class="chat_left_txt hei_30">
+												
+												<view class="hei_24 huan_ls_tishi">
+													系统提示：由于律师超时未接单，已安
+													排新的律师给您服务。
+												</view>
+												<view class="send_jia_html">
+													<view class="send_jia_top">
+														<image :src="img_url+ls_xinxi.photourl" mode=""></image>
+														<view class="send_jia_top_r hui_20">
+															<view class="hui_24">
+																{{ls_xinxi.nickname}}律师
+																<text class="qian_20 send_jia_top_zhiwei">{{xinxi.zhiwu}}</text>
+															</view>
+															<view class="send_jia_top_r_dizhi">
+																<image src="@/static/img/chat_dizhi.png" mode=""></image>
+																{{ls_xinxi.province}}-{{ls_xinxi.city}}-{{ls_xinxi.area}}
+															</view>
+															<view class="send_jia_lvsuo">
+																<image src="@/static/img/chat_lvsuo.png" mode=""></image>
+																{{ls_xinxi.lvsuo}}
+															</view>
+														</view>
+													</view>
+													<view class="send_jia_shangchang hei_24">
+														擅长:
+												<text v-if="zhuanchang_arry[ls_xinxi.expertise1] && zhuanchang_arry[ls_xinxi.expertise1].shanchangname">{{zhuanchang_arry[ls_xinxi.expertise1].shanchangname}}</text>
+												<text v-if="zhuanchang_arry[ls_xinxi.expertise2] && zhuanchang_arry[ls_xinxi.expertise2].shanchangname">{{zhuanchang_arry[ls_xinxi.expertise2].shanchangname}}</text>
+												<text v-if="zhuanchang_arry[ls_xinxi.expertise3] && zhuanchang_arry[ls_xinxi.expertise3].shanchangname">{{zhuanchang_arry[ls_xinxi.expertise3].shanchangname}}</text>
+													</view>
+													<view class="huan_ls style_hei_14">
+														<button type="" class="bai_24">点击进入</button>
+														
+													</view>
+												</view>
+
+											</view>
+										</view>	 -->				
+										
+										
 					<view class="chat_list chat_right" v-if="item.userid_from != ls_id&&item.msgtype == 1">
 						<view class="chat_right_txt hei_30">
 							<!-- {{item.content}} -->
@@ -434,7 +477,7 @@
 					</view>
 					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 				</view>
-				<view class="chat_list chat_right" v-if="item.userid_from != ls_id&&item.msgtype == 5">
+				<!-- <view class="chat_list chat_right" v-if="item.userid_from != ls_id&&item.msgtype == 5">
 					<view class="chat_right_txt hei_30">
 						<view class="send_xuanze hei_26">
 							<view>描述完之后，选择一下您方便的咨询的方式：</view>
@@ -444,7 +487,7 @@
 						
 					</view>
 					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-				</view>
+				</view> -->
 				<view class="chat_list chat_right" v-if="item.userid_from != ls_id&&item.msgtype == 6">
 					<view class="chat_right_txt hei_30">
 						<view class="send_fukuan_success">
@@ -539,7 +582,25 @@
 				</view>
 			</view>
 		</view>
+		
+	<view class="bg" v-if="chaoshi">
+		<view class="tan_chaoshi">
+			<view class="tan_chaoshi_tishi">
+				<view class="">
+					由于律师超时未接单
+				</view>
+				<view class="">
+					已安排新的律师给您服务
+				</view>
+			<button type="" class="bai_30">点击进入</button>
+			</view>
+			<image src="@/static/img/guanbi.png" mode="" class="guanbi" style="width: 50rpx;height: 50rpx;" @click="guanbi"></image>
+		</view>
 	</view>
+		
+	</view>
+	
+	
 </template>
 
 <script>
@@ -626,6 +687,7 @@ export default {
 			minute:'00',
 			seconds:'00',
 			time1:'0',
+			chaoshi:false
 		};
 	},
 	//下拉刷新
@@ -1122,6 +1184,9 @@ export default {
 			ws.onerror = function(evt) {
 				console.log('WebSocketError!', evt);
 			};
+		},
+		guanbi(){
+			this.chaoshi=false
 		}
 	},
 	filters: {
@@ -1201,7 +1266,7 @@ page {
 	border-radius: 10rpx;
 	background-color: #ffffff;
 	position: relative;
-	top: 20rpx;
+	/* top: 20rpx; */
 }
 .ls_name {
 	position: absolute;
@@ -1672,5 +1737,66 @@ line-height: 56rpx;
 	border-radius: 5rpx;
 	line-height: 40rpx;
 	margin: 0;
+}
+.huan_ls{
+	border-top: 2rpx solid #e5e5e5;
+	padding-top: 18rpx;
+}
+.huan_ls button{
+    	width: 150rpx;
+    	height: 40rpx;
+    	background-color: #0eb77e;
+    	border-radius: 5rpx;
+		line-height: 40rpx;
+		text-align: center;
+}
+.huan_ls_tishi{
+	border-bottom: 2rpx solid #e5e5e5;
+	padding-bottom: 18rpx;
+}
+.bg{
+	background-color: rgba(0,0,0,0.3);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	z-index: 99;
+}
+.tan_chaoshi{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width:628rpx;
+	height: 510rpx;
+	background: url(../../static/img/chaoshi_bg.png) no-repeat;
+	background-size: 100% 100%;
+	transform: translate(-50%,-50%);
+	
+}
+.tan_chaoshi button{
+	width: 350rpx;
+		height: 60rpx;
+		background-image: linear-gradient(90deg, 
+			#11ba81 0%, 
+			#62f4bb 100%);
+		border-radius: 10rpx;
+		margin:40rpx auto 0;
+		line-height: 60rpx
+		;
+}
+.tan_chaoshi_tishi{
+	font-size: 32rpx;
+	color: #666666;
+	text-align: center;
+	margin-top: 230rpx;
+}
+.tan_chaoshi_tishi view{
+	margin-bottom: 10rpx;
+}
+.guanbi{
+	position: absolute;
+	bottom: -104rpx;
+	left: 50%;
+	transform: translate(-50%,0);
 }
 </style>

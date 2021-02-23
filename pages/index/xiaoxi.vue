@@ -80,7 +80,7 @@
 								{{item.user_to.nickname}}
 							</view>
 							<view class="qian_26 txt_over">
-								<view class="" v-if="item.msgtype==1">
+								<view class="xiaoxi_title" v-if="item.msgtype==1">
 							<u-parse :content="replace_em(item.content)"></u-parse>	
 								</view>
 								<view class="" v-if="item.msgtype==2">
@@ -474,5 +474,12 @@ app_lianjie() {
 }
 .zi_body{
 	padding-bottom: 150rpx;
+}
+.xiaoxi_title .wxParse{
+	width: 340rpx;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	
 }
 </style>

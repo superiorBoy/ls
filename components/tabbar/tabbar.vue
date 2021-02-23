@@ -24,7 +24,7 @@ export default {
 		return {
 			tabBar2: [
 				{
-					url: 'ls/index',
+					url: 'ls/jiedan',
 					text: '接单',
 					imgNormal: '/static/lsimg/tab_jiedan_no.png',
 					imgClick: '/static/lsimg/tab_jiedan_on.png'
@@ -50,7 +50,7 @@ export default {
 			],
 			tabBar: [
 				{
-					url: 'ls/index',
+					url: 'ls/jiedan',
 					text: '接单',
 					imgNormal: '/static/lsimg/tab_jiedan_no.png',
 					imgClick: '/static/lsimg/tab_jiedan_on.png'

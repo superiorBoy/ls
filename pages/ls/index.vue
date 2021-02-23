@@ -2,7 +2,7 @@
 	
 		<view >
 			<view class="head">  
-			  <view class="head_back"></view> 
+			  <view class="head_back"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
 			  <view class="head_center hei_38_bold">接单</view> 
 			  <view class="head_right"></view> 
 			</view>
@@ -44,19 +44,19 @@
 			</view>
 			
 			</view>
-			<view class="padding_bottom"></view>
-			<tabBar :currentPage="currentPage" ref="ls_mainindex"></tabBar>
+			<!-- <view class="padding_bottom"></view> -->
+			<!-- <tabBar :currentPage="currentPage" ref="ls_mainindex"></tabBar> -->
 			
 		</view>
 	
 </template>
 
 <script>
-	import tabBar from '@/components/tabbar/tabbar.vue';
+	// import tabBar from '@/components/tabbar/tabbar.vue';
 	
 	export default {
 		components:{
-			tabBar
+			// tabBar
 		},
 		created() {
 		
@@ -70,7 +70,7 @@
 				})
 				.then(res => {
 					if (res.data.user != '') {
-					this.$refs.ls_mainindex.huoqunum();
+					
 					} else {
 						this.is_login = false;
 						
@@ -98,7 +98,9 @@
 		
 		},
 		methods: {
-			
+			navigateBack() {
+				uni.navigateBack();
+			},
 			//上拉加载
 			onReachBottom() {
 				

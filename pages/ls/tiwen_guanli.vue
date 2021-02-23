@@ -155,7 +155,7 @@ export default {
 		unpopup,
 		pickerAddress
 	},
-	onLoad() {
+	onLoad(option) {
 		// 获取分类
 		this.$http
 			.post({
@@ -164,21 +164,44 @@ export default {
 			.then(res => {
 				this.fenlei = res.data.type;
 			});
-		this.huoqu_dihzi()	
+		// this.huoqu_dihzi()	
+	this.$http
+		.post({
+			url: '/mlawyerapi/lawyer/auth',
+			data: {
+				type:2
+			}
+		})
+		.then(res => {
+			this.lsdizhi=
+			{
+				province:res.data.lawyerauth.province,
+				city:res.data.lawyerauth.city,
+				area:res.data.lawyerauth.area,
+			}
+			if(option.state){
+				this.qiehuan(1)
+			}else{
+				this.huoqu_list();
+			}
+			
+		});
+
+	
 	
 	},
 	onShow() {
-		this.zhuanchang_txt = '';
-		this.dizhi = '';
-		this.type_id = '';
-		this.sheng = '';
-		this.shi = '';
-		this.xuanzc = '9999';
-		this.page = 0;
-		this.jilu_list = [];
-		this.weihui=[]
-		this.is_all = false;
-		this.huoqu_list();
+		// this.zhuanchang_txt = '';
+		// this.dizhi = '';
+		// this.type_id = '';
+		// this.sheng = '';
+		// this.shi = '';
+		// this.xuanzc = '9999';
+		// this.page = 0;
+		// this.jilu_list = [];
+		// this.weihui=[]
+		// this.is_all = false;
+		// this.huoqu_list();
 		
 	},
 

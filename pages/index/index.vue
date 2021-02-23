@@ -82,11 +82,11 @@
 				<view>升级团长</view>
 			</navigator>
 			<navigator url="changshi" class="index_tab_item" v-if="is_yaoqing==2">
-			<!-- <view  class="index_tab_item" v-if="is_yaoqing==2"> -->
-				<image src="@/static/img/tab7.png" mode=""></image>
-				<view>法律百科</view>
-			<!-- </view> -->
-			</navigator>
+						<!-- <view  class="index_tab_item" v-if="is_yaoqing==2"> -->
+							<image src="@/static/img/tab7.png" mode=""></image>
+							<view>法律百科</view>
+						<!-- </view> -->
+		    </navigator>
  
 			
 		</view>
@@ -275,7 +275,8 @@
 					<view class="tan_bottom hui_27" v-if="!is_xiazai">
 						<view class="">解决了旧版本中已知BUG</view>
 						<view class="tan_txt">优化了一部分不合理的功能</view>
-						<image src="@/static/img/gengxin_btn.png" mode="widthFix" @click="down"></image>
+						<image src="@/static/img/gengxin_btn.png" mode="widthFix" @click="down" :class="['',is_update==1?'padding_top':'']"></image>
+						<view  class="guanbi qian_28" v-if="is_update==2" @click="guanbi">稍后更新</view>
 					</view>
 					<view class="tan_bottom hui_27 is_xia_bottom" v-if="is_xiazai">
 						<view class="xiazai_tishi"><text>正在下载中，请稍后...</text><text>{{baifen}}%</text></view>
@@ -379,7 +380,10 @@ export default {
 			is_yaoqing:2,
 			is_xiazai:false,
 			baifen:0,
-			is_xieyi:false
+			is_xieyi:false,
+			is_login:false,
+			is_update:2
+			
 		};
 	},
 	components: {
@@ -479,6 +483,8 @@ export default {
 			});
 	},
 	onShow() {
+		this.huo_qu_is_yaoqing()
+		this.huiqu_login()
 		this.$http
 			.post({
 				url: '/mapi/index/geturl'
@@ -532,7 +538,8 @@ export default {
 			.then(res => {
 				this.zhineng = res.data.zhan;
 			});
-			this.huo_qu_is_yaoqing()
+			
+			
 	},
 	methods: {
 		down() {
@@ -608,9 +615,10 @@ export default {
 			  	duration: 1500
 			  });
 		  }	
-			
-
 			//#endif
+		},
+		guanbi(){
+			this.is_gengxin=false
 		},
 		quxiao(){
 			plus.downloader.clear();
@@ -622,6 +630,22 @@ export default {
 				icon: 'none'
 			});
 		},
+
+		huiqu_login(){
+			this.$http
+				.post({
+					url: '/index/login/islogin'
+				})
+				.then(res => {
+					if(res.data.user!=''){
+						this.is_login=true
+
+					}else{
+						this.is_login=false
+					}
+				});
+		},
+
 		huo_qu_is_yaoqing(){
 			this.$http
 				.post({
@@ -638,6 +662,7 @@ export default {
 					url: '/mapi/index/banben'
 				})
 				.then(res => {
+					this.is_update=res.data.banben.is_update
 					console.log(res.data.banben, '版本');
 					if (uni.getSystemInfoSync().platform == 'ios') {
 						console.log('ios', this.banben);
@@ -1479,7 +1504,7 @@ scroll-view ::-webkit-scrollbar {
 }
 .tan {
 	width: 523rpx;
-	height: 740rpx;
+	height: 680rpx;
 	background: url(../../static/img/gengxin_bg.png) no-repeat;
 	background-size: 100% 100%;
 	border-radius: 25rpx;
@@ -1495,7 +1520,7 @@ scroll-view ::-webkit-scrollbar {
 .tan_bottom {
 	text-align: center;
 	padding: 20rpx 0 0;
-	margin-top: 470rpx;
+	margin-top: 380rpx;
 }
 .tan_bottom image {
 	width: 126rpx;
@@ -1517,7 +1542,7 @@ scroll-view ::-webkit-scrollbar {
 	
 }
 .is_xia_bottom{
-	padding: 20rpx 60rpx 0;
+	padding:48rpx 60rpx 0;
 }
 .tan_jindu{
 		height: 11rpx;
@@ -1624,5 +1649,12 @@ scroll-view ::-webkit-scrollbar {
 }
 .tan_xiyi_txt_flex{
 	display: flex;
+}
+.guanbi{
+letter-spacing:4rpx
+	
+}
+.padding_top{
+	padding-top: 30rpx;
 }
 </style>

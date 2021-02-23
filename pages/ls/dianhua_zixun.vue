@@ -38,7 +38,7 @@
 					<view class="zixun_r">
 					
 						<view  :class="['zixun_leibie',item.zixunstate == 4?'qian_26_bold':'hong_26_bold']">
-							{{ item.zixunstate == 1 ? '未付款' : item.zixunstate == 2 ? '已付款' : item.zixunstate == 3 ? '接单中' : '已完成' }}
+							{{ item.zixunstate == 1 ? '未付款' : item.zixunstate == 2 ? '已付款' : item.zixunstate == 3 ? '接单中' :item.zixunstate == 4 ? '已完成':item.zixunstate == 5 ? '已取消':'' }}
 						</view>
 						<view class="zixun_dianhua" @click="call(item.phone)">
 							<image src="@/static/img/hy_dianhua.png" mode=""></image>{{item.phone}}
@@ -121,7 +121,7 @@
 		
 		data() {
 			return {
-				tab_arry: ['全部', '未付款', '已付款','接单中','已完成'],
+				tab_arry: ['全部', '未付款', '已付款','接单中','已完成','已取消'],
 				active: '0',
 				zhuangtai: '0',
 				dianhua: '',

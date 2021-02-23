@@ -53,7 +53,7 @@
 						<view class="xiaoxi_item_left_name">
 							<view class="hei_30_bold xiaoxi_item_name">{{ item.user_to.mobile }}</view>
 							<view class="qian_26 txt_over">
-								<view class="" v-if="item.msgtype == 1"><u-parse :content="replace_em(item.content)"></u-parse></view>
+								<view class="xiaoxi_title" v-if="item.msgtype == 1"><u-parse :content="replace_em(item.content)"></u-parse></view>
 								<view class="" v-if="item.msgtype == 2">[图片]</view>
 								<view class="" v-if="item.msgtype!=2&&item.msgtype!=1">
 									{{item.content}}
@@ -439,5 +439,12 @@ page {
 	white-space: nowrap;
 	text-align: center;
 	line-height: 32rpx;
+}
+.xiaoxi_title .wxParse{
+	width: 340rpx;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	
 }
 </style>

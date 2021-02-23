@@ -38,18 +38,18 @@
 				<view class="my_ziliao_item_bottom hei_22">提问</view>
 			</view>
 			
+			<view  class="my_ziliao_item" @click="tiaozhuan('yaoqing')">
+				<view class="my_ziliao_item_top hei_28">{{geshu.yaoqing}}</view>
+				<view class="my_ziliao_item_bottom hei_22">邀请</view>
+			</view>
 			<view  class="my_ziliao_item" @click="tiaozhuan('zixun_jilu')">
 				<view class="my_ziliao_item_top hei_28">{{geshu.zaixian}}</view>
-				<view class="my_ziliao_item_bottom hei_22">在线</view>
-			</view>
-			<view  class="my_ziliao_item" @click="tiaozhuan('dianhua_zixun')">
-				<view class="my_ziliao_item_top hei_28">{{geshu.dianhua}}</view>
-				<view class="my_ziliao_item_bottom hei_22">电话</view>
+				<view class="my_ziliao_item_bottom hei_22">订单</view>
 			</view>
 		</view>
 
 		<view class="my_bottom">
-			<view class="my_guanli jiedan_guanli">
+			<!-- <view class="my_guanli jiedan_guanli">
 				<view class="my_title hei_30_bold jiedan_title">接单管理</view>
 
 				<view class="my_list">
@@ -137,7 +137,10 @@
 						
 						
 					</view>
-					<!-- <view  class="jiedan_item" @click="tiaozhuan('tiwen_jilu')">
+					
+				</view>
+			</view> -->
+<!-- <view  class="jiedan_item" @click="tiaozhuan('tiwen_jilu')">
 						<image src="../../static/lsimg/my_jiedan2.png" mode=""></image>
 						<view class="hui_24 ">提问记录</view>
 					</view> -->
@@ -153,9 +156,6 @@
 						<image src="../../static/lsimg/my_jiedan5.png" mode=""></image>
 						<view class="hui_24 ">电话咨询</view>
 					</view> -->
-				</view>
-			</view>
-
 			<view class="my_guanli ls_guanli">
 				<view class="my_title hei_30_bold">律师管理</view>
 				<view class="my_list">
@@ -186,7 +186,7 @@
 				</view>
 			</view>
 
-			<view class="my_guanli">
+		<!-- 	<view class="my_guanli">
 				<view class="my_title hei_30_bold">网站管理</view>
 				<view class="my_list">
 					<view  class="wangzhan_item" @click="tiaozhuan('kaitong')">
@@ -206,7 +206,7 @@
 						<view class="hui_24 ">选择设置</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			<view class="my_guanli zhanghao_guanli">
 				<view class="my_title hei_30_bold">账号管理</view>
 				<view class="my_list">
