@@ -534,12 +534,12 @@
 						</view>
 					</view>
 					
-					<!-- <view class="chat_list chat_left" >
+					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==9">
 						<image src="@/static/img/xitong.png" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							系统提示，由于您超时未服务，订单已取消
 						</view>
-					</view> -->
+					</view>
 					
 					
 				</view>

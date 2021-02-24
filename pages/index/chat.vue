@@ -3,13 +3,13 @@
 		<view class="head">
 			<view class="head_back" style="width: 10%;"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
 			<view class="head_center " style="width: 80%;">
-				<view class="hei_38_bold top_title"@click="go_zhuye()">{{ title }}</view>
-				<view class="hong_20 chat_lvsuo">剩余咨询时间:{{day}}天{{hour}}:{{minute}}:{{seconds}}</view>
+				<view class="hei_38_bold top_title" @click="go_zhuye()">{{ title }}</view>
+				<view class="hong_20 chat_lvsuo">剩余咨询时间:{{ day }}天{{ hour }}:{{ minute }}:{{ seconds }}</view>
 			</view>
 			<view class=" head_right hei_30_bold" style="width: 10%;"></view>
 		</view>
 
-		<view class="zi_body" >
+		<view class="zi_body">
 			<!-- <view class="send_xuanze hei_26">
 				<view>描述完之后，选择一下您方便的咨询的方式：</view>
 				<view class="hong_26">【在线咨询-可看记录】</view>
@@ -102,19 +102,18 @@
 					<view class="chat_top_top">
 						<view class="chat_top_left">
 							<view class="chat_top_left_tx" @click="go_zhuye()">
-								<image :src="img_url+ls_xinxi.photourl" mode="" class="chat_top_left_tx_img"></image>
+								<image :src="img_url + ls_xinxi.photourl" mode="" class="chat_top_left_tx_img"></image>
 								<image src="@/static/img/renzheng2.png" mode="" class="chat_top_left_tx_ren"></image>
 							</view>
-							
 						</view>
 						<view class="chat_top_right">
 							<view class="chat_top_right_top">
 								<view class="chat_top_xinxi_item">
-									<view class="hei_22 chat_top_xinxi_item_num">{{xinxi.zhiyenianfen}}</view>
+									<view class="hei_22 chat_top_xinxi_item_num">{{ xinxi.zhiyenianfen }}</view>
 									<view class="qian_22">执业年限</view>
 								</view>
 								<view class="chat_top_xinxi_item">
-									<view class="hei_22 chat_top_xinxi_item_num">{{ls_xinxi.replynum}}</view>
+									<view class="hei_22 chat_top_xinxi_item_num">{{ ls_xinxi.replynum }}</view>
 									<view class="qian_22">咨询人数</view>
 								</view>
 								<view class="chat_top_xinxi_item">
@@ -122,17 +121,12 @@
 									<view class="qian_22">综合评分</view>
 								</view>
 							</view>
-							
 						</view>
 					</view>
 
 					<view class="chat_top_bottom lv_24">
-						<view class="chat_top_jia"@click="go_zhuye()">
-								在线咨询{{ ls_xinxi.chatprice }}元/天
-						</view>
-						<view class="chat_top_jia" @click="go_zhuye()">
-								电话咨询{{ ls_xinxi.phoneprice }}元/20分钟
-						</view>
+						<view class="chat_top_jia" @click="go_zhuye()">在线咨询{{ ls_xinxi.chatprice }}元/天</view>
+						<view class="chat_top_jia" @click="go_zhuye()">电话咨询{{ ls_xinxi.phoneprice }}元/20分钟</view>
 					</view>
 				</view>
 			</view>
@@ -140,344 +134,334 @@
 				<view class="time qian_20" v-if="message != ''">{{ message[0].addtime | timeStamp }}</view>
 				<view v-for="(item, index) in message">
 					<view class="time qian_20" v-if="index > 1 && message[index].addtime - message[index - 1].addtime > 300">{{ message[index].addtime | timeStamp }}</view>
-				<view class="chat_list chat_left" v-if="item.userid_from == ls_id&&item.msgtype == 1">
-					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-					<view class="chat_left_txt hei_30">
-						<!-- <text class="ls_name">{{ title }}</text> -->
-
-						<u-parse :content="replace_em(item.content)"></u-parse>
-					</view>
-				</view>
-					<view class="chat_list chat_left" v-if="item.userid_from == ls_id&&item.msgtype == 2">
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
-							<image :src="img_url + item.content" mode="widthFix"  style="max-width: 100rpx;" @click="clickImg(img_url + item.content)"></image>
-							
+
+							<u-parse :content="replace_em(item.content)"></u-parse>
 						</view>
 					</view>
-                  <view class="chat_list chat_left" v-if="item.userid_from == ls_id&&item.msgtype == 3">
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 2">
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+						<view class="chat_left_txt hei_30">
+							<!-- <text class="ls_name">{{ title }}</text> -->
+							<image :src="img_url + item.content" mode="widthFix" style="max-width: 100rpx;" @click="clickImg(img_url + item.content)"></image>
+						</view>
+					</view>
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 3">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
 							<view class="send_jia_html">
 								<view class="send_jia_top">
-									<image :src="img_url+ls_xinxi.photourl" mode=""></image>
+									<image :src="img_url + ls_xinxi.photourl" mode=""></image>
 									<view class="send_jia_top_r hui_20">
 										<view class="hui_24">
-											{{ls_xinxi.nickname}}律师
-											<text class="qian_20 send_jia_top_zhiwei">{{xinxi.zhiwu}}</text>
+											{{ ls_xinxi.nickname }}律师
+											<text class="qian_20 send_jia_top_zhiwei">{{ xinxi.zhiwu }}</text>
 										</view>
 										<view class="send_jia_top_r_dizhi">
 											<image src="@/static/img/chat_dizhi.png" mode=""></image>
-											{{ls_xinxi.province}}-{{ls_xinxi.city}}-{{ls_xinxi.area}}
+											{{ ls_xinxi.province }}-{{ ls_xinxi.city }}-{{ ls_xinxi.area }}
 										</view>
 										<view class="send_jia_lvsuo">
 											<image src="@/static/img/chat_lvsuo.png" mode=""></image>
-											{{ls_xinxi.lvsuo}}
+											{{ ls_xinxi.lvsuo }}
 										</view>
 									</view>
 								</view>
 								<view class="send_jia_shangchang hei_24">
 									擅长:
-							<text v-if="zhuanchang_arry[ls_xinxi.expertise1] && zhuanchang_arry[ls_xinxi.expertise1].shanchangname">{{zhuanchang_arry[ls_xinxi.expertise1].shanchangname}}</text>
-							<text v-if="zhuanchang_arry[ls_xinxi.expertise2] && zhuanchang_arry[ls_xinxi.expertise2].shanchangname">{{zhuanchang_arry[ls_xinxi.expertise2].shanchangname}}</text>
-							<text v-if="zhuanchang_arry[ls_xinxi.expertise3] && zhuanchang_arry[ls_xinxi.expertise3].shanchangname">{{zhuanchang_arry[ls_xinxi.expertise3].shanchangname}}</text>
+									<text v-if="zhuanchang_arry[ls_xinxi.expertise1] && zhuanchang_arry[ls_xinxi.expertise1].shanchangname">
+										{{ zhuanchang_arry[ls_xinxi.expertise1].shanchangname }}
+									</text>
+									<text v-if="zhuanchang_arry[ls_xinxi.expertise2] && zhuanchang_arry[ls_xinxi.expertise2].shanchangname">
+										{{ zhuanchang_arry[ls_xinxi.expertise2].shanchangname }}
+									</text>
+									<text v-if="zhuanchang_arry[ls_xinxi.expertise3] && zhuanchang_arry[ls_xinxi.expertise3].shanchangname">
+										{{ zhuanchang_arry[ls_xinxi.expertise3].shanchangname }}
+									</text>
 								</view>
 								<view class="send_jia_bottom style_hei_14">
 									<view class="hei_24">
-										
 										<text>电话咨询</text>
-										<text class="hong_24">￥{{ls_xinxi.phoneprice}}/20分钟</text>
-										
+										<text class="hong_24">￥{{ ls_xinxi.phoneprice }}/20分钟</text>
 									</view>
-									<button type="button" class="bai_24"@click="dh_pay(ls_xinxi.phoneprice,'20分钟')">立即购买</button>
+									<button type="button" class="bai_24" @click="dh_pay(ls_xinxi.phoneprice, '20分钟')">立即购买</button>
 								</view>
 							</view>
-							
-							
-							
 						</view>
 					</view>
-					
-				<view class="chat_list chat_left" v-if="item.userid_from == ls_id&&item.msgtype == 4">
-										<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-										<view class="chat_left_txt hei_30">
-											<!-- <text class="ls_name">{{ title }}</text> -->
-											<view class="send_jia_html">
-												<view class="send_jia_top">
-													<image :src="img_url+ls_xinxi.photourl" mode=""></image>
-													<view class="send_jia_top_r hui_20">
-														<view class="hui_24">
-															{{ls_xinxi.nickname}}律师
-															<text class="qian_20 send_jia_top_zhiwei">{{xinxi.zhiwu}}</text>
-														</view>
-														<view class="send_jia_top_r_dizhi">
-															<image src="@/static/img/chat_dizhi.png" mode=""></image>
-															{{ls_xinxi.province}}-{{ls_xinxi.city}}-{{ls_xinxi.area}}
-														</view>
-														<view class="send_jia_lvsuo">
-															<image src="@/static/img/chat_lvsuo.png" mode=""></image>
-															{{ls_xinxi.lvsuo}}
-														</view>
-													</view>
-												</view>
-												<view class="send_jia_shangchang hei_24">
-													擅长:
-											<text v-if="zhuanchang_arry[ls_xinxi.expertise1] && zhuanchang_arry[ls_xinxi.expertise1].shanchangname">{{zhuanchang_arry[ls_xinxi.expertise1].shanchangname}}</text>
-											<text v-if="zhuanchang_arry[ls_xinxi.expertise2] && zhuanchang_arry[ls_xinxi.expertise2].shanchangname">{{zhuanchang_arry[ls_xinxi.expertise2].shanchangname}}</text>
-											<text v-if="zhuanchang_arry[ls_xinxi.expertise3] && zhuanchang_arry[ls_xinxi.expertise3].shanchangname">{{zhuanchang_arry[ls_xinxi.expertise3].shanchangname}}</text>
-												</view>
-												<view class="send_jia_bottom style_hei_14">
-													<view class="hei_24">
-														<text>在线咨询</text>
-														<text class="hong_24">￥{{ls_xinxi.chatprice}}/天</text>
-														
-													</view>
-													<button type="button" class="bai_24"@click="zaixian_pay(ls_xinxi.chatprice,'1天')">立即购买</button>
-												</view>
-											</view>
-											
-											
-											
-										</view>
-									</view>	
-			<view class="chat_list chat_left" v-if="item.userid_from == ls_id&&item.msgtype == 5">
-									<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-									<view class="chat_left_txt hei_30">
-										<!-- <text class="ls_name">{{ title }}</text> -->
-										<view class="send_xuanze hei_26">
-											<view class="">
-												您好：遇到什么问题了，请先详细描述一下事情经过，我好根据您的情况解答！
-											</view>
-											<view>描述完之后，选择一下您方便的咨询的方式：</view>
-											<view class="hong_26" @click="send_zaixian()">【在线咨询-可看记录】</view>
-											<view class="hong_26" @click="send_dianhua()">【电话咨询-时时对话】</view>
-										</view>
-										
-										
-										
-									</view>
-								</view>		
-					<view class="chat_list chat_left" v-if="item.userid_from == ls_id&&item.msgtype == 6">
-											<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-											<view class="chat_left_txt hei_30">
-												<!-- <text class="ls_name">{{ title }}</text> -->
-												<view class="send_fukuan_success">
-													<view class="lv_24_bold send_fukuan_title">
-														<image src="@/static/img/chat_duihao.png" mode=""></image>
-														付款成功
-													</view>
-													<view class="end_pay_leixing hei_24">
-														电话咨询
-														<view class="hong_24">&ensp;￥{{ls_xinxi.phoneprice}}/20分钟</view>
-													</view>
-													<view class="send_pay_ls">
-														<image :src="img_url+ls_xinxi.photourl" mode=""></image>
-														<view class="send_pay_ls_riht">
-															<view class="hui_24">{{ls_xinxi.nickname}}律师</view>
-															<view class="qian_20 send_pay_ls_zhiwu">{{xinxi.zhiwu}}</view>
-														</view>
-													</view>
-												</view>
-												
-												
-												
-											</view>
-										</view>					
-						<view class="chat_list chat_left" v-if="item.userid_from == ls_id&&item.msgtype == 7">
-												<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-												<view class="chat_left_txt hei_30">
-													<!-- <text class="ls_name">{{ title }}</text> -->
-													<view class="send_fukuan_success">
-														<view class="lv_24_bold send_fukuan_title">
-															<image src="@/static/img/chat_duihao.png" mode=""></image>
-															付款成功
-														</view>
-														<view class="end_pay_leixing hei_24">
-															在线咨询
-															<view class="hong_24">&ensp;￥{{ls_xinxi.chatprice}}/天</view>
-														</view>
-														<view class="send_pay_ls">
-															<image :src="img_url+ls_xinxi.photourl" mode=""></image>
-															<view class="send_pay_ls_riht">
-																<view class="hui_24">{{ls_xinxi.nickname}}律师</view>
-																<view class="qian_20 send_pay_ls_zhiwu">{{xinxi.zhiwu}}</view>
-															</view>
-														</view>
-													</view>
-													
-													
-													
-												</view>
-											</view>					
-					<view class="chat_list chat_left" v-if="item.userid_from == ls_id&&item.msgtype == 8">
-											<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-											<view class="chat_left_txt hei_30">
-												<!-- <text class="ls_name">{{ title }}</text> -->
-												<view class="send_xuanze hei_26">
-													<view>您的服务已到期，请重新订购服务</view>
-													<view>描述完之后，选择一下您方便的咨询的方式：</view>
-													<view class="hong_26" @click="send_zaixian()">【在线咨询-可看记录】</view>
-													<view class="hong_26" @click="send_dianhua()">【电话咨询-时时对话】</view>
-												</view>
-												
-												
-												
-											</view>
-										</view>	
-										
-				<!-- 	<view class="chat_list chat_left" >
-											<image src="@/static/img/xitong.png" mode="" class="tx"></image>
-											<view class="chat_left_txt hei_30">
-												
-												<view class="hei_24 huan_ls_tishi">
-													系统提示：由于律师超时未接单，已安
-													排新的律师给您服务。
-												</view>
-												<view class="send_jia_html">
-													<view class="send_jia_top">
-														<image :src="img_url+ls_xinxi.photourl" mode=""></image>
-														<view class="send_jia_top_r hui_20">
-															<view class="hui_24">
-																{{ls_xinxi.nickname}}律师
-																<text class="qian_20 send_jia_top_zhiwei">{{xinxi.zhiwu}}</text>
-															</view>
-															<view class="send_jia_top_r_dizhi">
-																<image src="@/static/img/chat_dizhi.png" mode=""></image>
-																{{ls_xinxi.province}}-{{ls_xinxi.city}}-{{ls_xinxi.area}}
-															</view>
-															<view class="send_jia_lvsuo">
-																<image src="@/static/img/chat_lvsuo.png" mode=""></image>
-																{{ls_xinxi.lvsuo}}
-															</view>
-														</view>
-													</view>
-													<view class="send_jia_shangchang hei_24">
-														擅长:
-												<text v-if="zhuanchang_arry[ls_xinxi.expertise1] && zhuanchang_arry[ls_xinxi.expertise1].shanchangname">{{zhuanchang_arry[ls_xinxi.expertise1].shanchangname}}</text>
-												<text v-if="zhuanchang_arry[ls_xinxi.expertise2] && zhuanchang_arry[ls_xinxi.expertise2].shanchangname">{{zhuanchang_arry[ls_xinxi.expertise2].shanchangname}}</text>
-												<text v-if="zhuanchang_arry[ls_xinxi.expertise3] && zhuanchang_arry[ls_xinxi.expertise3].shanchangname">{{zhuanchang_arry[ls_xinxi.expertise3].shanchangname}}</text>
-													</view>
-													<view class="huan_ls style_hei_14">
-														<button type="" class="bai_24">点击进入</button>
-														
-													</view>
-												</view>
 
-											</view>
-										</view>	 -->				
-										
-										
-					<view class="chat_list chat_right" v-if="item.userid_from != ls_id&&item.msgtype == 1">
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 4">
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+						<view class="chat_left_txt hei_30">
+							<!-- <text class="ls_name">{{ title }}</text> -->
+							<view class="send_jia_html">
+								<view class="send_jia_top">
+									<image :src="img_url + ls_xinxi.photourl" mode=""></image>
+									<view class="send_jia_top_r hui_20">
+										<view class="hui_24">
+											{{ ls_xinxi.nickname }}律师
+											<text class="qian_20 send_jia_top_zhiwei">{{ xinxi.zhiwu }}</text>
+										</view>
+										<view class="send_jia_top_r_dizhi">
+											<image src="@/static/img/chat_dizhi.png" mode=""></image>
+											{{ ls_xinxi.province }}-{{ ls_xinxi.city }}-{{ ls_xinxi.area }}
+										</view>
+										<view class="send_jia_lvsuo">
+											<image src="@/static/img/chat_lvsuo.png" mode=""></image>
+											{{ ls_xinxi.lvsuo }}
+										</view>
+									</view>
+								</view>
+								<view class="send_jia_shangchang hei_24">
+									擅长:
+									<text v-if="zhuanchang_arry[ls_xinxi.expertise1] && zhuanchang_arry[ls_xinxi.expertise1].shanchangname">
+										{{ zhuanchang_arry[ls_xinxi.expertise1].shanchangname }}
+									</text>
+									<text v-if="zhuanchang_arry[ls_xinxi.expertise2] && zhuanchang_arry[ls_xinxi.expertise2].shanchangname">
+										{{ zhuanchang_arry[ls_xinxi.expertise2].shanchangname }}
+									</text>
+									<text v-if="zhuanchang_arry[ls_xinxi.expertise3] && zhuanchang_arry[ls_xinxi.expertise3].shanchangname">
+										{{ zhuanchang_arry[ls_xinxi.expertise3].shanchangname }}
+									</text>
+								</view>
+								<view class="send_jia_bottom style_hei_14">
+									<view class="hei_24">
+										<text>在线咨询</text>
+										<text class="hong_24">￥{{ ls_xinxi.chatprice }}/天</text>
+									</view>
+									<button type="button" class="bai_24" @click="zaixian_pay(ls_xinxi.chatprice, '1天')">立即购买</button>
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 5">
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+						<view class="chat_left_txt hei_30">
+							<!-- <text class="ls_name">{{ title }}</text> -->
+							<view class="send_xuanze hei_26">
+								<view class="">您好：遇到什么问题了，请先详细描述一下事情经过，我好根据您的情况解答！</view>
+								<view>描述完之后，选择一下您方便的咨询的方式：</view>
+								<view class="hong_26" @click="send_zaixian()">【在线咨询-可看记录】</view>
+								<view class="hong_26" @click="send_dianhua()">【电话咨询-时时对话】</view>
+							</view>
+						</view>
+					</view>
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 6">
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+						<view class="chat_left_txt hei_30">
+							<!-- <text class="ls_name">{{ title }}</text> -->
+							<view class="send_fukuan_success">
+								<view class="lv_24_bold send_fukuan_title">
+									<image src="@/static/img/chat_duihao.png" mode=""></image>
+									付款成功
+								</view>
+								<view class="end_pay_leixing hei_24">
+									电话咨询
+									<view class="hong_24">&ensp;￥{{ ls_xinxi.phoneprice }}/20分钟</view>
+								</view>
+								<view class="send_pay_ls">
+									<image :src="img_url + ls_xinxi.photourl" mode=""></image>
+									<view class="send_pay_ls_riht">
+										<view class="hui_24">{{ ls_xinxi.nickname }}律师</view>
+										<view class="qian_20 send_pay_ls_zhiwu">{{ xinxi.zhiwu }}</view>
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 7">
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+						<view class="chat_left_txt hei_30">
+							<!-- <text class="ls_name">{{ title }}</text> -->
+							<view class="send_fukuan_success">
+								<view class="lv_24_bold send_fukuan_title">
+									<image src="@/static/img/chat_duihao.png" mode=""></image>
+									付款成功
+								</view>
+								<view class="end_pay_leixing hei_24">
+									在线咨询
+									<view class="hong_24">&ensp;￥{{ ls_xinxi.chatprice }}/天</view>
+								</view>
+								<view class="send_pay_ls">
+									<image :src="img_url + ls_xinxi.photourl" mode=""></image>
+									<view class="send_pay_ls_riht">
+										<view class="hui_24">{{ ls_xinxi.nickname }}律师</view>
+										<view class="qian_20 send_pay_ls_zhiwu">{{ xinxi.zhiwu }}</view>
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 8">
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+						<view class="chat_left_txt hei_30">
+							<!-- <text class="ls_name">{{ title }}</text> -->
+							<view class="send_xuanze hei_26">
+								<view>您的服务已到期，请重新订购服务</view>
+								<view>描述完之后，选择一下您方便的咨询的方式：</view>
+								<view class="hong_26" @click="send_zaixian()">【在线咨询-可看记录】</view>
+								<view class="hong_26" @click="send_dianhua()">【电话咨询-时时对话】</view>
+							</view>
+						</view>
+					</view>
+
+					<view class="chat_list chat_left" v-if="item.msgtype == 9">
+						<image src="@/static/img/xitong.png" mode="" class="tx"></image>
+						<view class="" style="display: none;">{{ item }}</view>
+
+						<view class="chat_left_txt hei_30">
+							<view class="hei_24 huan_ls_tishi">系统提示：由于律师超时未接单，已安排新的律师给您服务。</view>
+							<view class="send_jia_html">
+								<view class="send_jia_top">
+									<image :src="img_url + item.photourl" mode=""></image>
+									<view class="send_jia_top_r hui_20">
+										<view class="hui_24">
+											{{ item.nickname }}律师
+											<!-- <text class="qian_20 send_jia_top_zhiwei">{{xinxi.zhiwu}}</text> -->
+										</view>
+										<view class="send_jia_top_r_dizhi">
+											<image src="@/static/img/chat_dizhi.png" mode=""></image>
+											{{ item.province }}-{{ item.city }}-{{ item.area }}
+										</view>
+										<view class="send_jia_lvsuo">
+											<image src="@/static/img/chat_lvsuo.png" mode=""></image>
+											{{ item.lvsuo }}
+										</view>
+									</view>
+								</view>
+								<view class="send_jia_shangchang hei_24">
+									擅长:
+									<text v-if="zhuanchang_arry[item.expertise1] && zhuanchang_arry[item.expertise1].shanchangname">
+										{{ zhuanchang_arry[item.expertise1].shanchangname }}
+									</text>
+									<text v-if="zhuanchang_arry[item.expertise2] && zhuanchang_arry[item.expertise2].shanchangname">
+										{{ zhuanchang_arry[item.expertise2].shanchangname }}
+									</text>
+									<text v-if="zhuanchang_arry[item.expertise3] && zhuanchang_arry[item.expertise3].shanchangname">
+										{{ zhuanchang_arry[item.expertise3].shanchangname }}
+									</text>
+								</view>
+								<view class="huan_ls style_hei_14"><button type="" class="bai_24" @click="go_chat(item.userid)">点击进入</button></view>
+							</view>
+						</view>
+					</view>
+
+					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 1">
 						<view class="chat_right_txt hei_30">
 							<!-- {{item.content}} -->
-					<u-parse :content="replace_em(item.content)"></u-parse>
+							<u-parse :content="replace_em(item.content)"></u-parse>
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
-					<view class="chat_list chat_right" v-if="item.userid_from != ls_id&&item.msgtype == 2">
+					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 2">
 						<view class="chat_right_txt hei_30">
-							<image :src="img_url + item.content" mode="widthFix" style="max-width: 100rpx;"  @click="clickImg(img_url + item.content)"></image>
-							
+							<image :src="img_url + item.content" mode="widthFix" style="max-width: 100rpx;" @click="clickImg(img_url + item.content)"></image>
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
-				<view class="chat_list chat_right" v-if="item.userid_from != ls_id&&item.msgtype == 3">
-					<view class="chat_right_txt hei_30">
-						<view class="send_jia_html">
-							<view class="send_jia_top">
-								<image :src="img_url+ls_xinxi.photourl" mode=""></image>
-								<view class="send_jia_top_r hui_20">
-									<view class="hui_24">
-										{{ls_xinxi.nickname}}律师
-										<text class="qian_20 send_jia_top_zhiwei">{{xinxi.zhiwu}}</text>
-									</view>
-									<view class="send_jia_top_r_dizhi">
-										<image src="@/static/img/chat_dizhi.png" mode=""></image>
-										{{ls_xinxi.province}}-{{ls_xinxi.city}}-{{ls_xinxi.area}}
-									</view>
-									<view class="send_jia_lvsuo">
-										<image src="@/static/img/chat_lvsuo.png" mode=""></image>
-										{{ls_xinxi.lvsuo}}
+					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 3">
+						<view class="chat_right_txt hei_30">
+							<view class="send_jia_html">
+								<view class="send_jia_top">
+									<image :src="img_url + ls_xinxi.photourl" mode=""></image>
+									<view class="send_jia_top_r hui_20">
+										<view class="hui_24">
+											{{ ls_xinxi.nickname }}律师
+											<text class="qian_20 send_jia_top_zhiwei">{{ xinxi.zhiwu }}</text>
+										</view>
+										<view class="send_jia_top_r_dizhi">
+											<image src="@/static/img/chat_dizhi.png" mode=""></image>
+											{{ ls_xinxi.province }}-{{ ls_xinxi.city }}-{{ ls_xinxi.area }}
+										</view>
+										<view class="send_jia_lvsuo">
+											<image src="@/static/img/chat_lvsuo.png" mode=""></image>
+											{{ ls_xinxi.lvsuo }}
+										</view>
 									</view>
 								</view>
-							</view>
-							<view class="send_jia_shangchang hei_24">
-								擅长:
-						<text v-if="zhuanchang_arry[ls_xinxi.expertise1] && zhuanchang_arry[ls_xinxi.expertise1].shanchangname">{{zhuanchang_arry[ls_xinxi.expertise1].shanchangname}}</text>
-						<text v-if="zhuanchang_arry[ls_xinxi.expertise2] && zhuanchang_arry[ls_xinxi.expertise2].shanchangname">{{zhuanchang_arry[ls_xinxi.expertise2].shanchangname}}</text>
-						<text v-if="zhuanchang_arry[ls_xinxi.expertise3] && zhuanchang_arry[ls_xinxi.expertise3].shanchangname">{{zhuanchang_arry[ls_xinxi.expertise3].shanchangname}}</text>
-							</view>
-							<view class="send_jia_bottom style_hei_14">
-								<view class="hei_24">
-									
-									<text>电话咨询</text>
-									<text class="hong_24">￥{{ls_xinxi.phoneprice}}/20分钟</text>
-									
+								<view class="send_jia_shangchang hei_24">
+									擅长:
+									<text v-if="zhuanchang_arry[ls_xinxi.expertise1] && zhuanchang_arry[ls_xinxi.expertise1].shanchangname">
+										{{ zhuanchang_arry[ls_xinxi.expertise1].shanchangname }}
+									</text>
+									<text v-if="zhuanchang_arry[ls_xinxi.expertise2] && zhuanchang_arry[ls_xinxi.expertise2].shanchangname">
+										{{ zhuanchang_arry[ls_xinxi.expertise2].shanchangname }}
+									</text>
+									<text v-if="zhuanchang_arry[ls_xinxi.expertise3] && zhuanchang_arry[ls_xinxi.expertise3].shanchangname">
+										{{ zhuanchang_arry[ls_xinxi.expertise3].shanchangname }}
+									</text>
 								</view>
-								<button type="button" class="bai_24"@click="dh_pay(ls_xinxi.phoneprice,'20分钟')">立即购买</button>
+								<view class="send_jia_bottom style_hei_14">
+									<view class="hei_24">
+										<text>电话咨询</text>
+										<text class="hong_24">￥{{ ls_xinxi.phoneprice }}/20分钟</text>
+									</view>
+									<button type="button" class="bai_24" @click="dh_pay(ls_xinxi.phoneprice, '20分钟')">立即购买</button>
+								</view>
 							</view>
 						</view>
-						
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
-					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-				</view>
-				<view class="chat_list chat_right" v-if="item.userid_from != ls_id&&item.msgtype == 4">
-					<view class="chat_right_txt hei_30">
-						<view class="send_jia_html">
-							<view class="send_jia_top">
-								<image :src="img_url+ls_xinxi.photourl" mode=""></image>
-								<view class="send_jia_top_r hui_20">
-									<view class="hui_24">
-										{{ls_xinxi.nickname}}律师
-										<text class="qian_20 send_jia_top_zhiwei">{{xinxi.zhiwu}}</text>
-									</view>
-									<view class="send_jia_top_r_dizhi">
-										<image src="@/static/img/chat_dizhi.png" mode=""></image>
-										{{ls_xinxi.province}}-{{ls_xinxi.city}}-{{ls_xinxi.area}}
-									</view>
-									<view class="send_jia_lvsuo">
-										<image src="@/static/img/chat_lvsuo.png" mode=""></image>
-										{{ls_xinxi.lvsuo}}
+					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 4">
+						<view class="chat_right_txt hei_30">
+							<view class="send_jia_html">
+								<view class="send_jia_top">
+									<image :src="img_url + ls_xinxi.photourl" mode=""></image>
+									<view class="send_jia_top_r hui_20">
+										<view class="hui_24">
+											{{ ls_xinxi.nickname }}律师
+											<text class="qian_20 send_jia_top_zhiwei">{{ xinxi.zhiwu }}</text>
+										</view>
+										<view class="send_jia_top_r_dizhi">
+											<image src="@/static/img/chat_dizhi.png" mode=""></image>
+											{{ ls_xinxi.province }}-{{ ls_xinxi.city }}-{{ ls_xinxi.area }}
+										</view>
+										<view class="send_jia_lvsuo">
+											<image src="@/static/img/chat_lvsuo.png" mode=""></image>
+											{{ ls_xinxi.lvsuo }}
+										</view>
 									</view>
 								</view>
-							</view>
-							<view class="send_jia_shangchang hei_24">
-								擅长:
-						<text v-if="zhuanchang_arry[ls_xinxi.expertise1] && zhuanchang_arry[ls_xinxi.expertise1].shanchangname">{{zhuanchang_arry[ls_xinxi.expertise1].shanchangname}}</text>
-						<text v-if="zhuanchang_arry[ls_xinxi.expertise2] && zhuanchang_arry[ls_xinxi.expertise2].shanchangname">{{zhuanchang_arry[ls_xinxi.expertise2].shanchangname}}</text>
-						<text v-if="zhuanchang_arry[ls_xinxi.expertise3] && zhuanchang_arry[ls_xinxi.expertise3].shanchangname">{{zhuanchang_arry[ls_xinxi.expertise3].shanchangname}}</text>
-							</view>
-							<view class="send_jia_bottom style_hei_14">
-								<view class="hei_24">
-									
-									<text>在线咨询</text>
-									<text class="hong_24">￥{{ls_xinxi.chatprice}}/天</text>
-									
+								<view class="send_jia_shangchang hei_24">
+									擅长:
+									<text v-if="zhuanchang_arry[ls_xinxi.expertise1] && zhuanchang_arry[ls_xinxi.expertise1].shanchangname">
+										{{ zhuanchang_arry[ls_xinxi.expertise1].shanchangname }}
+									</text>
+									<text v-if="zhuanchang_arry[ls_xinxi.expertise2] && zhuanchang_arry[ls_xinxi.expertise2].shanchangname">
+										{{ zhuanchang_arry[ls_xinxi.expertise2].shanchangname }}
+									</text>
+									<text v-if="zhuanchang_arry[ls_xinxi.expertise3] && zhuanchang_arry[ls_xinxi.expertise3].shanchangname">
+										{{ zhuanchang_arry[ls_xinxi.expertise3].shanchangname }}
+									</text>
 								</view>
-								<button type="button" class="bai_24"@click="zaixian_pay(ls_xinxi.chatprice,'1天')">立即购买</button>
+								<view class="send_jia_bottom style_hei_14">
+									<view class="hei_24">
+										<text>在线咨询</text>
+										<text class="hong_24">￥{{ ls_xinxi.chatprice }}/天</text>
+									</view>
+									<button type="button" class="bai_24" @click="zaixian_pay(ls_xinxi.chatprice, '1天')">立即购买</button>
+								</view>
 							</view>
 						</view>
-						
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
-					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-				</view>
-				<view class="chat_list chat_right" v-if="item.userid_from != ls_id&&item.msgtype == 5">
-					<view class="chat_right_txt hei_30">
-						<view class="send_xuanze hei_26">
-							<view class="">
-								您好：遇到什么问题了，请先详细描述一下事情经过，我好根据您的情况解答！
+					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 5">
+						<view class="chat_right_txt hei_30">
+							<view class="send_xuanze hei_26">
+								<view class="">您好：遇到什么问题了，请先详细描述一下事情经过，我好根据您的情况解答！</view>
+								<view>描述完之后，选择一下您方便的咨询的方式：</view>
+								<view class="hong_26" @click="send_zaixian()">【在线咨询-可看记录】</view>
+								<view class="hong_26" @click="send_dianhua()">【电话咨询-时时对话】</view>
 							</view>
-							<view>描述完之后，选择一下您方便的咨询的方式：</view>
-							<view class="hong_26" @click="send_zaixian()">【在线咨询-可看记录】</view>
-							<view class="hong_26" @click="send_dianhua()">【电话咨询-时时对话】</view>
 						</view>
-						
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
-					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-				</view>
-				<!-- <view class="chat_list chat_right" v-if="item.userid_from != ls_id&&item.msgtype == 5">
+					<!-- <view class="chat_list chat_right" v-if="item.userid_from != ls_id&&item.msgtype == 5">
 					<view class="chat_right_txt hei_30">
 						<view class="send_xuanze hei_26">
 							<view>描述完之后，选择一下您方便的咨询的方式：</view>
@@ -488,53 +472,51 @@
 					</view>
 					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 				</view> -->
-				<view class="chat_list chat_right" v-if="item.userid_from != ls_id&&item.msgtype == 6">
-					<view class="chat_right_txt hei_30">
-						<view class="send_fukuan_success">
-							<view class="lv_24_bold send_fukuan_title">
-								<image src="@/static/img/chat_duihao.png" mode=""></image>
-								付款成功
-							</view>
-							<view class="end_pay_leixing hei_24">
-								电话咨询
-								<view class="hong_24">&ensp;￥{{ls_xinxi.phoneprice}}/20分钟</view>
-							</view>
-							<view class="send_pay_ls">
-								<image :src="img_url+ls_xinxi.photourl" mode=""></image>
-								<view class="send_pay_ls_riht">
-									<view class="hui_24">{{ls_xinxi.nickname}}律师</view>
-									<view class="qian_20 send_pay_ls_zhiwu">{{xinxi.zhiwu}}</view>
+					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 6">
+						<view class="chat_right_txt hei_30">
+							<view class="send_fukuan_success">
+								<view class="lv_24_bold send_fukuan_title">
+									<image src="@/static/img/chat_duihao.png" mode=""></image>
+									付款成功
+								</view>
+								<view class="end_pay_leixing hei_24">
+									电话咨询
+									<view class="hong_24">&ensp;￥{{ ls_xinxi.phoneprice }}/20分钟</view>
+								</view>
+								<view class="send_pay_ls">
+									<image :src="img_url + ls_xinxi.photourl" mode=""></image>
+									<view class="send_pay_ls_riht">
+										<view class="hui_24">{{ ls_xinxi.nickname }}律师</view>
+										<view class="qian_20 send_pay_ls_zhiwu">{{ xinxi.zhiwu }}</view>
+									</view>
 								</view>
 							</view>
 						</view>
-						
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
-					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-				</view>
-				<view class="chat_list chat_right" v-if="item.userid_from != ls_id&&item.msgtype == 7">
-					<view class="chat_right_txt hei_30">
-						<view class="send_fukuan_success">
-							<view class="lv_24_bold send_fukuan_title">
-								<image src="@/static/img/chat_duihao.png" mode=""></image>
-								付款成功
-							</view>
-							<view class="end_pay_leixing hei_24">
-								在线咨询
-								<view class="hong_24">&ensp;￥{{ls_xinxi.chatprice}}/天</view>
-							</view>
-							<view class="send_pay_ls">
-								<image :src="img_url+ls_xinxi.photourl" mode=""></image>
-								<view class="send_pay_ls_riht">
-									<view class="hui_24">{{ls_xinxi.nickname}}律师</view>
-									<view class="qian_20 send_pay_ls_zhiwu">{{xinxi.zhiwu}}</view>
+					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 7">
+						<view class="chat_right_txt hei_30">
+							<view class="send_fukuan_success">
+								<view class="lv_24_bold send_fukuan_title">
+									<image src="@/static/img/chat_duihao.png" mode=""></image>
+									付款成功
+								</view>
+								<view class="end_pay_leixing hei_24">
+									在线咨询
+									<view class="hong_24">&ensp;￥{{ ls_xinxi.chatprice }}/天</view>
+								</view>
+								<view class="send_pay_ls">
+									<image :src="img_url + ls_xinxi.photourl" mode=""></image>
+									<view class="send_pay_ls_riht">
+										<view class="hui_24">{{ ls_xinxi.nickname }}律师</view>
+										<view class="qian_20 send_pay_ls_zhiwu">{{ xinxi.zhiwu }}</view>
+									</view>
 								</view>
 							</view>
 						</view>
-						
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
-					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 				</view>
-				  </view>
 
 				<!-- 	<view class="chat_list chat_left">
 					<image src="@/static/lsimg/yh_tx.png" mode="" class="tx"></image>
@@ -553,7 +535,6 @@
 
 			<view class="zhanwei" v-if="isShowEmj"></view>
 			<view class="chat_bottom">
-				
 				<view class="chat_bottom_top">
 					<!-- <image src="@/static/lsimg/chat_yuyin.png" mode=""></image> -->
 					<image src="@/static/lsimg/chat_biaoqing.png" mode="" @tap="showEmj"></image>
@@ -582,25 +563,18 @@
 				</view>
 			</view>
 		</view>
-		
-	<view class="bg" v-if="chaoshi">
-		<view class="tan_chaoshi">
-			<view class="tan_chaoshi_tishi">
-				<view class="">
-					由于律师超时未接单
+
+		<view class="bg" v-if="is_new">
+			<view class="tan_chaoshi">
+				<view class="tan_chaoshi_tishi">
+					<view class="">由于律师超时未接单</view>
+					<view class="">已安排新的律师给您服务</view>
+					<button type="" class="bai_30" @click="go_chat(chaoshi_item[0].userid)">点击进入</button>
 				</view>
-				<view class="">
-					已安排新的律师给您服务
-				</view>
-			<button type="" class="bai_30">点击进入</button>
+				<image src="@/static/img/guanbi.png" mode="" class="guanbi" style="width: 50rpx;height: 50rpx;" @click="guanbi"></image>
 			</view>
-			<image src="@/static/img/guanbi.png" mode="" class="guanbi" style="width: 50rpx;height: 50rpx;" @click="guanbi"></image>
 		</view>
 	</view>
-		
-	</view>
-	
-	
 </template>
 
 <script>
@@ -616,7 +590,7 @@ export default {
 	onLoad(option) {
 		this.ls_id = option.lawyerid;
 		this.huoqu_xiaoxi_list();
-		this.huqu_zhiwu()
+		this.huqu_zhiwu();
 		// 获取用户信息
 		this.$http
 			.post({
@@ -625,7 +599,7 @@ export default {
 			.then(res => {
 				this.user = res.data.user;
 			});
-	this.$http
+		this.$http
 			.post({
 				url: '/mapi/lawyer/getshanchang'
 			})
@@ -633,7 +607,7 @@ export default {
 				this.zhuanchang_arry = res.data.shanchang;
 				this.huqu_ls_xinxi();
 			});
-		
+
 		// #ifdef H5
 		this.connectSocketInit();
 		// #endif
@@ -645,12 +619,10 @@ export default {
 		// #endif
 	},
 	onShow() {},
-	onHide() {
-		
-	},
+	onHide() {},
 	onUnload() {
 		console.log('onUnload');
-		this.time1='0'
+		this.time1 = '0';
 		// #ifdef APP-PLUS
 		// socket.closeSocket();
 		// #endif
@@ -680,14 +652,16 @@ export default {
 			socketTask: null,
 			// 确保websocket是打开状态
 			is_open_socket: false,
-			zhuanchang_arry:'',
-			xinxi:'',
-			day:0,
-			hour:'00',
-			minute:'00',
-			seconds:'00',
-			time1:'0',
-			chaoshi:false
+			zhuanchang_arry: '',
+			xinxi: '',
+			day: 0,
+			hour: '00',
+			minute: '00',
+			seconds: '00',
+			time1: '0',
+			chaoshi_item: '',
+			new_ls: '',
+			is_new: false
 		};
 	},
 	//下拉刷新
@@ -717,20 +691,19 @@ export default {
 		navigateBack() {
 			uni.navigateBack();
 		},
-		send_zaixian(){
-			var that=this
+		send_zaixian() {
+			var that = this;
 			this.$http
 				.post({
 					url: '/push/gatewayworker/sendzixun.html',
 					data: {
 						userid_to: this.ls_id,
 						msg: '[在线咨询]',
-						type:4
-						
+						type: 4
 					}
 				})
 				.then(res => {
-					if(res.code==0){
+					if (res.code == 0) {
 						var data = {
 							content: '4',
 							msgtype: 4,
@@ -744,20 +717,20 @@ export default {
 					}
 				});
 		},
-		send_dianhua(){
-			var that=this
+
+		send_dianhua() {
+			var that = this;
 			this.$http
 				.post({
 					url: '/push/gatewayworker/sendzixun.html',
 					data: {
 						userid_to: this.ls_id,
 						msg: '[电话咨询]',
-						type:3
-						
+						type: 3
 					}
 				})
 				.then(res => {
-					if(res.code==0){
+					if (res.code == 0) {
 						var data = {
 							content: '3',
 							msgtype: 3,
@@ -769,25 +742,23 @@ export default {
 							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 						}, 100);
 					}
-					
 				});
 		},
-		go_zhuye(){
+		go_zhuye() {
 			uni.navigateTo({
-				url:'ls_zhuye?lawyerid='+this.ls_id
-			})
+				url: 'ls_zhuye?lawyerid=' + this.ls_id
+			});
 		},
-		zaixian_pay(price,time){
+		zaixian_pay(price, time) {
 			uni.navigateTo({
-				url:'pay?type=1&lawyerid='+this.ls_id+'&time='+time+'&pay_money='+price
-			})
-			
+				url: 'pay?type=1&lawyerid=' + this.ls_id + '&time=' + time + '&pay_money=' + price
+			});
 		},
-		dh_pay(price,time){
-				url:'pay?type=2&lawyerid='+this.ls_id+'&time='+time+'&pay_money='+price
+		dh_pay(price, time) {
+			url: 'pay?type=2&lawyerid=' + this.ls_id + '&time=' + time + '&pay_money=' + price;
 		},
 		huoqu_xiaoxi_list() {
-			var that=this
+			var that = this;
 			this.$http
 				.post({
 					url: '/mapi/consult/chatdeatils',
@@ -797,42 +768,72 @@ export default {
 					}
 				})
 				.then(res => {
-					this.message = res.data.message;
 					this.title = res.data.user_to.nickname;
 					this.dianhua = res.data.user_to.mobile;
 					this.chat_xinxi = res.data.user_to;
+					if (res.data.overtime.length > 0) {
+						this.chaoshi_item = res.data.overtime;
+						this.is_new = true;
+					}
+
+					for (let key in res.data.message) {
+						if (res.data.message[key].msgtype == 9) {
+							console.log(key);
+							this.$http
+								.post({
+									url: '/mapi/lawyer/lawyer',
+									data: {
+										lawyerid: res.data.message[key].userid
+									}
+								})
+								.then(ress => {
+									
+									// console.log(ress.data.lawyer, res.data.message[key]);
+									// res.data.message[key-1].city = ress.data.lawyer.city;
+									// res.data.message[key-1].province = ress.data.lawyer.province;
+									// res.data.message[key-1].area = ress.data.lawyer.area;
+									// res.data.message[key-1].photourl = ress.data.lawyer.photourl;
+									// res.data.message[key-1].lvsuo = ress.data.lawyer.lvsuo;
+									// res.data.message[key-1].nickname = ress.data.lawyer.nickname;
+									// res.data.message[key-1].expertise1 = ress.data.lawyer.expertise1;
+									// res.data.message[key-1].expertise2 = ress.data.lawyer.expertise2;
+									// res.data.message[key-1].expertise3 = ress.data.lawyer.expertise3;
+									res.data.message[key] = Object.assign(res.data.message[key], ress.data.lawyer);
+								});
+						}
+					}
+
+					console.log(res.data.message);
+					this.message = res.data.message;
+
 					setTimeout(() => {
 						uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 					}, 200);
-					
-				  	that.time1 = res.data.shijian
-					
-					// 倒计时
-					var interval = setInterval(function () {
-					    var to = new Date(that.time1.replace(/-/g, "/"));
-					    var now = new Date();
-					    var time = to.getTime() - now.getTime();
-						
-					    if(time < 0){
-					        clearInterval(interval);
-					    }else {
-					
-					        var day = parseInt(time / 1000 / 60 / 60 / 24);
-					        var hour = parseInt(time / 1000 / 60 / 60 % 24);
-					        var minute = parseInt(time / 1000 / 60 % 60);
-					        var seconds = parseInt(time / 1000 % 60);
-					        if (minute <= 9) minute = '0' + minute;
-					        if (seconds <= 9) seconds = '0' + seconds;
 
-					       that.day=day
-						   that.hour=hour
-						   that.minute=minute
-						   that.seconds=seconds
-			
-					    }
-						
+					that.time1 = res.data.shijian;
+
+					// 倒计时
+					var interval = setInterval(function() {
+						var to = new Date(that.time1.replace(/-/g, '/'));
+						var now = new Date();
+						var time = to.getTime() - now.getTime();
+
+						if (time < 0) {
+							clearInterval(interval);
+						} else {
+							var day = parseInt(time / 1000 / 60 / 60 / 24);
+							var hour = parseInt((time / 1000 / 60 / 60) % 24);
+							var minute = parseInt((time / 1000 / 60) % 60);
+							var seconds = parseInt((time / 1000) % 60);
+							if (minute <= 9) minute = '0' + minute;
+							if (seconds <= 9) seconds = '0' + seconds;
+
+							that.day = day;
+							that.hour = hour;
+							that.minute = minute;
+							that.seconds = seconds;
+						}
 					}, 1000);
-					
 				});
 		},
 		huojiao() {
@@ -891,15 +892,55 @@ export default {
 				} else if (data.type == 'say') {
 					console.log('say');
 					if (data.state) {
-						var xiaoxi = {
-							photourl_form: data.userid_from_pic,
-							userid_to: data.userid_to,
-							photourl_to: data.userid_to_pic,
-							content: data.msg,
-							msgtype: data.state,
-							userid_from: that.ls_id
-						};
-						that.message.push(xiaoxi);
+						
+						if(data.state==9){
+							if(data.userid){
+								
+							
+						 this.$http
+							.post({
+								url: '/mapi/lawyer/lawyer',
+								data: {
+									lawyerid: data.userid
+								}
+							})
+							.then(ress => {
+								var xiaoxi = {
+									photourl_form: data.userid_from_pic,
+									userid_to: data.userid_to,
+									photourl_to: data.userid_to_pic,
+									content: data.msg,
+									msgtype: data.state,
+									userid_from: that.ls_id,
+									city: ress.data.lawyer.city,
+									province: ress.data.lawyer.province,
+									area: ress.data.lawyer.area,
+									photourl: ress.data.lawyer.photourl,
+									lvsuo: ress.data.lawyer.lvsuo,
+									nickname: ress.data.lawyer.nickname,
+									expertise1: ress.data.lawyer.expertise1,
+									expertise2:  ress.data.lawyer.expertise2,
+									expertise3: ress.data.lawyer.expertise3,
+									
+								};
+								that.message.push(xiaoxi);
+								
+								
+							});	
+							}
+						}else{
+							var xiaoxi = {
+								photourl_form: data.userid_from_pic,
+								userid_to: data.userid_to,
+								photourl_to: data.userid_to_pic,
+								content: data.msg,
+								msgtype: data.state,
+								userid_from: that.ls_id
+							};
+							that.message.push(xiaoxi);
+						}
+							
+
 						setTimeout(() => {
 							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 						}, 100);
@@ -919,6 +960,24 @@ export default {
 				title: '点赞成功',
 				duration: 2000
 			});
+		},
+		go_chat(lawyerid) {
+			uni.navigateTo({
+				url: 'chat?lawyerid=' + lawyerid
+			});
+		},
+		huaqu_new_ls(lawyerid) {
+			// alert('777')
+			// this.$http
+			// 		.post({
+			// 			url: '/mapi/lawyer/lawyer',
+			// 			data: {
+			// 				lawyerid: lawyerid
+			// 			}
+			// 		})
+			// 		.then(res => {
+			// 			this.new_ls=res.data.lawyer
+			// 		});
 		},
 		huqu_ls_xinxi() {
 			this.$http
@@ -941,7 +1000,6 @@ export default {
 					}
 				})
 				.then(res => {
-					
 					this.xinxi = res.data.lawyer;
 				});
 		},
@@ -1122,14 +1180,14 @@ export default {
 				url: 'pay?lawyerid=' + this.ls_id + '&type=' + type
 			});
 		},
-		clickImg(img){
-				uni.previewImage({
-								urls: [""+img], //需要预览的图片http链接列表，多张的时候，url直接写在后面就行了
-								current: '', // 当前显示图片的http链接，默认是第一个
-								success: function(res) {},
-								fail: function(res) {},
-								complete: function(res) {},
-							})
+		clickImg(img) {
+			uni.previewImage({
+				urls: ['' + img], //需要预览的图片http链接列表，多张的时候，url直接写在后面就行了
+				current: '', // 当前显示图片的http链接，默认是第一个
+				success: function(res) {},
+				fail: function(res) {},
+				complete: function(res) {}
+			});
 		},
 		connectSocketInit() {
 			let that = this;
@@ -1161,15 +1219,53 @@ export default {
 				} else if (data.type == 'say') {
 					console.log('say');
 					if (data.state) {
-						var xiaoxi = {
-							photourl_form: data.userid_from_pic,
-							userid_to: data.userid_to,
-							photourl_to: data.userid_to_pic,
-							content: data.msg,
-							msgtype: data.state,
-							userid_from: that.ls_id
-						};
-						that.message.push(xiaoxi);
+						
+						if(data.state==9){
+							
+						this.$http
+							.post({
+								url: '/mapi/lawyer/lawyer',
+								data: {
+									lawyerid: data.userid
+								}
+							})
+							.then(ress => {
+								var xiaoxi = {
+									photourl_form: data.userid_from_pic,
+									userid_to: data.userid_to,
+									photourl_to: data.userid_to_pic,
+									content: data.msg,
+									msgtype: data.state,
+									userid_from: that.ls_id,
+									city: ress.data.lawyer.city,
+									province: ress.data.lawyer.province,
+									area: ress.data.lawyer.area,
+									photourl: ress.data.lawyer.photourl,
+									lvsuo: ress.data.lawyer.lvsuo,
+									nickname: ress.data.lawyer.nickname,
+									expertise1: ress.data.lawyer.expertise1,
+									expertise2:  ress.data.lawyer.expertise2,
+									expertise3: ress.data.lawyer.expertise3,
+									
+								};
+								that.message.push(xiaoxi);
+								
+								
+							});	
+							
+						}else{
+							var xiaoxi = {
+								photourl_form: data.userid_from_pic,
+								userid_to: data.userid_to,
+								photourl_to: data.userid_to_pic,
+								content: data.msg,
+								msgtype: data.state,
+								userid_from: that.ls_id
+							};
+							that.message.push(xiaoxi);
+						}
+						
+						
 						setTimeout(() => {
 							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 						}, 100);
@@ -1185,8 +1281,8 @@ export default {
 				console.log('WebSocketError!', evt);
 			};
 		},
-		guanbi(){
-			this.chaoshi=false
+		guanbi() {
+			this.is_new = false;
 		}
 	},
 	filters: {
@@ -1213,7 +1309,6 @@ export default {
 
 <style>
 .head {
-	
 	padding-top: 10rpx;
 	padding-bottom: 6rpx;
 }
@@ -1247,7 +1342,7 @@ page {
 .chat_left .tx {
 	margin-right: 20rpx;
 }
-.chat_left{
+.chat_left {
 	margin-bottom: 50rpx;
 }
 .chat_body {
@@ -1526,7 +1621,7 @@ button {
 	background-color: #ffffff;
 	padding: 0;
 	display: block;
-	border-top: 2rpx solid #D1D1D1;
+	border-top: 2rpx solid #d1d1d1;
 }
 .chat_top_top {
 	display: flex;
@@ -1553,13 +1648,12 @@ button {
 	justify-content: space-between;
 }
 .chat_top_jia {
-		width: 335rpx;
-		height: 56rpx;
-		background-color: #e6f8f2;
-		border-radius: 3rpx;
-line-height: 56rpx;
+	width: 335rpx;
+	height: 56rpx;
+	background-color: #e6f8f2;
+	border-radius: 3rpx;
+	line-height: 56rpx;
 	text-align: center;
-	
 }
 .chat_top_jia_num {
 	margin: 4rpx 0 14rpx;
@@ -1738,65 +1832,61 @@ line-height: 56rpx;
 	line-height: 40rpx;
 	margin: 0;
 }
-.huan_ls{
+.huan_ls {
 	border-top: 2rpx solid #e5e5e5;
 	padding-top: 18rpx;
 }
-.huan_ls button{
-    	width: 150rpx;
-    	height: 40rpx;
-    	background-color: #0eb77e;
-    	border-radius: 5rpx;
-		line-height: 40rpx;
-		text-align: center;
+.huan_ls button {
+	width: 150rpx;
+	height: 40rpx;
+	background-color: #0eb77e;
+	border-radius: 5rpx;
+	line-height: 40rpx;
+	text-align: center;
 }
-.huan_ls_tishi{
+.huan_ls_tishi {
 	border-bottom: 2rpx solid #e5e5e5;
 	padding-bottom: 18rpx;
 }
-.bg{
-	background-color: rgba(0,0,0,0.3);
+.bg {
+	background-color: rgba(0, 0, 0, 0.3);
 	width: 100%;
 	height: 100%;
 	position: fixed;
 	top: 0;
 	z-index: 99;
 }
-.tan_chaoshi{
+.tan_chaoshi {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width:628rpx;
+	width: 628rpx;
 	height: 510rpx;
 	background: url(../../static/img/chaoshi_bg.png) no-repeat;
 	background-size: 100% 100%;
-	transform: translate(-50%,-50%);
-	
+	transform: translate(-50%, -50%);
 }
-.tan_chaoshi button{
+.tan_chaoshi button {
 	width: 350rpx;
-		height: 60rpx;
-		background-image: linear-gradient(90deg, 
-			#11ba81 0%, 
-			#62f4bb 100%);
-		border-radius: 10rpx;
-		margin:40rpx auto 0;
-		line-height: 60rpx
-		;
+	height: 60rpx;
+	background-image: linear-gradient(90deg, #11ba81 0%, #62f4bb 100%);
+	border-radius: 10rpx;
+	margin: 40rpx auto 0;
+	line-height: 60rpx;
 }
-.tan_chaoshi_tishi{
+.tan_chaoshi_tishi {
 	font-size: 32rpx;
 	color: #666666;
 	text-align: center;
 	margin-top: 230rpx;
 }
-.tan_chaoshi_tishi view{
+.tan_chaoshi_tishi view {
 	margin-bottom: 10rpx;
 }
-.guanbi{
+.guanbi {
 	position: absolute;
 	bottom: -104rpx;
 	left: 50%;
-	transform: translate(-50%,0);
+	transform: translate(-50%, 0);
 }
 </style>

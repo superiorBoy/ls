@@ -10,7 +10,7 @@
 			<view class="pay_top">
 				<view class="pay_list ">
 					<text class="qian_30">服务项目</text>
-					<view class="zhuangtai lv_20">{{ item.zixunstate == 1 ? '未付款' : item.zixunstate == 2 ? '已付款' : item.zixunstate == 3 ? '接单中' : '已完成' }}</view>
+					<view class="zhuangtai lv_20">{{ item.zixunstate == 1 ? '未付款' : item.zixunstate == 2 ? '已付款' : item.zixunstate == 3 ? '接单中' : item.zixunstate == 4 ? '已完成': item.zixunstate == 5 ? '已取消':'' }}</view>
 					<text class="hei_30">电话咨询/20分钟</text>
 				</view>
 				<view class="pay_list height_auto dis_fir" v-if="lvshi">

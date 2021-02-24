@@ -89,6 +89,14 @@ export default {
 		},
 		login() {
 			var that=this
+			if(!this.isCheck){
+				uni.showToast({
+					title: '请同意用户协议和隐私政策',
+					duration: 2000,
+					icon: "none"
+				});
+				return false
+			}
 			if(this.dianji){
 				this.dianji=false
 				this.$http

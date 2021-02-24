@@ -56,7 +56,8 @@ export default {
 				}
 			],
 			level: '3',
-			num: 0
+			num: 0,
+			closenum:0
 		};
 	},
 	mounted() {
@@ -116,16 +117,18 @@ export default {
 				.then(res => {
 					if(res.data.user!=''){
 	                 console.log('login')
-						this.huoqunum()
+						
 						//  setInterval( () => {
 						//    	this.huoqunum()	
 						// }, 1000)
+						
 					}else{
 						console.log('no')
 					}
 				});
 		},
-		huoqunum(){
+		huoqu_xiaoxi_list(){
+			
 			console.log('获取未读')
 			this.$http
 				.post({
@@ -133,9 +136,25 @@ export default {
 				})
 				.then(res => {
 					if(res.code==0){
-					this.num=	res.data.messagecount
+					this.num=res.data.messagecount-this.closenum
 					}
 				});
+		},
+		huoqunum(){
+			this.$http
+				.post({
+					url: '/mapi/consult/messagelist'
+				})
+				.then(res => {
+					for (var i in res.data.messagelist){
+					if(!res.data.messagelist[i].user_to){
+						this.closenum+=res.data.messagelist[i].messagecount
+					}
+					}
+					console.log(this.closenum)
+					this.huoqu_xiaoxi_list()
+				});
+			
 		}
 	}
 };

@@ -40,7 +40,7 @@
 						</view>
 					</view>
 	      <view class="zixun_item_right">
-					<view :class="['',item.zixunstate == 4?'qian_26_bold':'lv_26_bold']">{{ item.zixunstate == 1 ? '未付款':item.zixunstate == 2?'已付款':item.zixunstate == 3?'接单中':item.zixunstate == 4?'已完成':item.zixunstate == 5?'已取消':'' }}</view>
+					<view :class="['',item.zixunstate == 4?'qian_26_bold':'lv_26_bold']">{{ item.zixunstate == 1 ? '未付款':item.zixunstate == 2?'已付款':item.zixunstate == 3?'接单中':item.zixunstate == 4?'已完成':item.zixunstate == 5?'已退款':item.zixunstate ==6?'已取消':'' }}</view>
 		<!-- 	<view class="zixun hong_20" @click="go_chat(item.lawyerid)">
 				<image src="@/static/lsimg/xiaoxi.png" mode=""></image>
 				在线联系
@@ -131,7 +131,7 @@
 		data() {
 			return {
 				img_url: uni.getStorageSync('img_url'),
-				tab_arry: ['全部', '未付款', '已付款','接单中','已完成','已取消'],
+				tab_arry: ['全部', '已付款','接单中','已完成','已退款','已取消'],
 				active: '0',
 				zhuangtai: '1',
 				name: '',
@@ -207,6 +207,8 @@
 					this.zixunstate=index
 			if(index==0){
 				this.zixunstate=''
+			}else {
+				this.zixunstate=index+1
 			}					this.page=0
 					this.type_id=''
 					this.name = ''
