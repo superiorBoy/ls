@@ -129,7 +129,9 @@
 		},
 		methods: {
 			navigateBack() {
-				uni.navigateBack()
+				uni.redirectTo({
+					url:'my'
+				})
 			},
 			// 获取律师擅长信息
 			get_shanchang() {

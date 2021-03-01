@@ -90,6 +90,10 @@ export default {
 	},
 	created() {},
 	onShow() {
+		
+		
+	},
+	onLoad() {
 		this.huoqu_xiaoxilist();
 		this.huoqu_user()
 		this.$http
@@ -104,9 +108,6 @@ export default {
 					
 				}
 			});
-		
-	},
-	onLoad() {
 		// #ifdef H5
 		this.connectSocketInit();
 		// #endif
@@ -134,12 +135,17 @@ export default {
 					url: '/mlawyerapi/user/getlawyer'
 				})
 				.then(res => {
+					if(!res.data.user){
+						uni.redirectTo({
+							url:'shiming_renzheng'
+						})
+					}
 					if(res.data.user.isreal==2){
-						uni.navigateTo({
+						uni.redirectTo({
 							url:'shiming_renzheng'
 						})
 					}else if(res.data.user.iszhiye==2){
-						uni.navigateTo({
+						uni.redirectTo({
 							url:'zhiye_renzheng'
 						})
 					}else{

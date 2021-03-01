@@ -962,7 +962,7 @@ export default {
 			});
 		},
 		go_chat(lawyerid) {
-			uni.navigateTo({
+			uni.redirectTo({
 				url: 'chat?lawyerid=' + lawyerid
 			});
 		},

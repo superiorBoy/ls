@@ -129,7 +129,9 @@
 		},
 		methods: {
 			navigateBack() {
-				uni.navigateBack()
+				uni.redirectTo({
+					url:'my'
+				})
 			},
 			up_zhiye() {
 				let that = this

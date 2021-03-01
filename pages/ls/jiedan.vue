@@ -109,7 +109,7 @@ export default {
 		tabBar
 	},
 	created() {},
-	onShow() {
+	onLoad() {
 		(this.list = []), this.huoqu_user();
 		this.$http
 			.post({
@@ -144,12 +144,17 @@ export default {
 					url: '/mlawyerapi/user/getlawyer'
 				})
 				.then(res => {
+					if(!res.data.user){
+						uni.redirectTo({
+							url:'shiming_renzheng'
+						})
+					}
 					if (res.data.user.isreal == 2) {
-						uni.navigateTo({
+						uni.redirectTo({
 							url: 'shiming_renzheng'
 						});
 					} else if (res.data.user.iszhiye == 2) {
-						uni.navigateTo({
+						uni.redirectTo({
 							url: 'zhiye_renzheng'
 						});
 					} else {
@@ -229,8 +234,6 @@ page {
 .jiedan_item_l{
 	display: flex;
 	align-items: center;
-	
-	
 }
 .jiedan_item_left {
 	position: relative;
