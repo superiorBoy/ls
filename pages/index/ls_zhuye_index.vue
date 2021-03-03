@@ -368,17 +368,30 @@ export default {
 	this.huoqu_pingjiatype()
 	this.huoqu_baojia()
 	// 检测是否关注
+	
 	this.$http
 		.post({
-			url: '/mapi/index/findbrowse',
-			data:{
-				state:2,
-				lawyerid:this.lawyerid
-			}
+			url: '/index/login/islogin'
 		})
 		.then(res => {
-			this.type=res.data.type
+			if(res.data.user!=''){
+				this.$http
+					.post({
+						url: '/mapi/index/findbrowse',
+						data:{
+							state:2,
+							lawyerid:this.lawyerid
+						}
+					})
+					.then(res => {
+						this.type=res.data.type
+					});
+				
+			}else{
+				
+			}
 		});
+
 	},
 	onShow() {
 	var aaa=this.decodeUnicode('["\u670d\u52a1\u4f18\u8d28","\u5b66\u8bc6\u6e0a\u535a","\u7ecf\u9a8c\u4e30\u5bcc","\u5f85\u4eba\u8bda\u6073","\u4e50\u4e8e\u52a9\u4eba","\u56de\u590d\u5f88\u5feb","\u5f62\u8c61\u4e13\u4e1a","\u503c\u5f97\u63a8\u8350"]')

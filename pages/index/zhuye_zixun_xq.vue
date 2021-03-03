@@ -180,17 +180,30 @@ export default {
 			this.wenid = option.id;
 		}
 		// 检测是否收藏
+		
 		this.$http
 			.post({
-				url: '/mapi/index/findbrowse',
-				data:{
-					state:1,
-					consultid:this.wenid
-				}
+				url: '/index/login/islogin'
 			})
 			.then(res => {
-				this.type=res.data.type
+				if(res.data.user!=''){
+					this.$http
+						.post({
+							url: '/mapi/index/findbrowse',
+							data:{
+								state:1,
+								consultid:this.wenid
+							}
+						})
+						.then(res => {
+							this.type=res.data.type
+						});
+					
+				}else{
+					
+				}
 			});
+		
 		
 	},
 	data() {

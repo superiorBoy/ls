@@ -437,17 +437,32 @@ export default {
 		this.huoqu_xinxi();
 		this.huoqu_baojia()
 		// 检测是否关注
+		
+		
 		this.$http
 			.post({
-				url: '/mapi/index/findbrowse',
-				data:{
-					state:2,
-					lawyerid:this.lawyerid
-				}
+				url: '/index/login/islogin'
 			})
 			.then(res => {
-				this.type=res.data.type
+				if(res.data.user!=''){
+					this.$http
+						.post({
+							url: '/mapi/index/findbrowse',
+							data:{
+								state:2,
+								lawyerid:this.lawyerid
+							}
+						})
+						.then(res => {
+							this.type=res.data.type
+						});
+					
+				}else{
+					
+				}
 			});
+		
+		
 	},
 	onShow() {
 		var aaa = this.decodeUnicode(

@@ -38,7 +38,7 @@
 					<image src="@/static/lsimg/ls_guanli3.png" mode=""></image><text class="hei_30 fuwu_leixing">在线咨询</text>结算金额￥<text class="hong_24">{{user.chatprice}}</text>/单
 				</view>
 				<view class="fuwu_list_right">
-					<switch name="switch" :disabled="true" @click="tanchu"/>
+					<switch name="switch" :disabled="true" @click="tanchu" :checked='kaiqi' color='#0eb77e'/>
 				</view>
 			</view>
 			<view class="fuwu_list">
@@ -46,7 +46,7 @@
 				  <image src="@/static/lsimg/ls_guanli4.png" mode=""></image> <text class="hei_30 fuwu_leixing">电话咨询</text>结算金额￥<text class="hong_24">{{user.phoneprice}}</text>/单
 				</view>
 				<view class="fuwu_list_right">
-					<switch name="switch" :disabled="true" @click="tanchu"/>
+					<switch name="switch" :disabled="true" @click="tanchu" :checked='kaiqi' color='#0eb77e'/>
 				</view>
 			</view>
 			</view>
@@ -77,7 +77,9 @@ export default {
           is_tan:false,
 		  user:'',
 		  lawyerauth:'',
-		  zhuanchang_arry:[]
+		  zhuanchang_arry:[],
+		  kaiqi:false,
+		  userid:''
 			
 		};
 	},
@@ -101,6 +103,8 @@ export default {
 					this.huoqu_lawyerauth();
 				});
 		
+		
+			this.huoqu_kaiqi()
 	},
 	onShow() {
 		
@@ -121,8 +125,47 @@ export default {
 					this.lawyerauth = res.data.lawyerauth;
 				});
 		},
+		huoqu_kaiqi(){
+			this.$http
+				.post({
+					url: '/mlawyerapi/consult/auto_match'
+				})
+				.then(res => {
+					if(res.data.lawyer){
+						// this.userid=res.data.lawyer.userid
+						
+						if(res.data.lawyer.auto_match==1){
+							this.kaiqi=true
+						}else{
+							this.kaiqi=false
+						}
+					}
+					
+					
+				});
+		},
 		tanchu(){
-			this.is_tan=true
+			if(!this.kaiqi){
+				this.is_tan=true
+			}else{
+				this.$http
+					.post({
+						url: '/mlawyerapi/consult/auto_matchclose'
+					})
+					.then(res => {
+						if(res.code==0){
+							uni.showToast({
+								title: '已关闭',
+								duration: 2000,
+								icon: 'none'
+							});
+							this.huoqu_kaiqi()
+						}
+						
+					});
+				
+			}
+			
 		},
 		close(){
 			this.is_tan=false

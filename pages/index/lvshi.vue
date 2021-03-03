@@ -293,7 +293,7 @@ export default {
 					this.lslist=this.lslist.concat(res.data.lawyer);
 					if (res.data.lawyer.length < 10) {
 						this.is_all = true;
-					}
+					} 
 				});
 		}
 	}

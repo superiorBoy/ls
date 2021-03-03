@@ -546,7 +546,11 @@ export default {
 			
 			//#ifdef APP-PLUS
 			var urlStr = encodeURI(this.down_url); //把字符串作为url进行编码
-			// plus.runtime.openURL(urlStr);
+			
+		if (uni.getSystemInfoSync().platform == 'ios') {
+			      plus.runtime.openURL(urlStr);
+		}else if (uni.getSystemInfoSync().platform === 'android') {
+			
 			var that=this
 		var dtask = plus.downloader.createDownload(
 		
@@ -615,6 +619,9 @@ export default {
 			  	duration: 1500
 			  });
 		  }	
+		  
+	}	  
+		  
 			//#endif
 		},
 		guanbi(){
