@@ -293,11 +293,11 @@
 				  		  				<image :src="img_url + user.photourl" mode=""></image>
 				  		  				<view class="send_pay_ls_riht">
 				  		  					<view class="end_pay_leixing hei_26">
-				  		  						电话咨询
+				  		  						在线咨询
 				  		  						<view class="hong_26">
 				  		  							&ensp;￥
 				  		  							<text class="style_hong_16_bold">{{item.consult.paymoney}}</text>
-				  		  							/20分钟
+				  		  							/天
 				  		  						</view>
 				  		  					</view>
 				  		  					<view class="hei_20">
@@ -309,7 +309,7 @@
 				  		  			<view class="send_pay_bottom hei_24">
 				  		  				<view>
 				  		  					手机号码：{{item.consult.phone}}
-				  		  					<text class="send_pay_call bai_24"@click="call2(item.consult.phone)">打电话给他</text>
+				  		  					<!-- <text class="send_pay_call bai_24"@click="call2(item.consult.phone)">打电话给他</text> -->
 				  		  				</view>
 				  		  				<view>咨询类型：{{item.consult.typename}}</view>
 				  		  				<view class="send_pay_bottom_neirong">咨询内容：{{item.consult.information}}</view>
@@ -493,11 +493,11 @@
 									<image :src="img_url + user.photourl" mode=""></image>
 									<view class="send_pay_ls_riht">
 										<view class="end_pay_leixing hei_26">
-											电话咨询
+											在线咨询
 											<view class="hong_26">
 												&ensp;￥
 												<text class="style_hong_16_bold">{{item.consult.paymoney}}</text>
-												/20分钟
+												/天
 											</view>
 										</view>
 										<view class="hei_20">
@@ -509,7 +509,7 @@
 								<view class="send_pay_bottom hei_24">
 									<view>
 										手机号码：{{item.consult.phone}}
-										<text class="send_pay_call bai_24"@click="call2(item.consult.phone)">打电话给他</text>
+										<!-- <text class="send_pay_call bai_24"@click="call2(item.consult.phone)">打电话给他</text> -->
 									</view>
 									<view>咨询类型：{{item.consult.typename}}</view>
 									<view class="send_pay_bottom_neirong">咨询内容：{{item.consult.information}}</view>

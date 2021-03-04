@@ -568,7 +568,7 @@ export default {
 				// },
 				extra: {
 					pie: {
-					  offsetAngle: -45,
+					  offsetAngle: 200,
 					  ringWidth: 40*_self.pixelRatio,
 					  labelWidth:15,
 					}, 
