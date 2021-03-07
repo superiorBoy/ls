@@ -4,7 +4,7 @@
 		<view class="">
 			<image v-if="item.url == currentPage" :src="item.imgClick" mode=""></image>
 		</view>	
-			<view class="" v-if="index != 2"><image v-if="item.url != currentPage" :src="item.imgNormal" mode=""></image></view>
+			<view class="" v-if="index != 2"><image v-if="item.url != currentPage" :src="item.imgNormal" mode="widthFix"></image></view>
 			<view class="tuqi" v-if="index == 2"><image :src="item.imgNormal" mode=""></image></view>
 
 			<text v-if="index == 3 && num > 0" class="weidu">{{ num }}</text>
@@ -57,7 +57,8 @@ export default {
 			],
 			level: '3',
 			num: 0,
-			closenum:0
+			closenum:0,
+			muban:''
 		};
 	},
 	mounted() {
@@ -73,6 +74,7 @@ export default {
 	},
 	created() {
 		uni.hideTabBar({});
+		this.huoqu_muban()
 		this.is_login()
 		this.$http
 			.post({
@@ -125,6 +127,28 @@ export default {
 					}else{
 						console.log('no')
 					}
+				});
+		},
+		huoqu_muban(){
+			
+			this.$http
+				.post({
+					url: '/mapi/index/getzhantemplate'
+				})
+				.then(res => {
+					if(res.data.template==2){
+						this.tabBar[0].imgNormal='/static/img/xh_tabber1.png'
+						this.tabBar[0].imgClick='/static/img/xh_tabber1_on.png'
+		                this.tabBar[1].imgNormal='/static/img/xh_tabber2.png'
+						this.tabBar[1].imgClick='/static/img/xh_tabber2_on.png'
+						this.tabBar[2].imgNormal='/static/img/xhfly.png'
+						this.tabBar[2].imgClick='/static/img/xhfly.png'
+						this.tabBar[3].imgNormal='/static/img/xh_tabber3.png'
+						this.tabBar[3].imgClick='/static/img/xh_tabber3_on.png'
+						this.tabBar[4].imgNormal='/static/img/xh_tabber4.png'
+						this.tabBar[4].imgClick='/static/img/xh_tabber4_on.png'
+					}
+					
 				});
 		},
 		huoqu_xiaoxi_list(){

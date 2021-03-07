@@ -32,11 +32,8 @@ export default {
 	},
 
 	onShow: function() {
-		
-	
-		
+
 		console.log('App Show');
-		
 	},
 	onHide: function() {
 		console.log('App Hide');
@@ -137,7 +134,7 @@ uni-checkbox:not([disabled]) .uni-checkbox-input:hover,uni-radio:not([disabled])
   	padding-top: 84rpx !important;
   }
   .chat_jiage{
-	  top: 158rpx !important;
+	  top: 156rpx !important;
   }
   .index_top_dingwei{
 	  padding-top: 74rpx !important;
