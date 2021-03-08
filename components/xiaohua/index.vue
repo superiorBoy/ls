@@ -339,8 +339,6 @@ export default {
 	methods: {
 		
 		shuxin_zujian(){
-			
-				
 				this.huo_qu_is_yaoqing();
 				this.huiqu_login();
 		
@@ -540,17 +538,19 @@ export default {
 		},
 		kaiqi() {
 			let that = this;
+			that.$refs.mainindex.huoqunum();
 			Object.assign(uni, socket);
 			console.log(Object.assign(uni, socket));
 			var url = that.$http.WebSocket_url;
 			socket.connectSocket({
-				url: 'ws://' + url + ':3348',
+				url: 'wss://' + url + ':3348',
 				success(data) {
-					console.log('websocket已连接', JSON.stringify(data));
+					// console.log('websocket已连接', JSON.stringify(data));
 				}
 			});
 			socket.onSocketOpen(function(res) {
 				console.log('WebSocket连接已打开！');
+				
 			});
 			socket.onSocketError(function(res) {
 				console.log('WebSocket连接打开失败，请检查！', JSON.stringify(res));
@@ -731,7 +731,7 @@ export default {
 					const geolocation = new BMap.Geolocation();
 					geolocation.getCurrentPosition(function(r) {
 						$.ajax({
-							url: 'http://api.map.baidu.com/geocoder/v2/?ak=eIxDStjzbtH0WtU50gqdXYCz&output=json&pois=1&location=' + r.latitude + ',' + r.longitude,
+							url: '//api.map.baidu.com/geocoder/v2/?ak=eIxDStjzbtH0WtU50gqdXYCz&output=json&pois=1&location=' + r.latitude + ',' + r.longitude,
 							type: 'GET',
 							async: false, //设置同步。ajax默认异步
 							dataType: 'jsonp',

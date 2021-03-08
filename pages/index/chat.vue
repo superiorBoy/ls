@@ -787,7 +787,6 @@ export default {
 									}
 								})
 								.then(ress => {
-									
 									// console.log(ress.data.lawyer, res.data.message[key]);
 									// res.data.message[key-1].city = ress.data.lawyer.city;
 									// res.data.message[key-1].province = ress.data.lawyer.province;
@@ -803,7 +802,7 @@ export default {
 						}
 					}
 
-					console.log(res.data.message);
+					// console.log(res.data.message);
 					this.message = res.data.message;
 
 					setTimeout(() => {
@@ -844,12 +843,13 @@ export default {
 		app_lianjie() {
 			let that = this;
 			Object.assign(uni, socket);
-			console.log(Object.assign(uni, socket));
+			// console.log(Object.assign(uni, socket));
 			var url = that.$http.WebSocket_url;
 
 			socket.connectSocket({
-				url: 'ws://' + url + ':3348',
+				url: 'wss://' + url + ':3348',
 				success(data) {
+					console.log(url);
 					console.log('websocket已连接', JSON.stringify(data));
 				}
 			});
@@ -892,43 +892,37 @@ export default {
 				} else if (data.type == 'say') {
 					console.log('say');
 					if (data.state) {
-						
-						if(data.state==9){
-							if(data.userid){
-								
-							
-						 this.$http
-							.post({
-								url: '/mapi/lawyer/lawyer',
-								data: {
-									lawyerid: data.userid
-								}
-							})
-							.then(ress => {
-								var xiaoxi = {
-									photourl_form: data.userid_from_pic,
-									userid_to: data.userid_to,
-									photourl_to: data.userid_to_pic,
-									content: data.msg,
-									msgtype: data.state,
-									userid_from: that.ls_id,
-									city: ress.data.lawyer.city,
-									province: ress.data.lawyer.province,
-									area: ress.data.lawyer.area,
-									photourl: ress.data.lawyer.photourl,
-									lvsuo: ress.data.lawyer.lvsuo,
-									nickname: ress.data.lawyer.nickname,
-									expertise1: ress.data.lawyer.expertise1,
-									expertise2:  ress.data.lawyer.expertise2,
-									expertise3: ress.data.lawyer.expertise3,
-									
-								};
-								that.message.push(xiaoxi);
-								
-								
-							});	
+						if (data.state == 9) {
+							if (data.userid) {
+								this.$http
+									.post({
+										url: '/mapi/lawyer/lawyer',
+										data: {
+											lawyerid: data.userid
+										}
+									})
+									.then(ress => {
+										var xiaoxi = {
+											photourl_form: data.userid_from_pic,
+											userid_to: data.userid_to,
+											photourl_to: data.userid_to_pic,
+											content: data.msg,
+											msgtype: data.state,
+											userid_from: that.ls_id,
+											city: ress.data.lawyer.city,
+											province: ress.data.lawyer.province,
+											area: ress.data.lawyer.area,
+											photourl: ress.data.lawyer.photourl,
+											lvsuo: ress.data.lawyer.lvsuo,
+											nickname: ress.data.lawyer.nickname,
+											expertise1: ress.data.lawyer.expertise1,
+											expertise2: ress.data.lawyer.expertise2,
+											expertise3: ress.data.lawyer.expertise3
+										};
+										that.message.push(xiaoxi);
+									});
 							}
-						}else{
+						} else {
 							var xiaoxi = {
 								photourl_form: data.userid_from_pic,
 								userid_to: data.userid_to,
@@ -939,7 +933,6 @@ export default {
 							};
 							that.message.push(xiaoxi);
 						}
-							
 
 						setTimeout(() => {
 							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
@@ -1045,13 +1038,13 @@ export default {
 
 		// },
 		up_img() {
-			let that = this;
+			var that = this;
 			uni.chooseImage({
 				success(res) {
 					console.log(res);
 					// that.zhiye_zhao = res.tempFilePaths[0];
-
 					// that.urlTobase64(res.tempFilePaths[0])
+					//#ifdef H5
 					uni.request({
 						url: res.tempFilePaths[0],
 						method: 'GET',
@@ -1069,14 +1062,76 @@ export default {
 									}
 								})
 								.then(res => {
+									console.log(res, '888');
 									if (res.code == 0) {
 										that.send_img(res.data.img);
 									}
 								});
 						}
 					});
+
+					//#endif
+
+					//#ifdef APP-PLUS
+					let path = that.getLocalFilePath(res.tempFilePaths[0]);
+					plus.io.resolveLocalFileSystemURL(
+						path,
+						function(entry) {
+							entry.file(
+								function(file) {
+									var fileReader = new plus.io.FileReader();
+									fileReader.onload = function(data) {
+										that.$http
+											.post({
+												url: '/index/zixun/uploadimgmessage',
+												data: {
+													img: data.target.result
+												}
+											})
+											.then(res => {
+												if (res.code == 0) {
+													that.send_img(res.data.img);
+												}
+											});
+									};
+									fileReader.onerror = function(error) {
+										console.log(error);
+									};
+									fileReader.readAsDataURL(file);
+								},
+								function(error) {
+									console.log(error);
+								}
+							);
+						},
+						function(error) {
+							console.log(error);
+						}
+					);
+
+					//#endif
 				}
 			});
+		},
+		getLocalFilePath(path) {
+			if (path.indexOf('_www') === 0 || path.indexOf('_doc') === 0 || path.indexOf('_documents') === 0 || path.indexOf('_downloads') === 0) {
+				return path;
+			}
+			if (path.indexOf('file://') === 0) {
+				return path;
+			}
+			if (path.indexOf('/storage/emulated/0/') === 0) {
+				return path;
+			}
+			if (path.indexOf('/') === 0) {
+				var localFilePath = plus.io.convertAbsoluteFileSystem(path);
+				if (localFilePath !== path) {
+					return localFilePath;
+				} else {
+					path = path.substr(1);
+				}
+			}
+			return '_www/' + path;
 		},
 		send_img(img) {
 			this.$http
@@ -1192,7 +1247,7 @@ export default {
 		connectSocketInit() {
 			let that = this;
 			var url = window.location.host;
-			var ws = new WebSocket('ws://' + url + ':3348');
+			var ws = new WebSocket('wss://' + url + ':3348');
 			ws.onopen = function(evt) {
 				console.log('Connection open ...');
 				// ws.send("你好");
@@ -1219,41 +1274,35 @@ export default {
 				} else if (data.type == 'say') {
 					console.log('say');
 					if (data.state) {
-						
-						if(data.state==9){
-							
-						this.$http
-							.post({
-								url: '/mapi/lawyer/lawyer',
-								data: {
-									lawyerid: data.userid
-								}
-							})
-							.then(ress => {
-								var xiaoxi = {
-									photourl_form: data.userid_from_pic,
-									userid_to: data.userid_to,
-									photourl_to: data.userid_to_pic,
-									content: data.msg,
-									msgtype: data.state,
-									userid_from: that.ls_id,
-									city: ress.data.lawyer.city,
-									province: ress.data.lawyer.province,
-									area: ress.data.lawyer.area,
-									photourl: ress.data.lawyer.photourl,
-									lvsuo: ress.data.lawyer.lvsuo,
-									nickname: ress.data.lawyer.nickname,
-									expertise1: ress.data.lawyer.expertise1,
-									expertise2:  ress.data.lawyer.expertise2,
-									expertise3: ress.data.lawyer.expertise3,
-									
-								};
-								that.message.push(xiaoxi);
-								
-								
-							});	
-							
-						}else{
+						if (data.state == 9) {
+							this.$http
+								.post({
+									url: '/mapi/lawyer/lawyer',
+									data: {
+										lawyerid: data.userid
+									}
+								})
+								.then(ress => {
+									var xiaoxi = {
+										photourl_form: data.userid_from_pic,
+										userid_to: data.userid_to,
+										photourl_to: data.userid_to_pic,
+										content: data.msg,
+										msgtype: data.state,
+										userid_from: that.ls_id,
+										city: ress.data.lawyer.city,
+										province: ress.data.lawyer.province,
+										area: ress.data.lawyer.area,
+										photourl: ress.data.lawyer.photourl,
+										lvsuo: ress.data.lawyer.lvsuo,
+										nickname: ress.data.lawyer.nickname,
+										expertise1: ress.data.lawyer.expertise1,
+										expertise2: ress.data.lawyer.expertise2,
+										expertise3: ress.data.lawyer.expertise3
+									};
+									that.message.push(xiaoxi);
+								});
+						} else {
 							var xiaoxi = {
 								photourl_form: data.userid_from_pic,
 								userid_to: data.userid_to,
@@ -1264,8 +1313,7 @@ export default {
 							};
 							that.message.push(xiaoxi);
 						}
-						
-						
+
 						setTimeout(() => {
 							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 						}, 100);

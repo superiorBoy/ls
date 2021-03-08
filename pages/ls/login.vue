@@ -19,7 +19,7 @@
 					<image :src="yan1_zhuangtai" mode="" @click="chakan()" :class="['yanjing', type1 == 'text' ? 'kai' : 'guan']"></image>
 				</view>
 
-				<view class="wangji_mima hong_28">忘记密码？</view>
+				<navigator url="../index/forget"class="wangji_mima hong_28">忘记密码？</navigator>
 
 				<view class="xieyi qian_24">
 					<checkbox :checked="isCheck" @click="checkBox($event)" />

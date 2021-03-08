@@ -772,7 +772,7 @@ export default {
 			var url = that.$http.WebSocket_url;
 
 			socket.connectSocket({
-				url: 'ws://' + url + ':3348',
+				url: 'wss://' + url + ':3348',
 				success(data) {
 					console.log('websocket已连接', JSON.stringify(data));
 				}
@@ -1045,6 +1045,9 @@ export default {
 					// that.zhiye_zhao = res.tempFilePaths[0];
 
 					// that.urlTobase64(res.tempFilePaths[0])
+					
+						//#ifdef H5
+					
 					uni.request({
 						url: res.tempFilePaths[0],
 						method: 'GET',
@@ -1068,8 +1071,74 @@ export default {
 								});
 						}
 					});
+					//#endif
+					
+				
+				//#ifdef APP-PLUS
+				let path = that.getLocalFilePath(res.tempFilePaths[0]);
+				plus.io.resolveLocalFileSystemURL(
+					path,
+					function(entry) {
+						entry.file(
+							function(file) {
+								var fileReader = new plus.io.FileReader();
+								fileReader.onload = function(data) {
+									
+				
+									that.$http
+										.post({
+											url: '/index/zixun/uploadimgmessage',
+											data: {
+												img: data.target.result
+											}
+										})
+										.then(res => {
+											if (res.code == 0) {
+												that.send_img(res.data.img);
+											}
+										});
+								};
+								fileReader.onerror = function(error) {
+									console.log(error);
+								};
+								fileReader.readAsDataURL(file);
+							},
+							function(error) {
+								console.log(error);
+							}
+						);
+					},
+					function(error) {
+						console.log(error);
+					}
+				);
+				
+				//#endif	
+					
+					
 				}
 			});
+		},
+		getLocalFilePath(path) {
+			console.log('getLocalFilePath', '111');
+			if (path.indexOf('_www') === 0 || path.indexOf('_doc') === 0 || path.indexOf('_documents') === 0 || path.indexOf('_downloads') === 0) {
+				return path;
+			}
+			if (path.indexOf('file://') === 0) {
+				return path;
+			}
+			if (path.indexOf('/storage/emulated/0/') === 0) {
+				return path;
+			}
+			if (path.indexOf('/') === 0) {
+				var localFilePath = plus.io.convertAbsoluteFileSystem(path);
+				if (localFilePath !== path) {
+					return localFilePath;
+				} else {
+					path = path.substr(1);
+				}
+			}
+			return '_www/' + path;
 		},
 		send_img(img) {
 			this.$http
@@ -1117,7 +1186,7 @@ export default {
 			let that = this;
 			var url = window.location.host;
 			console.log(url);
-			var ws = new WebSocket('ws://' + url + ':3348');
+			var ws = new WebSocket('wss://' + url + ':3348');
 			ws.onopen = function(evt) {
 				console.log('Connection open ...');
 				// ws.send("你好");

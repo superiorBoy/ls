@@ -283,7 +283,7 @@ export default {
 			var that=this
 			var url = that.$http.WebSocket_url;
 			socket.closeSocket({
-			  url: 'ws://' + url + ':3348',
+			  url: 'wss://' + url + ':3348',
 			});
 
 			socket.onSocketClose(function (res) {
@@ -389,7 +389,7 @@ export default {
 	   	console.log(Object.assign(uni, socket));
 	   	var url = that.$http.WebSocket_url;
 	   	socket.connectSocket({
-	   		url: 'ws://' + url + ':3348',
+	   		url: 'wss://' + url + ':3348',
 	   		success(data) {
 	   			console.log('websocket已连接', JSON.stringify(data));
 	   		}

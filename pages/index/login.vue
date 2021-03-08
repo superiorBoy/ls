@@ -18,8 +18,7 @@
 					<input :type="type1" value="" placeholder="请设置一个最少6位的密码" @input="mimashu" />
 					<image :src="yan1_zhuangtai" mode="" @click="chakan()" :class="['yanjing', type1 == 'text' ? 'kai' : 'guan']"></image>
 				</view>
-
-				<view class="wangji_mima hong_28">忘记密码？</view>
+           <navigator url="forget"class="wangji_mima hong_28">忘记密码？</navigator>
 
 				<view class="xieyi qian_24">
 					<checkbox :checked="isCheck" @click="checkBox($event)" />

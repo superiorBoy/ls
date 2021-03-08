@@ -167,7 +167,7 @@ app_lianjie() {
 			var url = that.$http.WebSocket_url;
 
 			socket.connectSocket({
-				url: 'ws://' + url + ':3348',
+				url: 'wss://' + url + ':3348',
 				success(data) {
 					console.log('websocket已连接', JSON.stringify(data));
 				}
@@ -272,7 +272,7 @@ app_lianjie() {
 			connectSocketInit() {
 				let that = this;
 				var url = window.location.host;
-				var ws = new WebSocket('ws://' + url + ':3348');
+				var ws = new WebSocket('wss://' + url + ':3348');
 				ws.onopen = function(evt) {
 					console.log('Connection open ...');
 					// ws.send("你好");

@@ -229,7 +229,7 @@ export default {
 			
 
 			var cun_dizhi = uni.getStorageSync('dizhi');
-			if (cun_dizhi) {
+			if (cun_dizhi.sheng!=undefined) {
 				this.dizhi = cun_dizhi.sheng + '-' + cun_dizhi.shi + '-' + cun_dizhi.qu;
 			}
 		}

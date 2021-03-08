@@ -175,7 +175,7 @@ export default {
 						this.closenum+=res.data.messagelist[i].messagecount
 					}
 					}
-					console.log(this.closenum)
+					// console.log(this.closenum)
 					this.huoqu_xiaoxi_list()
 				});
 			
