@@ -81,15 +81,18 @@
 							</view>
 							<view class="qian_26 txt_over">
 								
-								<view class="xiaoxi_title" v-if="item.msgtype==1">
+								<view class="xiaoxi_title" v-if="item.msgtype==1 && item.iswithdraw!=1">
 							<u-parse :content="replace_em(item.content)"></u-parse>	
 								</view>
 								<!-- <view class="" v-if="item.msgtype==2">
 									[图片]
 								</view> -->
-								<view class="" v-if="item.msgtype!=1">
+								<view class="" v-if="item.msgtype!=1 && item.iswithdraw!=1">
 								{{item.msgtype==2?'[图片]':item.msgtype==3?'[电话咨询]':item.msgtype==4?'[在线咨询]':item.msgtype==5?'[欢迎]':item.msgtype==6?'[电话咨询付费]':item.msgtype==7?'[在线咨询付费]':item.msgtype==8?'[订购]':item.msgtype==9?'[咨询超时]':item.content}}
 								</view>
+								<view class="" v-if="item.iswithdraw==1">
+								[撤回了一条消息]
+									</view>
 							</view>
 						</view>
 					</view>

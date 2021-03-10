@@ -64,8 +64,7 @@ export default {
 	z-index: 99;
 	box-sizing: border-box;
 	align-items: center;	
-}
-
+} 
 .head_back,.head_center,.head_right{width: 33%;}
 .head_center{text-align: center;}
 .head_right{text-align: right;}

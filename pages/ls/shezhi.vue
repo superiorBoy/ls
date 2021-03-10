@@ -119,6 +119,8 @@
 						// that.zhiye_zhao = res.tempFilePaths[0];
 						console.log(that.logo)
 						// that.urlTobase64(res.tempFilePaths[0])
+							//#ifdef H5
+						
 						uni.request({
 							url: res.tempFilePaths[0],
 							method: 'GET',
@@ -130,8 +132,57 @@
 								that.logo = base64;
 							}
 						})
+						//#endif
+						//#ifdef APP-PLUS
+						
+						let path = that.getLocalFilePath(res.tempFilePaths[0]);
+						plus.io.resolveLocalFileSystemURL(
+							path,
+							function(entry) {
+								entry.file(
+									function(file) {
+										var fileReader = new plus.io.FileReader();
+										fileReader.onload = function(data) {
+											that.logo = data.target.result;	
+										};
+										fileReader.onerror = function(error) {
+											console.log(error);
+										};
+										fileReader.readAsDataURL(file);
+									},
+									function(error) {
+										console.log(error);
+									}
+								);
+							},
+							function(error) {
+								console.log(error);
+							}
+						);
+						
+						//#endif
 					}
 				})
+			},
+			getLocalFilePath(path) {
+				if (path.indexOf('_www') === 0 || path.indexOf('_doc') === 0 || path.indexOf('_documents') === 0 || path.indexOf('_downloads') === 0) {
+					return path;
+				}
+				if (path.indexOf('file://') === 0) {
+					return path;
+				}
+				if (path.indexOf('/storage/emulated/0/') === 0) {
+					return path;
+				}
+				if (path.indexOf('/') === 0) {
+					var localFilePath = plus.io.convertAbsoluteFileSystem(path);
+					if (localFilePath !== path) {
+						return localFilePath;
+					} else {
+						path = path.substr(1);
+					}
+				}
+				return '_www/' + path;
 			},
 			save() {
 

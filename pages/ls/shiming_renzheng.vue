@@ -103,20 +103,23 @@
 					
 					if(res.data.lawyerauth){
 						
-						if(res.data.lawyerauth.isreal==1){
-							this.tijiao_txt='提交修改'
-						}else if(res.data.lawyerauth.isreal==4){
-								this.tijiao_txt='认证中'
-					      }else if(res.data.lawyerauth.isreal==3){
-								this.tijiao_txt='失败：'+res.data.lawyerauth.reason
-					       }
-						
 						this.name=res.data.lawyerauth.nickname
 						this.danxuan=res.data.lawyerauth.sexid
 						this.zhiye_zhao=this.img_url+res.data.lawyerauth.photourl
 						this.shenfenhao=res.data.lawyerauth.idcard
 						this.zheng_img=this.img_url+res.data.lawyerauth.idcardfront
 						this.fan_img=this.img_url+res.data.lawyerauth.idcardback
+						if(res.data.lawyerauth.isreal==1){
+							this.tijiao_txt='提交修改'
+						}else if(res.data.lawyerauth.isreal==4){
+								this.tijiao_txt='认证中'
+					      }else if(res.data.lawyerauth.isreal==3){
+								this.tijiao_txt='失败：'+res.data.lawyerauth.realreason
+								this.zhiye_zhao=''
+								this.zheng_img=''
+								this.fan_img=''
+					       }
+						
 						
 						
 					}
@@ -138,9 +141,11 @@
 				uni.chooseImage({
 					success(res) {
 						console.log(res)
-						// that.zhiye_zhao = res.tempFilePaths[0];
-						console.log(that.zhiye_zhao)
+						that.zhiye_zhao = res.tempFilePaths[0];
+						
 						// that.urlTobase64(res.tempFilePaths[0])
+					//#ifdef H5	
+						
 						uni.request({
 							url: res.tempFilePaths[0],
 							method: 'GET',
@@ -152,8 +157,59 @@
 								that.zhiye_zhao = base64;
 							}
 						})
+					//#endif	
+					
+					//#ifdef APP-PLUS
+					let path = that.getLocalFilePath(res.tempFilePaths[0]);
+					plus.io.resolveLocalFileSystemURL(
+						path,
+						function(entry) {
+							entry.file(
+								function(file) {
+									var fileReader = new plus.io.FileReader();
+									fileReader.onload = function(data) {
+										that.zhiye_zhao = data.target.result;	
+									};
+									fileReader.onerror = function(error) {
+										console.log(error);
+									};
+									fileReader.readAsDataURL(file);
+								},
+								function(error) {
+									console.log(error);
+								}
+							);
+						},
+						function(error) {
+							console.log(error);
+						}
+					);
+					
+					//#endif
+					
+
 					}
 				})
+			},
+			getLocalFilePath(path) {
+				if (path.indexOf('_www') === 0 || path.indexOf('_doc') === 0 || path.indexOf('_documents') === 0 || path.indexOf('_downloads') === 0) {
+					return path;
+				}
+				if (path.indexOf('file://') === 0) {
+					return path;
+				}
+				if (path.indexOf('/storage/emulated/0/') === 0) {
+					return path;
+				}
+				if (path.indexOf('/') === 0) {
+					var localFilePath = plus.io.convertAbsoluteFileSystem(path);
+					if (localFilePath !== path) {
+						return localFilePath;
+					} else {
+						path = path.substr(1);
+					}
+				}
+				return '_www/' + path;
 			},
 			up_zheng() {
 				let that = this
@@ -163,6 +219,9 @@
 						// that.zheng_img = res.tempFilePaths[0];
 						console.log(that.zhiye_zhao)
 						// that.urlTobase64(res.tempFilePaths[0])
+						
+						//#ifdef H5
+						
 						uni.request({
 							url: res.tempFilePaths[0],
 							method: 'GET',
@@ -174,6 +233,36 @@
 								that.zheng_img = base64;
 							}
 						})
+						//#endif
+						
+						//#ifdef APP-PLUS
+						
+						let path = that.getLocalFilePath(res.tempFilePaths[0]);
+						plus.io.resolveLocalFileSystemURL(
+							path,
+							function(entry) {
+								entry.file(
+									function(file) {
+										var fileReader = new plus.io.FileReader();
+										fileReader.onload = function(data) {
+											that.zheng_img = data.target.result;	
+										};
+										fileReader.onerror = function(error) {
+											console.log(error);
+										};
+										fileReader.readAsDataURL(file);
+									},
+									function(error) {
+										console.log(error);
+									}
+								);
+							},
+							function(error) {
+								console.log(error);
+							}
+						);
+						
+						//#endif
 					}
 				})
 			},
@@ -185,6 +274,8 @@
 
 						console.log(that.zhiye_zhao)
 						// that.urlTobase64(res.tempFilePaths[0])
+						
+						//#ifdef H5
 						uni.request({
 							url: res.tempFilePaths[0],
 							method: 'GET',
@@ -196,6 +287,37 @@
 								that.fan_img = base64;
 							}
 						})
+							//#endif
+						//#ifdef APP-PLUS
+						
+						let path = that.getLocalFilePath(res.tempFilePaths[0]);
+						plus.io.resolveLocalFileSystemURL(
+							path,
+							function(entry) {
+								entry.file(
+									function(file) {
+										var fileReader = new plus.io.FileReader();
+										fileReader.onload = function(data) {
+											that.fan_img = data.target.result;	
+										};
+										fileReader.onerror = function(error) {
+											console.log(error);
+										};
+										fileReader.readAsDataURL(file);
+									},
+									function(error) {
+										console.log(error);
+									}
+								);
+							},
+							function(error) {
+								console.log(error);
+							}
+						);
+						
+						//#endif
+						
+						
 					}
 				})
 			},
@@ -258,9 +380,11 @@
                	var url='/lawyer/lawyer/zx_shiming_rz'
                }else if(this.tijiao_txt=='认证中'){
                	    return  false
-               }else{
+               }else if(this.tijiao_txt=='提交修改'){
                	var url='/lawyer/lawyer/uprealname'
-               }
+               }else{
+				   var url='/lawyer/lawyer/zx_shiming_rz'
+			   }
 
 
 
@@ -340,6 +464,7 @@
 	.renzheng_btn {
 		padding-left: 30rpx;
 		padding-right: 30rpx;
+		padding-bottom: 50rpx;
 	}
 
 	.up_zheng,
@@ -376,7 +501,8 @@
 		height: 89rpx;
 		background-color: #F43A51;
 		border-radius: 44rpx;
-		margin-top: 300rpx;
+		margin-top: 200rpx;
+		
 		line-height: 89rpx;
 	}
 

@@ -136,7 +136,7 @@
 				<view class="time qian_20" v-if="message != ''">{{ message[0].addtime | timeStamp }}</view>
 				<view v-for="(item, index) in message">
 					<view class="time qian_20" v-if="index > 1 && message[index].addtime - message[index - 1].addtime > 300">{{ message[index].addtime | timeStamp }}</view>
-					<view class="chat_list chat_right" v-if="item.userid_from != userid &&item.msgtype == 2">
+					<view class="chat_list chat_right" v-if="item.userid_from != userid &&item.msgtype == 2 &&item.iswithdraw!=1" @longpress="changan(item.messageid)">
 						<view class="chat_right_txt hei_30">
 							<!-- {{item.content}} -->
 							<!-- <image :src="url+img"  mode="" v-if="item.msgtype==4" style="height: 40rpx;width: 40rpx;"></image> -->
@@ -146,7 +146,7 @@
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
-          <view class="chat_list chat_right" v-if="item.userid_from != userid &&item.msgtype == 1">
+          <view class="chat_list chat_right" v-if="item.userid_from != userid &&item.msgtype == 1 &&item.iswithdraw!=1" @longpress="changan(item.messageid,item.content)">
           	<view class="chat_right_txt hei_30">
           		<!-- {{item.content}} -->
           		<!-- <image :src="url+img"  mode="" v-if="item.msgtype==4" style="height: 40rpx;width: 40rpx;"></image> -->
@@ -157,7 +157,7 @@
           	</view>
           	<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
           </view>
-		  <view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype==3">
+		  <view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype==3 &&item.iswithdraw!=1" @longpress="changan(item.messageid)">
 		  	<view class="chat_right_txt hei_30">
 		  		<view class="send_jia_html">
 		  			<view class="send_jia_top">
@@ -196,7 +196,7 @@
 		  	<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 		  </view>
 		  
-		  <view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype==4">
+		  <view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype==4 &&item.iswithdraw!=1" @longpress="changan(item.messageid)">
 		  	<view class="chat_right_txt hei_30">
 		  		<view class="send_jia_html">
 		  			<view class="send_jia_top">
@@ -234,7 +234,7 @@
 		  	</view>
 		  	<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 		  </view>
- <view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype==5">
+ <view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype==5 &&item.iswithdraw!=1" @longpress="changan(item.messageid)">
 		  	<view class="chat_right_txt hei_30">
 		  		<view class="send_xuanze hei_26">
 		  			<view>描述完之后，选择一下您方便的咨询的方式：</view>
@@ -245,7 +245,7 @@
 		  	</view>
 		  	<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 		  </view>
-		  <view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype==6">
+		  <view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype==6 &&item.iswithdraw!=1" @longpress="changan(item.messageid)">
 		  		  	<view class="chat_right_txt hei_30">
 		  		  		<view class="send_fukuan_success">
 		  		  			<view class="lv_26 send_fukuan_title">
@@ -282,7 +282,7 @@
 		  		  	</view>
 		  		  	<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 		  		  </view>
-				  <view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype==7">
+				  <view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype==7 &&item.iswithdraw!=1" @longpress="changan(item.messageid)">
 				  		  	<view class="chat_right_txt hei_30">
 				  		  		<view class="send_fukuan_success">
 				  		  			<view class="lv_26 send_fukuan_title">
@@ -319,7 +319,7 @@
 				  		  	</view>
 				  		  	<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 				  		  </view>
-		  <view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype==8">
+		  <view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype==8 &&item.iswithdraw!=1" @longpress="changan(item.messageid)">
 		  		  	<view class="chat_right_txt hei_30">
 		  		  		<view class="send_xuanze hei_26">
 		  		  			<view class="">
@@ -333,7 +333,10 @@
 		  		  	</view>
 		  		  	<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 		  		  </view>
-					<view class="chat_list chat_left" v-if="item.userid_from == userid &&item.msgtype == 1">
+				  <view class=" chat_chehui_tishi hei_26" v-if="item.userid_from != userid &&item.iswithdraw==1" >
+				       <text class="chat_chehui_tishi_txt">你撤回了一条消息</text> 
+				  </view>
+					<view class="chat_list chat_left" v-if="item.userid_from == userid &&item.msgtype == 1&&item.iswithdraw!=1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
@@ -341,7 +344,7 @@
 							<view v-if="item.msgtype == 1"><u-parse :content="replace_em(item.content)"></u-parse></view>
 						</view>
 					</view>
-					<view class="chat_list chat_left" v-if="item.userid_from == userid &&item.msgtype == 2">
+					<view class="chat_list chat_left" v-if="item.userid_from == userid &&item.msgtype == 2&&item.iswithdraw!=1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
@@ -350,7 +353,7 @@
 						</view>
 					</view>
 					
-					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==3">
+					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==3&&item.iswithdraw!=1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
@@ -390,7 +393,7 @@
 						</view>
 					</view>
 					
-					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==4">
+					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==4&&item.iswithdraw!=1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
@@ -429,7 +432,7 @@
 							
 						</view>
 					</view>
-					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==5">
+					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==5&&item.iswithdraw!=1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
@@ -442,7 +445,7 @@
 							
 						</view>
 					</view>
-					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==6">
+					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==6&&item.iswithdraw!=1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
@@ -480,7 +483,7 @@
 							
 						</view>
 					</view>
-					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==7">
+					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==7&&item.iswithdraw!=1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
@@ -518,7 +521,7 @@
 							
 						</view>
 					</view>
-					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==8">
+					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype==8&&item.iswithdraw!=1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
@@ -534,14 +537,19 @@
 						</view>
 					</view>
 					
-					<view class="chat_list chat_left" v-if="item.msgtype==9">
+					<view class="chat_list chat_left" v-if="item.msgtype==9&&item.iswithdraw!=1">
 						<image src="@/static/img/xitong.png" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							系统提示，由于您超时未服务，订单已取消
 						</view>
 					</view>
+					<view class=" chat_chehui_tishi hei_26" v-if="item.userid_from == userid &&item.iswithdraw==1" >
+					     <text class="chat_chehui_tishi_txt"> “{{title}}”撤回了一条消息 </text> 
+					</view>
 					
-					
+				</view>
+				<view class=" chat_chehui_tishi hei_26" v-if="is_zuijin_chehui" >
+				     <text class="chat_chehui_tishi_txt"> 你撤回了一条消息<text class="lv_26" @click="bianji">重新编辑</text> </text> 
 				</view>
 
 				<!-- 	<view class="chat_list chat_left">
@@ -587,6 +595,22 @@
 				</view>
 			</view>
 		</view>
+		
+	<view class="bg" v-if="is_chehui">
+		<view class="chehui">
+			<view class="qian_28 chehui_title">
+				是否撤销该条消息？
+			</view>
+			<view class="lv_32 chehui_queding" @click="che_queding">
+				确定
+			</view>
+			<view class="qian_32 chehui_quxiao" @click="che_quxiao">
+				取消
+			</view>
+		</view>
+	</view>	
+		
+		
 	</view>
 </template>
 
@@ -667,7 +691,12 @@ export default {
 			minute:'00',
 			seconds:'00',
 			time1:'0',
-			zixuncount:''
+			zixuncount:'',
+			is_chehui:false,
+			messageid:'',
+			canClick:true,
+			is_zuijin_chehui:false,
+			zuijin_txt:''
 		};
 	},
 	//下拉刷新
@@ -698,7 +727,57 @@ export default {
 		navigateBack() {
 			uni.navigateBack();
 		},
-
+		bianji(){
+			this.chat_txt=this.zuijin_txt
+		},
+       changan(messageid,txt){
+		   if(txt){		
+		   	  this.zuijin_txt=txt
+		   }else{
+			   this.zuijin_txt=''
+		   }
+			 console.log(messageid)
+			 this.messageid=messageid
+			this.is_chehui=true
+		 },
+		 che_queding(){
+			 
+			 
+			 this.$http
+			 	.post({
+			 		url: '/lawyer/index/withdraw',
+			 		data: {
+			 			messageid: this.messageid
+			 		}
+			 	})
+			 	.then(res => {
+			 		if (res.code == 0) {
+						uni.showToast({
+							title: '消息已撤回',
+							duration: 2000
+						});
+			 			this.message.forEach((item, index, array) => {
+			 			if(item.messageid==this.messageid){
+			 							 this.message.splice(index,1)
+			 			}
+			 			});
+						
+			 			this.is_chehui=false
+			 			if(this.zuijin_txt!=''){
+			 				this.is_zuijin_chehui=true
+			 			}else{
+			 				this.is_zuijin_chehui=false
+							this.chat_txt=''
+			 			}
+			 		}
+			 	}); 
+			 
+			 
+			
+		 },
+		 che_quxiao(){
+		     this.is_chehui=false
+		 },
 		huoqu_xiaoxi_list() {
 			var that=this
 			this.$http
@@ -892,15 +971,38 @@ export default {
 			}
 		},
 		send() {
-			console.log(this.chat_txt);
+			var that=this
+            if(this.chat_txt==''){
+				uni.showToast({
+					title: '请输入内容',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false
+			}
+	        if(this.canClick){
+					this.canClick = false;
+					this.send_txt()
+					setTimeout(function(){
+						that.canClick = true;
+					},1000)
+				}else{
+					uni.showToast({
+						title: '请稍后发送',
+						duration: 2000,
+						icon: 'none'
+					});
+				}		
 
+		},
+		send_txt(){
 			var data = {
 				content: '' + this.chat_txt,
 				userid_from: '' + this.id
 			};
-
+			
 			var txt = this.replace_em(this.chat_txt);
-
+			
 			if (txt == '') {
 				uni.showToast({
 					title: '请输入内容',
@@ -931,6 +1033,7 @@ export default {
 							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 						}, 100);
 					}
+					// this.canClick=true
 				});
 		},
 		send_huanying(){
@@ -1701,5 +1804,49 @@ page {
 	.chat_top_xinxi_r_num{
 		margin: 8rpx 0 16rpx;
 		font-weight: bold;
+	}
+	.bg {
+		background-color: rgba(0, 0, 0, 0.3);
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 0;
+		z-index: 99;
+	}
+	.chehui{
+		background-color: #FFFFFF;
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		height: 370rpx;
+		text-align: center;
+	}
+	
+	.chehui_title{
+		line-height: 120rpx;
+	}
+		
+	.chehui_queding{
+		line-height: 106rpx;
+		border-top: 2rpx solid #e5e5e5;
+		border-bottom: 20rpx solid #f7f7f7;
+	}
+	.chehui_quxiao{
+	line-height: 106rpx;
+	}
+	.chat_chehui_tishi{
+		text-align: center;
+		margin-bottom: 30rpx;
+	}
+	.chat_chehui_tishi .chat_chehui_tishi_txt{
+		background-color: #f1f1f1;
+		height: 50rpx;
+		line-height: 50rpx;
+		display: inline-block;
+		padding: 0 15rpx;
+		border-radius: 6rpx;
+	}
+	.chat_chehui_tishi .chat_chehui_tishi_txt text{
+		margin-left: 6rpx;
 	}
 </style>

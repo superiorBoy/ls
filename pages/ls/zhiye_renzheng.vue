@@ -171,16 +171,6 @@
 						
 						
 						if(res.data.lawyerauth){
-							
-							if(res.data.lawyerauth.iszhiye==1){
-								this.tijiao_txt='提交修改'
-								this.state=2
-							}else if(res.data.lawyerauth.iszhiye==3){
-								this.tijiao_txt='失败：'+res.data.lawyerauth.reason	
-							}else if(res.data.lawyerauth.iszhiye==4){
-								this.tijiao_txt='认证中'
-							}
-							
 							this.shouji=res.data.lawyerauth.mobile
 							this.zhenghao=res.data.lawyerauth.zhiye
 							this.zhiwu=res.data.lawyerauth.zhiwu
@@ -196,6 +186,17 @@
 							this.shan_id.push(res.data.lawyerauth.expertise1)
 							this.shan_id.push(res.data.lawyerauth.expertise2)
 							this.shan_id.push(res.data.lawyerauth.expertise3)
+							if(res.data.lawyerauth.iszhiye==1){
+								this.tijiao_txt='提交修改'
+								this.state=2
+							}else if(res.data.lawyerauth.iszhiye==3){
+								this.tijiao_txt='失败：'+res.data.lawyerauth.zhiyereason	
+								this.zheng_img=''
+							}else if(res.data.lawyerauth.iszhiye==4){
+								this.tijiao_txt='认证中'
+							}
+							
+							
 						}
 	
 					});
@@ -221,6 +222,8 @@
 						// that.zheng_img = res.tempFilePaths[0];
 						console.log(that.zhiye_zhao)
 						// that.urlTobase64(res.tempFilePaths[0])
+						
+						//#ifdef H5
 						uni.request({
 							url: res.tempFilePaths[0],
 							method: 'GET',
@@ -232,10 +235,60 @@
 								that.zheng_img = base64;
 							}
 						})
+						//#endif
+					//#ifdef APP-PLUS
+					
+					let path = that.getLocalFilePath(res.tempFilePaths[0]);
+					plus.io.resolveLocalFileSystemURL(
+						path,
+						function(entry) {
+							entry.file(
+								function(file) {
+									var fileReader = new plus.io.FileReader();
+									fileReader.onload = function(data) {
+										that.zheng_img = data.target.result;	
+									};
+									fileReader.onerror = function(error) {
+										console.log(error);
+									};
+									fileReader.readAsDataURL(file);
+								},
+								function(error) {
+									console.log(error);
+								}
+							);
+						},
+						function(error) {
+							console.log(error);
+						}
+					);
+					
+					//#endif
+						
+						
 					}
 				})
 			},
-		
+		getLocalFilePath(path) {
+			if (path.indexOf('_www') === 0 || path.indexOf('_doc') === 0 || path.indexOf('_documents') === 0 || path.indexOf('_downloads') === 0) {
+				return path;
+			}
+			if (path.indexOf('file://') === 0) {
+				return path;
+			}
+			if (path.indexOf('/storage/emulated/0/') === 0) {
+				return path;
+			}
+			if (path.indexOf('/') === 0) {
+				var localFilePath = plus.io.convertAbsoluteFileSystem(path);
+				if (localFilePath !== path) {
+					return localFilePath;
+				} else {
+					path = path.substr(1);
+				}
+			}
+			return '_www/' + path;
+		},
 			// 转化base64格式
 			urlTobase64(url) {
 				uni.request({
@@ -338,8 +391,10 @@
 					var url='/lawyer/lawyer/zx_zhiye_rz'
 				}else if(this.tijiao_txt=='认证中'){
                	    return  false
-               }else{
+               }else if(this.tijiao_txt=='提交修改'){
 					var url='/lawyer/lawyer/upzhiye'
+				}else{
+					var url='/lawyer/lawyer/zx_zhiye_rz'
 				}
 				
 				this.$http
