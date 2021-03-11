@@ -11,7 +11,7 @@
 			</view>
 		</view>
 		<view class="tab_top hui_26">
-			<text v-for="(item,index) in tab_arry" :class="['' ,index==active?'hong_26_bold': '']" @click="qiehuan(index)">{{item}}</text>
+			<text v-for="(item,index) in tab_arry" :class="['' ,index==active?'lv_26_bold': '']" @click="qiehuan(index)">{{item}}</text>
 		</view>
 		<view class="zi_body tab_zi_body">
 
@@ -71,6 +71,18 @@
 
 				
 			</view>
+			
+			<view class="none_list" v-if="zixun_list.length==0">
+				<image src="../../static/img/none_qita.png" mode="widthFix"></image>
+				<view class="none_list_txt qian_26">
+					暂无其他服务
+				</view>
+			</view>
+			
+			
+			
+			
+			
 		</view>
 
 		<uni-popup type="bottom" ref='popup'>
@@ -327,7 +339,7 @@
 
 <style>
 	page {
-		background-color: #F7F7F7;
+		/* background-color: #F7F7F7; */
 		min-height: 100%;
 	}
 
@@ -374,12 +386,15 @@
 		
 }
 	.zixun_item {
-		
+		border-top: 20rpx solid #F7F7F7;
 		background-color: #ffffff;
 		margin-bottom: 20rpx;
 		padding: 30rpx 49rpx 0rpx 30rpx;
 		box-sizing: border-box;
 	}
+	.zixun_item:last-child {
+			border-bottom: 20rpx solid #F7F7F7;
+		}
 .zixun_item_top{
 	display: flex;
 	align-items: flex-start;
@@ -583,5 +598,16 @@
 	.mohu{
 		width: 150rpx;
 		height: 30rpx;
+	}
+	.none_list{
+		text-align: center;
+		background-color: #FFFFFF;
+		border-top: 20rpx solid #F7F7F7;
+	}
+	.none_list image{
+		width: 500rpx;
+		margin-bottom: 30rpx;
+		margin-top: 150rpx;
+		
 	}
 </style>

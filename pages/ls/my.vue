@@ -425,7 +425,9 @@ export default {
 	   			if (data.state) {
 					console.log('say');
 					that.huoshu_weidu()
-	   				void plus.push.createMessage('律师端收到一条新消息');
+					// #ifdef APP-PLUS
+					void plus.push.createMessage('律师端收到一条新消息');
+					// #endif
 					that.$refs.ls_mainindex.huoqunum();
 	   			}
 	   		} else {

@@ -10,6 +10,7 @@
 		</view>
 
 		<view class="zi_body">
+
 			<!-- <view class="send_xuanze hei_26">
 				<view>描述完之后，选择一下您方便的咨询的方式：</view>
 				<view class="hong_26">【在线咨询-可看记录】</view>
@@ -528,7 +529,6 @@
 				<view class=" chat_chehui_tishi hei_26" v-if="is_zuijin_chehui" >
 				     <text class="chat_chehui_tishi_txt"> 你撤回了一条消息<text class="lv_26" @click="bianji">重新编辑</text> </text> 
 				</view>
-
 				<!-- 	<view class="chat_list chat_left">
 					<image src="@/static/lsimg/yh_tx.png" mode="" class="tx"></image>
 					<view class="chat_left_txt hei_30">
@@ -1234,7 +1234,8 @@ export default {
 						var data = {
 							content: img,
 							msgtype: 2,
-							photourl_form: this.user.photourl
+							photourl_form: this.user.photourl,
+							messageid:res.data
 						};
 						this.message.push(data);
 						setTimeout(() => {
@@ -1292,10 +1293,12 @@ export default {
 				.then(res => {
 					if (res.code == 0) {
 						this.chat_txt = '';
+						this.is_zuijin_chehui=false
 						var data = {
 							content: txt,
 							msgtype: 1,
-							photourl_form: this.user.photourl
+							photourl_form: this.user.photourl,
+							messageid:res.data
 						};
 						this.message.push(data);
 						setTimeout(() => {
@@ -1372,16 +1375,18 @@ export default {
 					console.log('init');
 					console.log('client_id', data.client_id);
 
-					that.$http
-						.post({
-							url: '/push/gatewayworker/bind',
-							data: {
-								client_id: data.client_id
-							}
-						})
-						.then(res => {
-							console.log(res, 'bind');
-						});
+					uni.request({
+						url: that.$http.baseUrl + '/push/gatewayworker/bind',
+						method: 'POST',
+						data: {
+							client_id: data.client_id
+						},
+					
+						success: function(resp) {
+							console.log(resp, 'bind');
+						},
+						fail: function(resp) {}
+					});
 				} else if (data.type == 'say') {
 					console.log('say');
 					if (data.state) {
@@ -1473,7 +1478,6 @@ export default {
 }
 page {
 	background-color: #f7f7f7;
-	text-size-adjust: none;
 }
 .time {
 	margin: 24rpx auto 40rpx;
@@ -1485,7 +1489,6 @@ page {
 	text-align: center;
 	line-height: 28rpx;
 }
-
 .chat_list {
 	display: flex;
 	align-items: flex-start;

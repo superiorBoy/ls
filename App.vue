@@ -53,6 +53,14 @@ export default {
 	src: url('/static/uni.ttf');
 }
 /* #endif */
+*{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 .head{
 	display: flex;
 	justify-content: space-between;

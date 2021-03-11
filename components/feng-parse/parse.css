@@ -12,13 +12,19 @@
  * 请在全局下引入该文件，@import '/static/wxParse.css';
  */
 .wxParse {
-	user-select:none;
+	user-select:none !important;
 	width: 100%;
 	font-family: Helvetica, "PingFangSC", 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
 	color: #333;
 	line-height: 1.5;
 	font-size: 1em;
 	text-align:justify;/* //左右两端对齐 */
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 .wxParse view ,.wxParse uni-view{
 	word-break: break-word;

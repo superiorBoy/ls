@@ -43,7 +43,12 @@
 				
 				</view>
 
-
+         <view class="none_list" v-if="weituo_list.length==0">
+				<image src="../../static/img/none_weituo.png" mode="widthFix"></image>
+				<view class="none_list_txt qian_26">
+			             暂无委托记录
+				</view>
+			</view>
 			</view>
 		</view>
 
@@ -302,7 +307,7 @@ onLoad() {
 
 <style>
 	page {
-		background-color: #F7F7F7;
+		/* background-color: #F7F7F7; */
 		
 	}
 
@@ -339,12 +344,15 @@ onLoad() {
 		padding: 20rpx 30rpx 32rpx;
 		margin-bottom: 20rpx;
 		background-color: #FFFFFF;
+		border-top: 20rpx solid #F7F7F7;
 	}
 
 	.tiwen_item:first-child {
 		margin-top: 20rpx;
 	}
-
+.tiwen_item:last-child {
+		border-bottom: 20rpx solid #F7F7F7;
+	}
 	.tiwen_item_center {
 		display: flex;
 		align-items: center;
@@ -506,7 +514,17 @@ onLoad() {
 		color: #f43a51;
 		border: 2rpx solid #f43a51 !important;
 	}
-
+	.none_list{
+		text-align: center;
+		background-color: #FFFFFF;
+		border-top: 20rpx solid #F7F7F7;
+	}
+	.none_list image{
+		width: 500rpx;
+		margin-bottom: 30rpx;
+		margin-top: 150rpx;
+		
+	}
 
 
 

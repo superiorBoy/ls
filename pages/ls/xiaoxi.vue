@@ -209,7 +209,10 @@ export default {
 				} else if (data.type == 'say') {
 					console.log('say');
 					that.huoqu_xiaoxilist();
+					// #ifdef APP-PLUS
 					void plus.push.createMessage('律师端收到一条新消息');
+					// #endif
+					
 					if (data.state) {
 					
 					}
@@ -281,17 +284,19 @@ export default {
 					console.log('init');
 					console.log('client_id', data.client_id);
 
-					that.$http
-						.post({
-							url: '/push/gatewayworker/bind',
-							data: {
-								client_id: data.client_id,
-								type:1
-							}
-						})
-						.then(res => {
-							console.log(res, 'bind');
-						});
+					uni.request({
+						url: that.$http.baseUrl + '/push/gatewayworker/bind',
+						method: 'POST',
+						data: {
+							client_id: data.client_id,
+							type:1
+						},
+					
+						success: function(resp) {
+							console.log(resp, 'bind');
+						},
+						fail: function(resp) {}
+					});
 				} else if (data.type == 'say') {
 					console.log('say');
 					that.huoqu_xiaoxilist();

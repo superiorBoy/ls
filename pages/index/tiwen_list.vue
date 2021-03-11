@@ -66,7 +66,12 @@
 				</view>
 			</view>
 
-
+	      <view class="none_list" v-if="jilu_list.length==0">
+				<image src="../../static/img/none_tiwen.png" mode="widthFix"></image>
+				<view class="none_list_txt qian_26">
+			             暂无提问记录
+				</view>
+			</view>
 		</view>
 
 <uni-popup type="bottom" ref='popup'>
@@ -308,6 +313,7 @@ huoqu_list(){
 	border-top: 20rpx solid #F5F5F5;
 }
 	.tiwen_list {
+		
 		padding: 18rpx 30rpx;
 		border-bottom: 20rpx solid #f5f5f5;
 		
@@ -532,5 +538,16 @@ huoqu_list(){
 			vertical-align: middle;
 			position: relative;
 			top: -2rpx;
+	}
+	.none_list{
+		text-align: center;
+		background-color: #FFFFFF;
+		border-top: 20rpx solid #F7F7F7;
+	}
+	.none_list image{
+		width: 500rpx;
+		margin-bottom: 30rpx;
+		margin-top: 150rpx;
+		
 	}
 </style>

@@ -111,6 +111,16 @@
 				
 				
 			</view>
+			
+			<view class="none_list" v-if="jilu_list.length==0">
+							<image src="../../static/img/none_tiwen.png" mode="widthFix"></image>
+							<view class="none_list_txt qian_26">
+						             暂无提问记录
+							</view>
+		    </view>
+			
+			
+			
 		</view>
 
 		<uni-popup type="bottom" ref="popup">
@@ -426,7 +436,7 @@ export default {
 
 <style>
 page {
-	background-color: #f7f7f7;
+	/* background-color: #f7f7f7; */
 }
 
 .tab_top {
@@ -464,6 +474,10 @@ page {
 	padding: 20rpx 30rpx 0;
 	margin-bottom: 20rpx;
 	background-color: #ffffff;
+	border-top: 20rpx solid #F7F7F7;
+}
+.tiwen_item:last-child{
+	border-bottom: 20rpx solid #F7F7F7;
 }
 
 .tiwen_item:first-child {
@@ -681,4 +695,15 @@ button::after {
 .tiwen_item_name_phone{
 	margin: 0rpx 0 2rpx;
 }
+	.none_list{
+		text-align: center;
+		background-color: #FFFFFF;
+		border-top: 20rpx solid #F7F7F7;
+	}
+	.none_list image{
+		width: 500rpx;
+		margin-bottom: 30rpx;
+		margin-top: 150rpx;
+		
+	}
 </style>

@@ -742,7 +742,7 @@ export default {
 		 },
 		 che_queding(){
 			 
-			 
+			 console.log(this.messageid,'666')
 			 this.$http
 			 	.post({
 			 		url: '/lawyer/index/withdraw',
@@ -751,6 +751,7 @@ export default {
 			 		}
 			 	})
 			 	.then(res => {
+					console.log(res,'555')
 			 		if (res.code == 0) {
 						uni.showToast({
 							title: '消息已撤回',
@@ -1023,10 +1024,12 @@ export default {
 				.then(res => {
 					if (res.code == 0) {
 						this.chat_txt = '';
+						this.is_zuijin_chehui=false
 						var data = {
 							content: txt,
 							msgtype: 1,
-							photourl_form: this.user.photourl
+							photourl_form: this.user.photourl,
+							messageid:res.data
 						};
 						this.message.push(data);
 						setTimeout(() => {
@@ -1052,7 +1055,8 @@ export default {
 						var data = {
 							content: '[欢迎]',
 							msgtype: 5,
-							photourl_form: this.user.photourl
+							photourl_form: this.user.photourl,
+							messageid:res.data
 						};
 						this.message.push(data);
 						setTimeout(() => {
@@ -1078,7 +1082,8 @@ export default {
 						var data = {
 							content: '[在线咨询]',
 							msgtype: 4,
-							photourl_form: this.user.photourl
+							photourl_form: this.user.photourl,
+							messageid:res.data
 						};
 						this.message.push(data);
 					setTimeout(() => {
@@ -1103,7 +1108,8 @@ export default {
 						var data = {
 							content: '[电话咨询]',
 							msgtype: 3,
-							photourl_form: this.user.photourl
+							photourl_form: this.user.photourl,
+							messageid:res.data
 						};
 						this.message.push(data);
 					setTimeout(() => {
@@ -1258,7 +1264,8 @@ export default {
 						var data = {
 							content: img,
 							msgtype: 2,
-							photourl_form: this.user.photourl
+							photourl_form: this.user.photourl,
+							messageid:res.data
 						};
 						this.message.push(data);
 						setTimeout(() => {
@@ -1302,18 +1309,20 @@ export default {
 				if (data.type == 'init') {
 					console.log('init');
 					console.log('client_id', data.client_id);
+                      uni.request({
+						url: that.$http.baseUrl + '/push/gatewayworker/bind',
+						method: 'POST',
+						data: {
+							client_id: data.client_id,
+							type:1
+						},
 
-					that.$http
-						.post({
-							url: '/push/gatewayworker/bind',
-							data: {
-								client_id: data.client_id,
-								type:1
-							}
-						})
-						.then(res => {
-							console.log(res, 'bind');
-						});
+						success: function(resp) {
+							console.log(resp, 'bind');
+						},
+						fail: function(resp) {}
+					});
+				
 				} else if (data.type == 'say') {
 					console.log('say');
 					if (data.state) {

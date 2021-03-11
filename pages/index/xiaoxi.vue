@@ -288,21 +288,25 @@ app_lianjie() {
 					if (data.type == 'init') {
 						console.log('init');
 						console.log('client_id', data.client_id);
-			
-						that.$http
-							.post({
-								url: '/push/gatewayworker/bind',
-								data: {
-									client_id: data.client_id
-								}
-							})
-							.then(res => {
-								console.log(res, 'bind');
-							});
+			            uni.request({
+			            	url: that.$http.baseUrl + '/push/gatewayworker/bind',
+			            	method: 'POST',
+			            	data: {
+			            		client_id: data.client_id
+			            	},
+			            
+			            	success: function(resp) {
+			            		console.log(resp, 'bind');
+			            	},
+			            	fail: function(resp) {}
+			            });
+						
 					} else if (data.type == 'say') {
 						console.log('say');
 						that.huoqu_xiaoxilist()
+						// #ifdef APP-PLUS
 						void plus.push.createMessage('用户端收到一条新消息');
+						// #endif
 					} else {
 						console.log('else');
 					}

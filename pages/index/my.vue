@@ -209,7 +209,10 @@ export default {
 				} else if (data.type == 'say') {
 					console.log('say');
 					if (data.state) {
+						// #ifdef APP-PLUS
 						void plus.push.createMessage('用户端收到一条新消息');
+						// #endif
+						
 						
 						 that.$refs.mainindex.huoqunum();
 		
