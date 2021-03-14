@@ -242,6 +242,18 @@ onLoad(option) {
 			zhuce() {
 				var that=this
 			console.log(this.active)
+			//#ifdef APP-PLUS
+			if (uni.getSystemInfoSync().platform == 'ios') {
+				var laiyuan='ios'
+			} else if (uni.getSystemInfoSync().platform === 'android') {
+				var laiyuan='Android'
+			}
+			//#endif
+
+			// #ifdef H5
+                  var laiyuan='H5'
+			// #endif
+			console.log(laiyuan)
 			if(this.shouji==''||this.mima==''||this.agamima==''){
 				uni.showToast({
 					title: '请填写完整',
@@ -280,7 +292,8 @@ onLoad(option) {
 								password: this.mima,
 								password1:this.agamima,
 								code:this.code,
-								randcode:this.yaoqingma
+								randcode:this.yaoqingma,
+								source:laiyuan
 							}
 						})
 						.then(res => {
@@ -306,7 +319,8 @@ onLoad(option) {
 								password: this.mima,
 								password1:this.agamima,
 								code:this.code,
-								randcode:this.yaoqingma
+								randcode:this.yaoqingma,
+								source:laiyuan
 							}
 						})
 						.then(res => {
@@ -325,9 +339,6 @@ onLoad(option) {
               }else{
 				 
 			  }
-
-         
-
 
 				console.log(this.isCheck)
 			},
