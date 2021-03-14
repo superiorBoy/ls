@@ -279,9 +279,9 @@
 						<view  class="guanbi qian_28" v-if="is_update==2" @click="guanbi">稍后更新</view>
 					</view>
 					<view class="tan_bottom hui_27 is_xia_bottom" v-if="is_xiazai">
-						<view class="xiazai_tishi"><text>正在下载中，请稍后...</text><text>{{baifen}}%</text></view>
+						<view class="xiazai_tishi"><text>{{xiazai_txt}}</text><text>{{baifen}}%</text></view>
 						<view class="tan_jindu"><text :style="{width:baifen+'%'}"></text></view>
-						<button  class="bai_30" @click="quxiao">取消</button>
+						<button  :class="['bai_30',xiazai_state=='取消'?'is_xia_btn':'is_xia_btn_wan']" @click="quxiao">{{xiazai_state}}</button>
 					</view>
 				</view>
 			</view>
@@ -362,8 +362,10 @@ export default {
 			baifen:0,
 			is_xieyi:false,
 			is_login:false,
-			is_update:2
-			
+			is_update:2,
+			xiazai_state:'取消',
+			filename:'',
+			xiazai_txt:'正在下载中，请稍后...'
 		};
 	},
 	components: {
@@ -518,6 +520,8 @@ export default {
 				});
 				// 下载完成
 				if (status == 200) {
+			     	that.filename=d.filename
+					
 					plus.runtime.install(plus.io.convertLocalFileSystemURL(d.filename), {}, e => e, function(error) {
 						uni.showToast({
 							title: '安装失败-01',
@@ -561,6 +565,8 @@ export default {
 				  that.baifen=prg
 				  break;
 				case 4:
+				   that.xiazai_state='安装'
+				   that.xiazai_txt='下载已完成'
 				   plus.nativeUI.closeWaiting();
 					//下载完成
 				  break;
@@ -583,14 +589,24 @@ export default {
 			this.is_gengxin=false
 		},
 		quxiao(){
-			plus.downloader.clear();
-			this.is_xiazai=false
-			this.baifen=0
-			uni.showToast({
-				title: '下载已取消',
-				duration: 2000,
-				icon: 'none'
-			});
+			if(this.xiazai_state=='安装'){
+				plus.runtime.install(plus.io.convertLocalFileSystemURL(this.filename), {}, e => e, function(error) {
+					uni.showToast({
+						title: '安装失败-01',
+						mask: false,
+						duration: 1500
+					});
+				})
+			}else{
+				plus.downloader.clear();
+				this.is_xiazai=false
+				this.baifen=0
+				uni.showToast({
+					title: '下载已取消',
+					duration: 2000,
+					icon: 'none'
+				});
+			}
 		},
 
 		huiqu_login(){
@@ -1530,12 +1546,15 @@ scroll-view ::-webkit-scrollbar {
 .is_xia_bottom button{
 	width: 300rpx;
 		height: 60rpx;
-		background-color: #c6c6c6;
 		border-radius: 30rpx;
 		line-height: 60rpx;
 }
-
-
+.is_xia_btn{
+	background-color: #c6c6c6;
+}
+.is_xia_btn_wan{
+	background-color: #0eb77e;
+}
 
 
 .zhineng {
