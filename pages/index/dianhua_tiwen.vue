@@ -258,7 +258,7 @@ export default {
 										const geolocation = new BMap.Geolocation();
 										geolocation.getCurrentPosition(function(r) {
 					$.ajax({
-					    url: 'http://api.map.baidu.com/geocoder/v2/?ak=eIxDStjzbtH0WtU50gqdXYCz&output=json&pois=1&location=' + r.latitude + ',' + r.longitude,
+					    url: 'https://api.map.baidu.com/geocoder/v2/?ak=eIxDStjzbtH0WtU50gqdXYCz&output=json&pois=1&location=' + r.latitude + ',' + r.longitude,
 					    type: 'GET',
 					    async:false,//设置同步。ajax默认异步
 					    dataType: 'jsonp',

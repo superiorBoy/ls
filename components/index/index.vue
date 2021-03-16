@@ -5,7 +5,7 @@
 			<view class="index_top_dingwei" :style="{ background: topbg }">
 				<view class="dingwei bai_20">
 					<image src="@/static/img/dingwei.png" mode=""></image>
-					<pickerAddress @change="xuandizhi">{{ dizhi }}</pickerAddress>
+					<pickerAddress @change="xuandizhi">{{ dizhi==''?'定位中':dizhi }}</pickerAddress>
 					<!-- <text>{{dizhi}}</text> -->
 				</view>
 				<navigator url="tiwen">
@@ -325,7 +325,7 @@ export default {
 	data() {
 		return {
 			sou_txt: '',
-			dizhi: '定位中',
+			dizhi: '',
 			topbg: '#86dbbe',
 			url: uni.getStorageSync('img_url'),
 			data: '',
@@ -378,6 +378,7 @@ export default {
 			var that = this;
 				plus.geolocation.getCurrentPosition(function(p){
 							that.dizhi = p.address.city;
+							that.shuxin_zujian()
 							uni.setStorage({
 								key: 'dizhi',
 								data: {
@@ -440,10 +441,11 @@ export default {
 				this.fa_zhishi = res.data.type[1];
 			});	
 			
-		this.shuxin_zujian()
+		// this.shuxin_zujian()
 		
 	},
 	onLoad() {
+		
 		// if (this._isMobile()) {
 		//      alert("手机端");
 		//    } else {
@@ -474,7 +476,10 @@ export default {
 				// 获取首页信息
 				this.$http
 					.post({
-						url: '/mapi/index/index'
+						url: '/mapi/index/index',
+						data:{
+							city:this.dizhi
+						}
 					})
 					.then(res => {
 						this.data = res.data;
@@ -781,6 +786,7 @@ export default {
 		},
 		xuandizhi(data) {
 			this.dizhi = data.data[1];
+			this.shuxin_zujian()
 			//                this.txt = data.data.join('')
 			//                console.log(data.data.join(''))
 		},
@@ -872,8 +878,21 @@ export default {
 				try {
 					const geolocation = new BMap.Geolocation();
 					geolocation.getCurrentPosition(function(r) {
+						
+						// uni.request({
+						// 	url: that.$http.baseUrl + '/push/gatewayworker/bind',
+						// 	method: 'POST',
+						// 	data: {
+						// 		client_id: data.client_id
+						// 	},
+						
+						// 	success: function(resp) {
+						// 		console.log(resp, 'bind');
+						// 	},
+						// 	fail: function(resp) {}
+						// });
 						$.ajax({
-							url: '//api.map.baidu.com/geocoder/v2/?ak=eIxDStjzbtH0WtU50gqdXYCz&output=json&pois=1&location=' + r.latitude + ',' + r.longitude,
+							url: 'https://api.map.baidu.com/geocoder/v2/?ak=eIxDStjzbtH0WtU50gqdXYCz&output=json&pois=1&location=' + r.latitude + ',' + r.longitude,
 							type: 'GET',
 							async: false, //设置同步。ajax默认异步
 							dataType: 'jsonp',
@@ -882,7 +901,9 @@ export default {
 							timeout: 5000,
 							contentType: 'application/json; charset=utf-8',
 							success: function(res) {
+								console.log(res)
 								that.dizhi = res.result.addressComponent.city;
+								that.shuxin_zujian()
 								uni.setStorage({
 									key: 'dizhi',
 									data: {
@@ -891,6 +912,10 @@ export default {
 										qu: res.result.addressComponent.district
 									}
 								});
+							},
+							error: function (err) {
+								console.log(err)
+								that.shuxin_zujian()
 							}
 						});
 						// var url = wei_url+'/geocoder/v2/?ak=eIxDStjzbtH0WtU50gqdXYCz&output=json&pois=1&location=' + r.latitude + ',' + r.longitude;

@@ -10,7 +10,7 @@
 				</navigator>
 				<view class="dingwei hei_30">
 					<image src="@/static/img/xh_dingwei.png" mode=""></image>
-					<pickerAddress @change="xuandizhi">{{ dizhi }}</pickerAddress>
+					<pickerAddress @change="xuandizhi">{{ dizhi==''?'定位中':dizhi }}</pickerAddress>
 					<!-- <text>{{dizhi}}</text> -->
 				</view>
 			</view>
@@ -223,7 +223,7 @@ export default {
 	data() {
 		return {
 			sou_txt: '',
-			dizhi: '定位中',
+			dizhi: '',
 			topbg: '#86dbbe',
 			url: uni.getStorageSync('img_url'),
 			data: '',
@@ -265,6 +265,7 @@ export default {
 			plus.geolocation.getCurrentPosition(
 				function(p) {
 					that.dizhi = p.address.city;
+					that.shuxin_zujian()
 					uni.setStorage({
 						key: 'dizhi',
 						data: {
@@ -324,7 +325,7 @@ export default {
 			.then(res => {
 				this.fa_zhishi = res.data.type[1];
 			});	
-		this.shuxin_zujian()
+		// this.shuxin_zujian()
 		
 	},
 	onLoad() {
@@ -357,7 +358,10 @@ export default {
 				// 获取首页信息
 				this.$http
 					.post({
-						url: '/mapi/index/index'
+						url: '/mapi/index/index',
+						data:{
+							city:this.dizhi
+						}
 					})
 					.then(res => {
 						this.data = res.data;
@@ -653,6 +657,7 @@ export default {
 		},
 		xuandizhi(data) {
 			this.dizhi = data.data[1];
+			this.shuxin_zujian()
 			//                this.txt = data.data.join('')
 			//                console.log(data.data.join(''))
 		},
@@ -751,7 +756,7 @@ export default {
 					const geolocation = new BMap.Geolocation();
 					geolocation.getCurrentPosition(function(r) {
 						$.ajax({
-							url: '//api.map.baidu.com/geocoder/v2/?ak=eIxDStjzbtH0WtU50gqdXYCz&output=json&pois=1&location=' + r.latitude + ',' + r.longitude,
+							url: 'https://api.map.baidu.com/geocoder/v2/?ak=eIxDStjzbtH0WtU50gqdXYCz&output=json&pois=1&location=' + r.latitude + ',' + r.longitude,
 							type: 'GET',
 							async: false, //设置同步。ajax默认异步
 							dataType: 'jsonp',
@@ -761,6 +766,7 @@ export default {
 							contentType: 'application/json; charset=utf-8',
 							success: function(res) {
 								that.dizhi = res.result.addressComponent.city;
+								that.shuxin_zujian()
 								uni.setStorage({
 									key: 'dizhi',
 									data: {
@@ -769,6 +775,9 @@ export default {
 										qu: res.result.addressComponent.district
 									}
 								});
+							},
+							error: function (err) {
+								that.shuxin_zujian()
 							}
 						});
 						// var url = wei_url+'/geocoder/v2/?ak=eIxDStjzbtH0WtU50gqdXYCz&output=json&pois=1&location=' + r.latitude + ',' + r.longitude;

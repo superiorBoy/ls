@@ -2,8 +2,8 @@
     "name" : "小虎律师",
     "appid" : "__UNI__6204E51",
     "description" : "小虎律师-在线法律咨询-专业律师咨询",
-    "versionName" : "1.2.3",
-    "versionCode" : 122,
+    "versionName" : "1.2.4",
+    "versionCode" : 124,
     "transformPx" : false,
     "app-plus" : {
         "nvueCompiler" : "uni-app",
@@ -137,7 +137,7 @@
             "disableHostCheck" : true,
             "proxy" : {
                 "/dpc" : {
-                    "target" : "//api.map.baidu.com",
+                    "target" : "https://api.map.baidu.com",
                     "changeOrigin" : true,
                     "secure" : false,
                     "pathRewrite" : {
