@@ -280,6 +280,8 @@ export default {
 			// #endif
 			
 			// #ifdef H5
+			var that=this
+			that.shuxin_zujian()
 			window.initBaiduMapScript = () => {
 				// console.log(BMap);
 				this.getlocation();

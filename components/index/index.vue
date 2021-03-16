@@ -169,7 +169,7 @@
 							</view>
 							<view class="ls_dizhi qian_22">
 								<image src="@/static/img/dizhi.png" mode=""></image>
-								{{ item.lvsuo }}
+								{{ item.city }}
 							</view>
 							<view class="ls_bottom qian_22">
 								<view class="ls_fuwu">
@@ -392,6 +392,8 @@ export default {
 				      })
 				// #endif
 			// #ifdef H5
+			var that=this
+			that.shuxin_zujian()
 			window.initBaiduMapScript = () => {
 				// console.log(BMap);
 				this.getlocation();

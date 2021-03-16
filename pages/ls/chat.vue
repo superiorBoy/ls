@@ -260,7 +260,7 @@
 		  		  						<view class="hong_26">
 		  		  							&ensp;￥
 		  		  							<text class="style_hong_16_bold">{{item.consult.paymoney}}</text>
-		  		  							/20分钟
+		  		  							/{{item.consult.zixunshicahng=='24'?'天':item.consult.zixunshicahng=='72'?'3天':item.consult.zixunshicahng=='1'?'20分钟':item.consult.zixunshicahng=='720'?'月':'分钟'}}
 		  		  						</view>
 		  		  					</view>
 		  		  					<view class="hei_20">
@@ -297,7 +297,7 @@
 				  		  						<view class="hong_26">
 				  		  							&ensp;￥
 				  		  							<text class="style_hong_16_bold">{{item.consult.paymoney}}</text>
-				  		  							/天
+				  		  							/{{item.consult.zixunshicahng=='24'?'天':item.consult.zixunshicahng=='72'?'3天':item.consult.zixunshicahng=='1'?'20分钟':item.consult.zixunshicahng=='720'?'月':'小时'}}
 				  		  						</view>
 				  		  					</view>
 				  		  					<view class="hei_20">
@@ -462,7 +462,7 @@
 											<view class="hong_26">
 												&ensp;￥
 												<text class="style_hong_16_bold">{{item.consult.paymoney}}</text>
-												/20分钟
+												/{{item.consult.zixunshicahng=='24'?'天':item.consult.zixunshicahng=='72'?'3天':item.consult.zixunshicahng=='1'?'20分钟':item.consult.zixunshicahng=='720'?'月':'分钟'}}
 											</view>
 										</view>
 										<view class="hei_20">
@@ -500,7 +500,7 @@
 											<view class="hong_26">
 												&ensp;￥
 												<text class="style_hong_16_bold">{{item.consult.paymoney}}</text>
-												/天
+												/{{item.consult.zixunshicahng=='24'?'天':item.consult.zixunshicahng=='72'?'3天':item.consult.zixunshicahng=='1'?'20分钟':item.consult.zixunshicahng=='720'?'月':'小时'}}
 											</view>
 										</view>
 										<view class="hei_20">

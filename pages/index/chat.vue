@@ -261,7 +261,7 @@
 								</view>
 								<view class="end_pay_leixing hei_24">
 									电话咨询
-									<view class="hong_24">&ensp;￥{{ ls_xinxi.phoneprice }}/20分钟</view>
+									<view class="hong_24">&ensp;￥{{ item.consult.paymoney }}/{{item.consult.zixunshicahng=='24'?'天':item.consult.zixunshicahng=='72'?'3天':item.consult.zixunshicahng=='1'?'20分钟':item.consult.zixunshicahng=='720'?'月':'分钟'}}</view>
 								</view>
 								<view class="send_pay_ls">
 									<image :src="img_url + ls_xinxi.photourl" mode=""></image>
@@ -284,7 +284,7 @@
 								</view>
 								<view class="end_pay_leixing hei_24">
 									在线咨询
-									<view class="hong_24">&ensp;￥{{ ls_xinxi.chatprice }}/天</view>
+									<view class="hong_24">&ensp;￥{{ item.consult.paymoney }}/{{item.consult.zixunshicahng=='24'?'天':item.consult.zixunshicahng=='72'?'3天':item.consult.zixunshicahng=='1'?'20分钟':item.consult.zixunshicahng=='720'?'月':'小时'}}</view>
 								</view>
 								<view class="send_pay_ls">
 									<image :src="img_url + ls_xinxi.photourl" mode=""></image>
@@ -484,7 +484,7 @@
 								</view>
 								<view class="end_pay_leixing hei_24">
 									电话咨询
-									<view class="hong_24">&ensp;￥{{ ls_xinxi.phoneprice }}/20分钟</view>
+									<view class="hong_24">&ensp;￥{{ item.consult.paymoney }}/{{item.consult.zixunshicahng=='24'?'天':item.consult.zixunshicahng=='72'?'3天':item.consult.zixunshicahng=='1'?'20分钟':item.consult.zixunshicahng=='720'?'月':'分钟'}}</view>
 								</view>
 								<view class="send_pay_ls">
 									<image :src="img_url + ls_xinxi.photourl" mode=""></image>
@@ -506,7 +506,7 @@
 								</view>
 								<view class="end_pay_leixing hei_24">
 									在线咨询
-									<view class="hong_24">&ensp;￥{{ ls_xinxi.chatprice }}/天</view>
+									<view class="hong_24">&ensp;￥{{ item.consult.paymoney }}/{{item.consult.zixunshicahng=='24'?'天':item.consult.zixunshicahng=='72'?'3天':item.consult.zixunshicahng=='1'?'20分钟':item.consult.zixunshicahng=='720'?'月':'小时'}}</view>
 								</view>
 								<view class="send_pay_ls">
 									<image :src="img_url + ls_xinxi.photourl" mode=""></image>
