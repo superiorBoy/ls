@@ -22,7 +22,7 @@
 			</view>
 			
 			<view class="zhishi_title hei_28_bold">
-				<text></text>结婚
+				<text></text>{{title}}
 			</view>
 			<view class="tuijian_list">
 				<view class="tuijian_item" v-for="item in remenlist" @click="go_xq(item.knowledgeid)">

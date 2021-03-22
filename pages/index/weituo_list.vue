@@ -17,7 +17,7 @@
 
 			<view class="tiwen_list">
 				<view class="tiwen_item" v-for="(item,index) in weituo_list" >
-					<view class="tiwen_item_top hui_26" @click="go_xq">
+					<view class="tiwen_item_top hui_26" @click="go_xq(item)">
 
 						<text  :class="['zhuangtai',item.state==1?'jinxing':'yijieshu']" >{{item.state==1?'进行中':'已结束'}}</text>
 						{{item.information}}
@@ -31,7 +31,7 @@
 							<image src="@/static/img/weitui_shouji.png" mode=""></image>{{item.phone}}
 						</view>
 						<view class="tiwen_item_dizhi">
-							<image src="@/static/img/dizhi.png" mode=""></image>四川-成都
+							<image src="@/static/img/dizhi.png" mode=""></image>{{item.province}}-{{item.city}}
 						</view>
 					</view>
 					<view class="huifu_btn">
@@ -75,7 +75,7 @@
 					</view>
 					<button type="" class="zhuanchang_quer_ding bai_30" @click="zhuanchang_go" v-if="zhuan_show">确定</button>
 				</view> -->
-	<view class="tan_list hei_26">
+	            <view class="tan_list hei_26">
 					<view class="tan_list_top">
 						<text>委托标题</text>
 						<input type="text" value="" placeholder="输入标题" v-model="biaoti" class="hei_26" />
@@ -104,11 +104,12 @@
 			unpopup,
 			pickerAddress
 		},
-onLoad() {
-	this.huoqu_weituo()
-},
+		onLoad() {
+			
+		},
 		onShow() {
-
+			this.weituo_list=[]
+               this.huoqu_weituo()
 		},
 
 		data() {
@@ -184,9 +185,9 @@ onLoad() {
 				this.huoqu_weituo()
 			},
 			// 进入详情
-			go_xq() {
+			go_xq(item) {
 				uni.navigateTo({
-					url:'weituo_xq'
+					url:'weituo_xq?item='+JSON.stringify(item)
 				})
 			},
 			// 底部弹窗

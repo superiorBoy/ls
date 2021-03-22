@@ -70,7 +70,7 @@
 					<image src="@/static/img/lan_tongyi.png" mode=""></image>
 					已阅读并同意
 					<navigator url="xieyi" class="lan">《用户协议》</navigator>
-					<navigator url="xieyi"  class="lan">《隐私政策》</navigator>
+					<navigator url="yinsi"  class="lan">《隐私政策》</navigator>
 				
 				</view>
 			</view>
@@ -122,12 +122,6 @@ export default {
 					
 				});
 			
-	
-		
-		
-		
-	
-		
 	},
 	methods: {
 		navigateBack() {

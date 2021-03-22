@@ -549,7 +549,7 @@
 				<view class="chat_bottom_top">
 					<!-- <image src="@/static/lsimg/chat_yuyin.png" mode=""></image> -->
 					<image src="@/static/lsimg/chat_biaoqing.png" mode="" @tap="showEmj"></image>
-					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" class="hei_26" @focus="huojiao" @click="input_click()"  />
+					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" class="hei_26" @focus="huojiao" @click="input_click()" @blur='shiqu' />
 					<image src="@/static/lsimg/chat_jia.png" mode="" @click="jia"></image>
 					<text class="fasong" @click="send()">发送</text>
 				</view>
@@ -747,7 +747,7 @@ export default {
 		      // this.bottom_tip =true;
 			  setTimeout(() => {
 			  	uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
-			  }, 500);
+			  }, 100);
 		    },
 		input_blur(){
 		  setTimeout(()=> {
@@ -909,8 +909,16 @@ export default {
 			setTimeout(() => {
 				uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 				
-			}, 400);
+			}, 600);
 		},
+		shiqu() {
+			
+			setTimeout(() => {
+				uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+				
+			}, 200);
+		},
+		
 		app_lianjie() {
 			let that = this;
 			Object.assign(uni, socket);

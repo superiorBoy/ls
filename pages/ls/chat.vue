@@ -571,7 +571,7 @@
 				<view class="chat_bottom_top">
 					<!-- <image src="@/static/lsimg/chat_yuyin.png" mode=""></image> -->
 					<image src="@/static/lsimg/chat_biaoqing.png" mode="" @tap="showEmj"></image>
-					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" class="hei_26" @focus="huojiao"  />
+					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" class="hei_26" @focus="huojiao" @click="input_click()" @blur='shiqu' />
 
 					<image src="@/static/lsimg/chat_jia.png" mode="" @click="jia"></image>
 					<text class="fasong" @click="send()">发送</text>
@@ -862,10 +862,23 @@ export default {
 					this.renzheng=res.data.lawyerauth
 				});
 		},
+		input_click() {
+		      // this.bottom_tip =true;
+			  setTimeout(() => {
+			  	uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+			  }, 100);
+		 },
 		huojiao() {
 			setTimeout(() => {
 				uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
-			}, 100);
+			}, 600);
+		},
+		shiqu() {
+			
+			setTimeout(() => {
+				uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+				
+			}, 200);
 		},
 		app_lianjie() {
 			let that = this;
