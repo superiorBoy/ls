@@ -54,7 +54,7 @@
 							<view class="hei_30_bold xiaoxi_item_name">{{ item.user_to.mobile }}</view>
 							<view class="qian_26 txt_over">
 								<view class="xiaoxi_title" v-if="item.msgtype==1  && item.iswithdraw!=1">
-								<u-parse :content="replace_em(item.content)"></u-parse>	
+								<u-parse :content="replace_em(item.content)" v-if="is_xianshi"></u-parse>	
 									</view>
 									<!-- <view class="" v-if="item.msgtype==2">
 										[图片]
@@ -126,7 +126,8 @@ export default {
 			img_url: uni.getStorageSync('img_url'),
 			active: '0',
 			xiaoxi_list: [],
-			weidu:0
+			weidu:0,
+			is_xianshi:false
 		};
 	},
 	methods: {
@@ -251,12 +252,13 @@ export default {
 			});
 		},
 		huoqu_xiaoxilist() {
-			
+			this.is_xianshi=false
 			this.$http
 				.post({
 					url: '/mlawyerapi/consult/messagelist'
 				})
 				.then(res => {
+					this.is_xianshi=true
 					this.xiaoxi_list = res.data.messagelist;
 					// var num=0
 					// for (var i in res.data.messagelist){

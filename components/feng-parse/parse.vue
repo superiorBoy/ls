@@ -28,7 +28,7 @@ import wxParseTemplate from './components/wxParseTemplate0';
 			// user-select:none;
 			userSelect: {
 				type: String,
-				default: 'none' //none |text| all | element
+				default: 'element' //none |text| all | element
 			},
 			imgOptions: {
 				type: [Object, Boolean],

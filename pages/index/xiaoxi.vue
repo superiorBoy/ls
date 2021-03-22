@@ -80,9 +80,8 @@
 								{{item.user_to.nickname}}
 							</view>
 							<view class="qian_26 txt_over">
-								
 								<view class="xiaoxi_title" v-if="item.msgtype==1 && item.iswithdraw!=1">
-							<u-parse :content="replace_em(item.content)"></u-parse>	
+							     <u-parse :content="replace_em(item.content)" v-if="is_xianshi"></u-parse>	
 								</view>
 								<!-- <view class="" v-if="item.msgtype==2">
 									[图片]
@@ -127,6 +126,7 @@
 			tabBar
 		},
 		onShow() {
+			
 			this.$http
 				.post({
 					url: '/index/login/islogin'
@@ -159,7 +159,8 @@
 				img_url: uni.getStorageSync('img_url'),
 				active:'0',
 				xiaoxi_list:[],
-				islogin:''
+				islogin:'',
+				is_xianshi:false
 			}
 		},
 		methods: {
@@ -253,13 +254,15 @@ app_lianjie() {
 				});
 			},
 			huoqu_xiaoxilist(){
+				this.is_xianshi=false
 				var that=this
 				this.$http
 					.post({
 						url: '/mapi/consult/messagelist'
 					})
 					.then(res => {
-						this.xiaoxi_list=res.data.messagelist
+						 this.is_xianshi=true
+						that.xiaoxi_list=res.data.messagelist
 						// var num=0
 						// for (var i in this.xiaoxi_list){
 						// if(!this.xiaoxi_list[i].user_to){

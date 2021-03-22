@@ -155,5 +155,12 @@ uni-checkbox:not([disabled]) .uni-checkbox-input:hover,uni-radio:not([disabled])
   } */
     /* #endif */
 
-
+*{
+	-webkit-user-select: text!important;
+	 -khtml-user-select: text!important;
+	 -moz-user-select: text!important;
+	 -ms-user-select: text!important;
+	 -o-user-select: text!important;
+	 user-select: text!important;
+}
 </style>

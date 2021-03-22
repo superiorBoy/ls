@@ -378,7 +378,9 @@ export default {
 page {
 	background-color: #f7f7f7;
 }
-
+.zi_body{
+	padding-bottom:200rpx;
+}
 .head {
 	border-bottom: 2rpx solid #e8e8e8;
 }
@@ -470,7 +472,7 @@ page {
 }
 .manyi {
 	padding: 0 80rpx;
-	margin: 88rpx 0 200rpx;
+	margin: 88rpx 0 0rpx;
 	text-align: center;
 }
 .manyi button {

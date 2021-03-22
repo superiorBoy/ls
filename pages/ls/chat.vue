@@ -571,11 +571,13 @@
 				<view class="chat_bottom_top">
 					<!-- <image src="@/static/lsimg/chat_yuyin.png" mode=""></image> -->
 					<image src="@/static/lsimg/chat_biaoqing.png" mode="" @tap="showEmj"></image>
-					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" class="hei_26" @focus="huojiao" />
+					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" class="hei_26" @focus="huojiao"  />
 
 					<image src="@/static/lsimg/chat_jia.png" mode="" @click="jia"></image>
 					<text class="fasong" @click="send()">发送</text>
 				</view>
+				
+              <view v-if='bottom_tip' class="jianpan"></view>
 				<emotion @emotion="handleEmj" v-if="isShowEmj"></emotion>
 				<view class="chat_bottom_bottom hui_26" v-if="bt_show">
 					<view class="chat_bt_item" @click="call">
@@ -619,7 +621,17 @@ import emotion from '@/components/bkhumor-emoji/index.vue';
 import uParse from '@/components/feng-parse/parse.vue';
 import socket from 'plus-websocket';
 export default {
-	created() {},
+	created() {
+		// #ifdef H5
+			  window.addEventListener('resize', function () {
+			   if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
+			     window.setTimeout(function () {
+			       document.activeElement.scrollIntoViewIfNeeded()
+			     }, 0)
+			   }
+			  })
+		// #endif
+	},
 	components: {
 		emotion,
 		uParse
@@ -696,7 +708,8 @@ export default {
 			messageid:'',
 			canClick:true,
 			is_zuijin_chehui:false,
-			zuijin_txt:''
+			zuijin_txt:'',
+			bottom_tip:false
 		};
 	},
 	//下拉刷新
@@ -724,6 +737,15 @@ export default {
 			// 	icon: "none"
 			// });
 		},
+		  input_click: function(e) {
+		        this.bottom_tip =true;
+		      },
+		      input_blur(){
+		        setTimeout(()=> {
+		          this.bottom_tip=false;
+		        }, 300);
+		        console.log('失去焦点事件')
+		      },
 		navigateBack() {
 			uni.navigateBack();
 		},
@@ -1857,5 +1879,9 @@ page {
 	}
 	.chat_chehui_tishi .chat_chehui_tishi_txt text{
 		margin-left: 6rpx;
+	}
+	.jianpan{
+		height: 550rpx;
+		background-color: #FFFFFF;
 	}
 </style>

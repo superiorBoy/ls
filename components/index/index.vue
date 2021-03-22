@@ -34,7 +34,7 @@
 					class="swiper"
 					@change="swiperchang"
 				>
-					<swiper-item v-for="item in banner">
+					<swiper-item v-for="item in banner" @click="go_tiwen">
 						<view class="swiper-item"><image :src="item.img"></image></view>
 					</swiper-item>
 				</swiper>
@@ -462,6 +462,11 @@ export default {
 			
 	},
 	methods: {
+		go_tiwen(){
+			uni.navigateTo({
+				url:'../../pages/index/tiwen'
+			})
+		},
 		shuxin_zujian(){
 
 				this.huo_qu_is_yaoqing()

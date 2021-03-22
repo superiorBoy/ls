@@ -225,3 +225,11 @@ button::after{
 	height: 26rpx; background:url(@/static/img/weituo_sex.png) no-repeat !important;background-size: 100% 100% !important; }		
 		
 
+	input , textarea{
+		-webkit-user-select: auto!important;
+		 -khtml-user-select: auto!important;
+		 -moz-user-select: auto!important;
+		 -ms-user-select: auto!important;
+		 -o-user-select: auto!important;
+		 user-select: auto!important;
+	}

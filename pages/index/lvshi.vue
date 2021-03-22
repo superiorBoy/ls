@@ -33,7 +33,7 @@
 						在线咨询
 					</view>
 					<view class="zixun_jiage lv_22" >
-					<text v-if="item.chatprice==0">未报价</text>	<text v-if="item.chatprice!=0">{{item.chatprice}}/小时</text>
+					<text v-if="item.chatprice==0">未报价</text>	<text v-if="item.chatprice!=0">{{item.chatprice}}/天</text>
 					</view>
 					<view class="lvshi_left" @click="go_zhuye(item.userid)"><image :src="img_url + item.photourl" mode=""></image></view>
 					<view class="lvshi_right">

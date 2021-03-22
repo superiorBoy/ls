@@ -33,7 +33,7 @@
 					class="swiper"
 					@change="swiperchang"
 				>
-					<swiper-item v-for="item in banner">
+					<swiper-item v-for="item in banner"  @click="go_tiwen">
 						<view class="swiper-item"><image :src="item.img"></image></view>
 					</swiper-item>
 				</swiper>
@@ -159,11 +159,137 @@
 </view>
 
 
+	<view class="tuijian">
+			<view class="tuijian_top"><image src="@/static/img/tuijian_title.png" mode=""></image></view>
+			<view class="tuijian_list">
+				<block v-for="item in data.loginlawyer">
+					<view class="tuijian_item">
+						<view class="tuijian_item_left" @click="go_zhuye(item.userid)"><image :src="url + item.photourl" mode=""></image></view>
+						<view class="tuijian_item_right">
+							<view class="ls_name">
+								<view class="ls_name_left hei_30_bold" @click="go_zhuye(item.userid)">
+									{{ item.nickname }}
+									<image src="@/static/img/renzheng.png" mode=""></image>
+								</view>
+								<view class="ls_name_right lv_20" @click="tochat(item.userid)">
+									<image src="@/static/img/xiaoxi.png" mode=""></image>
+									在线咨询
+								</view>
+							</view>
+							<view class="ls_gongsi hui_24">
+								<text class="bai_20 tese_ls">特色律师</text>
+								{{ item.zhiwu }}
+							</view>
+							<view class="ls_dizhi qian_22">
+								<image src="@/static/img/dizhi.png" mode=""></image>
+								{{ item.city }}
+							</view>
+							<view class="ls_bottom qian_22">
+								<view class="ls_fuwu">
+									<image src="@/static/img/xin.png" mode=""></image>
+									已服务
+									<text class="lv_22">{{ item.replynum }}</text>
+									人
+								</view>
+								<view class="ls_pingjia">
+									<image src="@/static/img/pingjia.png" mode=""></image>
+									评价
+									<text class="lv_22">{{ item.haopingnum }}</text>
+									人
+								</view>
+							</view>
+						</view>
+					</view>
+				</block>
+			</view>
+			<button type="" class="qian_26 ls_more" @click="tiaozhuan">
+				<image src="@/static/img/gengduo.png" mode=""></image>
+				查看更多律师>>
+			</button>
+		</view>
+		<view class="index_zixun">
+			<view class="zixun_tab qian_28">
+				<text @tap="change(1)" :class="{ hei: btnnum == 1 }">最新解答</text>
+				<text @tap="change(0)" :class="{ hei: btnnum == 0 }">最新咨询</text>
+			</view>
+			<view class="index_zixun_list">
+				<block class="" v-if="data != ''">
+					<block v-for="item in data.consultlist.new" v-if="btnnum == 0">
+						<view class="index_zixun_item" @click="zixun_xq(item.consultid)">
+							<view class="zixun_title hei_26">{{ item.information }}</view>
+							<view class="index_zixun_item_bottom qian_22">
+								<view class="shijian">
+									<image src="@/static/img/shijian.png" mode=""></image>
+									<!-- <text class="hong_22">5</text> -->
+									{{ item.addtime | timeStamp }}
+								</view>
+								<view class="biaoqian">
+									<image src="@/static/img/biaoqian.png" mode=""></image>
+									{{ tabList[item.typeid].typename }}
+								</view>
+								<view class="dizhi">
+									<image src="@/static/img/dizhi.png" mode=""></image>
+									{{ item.province }}-{{ item.city }}
+								</view>
+							</view>
+						</view>
+					</block>
+				</block>
+				<block class="" v-if="data != ''">
+					<block v-for="item in data.consultlist.reply" v-if="btnnum == 1">
+						<view class="index_zixun_item" @click="zixun_xq(item.consultid)">
+							<view class="zixun_title hei_26">{{ item.information }}</view>
+							<view class="index_zixun_item_bottom qian_22">
+								<view class="shijian">
+									<image src="@/static/img/shijian.png" mode=""></image>
+									<!-- <text class="hong_22">5</text> -->
+									{{ item.replytime | timeStamp }}
+								</view>
+								<view class="biaoqian">
+									<image src="@/static/img/biaoqian.png" mode=""></image>
+									{{ tabList[item.typeid].typename }}
+								</view>
+								<view class="dizhi">
+									<image src="@/static/img/dizhi.png" mode=""></image>
+									{{ item.province }}-{{ item.city }}
+								</view>
+							</view>
+						</view>
+					</block>
+				</block>
+			</view>
+		</view>
+		<button type="" class="qian_26 ls_more" @click="tiaozhuan_zixun">
+			<image src="@/static/img/gengduo.png" mode=""></image>
+			查看更多咨询>>
+		</button>
+
+
+
 
 	
 
 		<div id="allmap" style="display: none"></div>
+		
+		
+		
 		<view class="zhuanti">
+			<view class="index_fazhi hei_32_bold">
+				<image src="@/static/img/index_fazhi.png" mode=""></image>
+				法律知识
+			</view>
+			<view class="zhuanti_list hei_26">
+				<view class="" v-for="item in fa_zhishi" @click="go_zhishi_xq(item.knowledgetypeid, item.knowledgetypename)">{{ item.knowledgetypename }}</view>
+				<!-- 	<view class="hot">醉酒驾驶处罚的新标准</view>
+				<view class="">拆迁法规</view>
+				<view class="hot">交通事故怎么赔偿</view>
+			     -->
+			</view>
+			<navigator url="changshi" class="qian_26 more_zhuanti">
+				<image src="@/static/img/gengduo.png" mode=""></image>
+				查看更多热门专题>>
+			</navigator>
+			
 			
 			<view class="tab_bg" v-if="is_gengxin">
 				<view class="tan">
@@ -343,7 +469,11 @@ export default {
 		
 	},
 	methods: {
-		
+		go_tiwen(){
+			uni.navigateTo({
+				url:'../../pages/index/tiwen'
+			})
+		},
 		shuxin_zujian(){
 				this.huo_qu_is_yaoqing();
 				this.huiqu_login();
@@ -747,10 +877,10 @@ export default {
 			// if (process.env.NODE_ENV == 'development') {
 			//     wei_url='/dpc'
 			// 	// #ifndef H5
-			// 	wei_url='http://api.map.baidu.com'
+			// 	wei_url='https://api.map.baidu.com'
 			// 	// #endif
 			// } else {
-			//     wei_url = 'http://api.map.baidu.com' // 生产环境
+			//     wei_url = 'https://api.map.baidu.com' // 生产环境
 			// }
 
 			this.$nextTick(function() {
@@ -1630,9 +1760,9 @@ scroll-view ::-webkit-scrollbar {
 }
 .index_zhineng_item:first-child::before{
 	
-	content: '';
-	display: inline-block;
-	width: 2rpx;
+	 content: '';
+	 display: inline-block;
+	  width: 2rpx;
 		height: 57rpx;
 		background-color: #cdcdcd;
 		position: absolute;
@@ -1640,6 +1770,6 @@ scroll-view ::-webkit-scrollbar {
 		top: 10rpx;
 }
 .body{
-	padding-bottom: 108rpx;
+	padding-bottom: 140rpx;
 }
 </style>
