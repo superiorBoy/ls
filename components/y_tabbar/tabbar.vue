@@ -136,7 +136,7 @@ export default {
 					url: '/mapi/index/getzhantemplate'
 				})
 				.then(res => {
-					if(res.data.template==2){
+					if(res.data.template==2 ||res.data.template==3){
 						this.tabBar[0].imgNormal='/static/img/xh_tabber1.png'
 						this.tabBar[0].imgClick='/static/img/xh_tabber1_on.png'
 		                this.tabBar[1].imgNormal='/static/img/xh_tabber2.png'

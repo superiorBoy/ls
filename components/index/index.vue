@@ -169,7 +169,7 @@
 							</view>
 							<view class="ls_dizhi qian_22">
 								<image src="@/static/img/dizhi.png" mode=""></image>
-								{{ item.city }}
+								{{ item.province+'-'+ item.city+'-'+ item.area}}
 							</view>
 							<view class="ls_bottom qian_22">
 								<view class="ls_fuwu">
@@ -466,6 +466,21 @@ export default {
 			uni.navigateTo({
 				url:'../../pages/index/tiwen'
 			})
+		},
+			
+		huoqu_index(){
+			// 获取首页信息
+			this.$http
+				.post({
+					url: '/mapi/index/index',
+					data:{
+						city:this.dizhi
+					}
+				})
+				.then(res => {
+					this.data = res.data;
+				});
+			
 		},
 		shuxin_zujian(){
 
@@ -910,7 +925,7 @@ export default {
 							success: function(res) {
 								console.log(res)
 								that.dizhi = res.result.addressComponent.city;
-								that.shuxin_zujian()
+								that.huoqu_index()
 								uni.setStorage({
 									key: 'dizhi',
 									data: {
@@ -922,7 +937,7 @@ export default {
 							},
 							error: function (err) {
 								console.log(err)
-								that.shuxin_zujian()
+								that.huoqu_index()
 							}
 						});
 						// var url = wei_url+'/geocoder/v2/?ak=eIxDStjzbtH0WtU50gqdXYCz&output=json&pois=1&location=' + r.latitude + ',' + r.longitude;

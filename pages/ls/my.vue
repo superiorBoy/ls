@@ -360,12 +360,12 @@ export default {
 		   
 		   if(this.user!=null){
 			   
-			   if(this.user.isreal==2){
+			   if(this.user.isreal==2 || this.user.isreal==3){
 				   uni.navigateTo({
 				   	url:'shiming_renzheng'
 				   })
 				   
-			   }else if(this.user.iszhiye==2){
+			   }else if(this.user.iszhiye==2 ||this.user.iszhiye==3){
 				   uni.navigateTo({
 				   	url:'zhiye_renzheng'
 				   })

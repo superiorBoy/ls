@@ -1,21 +1,59 @@
 <template>
 	<view class="">
 		<!-- <index></index> -->
-		<xiaohua></xiaohua>
+		
+			<!-- <web-view  :style="{ height: viewheight+'rpx',width:viewwidth+'rpx' }" src="https://uniapp.dcloud.io/static/web-view.html"></web-view> -->
+		
+		 
 	</view>
 	
 </template>
 
 <script>
-	// import index from '@/components/index/index.vue';
-	import xiaohua from '@/components/xiaohua/index.vue';
+
 	export default {
-	components: {
-		// index,
-		xiaohua
+	onShow() {
+		
 	},
+
+	data() {
+		return {
+			viewheight:200,
+			viewwidth:100
+		};
+	},
+	created() {},
+    onLoad(option) {
+    	
+    },
+	methods: {
+		navigateBack() {
+			uni.navigateBack();
+		},
+	
+		
+		
+	}
 	}
 </script>
 
 <style>
+	.aaaaa{
+		width: 300rpx;
+		height: 300rpx;
+	}
+	.webView_class{
+		width: 300rpx;
+		height: 300rpx;
+	}
+	.webView_class::-webkit-scrollbar {
+	
+	    width: 0;
+	
+	    height: 0;
+	
+	    background-color: transparent;
+	
+	}
+
 </style>

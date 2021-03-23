@@ -225,7 +225,7 @@ export default {
 					url: '/mapi/index/knowledge',
 					data: {
 						page: this.page,
-						type: 2,
+						type: 1,
 						knowledgetypeid:this.yi_id,
 						knowledgetypeid1:this.erji_id,
 						knowledgetypeid2:this.sanji_id

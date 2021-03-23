@@ -1,13 +1,15 @@
 <template>
 	<view class="body">
-	<index v-if="muban!=2" ref="shouye"></index>
-	<xiaohua v-if="muban==2" ref="shouye"></xiaohua>		
+	<index v-if="muban==1" ref="shouye"></index>
+	<xiaohua v-if="muban==2" ref="shouye"></xiaohua>	
+	<lvyi v-if="muban==3" ref="shouye"></lvyi>
     </view>
 </template>
 
 <script>
 import index from '@/components/index/index.vue';
 import xiaohua from '@/components/xiaohua/index.vue';
+import lvyi from '@/components/lvyi/index.vue';
 
 export default {
 	data() {
@@ -18,7 +20,8 @@ export default {
 	},
 	components: {
 		index,
-		xiaohua
+		xiaohua,
+		lvyi
 	},
 	created() {
 	this.$http

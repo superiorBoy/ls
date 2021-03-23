@@ -2,22 +2,26 @@
 	<view class="body">
 		<view class="index_top">
 			<view class="index_top_dingwei">
-				<navigator url="tiwen" style="width: 76%;">
-					<view class="index_sousuo qian_24">
-						<image src="../../static/img/xh_sousuo.png" mode=""></image>
-						<input confirm-type="search" @confirm="confirm" type="text" v-model="sou_txt" placeholder="输入关键字..." class="hei_30" />
-					</view>
-				</navigator>
-				<view class="dingwei hei_30">
-					<image src="@/static/img/xh_dingwei.png" mode=""></image>
-					<pickerAddress @change="xuandizhi">{{ dizhi==''?'定位中':dizhi }}</pickerAddress>
+				<view class="dingwei lv_30">
+					<image src="@/static/img/lvyi_dingwei.png" mode=""></image>
+					<pickerAddress @change="xuandizhi"><view class="dingwei_text">
+						{{ dizhi==''?'定位中':dizhi }}
+					</view> </pickerAddress>
 					<!-- <text>{{dizhi}}</text> -->
 				</view>
+				<view class="lvyi_logo_img">
+					
+					<image src="../../static/img/lvyi_logo.png" mode="widthFix" class="lvyi_logo"></image>
+				</view>
+				
+				<navigator url="tiwen" style="width: 20%; text-align: right;">
+				<image src="../../static/img/lvyi_sousuo.png" mode="" class="sousuo_img"></image>
+				</navigator>
 			</view>
 
 			<view class="tab">
 				<wuc-tab :tab-list="tabList" :tabCur.sync="TabCur" @change="tabChange" class="fenlei hei_26"></wuc-tab>
-				<image src="@/static/img/xh_qita.png" mode=""></image>
+				<image src="@/static/img/lvyi_qita.png" mode=""></image>
 			</view>
 
 			<view class="lunbo">
@@ -46,13 +50,13 @@
 		<view class="index_zixun_num_body">
 			<view class="index_zixun_num hei_26">
 				<view class="index_zixun_num_left">
-					<image src="../../static/img/index_renzheng.png" mode=""></image>
-					平台律师均三重认证
+					<image src="../../static/img/lvyi_zaixiannum.png" mode=""></image>
+					在线咨询 <text class="hong_26">{{jiequ(data.serve.zixun)}}</text>人
 				</view>
 				<view class="index_zixun_num_right">
-					<image src="../../static/img/index_zixun.png" mode=""></image>
+					<image src="../../static/img/lvyi_jinrinum.png" mode=""></image>
 					今日咨询
-					<text class="lv_26" v-if="data">
+					<text class="hong_26" v-if="data">
 						
 						{{jiequ(data.serve.today)}}
 					</text>
@@ -63,72 +67,51 @@
 		<view class="index_tab hei_24">
 			<view class="index_tab_item">
 				<navigator url="tiwen">
-					<image src="@/static/img/xh_tab1.png" mode=""></image>
+					<image src="../../static/img/lvyi_tab1.png" mode=""></image>
 					<view>问律师</view>
 				</navigator>
 			</view>
 
 			<view class="index_tab_item" @click="tiaozhuan">
-				<image src="@/static/img/xh_tab2.png" mode=""></image>
+				<image src="../../static/img/lvyi_tab2.png" mode=""></image>
 				<view>找律师</view>
 			</view>
 			<view class="index_tab_item" @click="tiao_jingxuan">
-				<image src="@/static/img/xh_tab3.png" mode=""></image>
+				<image src="../../static/img/lvyi_tab3.png" mode=""></image>
 				<view>精选问答</view>
 			</view>
 			<navigator url="changshi" class="index_tab_item">
-				<image src="@/static/img/xh_tab4.png" mode=""></image>
+				<image src="../../static/img/lvyi_tab4.png" mode=""></image>
 				<view>法律知识</view>
 			</navigator>
+			<view class="index_tab_item" @click="go_ls_list">
+				<image src="../../static/img/lvyi_tab5.png" mode=""></image>
+				<view>在线咨询</view>
+			</view>
+			<navigator url="dianhua_zixun" class="index_tab_item">
+							<image src="../../static/img/lvyi_tab6.png" mode=""></image>
+							<view>电话咨询</view>
+						</navigator>
+			<navigator url="weituo" class="index_tab_item">
+							<image src="../../static/img/lvyi_tab7.png" mode=""></image>
+							<view>案件委托</view>
+						</navigator>
+		<navigator url="changshi" class="index_tab_item" >
+					<!-- <view  class="index_tab_item" v-if="is_yaoqing==2"> -->
+						<image src="../../static/img/lvyi_tab8.png" mode=""></image>
+						<view>法律百科</view>
+					<!-- </view> -->
+		</navigator>				
 		</view>
 
-
-<view class="index_bankuai">
-	<view class="index_bankuai_list">
-		
-	<view class="index_bankuai_item index_bankuai_item1" @click="go_ls_list">
-		<view class="hei_28 index_bankuai_item_title">
-			在线咨询
-		</view>
-		<view class="hui_26">
-			律师1对1服务
-		</view>
-	</view>
-	<navigator url="dianhua_zixun" class="index_bankuai_item index_bankuai_item2">
-	
-		<view class="hei_28 index_bankuai_item_title">
-			电话咨询
-		</view>
-		<view class="hui_26">
-			律师主动沟通
-		</view>
-	</navigator>
-	</view>
-	<view class="index_bankuai_list">
-		<navigator url="weituo" class="index_bankuai_item index_bankuai_item3">
-		<view class="hei_28 index_bankuai_item_title">
-			案件委托
-		</view>
-		<view class="hui_26">
-			打官司·约见律师
-		</view>
-	</navigator>
-	<navigator url="changshi" class="index_bankuai_item index_bankuai_item3">
-		<view class="hei_28 index_bankuai_item_title">
-			法律百科
-		</view>
-		<view class="hui_26">
-			热点知识全都有
-		</view>
-		</navigator>
-	</view>
-</view>
-
-
-		<view class="index_wenti">
-			<navigator url="tiwen"><image src="../../static/img/xh_guanggao.png" mode=""></image></navigator>
+	<view class="index_wenti">
+			<navigator url="tiwen"><image src="../../static/img/lvyi_guanggao.png" mode=""></image></navigator>
 			
 		</view>
+
+
+
+	
 
 
 <view class="index_zhineng">
@@ -136,23 +119,33 @@
 		<navigator url="zhineng_pay?type=1" class="index_zhineng_item">
 			<image src="../../static/img/xh_zaixian.png" mode="" class="index_zhineng_item_lei"></image>
 		<view class="index_zhineng_item_right">
+			<view class="">
+				
 			<view class="index_zhineng_item_top hei_30_bold">
-				在线咨询<image src="../../static/img/xh_hot.png" mode="">
+			在线咨询<image src="../../static/img/xh_hot.png" mode="">
+			
 			</view>
 			<view class="index_zhineng_item_bottom qian_24">
 				专业律师·限时应答
 			</view>
+			</view>
+			<text class="hong_26_bold">{{zhineng.zaixiantime}}小时/￥{{zhineng.zaixianprice}}</text>
 		</view>
 	</navigator>
 	<navigator url="zhineng_pay?type=2" class="index_zhineng_item">
 		<image src="../../static/img/xh_dianhua.png" mode="" class="index_zhineng_item_lei"></image>
 		<view class="index_zhineng_item_right">
+			<view class="">
+				
 			<view class="index_zhineng_item_top hei_30_bold">
-				电话咨询 <image src="../../static/img/xh_tuijian.png" mode=""></image>
+		电话咨询 <image src="../../static/img/xh_tuijian.png" mode=""></image>
+				
 			</view>
 			<view class="index_zhineng_item_bottom qian_24">
 				超值咨询·高效便捷
 			</view>
+			</view>
+			<text class="hong_26_bold">{{zhineng.dianhuatime}}分钟/￥{{zhineng.dianhuaprice}}</text>
 		</view>
 	</navigator>
 	
@@ -359,7 +352,7 @@ export default {
 			current: 0,
 			banner: [
 				{
-					img: '../../static/img/xh_banner1.jpg'
+					img: '../../static/img/lvyi_banner.png'
 				}
 			],
 			btnnum: 1,
@@ -523,13 +516,13 @@ export default {
 				// 		this.tiao_type = res.data.zhan.zixunjump;
 				// 	});
 				// 查看只能服务报价
-				// this.$http
-				// 	.post({
-				// 		url: '/mapi/index/getzixun'
-				// 	})
-				// 	.then(res => {
-				// 		this.zhineng = res.data.zhan;
-				// 	});
+				this.$http
+					.post({
+						url: '/mapi/index/getzixun'
+					})
+					.then(res => {
+						this.zhineng = res.data.zhan;
+					});
 			
 		},
 	
@@ -982,11 +975,13 @@ export default {
 .tab {
 	display: flex;
 	align-items: center;
-	margin-top: 72rpx;
+	margin-top: 44rpx;
 	padding: 0 30rpx;
+	background-color: #bff0c3;
+	
 }
 .wuc-tab{
-	color: #333333 !important;
+	color: #0eb77e !important;
 }
 .tab image {
 	width: 23rpx;
@@ -999,7 +994,7 @@ export default {
 	/* border-radius: 0 0rpx 200rpx 200rpx; */
 	padding: 38rpx 0rpx 0;
 	position: relative;
-	background-color: #ffffff;
+	
 }
 
 .index_top1 {
@@ -1075,7 +1070,8 @@ export default {
 	box-sizing: border-box;
 	top: 0;
 	max-width: 750px;
-	background-color: #ffffff;
+	background-color: #bff0c3;
+	
 }
 
 .fenlei {
@@ -1086,6 +1082,7 @@ export default {
 	margin-left: 14rpx;
 	display: flex;
 	align-items: center;
+	
 }
 
 .dingwei image {
@@ -1126,7 +1123,7 @@ scroll-view ::-webkit-scrollbar {
 .swiper {
 	height: 300rpx;
 	position: relative;
-	padding: 0 20rpx;
+	
 }
 
 .swiper-item {
@@ -1156,20 +1153,22 @@ scroll-view ::-webkit-scrollbar {
 .index_tab_item image {
 	width: 84rpx;
 	height: 84rpx;
-	border-radius: 100%;
+	
 	margin-bottom: 10rpx;
 }
 
 .index_wenti {
 	padding: 0 20rpx;
+	margin-top: 10rpx;
+	margin-bottom: 30rpx;
 }
 
 .index_wenti image {
-	height: 118rpx;
+	height: 120rpx;
 	background-color: #ffffff;
 	box-shadow: 0rpx 0rpx 8rpx 0rpx rgba(188, 188, 188, 0.35);
 	border-radius: 10rpx;
-	margin-bottom: 50rpx;
+	
 	width: 100%;
 }
 
@@ -1682,14 +1681,15 @@ scroll-view ::-webkit-scrollbar {
 .index_zixun_num_body {
 	padding: 0 30rpx;
 	margin-bottom: 36rpx;
+	background-color: #fafafa;
 }
 .index_zixun_num {
-	margin-top: 290rpx;
+	margin-top:234rpx;
 	display: flex;
 	align-items: center;
 	height: 100rpx;
-	background-color: #ffffff;
-	box-shadow: 0rpx 0rpx 9rpx 0rpx rgba(0, 30, 20, 0.13);
+	
+	
 	border-radius: 10rpx;
 	padding: 0 24rpx 0 32rpx;
 	justify-content: space-between;
@@ -1699,8 +1699,8 @@ scroll-view ::-webkit-scrollbar {
 	align-items: flex-end;
 }
 .index_zixun_num_left image {
-	width: 24rpx;
-	height: 28rpx;
+	width: 26rpx;
+		height: 26rpx;
 	margin-right: 10rpx;
 }
 .index_zixun_num_right{
@@ -1708,8 +1708,8 @@ scroll-view ::-webkit-scrollbar {
 	align-items: flex-end;
 }
 .index_zixun_num_right image {
-	width: 27rpx;
-	height: 28rpx;
+		width: 30rpx;
+		height: 26rpx; 
 	margin-right: 10rpx;
 	vertical-align: middle;
 }
@@ -1748,9 +1748,7 @@ scroll-view ::-webkit-scrollbar {
 	margin-bottom: 10rpx;
 }
 .index_zhineng{
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+
 	padding: 0 50rpx 0 30rpx;
 	margin-bottom: 30rpx;
 }
@@ -1761,6 +1759,10 @@ scroll-view ::-webkit-scrollbar {
 }
 .index_zhineng_item_top{
 	margin-bottom: 10rpx;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	
 }
 .index_zhineng_item_top image{
 		width: 61rpx;
@@ -1771,8 +1773,16 @@ scroll-view ::-webkit-scrollbar {
 	display: flex;
 	align-items: center;
 	position: relative;
+	height: 120rpx;
+		background-color: #ffffff;
+		box-shadow: 0rpx 0rpx 9rpx 0rpx 
+			rgba(0, 30, 20, 0.13);
+		border-radius: 10rpx;
+		padding: 28rpx 20rpx ;
+		margin-bottom: 30rpx;
+		box-sizing: border-box;
 }
-.index_zhineng_item:first-child::before{
+/* .index_zhineng_item:first-child::before{
 	
 	 content: '';
 	 display: inline-block;
@@ -1782,8 +1792,32 @@ scroll-view ::-webkit-scrollbar {
 		position: absolute;
 		right: -60rpx;
 		top: 10rpx;
-}
+} */
 .body{
 	padding-bottom: 140rpx;
 }
+.sousuo_img{
+	width: 45rpx;
+		height: 43rpx;
+}
+.lvyi_logo_img{
+	width: 30%;
+	text-align: center;
+}
+.lvyi_logo{
+	width: 166rpx;
+}
+.dingwei_text{
+	width: 150rpx;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.index_zhineng_item_right{
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	width: 90%;
+}
+
 </style>

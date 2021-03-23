@@ -216,7 +216,7 @@ export default {
 						url: '/mapi/index/knowledge',
 						data:{
 							page:this.page,
-							type:2
+							type:1
 						}
 					})
 					.then(res => {
