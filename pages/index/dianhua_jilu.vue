@@ -53,6 +53,13 @@
 						<view class="fukuan lv_26" v-if="item.zixunstate == 4" @click="go_pingjia(item.lawyerid)">
 							我要评价
 						</view>
+						
+						<view class="fukuan lv_26" v-if="item.zixunstate == 2&&!item.refundstate" @click="go_tuikuan(item)">
+							申请退款
+						</view>
+						<view class="fukuan lv_26" v-if="item.refundstate" @click="tui_xq(item)">
+							退款详情
+						</view>
 						<view class="iten_lianxi lv_26" @click="go_chat(item.lawyerid)"v-if="item.lawyerid">
 						 	<image src="@/static/img/zaixian_chat.png" mode=""></image>在线联系
 						</view>
@@ -313,6 +320,17 @@ export default {
 			uni.navigateTo({
 				url:'pingjia?lawyerid='+lawyerid
 			})
+		},
+		tui_xq(item){
+			uni.navigateTo({
+				url:'tui_xq?item='+JSON.stringify(item)+'&type=2'
+			})
+		},
+		go_tuikuan(item){
+			uni.navigateTo({
+				url:'shenqing_tuikuan?item='+JSON.stringify(item)+'&type=2'
+			})
+			
 		}
 		
 	},

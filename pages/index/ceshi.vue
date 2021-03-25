@@ -2,13 +2,15 @@
 	<view class="">
 		<!-- <index></index> -->
 		
-			<!-- <web-view  :style="{ height: viewheight+'rpx',width:viewwidth+'rpx' }" src="https://uniapp.dcloud.io/static/web-view.html"></web-view> -->
-		
+			<!-- <web-view   src="http://121.36.207.38/ceshi"></web-view> -->
+			<web-view   src="http://121.36.207.38/ceshi/index2.html"></web-view>
+			<!-- <web-view   src="https://ask.dcloud.net.cn/question/5399"></web-view> -->
+		111123132131332
 		 
 	</view>
 	
 </template>
-
+<!-- 
 <script>
 
 	export default {
@@ -35,25 +37,9 @@
 		
 	}
 	}
-</script>
+</script> -->
 
 <style>
-	.aaaaa{
-		width: 300rpx;
-		height: 300rpx;
-	}
-	.webView_class{
-		width: 300rpx;
-		height: 300rpx;
-	}
-	.webView_class::-webkit-scrollbar {
 	
-	    width: 0;
-	
-	    height: 0;
-	
-	    background-color: transparent;
-	
-	}
 
 </style>

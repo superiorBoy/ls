@@ -25,7 +25,11 @@
 					<navigator url="../index/zhuce?state=2" class="go_denglu">注册</navigator>
 				</view>
 			</view>
-			<view class="my_top_right hei_30_bold" @click="qiehuan" >切换到用户中心</view>
+			<view class="">
+				<view class="my_top_right hei_30_bold" @click="qiehuan" >切换到用户中心</view>
+				<view class="my_mingpian bai_30_bold" @click="tiaozhuan('mingpian')">我的名片</view>
+			</view>
+			
 		</view>
 
 		<view class="my_ziliao">
@@ -156,6 +160,10 @@
 						<image src="../../static/lsimg/my_jiedan5.png" mode=""></image>
 						<view class="hui_24 ">电话咨询</view>
 					</view> -->
+					
+				<view class="guanggao" @click="tiaozhuan('vip')">
+					<image src="../../static/lsimg/my_vip.png" mode=""></image>
+				</view>	
 			<view class="my_guanli ls_guanli">
 				<view class="my_title hei_30_bold">律师管理</view>
 				<view class="my_list">
@@ -225,6 +233,14 @@
 					<view  class="zhanghao_item" @click="tiaozhuan('gaimima')">
 						<image src="../../static/lsimg/my_zhanghao4.png" mode="" style="width: 40rpx;height:40rpx;"></image>
 						<view class="hui_24 ">修改密码</view>
+					</view>
+					<view  class="zhanghao_item" @click="tiaozhuan('vip')">
+						<image src="../../static/lsimg/my_zhanghao5.png" mode="" style="width: 46rpx;height:40rpx;"></image>
+						<view class="hui_24 ">VIP管理</view>
+					</view>
+					<view  class="zhanghao_item"  @click="tiaozhuan('mingpian')">
+						<image src="../../static/lsimg/my_zhanghao6.png" mode="" style="width: 40rpx;height:32rpx;margin-bottom: 34rpx;"></image>
+						<view class="hui_24 ">我的名片</view>
 					</view>
 				</view>
 			</view>
@@ -614,11 +630,13 @@ page {
 
 .zhanghao_guanli {
 	margin-bottom: 30rpx;
+	padding-bottom: 0;
 }
 
 .zhanghao_item {
-	width: 25%;
+	width: 33.33%;
 	text-align: center;
+	margin-bottom: 60rpx;
 }
 
 .zhanghao_item image {
@@ -662,5 +680,25 @@ page {
 	color: #FFFFFF;
 	font-size: 22rpx;
 	padding: 2rpx 6rpx;
+}
+
+
+.my_mingpian{
+	position: absolute;
+	top: 90rpx;
+	right: 0;
+		width: 200rpx;
+		height: 70rpx;
+		background-color: #f43a51;
+		border-radius: 35rpx 0rpx 0rpx 35rpx;
+		line-height: 70rpx;
+		text-align: center;
+}
+.guanggao{
+	margin-top:20rpx;
+}
+.guanggao image{
+	height: 80rpx;
+	width: 100%;
 }
 </style>

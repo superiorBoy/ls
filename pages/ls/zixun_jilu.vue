@@ -33,6 +33,9 @@
 					  	<view class="iten_lianxi hong_26" v-if="item.zixunstate==2" @click="jiadan(item.consultid)">
 					  		立即接单
 					  	</view>
+						<view class="iten_lianxi hong_26" @click="tui_xq(item)"v-if="item.refundstate">
+						 	退款详情
+						</view>
 					  	<view class="iten_lianxi hong_26" @click="go_chat(item.userid)">
 					  	 	<image src="@/static/lsimg/hong_zaixian.png" mode=""></image>在线联系
 					  	</view>
@@ -218,6 +221,11 @@ export default {
 				url:'chat?userid='+id
 			})
 		},
+		tui_xq(item){
+			uni.navigateTo({
+				url:'tui_xq?item='+JSON.stringify(item)+'&type=1'
+			})
+		}
 	},
 	filters: {
 		timeStamp: function(value) {

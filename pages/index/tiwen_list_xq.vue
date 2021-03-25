@@ -56,7 +56,7 @@
 
 							<view class="qian_24">
 								已解答
-								<text class="lv_24">131313</text>
+								<text class="lv_24">{{item.replynum}}</text>
 								次
 							</view>
 						</view>

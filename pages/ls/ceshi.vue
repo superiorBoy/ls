@@ -1,113 +1,127 @@
 <template>
-	<view class="qiun-columns">
-		<view class="qiun-bg-white qiun-title-bar qiun-common-mt" >
-			<view class="qiun-title-dot-light">环形图</view>
-		</view>
-		<view class="qiun-charts" >
-			<canvas canvas-id="canvasRing" id="canvasRing" class="charts" @touchstart="touchRing"></canvas>
-		</view>
+
+	<view class="body">
+	
+	<l-painter :board="base"/>
 	</view>
+
+
+
 </template>
 
 <script>
-	import uCharts from '@/components/u-charts/u-charts.js';
-	var _self;
-	var canvaRing=null;
-   
+	import lPainter from '@/uni_modules/lime-painter/components/lime-painter/'
 	export default {
+		    components: {lPainter},
+
+ onReady: function (e) {
+        
+
+     
+    },
 		data() {
 			return {
-				cWidth:'',
-				cHeight:'',
-				pixelRatio:1,
-				
-				"chartData": {
-				  "series": [{
-					"name": "一班",
-					"data": 50
-				  }, {
-					"name": "二班",
-					"data": 30
-				  }, {
-					"name": "三班",
-					"data": 20
-				  }, {
-					"name": "四班",
-					"data": 18
-				  }, {
-					"name": "五班",
-					"data": 8
-				  }]
-				}
+				  base: {
+				                width: '686rpx',
+				                height: '130rpx',
+				                views: [
+				                    {
+				                        type: 'view',
+				                        css: {
+				                            left: '0rpx',
+				                            top: '0rpx',
+				                            background: '#07c160',
+				                            width: '120rpx',
+				                            height: '120rpx'
+				                        }
+				                    },
+				                    {
+				                        type: 'view',
+				                        css: {
+				                            left: '180rpx',
+				                            top: '18rpx',
+				                            background: '#1989fa',
+				                            width: '80rpx',
+				                            height: '80rpx',
+				                            transform: 'transform: rotate(50deg)'
+				                        }
+				                    }
+				                ]
+				            }
 			}
 		},
-		onLoad() {
-			_self = this;
-			this.cWidth=uni.upx2px(750);
-			this.cHeight=uni.upx2px(500);
-			this.getServerData();
+		created() {
+
+		},
+		onLoad(option) {
+          
+          	
+		   
+
 		},
 		methods: {
-			getServerData(){	
-			    _self.showRing("canvasRing",this.chartData);
+	
+		// 根据百分百计算px  主要用于结算页面高度
+			getPersentageH(p){
+				p = p /100
+				let h = uni.getSystemInfoSync().screenHeight
+				return parseInt(h * p)
 			},
-			showRing(canvasId,chartData){
-				canvaRing=new uCharts({
-					$this:_self,
-					canvasId: canvasId,
-					type: 'ring',
-					fontSize:11,
-					legend:true,
-					title: {
-						name: '70%',
-						color: '#7cb5ec',
-						fontSize: 25*_self.pixelRatio,
-						offsetY:-20*_self.pixelRatio,
-					},
-					subtitle: {
-						name: '收益率',
-						color: '#666666',
-						fontSize: 15*_self.pixelRatio,
-						offsetY:30*_self.pixelRatio,
-					},
-					extra: {
-						pie: {
-						  offsetAngle: -45,
-						  ringWidth: 40*_self.pixelRatio,
-						  labelWidth:15
-						}
-					},
-					background:'#FFFFFF',
-					pixelRatio:_self.pixelRatio,
-					series: chartData.series,
-					animation: true,
-					width: _self.cWidth*_self.pixelRatio,
-					height: _self.cHeight*_self.pixelRatio,
-					disablePieStroke: true,
-					dataLabel: true,
-				});
+			// 画布方法
+			draw(){
+				/* 创建canvas实例 */
+				let ctx = uni.createCanvasContext('myCanvas');
+				/* 绘制背景图 */ 
+				 // this.path 根据项目中使用到的图片进行赋值
+				ctx.drawImage(this.path,0,0,this.canvasW,this.canvasH);
+				/* 设置字体颜色 */
+				ctx.setFillStyle('#F76260')
+				/* 设置字体大小 和字体family */
+				ctx.font=`${uni.upx2px(30)}px Arial`;
+				/* 设置字体对齐方式 */
+				ctx.setTextAlign('center')
+				/* 设置文字内容以及 canvas的位置 */
+				ctx.fillText('十五个字十五个字十五个字十五个', this.canvasW/2, this.getPersentageH(61))
+				/* 设置头像背景色，用于确定位置 */
+				ctx.setFillStyle('#FBBD08')
+				/* 在画圆截取图片之前保存当前canvas的所有内容 */
+				ctx.save()
+				/* 画笔开始 */
+				ctx.beginPath()
+				/* 画圆方法 坐标，坐标，半径，起始位置，结束位置（画圆固定 2 * Math.PI） */
+				ctx.arc(uni.upx2px(377), this.getPersentageH(54), uni.upx2px(61), 0, 2 * Math.PI)
+				/* canvas 截取API */
+				ctx.clip()
+				/* canvas 连接起始位置API */
+				ctx.fill()
+				/* 插入图片（头像） */
+				ctx.drawImage(this.path1, uni.upx2px(315), this.getPersentageH(50.3),uni.upx2px(122),uni.upx2px(122))
+				/* 截取图片后只能在截取部分现在，这一步是恢复画布 */
+				ctx.restore()
+				/* 放置最下方二维码 */
+				ctx.drawImage(this.path, uni.upx2px(274), this.getPersentageH(67),uni.upx2px(204),uni.upx2px(204));
+				/* 执行canvas的开始画画方法 */
+				ctx.draw()
 			},
-			touchRing(e){
-				canvaRing.showToolTip(e, {
-					format: function (item) {
-						return item.name + ':' + item.data 
-					}
-				});
-			},
+			
+			save_temp(){
+				uni.canvasToTempFilePath({
+					canvasId: 'myCanvas',
+					success: res => {
+						uni.saveImageToPhotosAlbum({
+							filePath: res.tempFilePath,
+							complete: msg => console.log(msg)
+						})
+					},
+					fail: err => console.log(err)
+				})
+			}
+
+
 		}
 	}
 </script>
 
 <style>
-page{background:#F2F2F2;width: 750upx;overflow-x: hidden;}
-.qiun-padding{padding:2%; width:96%;}
-.qiun-wrap{display:flex; flex-wrap:wrap;}
-.qiun-rows{display:flex; flex-direction:row !important;}
-.qiun-columns{display:flex; flex-direction:column !important;}
-.qiun-common-mt{margin-top:10upx;}
-.qiun-bg-white{background:#FFFFFF;}
-.qiun-title-bar{width:96%; padding:10upx 2%; flex-wrap:nowrap;}
-.qiun-title-dot-light{border-left: 10upx solid #0ea391; padding-left: 10upx; font-size: 32upx;color: #000000}
-.qiun-charts{width: 750upx; height:500upx;background-color: #FFFFFF;}
-.charts{width: 750upx; height:500upx;background-color: #FFFFFF;}
+	
 </style>

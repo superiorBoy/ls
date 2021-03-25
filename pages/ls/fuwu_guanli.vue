@@ -61,7 +61,7 @@
 				 <image src="@/static/img/tan_close.png" mode="" @click="close" class="guanbi"></image>
 			</view>
 			<view class="hui_24 tan_tishi_txt">
-				若要开启在线/电话咨询，请联系客服！
+				必须是 vip会员 才可以开启
 			</view>
 			<button type="" class="bai_26" @click="close">知道啦</button>
 		</view>

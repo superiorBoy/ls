@@ -19,6 +19,12 @@
 			"path":"pages/index/tiwen_list_xq"
 		},
 		{
+			"path":"pages/index/shenqing_tuikuan"
+		},
+		{
+			"path":"pages/index/tui_xq"
+		},
+		{
 			"path":"pages/index/ceshi"
 		},
 		{
@@ -283,6 +289,12 @@
 			"path":"pages/ls/up_neirong"
 		},
 		{
+			"path":"pages/ls/mingpian"
+		},
+		{
+			"path":"pages/ls/vip"
+		},
+		{
 			"path":"pages/ls/ls_gongzuo"
 		},
 		{
@@ -302,6 +314,9 @@
 		},
 		{
 			"path":"pages/ls/fuwu_baojia"
+		},
+		{
+			"path":"pages/ls/tui_xq"
 		},
 		{
 			"path":"pages/ls/add_baojia"
