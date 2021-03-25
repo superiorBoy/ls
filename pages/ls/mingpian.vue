@@ -7,19 +7,21 @@
 		</view>
 
 		<view class="zi_body ">
-			<view class="mingpain_top">
-				<view class="mingpain_top_tx">
+			<view :change:msg="renderScript.receiveMsg" class="renderjs" id="poster" >
+			<view class="mingpain_top" v-if="user.photourl" :style="{backgroundImage: 'url(' + bg + ')',
+  'background-repeat':'no-repeat', backgroundSize:'100% 100%'}">
+				<view class="mingpain_top_tx" >
 					<image :src="img_url+user.photourl" mode="" class="tx"></image>
-					<image src="../../static/img/renzheng2.png" mode="" class="ren"></image>
+					<image :src="renzheng" mode="" class="ren"></image>
 				</view>
 				<view class="bai_40_bold">
 					{{user.nickname}}律师
 				</view>
 				<view class="mingpian_dizhi bai_28">
-					<image src="../../static/lsimg/bai_dizhi.png" mode=""></image>{{zhiye_ren.province}}·{{zhiye_ren.city}}
+					<image :src="dizhi" mode=""></image>{{zhiye_ren.province}}·{{zhiye_ren.city}}
 				</view>
 				<view class="mingpian_lvsuo bai_28">
-					<image src="../../static/lsimg/bai_lvsuo.png" mode=""></image>{{zhiye_ren.lvsuo}}
+					<image :src="lvsuo" mode=""></image>{{zhiye_ren.lvsuo}}
 				</view>
 				<view class="mingpian_zhuanchang bai_26">
 									<text v-if="zhuanchang_arry[zhiye_ren.expertise1] && zhuanchang_arry[zhiye_ren.expertise1].shanchangname">{{zhuanchang_arry[zhiye_ren.expertise1].shanchangname}}</text>
@@ -27,17 +29,18 @@
 									<text v-if="zhuanchang_arry[zhiye_ren.expertise3] && zhuanchang_arry[zhiye_ren.expertise3].shanchangname">{{zhuanchang_arry[zhiye_ren.expertise3].shanchangname}}</text>
 				</view>
 			</view>
-               <view class="ming_pian">
-               	<image :src="codeImg" mode=""></image>
+              <view class="ming_pian">
+               	<image :src="codeImg" mode="" ></image>
 				<view class="qian_26">
 					扫描二维码，法律问题来咨询
 				</view>
                </view>
+		</view>	   
 			   <view class="fenxiang hui_26">
 			   	<text></text>分享名片<text></text>
 			   </view>
-			<view class="fenxiang_list hui_26">
-				<view class="fenxiang_item" @click="fenxiang_weixin()">
+			<view class="fenxiang_list hui_26" >
+				<view class="fenxiang_item"  @click="renderScript.emitData">
 					<image src="../../static/lsimg/weixin.png" mode=""></image>
 					<view class="">
 						微信
@@ -57,15 +60,16 @@
 				</view>
 			</view>
 		</view>
+			<view class="poster-view">
+					<image :src="base64" mode=""></image>
+				</view>
 	</view>
 </template>
 
 <script>
-	import uParse from '@/components/feng-parse/parse.vue';
+	// 以下路径需根据项目实际情况填写
+	import { pathToBase64, base64ToPath } from '@/common/index.js'
 export default {
-	components: {
-		uParse
-	},
 	data() {
 		return {
 			img_url: uni.getStorageSync('img_url'),
@@ -73,22 +77,31 @@ export default {
 			zhiye_ren:'',
 			user:'',
 			erweima:'',
-			codeImg:''
+			codeImg:'',
+			base64: '',
+			lvsuo:'',
+			dizhi:'',
+			type:0
+			
 		};
 	},
 	created() {},
 	onLoad(option) {
-		
+		this.zhuanhuan1('/static/lsimg/bai_dizhi.png')
+		this.zhuanhuan2('/static/lsimg/bai_lvsuo.png')
+		this.zhuanhuan3('/static/img/renzheng2.png')
+		this.zhuanhuan4('/static/lsimg/ming_bg.png')
+		var that=this
 		this.huoqu_zhangchang_lei()
 		this.$http
 			.post({
 				url: '/mlawyerapi/user/getlawyer'
 			})
 			.then(res => {
-				
-				this.user=res.data.user
-		
-			});
+				this.user=res.data.user;
+
+
+          });	
 		this.tupain()
 		
 	},
@@ -96,25 +109,86 @@ export default {
 		navigateBack() {
 			uni.navigateBack();
 		},
+		zhuanhuan1(url){
+			pathToBase64(url)
+			  .then(base64 => {
+			    
+				this.dizhi=base64
+			  })
+			  .catch(error => {
+			    console.error(error)
+			  })
+		
+		},
+		zhuanhuan2(url){
+			pathToBase64(url)
+			  .then(base64 => {
+			    
+				this.lvsuo=base64
+			  })
+			  .catch(error => {
+			    console.error(error)
+			  })
+		
+		},
+		zhuanhuan3(url){
+			pathToBase64(url)
+			  .then(base64 => {
+			    
+				this.renzheng=base64
+			  })
+			  .catch(error => {
+			    console.error(error)
+			  })
+		
+		},
+		zhuanhuan4(url){
+			pathToBase64(url)
+			  .then(base64 => {
+			    
+				this.bg=base64
+			  })
+			  .catch(error => {
+			    console.error(error)
+			  })
+		
+		},
+	saveImg(url) {
+				const that = this;
+				uni.downloadFile({
+							url,
+				success: res => {
+					if (res.statusCode === 200) {
+						uni.saveImageToPhotosAlbum({
+							filePath: res.tempFilePath,
+							success: function() {
+								this.tools.toast('保存成功');
+							},
+							fail: function() {
+								this.tools.toast('保存失败，请稍后重试');
+							}
+						});
+					} else {
+						this.tools.toast('下载失败');
+					}
+				}
+						});
+					},
 		tupain(){
 			var that=this
 			uni.request({
 				url: that.$http.baseUrl + '/mlawyerapi/user/lawyer_qrcode',
-				method: 'POST',
+				method: 'GET',
+				dataType:"arraybuffer",
                 responseType: "arraybuffer",
 				success: function(res) {
-                let datas = res.data
-				that.codeImg = 'data:image/png;base64,' + btoa(
-													new Uint8Array(datas).reduce((datas, byte) => datas + String.fromCharCode(byte), '')
-												);                
+					   const arrayBuffer = res.data
+                  that.codeImg='data:image/jpeg;base64,'+ uni.arrayBufferToBase64(arrayBuffer)
+							
 				},
 				fail: function(resp) {}
 			});
 		},
-	 urlTobase64(img) {
-	
-	 },
-	
 
 		huoqu_zhangchang_lei(){
 			this.$http
@@ -141,6 +215,7 @@ export default {
 						});
 		},
 		baocun() {
+			var url=this.bg
 					const that = this;
 					uni.downloadFile({url,
 						success: res => {
@@ -148,19 +223,33 @@ export default {
 								uni.saveImageToPhotosAlbum({
 									filePath: res.tempFilePath,
 									success: function() {
-										this.tools.toast('保存成功');
+										uni.showToast({
+											title: '已保存',
+											duration: 2000
+										});
 									},
 									fail: function() {
-										this.tools.toast('保存失败，请稍后重试');
+										uni.showToast({
+											title: '保存失败',
+											duration: 2000,
+											icon:'none'
+										});
+										
 									}
 								});
 							} else {
-								this.tools.toast('下载失败');
+								uni.showToast({
+									title: '保存失败',
+									duration: 2000,
+									icon:'none'
+								});
+								
 							}
 						}
 					});
 		},
         fenxiang_weixin(){
+          this.type=1
 			uni.share({
 			    provider: "weixin",
 			    scene: "WXSceneSession",
@@ -179,7 +268,7 @@ export default {
 			    provider: "weixin",
 			    scene: "WXSenceTimeline",
 			    type: 2,
-			    imageUrl: "https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/d8590190-4f28-11eb-b680-7980c8a877b8.png",
+			    imageUrl:""+this.base64,
 			    success: function (res) {
 			        console.log("success:" + JSON.stringify(res));
 			    },
@@ -187,11 +276,67 @@ export default {
 			        console.log("fail:" + JSON.stringify(err));
 			    }
 			});
+		},
+		receiveRenderData(val) {
+			console.log(val)
+						this.base64 = val
+						if(this.type==1){
+							console.log('weixin')
+						}else if(this.type==2){
+							console.log('朋友圈')
+						}else{
+							console.log('baocun')
+						}
 		}
 		
 		
 	}
 };
+</script>
+<script module="renderScript" lang="renderjs">
+	import html2canvas from 'html2canvas';
+	export default {
+		data() {
+			return {
+
+			}
+		},
+		mounted() {},
+		methods: {
+			// 发送数据到逻辑层
+			emitData(e, ownerVm) {
+				console.log(e)
+				this.type=e
+				const dom = document.getElementById('poster')
+				
+				html2canvas(dom, {
+					width: dom.clientWidth, //dom 原始宽度
+					height: dom.clientHeight,
+					scrollY: 0, // html2canvas默认绘制视图内的页面，需要把scrollY，scrollX设置为0
+					scrollX: 0,
+					allowTaint:true,
+					useCORS: true, //支持跨域，但好像没什么用
+					scale:window.devicePixelRatio,
+					dpi: window.devicePixelRatio, // window.devicePixelRatio是设备像素比
+				
+				}).then((canvas) => {
+					// 将生产的canvas转为base64图片3
+					
+					// this.base64=canvas.toDataURL('image/png')
+					// if(this.type==1){
+					// 	console.log('weixin')
+					// }else if(this.type==2){
+					// 	console.log('朋友圈')
+					// }else{
+					// 	console.log('baocun')
+					// }
+					
+					ownerVm.callMethod('receiveRenderData', canvas.toDataURL('image/png'))
+				});
+
+			}
+		}
+	};
 </script>
 
 <style>
@@ -200,8 +345,8 @@ export default {
 }
 .mingpain_top{
 		height: 543rpx;
-		background: url(../../static/lsimg/ming_bg.png) no-repeat;
-		background-size: 100% 100%;
+		/* background: url(../../static/lsimg/ming_bg.png) no-repeat; */
+		/* background-size: 100% 100%; */
 		text-align: center;
 		padding-top: 40rpx;
 		box-sizing: border-box;
@@ -270,8 +415,11 @@ export default {
 		height: 258rpx;
 		margin-bottom: 30rpx;
 }
+#poster{
+	padding-bottom: 160rpx;
+}
 .fenxiang{
-	margin: 160rpx 0 50rpx;
+	margin: 0rpx 0 50rpx;
 	text-align: center;
 	display: flex;
 	align-items: center;
@@ -297,10 +445,12 @@ export default {
 }
 .fenxiang_item{
 	text-align: center;
+	
 }
 .fenxiang_item image{
 		width: 62rpx;
 		height: 61rpx;
 		margin-bottom: 20rpx;
 }
+
 </style>

@@ -112,7 +112,7 @@
 						<image src="@/static/img/hy_xinxi.png" mode="" style="width: 50rpx;height: 46rpx;"></image>
 						<view class="hui_24 ">个人信息</view>
 					</navigator>
-					<navigator url="ls_tixian" class="zhanghao_item">
+					<navigator url="ls_tixian" class="zhanghao_item" v-if="is_tixian==1">
 						<image src="@/static/img/hy_tixian.png" mode="" style="width: 45rpx;height: 52rpx;"></image>
 						<view class="hui_24 ">账号提现</view>
 					</navigator>
@@ -165,7 +165,8 @@ export default {
 			geshu:'',
 			baojia:'',
 			yaoqing:'',
-			is_yaoqing:2
+			is_yaoqing:2,
+			is_tixian:2
 			
 		};
 	},
@@ -298,12 +299,21 @@ export default {
 						this.huoqu_geshu()
 						this.huoqu_baojia()
 						this.huoqu_lianjie()
-						
+						this.huoqu_tixian()
 						this.kaiqi();
 						
 					}else{
 						this.is_login=false
 					}
+				});
+		},
+		huoqu_tixian(){
+			this.$http
+				.post({
+					url: '/mapi/index/getuser_withdrawal'
+				})
+				.then(res => {
+					this.is_tixian = res.data.user_withdrawal;
 				});
 		},
 		huoqu_lianjie(){

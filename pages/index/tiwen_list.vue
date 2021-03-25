@@ -59,8 +59,8 @@
 						<!-- <text class="lv_26" @click="xq(item.consultid)">{{item.tiwenstate==2?'去悬赏':'查看详情'}}></text> -->
 					<view class="tiwen_caozuo lv_24">
 						<text v-if="item.ispay==1" @click="pay(item.consultid)">立即支付</text>
-						<text v-if="item.tiwenstate==2&&item.ispay!=1&&!item.refundstate" @click="go_tuikuan(item)">申请退款</text>
-						<text v-if="item.refundstate" @click="tui_xq(item)">退款详情</text>
+						<!-- <text v-if="item.tiwenstate==2&&item.ispay!=1&&!item.refundstate" @click="go_tuikuan(item)">申请退款</text> -->
+						<!-- <text v-if="item.refundstate" @click="tui_xq(item)">退款详情</text> -->
 						<text v-if="item.tiwenstate==4" class="pingjia" @click="go_pingjia(item.reply[0].userid)"><image src="@/static/img/wen_pingjia.png" mode=""></image>评价</text>
 						<text v-if="item.tiwenstate==2" @click="xq(item.consultid)">去悬赏</text>
 						<text @click="xq(item.consultid)">详情</text>

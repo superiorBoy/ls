@@ -126,6 +126,9 @@
 					</view>
 
 					<view class="chat_top_bottom lv_24">
+						<view class="fa_honghbao chat_top_jia" @click="fa_hongbao">
+							发红包
+						</view>
 						<view class="chat_top_jia" @click="go_zhuye()">在线咨询{{ ls_xinxi.chatprice }}元/天</view>
 						<view class="chat_top_jia" @click="go_zhuye()">电话咨询{{ ls_xinxi.phoneprice }}元/20分钟</view>
 					</view>
@@ -350,6 +353,26 @@
 							</view>
 						</view>
 					</view>
+					
+					
+					<!-- 发起收费 -->
+					
+					<!-- <view class="chat_list chat_left" v-if="item.userid_from == ls_id" @click="go_fuwufei">
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+						<view class="chat_left_txt hei_30 send_shoufei_html">
+							<view class="send_shoufei">
+								<view class="send_shoufei_top bai_30">
+									<image src="../../static/img/kefu.png" mode=""></image>
+									<text>在线咨询</text><text class="shou_jiage">￥39.00/1小时</text>
+								</view>
+								<view class="send_shoufei_bottom qian_24">
+									律师发起了咨询服务费，请先支付
+								</view>
+							</view>
+						</view>
+					</view> -->
+					
+					
 					<view class=" chat_chehui_tishi hei_26" v-if="item.userid_from == ls_id  &&item.iswithdraw==1" >
 					     <text class="chat_chehui_tishi_txt"> “{{chat_xinxi.nickname}}”撤回了一条消息 </text> 
 					</view>
@@ -519,6 +542,55 @@
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
+					
+					<!-- 发送红包 -->
+					<!-- <view class="chat_list chat_right" v-if="item.userid_from != ls_id">
+						<view class="chat_right_txt hei_30 send_hongbao_html">
+							
+							<view class="send_hongbao">
+								<view class="send_hongbao_top">
+									<image src="../../static/img/hongbao_icon.png" mode=""></image> <text>￥10.00</text>
+								</view>
+								<view class="send_hongbao_bottom qian_24">
+									谢谢律师，这是感谢费
+								</view>
+							</view>
+							
+							
+						</view>
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+					</view>
+					
+					<view class="lingqu hui_20">
+						<image src="../../static/img/hongbao_icon.png" mode=""></image>沈城峰律师收到了你的<text class="hong_20">红包</text>
+					</view> -->
+					
+					
+					<!-- 付费 -->
+					
+					<!-- <view class="chat_list chat_right" v-if="item.userid_from != ls_id">
+						<view class="chat_right_txt hei_30 send_fufei_html">
+							
+							<view class="send_hongbao">
+								<view class="send_fufei_top bai_30">
+									<image src="../../static/img/kefu.png" mode=""></image><text>在线咨询</text> <text class="send_fufei_top_jia">￥39.00/1小时</text>
+								</view>
+								<view class="send_hongbao_bottom qian_24">
+									支付成功
+								</view>
+							</view>
+							
+							
+						</view>
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+					</view>
+					
+					<view class="hui_20 yi_fufei">
+						<text>已支付完成，等待律师解答</text>
+					</view> -->
+					
+					
+					
 					<view class=" chat_chehui_tishi hei_26" v-if="item.userid_from != ls_id &&item.iswithdraw==1" >
 				         <text class="chat_chehui_tishi_txt"> 你撤回了一条消息 </text> 
 					</view>
@@ -571,6 +643,10 @@
 					<view class="chat_bt_item" @click="pingjia">
 						<image src="@/static/img/chat_pingjia.png" mode=""></image>
 						<view>评价律师</view>
+					</view>
+					<view class="chat_bt_item" @click="fa_hongbao">
+						<image src="../../static/img/hongbao.png" mode=""></image>
+						<view>发红包</view>
 					</view>
 				</view>
 			</view>
@@ -1492,6 +1568,16 @@ export default {
 		},
 		guanbi() {
 			this.is_new = false;
+		},
+		fa_hongbao(){
+			uni.navigateTo({
+				url:'hongbao?lawyerid=' + this.chat_xinxi.userid
+			})
+		},
+		go_fuwufei(){
+			uni.navigateTo({
+				url:'fuwufei?lawyerid=' + this.chat_xinxi.userid
+			})
 		}
 	},
 	filters: {
@@ -1558,7 +1644,7 @@ page {
 }
 
 .chat_body_jia {
-	padding-bottom: 354rpx;
+	padding-bottom: 580rpx;
 }
 
 .chat_left_txt {
@@ -1656,12 +1742,14 @@ page {
 	background-color: #fafafa;
 	display: flex;
 	justify-content: space-between;
-	padding: 40rpx 0;
+	padding: 40rpx 0 0;
+	flex-wrap: wrap;
 }
 
 .chat_bt_item {
 	text-align: center;
-	width: 33.33%;
+	width: 25%;
+	margin-bottom: 27rpx;
 }
 
 .chat_bt_item image {
@@ -1855,7 +1943,7 @@ button {
 	justify-content: space-between;
 }
 .chat_top_jia {
-	width: 335rpx;
+	padding: 0 20rpx;
 	height: 56rpx;
 	background-color: #e6f8f2;
 	border-radius: 3rpx;
@@ -2137,4 +2225,156 @@ line-height: 106rpx;
 			background-color: #FFFFFF;
 }
 
+
+
+
+.send_hongbao_html{
+	background-color: #FFFFFF;
+	padding: 0;
+	box-sizing: border-box;
+	margin-bottom: 20rpx;
+	position: relative;
+}
+.send_hongbao_html::before{
+	content: '';
+	display: inline-block;
+	width: 10rpx;
+	height: 20rpx;
+	position: absolute;
+	top: 20rpx;
+	right: -10rpx;
+	background: url(../../static/img/send_hong_bef.png) no-repeat;
+	background-size: 100% 100%;
+}
+.send_hongbao{
+		width: 470rpx;
+		height: 180rpx;
+
+
+}
+.send_hongbao_top{
+	background-image: linear-gradient(267deg,
+		#ed7a25 0%, 
+		#f0a144 100%), 
+		linear-gradient(
+			#e6e6e6, 
+			#e6e6e6);
+			height: 140rpx;
+			
+			background-blend-mode: normal, 
+				normal;
+				display: flex;
+				align-items: center;
+				padding-left: 30rpx;
+				font-size: 50rpx;
+				color: #FFFFFF;
+}
+.send_hongbao_top image{
+	width: 56rpx;
+		height: 80rpx;
+		margin-right: 30rpx;
+}
+.send_hongbao_bottom{
+	line-height: 40rpx;
+	padding-left: 20rpx;
+}
+.lingqu{
+		width: 360rpx;
+		height: 44rpx;
+		background-color: #ffffff;
+		border-radius: 8rpx;
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 20rpx;
+}
+.lingqu image{
+		width: 14rpx;
+		height: 20rpx;
+		margin-right: 6rpx;
+}
+
+
+.send_fufei_html{
+	background-color: #FFFFFF;
+	padding: 0;
+	box-sizing: border-box;
+	margin-bottom: 20rpx;
+	position: relative;
+}
+.send_fufei_html::before{
+	content: '';
+	display: inline-block;
+	width: 10rpx;
+	height: 20rpx;
+	position: absolute;
+	top: 20rpx;
+	right: -10rpx;
+	background: url(../../static/img/send_fufei.png) no-repeat;
+	background-size: 100% 100%;
+}
+.send_fufei_html .send_fufei_top {
+		background-color: #e1d797;
+		height: 140rpx;
+		display: flex;
+		align-items: center;
+		padding-left:30rpx ;
+}
+.send_fufei_top image{
+	width: 54rpx;
+		height: 54rpx;
+		margin-right: 20rpx;
+}
+.send_fufei_top_jia{
+	margin-left: 30rpx;
+}
+	
+.yi_fufei{
+	text-align: center;
+	margin-bottom: 20rpx;
+}
+.yi_fufei text{
+	background-color: #FFFFFF;
+    padding:6rpx 18rpx ;
+	border-radius: 8rpx;
+}
+
+.send_shoufei_html{
+	background-color: #FFFFFF;
+	padding: 0;
+	box-sizing: border-box;
+	margin-bottom: 20rpx;
+	position: relative;
+	width: 470rpx;
+}
+.send_shoufei_html::before{
+	content: '';
+	display: inline-block;
+	width: 10rpx;
+	height: 20rpx;
+
+	background: url(../../static/img/send_shoufei.png) no-repeat;
+	background-size: 100% 100%;
+}
+.send_shoufei_top{
+		background-color: #f8de3f;
+		height: 140rpx;
+		padding-left: 30rpx;
+		display: flex;
+		align-items: center;
+		
+}
+.send_shoufei_top image{
+		width: 55rpx;
+		height: 56rpx;
+		margin-right: 20rpx;
+	}
+	.shou_jiage{
+		margin-left: 30rpx;
+	}
+	.send_shoufei_bottom{
+		margin-left: 20rpx;
+		line-height: 40rpx;
+	}
 </style>

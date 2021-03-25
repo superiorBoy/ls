@@ -19,6 +19,12 @@
 			"path":"pages/index/tiwen_list_xq"
 		},
 		{
+			"path":"pages/index/hongbao"
+		},
+		{
+			"path":"pages/index/fuwufei"
+		},
+		{
 			"path":"pages/index/shenqing_tuikuan"
 		},
 		{
@@ -302,6 +308,9 @@
 		},
 		{
 			"path":"pages/ls/zixun_baojia"
+		},
+		{
+			"path":"pages/ls/shoukuan"
 		},
 		{
 			"path":"pages/ls/baojia_jianmian"

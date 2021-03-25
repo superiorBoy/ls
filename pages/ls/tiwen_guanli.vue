@@ -61,9 +61,9 @@
 							<image :src="img_url+item.user.photourl" mode=""></image>{{item.user.mobile}}
 							</view> -->
 							<view class="hong_26">悬赏金额: {{item.ispay==2?item.paymoney:'0'}}元  <text style="margin-left: 20rpx;">回复人数：{{item.replynum}}</text></view>
-						<button type="" class="huifu hong_24" @click="tui_xq(item)" v-if="item.refundstate">
+					<!-- 	<button type="" class="huifu hong_24" @click="tui_xq(item)" v-if="item.refundstate">
 							退款详情
-						</button>
+						</button> -->
 						<button type="" class="huifu hong_24" @click="huifu(item.consultid)">
 							回复
 						</button>
@@ -103,9 +103,9 @@
 					
 					<view class="huifu_btn">
 							<view class="hong_26">悬赏金额: {{item.ispay==2?item.paymoney:'0'}}元  <text style="margin-left: 20rpx;">回复人数：{{item.replynum}}</text></view>
-						<button type="" class="huifu hong_24" @click="tui_xq(item)" v-if="item.refundstate">
+						<!-- <button type="" class="huifu hong_24" @click="tui_xq(item)" v-if="item.refundstate">
 							退款详情
-						</button>
+						</button> -->
 						<button type="" class="huifu hong_24" @click="huifu(item.consultid)">
 							回复
 						</button>

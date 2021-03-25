@@ -8,26 +8,26 @@
 
 		<view class="zi_body ">
 			
-			<view class="tui_top hei_30" v-if="type!=3">
+			<view class="tui_top hei_30" >
 				<image :src="img_url+item.photourl" mode=""></image>
 				<view class="">
 					{{item.mobile}}
 				</view>
 			</view>
-			<view class="tui_top hei_30" v-if="type==3">
+		<!-- 	<view class="tui_top hei_30" v-if="type==3">
 				<image :src="img_url+item.user.photourl" mode=""></image>
 				<view class="">
 					{{item.user.mobile}}
 				</view>
-			</view>
+			</view> -->
 			<view class="tui_center">
 				
 			
 			<view class="tui_list hei_26">
-				类型/时长 <text class="hei_30">{{type==1?'在线咨询':type==2?'电话咨询':'提问'}}/
+				类型/时长 <text class="hei_30">{{type==1?'在线咨询':type==2?'电话咨询':''}}/
 				<text v-if="type==1" style="margin-left: 0;">{{item.zixunshicahng==24?'1天':item.zixunshicahng==72?'3天':item.zixunshicahng==720?'1个月':item.zixunshicahng+'小时'}}</text>
 				<text v-if="type==2" style="margin-left: 0;">{{item.baojiamode=='zhineng_dianhua'?item.zixunshicahng+'分钟':item.baojiamode=='phoneprice'?'20分钟':item.baojiamode=='dianhua1'?'1天':item.baojiamode=='dianhua3'?'3天':item.baojiamode=='dianhua30'?'1月':''}}</text>	
-				<text v-if="type==3" style="margin-left: 0;">1次</text>
+				<!-- <text v-if="type==3" style="margin-left: 0;">1次</text> -->
 				</text>
 			</view>
 			<view class="tui_list hei_26">

@@ -25,7 +25,7 @@
 					<navigator url="../index/zhuce?state=2" class="go_denglu">注册</navigator>
 				</view>
 			</view>
-			<view class="">
+			<view class="" style="position: relative;">
 				<view class="my_top_right hei_30_bold" @click="qiehuan" >切换到用户中心</view>
 				<view class="my_mingpian bai_30_bold" @click="tiaozhuan('mingpian')">我的名片</view>
 			</view>
@@ -482,6 +482,7 @@ page {
 	justify-content: space-between;
 	padding: 30rpx;
 	background-color: #ffffff;
+	position: relative;
 }
 
 .renzheng {
@@ -685,7 +686,7 @@ page {
 
 .my_mingpian{
 	position: absolute;
-	top: 90rpx;
+	top: 60rpx;
 	right: 0;
 		width: 200rpx;
 		height: 70rpx;
