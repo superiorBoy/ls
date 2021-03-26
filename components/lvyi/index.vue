@@ -78,7 +78,7 @@
 			</view>
 			<view class="index_tab_item" @click="tiao_jingxuan">
 				<image src="../../static/img/lvyi_tab3.png" mode=""></image>
-				<view>精选问答</view>
+				<view>合同事务</view>
 			</view>
 			<navigator url="changshi" class="index_tab_item">
 				<image src="../../static/img/lvyi_tab4.png" mode=""></image>

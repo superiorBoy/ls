@@ -92,13 +92,15 @@ export default {
 		tabBar
 	},
 	created() {},
+	onUnload() {
+		console.log('onUnload');
+		this.time1 = '0';
+		// #ifdef APP-PLUS
+		socket.closeSocket();
+		// #endif
+	},
 	onShow() {
 		
-		
-	},
-	onLoad() {
-		this.huoqu_xiaoxilist();
-		this.huoqu_user()
 		this.$http
 			.post({
 				url: '/lawyer/login/islogin'
@@ -106,17 +108,24 @@ export default {
 			.then(res => {
 				if (res.data.user != '') {
 				this.$refs.ls_mainindex.huoqunum();
+				// #ifdef H5
+				this.connectSocketInit();
+				// #endif
+				// #ifdef APP-PLUS
+				this.app_lianjie();
+				// #endif
+				
 				} else {
 					this.is_login = false;
 					
 				}
 			});
-		// #ifdef H5
-		this.connectSocketInit();
-		// #endif
-		// #ifdef APP-PLUS
-		this.app_lianjie();
-		// #endif
+	},
+	onLoad() {
+		this.huoqu_xiaoxilist();
+		this.huoqu_user()
+	
+
 		
 	},
 	data() {
@@ -210,6 +219,7 @@ export default {
 				} else if (data.type == 'say') {
 					console.log('say');
 					that.huoqu_xiaoxilist();
+					that.$refs.ls_mainindex.huoqunum();
 					// #ifdef APP-PLUS
 					void plus.push.createMessage('律师端收到一条新消息');
 					// #endif

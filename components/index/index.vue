@@ -57,13 +57,13 @@
 				<image src="@/static/img/tab2.png" mode=""></image>
 				<view>找律师</view>
 			</view>
-			<view class="index_tab_item" @click="tiao_jingxuan">
-				<image src="@/static/img/tab3.png" mode=""></image>
-				<view>精选问答</view>
-			</view>
-			<navigator url="changshi" class="index_tab_item">
-				<image src="@/static/img/tab4_4.png" mode=""></image>
-				<view>法律知识</view>
+			<navigator url="ls_fuwu" class="index_tab_item">
+				<image src="@/static/img/tab3_shiwu.png" mode=""></image>
+				<view>合同事务</view>
+			</navigator>
+			<navigator url="ls_fuwu" class="index_tab_item">
+				<image src="@/static/img/tab4_weituo.png" mode=""></image>
+				<view>委托诉讼</view>
 			</navigator>
 			<view class="index_tab_item" @click="go_ls_list">
 				<image src="@/static/img/tab5.png" mode=""></image>
@@ -83,7 +83,7 @@
 			</navigator>
 			<navigator url="changshi" class="index_tab_item" v-if="is_yaoqing==2">
 						<!-- <view  class="index_tab_item" v-if="is_yaoqing==2"> -->
-							<image src="@/static/img/tab7.png" mode=""></image>
+							<image src="@/static/img/tab8_baike.png" mode=""></image>
 							<view>法律百科</view>
 						<!-- </view> -->
 		    </navigator>
@@ -193,6 +193,15 @@
 				<image src="@/static/img/gengduo.png" mode=""></image>
 				查看更多律师>>
 			</button>
+		</view>
+		
+		<view class="xiao_banner">
+			<navigator url="ls_fuwu" class="">
+				<image src="../../static/img/xiao_banner1.png" mode="" class="xiao_banner_item"></image>
+             </navigator>
+			<navigator url="ls_fuwu" class="">
+				<image src="../../static/img/xiao_banner2.png" mode=""class="xiao_banner_item"></image>
+			   </navigator>
 		</view>
 		<view class="index_zixun">
 			<view class="zixun_tab qian_28">
@@ -1690,4 +1699,18 @@ letter-spacing:4rpx
 .padding_top{
 	padding-top: 30rpx;
 }
+.xiao_banner{
+	height: 206rpx;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 20rpx;
+}
+.xiao_banner_item{
+width: 345rpx;
+	height: 167rpx;
+	background-color: #fff9ec;
+	border-radius: 10rpx;
+}
+
 </style>

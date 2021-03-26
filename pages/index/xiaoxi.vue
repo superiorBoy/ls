@@ -216,7 +216,7 @@ app_lianjie() {
 					console.log('say');
 					if (data.state) {
 					  that.huoqu_xiaoxilist()
-					  
+					  that.$refs.mainindex.huoqunum();
 					}
 				} else {
 					console.log('else');

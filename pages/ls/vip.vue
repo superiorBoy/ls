@@ -10,8 +10,9 @@
 			<view class="vip_top">
 				<image :src="img_url + user.photourl" mode=""></image>
 				<view class="vip_top_right">
-					<view class="hei_30 dengji">用户等级：普通用户</view>
-					<view class="hui_28">当前暂未开通VIP服务</view>
+					<view class="hei_30 dengji">用户等级：{{user.isvip==1?'vip':'普通用户'}}</view>
+					<view class="hui_28" v-if="user.isvip==1">{{user.viptime | timeStamp}}</view>
+					<view class="hui_28"v-if="user.isvip!=1">当前暂未开通VIP服务'</view>
 				</view>
 			</view>
 
@@ -216,6 +217,25 @@ export default {
 						});
 					}
 				});
+		}
+	},
+	filters: {
+		timeStamp: function(value) {
+			if (value == null) {
+				return 'null';
+			}
+			var i = (value + '').length;
+			while (i++ < 13) value = value + '0';
+			value = Number(value);
+			var date = new Date(value);
+			//date.setTime(value);
+			var month = date.getMonth() + 1;
+			var hours = date.getHours();
+			if (hours < 10) hours = '0' + hours;
+			var minutes = date.getMinutes();
+			if (minutes < 10) minutes = '0' + minutes;
+			var time = date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + hours + ':' + minutes;
+			return time;
 		}
 	}
 };

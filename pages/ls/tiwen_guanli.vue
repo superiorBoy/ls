@@ -60,15 +60,16 @@
 						<!-- <view class="tiwen_ren hui_24">
 							<image :src="img_url+item.user.photourl" mode=""></image>{{item.user.mobile}}
 							</view> -->
-							<view class="hong_26">悬赏金额: {{item.ispay==2?item.paymoney:'0'}}元  <text style="margin-left: 20rpx;">回复人数：{{item.replynum}}</text></view>
-					<!-- 	<button type="" class="huifu hong_24" @click="tui_xq(item)" v-if="item.refundstate">
-							退款详情
-						</button> -->
+							<view class="hong_26">悬赏: {{item.ispay==2?item.paymoney:'0'}}元  <text style="margin-left: 20rpx;">回复：{{item.replynum}}</text></view>
+						<view class="anniu">
+						<button type="" class="huifu hong_24" @click="go_chat(item.userid,item.replynum)" v-if="is_lianxi==1">
+							联系
+						</button>
 						<button type="" class="huifu hong_24" @click="huifu(item.consultid)">
 							回复
 						</button>
 					</view>
-					
+					</view>
 				</view>
 				<view class="" v-for="wei_item in weihui"v-if="active==3">
 					
@@ -102,13 +103,18 @@
 					</view>
 					
 					<view class="huifu_btn">
-							<view class="hong_26">悬赏金额: {{item.ispay==2?item.paymoney:'0'}}元  <text style="margin-left: 20rpx;">回复人数：{{item.replynum}}</text></view>
-						<!-- <button type="" class="huifu hong_24" @click="tui_xq(item)" v-if="item.refundstate">
-							退款详情
-						</button> -->
+							<view class="hong_26">悬赏: {{item.ispay==2?item.paymoney:'0'}}元  <text style="margin-left: 20rpx;">回复：{{item.replynum}}</text></view>
+							
+						<view class="anniu">
+							
+						
+						<button type="" class="huifu hong_24" @click="go_chat(item.userid)" v-if="is_lianxi==1">
+							联系
+						</button>
 						<button type="" class="huifu hong_24" @click="huifu(item.consultid)">
 							回复
 						</button>
+						</view>	
 					</view>
 					
 				</view>
@@ -160,6 +166,23 @@
 				</view>
 			</view>
 		</uni-popup>
+		
+	<view class="bg" v-if="is_tan">
+		<view class="tan_tishi" >
+			<view class="tan_tishi_top hei_30_bold">
+				<view class="tan_tishi_top_left hong_30_bold">
+			       <image src="@/static/lsimg/jinggao.png" mode=""></image>	<text>提示</text>
+					</view>
+				 <image src="@/static/img/tan_close.png" mode="" @click="close" class="guanbi"></image>
+			</view>
+			<view class="hui_24 tan_tishi_txt">
+				 请先回复用户，解答后显示电话号码
+			</view>
+			<button type="" class="bai_26" @click="close">知道啦</button>
+		</view>
+	</view>		
+		
+		
 	</view>
 </template>
 
@@ -180,6 +203,13 @@ export default {
 			.then(res => {
 				this.fenlei = res.data.type;
 			});
+			this.$http
+				.post({
+					url: '/mlawyerapi/consult/zaixian_lianxi'
+				})
+				.then(res => {
+					this.is_lianxi=res.data.lawyer.zaixian_lianxi
+				});	
 		// this.huoqu_dihzi()	
 	this.$http
 		.post({
@@ -195,10 +225,9 @@ export default {
 				city:res.data.lawyerauth.city,
 				area:res.data.lawyerauth.area,
 			}
-			if(option.state){
+			this.state=option.state
+			if(this.state){
 				this.qiehuan(1)
-			}else{
-				this.huoqu_list();
 			}
 			
 		});
@@ -213,11 +242,13 @@ export default {
 		// this.sheng = '';
 		// this.shi = '';
 		// this.xuanzc = '9999';
-		// this.page = 0;
-		// this.jilu_list = [];
+		this.page = 0;
+		this.jilu_list = [];
 		// this.weihui=[]
 		// this.is_all = false;
 		// this.huoqu_list();
+		
+			this.huoqu_list();
 		
 	},
 
@@ -241,7 +272,9 @@ export default {
 			shi: '',
 			state:1,
 			lsdizhi:'',
-			weihui:[]
+			weihui:[],
+			is_lianxi:2,
+			is_tan:false,
 		};
 	},
 	created() {},
@@ -280,6 +313,21 @@ export default {
 		},
 		navigateBack() {
 			uni.navigateBack();
+		},
+		go_chat(userid,replynum){
+			if(replynum==0){
+			
+				this.is_tan=true
+			}else{
+				uni.navigateTo({
+					url: 'chat?userid=' + userid
+				});
+			}
+			
+			
+		},
+		close(){
+			this.is_tan=false
 		},
 		// 切换tab
 		qiehuan(index) {
@@ -469,18 +517,20 @@ page {
 }
 
 .huifu {
-	width: 160rpx;
-	height: 56rpx;
+	width: 140rpx;
+	height: 46rpx;
 	background-color: #ffffff;
 	border-radius: 28rpx;
 	border: solid 2rpx #f43a51;
 	border-radius: 28rpx;
-	line-height: 56rpx;
+	line-height: 46rpx;
 	margin: 0;
 	display: inline-block;
 	text-align: center;
 }
-
+.huifu:first-child{
+	margin-right: 20rpx;
+}
 .tiwen_item {
 	padding: 20rpx 30rpx 0;
 	margin-bottom: 20rpx;
@@ -717,4 +767,55 @@ button::after {
 		margin-top: 150rpx;
 		
 	}
+	.bg{
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0,0,0,0.3);
+		position: fixed;
+		top: 0;
+	}
+	.tan_tishi_top{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 86rpx;
+		border-bottom: 1rpx solid #cccccc;
+	}
+	.guanbi {
+		width: 17rpx;
+			height: 17rpx;
+	}
+	.tan_tishi button{
+			width: 167rpx;
+			height: 50rpx;
+			background-color: #0eb77e;
+			border-radius: 5rpx;
+			line-height: 50rpx;
+			margin: 0 auto;
+	}
+	.tan_tishi_txt{
+		margin: 40rpx 0;
+	}
+	.tan_tishi{
+					width: 472rpx;
+					height: 290rpx;
+					background-color: #ffffff;
+					border-radius: 5rpx;
+				
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+				padding: 0 20rpx;
+				box-sizing: border-box;
+		}
+		.tan_tishi_top_left{
+			display: flex;
+			align-items: center;
+		}
+		.tan_tishi_top_left image{
+				width: 31rpx;
+				height: 27rpx;
+				margin-right: 10rpx;
+		}
 </style>

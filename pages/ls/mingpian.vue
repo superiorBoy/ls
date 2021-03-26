@@ -8,20 +8,19 @@
 
 		<view class="zi_body ">
 			<view :change:msg="renderScript.receiveMsg" class="renderjs" id="poster" >
-			<view class="mingpain_top" v-if="user.photourl" :style="{backgroundImage: 'url(' + bg + ')',
-  'background-repeat':'no-repeat', backgroundSize:'100% 100%'}">
+			<view class="mingpain_top" v-if="user.photourl" >
 				<view class="mingpain_top_tx" >
 					<image :src="img_url+user.photourl" mode="" class="tx"></image>
-					<image :src="renzheng" mode="" class="ren"></image>
+					<image src="../../static/img/renzheng2.png" mode="" class="ren"></image>
 				</view>
 				<view class="bai_40_bold">
 					{{user.nickname}}律师
 				</view>
 				<view class="mingpian_dizhi bai_28">
-					<image :src="dizhi" mode=""></image>{{zhiye_ren.province}}·{{zhiye_ren.city}}
+					<image src="../../static/lsimg/bai_dizhi.png" mode=""></image>{{zhiye_ren.province}}·{{zhiye_ren.city}}
 				</view>
 				<view class="mingpian_lvsuo bai_28">
-					<image :src="lvsuo" mode=""></image>{{zhiye_ren.lvsuo}}
+					<image src="../../static/lsimg/bai_lvsuo.png" mode=""></image>{{zhiye_ren.lvsuo}}
 				</view>
 				<view class="mingpian_zhuanchang bai_26">
 									<text v-if="zhuanchang_arry[zhiye_ren.expertise1] && zhuanchang_arry[zhiye_ren.expertise1].shanchangname">{{zhuanchang_arry[zhiye_ren.expertise1].shanchangname}}</text>
@@ -40,7 +39,7 @@
 			   	<text></text>分享名片<text></text>
 			   </view>
 			<view class="fenxiang_list hui_26" >
-				<view class="fenxiang_item"  @click="renderScript.emitData">
+				<view class="fenxiang_item"  @click="fenxiang_weixin()">
 					<image src="../../static/lsimg/weixin.png" mode=""></image>
 					<view class="">
 						微信
@@ -60,9 +59,15 @@
 				</view>
 			</view>
 		</view>
-			<view class="poster-view">
+		
+	<!-- <image :src="test" mode="aspectFit" class="test"></image>			 -->
+		
+		<!-- 	<view class="poster-view">
 					<image :src="base64" mode=""></image>
-				</view>
+				</view> -->
+				
+				
+				
 	</view>
 </template>
 
@@ -81,16 +86,28 @@ export default {
 			base64: '',
 			lvsuo:'',
 			dizhi:'',
-			type:0
+			type:0,
+			test: ''
 			
 		};
 	},
+	onReady() {
+			const that = this;
+	        //防止切图成白屏
+			//#ifdef APP-PLUS
+			setTimeout(function() {
+				that.toImage();
+			}, 1000);
+			
+			//#endif
+	
+		},
 	created() {},
 	onLoad(option) {
-		this.zhuanhuan1('/static/lsimg/bai_dizhi.png')
-		this.zhuanhuan2('/static/lsimg/bai_lvsuo.png')
-		this.zhuanhuan3('/static/img/renzheng2.png')
-		this.zhuanhuan4('/static/lsimg/ming_bg.png')
+		// this.zhuanhuan1('/static/lsimg/bai_dizhi.png')
+		// this.zhuanhuan2('/static/lsimg/bai_lvsuo.png')
+		// this.zhuanhuan3('/static/img/renzheng2.png')
+		// this.zhuanhuan4('/static/lsimg/ming_bg.png')
 		var that=this
 		this.huoqu_zhangchang_lei()
 		this.$http
@@ -109,50 +126,107 @@ export default {
 		navigateBack() {
 			uni.navigateBack();
 		},
-		zhuanhuan1(url){
-			pathToBase64(url)
-			  .then(base64 => {
+		/* 截图 */
+				toImage() {
+					const that = this;
+					/* 获取屏幕信息 */
+					let ws = this.$mp.page.$getAppWebview();
+					let bitmap = new plus.nativeObj.Bitmap('test');
+					// 将webview内容绘制到Bitmap对象中
+					ws.draw(
+						bitmap,
+						function(e) {
+							/* 获取base64 */
+							that.test= bitmap.toBase64Data();
+							that.cunwenjian()
+							// console.log(that.test,'1111')
+							// /* 加载base64编码 */
+							// bitmap.loadBase64Data(
+							// 	bitmap.toBase64Data(),
+							// 	function() {
+									
+							// 		console.log('加载Base64图片数据成功');
+							// 		/* 保存图片 */
+							// 		bitmap.save(
+							// 			'_doc/share.jpg',
+							// 			{},
+							// 			async (i)=>{
+							// 				console.log('保存图片成功：' + JSON.stringify(i));
+							// 				uni.saveImageToPhotosAlbum({
+							// 					filePath: i.target,
+							// 					success: function() {
+							// 						/* 清除 */
+							// 						bitmap.clear();
+							// 						that.tools.toast('保存成功,请到相册中查看')
+							// 					},
+							// 					fail(e) {
+							// 						that.tools.toast('保存失败')
+							// 					}
+							// 				});
+							// 			},
+							// 			function(e) {
+							// 				console.log('保存图片失败：' + JSON.stringify(e));
+							// 			}
+							// 		);
+							// 	},
+							// 	function() {
+							// 		console.log('加载Base64图片数据失败：' + JSON.stringify(e));
+							// 	}
+							// );
+						},
+						function(e) {
+							console.log('截屏绘制图片失败：' + JSON.stringify(e));
+						},
+						{
+							check: true, // 设置为检测白屏
+							clip: { top: '80px', left: '0px', height: '600px', width: '100%' } // 设置截屏区域
+						}
+					);
+				},
+		// zhuanhuan1(url){
+		// 	pathToBase64(url)
+		// 	  .then(base64 => {
 			    
-				this.dizhi=base64
-			  })
-			  .catch(error => {
-			    console.error(error)
-			  })
+		// 		this.dizhi=base64
+		// 	  })
+		// 	  .catch(error => {
+		// 	    console.error(error)
+		// 	  })
 		
-		},
-		zhuanhuan2(url){
-			pathToBase64(url)
-			  .then(base64 => {
+		// },
+		// zhuanhuan2(url){
+		// 	pathToBase64(url)
+		// 	  .then(base64 => {
 			    
-				this.lvsuo=base64
-			  })
-			  .catch(error => {
-			    console.error(error)
-			  })
+		// 		this.lvsuo=base64
+		// 	  })
+		// 	  .catch(error => {
+		// 	    console.error(error)
+		// 	  })
 		
-		},
-		zhuanhuan3(url){
-			pathToBase64(url)
-			  .then(base64 => {
+		// },
+		// zhuanhuan3(url){
+		// 	pathToBase64(url)
+		// 	  .then(base64 => {
 			    
-				this.renzheng=base64
-			  })
-			  .catch(error => {
-			    console.error(error)
-			  })
+		// 		this.renzheng=base64
+		// 	  })
+		// 	  .catch(error => {
+		// 	    console.error(error)
+		// 	  })
 		
-		},
-		zhuanhuan4(url){
-			pathToBase64(url)
-			  .then(base64 => {
+		// },
+		// zhuanhuan4(url){
+		// 	pathToBase64(url)
+		// 	  .then(base64 => {
 			    
-				this.bg=base64
-			  })
-			  .catch(error => {
-			    console.error(error)
-			  })
+		// 		this.bg=base64
+		// 	  })
+		// 	  .catch(error => {
+		// 	    console.error(error)
+		// 	  })
 		
-		},
+		// },
 	saveImg(url) {
 				const that = this;
 				uni.downloadFile({
@@ -215,46 +289,62 @@ export default {
 						});
 		},
 		baocun() {
-			var url=this.bg
-					const that = this;
-					uni.downloadFile({url,
-						success: res => {
-							if (res.statusCode === 200) {
-								uni.saveImageToPhotosAlbum({
-									filePath: res.tempFilePath,
-									success: function() {
-										uni.showToast({
-											title: '已保存',
-											duration: 2000
-										});
-									},
-									fail: function() {
-										uni.showToast({
-											title: '保存失败',
-											duration: 2000,
-											icon:'none'
-										});
-										
-									}
-								});
-							} else {
-								uni.showToast({
-									title: '保存失败',
-									duration: 2000,
-									icon:'none'
-								});
-								
-							}
-						}
-					});
+			
+			uni.showToast({
+			    title: '图片保存成功'
+			    
+			})
+		
 		},
+		
+		cunwenjian(){
+			var that=this
+			let base64 = this.test;
+			   const bitmap = new plus.nativeObj.Bitmap("test");
+			   bitmap.loadBase64Data(base64, function() {
+			       const url = "_doc/" + new Date().getTime() + ".png";  // url为时间戳命名方式
+							
+			       console.log('saveHeadImgFile', url)
+			       bitmap.save(url, {
+			           overwrite: true,  // 是否覆盖
+			          
+			       }, (i) => {
+			           uni.saveImageToPhotosAlbum({
+			               filePath: url,
+			               success: function() {
+														console.log('保存图片成功：' + JSON.stringify(i));
+														that.dizhi=i.target
+			                   // uni.showToast({
+			                   //     title: '图片保存成功'
+			                       
+			                   // })
+			                   bitmap.clear()
+			               }
+			           });
+			       }, (e) => {
+			           uni.showToast({
+			               title: '图片保存失败',
+			               icon: 'none'
+			           })
+			           bitmap.clear()
+			       });
+			   }, (e) => {
+			       uni.showToast({
+			           title: '图片保存失败',
+			           icon: 'none'
+			       })
+			       bitmap.clear()
+			   });
+		},
+		
         fenxiang_weixin(){
+			var that=this
           this.type=1
 			uni.share({
 			    provider: "weixin",
 			    scene: "WXSceneSession",
 			    type: 2,
-			    imageUrl: "https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/d8590190-4f28-11eb-b680-7980c8a877b8.png",
+			    imageUrl: that.dizhi,
 			    success: function (res) {
 			        console.log("success:" + JSON.stringify(res));
 			    },
@@ -264,11 +354,12 @@ export default {
 			});
 		},
 		fenxiang_pengyouquan(){
+			var that=this
 			uni.share({
 			    provider: "weixin",
 			    scene: "WXSenceTimeline",
 			    type: 2,
-			    imageUrl:""+this.base64,
+			    imageUrl: that.dizhi,
 			    success: function (res) {
 			        console.log("success:" + JSON.stringify(res));
 			    },
@@ -279,14 +370,7 @@ export default {
 		},
 		receiveRenderData(val) {
 			console.log(val)
-						this.base64 = val
-						if(this.type==1){
-							console.log('weixin')
-						}else if(this.type==2){
-							console.log('朋友圈')
-						}else{
-							console.log('baocun')
-						}
+			this.base64 = val
 		}
 		
 		
@@ -345,8 +429,8 @@ export default {
 }
 .mingpain_top{
 		height: 543rpx;
-		/* background: url(../../static/lsimg/ming_bg.png) no-repeat; */
-		/* background-size: 100% 100%; */
+		background: url(../../static/lsimg/ming_bg.png) no-repeat;
+		background-size: 100% 100%;
 		text-align: center;
 		padding-top: 40rpx;
 		box-sizing: border-box;

@@ -1733,7 +1733,7 @@ page {
 	height: 76rpx;
 	background-color: #ffffff;
 	border-radius: 8rpx;
-	border: solid 2rpx #d9d9d9 !important;
+	/* border: solid 2rpx #d9d9d9 !important; */
 	padding-left: 10rpx;
 	box-sizing: border-box;
 }

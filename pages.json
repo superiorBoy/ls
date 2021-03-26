@@ -114,6 +114,12 @@
 			"path":"pages/index/shoucang"
 		},
 		{
+			"path":"pages/index/ls_fuwu",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
+		},
+		{
 			"path":"pages/index/sucai"
 		},
 		{

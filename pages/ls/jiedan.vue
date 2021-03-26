@@ -103,14 +103,25 @@
 
 <script>
 import tabBar from '@/components/tabbar/tabbar.vue';
-
+import socket from 'plus-websocket';
 export default {
 	components: {
 		tabBar
 	},
 	created() {},
+	onUnload() {
+		console.log('onUnload');
+		this.time1 = '0';
+		// #ifdef APP-PLUS
+		socket.closeSocket();
+		// #endif
+	},
 	onLoad() {
-		(this.list = []), this.huoqu_user();
+		(this.list = []),
+		 this.huoqu_user();
+		
+	},
+	onShow() {
 		this.$http
 			.post({
 				url: '/lawyer/login/islogin'
@@ -119,6 +130,12 @@ export default {
 				if (res.data.user != '') {
 					this.$refs.ls_mainindex.huoqunum();
 					this.huoqu_diqu()
+					// #ifdef H5
+					this.connectSocketInit();
+					// #endif
+					// #ifdef APP-PLUS
+					this.app_lianjie();
+					// #endif
 				} else {
 					this.is_login = false;
 				}
@@ -193,6 +210,112 @@ huoqu_diqu(){
 					
 					this.geshu=res.data.count
 				});
+		},
+		connectSocketInit() {
+			let that = this;
+			var url = window.location.host;
+			var ws = new WebSocket('wss://' + url + ':3348');
+			ws.onopen = function(evt) {
+				console.log('Connection open ...');
+				// ws.send("你好");
+			};
+			ws.onmessage = function(evt) {
+				console.log('Received Message: ' + evt.data);
+				// json数据转换成js对象
+				var data = JSON.parse(evt.data);
+		
+				if (data.type == 'init') {
+					console.log('init');
+					console.log('client_id', data.client_id);
+		
+					uni.request({
+						url: that.$http.baseUrl + '/push/gatewayworker/bind',
+						method: 'POST',
+						data: {
+							client_id: data.client_id,
+							type:1
+						},
+					
+						success: function(resp) {
+							console.log(resp, 'bind');
+						},
+						fail: function(resp) {}
+					});
+				} else if (data.type == 'say') {
+					console.log('say');
+					
+					this.$refs.ls_mainindex.huoqunum();
+					
+				} else {
+					console.log('else');
+				}
+			};
+			ws.onclose = function(evt) {
+				console.log('Connection closed.');
+			};
+			ws.onerror = function(evt) {
+				console.log('WebSocketError!', evt);
+			};
+		},
+		app_lianjie() {
+			
+			let that = this;
+			Object.assign(uni, socket);
+			console.log(Object.assign(uni, socket));
+			var url = that.$http.WebSocket_url;
+		
+			socket.connectSocket({
+				url: 'wss://' + url + ':3348',
+				success(data) {
+					console.log('websocket已连接', JSON.stringify(data));
+				}
+			});
+			socket.onSocketOpen(function(res) {
+				console.log('WebSocket连接已打开！');
+			});
+			socket.onSocketError(function(res) {
+				console.log('WebSocket连接打开失败，请检查！', JSON.stringify(res));
+			});
+			socket.onSocketMessage(function(res) {
+				console.log('收到服务器内容：' + res.data);
+				var data = JSON.parse(res.data);
+		
+				if (data.type == 'init') {
+					console.log('init');
+					console.log('client_id', data.client_id);
+					uni.request({
+						url: that.$http.baseUrl + '/push/gatewayworker/bind',
+						method: 'POST',
+						data: {
+							client_id: data.client_id,
+							type:1
+						},
+		
+						success: function(resp) {
+							console.log(resp, 'bind');
+						},
+						fail: function(resp) {}
+					});
+
+				} else if (data.type == 'say') {
+					console.log('say');
+					
+					that.$refs.ls_mainindex.huoqunum();
+					// #ifdef APP-PLUS
+					void plus.push.createMessage('律师端收到一条新消息');
+					// #endif
+					
+					if (data.state) {
+					
+					}
+				} else {
+					console.log('else');
+				}
+				console.log(data);
+			});
+			socket.onSocketClose(function(res) {
+				console.log('WebSocket 已关闭！');
+			});
 		},
 	},
 	filters: {

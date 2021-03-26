@@ -79,7 +79,8 @@ export default {
 		  lawyerauth:'',
 		  zhuanchang_arry:[],
 		  kaiqi:false,
-		  userid:''
+		  userid:'',
+		  isvip:2
 			
 		};
 	},
@@ -103,7 +104,7 @@ export default {
 					this.huoqu_lawyerauth();
 				});
 		
-		
+		this.huoqu_lawyer();
 			this.huoqu_kaiqi()
 	},
 	onShow() {
@@ -123,6 +124,16 @@ export default {
 				})
 				.then(res => {
 					this.lawyerauth = res.data.lawyerauth;
+				});
+		},
+		huoqu_lawyer(){
+			this.$http
+				.post({
+					url: '/mlawyerapi/user/getlawyer'
+
+				})
+				.then(res => {
+					this.isvip = res.data.user.isvip;
 				});
 		},
 		huoqu_kaiqi(){
@@ -146,7 +157,32 @@ export default {
 		},
 		tanchu(){
 			if(!this.kaiqi){
-				this.is_tan=true
+				
+				if(this.isvip==1){
+					this.$http
+						.post({
+							url: '/mlawyerapi/consult/auto_matchopen'
+						})
+						.then(res => {
+							if(res.code==0){
+								uni.showToast({
+									title: '已开启',
+									duration: 2000,
+									icon: 'none'
+								});
+								this.huoqu_kaiqi()
+							}
+							
+						});
+					// this.kaiqi=true
+					console.log(this.isvip,'kaiqi')	
+					
+					
+				}else{
+					this.is_tan=true
+				}
+				
+	
 			}else{
 				this.$http
 					.post({

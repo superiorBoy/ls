@@ -260,12 +260,20 @@ export default {
 	},
 	created() {},
 	onShow() {
+		
 		this.huiqu_login();
 		this.huo_qu_is_yaoqing()
 	},
 	onLoad(option) {
 	
 		
+	},
+	onUnload() {
+		console.log('onUnload');
+		this.time1 = '0';
+		// #ifdef APP-PLUS
+		socket.closeSocket();
+		// #endif
 	},
 	onHide() {
 		// if(this.user){
@@ -332,11 +340,13 @@ export default {
 				});
 		},
 		huiqu_login() {
+		
 			this.$http
 				.post({
 					url: '/lawyer/login/islogin'
 				})
 				.then(res => {
+					
 					if (res.data.user != '') {
 						this.is_login = true;
 						this.huoqu_user();
@@ -400,6 +410,7 @@ export default {
 		 
 	   },
 	   kaiqi() {
+
 	   	let that = this;
 	   	Object.assign(uni, socket);
 	   	console.log(Object.assign(uni, socket));
@@ -437,10 +448,10 @@ export default {
 	   				fail: function(resp) {}
 	   			});
 	   		} else if (data.type == 'say') {
-	   			
+	   		
 	   			if (data.state) {
 					console.log('say');
-					that.huoshu_weidu()
+					// that.huoshu_weidu()
 					// #ifdef APP-PLUS
 					void plus.push.createMessage('律师端收到一条新消息');
 					// #endif
