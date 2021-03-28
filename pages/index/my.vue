@@ -50,6 +50,10 @@
 			<view class="my_guanli zixun_guanli">
 				<view class="my_title hei_30_bold">咨询管理</view>
 				<view class="my_list">
+					<navigator url="ceshi" class="ls_item">
+						<image src="@/static/img/hy_tiwen_jilu_icon.png" mode="" style="width: 34rpx;height: 40rpx;"></image>
+						<view class="hui_24 ">测试</view>
+					</navigator>
 					<navigator url="tiwen" class="ls_item">
 							<image src="@/static/img/hy_tiwen_icon.png" mode="" style="width: 37rpx;height: 40rpx;"></image>
 							<view class="hui_24 ">我要提问</view>
@@ -156,6 +160,11 @@ export default {
 	onLoad() {
 		
 	},
+      onHide() {
+		// #ifdef APP-PLUS
+		socket.closeSocket();
+		// #endif
+		},
 	data() {
 		return {
 			currentPage:'index/my',
@@ -172,18 +181,25 @@ export default {
 	},
 	methods: {
 		kaiqi() {
+		
 			let that = this;
-			Object.assign(uni, socket);
-			console.log(Object.assign(uni, socket));
+			// Object.assign(uni, socket);
+			// #ifdef APP-PLUS
+			Object.assign(uni, socket)
+			// #endif
+			// console.log(Object.assign(uni, socket));
 			var url = that.$http.WebSocket_url;
+		
 			socket.connectSocket({
 				url: 'wss://' + url + ':3348',
 				success(data) {
 					console.log('websocket已连接', JSON.stringify(data));
+				
 				}
 			});
 			socket.onSocketOpen(function(res) {
 				console.log('WebSocket连接已打开！');
+				
 			});
 			socket.onSocketError(function(res) {
 				console.log('WebSocket连接打开失败，请检查！', JSON.stringify(res));
@@ -287,12 +303,14 @@ export default {
 			
 		},
 		huiqu_login(){
+			
 			this.$http
 				.post({
 					url: '/index/login/islogin'
 				})
 				.then(res => {
 					if(res.data.user!=''){
+					
 						this.$refs.mainindex.huoqunum();
 						this.is_login=true
 						this.huoqu_user()
@@ -300,6 +318,7 @@ export default {
 						this.huoqu_baojia()
 						this.huoqu_lianjie()
 						this.huoqu_tixian()
+
 						this.kaiqi();
 						
 					}else{

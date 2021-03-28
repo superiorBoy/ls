@@ -269,26 +269,12 @@ export default {
 		
 	},
 	onUnload() {
-		console.log('onUnload');
-		this.time1 = '0';
 		// #ifdef APP-PLUS
 		socket.closeSocket();
 		// #endif
 	},
 	onHide() {
-		// if(this.user){
-			
-		// 	 if(this.user.iszhiye==2){
-		// 		uni.navigateTo({
-		// 			url:'zhiye_renzheng'
-		// 		})
-		// 	}
-			
-		// }else{
-		// 	uni.navigateTo({
-		// 		url:'shiming_renzheng'
-		// 	})
-		// }
+	
 	},
 	data() {
 		return {
@@ -413,7 +399,7 @@ export default {
 
 	   	let that = this;
 	   	Object.assign(uni, socket);
-	   	console.log(Object.assign(uni, socket));
+	   	// console.log(Object.assign(uni, socket));
 	   	var url = that.$http.WebSocket_url;
 	   	socket.connectSocket({
 	   		url: 'wss://' + url + ':3348',

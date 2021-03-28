@@ -179,7 +179,7 @@
 					<view class="tan_jiage_title_list hui_26 tan_jiage_title_leixing">
 						<text @click="huan_leixing(1)" :class="leixing_index==1?'tan_xuan_active':''" v-if="baojia.chatprice || baojia.zaixian3 ||baojia.zaixian30 ">在线咨询</text>
 						<text @click="huan_leixing(2)" :class="leixing_index==2?'tan_xuan_active':''" v-if="baojia.dianhua || baojia.dianhua1 || baojia.dianhua3 || baojia.dianhua30 ">电话咨询</text>
-						<text @click="huan_leixing(3)" :class="leixing_index==3?'tan_xuan_active':''" v-if="baojia.hetong_daixie || baojia.hetong_shenhe || baojia.hetong_wenshu ">合同事务</text>
+						<text @click="huan_leixing(3)" :class="leixing_index==3?'tan_xuan_active':''" v-if="baojia.hetong_daixie || baojia.hetong_shenhe || baojia.hetong_wenshu ">合同文书</text>
 						<text @click="huan_leixing(4)" :class="leixing_index==4?'tan_xuan_active':''" v-if="baojia.lvshi_huijian || baojia.lvshihan || baojia.anjianzhidao ">诉讼委托</text>
 						<text @click="huan_leixing(0)" :class="leixing_index==0?'tan_xuan_active':''" v-if="baojia.jianmian">见面咨询</text>
 					</view>
@@ -232,7 +232,7 @@ export default {
 			is_shaixuan:false,
 			leixing:[
 				{name:'劳动工伤',num:'2'},
-				{name:'合同事务',num:'6'},
+				{name:'合同文书',num:'6'},
 				{name:'债权债务',num:'5'},
 				{name:'房产纠纷',num:'2'},
 				{name:'公司经营',num:'1'},

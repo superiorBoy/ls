@@ -51,15 +51,15 @@
 						</view>
 					</view>
 
-					<view class="fuwu_item_bottom bai_28" @click="go_zhuye(item.userid)">
-						<view class="fuwu_item_shoufei ">
+					<view class="fuwu_item_bottom bai_28" >
+						<view class="fuwu_item_shoufei " @click="go_zhifu(item.userid,item.hetong_shenhe,'合同审核',3)">
 							<view class="fuwu_item_shoufei_title">合同审核</view>
 							<view class="bai_20">
 								￥
 								<text class="bai_30">{{item.hetong_shenhe}}</text>
 							</view>
 						</view>
-						<view class="fuwu_item_shoufei">
+						<view class="fuwu_item_shoufei" @click="go_zhifu(item.userid,item.hetong_daixie,'代写合同',3)">
 							<view class="fuwu_item_shoufei_title">代写合同</view>
 							<view class="bai_20">
 								￥
@@ -67,7 +67,7 @@
 								/起
 							</view>
 						</view>
-						<view class="fuwu_item_shoufei">
+						<view class="fuwu_item_shoufei" @click="go_zhifu(item.userid,item.hetong_wenshu,'代写文书',3)">
 							<view class="fuwu_item_shoufei_title">代写文书</view>
 							<view class="bai_20">
 								￥
@@ -75,7 +75,7 @@
 								/起
 							</view>
 						</view>
-						<view class="fuwu_item_shoufei">
+						<view class="fuwu_item_shoufei"  @click="go_zhifu(item.userid,item.lvshi_huijian,'律师会见',4)">
 							<view class="fuwu_item_shoufei_title">律师会见</view>
 							<view class="bai_20">
 								￥
@@ -83,7 +83,7 @@
 								/起
 							</view>
 						</view>
-						<view class="fuwu_item_shoufei">
+						<view class="fuwu_item_shoufei" @click="go_zhifu(item.userid,item.lvshihan,'发律师函',4)">
 							<view class="fuwu_item_shoufei_title">发律师函</view>
 							<view class="bai_20">
 								￥
@@ -91,14 +91,14 @@
 								/起
 							</view>
 						</view>
-						<view class="fuwu_item_shoufei">
+						<view class="fuwu_item_shoufei"  @click="go_zhifu(item.userid,item.anjianzhidao,'案件指导',4)">
 							<view class="fuwu_item_shoufei_title">案件指导</view>
 							<view class="bai_20">
 								￥
 								<text class="bai_30">{{item.anjianzhidao}}</text>
 							</view>
 						</view>
-						<view class="fuwu_item_shoufei">
+						<view class="fuwu_item_shoufei" @click="go_zhifu(item.userid,item.jianmian,'1次',0)">
 							<view class="fuwu_item_shoufei_title">见面咨询</view>
 							<view class="bai_20">
 								￥
@@ -253,6 +253,11 @@ export default {
 			uni.navigateTo({
 				url: 'ls_zhuye?lawyerid='+lawyerid
 			});
+		},
+		go_zhifu(lawyerid,money,time,type){
+			uni.navigateTo({
+				url:'pay?lawyerid='+lawyerid+'&type='+type+'&time='+time+'&pay_money='+money
+			})
 		},
 		navigateBack() {
 			uni.navigateBack();

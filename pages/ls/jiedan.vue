@@ -109,9 +109,7 @@ export default {
 		tabBar
 	},
 	created() {},
-	onUnload() {
-		console.log('onUnload');
-		this.time1 = '0';
+	onHide() {
 		// #ifdef APP-PLUS
 		socket.closeSocket();
 		// #endif
@@ -261,7 +259,7 @@ huoqu_diqu(){
 			
 			let that = this;
 			Object.assign(uni, socket);
-			console.log(Object.assign(uni, socket));
+			// console.log(Object.assign(uni, socket));
 			var url = that.$http.WebSocket_url;
 		
 			socket.connectSocket({

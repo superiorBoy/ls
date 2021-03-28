@@ -92,15 +92,11 @@ export default {
 		tabBar
 	},
 	created() {},
-	onUnload() {
-		console.log('onUnload');
-		this.time1 = '0';
+
+	onShow() {
 		// #ifdef APP-PLUS
 		socket.closeSocket();
 		// #endif
-	},
-	onShow() {
-		
 		this.$http
 			.post({
 				url: '/lawyer/login/islogin'
@@ -170,7 +166,7 @@ export default {
 		app_lianjie() {
 			let that = this;
 			Object.assign(uni, socket);
-			console.log(Object.assign(uni, socket));
+			// console.log(Object.assign(uni, socket));
 			var url = that.$http.WebSocket_url;
 
 			socket.connectSocket({

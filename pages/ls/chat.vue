@@ -738,12 +738,11 @@ export default {
 		
 	},
 	onShow() {},
-	onUnload() {
-		console.log('onUnload');
-		this.time1='0'
-		// #ifdef APP-PLUS
-		socket.closeSocket();
-		// #endif
+	onHide() {
+
+		// // #ifdef APP-PLUS
+		// socket.closeSocket();
+		// // #endif
 	},
 	data() {
 		return {
@@ -887,7 +886,7 @@ export default {
 					this.zixuncount=res.data.zixuncount
 					setTimeout(() => {
 						uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
-					}, 200);
+					}, 400);
 					that.time1 = res.data.shijian
 					console.log(that.time1)
 					// 倒计时
@@ -1012,9 +1011,9 @@ export default {
 						if (that.user.userid != data.userid_from) {
 							that.message.push(xiaoxi);
 						}
-						setTimeout(() => {
-							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
-						}, 100);
+					setTimeout(() => {
+						uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+					}, 200);
 					}
 				} else {
 					console.log('else');

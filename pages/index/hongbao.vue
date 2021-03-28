@@ -23,7 +23,7 @@
 			<view class="jine">
 				<text class="hei_34">发送金额</text>
 				<view class="jine_right">
-					<input type="number" value="" placeholder="0.00" class="hei_34" v-model="jine" @input="onInput"/><text>元</text>
+					<input type="number" value="" placeholder="0.00" class="hei_34" v-model="jine"/><text>元</text>
 				</view>
 			</view>
 			
@@ -102,9 +102,7 @@ export default {
 		navigateBack() {
 			uni.navigateBack();
 		},
-		onInput(e) {
-             this.jine = e.detail.value
-		            },
+
 		huoqu_lawyer(){
 			this.$http
 				.post({

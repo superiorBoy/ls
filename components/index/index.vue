@@ -382,6 +382,13 @@ export default {
 		pickerAddress,
 		tabBar
 	},
+	onUnload() {
+		console.log('onUnload');
+		this.time1 = '0';
+		// #ifdef APP-PLUS
+		socket.closeSocket();
+		// #endif
+	},
 	created() {
 	// #ifdef APP-PLUS
 			var that = this;
@@ -722,7 +729,7 @@ export default {
 			let that = this;
 			that.$refs.mainindex.huoqunum();
 			Object.assign(uni, socket);
-			console.log(Object.assign(uni, socket));
+			// console.log(Object.assign(uni, socket));
 			var url = that.$http.WebSocket_url;
 			socket.connectSocket({
 				url: 'wss://' + url + ':3348',

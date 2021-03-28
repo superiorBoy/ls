@@ -75,6 +75,7 @@
 import unpopup from '@/components/uni-popup/uni-popup-share.vue';
 import pickerAddress2 from '@/components/wangding-pickerAddress/wangding-pickerAddress.vue';
 import tabBar from '@/components/y_tabbar/tabbar.vue';
+import socket from 'plus-websocket';
 export default {
 	components: {
 		unpopup,
@@ -84,6 +85,11 @@ export default {
 	onLoad(option) {
 		
 		
+	},
+	onHide() {
+		// #ifdef APP-PLUS
+		socket.closeSocket();
+		// #endif
 	},
 	onShow() {
 		// uni.getStorage({
@@ -122,6 +128,9 @@ export default {
 			.then(res => {
 				if(res.data.user!=''){
 					this.$refs.mainindex.huoqunum();
+					//#ifdef APP-PLUS
+					this.kaiqi();  
+					//#endif
 					
 				}else{
 					
@@ -174,6 +183,69 @@ export default {
 
 	// },
 	methods: {
+		kaiqi() {
+		
+			let that = this;
+			// Object.assign(uni, socket);
+			// #ifdef APP-PLUS
+			Object.assign(uni, socket)
+			// #endif
+			// console.log(Object.assign(uni, socket));
+			var url = that.$http.WebSocket_url;
+		
+			socket.connectSocket({
+				url: 'wss://' + url + ':3348',
+				success(data) {
+					console.log('websocket已连接', JSON.stringify(data));
+				
+				}
+			});
+			socket.onSocketOpen(function(res) {
+				console.log('WebSocket连接已打开！');
+				
+			});
+			socket.onSocketError(function(res) {
+				console.log('WebSocket连接打开失败，请检查！', JSON.stringify(res));
+			});
+			socket.onSocketMessage(function(res) {
+				console.log('收到服务器内容：' + res.data);
+				var data = JSON.parse(res.data);
+		
+				if (data.type == 'init') {
+					console.log('init');
+					console.log('client_id', data.client_id);
+					uni.request({
+						url: that.$http.baseUrl + '/push/gatewayworker/bind',
+						method: 'POST',
+						data: {
+							client_id: data.client_id
+						},
+		
+						success: function(resp) {
+							console.log(resp, 'bind');
+						},
+						fail: function(resp) {}
+					});
+				} else if (data.type == 'say') {
+					console.log('say');
+					if (data.state) {
+						// #ifdef APP-PLUS
+						void plus.push.createMessage('用户端收到一条新消息');
+						// #endif
+						
+						
+						 that.$refs.mainindex.huoqunum();
+		
+					}
+				} else {
+					console.log('else');
+				}
+				console.log(data);
+			});
+			socket.onSocketClose(function(res) {
+				console.log('WebSocket 已关闭！');
+			});
+		},
 		//上拉加载
 		onReachBottom() {
 			

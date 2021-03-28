@@ -133,7 +133,12 @@
 				})
 				.then(res => {
 					if(res.data.user!=''){
-						
+						// #ifdef H5
+								this.connectSocketInit();
+								// #endif
+						// #ifdef APP-PLUS
+						this.app_lianjie();
+						// #endif
 						this.huoqu_xiaoxilist()
 						this.$refs.mainindex.huoqunum();
 					}else{
@@ -145,13 +150,14 @@
 		},
 		onLoad() {
 			
-			// #ifdef H5
-			this.connectSocketInit();
-			// #endif
-	// #ifdef APP-PLUS
-	this.app_lianjie();
-	// #endif
+			
 		},
+		onUnload() {
+		// #ifdef APP-PLUS
+		socket.closeSocket();
+		// #endif
+		},
+
 		data() {
 			return {
 				currentPage:'index/xiaoxi',
@@ -167,7 +173,7 @@
 app_lianjie() {
 			let that = this;
 			Object.assign(uni, socket);
-			console.log(Object.assign(uni, socket));
+			// console.log(Object.assign(uni, socket));
 			var url = that.$http.WebSocket_url;
 
 			socket.connectSocket({

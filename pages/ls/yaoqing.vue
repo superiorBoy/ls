@@ -72,6 +72,11 @@
 		onShow() {
 			
 		},
+		onHide() {
+		// #ifdef APP-PLUS
+		socket.closeSocket();
+		// #endif
+		},
 		data() {
 			return {
 				currentPage:'ls/yaoqing',

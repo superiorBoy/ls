@@ -15,16 +15,16 @@
 			<view class="xaingmu_title qian_22">
 				<image src="../../static/lsimg/tishi.png" mode=""></image>咨询项目标题不超过6个字
 			</view>
-			<view class="shoukuan_list shijian">
+		<!-- 	<view class="shoukuan_list shijian">
 				<text>咨询时间</text>
 				<view class="shoukuan_right hei_34">
 				<input type="text" value=""  placeholder="多长时间" class="hei_34" v-model="shijian"/>
 				<text>分钟</text>		</view>
-			</view>
+			</view> -->
 			<view class="shoukuan_list">
-				<text>发起金额</text>
+				<text class="hei_34">发起金额</text>
 				<view class="shoukuan_right">
-					<input type="text" value=""placeholder="0.00" v-model="jine" /> <text>元</text>
+					<input type="number" value=""placeholder="0.00" v-model="jine" class="hei_34" /> <text>元</text>
 				</view>
 			</view>
 			

@@ -61,6 +61,13 @@
 		created() {
 		
 		},
+		onHide() {
+			
+			// #ifdef APP-PLUS
+			socket.closeSocket();
+			// #endif
+			
+		},
 		onShow() {
 			this.list=[],
 			this.huoqu_user()

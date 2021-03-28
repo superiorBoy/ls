@@ -11,7 +11,7 @@
 				<view class="pay_list">
 					<text class="qian_30">服务项目</text>
 					<text class="hei_30">
-						{{type==1?'在线咨询':type==2?'电话咨询':type==3?'合同事务':type==4?'诉讼委托':'见面咨询'}}({{time}})
+						{{type==1?'在线咨询':type==2?'电话咨询':type==3?'合同文书':type==4?'诉讼委托':'见面咨询'}}({{time}})
 					</text>
 				</view>
 			<!-- 	<view class="pay_list">

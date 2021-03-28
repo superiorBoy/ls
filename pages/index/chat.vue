@@ -689,18 +689,10 @@ import uParse from '@/components/feng-parse/parse.vue';
 import socket from 'plus-websocket';
 export default {
 	created() {
-		uni.onKeyboardHeightChange(res => {		
-		if (res.height == 0) {
-			console.log('键盘收起')
-		} else {
-			console.log('键盘弹出')
-		}
-		}) 
+	
 			// #ifdef H5
 	  window.addEventListener('resize', function () {
-		  
 	   if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
-		   alert('1111')
 	     window.setTimeout(function () {
 	       document.activeElement.scrollIntoViewIfNeeded()
 	     }, 0)
@@ -746,10 +738,10 @@ export default {
 	onShow() {},
 	onHide() {},
 	onUnload() {
-		console.log('onUnload');
-		this.time1 = '0';
+		// console.log('onUnload');
+		// this.time1 = '0';
 		// #ifdef APP-PLUS
-		// socket.closeSocket();
+		socket.closeSocket();
 		// #endif
 	},
 	data() {
@@ -952,7 +944,7 @@ export default {
 
 					setTimeout(() => {
 						uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
-					}, 200);
+					}, 400);
 
 					that.time1 = res.data.shijian;
 
@@ -1091,7 +1083,7 @@ export default {
 
 						setTimeout(() => {
 							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
-						}, 100);
+						}, 200);
 					}
 				} else {
 					console.log('else');

@@ -35,6 +35,11 @@ export default {
 	onLoad() {
 		
 	},
+	onHide() {
+	// #ifdef APP-PLUS
+	socket.closeSocket();
+	// #endif
+	},
 	onShow() {
 		this.$refs.shouye.shuxin_zujian();
 	},
