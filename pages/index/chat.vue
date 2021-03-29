@@ -134,7 +134,7 @@
 					</view>
 				</view>
 			</view>
-			<view :class="['chat_body', bt_show ? 'chat_body_jia' : '']" @click="tan_hide()">
+			<view :class="['chat_body', bt_show ? 'chat_body_jia' : '']" @click="tan_hide()" >
 				<view class="time qian_20" v-if="message != ''">{{ message[0].addtime | timeStamp }}</view>
 				<view v-for="(item, index) in message">
 					<view class="time qian_20" v-if="index > 1 && message[index].addtime - message[index - 1].addtime > 300">{{ message[index].addtime | timeStamp }}</view>
@@ -376,6 +376,16 @@
 					<view class=" chat_chehui_tishi hei_26" v-if="item.userid_from == ls_id  &&item.iswithdraw==1" >
 					     <text class="chat_chehui_tishi_txt"> “{{chat_xinxi.nickname}}”撤回了一条消息 </text> 
 					</view>
+					
+					<!-- 收到语音消息 -->
+					<!-- <view class="chat_list chat_left" v-if="item.userid_from == ls_id">
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+						<view class="chat_left_txt hei_30 chat_yuyin_left">
+							<image src="../../static/lsimg/chat_yuyin_left.png" mode=""></image>3''
+							<text class="weiting"></text>
+						</view>
+					</view> -->
+					
 
 					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 1 &&item.iswithdraw!=1" @longpress="changan(item.messageid,item.content)">
 						<view class="chat_right_txt hei_30">
@@ -596,6 +606,15 @@
 					</view>
 					
 					
+					<!-- 发送语音消息 -->
+				<!-- 	<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 1 &&item.iswithdraw!=1" @longpress="changan(item.messageid,item.content)">
+						<view class="chat_right_txt hei_30 chat_yuyin">
+							
+							3''<image src="../../static/lsimg/chat_yuyin_right.png" mode=""></image>
+						</view>
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+					</view> -->
+					
 					
 				</view>
 				<view class=" chat_chehui_tishi hei_26" v-if="is_zuijin_chehui" >
@@ -619,11 +638,13 @@
 			<view class="zhanwei" v-if="isShowEmj"></view>
 			<view class="chat_bottom">
 				<view class="chat_bottom_top">
-					<!-- <image src="@/static/lsimg/chat_yuyin.png" mode=""></image> -->
+					<image src="@/static/lsimg/chat_yuyin.png" mode="" v-if="!on_yuyin" @click="show_luyin"></image>
+					<image src="@/static/img/chat_jianpan.png" mode="" v-if="on_yuyin" @click="hide_luyin"></image>
+					<input type="text" value=""placeholder="按住 说话" placeholder-style="color:#333" v-if="on_yuyin"  @longtap="dian_luyin"  @touchend="songkai"   class="changan_input hei_34_bold"  disabled="true" />
+					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" class="hei_26" @focus="huojiao" @click="input_click()" @blur='shiqu'  v-if="!on_yuyin"/>
 					<image src="@/static/lsimg/chat_biaoqing.png" mode="" @tap="showEmj"></image>
-					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" class="hei_26" @focus="huojiao" @click="input_click()" @blur='shiqu' />
 					<image src="@/static/lsimg/chat_jia.png" mode="" @click="jia"></image>
-					<text class="fasong" @click="send()">发送</text>
+					<!-- <text class="fasong" @click="send()">发送</text> -->
 				</view>
 				<view v-if='bottom_tip' class="jianpan"></view>
 				<emotion @emotion="handleEmj" v-if="isShowEmj"></emotion>
@@ -664,7 +685,6 @@
 		</view>
 		
  
-		
 <view class="bg" v-if="is_chehui">
 	<view class="chehui">
 		<view class="qian_28 chehui_title">
@@ -675,6 +695,39 @@
 		</view>
 		<view class="qian_32 chehui_quxiao" @click="che_quxiao">
 			取消
+		</view>
+	</view>
+</view>
+
+
+<!-- 语音动画 -->
+<view class="yuyin_bg" v-if="is_yuyin" @touchmove.stop.prevent="moveStop" >
+	<view class="tan_yuyin">
+		<view class="tan_yuyin_top">
+			<view class="tan_yuyin_on" v-if="!is_quxiao">	
+			</view>
+			<view class="tan_yuyin_no" v-if="is_quxiao">
+			</view>
+		</view>
+		<view class="tan_yuyin_center" >
+			<image src="../../static/lsimg/no_quxiao.png" mode="" class="no_quxiao"v-if="!is_quxiao"></image>
+			<view class=""v-if="is_quxiao">
+				<view class="songshou_txt">
+					松开 取消
+				</view>
+			<image src="../../static/lsimg/yuyin_quxiao.png" mode="" class="yuyin_quxiao"></image>
+			</view>
+		</view>
+		<view class="tan_yuyin_bottom">
+			<view class="tan_yuyin_bottom_on"v-if="!is_quxiao" @touchmove='yiru'>
+				<!-- <view class="hei_30_bold tan_yuyin_bottom_on_txt">
+					松开 发送
+				</view> -->
+				<!-- <image src="../../static/lsimg/yuyin_hei.png" mode=""></image> -->
+			</view>
+			<view class="tan_yuyin_bottom_no" v-if="is_quxiao">
+				<image src="../../static/lsimg/yuyin_bai.png" mode=""></image>
+			</view>
 		</view>
 	</view>
 </view>
@@ -784,7 +837,11 @@ export default {
 			canClick:true,
 			is_zuijin_chehui:false,
 			zuijin_txt:'',
-			bottom_tip:false
+			bottom_tip:false,
+			on_yuyin:false,
+			is_yuyin:false,
+			is_quxiao:false,
+
 		};
 	},
 	//下拉刷新
@@ -811,6 +868,26 @@ export default {
 			// 	icon: "none"
 			// });
 		},
+		show_luyin(){
+			this.on_yuyin=true
+		},
+		hide_luyin(){
+			this.on_yuyin=false
+		},
+		// 点击长按录音
+		dian_luyin(){
+			this.is_yuyin=true
+            
+		},
+		yiru(){
+			this.on_yuyin=false
+		},
+
+		songkai(){
+			this.is_yuyin=false
+			console.log('songkai')
+		},
+
 		input_click(e) {
 		      // this.bottom_tip =true;
 			  setTimeout(() => {
@@ -2369,4 +2446,156 @@ line-height: 106rpx;
 		margin-left: 20rpx;
 		line-height: 40rpx;
 	}
+	.changan_input{
+		text-align: center;
+	}
+	.yuyin_bg {
+	background-color: rgba(0, 0, 0, 0.8);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	z-index: 99;
+	text-align: center;
+	
+}
+.tan_yuyin_on{
+		width: 462rpx;
+		height: 160rpx;
+		background-color: #95ec69;
+		box-shadow: 2rpx 3rpx 4rpx 0rpx 
+			rgba(0, 0, 0, 0.22);
+			position: relative;
+			border-radius: 16rpx;
+			position: absolute;
+			left: 50%;
+			bottom: 700rpx;
+			transform: translate(-50%,0);
+}
+.tan_yuyin_no{
+		width: 177rpx;
+		height: 160rpx;
+		background-color: #fa5151;
+		box-shadow: 2rpx 3rpx 4rpx 0rpx 
+			rgba(0, 0, 0, 0.22);
+			position: absolute;
+			border-radius: 16rpx;
+			left: 50%;
+			bottom: 700rpx;
+			transform: translate(-50%,0);
+}
+.tan_yuyin_no::before{
+	content: '';
+	display: inline-block;
+	width: 26rpx;
+	height: 15rpx;
+	background: url(../../static/lsimg/yuyin_no_bg.png) no-repeat;
+	background-size: 100% 100%;
+	position: absolute;
+	bottom: -15rpx;
+	left: 50%;
+	transform: translate(-50%,0);
+	
+}
+.tan_yuyin_on::before{
+	content: '';
+	display: inline-block;
+	width: 26rpx;
+	height: 15rpx;
+	background: url(../../static/lsimg/yuyin_on_bg.png) no-repeat;
+	background-size: 100% 100%;
+	position: absolute;
+	bottom: -15rpx;
+	left: 50%;
+	transform: translate(-50%,0);
+	
+}
+.no_quxiao{
+		width: 144rpx;
+		height: 144rpx;
+        margin-bottom: 70rpx;
+}
+.yuyin_quxiao{
+		width: 178rpx;
+		height: 178rpx;
+}
+.tan_yuyin_center{
+	position: absolute;
+	left: 50%;
+	bottom: 290rpx;
+	transform: translate(-50%,0);
+}
+.tan_yuyin_bottom{
+
+			
+}
+.tan_yuyin_bottom_on{
+		height: 256rpx;
+		background: url(../../static/lsimg/yuyin_bottom_on2.png) no-repeat;
+	    background-size: 100% 100%;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+}
+.tan_yuyin_bottom_no{
+		height: 224rpx;
+	background: url(../../static/lsimg/yuyin_bottom_no.png) no-repeat;
+	background-size: 100% 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+.tan_yuyin_bottom_no image{
+		width: 32rpx;
+		height: 48rpx;
+		margin-top: 77rpx;
+}
+.tan_yuyin_bottom_on_txt{
+	margin:40rpx 0  30rpx;
+}
+.tan_yuyin_bottom_on image{
+		width: 32rpx;
+		height: 48rpx;
+}
+.songshou_txt{
+	font-size: 30rpx;
+		color: #aeaeae;
+		margin-bottom: 20rpx;
+		font-weight: bold;
+}
+.chat_yuyin{
+	padding-left: 70rpx;
+	display: flex;
+	align-items: center;
+}
+.chat_yuyin image{
+		width: 20rpx;
+		height: 30rpx;
+		margin-left: 20rpx;
+}
+.chat_yuyin_left{
+	padding-right: 70rpx;
+	display: flex;
+	align-items: center;
+	position: relative;
+	top: 16rpx;
+}
+.weiting{
+	display: inline-block;
+		width: 18rpx;
+		height: 18rpx;
+	position: absolute;
+	right: -40rpx;
+	top: 24rpx;
+		background-color: #fa5150;
+		border-radius: 100%;
+}
+.chat_yuyin_left image{
+	width: 20rpx;
+		height: 30rpx;
+		margin-right: 20rpx;
+}
+
 </style>

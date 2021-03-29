@@ -133,14 +133,15 @@
 				})
 				.then(res => {
 					if(res.data.user!=''){
+						this.huoqu_xiaoxilist()
+						this.$refs.mainindex.huoqunum();
 						// #ifdef H5
 								this.connectSocketInit();
 								// #endif
 						// #ifdef APP-PLUS
 						this.app_lianjie();
 						// #endif
-						this.huoqu_xiaoxilist()
-						this.$refs.mainindex.huoqunum();
+				
 					}else{
 						
 					}
