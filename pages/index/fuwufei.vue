@@ -19,7 +19,7 @@
 					{{layer.nickname}}律师
 				</view>
 				<view class="shuru_num">
-					￥<text>39.00</text>
+					￥<text>{{xinxi.money}}</text>
 				</view>
 			</view>
 			
@@ -28,7 +28,7 @@
 				支付说明
 			</view>
 			<view class="hei_30">
-				服务费-在线咨询
+				服务费-{{xinxi.information}}
 			</view>
 		</view>
 		<view class="shijian qian_30">
@@ -94,13 +94,17 @@ export default {
 			img_url: uni.getStorageSync('img_url'),
 			zhifu: '2',
 			lawyerid:'',
-			layer:''
+			layer:'',
+			redid:'',
+			xinxi:''
 		};
 	},
 	created() {},
 	onLoad(option) {
 		this.lawyerid=option.lawyerid
+		this.redid=option.redid
 		this.huoqu_lawyer()
+		this.huoqu_xq()
 	},
 	onShow() {
 		
@@ -113,6 +117,21 @@ export default {
 		onInput(e) {
              this.jine = e.detail.value
 		            },
+					
+		huoqu_xq(){
+			this.$http
+				.post({
+					url: '/mapi/consult/red_envelope',
+					data:{
+						redid:this.redid,
+						userid:this.lawyerid
+					}
+				})
+				.then(res => {
+					this.xinxi=res.data.red_envelope
+					
+				});
+		},			
 		huoqu_lawyer(){
 			this.$http
 				.post({
@@ -132,12 +151,36 @@ export default {
 			  console.log('zhifubao')
 		  }else{
 			  console.log('yue')
+			  this.yue_pay()
 		  }
 		  
 	  },
 			
 		app_pay() {
 	
+		},
+		yue_pay(){
+			this.$http
+				.post({
+					url: '/mapi/user/collectionaccount',
+					data:{
+						redid:this.redid
+					}
+				})
+				.then(res => {
+					
+					if (res.code == 0) {
+						uni.showToast({
+							title: '' + res.message,
+							duration: 2000,
+							icon: 'none'
+						});
+						setTimeout(function(){
+							uni.navigateBack();
+						},1000)
+					}
+					
+				});
 		},
 		radio(i) {
 			this.zhifu = i;

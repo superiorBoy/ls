@@ -7,7 +7,7 @@
 		</view>
 		<view class="zi_body">
 			<view class="jiedan_list">
-				<navigator url="tiwen_guanli?state=1" class="jiedan_item">
+				<navigator url="tiwen_guanli" class="jiedan_item">
 					<view class="jiedan_item_l">
 					<view class="jiedan_item_left">
 						<image src="@/static/lsimg/jiedan_bendi.png" mode="" class="jiedan_img" style="width: 60rpx;height: 60rpx;"></image>

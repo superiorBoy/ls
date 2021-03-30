@@ -120,15 +120,106 @@ export default {
 	  fasong(){
 		  
 		  if(this.zhifu==2){
+			  
+			  // #ifdef H5
+			      this.h5_pay()
+			  // #endif
+			  // #ifdef APP-PLUS
+			    this.app_pay()
+			  // #endif
 			  console.log('zhifubao')
 		  }else{
 			  console.log('yue')
+			  this.yue_pay()
 		  }
 		  
 	  },
-			
+	  h5_pay(){
+				this.$http
+					.post({
+						url: '/mapi/user/red_envelopeh5',
+						data:{
+							lawyerid:this.lawyerid,
+							money:this.jine,
+							information:this.beizhu
+						}
+					})
+					.then(res => {
+						
+						if (res.code == 0) {
+							window.open('' + res.data.response);
+						}
+						
+					});
+			},
 		app_pay() {
-	
+	         this.$http
+	         	.post({
+	         		url: '/mapi/user/red_envelopeapp',
+	         		data:{
+	         			lawyerid:this.lawyerid,
+						money:this.jine,
+						information:this.beizhu
+	         		}
+	         	})
+	         	.then(res => {
+	         		
+					if (res.code == 0) {
+						uni.requestPayment({
+							provider: 'alipay',
+							orderInfo: res.data.response,
+							success: function(res) {
+								console.log('success:' + JSON.stringify(res));
+								uni.showToast({
+									title: '支付成功',
+									duration: 2000
+								});
+								
+								setTimeout(function(){
+									uni.navigateBack();
+								},1000)
+								
+								
+							},
+							fail: function(err) {
+								uni.showToast({
+									title: '支付失败',
+									duration: 2000,
+									icon: 'none'
+								});
+								console.log('fail:' + JSON.stringify(err));
+							}
+						});
+					}
+					
+					console.log(res);
+	         		
+	         	});
+		},
+		yue_pay(){
+			this.$http
+				.post({
+					url: '/mapi/user/sendred_envelope',
+					data:{
+						lawyerid:this.lawyerid,
+						money:this.jine,
+						information:this.beizhu
+					}
+				})
+				.then(res => {
+					
+					if (res.code == 0) {
+						uni.showToast({
+							title: '' + res.message,
+							duration: 2000,
+							icon: 'none'
+						});
+						setTimeout(function(){
+							uni.navigateBack();
+						},1000)
+					}
+					
+				});
 		},
 		radio(i) {
 			this.zhifu = i;

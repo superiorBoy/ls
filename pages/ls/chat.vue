@@ -341,13 +341,13 @@
 				  </view>
 				  
 				  <!-- 律师发送收费 -->
-				<!-- <view class="chat_list chat_right" v-if="item.userid_from != userid">
+				<view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype==11">
 						  
 							<view class="chat_right_txt hei_30 send_shoufei_html">
 								<view class="send_shoufei">
 									<view class="send_shoufei_top bai_30">
 										<image src="../../static/img/kefu.png" mode=""></image>
-										<text>在线咨询</text><text class="shou_jiage">￥39.00/1小时</text>
+										<text>{{item.information}}</text><text class="shou_jiage">￥{{item.money}}</text>
 									</view>
 									<view class="send_shoufei_bottom qian_24">
 										律师发起了咨询服务费，请先支付
@@ -355,7 +355,7 @@
 								</view>
 							</view>
 						  	<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-						  </view>  -->
+						  </view>
 				  
 				  
 					<view class="chat_list chat_left" v-if="item.userid_from == userid &&item.msgtype == 1&&item.iswithdraw!=1">
@@ -571,23 +571,23 @@
 					</view>
 					
 					<!-- 用户发送红包 -->
-					<!-- <view class="chat_list chat_left" v-if="item.userid_from == userid">
+					<view class="chat_list chat_left" v-if="item.msgtype == 10">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30 send_hongbao_html">
 							<view class="send_hongbao">
 								<view class="send_hongbao_top">
-									<image src="../../static/img/hongbao_icon.png" mode=""></image> <text>￥10.00</text>
+									<image src="../../static/img/hongbao_icon.png" mode=""></image> <text>￥{{item.money}}</text>
 								</view>
 								<view class="send_hongbao_bottom qian_24">
-									谢谢律师，这是感谢费
+									{{item.information}}
 								</view>
 							</view>
 						</view>
 					</view>
 					
-					<view class="lingqu hui_20">
-						<image src="../../static/img/hongbao_icon.png" mode=""></image>沈城峰律师收到了你的<text class="hong_20">红包</text>
-					</view> -->
+					<view class="lingqu hui_20" v-if="item.msgtype == 10">
+						<image src="../../static/img/hongbao_icon.png" mode=""></image>你收到了来自{{yh_user.nickname}}的红包<text class="hong_20">红包</text>
+					</view>
 					
 					
 					<!-- 用户支付成功 -->
@@ -706,7 +706,7 @@ export default {
 	},
 	onLoad(option) {
 		this.userid = option.userid;
-		this.huoqu_xiaoxi_list();
+		
 		// 获取用户信息
 		this.$http
 			.post({
@@ -737,7 +737,9 @@ export default {
 		
 		
 	},
-	onShow() {},
+	onShow() {
+		this.huoqu_xiaoxi_list();
+	},
 	onHide() {
 
 		// // #ifdef APP-PLUS
@@ -879,11 +881,37 @@ export default {
 					}
 				})
 				.then(res => {
-					this.message = res.data.message;
+					
 					this.title = res.data.user_to.mobile;
 					this.dianhua = res.data.user_to.mobile;
 					this.yh_user = res.data.user_to;
 					this.zixuncount=res.data.zixuncount
+					
+					for (let key in res.data.message) {
+					
+						if(res.data.message[key].msgtype == 10 ||res.data.message[key].msgtype == 11){
+							this.$http
+								.post({
+									url: '/mlawyerapi/consult/red_envelope',
+									data: {
+										redid: res.data.message[key].content,
+										userid:that.userid
+									}
+								})
+								.then(ress => {
+									console.log(ress)
+									res.data.message[key] = Object.assign(res.data.message[key], ress.data.red_envelope);
+									this.$forceUpdate()
+								});
+							
+						}
+					}
+					
+					
+					
+					this.message = res.data.message;
+					
+					
 					setTimeout(() => {
 						uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 					}, 400);
@@ -914,6 +942,11 @@ export default {
 					    }
 						
 					}, 1000);
+					
+					
+				
+					
+					
 				});
 		},
 		huoqu_renzheng(){
@@ -999,18 +1032,55 @@ export default {
 				} else if (data.type == 'say') {
 					console.log('say');
 					if (data.state) {
-						var xiaoxi = {
-							photourl_form: data.userid_from_pic,
-							userid_to: data.userid_to,
-							photourl_to: data.userid_to_pic,
-							content: data.msg,
-							msgtype: data.state,
-							userid_from: data.userid_from
-						};
-
-						if (that.user.userid != data.userid_from) {
-							that.message.push(xiaoxi);
+						
+						if (data.state == 10) {
+							if (data.content) {
+								this.$http
+									.post({
+										url: '/mlawyerapi/consult/red_envelope',
+										data: {
+											redid: data.content,
+											userid:that.userid
+										}
+									})
+									.then(ress => {
+										var xiaoxi = {
+											photourl_form: data.userid_from_pic,
+											userid_to: data.userid_to,
+											photourl_to: data.userid_to_pic,
+											content: data.msg,
+											msgtype: data.state,
+											userid_from: data.userid_from,
+											money: ress.data.red_envelope.money,
+											is_pay: ress.data.red_envelope.is_pay,
+											information: ress.data.red_envelope.information,
+											paymode: ress.data.red_envelope.paymode,
+											type: ress.data.red_envelope.type,
+										};
+										that.message.push(xiaoxi);
+										
+									});
+							}
+						}else{
+							
+							
+							var xiaoxi = {
+								photourl_form: data.userid_from_pic,
+								userid_to: data.userid_to,
+								photourl_to: data.userid_to_pic,
+								content: data.msg,
+								msgtype: data.state,
+								userid_from: data.userid_from
+							};
+							if (that.user.userid != data.userid_from) {
+								that.message.push(xiaoxi);
+							}
 						}
+						
+						
+						
+
+						
 					setTimeout(() => {
 						uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 					}, 200);
@@ -1428,15 +1498,47 @@ export default {
 				} else if (data.type == 'say') {
 					console.log('say');
 					if (data.state) {
-						var xiaoxi = {
-							photourl_form: data.userid_from_pic,
-							userid_to: data.userid_to,
-							photourl_to: data.userid_to_pic,
-							content: data.msg,
-							msgtype: data.state,
-							userid_from: data.userid_from
-						};
-						that.message.push(xiaoxi);
+						
+						
+						if (data.state == 10) {
+							if (data.content) {
+								this.$http
+									.post({
+										url: '/mlawyerapi/consult/red_envelope',
+										data: {
+											redid: data.content,
+											userid:that.userid
+										}
+									})
+									.then(ress => {
+										var xiaoxi = {
+											photourl_form: data.userid_from_pic,
+											userid_to: data.userid_to,
+											photourl_to: data.userid_to_pic,
+											content: data.msg,
+											msgtype: data.state,
+											userid_from: data.userid_from,
+											money: ress.data.red_envelope.money,
+											is_pay: ress.data.red_envelope.is_pay,
+											information: ress.data.red_envelope.information,
+											paymode: ress.data.red_envelope.paymode,
+											type: ress.data.red_envelope.type,
+										};
+										that.message.push(xiaoxi);
+										
+									});
+							}
+						}else{	
+							var xiaoxi = {
+								photourl_form: data.userid_from_pic,
+								userid_to: data.userid_to,
+								photourl_to: data.userid_to_pic,
+								content: data.msg,
+								msgtype: data.state,
+								userid_from: data.userid_from
+							};
+							that.message.push(xiaoxi);
+						}
 						setTimeout(() => {
 							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 						}, 100);
@@ -1454,7 +1556,7 @@ export default {
 		},
 		go_shoukuan(){
 			uni.navigateTo({
-				url:'shoukuan'
+				url:'shoukuan?userid='+this.userid
 			})
 		}
 	},

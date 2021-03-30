@@ -29,8 +29,7 @@
 			</view>
 			
 			
-			<button type="" class="bai_38">发起收款</button>
-			
+			<button type="" class="bai_38" @click="fasong">发起收款</button>
 			
 			
 			<view class="shoufei_bottoom qian_28">
@@ -56,12 +55,13 @@ export default {
 			img_url: uni.getStorageSync('img_url'),
 			jine:'',
 			shijian:'',
-			xiangmu:''
+			xiangmu:'',
+			userid:''
 		};
 	},
 	created() {},
 	onLoad(option) {
-		
+		this.userid=option.userid
 	},
 	onShow() {
 		
@@ -74,11 +74,28 @@ export default {
 
 	  fasong(){
 		  
-		  if(this.zhifu==2){
-			  console.log('zhifubao')
-		  }else{
-			  console.log('yue')
-		  }
+		  this.$http
+		  	.post({
+		  		url: '/mlawyerapi/consult/collection',
+				data:{
+					money:this.jine,
+					information:this.xiangmu,
+					userid:this.userid
+				}
+		  	})
+		  	.then(res => {
+		  		if(res.code==0){
+					uni.showToast({
+						title: '成功',
+						duration: 2000
+					});
+					
+					setTimeout(function(){
+						uni.navigateBack();
+					},1000)
+				}
+				
+		  	});
 		  
 	  },
 			

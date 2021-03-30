@@ -62,7 +62,7 @@
 							</view> -->
 							<view class="hong_26">悬赏: {{item.ispay==2?item.paymoney:'0'}}元  <text style="margin-left: 20rpx;">回复：{{item.replynum}}</text></view>
 						<view class="anniu">
-						<button type="" class="huifu hong_24" @click="go_chat(item.userid,item.replynum)" v-if="is_lianxi==1">
+						<button type="" class="huifu hong_24" @click="go_chat(item.userid,item.replynum)" >
 							联系
 						</button>
 						<button type="" class="huifu hong_24" @click="huifu(item.consultid)">
@@ -108,7 +108,7 @@
 						<view class="anniu">
 							
 						
-						<button type="" class="huifu hong_24" @click="go_chat(item.userid)" v-if="is_lianxi==1">
+						<button type="" class="huifu hong_24" @click="go_chat(item.userid)">
 							联系
 						</button>
 						<button type="" class="huifu hong_24" @click="huifu(item.consultid)">
@@ -176,7 +176,7 @@
 				 <image src="@/static/img/tan_close.png" mode="" @click="close" class="guanbi"></image>
 			</view>
 			<view class="hui_24 tan_tishi_txt">
-				 请先回复用户，解答后显示电话号码
+				 请先解答用户后才可以联系用户和显示电话号码！
 			</view>
 			<button type="" class="bai_26" @click="close">知道啦</button>
 		</view>
@@ -315,6 +315,12 @@ export default {
 			uni.navigateBack();
 		},
 		go_chat(userid,replynum){
+			
+		if(this.is_lianxi==1){
+			uni.navigateTo({
+				url: 'chat?userid=' + userid
+			});
+		}else{
 			if(replynum==0){
 			
 				this.is_tan=true
@@ -323,6 +329,10 @@ export default {
 					url: 'chat?userid=' + userid
 				});
 			}
+		}
+			
+			
+			
 			
 			
 		},
@@ -798,7 +808,7 @@ button::after {
 	}
 	.tan_tishi{
 					width: 472rpx;
-					height: 290rpx;
+					height: 310rpx;
 					background-color: #ffffff;
 					border-radius: 5rpx;
 				

@@ -357,20 +357,20 @@
 					
 					<!-- 发起收费 -->
 					
-					<!-- <view class="chat_list chat_left" v-if="item.userid_from == ls_id" @click="go_fuwufei">
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id&&item.msgtype == 11" @click="go_fuwufei(item.content)">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30 send_shoufei_html">
 							<view class="send_shoufei">
 								<view class="send_shoufei_top bai_30">
 									<image src="../../static/img/kefu.png" mode=""></image>
-									<text>在线咨询</text><text class="shou_jiage">￥39.00/1小时</text>
+									<text>{{item.information}}</text><text class="shou_jiage">￥{{item.money}}</text>
 								</view>
 								<view class="send_shoufei_bottom qian_24">
 									律师发起了咨询服务费，请先支付
 								</view>
 							</view>
 						</view>
-					</view> -->
+					</view>
 					
 					
 					<view class=" chat_chehui_tishi hei_26" v-if="item.userid_from == ls_id  &&item.iswithdraw==1" >
@@ -554,15 +554,15 @@
 					</view>
 					
 					<!-- 发送红包 -->
-					<!-- <view class="chat_list chat_right" v-if="item.userid_from != ls_id">
+					<view class="chat_list chat_right" v-if=" item.msgtype == 10">
 						<view class="chat_right_txt hei_30 send_hongbao_html">
 							
 							<view class="send_hongbao">
 								<view class="send_hongbao_top">
-									<image src="../../static/img/hongbao_icon.png" mode=""></image> <text>￥10.00</text>
+									<image src="../../static/img/hongbao_icon.png" mode=""></image> <text>￥{{item.money}}</text>
 								</view>
 								<view class="send_hongbao_bottom qian_24">
-									谢谢律师，这是感谢费
+									{{item.information}}
 								</view>
 							</view>
 							
@@ -571,9 +571,9 @@
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
 					
-					<view class="lingqu hui_20">
-						<image src="../../static/img/hongbao_icon.png" mode=""></image>沈城峰律师收到了你的<text class="hong_20">红包</text>
-					</view> -->
+					<view class="lingqu hui_20" v-if=" item.msgtype == 10">
+						<image src="../../static/img/hongbao_icon.png" mode=""></image>{{chat_xinxi.nickname}}律师收到了你的<text class="hong_20">红包</text>
+					</view>
 					
 					
 					<!-- 付费 -->
@@ -607,8 +607,8 @@
 					
 					
 					<!-- 发送语音消息 -->
-				<!-- 	<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 1 &&item.iswithdraw!=1" @longpress="changan(item.messageid,item.content)">
-						<view class="chat_right_txt hei_30 chat_yuyin">
+				<!-- 	<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 10 &&item.iswithdraw!=1" @longpress="changan(item.messageid,item.content)" >
+						<view class="chat_right_txt hei_30 chat_yuyin"  @tap="playVoice">
 							
 							3''<image src="../../static/lsimg/chat_yuyin_right.png" mode=""></image>
 						</view>
@@ -640,7 +640,7 @@
 				<view class="chat_bottom_top">
 					<image src="@/static/lsimg/chat_yuyin.png" mode="" v-if="!on_yuyin" @click="show_luyin"></image>
 					<image src="@/static/img/chat_jianpan.png" mode="" v-if="on_yuyin" @click="hide_luyin"></image>
-					<input type="text" value=""placeholder="按住 说话" placeholder-style="color:#333" v-if="on_yuyin"  @longtap="dian_luyin"  @touchend="songkai"   class="changan_input hei_34_bold"  disabled="true" />
+					<input type="text" value=""placeholder="按住 说话" placeholder-style="color:#333" v-if="on_yuyin"  @longtap="dian_luyin"  @touchend="songkai" @touchmove.stop.prevent="moveStop"  class="changan_input hei_34_bold"  disabled="true" />
 					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" class="hei_26" @focus="huojiao" @click="input_click()" @blur='shiqu'  v-if="!on_yuyin"/>
 					<image src="@/static/lsimg/chat_biaoqing.png" mode="" @tap="showEmj"></image>
 					<image src="@/static/lsimg/chat_jia.png" mode="" @click="jia"></image>
@@ -701,12 +701,14 @@
 
 
 <!-- 语音动画 -->
-<view class="yuyin_bg" v-if="is_yuyin" @touchmove.stop.prevent="moveStop" >
+<view class="yuyin_bg" v-if="is_yuyin" >
 	<view class="tan_yuyin">
 		<view class="tan_yuyin_top">
 			<view class="tan_yuyin_on" v-if="!is_quxiao">	
+			<image src="../../static/lsimg/shengbo.png" mode=""></image>
 			</view>
 			<view class="tan_yuyin_no" v-if="is_quxiao">
+				<image src="../../static/lsimg/shengbo_quxiao.png" mode=""></image>
 			</view>
 		</view>
 		<view class="tan_yuyin_center" >
@@ -719,7 +721,7 @@
 			</view>
 		</view>
 		<view class="tan_yuyin_bottom">
-			<view class="tan_yuyin_bottom_on"v-if="!is_quxiao" @touchmove='yiru'>
+			<view class="tan_yuyin_bottom_on"v-if="!is_quxiao" >
 				<!-- <view class="hei_30_bold tan_yuyin_bottom_on_txt">
 					松开 发送
 				</view> -->
@@ -737,10 +739,23 @@
 </template>
 
 <script>
+	const recorderManager = uni.getRecorderManager();
+	const innerAudioContext = uni.createInnerAudioContext();
+	innerAudioContext.autoplay = true;	
 import emotion from '@/components/bkhumor-emoji/index.vue';
 import uParse from '@/components/feng-parse/parse.vue';
 import socket from 'plus-websocket';
+import permision from "@/common/permission.js"
 export default {
+	computed: {
+	   intIntervalTime() {
+	     // 用于显示整数的秒数
+				
+	     console.log(Math.round(this.intervalTime));
+				
+	     return Math.round(this.intervalTime);
+	   }
+	 },
 	created() {
 	
 			// #ifdef H5
@@ -758,8 +773,17 @@ export default {
 		uParse
 	},
 	onLoad(option) {
+
+			var  self = this;
+			recorderManager.onStop(function (res) {
+				
+				console.log('recorder stop' + JSON.stringify(res));
+				self.voicePath = res.tempFilePath;
+			
+				
+			});
 		this.ls_id = option.lawyerid;
-		this.huoqu_xiaoxi_list();
+		// this.huoqu_xiaoxi_list();
 		this.huqu_zhiwu();
 		// 获取用户信息
 		this.$http
@@ -777,7 +801,7 @@ export default {
 				this.zhuanchang_arry = res.data.shanchang;
 				this.huqu_ls_xinxi();
 			});
-
+     
 		// #ifdef H5
 		this.connectSocketInit();
 		// #endif
@@ -788,7 +812,11 @@ export default {
 		this.app_lianjie();
 		// #endif
 	},
-	onShow() {},
+
+	onShow() {
+		
+		this.huoqu_xiaoxi_list();
+	},
 	onHide() {},
 	onUnload() {
 		// console.log('onUnload');
@@ -841,7 +869,13 @@ export default {
 			on_yuyin:false,
 			is_yuyin:false,
 			is_quxiao:false,
-
+            clientX: '',
+			clientY: '',
+			recorderManager: {},
+			innerAudioContext: {},
+			voicePath: '',
+			intervalTime: 0,
+			isRecord:false
 		};
 	},
 	//下拉刷新
@@ -869,7 +903,33 @@ export default {
 			// });
 		},
 		show_luyin(){
-			this.on_yuyin=true
+			
+			// this.is_yuyin=true
+			this.requestAndroidPermission('android.permission.RECORD_AUDIO')
+		},
+		async requestAndroidPermission(permisionID) {
+			var result = await permision.requestAndroidPermission(permisionID)
+			var strStatus
+			if (result == 1) {
+				strStatus = "已获得授权"
+				this.on_yuyin=true
+			} else if (result == 0) {
+				strStatus = "未获得授权"
+				uni.showToast({
+					title: '请授权语音功能',
+					duration: 1000,
+					icon:'none'
+				});
+				
+			} else {
+				strStatus = "被永久拒绝权限"
+				uni.showToast({
+					title: '请授权语音功能',
+					duration: 1000,
+					icon:'none'
+				});
+			}
+			
 		},
 		hide_luyin(){
 			this.on_yuyin=false
@@ -877,17 +937,75 @@ export default {
 		// 点击长按录音
 		dian_luyin(){
 			this.is_yuyin=true
-            
+            this.timer = setInterval(() => {
+                   this.intervalTime += 0.5;
+                   if (this.intervalTime >= 0.5 && !this.isRecord) {
+                     //如果用户录制的时间太短,就不会去开启录音, 因为有个bug: recorderManager.stop()在短时间内开启在关闭的话,实际上他还在不停地录音,不知道你们有没有遇到过
+            		          
+                     console.log("开始录音");
+            		          
+                     this.isRecord = true;
+            		          
+                     this.intervalTime = 0;
+            		          
+                     recorderManager.start({
+                       format: "mp3"
+                     });
+                   }
+                 }, 500);
 		},
 		yiru(){
 			this.on_yuyin=false
 		},
-
-		songkai(){
-			this.is_yuyin=false
-			console.log('songkai')
+		moveStop(e){
+			console.log(e.touches[0].clientY)
+			if(e.touches[0].clientY<650){
+				this.is_quxiao=true
+			}else{
+				this.is_quxiao=false
+			}
 		},
 
+		songkai(){
+			var that=this
+			this.is_yuyin=false
+			console.log('songkai',this.is_quxiao)
+			if(this.is_quxiao){
+				console.log('已取消录音')
+			}else{
+				if (this.intervalTime <= 0.5) {
+				       console.log("录音太短了!!!");
+				     }
+						           
+				     clearInterval(this.timer);
+						        
+				     if (this.isRecord) {
+				       setTimeout(() => {
+				         recorderManager.stop();  
+				         this.isRecord = false;
+							var data = {
+								content: '',
+								msgtype: 12,
+								photourl_form: that.user.photourl
+								
+							};
+							that.message.push(data);
+							setTimeout(() => {
+								uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+							}, 100);	  
+		  
+				         console.log(this.isRecord);
+				       }, 500); //延迟小段时间停止录音, 更好的体验
+				     }
+			}
+		},
+        playVoice() {
+            console.log('播放录音');
+            if (this.voicePath) {
+                innerAudioContext.src = this.voicePath;
+                innerAudioContext.play();
+            }
+        },
 		input_click(e) {
 		      // this.bottom_tip =true;
 			  setTimeout(() => {
@@ -1014,6 +1132,27 @@ export default {
 									res.data.message[key] = Object.assign(res.data.message[key], ress.data.lawyer);
 								});
 						}
+						if(res.data.message[key].msgtype == 10 ||res.data.message[key].msgtype == 11){
+							
+					
+							
+							this.$http
+								.post({
+									url: '/mapi/consult/red_envelope',
+									data: {
+										redid: res.data.message[key].content,
+										userid:this.ls_id
+
+									}
+								})
+								.then(ress => {
+									console.log(ress)
+									res.data.message[key] = Object.assign(res.data.message[key], ress.data.red_envelope);
+									this.$forceUpdate()
+								});
+							
+						}
+						
 					}
 
 					// console.log(res.data.message);
@@ -1144,6 +1283,34 @@ export default {
 											expertise3: ress.data.lawyer.expertise3
 										};
 										that.message.push(xiaoxi);
+									});
+							}
+						}if (data.state == 10) {
+							if (data.content) {
+								this.$http
+									.post({
+										url: '/mapi/consult/red_envelope',
+										data: {
+											redid: data.content,
+											userid:that.ls_id
+										}
+									})
+									.then(ress => {
+										var xiaoxi = {
+											photourl_form: data.userid_from_pic,
+											userid_to: data.userid_to,
+											photourl_to: data.userid_to_pic,
+											content: data.msg,
+											msgtype: data.state,
+											userid_from: that.ls_id,
+											money: ress.data.red_envelope.money,
+											is_pay: ress.data.red_envelope.is_pay,
+											information: ress.data.red_envelope.information,
+											paymode: ress.data.red_envelope.paymode,
+											type: ress.data.red_envelope.type,
+										};
+										that.message.push(xiaoxi);
+										
 									});
 							}
 						} else {
@@ -1608,7 +1775,38 @@ export default {
 									};
 									that.message.push(xiaoxi);
 								});
-						} else {
+						} 
+						if (data.state == 10) {
+							if (data.content) {
+								this.$http
+									.post({
+										url: '/mapi/consult/red_envelope',
+										data: {
+											redid: data.content,
+											userid:that.ls_id
+										}
+									})
+									.then(ress => {
+										var xiaoxi = {
+											photourl_form: data.userid_from_pic,
+											userid_to: data.userid_to,
+											photourl_to: data.userid_to_pic,
+											content: data.msg,
+											msgtype: data.state,
+											userid_from: that.ls_id,
+											money: ress.data.red_envelope.money,
+											is_pay: ress.data.red_envelope.is_pay,
+											information: ress.data.red_envelope.information,
+											paymode: ress.data.red_envelope.paymode,
+											type: ress.data.red_envelope.type,
+										};
+										that.message.push(xiaoxi);
+										
+									});
+							}
+						} 
+						
+						else {
 							var xiaoxi = {
 								photourl_form: data.userid_from_pic,
 								userid_to: data.userid_to,
@@ -1643,9 +1841,9 @@ export default {
 				url:'hongbao?lawyerid=' + this.chat_xinxi.userid
 			})
 		},
-		go_fuwufei(){
+		go_fuwufei(redid){
 			uni.navigateTo({
-				url:'fuwufei?lawyerid=' + this.chat_xinxi.userid
+				url:'fuwufei?lawyerid=' + this.chat_xinxi.userid+'&redid='+redid
 			})
 		}
 	},
@@ -2465,12 +2663,19 @@ line-height: 106rpx;
 		background-color: #95ec69;
 		box-shadow: 2rpx 3rpx 4rpx 0rpx 
 			rgba(0, 0, 0, 0.22);
-			position: relative;
+			
 			border-radius: 16rpx;
 			position: absolute;
 			left: 50%;
 			bottom: 700rpx;
 			transform: translate(-50%,0);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+}
+.tan_yuyin_on image{
+		width: 148rpx;
+		height: 16rpx;
 }
 .tan_yuyin_no{
 		width: 177rpx;
@@ -2483,6 +2688,13 @@ line-height: 106rpx;
 			left: 50%;
 			bottom: 700rpx;
 			transform: translate(-50%,0);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+}
+.tan_yuyin_no image{
+		width: 88rpx;
+		height: 16rpx;
 }
 .tan_yuyin_no::before{
 	content: '';

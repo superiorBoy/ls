@@ -12,7 +12,7 @@
 					<view class="xq_top_tx hui_24">
 						<image :src="img_url + xq.user.photourl" mode=""></image>
 						{{ xq.user.nickname }} 
-						 <view class=" hong_24 lianxi" @click="lianxi" v-if="is_lianxi==1">
+						 <view class=" hong_24 lianxi" @click="lianxi" >
 							联系TA
 						</view>
 					</view>
@@ -260,13 +260,22 @@ export default {
 			this.$emit('show');
 		},
 		lianxi(){
-			if(this.xq.consult_replycount==0){
-				this.is_tan=true
-			}else{
+			
+			if(this.is_lianxi==1){
 				uni.navigateTo({
 					url: 'chat?userid=' + this.xq.consult.userid
 				})
+			}else{
+				if(this.xq.consult_replycount==0){
+					this.is_tan=true
+				}else{
+					uni.navigateTo({
+						url: 'chat?userid=' + this.xq.consult.userid
+					})
+				}
 			}
+			
+			
 			
 		},
 		close(){

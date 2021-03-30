@@ -1,13 +1,31 @@
 <template>
 	<view class="audioPlay">
-		<!-- <button @click="startRecord">开始录音</button> -->
-		<!-- <button @tap="endRecord">停止录音</button> -->
-		 <button @touchstart="startRecord" @touchend="endRecord">按住说话,松开结束</button>
+	<button :disabled="isIos" @click="requestAndroidPermission('android.permission.ACCESS_FINE_LOCATION')">位置权限</button>
+	<button :disabled="isIos" @click="requestAndroidPermission('android.permission.ACCESS_COARSE_LOCATION')">模糊位置权限(蓝牙\ble依赖)</button>
+	<button :disabled="isIos" @click="requestAndroidPermission('android.permission.CAMERA')">摄像头权限</button>
+	<button :disabled="isIos" @click="requestAndroidPermission('android.permission.READ_EXTERNAL_STORAGE')">外部存储(含相册)读取权限</button>
+	<button :disabled="isIos" @click="requestAndroidPermission('android.permission.WRITE_EXTERNAL_STORAGE')">外部存储(含相册)写入权限</button>
+	<button :disabled="isIos" @click="requestAndroidPermission('android.permission.RECORD_AUDIO')">麦克风权限</button>
+	<button :disabled="isIos" @click="requestAndroidPermission('android.permission.READ_CONTACTS')">通讯录读取权限</button>
+	<button :disabled="isIos" @click="requestAndroidPermission('android.permission.WRITE_CONTACTS')">通讯录写入权限</button>
+	<button :disabled="isIos" @click="requestAndroidPermission('android.permission.READ_CALENDAR')">日历读取权限</button>
+	<button :disabled="isIos" @click="requestAndroidPermission('android.permission.WRITE_CALENDAR')">日历写入权限</button>
+	<button :disabled="isIos" @click="requestAndroidPermission('android.permission.READ_SMS')">短信读取权限</button>
+	<button :disabled="isIos" @click="requestAndroidPermission('android.permission.SEND_SMS')">短信发送权限</button>
+	<button :disabled="isIos" @click="requestAndroidPermission('android.permission.RECEIVE_SMS')">接收新短信权限</button>
+	<button :disabled="isIos" @click="requestAndroidPermission('android.permission.READ_PHONE_STATE')">获取手机识别码等信息的权限</button>
+	<button :disabled="isIos" @click="requestAndroidPermission('android.permission.CALL_PHONE')">拨打电话权限</button>
+	<button :disabled="isIos" @click="requestAndroidPermission('android.permission.READ_CALL_LOG')">获取通话记录权限</button>
+		<button @click="startRecord">开始录音</button>
+		<button @click="endRecord">停止录音</button>
+		 <!-- <button @touchstart="startRecord" @touchend="endRecord">按住说话,松开结束</button> -->
 		<button @tap="playVoice">播放录音</button>
 		<view class="status">录音中{{intIntervalTime}}s>>></view>
 	</view>
 </template>
 <script>
+	
+	import permision from "@/common/permission.js"
 	const recorderManager = uni.getRecorderManager();
 	const innerAudioContext = uni.createInnerAudioContext();
 	innerAudioContext.autoplay = true;
@@ -18,13 +36,27 @@
 				innerAudioContext: {},
 				voicePath: '',
 				intervalTime: 0,
-				isRecord:false
+				isRecord:false,
+				isIos: false,
+				items: ['iOS', 'Android'],
+				current: 0
 			}
 		},
 		onLoad() {
 			
 			let self = this;
+			recorderManager.onStart(function (res) {
+				
+				console.log(JSON.stringify(res),'onStart')
+			
+			});
+			recorderManager.onError(function (res) {
+				
+				console.log(JSON.stringify(res),'onError')
+			
+			});
 			recorderManager.onStop(function (res) {
+				
 				console.log('recorder stop' + JSON.stringify(res));
 				self.voicePath = res.tempFilePath;
 			});
@@ -39,6 +71,53 @@
 			    }
 			  },
 		    methods: {
+				onClickItem(index) {
+					if (this.current !== index) {
+						this.current = index;
+					}
+				},
+				judgeIosPermission: function(permisionID) {
+					var result = permision.judgeIosPermission(permisionID)
+					console.log(result);
+					var strStatus = (result) ? "已" : "未"
+					uni.showModal({
+						content: permisionID + '权限' + strStatus + "获得授权",
+						showCancel: false
+					});
+				},
+				async requestAndroidPermission(permisionID) {
+					var result = await permision.requestAndroidPermission(permisionID)
+					var strStatus
+					if (result == 1) {
+						strStatus = "已获得授权"
+					} else if (result == 0) {
+						strStatus = "未获得授权"
+					} else {
+						strStatus = "被永久拒绝权限"
+					}
+					uni.showModal({
+						content: permisionID + strStatus,
+						showCancel: false
+					});
+				},
+				gotoAppPermissionSetting: function() {
+					permision.gotoAppPermissionSetting()
+				},
+				checkSystemLocationStatus: function() {
+					// var result = permision.checkSystemEnableLocation()
+					// console.log(result);
+					uni.showModal({
+						content: '本机的位置服务开启状态：' + permision.checkSystemEnableLocation(),
+						showCancel: false
+					});
+				},
+				gotoAndroidPermissionSetting: function() {
+					var main = plus.android.runtimeMainActivity(); //获取activity  
+					var Intent = plus.android.importClass('android.content.Intent');
+					var Settings = plus.android.importClass('android.provider.Settings');
+					var intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS); //可设置http://ask.dcloud.net.cn/question/14732这里所有Action字段
+					main.startActivity(intent);
+				},
 		        startRecord() {
 		           this.timer = setInterval(() => {
 		                  this.intervalTime += 0.5;
@@ -89,6 +168,9 @@
 <style>
 .audioPlay{
 	margin-top: 500rpx;
+}
+*{
+	user-select: none !important;
 }
 </style>
 
