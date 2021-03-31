@@ -73,7 +73,7 @@
 			return {
 				zhifubao: '',
 				jine: '',
-				yue: '55.00',
+				yue: '',
 				name:''
 			}
 		},

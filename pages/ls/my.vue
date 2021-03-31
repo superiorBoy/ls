@@ -42,11 +42,11 @@
 				<view class="my_ziliao_item_bottom hei_22">提问</view>
 			</view>
 			
-			<view  class="my_ziliao_item" @click="tiaozhuan('yaoqing')">
+			<view  class="my_ziliao_item" @click="tiaozhuan('jindou')">
 				<view class="my_ziliao_item_top hei_28">0</view>
 				<view class="my_ziliao_item_bottom hei_22">金豆</view>
 			</view>
-			<view  class="my_ziliao_item" @click="tiaozhuan('zixun_jilu')">
+			<view  class="my_ziliao_item" @click="tiaozhuan('tixian')">
 				<view class="my_ziliao_item_top hei_28">{{user.rmb}}</view>
 				<view class="my_ziliao_item_bottom hei_22">余额</view>
 			</view>
@@ -230,7 +230,7 @@
 						<image src="../../static/lsimg/my_zhanghao3.png" mode="" style="width: 40rpx;height: 39rpx;"></image>
 						<view class="hui_24 ">账号提现</view>
 					</view>
-					<view  class="zhanghao_item" @click="tiaozhuan('jindou')">
+					<view  class="zhanghao_item" @click="tiaozhuan('my_jindou')">
 						<image src="../../static/lsimg/ls_jindou.png" mode="" style="width: 42rpx;height: 43rpx;"></image>
 						<view class="hui_24 "style="position: relative;top: -4rpx;">获取金豆</view>
 					</view>

@@ -380,7 +380,7 @@
 
 					<!-- 发起收费 -->
 
-					<view class="chat_list chat_left" v-if="item.msgtype == 11" @click="go_fuwufei(item.content)">
+					<view class="chat_list chat_left" v-if="item.msgtype == 11" @click="go_fuwufei(item.content,item.addtime)">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30 send_shoufei_html">
 							<view class="send_shoufei">
@@ -678,11 +678,7 @@
 				<view class="chat_bottom_top">
 					<image src="@/static/lsimg/chat_yuyin.png" mode="" v-if="!on_yuyin" @click="show_luyin"></image>
 					<image src="@/static/img/chat_jianpan.png" mode="" v-if="on_yuyin" @click="hide_luyin"></image>
-					<input
-						type="text"
-						value=""
-						placeholder="按住 说话"
-						placeholder-style="color:#333"
+					<input type="text" value="" placeholder="按住 说话" placeholder-style="color:#333"
 						v-if="on_yuyin"
 						@longtap="dian_luyin"
 						@touchend="songkai"
@@ -940,7 +936,16 @@ export default {
 			// });
 		},
 		show_luyin() {
+			// #ifdef H5
+			uni.showToast({
+				title: '请下载APP使用语音功能',
+				duration: 1000,
+				icon: 'none'
+			});
+			// #endif
+			// #ifdef APP-PLUS
 			this.requestAndroidPermission('android.permission.RECORD_AUDIO');
+			// #endif
 		},
 		async requestAndroidPermission(permisionID) {
 			var result = await permision.requestAndroidPermission(permisionID);
@@ -987,9 +992,7 @@ export default {
 				}
 			}, 500);
 		},
-		yiru() {
-			this.on_yuyin = false;
-		},
+
 		moveStop(e) {
 			console.log(e.touches[0].clientY);
 			if (e.touches[0].clientY < 650) {
@@ -1902,9 +1905,9 @@ export default {
 				url: 'hongbao?lawyerid=' + this.chat_xinxi.userid
 			});
 		},
-		go_fuwufei(redid) {
+		go_fuwufei(redid,addtime) {
 			uni.navigateTo({
-				url: 'fuwufei?lawyerid=' + this.chat_xinxi.userid + '&redid=' + redid
+				url: 'fuwufei?lawyerid=' + this.chat_xinxi.userid + '&redid=' + redid+'&addtime='+addtime
 			});
 		}
 	},

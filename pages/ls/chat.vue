@@ -941,7 +941,16 @@ export default {
 		},
 		show_luyin() {
 			// this.is_yuyin=true
+			// #ifdef H5
+			uni.showToast({
+				title: '请下载APP使用语音功能',
+				duration: 1000,
+				icon: 'none'
+			});
+			// #endif
+			// #ifdef APP-PLUS
 			this.requestAndroidPermission('android.permission.RECORD_AUDIO');
+			// #endif
 		},
 		async requestAndroidPermission(permisionID) {
 			var result = await permision.requestAndroidPermission(permisionID);

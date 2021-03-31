@@ -26,7 +26,7 @@
 				</view>
 				<view class="shijian qian_30">
 					<text>创建时间</text>
-					<text>2021-03-25 13:24:48</text>
+					<text>{{addtime | timeStamp }}</text>
 				</view>
 
 				<view class="zhifu">
@@ -83,6 +83,7 @@ export default {
 	onLoad(option) {
 		this.lawyerid = option.lawyerid;
 		this.redid = option.redid;
+		this.addtime=option.addtime
 		this.huoqu_lawyer();
 		this.huoqu_xq();
 	},
@@ -209,6 +210,25 @@ export default {
 		},
 		radio(i) {
 			this.zhifu = i;
+		}
+	},
+	filters: {
+		timeStamp: function(value) {
+			if (value == null) {
+				return 'null';
+			}
+			var i = (value + '').length;
+			while (i++ < 13) value = value + '0';
+			value = Number(value);
+			var date = new Date(value);
+			//date.setTime(value);
+			var month = date.getMonth() + 1;
+			var hours = date.getHours();
+			if (hours < 10) hours = '0' + hours;
+			var minutes = date.getMinutes();
+			if (minutes < 10) minutes = '0' + minutes;
+			var time = date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + hours + ':' + minutes;
+			return time;
 		}
 	}
 };
