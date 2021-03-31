@@ -299,8 +299,11 @@ onLoad(option) {
 						.then(res => {
 							console.log(res);
 							if(res.code==0){
-								uni.switchTab({
-									url:'index'
+								// uni.switchTab({
+								// 	url:'index'
+								// })
+								uni.reLaunch({
+									url:'wanshan'
 								})
 							}
 							that.dianji=true
@@ -327,7 +330,7 @@ onLoad(option) {
 							console.log(res);
 							if(res.code==0){
 								wx.reLaunch({
-									url:'../ls/my'
+									url:'../ls/wanshan'
 								})
 								
 							}

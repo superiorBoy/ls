@@ -43,12 +43,12 @@
 			</view>
 			
 			<view  class="my_ziliao_item" @click="tiaozhuan('yaoqing')">
-				<view class="my_ziliao_item_top hei_28">{{geshu.yaoqing}}</view>
-				<view class="my_ziliao_item_bottom hei_22">邀请</view>
+				<view class="my_ziliao_item_top hei_28">0</view>
+				<view class="my_ziliao_item_bottom hei_22">金豆</view>
 			</view>
 			<view  class="my_ziliao_item" @click="tiaozhuan('zixun_jilu')">
-				<view class="my_ziliao_item_top hei_28">{{geshu.zaixian}}</view>
-				<view class="my_ziliao_item_bottom hei_22">订单</view>
+				<view class="my_ziliao_item_top hei_28">{{user.rmb}}</view>
+				<view class="my_ziliao_item_bottom hei_22">余额</view>
 			</view>
 		</view>
 
@@ -222,13 +222,21 @@
 						<image src="../../static/lsimg/my_zhanghao1.png" mode="" style="width: 40rpx;height: 32rpx;margin-bottom: 32rpx;"></image>
 						<view class="hui_24 ">个人信息</view>
 					</navigator>
-					<view  class="zhanghao_item" @click="tiaozhuan('liushui?state=2')">
+				<!-- 	<view  class="zhanghao_item" @click="tiaozhuan('liushui?state=2')">
 						<image src="../../static/lsimg/my_zhanghao2.png" mode="" style="width: 39rpx;height: 40rpx;"></image>
 						<view class="hui_24 ">流水明细</view>
-					</view>
+					</view> -->
 					<view  class="zhanghao_item" @click="tiaozhuan('tixian')">
 						<image src="../../static/lsimg/my_zhanghao3.png" mode="" style="width: 40rpx;height: 39rpx;"></image>
 						<view class="hui_24 ">账号提现</view>
+					</view>
+					<view  class="zhanghao_item" @click="tiaozhuan('jindou')">
+						<image src="../../static/lsimg/ls_jindou.png" mode="" style="width: 42rpx;height: 43rpx;"></image>
+						<view class="hui_24 "style="position: relative;top: -4rpx;">获取金豆</view>
+					</view>
+					<view  class="zhanghao_item" @click="tiaozhuan('kefu')">
+						<image src="../../static/lsimg/ls_kefu.png" mode="" style="width: 40rpx;height:40rpx; "></image>
+						<view class="hui_24 ">联系客服</view>
 					</view>
 					<view  class="zhanghao_item" @click="tiaozhuan('gaimima')">
 						<image src="../../static/lsimg/my_zhanghao4.png" mode="" style="width: 40rpx;height:40rpx;"></image>
@@ -632,7 +640,7 @@ page {
 }
 
 .zhanghao_item {
-	width: 33.33%;
+	width: 24%;
 	text-align: center;
 	margin-bottom: 60rpx;
 }
@@ -699,4 +707,7 @@ page {
 	height: 80rpx;
 	width: 100%;
 }
+.my_ziliao_item_top{
+	margin-bottom: 12rpx;
+	}
 </style>

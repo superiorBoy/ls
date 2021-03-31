@@ -50,10 +50,10 @@
 			<view class="my_guanli zixun_guanli">
 				<view class="my_title hei_30_bold">咨询管理</view>
 				<view class="my_list">
-					<navigator url="ceshi" class="ls_item">
+				<!-- 	<navigator url="ceshi" class="ls_item">
 						<image src="@/static/img/hy_tiwen_jilu_icon.png" mode="" style="width: 34rpx;height: 40rpx;"></image>
 						<view class="hui_24 ">测试</view>
-					</navigator>
+					</navigator> -->
 					<navigator url="tiwen" class="ls_item">
 							<image src="@/static/img/hy_tiwen_icon.png" mode="" style="width: 37rpx;height: 40rpx;"></image>
 							<view class="hui_24 ">我要提问</view>

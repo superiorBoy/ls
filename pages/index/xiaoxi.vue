@@ -81,7 +81,7 @@
 							</view>
 							<view class="qian_26 txt_over">
 								<view class="xiaoxi_title" v-if="item.msgtype==1 && item.iswithdraw!=1">
-							     <u-parse :content="replace_em(item.content)" v-if="is_xianshi"></u-parse>	
+							     <u-parse :content="replace_em(item.content)" :key="theKey"></u-parse>	
 								</view>
 								<!-- <view class="" v-if="item.msgtype==2">
 									[图片]
@@ -150,8 +150,6 @@
 
 		},
 		onLoad() {
-			
-			
 		},
 		onUnload() {
 		// #ifdef APP-PLUS
@@ -167,7 +165,8 @@
 				active:'0',
 				xiaoxi_list:[],
 				islogin:'',
-				is_xianshi:false
+				theKey:0
+				// is_xianshi:false
 			}
 		},
 		methods: {
@@ -239,11 +238,13 @@ app_lianjie() {
 				
 			},
 			replace_em(str) {
+				
 			    str = str.replace(/\</g, '&lt;');
 			    str = str.replace(/\>/g, '&gt;');
 			    str = str.replace(/\n/g, '<br/>');
 			    str = str.replace(/\[em_([0-9]*)\]/g, '<img src="../../static/bkhumor-emoji/$1.gif" border="0" style="width:40rpx"/>');
 			    return str;
+				this.$forceUpdate()
 			},
 			go_chat(id){
 				uni.navigateTo({
@@ -261,14 +262,14 @@ app_lianjie() {
 				});
 			},
 			huoqu_xiaoxilist(){
-				this.is_xianshi=false
+				// this.is_xianshi=false
 				var that=this
 				this.$http
 					.post({
 						url: '/mapi/consult/messagelist'
 					})
 					.then(res => {
-						 this.is_xianshi=true
+						 // this.is_xianshi=true
 						that.xiaoxi_list=res.data.messagelist
 						// var num=0
 						// for (var i in this.xiaoxi_list){
@@ -277,7 +278,8 @@ app_lianjie() {
 						// }
 						// }
 						// console.log(num)
-						
+						that.$forceUpdate()
+						that.theKey++
 					});
 				
 				 

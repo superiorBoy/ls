@@ -10,7 +10,6 @@
 		</view>
 
 		<view class="zi_body">
-
 			<!-- <view class="send_xuanze hei_26">
 				<view>描述完之后，选择一下您方便的咨询的方式：</view>
 				<view class="hong_26">【在线咨询-可看记录】</view>
@@ -126,33 +125,31 @@
 					</view>
 
 					<view class="chat_top_bottom lv_24">
-						<view class="fa_honghbao chat_top_jia" @click="fa_hongbao">
-							发红包
-						</view>
+						<view class="fa_honghbao chat_top_jia" @click="fa_hongbao">发红包</view>
 						<view class="chat_top_jia" @click="go_zhuye()">在线咨询{{ ls_xinxi.chatprice }}元/天</view>
 						<view class="chat_top_jia" @click="go_zhuye()">电话咨询{{ ls_xinxi.phoneprice }}元/20分钟</view>
 					</view>
 				</view>
 			</view>
-			<view :class="['chat_body', bt_show ? 'chat_body_jia' : '']" @click="tan_hide()" >
+			<view :class="['chat_body', bt_show ? 'chat_body_jia' : '']" @click="tan_hide()">
 				<view class="time qian_20" v-if="message != ''">{{ message[0].addtime | timeStamp }}</view>
 				<view v-for="(item, index) in message">
 					<view class="time qian_20" v-if="index > 1 && message[index].addtime - message[index - 1].addtime > 300">{{ message[index].addtime | timeStamp }}</view>
-					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 1&&item.iswithdraw!=1">
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 1 && item.iswithdraw != 1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
 							<u-parse :content="replace_em(item.content)"></u-parse>
 						</view>
 					</view>
-					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 2&&item.iswithdraw!=1">
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 2 && item.iswithdraw != 1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
 							<image :src="img_url + item.content" mode="widthFix" style="max-width: 100rpx;" @click="clickImg(img_url + item.content)"></image>
 						</view>
 					</view>
-					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 3&&item.iswithdraw!=1">
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 3 && item.iswithdraw != 1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
@@ -197,7 +194,7 @@
 						</view>
 					</view>
 
-					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 4&&item.iswithdraw!=1">
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 4 && item.iswithdraw != 1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
@@ -241,7 +238,7 @@
 							</view>
 						</view>
 					</view>
-					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 5&&item.iswithdraw!=1">
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 5 && item.iswithdraw != 1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
@@ -253,7 +250,7 @@
 							</view>
 						</view>
 					</view>
-					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 6&&item.iswithdraw!=1">
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 6 && item.iswithdraw != 1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
@@ -264,7 +261,19 @@
 								</view>
 								<view class="end_pay_leixing hei_24">
 									电话咨询
-									<view class="hong_24">&ensp;￥{{ item.consult.paymoney }}/{{item.consult.zixunshicahng=='24'?'天':item.consult.zixunshicahng=='72'?'3天':item.consult.zixunshicahng=='1'?'20分钟':item.consult.zixunshicahng=='720'?'月':'分钟'}}</view>
+									<view class="hong_24">
+										&ensp;￥{{ item.consult.paymoney }}/{{
+											item.consult.zixunshicahng == '24'
+												? '天'
+												: item.consult.zixunshicahng == '72'
+												? '3天'
+												: item.consult.zixunshicahng == '1'
+												? '20分钟'
+												: item.consult.zixunshicahng == '720'
+												? '月'
+												: '分钟'
+										}}
+									</view>
 								</view>
 								<view class="send_pay_ls">
 									<image :src="img_url + ls_xinxi.photourl" mode=""></image>
@@ -276,7 +285,7 @@
 							</view>
 						</view>
 					</view>
-					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 7&&item.iswithdraw!=1">
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 7 && item.iswithdraw != 1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
@@ -287,7 +296,19 @@
 								</view>
 								<view class="end_pay_leixing hei_24">
 									在线咨询
-									<view class="hong_24">&ensp;￥{{ item.consult.paymoney }}/{{item.consult.zixunshicahng=='24'?'天':item.consult.zixunshicahng=='72'?'3天':item.consult.zixunshicahng=='1'?'20分钟':item.consult.zixunshicahng=='720'?'月':'小时'}}</view>
+									<view class="hong_24">
+										&ensp;￥{{ item.consult.paymoney }}/{{
+											item.consult.zixunshicahng == '24'
+												? '天'
+												: item.consult.zixunshicahng == '72'
+												? '3天'
+												: item.consult.zixunshicahng == '1'
+												? '20分钟'
+												: item.consult.zixunshicahng == '720'
+												? '月'
+												: '小时'
+										}}
+									</view>
 								</view>
 								<view class="send_pay_ls">
 									<image :src="img_url + ls_xinxi.photourl" mode=""></image>
@@ -300,20 +321,23 @@
 						</view>
 					</view>
 
-					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 8 &&item.iswithdraw!=1">
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 8 && item.iswithdraw != 1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
 							<view class="send_xuanze hei_26">
-								<view>您的服务已到期，请重新订购服务</view>
-								<view>描述完之后，选择一下您方便的咨询的方式：</view>
+							<!-- 	<view>您的服务已到期，请重新订购服务</view>
+								<view>描述完之后，选择一下您方便的咨询的方式：</view> -->
+								<view class="">
+									{{item.content}}
+								</view>
 								<view class="hong_26" @click="send_zaixian()">【在线咨询-可看记录】</view>
 								<view class="hong_26" @click="send_dianhua()">【电话咨询-时时对话】</view>
 							</view>
 						</view>
 					</view>
 
-					<view class="chat_list chat_left" v-if="item.msgtype == 9 &&item.iswithdraw!=1">
+					<view class="chat_list chat_left" v-if="item.msgtype == 9 && item.iswithdraw != 1">
 						<image src="@/static/img/xitong.png" mode="" class="tx"></image>
 						<view class="" style="display: none;">{{ item }}</view>
 
@@ -353,54 +377,54 @@
 							</view>
 						</view>
 					</view>
-					
-					
+
 					<!-- 发起收费 -->
-					
-					<view class="chat_list chat_left" v-if="item.userid_from == ls_id&&item.msgtype == 11" @click="go_fuwufei(item.content)">
+
+					<view class="chat_list chat_left" v-if="item.msgtype == 11" @click="go_fuwufei(item.content)">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30 send_shoufei_html">
 							<view class="send_shoufei">
 								<view class="send_shoufei_top bai_30">
 									<image src="../../static/img/kefu.png" mode=""></image>
-									<text>{{item.information}}</text><text class="shou_jiage">￥{{item.money}}</text>
+									<text>{{ item.information }}</text>
+									<text class="shou_jiage">￥{{ item.money }}</text>
 								</view>
-								<view class="send_shoufei_bottom qian_24">
-									律师发起了咨询服务费，请先支付
-								</view>
+								<view class="send_shoufei_bottom qian_24">律师发起了咨询服务费，请先支付</view>
 							</view>
 						</view>
 					</view>
-					
-					
-					<view class=" chat_chehui_tishi hei_26" v-if="item.userid_from == ls_id  &&item.iswithdraw==1" >
-					     <text class="chat_chehui_tishi_txt"> “{{chat_xinxi.nickname}}”撤回了一条消息 </text> 
+
+					<view class=" chat_chehui_tishi hei_26" v-if="item.userid_from == ls_id && item.iswithdraw == 1">
+						<text class="chat_chehui_tishi_txt">“{{ chat_xinxi.nickname }}”撤回了一条消息</text>
 					</view>
-					
+
 					<!-- 收到语音消息 -->
 					<!-- <view class="chat_list chat_left" v-if="item.userid_from == ls_id">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-						<view class="chat_left_txt hei_30 chat_yuyin_left">
+						<view class="chat_left_txt hei_30 chat_yuyin_left" @tap="playVoice">
 							<image src="../../static/lsimg/chat_yuyin_left.png" mode=""></image>3''
 							<text class="weiting"></text>
 						</view>
 					</view> -->
-					
 
-					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 1 &&item.iswithdraw!=1" @longpress="changan(item.messageid,item.content)">
+					<view
+						class="chat_list chat_right"
+						v-if="item.userid_from != ls_id && item.msgtype == 1 && item.iswithdraw != 1"
+						@longpress="changan(item.messageid, item.content)"
+					>
 						<view class="chat_right_txt hei_30">
 							<!-- {{item.content}} -->
 							<u-parse :content="replace_em(item.content)"></u-parse>
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
-					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 2 &&item.iswithdraw!=1"  @longpress="changan(item.messageid)">
+					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 2 && item.iswithdraw != 1" @longpress="changan(item.messageid)">
 						<view class="chat_right_txt hei_30">
 							<image :src="img_url + item.content" mode="widthFix" style="max-width: 100rpx;" @click="clickImg(img_url + item.content)"></image>
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
-					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 3 &&item.iswithdraw!=1" @longpress="changan(item.messageid)">
+					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 3 && item.iswithdraw != 1" @longpress="changan(item.messageid)">
 						<view class="chat_right_txt hei_30">
 							<view class="send_jia_html">
 								<view class="send_jia_top">
@@ -443,7 +467,7 @@
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
-					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 4 &&item.iswithdraw!=1" @longpress="changan(item.messageid)">
+					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 4 && item.iswithdraw != 1" @longpress="changan(item.messageid)">
 						<view class="chat_right_txt hei_30">
 							<view class="send_jia_html">
 								<view class="send_jia_top">
@@ -486,7 +510,7 @@
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
-					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 5 &&item.iswithdraw!=1" @longpress="changan(item.messageid)">
+					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 5 && item.iswithdraw != 1" @longpress="changan(item.messageid)">
 						<view class="chat_right_txt hei_30">
 							<view class="send_xuanze hei_26">
 								<view class="">您好：遇到什么问题了，请先详细描述一下事情经过，我好根据您的情况解答！</view>
@@ -508,7 +532,7 @@
 					</view>
 					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 				</view> -->
-					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 6 &&item.iswithdraw!=1" @longpress="changan(item.messageid)">
+					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 6 && item.iswithdraw != 1" @longpress="changan(item.messageid)">
 						<view class="chat_right_txt hei_30">
 							<view class="send_fukuan_success">
 								<view class="lv_24_bold send_fukuan_title">
@@ -517,7 +541,19 @@
 								</view>
 								<view class="end_pay_leixing hei_24">
 									电话咨询
-									<view class="hong_24">&ensp;￥{{ item.consult.paymoney }}/{{item.consult.zixunshicahng=='24'?'天':item.consult.zixunshicahng=='72'?'3天':item.consult.zixunshicahng=='1'?'20分钟':item.consult.zixunshicahng=='720'?'月':'分钟'}}</view>
+									<view class="hong_24">
+										&ensp;￥{{ item.consult.paymoney }}/{{
+											item.consult.zixunshicahng == '24'
+												? '天'
+												: item.consult.zixunshicahng == '72'
+												? '3天'
+												: item.consult.zixunshicahng == '1'
+												? '20分钟'
+												: item.consult.zixunshicahng == '720'
+												? '月'
+												: '分钟'
+										}}
+									</view>
 								</view>
 								<view class="send_pay_ls">
 									<image :src="img_url + ls_xinxi.photourl" mode=""></image>
@@ -530,7 +566,7 @@
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
-					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 7 &&item.iswithdraw!=1" @longpress="changan(item.messageid)">
+					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 7 && item.iswithdraw != 1" @longpress="changan(item.messageid)">
 						<view class="chat_right_txt hei_30">
 							<view class="send_fukuan_success">
 								<view class="lv_24_bold send_fukuan_title">
@@ -539,7 +575,19 @@
 								</view>
 								<view class="end_pay_leixing hei_24">
 									在线咨询
-									<view class="hong_24">&ensp;￥{{ item.consult.paymoney }}/{{item.consult.zixunshicahng=='24'?'天':item.consult.zixunshicahng=='72'?'3天':item.consult.zixunshicahng=='1'?'20分钟':item.consult.zixunshicahng=='720'?'月':'小时'}}</view>
+									<view class="hong_24">
+										&ensp;￥{{ item.consult.paymoney }}/{{
+											item.consult.zixunshicahng == '24'
+												? '天'
+												: item.consult.zixunshicahng == '72'
+												? '3天'
+												: item.consult.zixunshicahng == '1'
+												? '20分钟'
+												: item.consult.zixunshicahng == '720'
+												? '月'
+												: '小时'
+										}}
+									</view>
 								</view>
 								<view class="send_pay_ls">
 									<image :src="img_url + ls_xinxi.photourl" mode=""></image>
@@ -552,73 +600,63 @@
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
-					
+
 					<!-- 发送红包 -->
-					<view class="chat_list chat_right" v-if=" item.msgtype == 10">
+					<view class="chat_list chat_right" v-if="item.msgtype == 10">
 						<view class="chat_right_txt hei_30 send_hongbao_html">
-							
 							<view class="send_hongbao">
 								<view class="send_hongbao_top">
-									<image src="../../static/img/hongbao_icon.png" mode=""></image> <text>￥{{item.money}}</text>
+									<image src="../../static/img/hongbao_icon.png" mode=""></image>
+									<text>￥{{ item.money }}</text>
 								</view>
-								<view class="send_hongbao_bottom qian_24">
-									{{item.information}}
-								</view>
+								<view class="send_hongbao_bottom qian_24">{{ item.information }}</view>
 							</view>
-							
-							
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
-					
-					<view class="lingqu hui_20" v-if=" item.msgtype == 10">
-						<image src="../../static/img/hongbao_icon.png" mode=""></image>{{chat_xinxi.nickname}}律师收到了你的<text class="hong_20">红包</text>
+
+					<view class="lingqu hui_20" v-if="item.msgtype == 10">
+						<image src="../../static/img/hongbao_icon.png" mode=""></image>
+						{{ chat_xinxi.nickname }}律师收到了你的
+						<text class="hong_20">红包</text>
 					</view>
-					
-					
-					<!-- 付费 -->
-					
-					<!-- <view class="chat_list chat_right" v-if="item.userid_from != ls_id">
+
+					<!-- 付费成功 -->
+
+					<view class="chat_list chat_right" v-if="item.msgtype == 12">
 						<view class="chat_right_txt hei_30 send_fufei_html">
-							
 							<view class="send_hongbao">
 								<view class="send_fufei_top bai_30">
-									<image src="../../static/img/kefu.png" mode=""></image><text>在线咨询</text> <text class="send_fufei_top_jia">￥39.00/1小时</text>
+									<image src="../../static/img/kefu.png" mode=""></image>
+									<text>{{ item.information }}</text>
+									<text class="send_fufei_top_jia">￥{{ item.money }}</text>
 								</view>
-								<view class="send_hongbao_bottom qian_24">
-									支付成功
-								</view>
+								<view class="send_hongbao_bottom qian_24">支付成功</view>
 							</view>
-							
-							
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
-					
-					<view class="hui_20 yi_fufei">
-						<text>已支付完成，等待律师解答</text>
-					</view> -->
-					
-					
-					
-					<view class=" chat_chehui_tishi hei_26" v-if="item.userid_from != ls_id &&item.iswithdraw==1" >
-				         <text class="chat_chehui_tishi_txt"> 你撤回了一条消息 </text> 
+
+					<view class="hui_20 yi_fufei" v-if="item.msgtype == 12"><text>已支付完成，等待律师解答</text></view>
+
+					<view class=" chat_chehui_tishi hei_26" v-if="item.userid_from != ls_id && item.iswithdraw == 1">
+						<text class="chat_chehui_tishi_txt">你撤回了一条消息</text>
 					</view>
-					
-					
+
 					<!-- 发送语音消息 -->
-				<!-- 	<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 10 &&item.iswithdraw!=1" @longpress="changan(item.messageid,item.content)" >
+					<!-- 	<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 10 &&item.iswithdraw!=1" @longpress="changan(item.messageid,item.content)" >
 						<view class="chat_right_txt hei_30 chat_yuyin"  @tap="playVoice">
 							
 							3''<image src="../../static/lsimg/chat_yuyin_right.png" mode=""></image>
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view> -->
-					
-					
 				</view>
-				<view class=" chat_chehui_tishi hei_26" v-if="is_zuijin_chehui" >
-				     <text class="chat_chehui_tishi_txt"> 你撤回了一条消息<text class="lv_26" @click="bianji">重新编辑</text> </text> 
+				<view class=" chat_chehui_tishi hei_26" v-if="is_zuijin_chehui">
+					<text class="chat_chehui_tishi_txt">
+						你撤回了一条消息
+						<text class="lv_26" @click="bianji">重新编辑</text>
+					</text>
 				</view>
 				<!-- 	<view class="chat_list chat_left">
 					<image src="@/static/lsimg/yh_tx.png" mode="" class="tx"></image>
@@ -640,13 +678,35 @@
 				<view class="chat_bottom_top">
 					<image src="@/static/lsimg/chat_yuyin.png" mode="" v-if="!on_yuyin" @click="show_luyin"></image>
 					<image src="@/static/img/chat_jianpan.png" mode="" v-if="on_yuyin" @click="hide_luyin"></image>
-					<input type="text" value=""placeholder="按住 说话" placeholder-style="color:#333" v-if="on_yuyin"  @longtap="dian_luyin"  @touchend="songkai" @touchmove.stop.prevent="moveStop"  class="changan_input hei_34_bold"  disabled="true" />
-					<input type="text" value="" v-model="chat_txt" confirm-type="send" @confirm="send" class="hei_26" @focus="huojiao" @click="input_click()" @blur='shiqu'  v-if="!on_yuyin"/>
+					<input
+						type="text"
+						value=""
+						placeholder="按住 说话"
+						placeholder-style="color:#333"
+						v-if="on_yuyin"
+						@longtap="dian_luyin"
+						@touchend="songkai"
+						@touchmove.stop.prevent="moveStop"
+						class="changan_input hei_34_bold"
+						disabled="true"
+					/>
+					<input
+						type="text"
+						value=""
+						v-model="chat_txt"
+						confirm-type="send"
+						@confirm="send"
+						class="hei_26"
+						@focus="huojiao"
+						@click="input_click()"
+						@blur="shiqu"
+						v-if="!on_yuyin"
+					/>
 					<image src="@/static/lsimg/chat_biaoqing.png" mode="" @tap="showEmj"></image>
 					<image src="@/static/lsimg/chat_jia.png" mode="" @click="jia"></image>
 					<!-- <text class="fasong" @click="send()">发送</text> -->
 				</view>
-				<view v-if='bottom_tip' class="jianpan"></view>
+				<view v-if="bottom_tip" class="jianpan"></view>
 				<emotion @emotion="handleEmj" v-if="isShowEmj"></emotion>
 				<view class="chat_bottom_bottom hui_26" v-if="bt_show">
 					<view class="chat_bt_item" @click="up_img">
@@ -683,105 +743,82 @@
 				<image src="@/static/img/guanbi.png" mode="" class="guanbi" style="width: 50rpx;height: 50rpx;" @click="guanbi"></image>
 			</view>
 		</view>
-		
- 
-<view class="bg" v-if="is_chehui">
-	<view class="chehui">
-		<view class="qian_28 chehui_title">
-			是否撤销该条消息？
-		</view>
-		<view class="lv_32 chehui_queding" @click="che_queding">
-			确定
-		</view>
-		<view class="qian_32 chehui_quxiao" @click="che_quxiao">
-			取消
-		</view>
-	</view>
-</view>
 
-
-<!-- 语音动画 -->
-<view class="yuyin_bg" v-if="is_yuyin" >
-	<view class="tan_yuyin">
-		<view class="tan_yuyin_top">
-			<view class="tan_yuyin_on" v-if="!is_quxiao">	
-			<image src="../../static/lsimg/shengbo.png" mode=""></image>
-			</view>
-			<view class="tan_yuyin_no" v-if="is_quxiao">
-				<image src="../../static/lsimg/shengbo_quxiao.png" mode=""></image>
+		<view class="bg" v-if="is_chehui">
+			<view class="chehui">
+				<view class="qian_28 chehui_title">是否撤销该条消息？</view>
+				<view class="lv_32 chehui_queding" @click="che_queding">确定</view>
+				<view class="qian_32 chehui_quxiao" @click="che_quxiao">取消</view>
 			</view>
 		</view>
-		<view class="tan_yuyin_center" >
-			<image src="../../static/lsimg/no_quxiao.png" mode="" class="no_quxiao"v-if="!is_quxiao"></image>
-			<view class=""v-if="is_quxiao">
-				<view class="songshou_txt">
-					松开 取消
+
+		<!-- 语音动画 -->
+		<view class="yuyin_bg" v-if="is_yuyin">
+			<view class="tan_yuyin">
+				<view class="tan_yuyin_top">
+					<view class="tan_yuyin_on" v-if="!is_quxiao"><image src="../../static/img/yuyin.gif" mode="heightFix"></image></view>
+					<view class="tan_yuyin_no" v-if="is_quxiao"><image src="../../static/img/yuyin.gif" mode=""></image></view>
 				</view>
-			<image src="../../static/lsimg/yuyin_quxiao.png" mode="" class="yuyin_quxiao"></image>
-			</view>
-		</view>
-		<view class="tan_yuyin_bottom">
-			<view class="tan_yuyin_bottom_on"v-if="!is_quxiao" >
-				<!-- <view class="hei_30_bold tan_yuyin_bottom_on_txt">
+				<view class="tan_yuyin_center">
+					<image src="../../static/lsimg/no_quxiao.png" mode="" class="no_quxiao" v-if="!is_quxiao"></image>
+					<view class="" v-if="is_quxiao">
+						<view class="songshou_txt">松开 取消</view>
+						<image src="../../static/lsimg/yuyin_quxiao.png" mode="" class="yuyin_quxiao"></image>
+					</view>
+				</view>
+				<view class="tan_yuyin_bottom">
+					<view class="tan_yuyin_bottom_on" v-if="!is_quxiao">
+						<!-- <view class="hei_30_bold tan_yuyin_bottom_on_txt">
 					松开 发送
 				</view> -->
-				<!-- <image src="../../static/lsimg/yuyin_hei.png" mode=""></image> -->
-			</view>
-			<view class="tan_yuyin_bottom_no" v-if="is_quxiao">
-				<image src="../../static/lsimg/yuyin_bai.png" mode=""></image>
+						<!-- <image src="../../static/lsimg/yuyin_hei.png" mode=""></image> -->
+					</view>
+					<view class="tan_yuyin_bottom_no" v-if="is_quxiao"><image src="../../static/lsimg/yuyin_bai.png" mode=""></image></view>
+				</view>
 			</view>
 		</view>
-	</view>
-</view>
-
-		
 	</view>
 </template>
 
 <script>
-	const recorderManager = uni.getRecorderManager();
-	const innerAudioContext = uni.createInnerAudioContext();
-	innerAudioContext.autoplay = true;	
+const recorderManager = uni.getRecorderManager();
+const innerAudioContext = uni.createInnerAudioContext();
+innerAudioContext.autoplay = true;
 import emotion from '@/components/bkhumor-emoji/index.vue';
 import uParse from '@/components/feng-parse/parse.vue';
 import socket from 'plus-websocket';
-import permision from "@/common/permission.js"
+import permision from '@/common/permission.js';
 export default {
 	computed: {
-	   intIntervalTime() {
-	     // 用于显示整数的秒数
-				
-	     console.log(Math.round(this.intervalTime));
-				
-	     return Math.round(this.intervalTime);
-	   }
-	 },
+		intIntervalTime() {
+			// 用于显示整数的秒数
+
+			console.log(Math.round(this.intervalTime));
+
+			return Math.round(this.intervalTime);
+		}
+	},
 	created() {
-	
-			// #ifdef H5
-	  window.addEventListener('resize', function () {
-	   if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
-	     window.setTimeout(function () {
-	       document.activeElement.scrollIntoViewIfNeeded()
-	     }, 0)
-	   }
-	  })
-// #endif
+		// #ifdef H5
+		window.addEventListener('resize', function() {
+			if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
+				window.setTimeout(function() {
+					document.activeElement.scrollIntoViewIfNeeded();
+				}, 0);
+			}
+		});
+		// #endif
 	},
 	components: {
 		emotion,
 		uParse
 	},
 	onLoad(option) {
-
-			var  self = this;
-			recorderManager.onStop(function (res) {
-				
-				console.log('recorder stop' + JSON.stringify(res));
-				self.voicePath = res.tempFilePath;
-			
-				
-			});
+		var self = this;
+		recorderManager.onStop(function(res) {
+			console.log('recorder stop' + JSON.stringify(res));
+			self.voicePath = res.tempFilePath;
+		});
 		this.ls_id = option.lawyerid;
 		// this.huoqu_xiaoxi_list();
 		this.huqu_zhiwu();
@@ -801,7 +838,7 @@ export default {
 				this.zhuanchang_arry = res.data.shanchang;
 				this.huqu_ls_xinxi();
 			});
-     
+
 		// #ifdef H5
 		this.connectSocketInit();
 		// #endif
@@ -814,7 +851,6 @@ export default {
 	},
 
 	onShow() {
-		
 		this.huoqu_xiaoxi_list();
 	},
 	onHide() {},
@@ -860,22 +896,23 @@ export default {
 			chaoshi_item: '',
 			new_ls: '',
 			is_new: false,
-			is_chehui:false,
-			messageid:'',
-			canClick:true,
-			is_zuijin_chehui:false,
-			zuijin_txt:'',
-			bottom_tip:false,
-			on_yuyin:false,
-			is_yuyin:false,
-			is_quxiao:false,
-            clientX: '',
+			is_chehui: false,
+			messageid: '',
+			canClick: true,
+			is_zuijin_chehui: false,
+			zuijin_txt: '',
+			bottom_tip: false,
+			on_yuyin: false,
+			is_yuyin: false,
+			is_quxiao: false,
+			clientX: '',
 			clientY: '',
 			recorderManager: {},
 			innerAudioContext: {},
 			voicePath: '',
 			intervalTime: 0,
-			isRecord:false
+			isRecord: false
+			
 		};
 	},
 	//下拉刷新
@@ -902,121 +939,118 @@ export default {
 			// 	icon: "none"
 			// });
 		},
-		show_luyin(){
-			
-			// this.is_yuyin=true
-			this.requestAndroidPermission('android.permission.RECORD_AUDIO')
+		show_luyin() {
+			this.requestAndroidPermission('android.permission.RECORD_AUDIO');
 		},
 		async requestAndroidPermission(permisionID) {
-			var result = await permision.requestAndroidPermission(permisionID)
-			var strStatus
+			var result = await permision.requestAndroidPermission(permisionID);
+			var strStatus;
 			if (result == 1) {
-				strStatus = "已获得授权"
-				this.on_yuyin=true
+				strStatus = '已获得授权';
+				this.on_yuyin = true;
 			} else if (result == 0) {
-				strStatus = "未获得授权"
+				strStatus = '未获得授权';
 				uni.showToast({
 					title: '请授权语音功能',
 					duration: 1000,
-					icon:'none'
+					icon: 'none'
 				});
-				
 			} else {
-				strStatus = "被永久拒绝权限"
+				strStatus = '被永久拒绝权限';
 				uni.showToast({
 					title: '请授权语音功能',
 					duration: 1000,
-					icon:'none'
+					icon: 'none'
 				});
 			}
-			
 		},
-		hide_luyin(){
-			this.on_yuyin=false
+		hide_luyin() {
+			this.on_yuyin = false;
 		},
 		// 点击长按录音
-		dian_luyin(){
-			this.is_yuyin=true
-            this.timer = setInterval(() => {
-                   this.intervalTime += 0.5;
-                   if (this.intervalTime >= 0.5 && !this.isRecord) {
-                     //如果用户录制的时间太短,就不会去开启录音, 因为有个bug: recorderManager.stop()在短时间内开启在关闭的话,实际上他还在不停地录音,不知道你们有没有遇到过
-            		          
-                     console.log("开始录音");
-            		          
-                     this.isRecord = true;
-            		          
-                     this.intervalTime = 0;
-            		          
-                     recorderManager.start({
-                       format: "mp3"
-                     });
-                   }
-                 }, 500);
+		dian_luyin() {
+			this.is_yuyin = true;
+			this.timer = setInterval(() => {
+				this.intervalTime += 0.5;
+				if (this.intervalTime >= 0.5 && !this.isRecord) {
+					//如果用户录制的时间太短,就不会去开启录音, 因为有个bug: recorderManager.stop()在短时间内开启在关闭的话,实际上他还在不停地录音,不知道你们有没有遇到过
+
+					console.log('开始录音');
+
+					this.isRecord = true;
+
+					this.intervalTime = 0;
+
+					recorderManager.start({
+						format: 'mp3'
+					});
+				}
+			}, 500);
 		},
-		yiru(){
-			this.on_yuyin=false
+		yiru() {
+			this.on_yuyin = false;
 		},
-		moveStop(e){
-			console.log(e.touches[0].clientY)
-			if(e.touches[0].clientY<650){
-				this.is_quxiao=true
-			}else{
-				this.is_quxiao=false
+		moveStop(e) {
+			console.log(e.touches[0].clientY);
+			if (e.touches[0].clientY < 650) {
+				this.is_quxiao = true;
+			} else {
+				this.is_quxiao = false;
 			}
 		},
 
-		songkai(){
-			var that=this
-			this.is_yuyin=false
-			console.log('songkai',this.is_quxiao)
-			if(this.is_quxiao){
-				console.log('已取消录音')
-			}else{
+		songkai() {
+			var that = this;
+			this.is_yuyin = false;
+			this.is_quxiao = false;
+			console.log('songkai', this.is_quxiao);
+			if (this.is_quxiao) {
+				console.log('已取消录音');
+			} else {
 				if (this.intervalTime <= 0.5) {
-				       console.log("录音太短了!!!");
-				     }
-						           
-				     clearInterval(this.timer);
-						        
-				     if (this.isRecord) {
-				       setTimeout(() => {
-				         recorderManager.stop();  
-				         this.isRecord = false;
-							var data = {
-								content: '',
-								msgtype: 12,
-								photourl_form: that.user.photourl
-								
-							};
-							that.message.push(data);
-							setTimeout(() => {
-								uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
-							}, 100);	  
-		  
-				         console.log(this.isRecord);
-				       }, 500); //延迟小段时间停止录音, 更好的体验
-				     }
+					console.log('录音太短了!!!');
+				}
+
+				clearInterval(this.timer);
+
+				if (this.isRecord) {
+					setTimeout(() => {
+						recorderManager.stop();
+						this.isRecord = false;
+						// var data = {
+						// 	content: '',
+						// 	msgtype: 12,
+						// 	photourl_form: that.user.photourl
+
+						// };
+						// that.message.push(data);
+						// setTimeout(() => {
+						// 	uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+						// }, 100);
+
+						console.log(this.isRecord);
+					}, 500); //延迟小段时间停止录音, 更好的体验
+				}
 			}
 		},
-        playVoice() {
-            console.log('播放录音');
-            if (this.voicePath) {
-                innerAudioContext.src = this.voicePath;
-                innerAudioContext.play();
-            }
-        },
+		playVoice() {
+			console.log('播放录音');
+			if (this.voicePath) {
+				innerAudioContext.src = this.voicePath;
+				innerAudioContext.play();
+			}
+		},
 		input_click(e) {
-		      // this.bottom_tip =true;
-			  setTimeout(() => {
-			  	uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
-			  }, 100);
-		    },
-		input_blur(){
-		  setTimeout(()=> {
-			this.bottom_tip=false;
-		  }, 100);
-		  console.log('失去焦点事件')
+			// this.bottom_tip =true;
+			setTimeout(() => {
+				uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+			}, 100);
+		},
+		input_blur() {
+			setTimeout(() => {
+				this.bottom_tip = false;
+			}, 100);
+			console.log('失去焦点事件');
 		},
 		navigateBack() {
 			uni.navigateBack();
@@ -1074,6 +1108,35 @@ export default {
 					}
 				});
 		},
+		send_guoqi(){
+			var that = this;
+			this.$http
+				.post({
+					url: '/push/gatewayworker/sendzixun.html',
+					data: {
+						userid_to: this.ls_id,
+						msg: '[服务过期]',
+						type: 8
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						if(res.data.type!=1) {
+						
+						var data = {
+							content: '8',
+							msgtype: 8,
+							photourl_form: this.chat_xinxi.photourl,
+							userid_from: that.ls_id
+						};
+						that.message.push(data);
+						setTimeout(() => {
+							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+						}, 100);
+					}
+					}
+				});
+		},
 		go_zhuye() {
 			uni.navigateTo({
 				url: 'ls_zhuye?lawyerid=' + this.ls_id
@@ -1086,7 +1149,7 @@ export default {
 		},
 		dh_pay(price, time) {
 			uni.navigateTo({
-			url: 'pay?type=2&lawyerid=' + this.ls_id + '&time=' + time + '&pay_money=' + price
+				url: 'pay?type=2&lawyerid=' + this.ls_id + '&time=' + time + '&pay_money=' + price
 			});
 		},
 		huoqu_xiaoxi_list() {
@@ -1132,27 +1195,21 @@ export default {
 									res.data.message[key] = Object.assign(res.data.message[key], ress.data.lawyer);
 								});
 						}
-						if(res.data.message[key].msgtype == 10 ||res.data.message[key].msgtype == 11){
-							
-					
-							
+						if (res.data.message[key].msgtype == 10 || res.data.message[key].msgtype == 11 || res.data.message[key].msgtype == 12) {
 							this.$http
 								.post({
 									url: '/mapi/consult/red_envelope',
 									data: {
 										redid: res.data.message[key].content,
-										userid:this.ls_id
-
+										userid: this.ls_id
 									}
 								})
 								.then(ress => {
-									console.log(ress)
+									console.log(ress);
 									res.data.message[key] = Object.assign(res.data.message[key], ress.data.red_envelope);
-									this.$forceUpdate()
+									this.$forceUpdate();
 								});
-							
 						}
-						
 					}
 
 					// console.log(res.data.message);
@@ -1171,6 +1228,7 @@ export default {
 						var time = to.getTime() - now.getTime();
 
 						if (time < 0) {
+							
 							clearInterval(interval);
 						} else {
 							var day = parseInt(time / 1000 / 60 / 60 / 24);
@@ -1189,20 +1247,16 @@ export default {
 				});
 		},
 		huojiao() {
-			
 			setTimeout(() => {
 				uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
-				
 			}, 600);
 		},
 		shiqu() {
-			
 			setTimeout(() => {
 				uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
-				
 			}, 200);
 		},
-		
+
 		app_lianjie() {
 			let that = this;
 			Object.assign(uni, socket);
@@ -1285,14 +1339,15 @@ export default {
 										that.message.push(xiaoxi);
 									});
 							}
-						}if (data.state == 10) {
+						}
+						if (data.state == 10 || data.state == 11 || data.state == 12) {
 							if (data.content) {
 								this.$http
 									.post({
 										url: '/mapi/consult/red_envelope',
 										data: {
 											redid: data.content,
-											userid:that.ls_id
+											userid: that.ls_id
 										}
 									})
 									.then(ress => {
@@ -1307,10 +1362,9 @@ export default {
 											is_pay: ress.data.red_envelope.is_pay,
 											information: ress.data.red_envelope.information,
 											paymode: ress.data.red_envelope.paymode,
-											type: ress.data.red_envelope.type,
+											type: ress.data.red_envelope.type
 										};
 										that.message.push(xiaoxi);
-										
 									});
 							}
 						} else {
@@ -1415,23 +1469,20 @@ export default {
 			this.isShowEmj = bool;
 			this.$emit('show');
 		},
-		bianji(){
-			this.chat_txt=this.zuijin_txt
+		bianji() {
+			this.chat_txt = this.zuijin_txt;
 		},
-         changan(messageid,txt){
-			 if(txt){
-				 
-				 this.zuijin_txt=txt
-			 }else{
-			   this.zuijin_txt=''
-		     }
-			 console.log(messageid)
-			 this.messageid=messageid
-			this.is_chehui=true
-		 },
-		 che_queding(){
-			 
-			 
+		changan(messageid, txt) {
+			if (txt) {
+				this.zuijin_txt = txt;
+			} else {
+				this.zuijin_txt = '';
+			}
+			console.log(messageid);
+			this.messageid = messageid;
+			this.is_chehui = true;
+		},
+		che_queding() {
 			this.$http
 				.post({
 					url: '/index/zixun/withdraw',
@@ -1446,28 +1497,24 @@ export default {
 							duration: 2000
 						});
 						this.message.forEach((item, index, array) => {
-						if(item.messageid==this.messageid){
-										 this.message.splice(index,1)
-						}
+							if (item.messageid == this.messageid) {
+								this.message.splice(index, 1);
+							}
 						});
-						this.is_chehui=false
-						
-						if(this.zuijin_txt!=''){
-							this.is_zuijin_chehui=true
-						}else{
-							this.is_zuijin_chehui=false
-							this.chat_txt=''
-						}
-						
-					}
-				}); 
-			 
-			 
+						this.is_chehui = false;
 
-		 },
-		 che_quxiao(){
-		     this.is_chehui=false
-		 },
+						if (this.zuijin_txt != '') {
+							this.is_zuijin_chehui = true;
+						} else {
+							this.is_zuijin_chehui = false;
+							this.chat_txt = '';
+						}
+					}
+				});
+		},
+		che_quxiao() {
+			this.is_chehui = false;
+		},
 		jia() {
 			this.bt_show = !this.bt_show;
 			this.isShowEmj = false;
@@ -1577,6 +1624,7 @@ export default {
 			return '_www/' + path;
 		},
 		send_img(img) {
+			var that = this;
 			this.$http
 				.post({
 					url: '/push/gatewayworker/sendmessage.html',
@@ -1592,41 +1640,48 @@ export default {
 							content: img,
 							msgtype: 2,
 							photourl_form: this.user.photourl,
-							messageid:res.data
+							messageid: res.data
 						};
 						this.message.push(data);
 						setTimeout(() => {
 							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 						}, 100);
+						var to = new Date(that.time1.replace(/-/g, '/'));
+						var now = new Date();
+						var time = to.getTime() - now.getTime();	
+						if (time < 0) {
+							
+							that.send_guoqi()
+						} 
 					}
 				});
 		},
 		send() {
-			var that=this
-			if(this.chat_txt==''){
+			var that = this;
+			if (this.chat_txt == '') {
 				uni.showToast({
 					title: '请输入内容',
 					duration: 2000,
 					icon: 'none'
 				});
-				return false
+				return false;
 			}
-	        if(this.canClick){
-					this.canClick = false;
-					this.send_txt()
-					setTimeout(function(){
-						that.canClick = true;
-					},1000)
-				}else{
-					uni.showToast({
-						title: '请稍后发送',
-						duration: 2000,
-						icon: 'none'
-					});
-				}		
-
+			if (this.canClick) {
+				this.canClick = false;
+				this.send_txt();
+				setTimeout(function() {
+					that.canClick = true;
+				}, 1000);
+			} else {
+				uni.showToast({
+					title: '请稍后发送',
+					duration: 2000,
+					icon: 'none'
+				});
+			}
 		},
-		send_txt(){
+		send_txt() {
+			var that=this
 			console.log(this.chat_txt);
 			var txt = this.replace_em(this.chat_txt);
 			if (txt == '') {
@@ -1650,19 +1705,28 @@ export default {
 				.then(res => {
 					if (res.code == 0) {
 						this.chat_txt = '';
-						this.is_zuijin_chehui=false
+						this.is_zuijin_chehui = false;
 						var data = {
 							content: txt,
 							msgtype: 1,
 							photourl_form: this.user.photourl,
-							messageid:res.data
+							messageid: res.data
 						};
 						this.message.push(data);
 						setTimeout(() => {
 							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 						}, 100);
+						
+					var to = new Date(that.time1.replace(/-/g, '/'));
+					var now = new Date();
+					var time = to.getTime() - now.getTime();	
+					if (time < 0) {
+						
+						that.send_guoqi()
+					} 	
+						
+						
 					}
-					
 				});
 		},
 		call() {
@@ -1738,7 +1802,7 @@ export default {
 						data: {
 							client_id: data.client_id
 						},
-					
+
 						success: function(resp) {
 							console.log(resp, 'bind');
 						},
@@ -1775,15 +1839,15 @@ export default {
 									};
 									that.message.push(xiaoxi);
 								});
-						} 
-						if (data.state == 10) {
+						}
+						if (data.state == 10 || data.state == 11 || data.state == 12) {
 							if (data.content) {
 								this.$http
 									.post({
 										url: '/mapi/consult/red_envelope',
 										data: {
 											redid: data.content,
-											userid:that.ls_id
+											userid: that.ls_id
 										}
 									})
 									.then(ress => {
@@ -1798,15 +1862,12 @@ export default {
 											is_pay: ress.data.red_envelope.is_pay,
 											information: ress.data.red_envelope.information,
 											paymode: ress.data.red_envelope.paymode,
-											type: ress.data.red_envelope.type,
+											type: ress.data.red_envelope.type
 										};
 										that.message.push(xiaoxi);
-										
 									});
 							}
-						} 
-						
-						else {
+						} else {
 							var xiaoxi = {
 								photourl_form: data.userid_from_pic,
 								userid_to: data.userid_to,
@@ -1836,15 +1897,15 @@ export default {
 		guanbi() {
 			this.is_new = false;
 		},
-		fa_hongbao(){
+		fa_hongbao() {
 			uni.navigateTo({
-				url:'hongbao?lawyerid=' + this.chat_xinxi.userid
-			})
+				url: 'hongbao?lawyerid=' + this.chat_xinxi.userid
+			});
 		},
-		go_fuwufei(redid){
+		go_fuwufei(redid) {
 			uni.navigateTo({
-				url:'fuwufei?lawyerid=' + this.chat_xinxi.userid+'&redid='+redid
-			})
+				url: 'fuwufei?lawyerid=' + this.chat_xinxi.userid + '&redid=' + redid
+			});
 		}
 	},
 	filters: {
@@ -2451,8 +2512,8 @@ button {
 	left: 50%;
 	transform: translate(-50%, 0);
 }
-.chehui{
-	background-color: #FFFFFF;
+.chehui {
+	background-color: #ffffff;
 	position: fixed;
 	bottom: 0;
 	width: 100%;
@@ -2460,23 +2521,23 @@ button {
 	text-align: center;
 }
 
-.chehui_title{
+.chehui_title {
 	line-height: 120rpx;
 }
-	
-.chehui_queding{
+
+.chehui_queding {
 	line-height: 106rpx;
 	border-top: 2rpx solid #e5e5e5;
 	border-bottom: 20rpx solid #f7f7f7;
 }
-.chehui_quxiao{
-line-height: 106rpx;
+.chehui_quxiao {
+	line-height: 106rpx;
 }
-.chat_chehui_tishi{
+.chat_chehui_tishi {
 	text-align: center;
 	margin-bottom: 30rpx;
 }
-.chat_chehui_tishi .chat_chehui_tishi_txt{
+.chat_chehui_tishi .chat_chehui_tishi_txt {
 	background-color: #f1f1f1;
 	height: 50rpx;
 	line-height: 50rpx;
@@ -2484,25 +2545,22 @@ line-height: 106rpx;
 	padding: 0 15rpx;
 	border-radius: 6rpx;
 }
-.chat_chehui_tishi .chat_chehui_tishi_txt text{
+.chat_chehui_tishi .chat_chehui_tishi_txt text {
 	margin-left: 6rpx;
 }
-.jianpan{
-			height: 550rpx;
-			background-color: #FFFFFF;
+.jianpan {
+	height: 550rpx;
+	background-color: #ffffff;
 }
 
-
-
-
-.send_hongbao_html{
-	background-color: #FFFFFF;
+.send_hongbao_html {
+	background-color: #ffffff;
 	padding: 0;
 	box-sizing: border-box;
 	margin-bottom: 20rpx;
 	position: relative;
 }
-.send_hongbao_html::before{
+.send_hongbao_html::before {
 	content: '';
 	display: inline-block;
 	width: 10rpx;
@@ -2513,64 +2571,55 @@ line-height: 106rpx;
 	background: url(../../static/img/send_hong_bef.png) no-repeat;
 	background-size: 100% 100%;
 }
-.send_hongbao{
-		width: 470rpx;
-		height: 180rpx;
-
-
+.send_hongbao {
+	width: 470rpx;
+	height: 180rpx;
 }
-.send_hongbao_top{
-	background-image: linear-gradient(267deg,
-		#ed7a25 0%, 
-		#f0a144 100%), 
-		linear-gradient(
-			#e6e6e6, 
-			#e6e6e6);
-			height: 140rpx;
-			
-			background-blend-mode: normal, 
-				normal;
-				display: flex;
-				align-items: center;
-				padding-left: 30rpx;
-				font-size: 50rpx;
-				color: #FFFFFF;
+.send_hongbao_top {
+	background-image: linear-gradient(267deg, #ed7a25 0%, #f0a144 100%), linear-gradient(#e6e6e6, #e6e6e6);
+	height: 140rpx;
+
+	background-blend-mode: normal, normal;
+	display: flex;
+	align-items: center;
+	padding-left: 30rpx;
+	font-size: 50rpx;
+	color: #ffffff;
 }
-.send_hongbao_top image{
+.send_hongbao_top image {
 	width: 56rpx;
-		height: 80rpx;
-		margin-right: 30rpx;
+	height: 80rpx;
+	margin-right: 30rpx;
 }
-.send_hongbao_bottom{
+.send_hongbao_bottom {
 	line-height: 40rpx;
 	padding-left: 20rpx;
 }
-.lingqu{
-		width: 360rpx;
-		height: 44rpx;
-		background-color: #ffffff;
-		border-radius: 8rpx;
-		margin: 0 auto;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-bottom: 20rpx;
+.lingqu {
+	width: 360rpx;
+	height: 44rpx;
+	background-color: #ffffff;
+	border-radius: 8rpx;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 20rpx;
 }
-.lingqu image{
-		width: 14rpx;
-		height: 20rpx;
-		margin-right: 6rpx;
+.lingqu image {
+	width: 14rpx;
+	height: 20rpx;
+	margin-right: 6rpx;
 }
 
-
-.send_fufei_html{
-	background-color: #FFFFFF;
+.send_fufei_html {
+	background-color: #ffffff;
 	padding: 0;
 	box-sizing: border-box;
 	margin-bottom: 20rpx;
 	position: relative;
 }
-.send_fufei_html::before{
+.send_fufei_html::before {
 	content: '';
 	display: inline-block;
 	width: 10rpx;
@@ -2582,40 +2631,40 @@ line-height: 106rpx;
 	background-size: 100% 100%;
 }
 .send_fufei_html .send_fufei_top {
-		background-color: #e1d797;
-		height: 140rpx;
-		display: flex;
-		align-items: center;
-		padding-left:30rpx ;
+	background-color: #e1d797;
+	height: 140rpx;
+	display: flex;
+	align-items: center;
+	padding-left: 30rpx;
 }
-.send_fufei_top image{
+.send_fufei_top image {
 	width: 54rpx;
-		height: 54rpx;
-		margin-right: 20rpx;
+	height: 54rpx;
+	margin-right: 20rpx;
 }
-.send_fufei_top_jia{
+.send_fufei_top_jia {
 	margin-left: 30rpx;
 }
-	
-.yi_fufei{
+
+.yi_fufei {
 	text-align: center;
 	margin-bottom: 20rpx;
 }
-.yi_fufei text{
-	background-color: #FFFFFF;
-    padding:6rpx 18rpx ;
+.yi_fufei text {
+	background-color: #ffffff;
+	padding: 6rpx 18rpx;
 	border-radius: 8rpx;
 }
 
-.send_shoufei_html{
-	background-color: #FFFFFF;
+.send_shoufei_html {
+	background-color: #ffffff;
 	padding: 0;
 	box-sizing: border-box;
 	margin-bottom: 20rpx;
 	position: relative;
 	width: 470rpx;
 }
-.send_shoufei_html::before{
+.send_shoufei_html::before {
 	content: '';
 	display: inline-block;
 	width: 10rpx;
@@ -2624,30 +2673,29 @@ line-height: 106rpx;
 	background: url(../../static/img/send_shoufei.png) no-repeat;
 	background-size: 100% 100%;
 }
-.send_shoufei_top{
-		background-color: #f8de3f;
-		height: 140rpx;
-		padding-left: 30rpx;
-		display: flex;
-		align-items: center;
-		
+.send_shoufei_top {
+	background-color: #f8de3f;
+	height: 140rpx;
+	padding-left: 30rpx;
+	display: flex;
+	align-items: center;
 }
-.send_shoufei_top image{
-		width: 55rpx;
-		height: 56rpx;
-		margin-right: 20rpx;
-	}
-	.shou_jiage{
-		margin-left: 30rpx;
-	}
-	.send_shoufei_bottom{
-		margin-left: 20rpx;
-		line-height: 40rpx;
-	}
-	.changan_input{
-		text-align: center;
-	}
-	.yuyin_bg {
+.send_shoufei_top image {
+	width: 55rpx;
+	height: 56rpx;
+	margin-right: 20rpx;
+}
+.shou_jiage {
+	margin-left: 30rpx;
+}
+.send_shoufei_bottom {
+	margin-left: 20rpx;
+	line-height: 40rpx;
+}
+.changan_input {
+	text-align: center;
+}
+.yuyin_bg {
 	background-color: rgba(0, 0, 0, 0.8);
 	width: 100%;
 	height: 100%;
@@ -2655,48 +2703,46 @@ line-height: 106rpx;
 	top: 0;
 	z-index: 99;
 	text-align: center;
-	
 }
-.tan_yuyin_on{
-		width: 462rpx;
-		height: 160rpx;
-		background-color: #95ec69;
-		box-shadow: 2rpx 3rpx 4rpx 0rpx 
-			rgba(0, 0, 0, 0.22);
-			
-			border-radius: 16rpx;
-			position: absolute;
-			left: 50%;
-			bottom: 700rpx;
-			transform: translate(-50%,0);
-			display: flex;
-			align-items: center;
-			justify-content: center;
+.tan_yuyin_on {
+	width: 462rpx;
+	height: 160rpx;
+	background-color: #95ec69;
+	box-shadow: 2rpx 3rpx 4rpx 0rpx rgba(0, 0, 0, 0.22);
+	border-radius: 16rpx;
+	position: absolute;
+	left: 50%;
+	bottom: 700rpx;
+	transform: translate(-50%, 0);
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
-.tan_yuyin_on image{
-		width: 148rpx;
-		height: 16rpx;
+.tan_yuyin_on image {
+	width: 300rpx;
+	height: 300rpx;
+	position: relative;
+	top: -20rpx;
 }
-.tan_yuyin_no{
-		width: 177rpx;
-		height: 160rpx;
-		background-color: #fa5151;
-		box-shadow: 2rpx 3rpx 4rpx 0rpx 
-			rgba(0, 0, 0, 0.22);
-			position: absolute;
-			border-radius: 16rpx;
-			left: 50%;
-			bottom: 700rpx;
-			transform: translate(-50%,0);
-			display: flex;
-			align-items: center;
-			justify-content: center;
+.tan_yuyin_no {
+	width: 177rpx;
+	height: 160rpx;
+	background-color: #fa5151;
+	box-shadow: 2rpx 3rpx 4rpx 0rpx rgba(0, 0, 0, 0.22);
+	position: absolute;
+	border-radius: 16rpx;
+	left: 50%;
+	bottom: 700rpx;
+	transform: translate(-50%, 0);
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
-.tan_yuyin_no image{
-		width: 88rpx;
-		height: 16rpx;
+.tan_yuyin_no image {
+	width: 520rpx;
+	height: 180rpx;
 }
-.tan_yuyin_no::before{
+.tan_yuyin_no::before {
 	content: '';
 	display: inline-block;
 	width: 26rpx;
@@ -2706,10 +2752,9 @@ line-height: 106rpx;
 	position: absolute;
 	bottom: -15rpx;
 	left: 50%;
-	transform: translate(-50%,0);
-	
+	transform: translate(-50%, 0);
 }
-.tan_yuyin_on::before{
+.tan_yuyin_on::before {
 	content: '';
 	display: inline-block;
 	width: 26rpx;
@@ -2719,39 +2764,36 @@ line-height: 106rpx;
 	position: absolute;
 	bottom: -15rpx;
 	left: 50%;
-	transform: translate(-50%,0);
-	
+	transform: translate(-50%, 0);
 }
-.no_quxiao{
-		width: 144rpx;
-		height: 144rpx;
-        margin-bottom: 70rpx;
+.no_quxiao {
+	width: 144rpx;
+	height: 144rpx;
+	margin-bottom: 70rpx;
 }
-.yuyin_quxiao{
-		width: 178rpx;
-		height: 178rpx;
+.yuyin_quxiao {
+	width: 178rpx;
+	height: 178rpx;
 }
-.tan_yuyin_center{
+.tan_yuyin_center {
 	position: absolute;
 	left: 50%;
 	bottom: 290rpx;
-	transform: translate(-50%,0);
+	transform: translate(-50%, 0);
 }
-.tan_yuyin_bottom{
-
-			
+.tan_yuyin_bottom {
 }
-.tan_yuyin_bottom_on{
-		height: 256rpx;
-		background: url(../../static/lsimg/yuyin_bottom_on2.png) no-repeat;
-	    background-size: 100% 100%;
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 100%;
+.tan_yuyin_bottom_on {
+	height: 256rpx;
+	background: url(../../static/lsimg/yuyin_bottom_on2.png) no-repeat;
+	background-size: 100% 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
 }
-.tan_yuyin_bottom_no{
-		height: 224rpx;
+.tan_yuyin_bottom_no {
+	height: 224rpx;
 	background: url(../../static/lsimg/yuyin_bottom_no.png) no-repeat;
 	background-size: 100% 100%;
 	position: absolute;
@@ -2759,55 +2801,54 @@ line-height: 106rpx;
 	left: 0;
 	width: 100%;
 }
-.tan_yuyin_bottom_no image{
-		width: 32rpx;
-		height: 48rpx;
-		margin-top: 77rpx;
+.tan_yuyin_bottom_no image {
+	width: 32rpx;
+	height: 48rpx;
+	margin-top: 77rpx;
 }
-.tan_yuyin_bottom_on_txt{
-	margin:40rpx 0  30rpx;
+.tan_yuyin_bottom_on_txt {
+	margin: 40rpx 0 30rpx;
 }
-.tan_yuyin_bottom_on image{
-		width: 32rpx;
-		height: 48rpx;
+.tan_yuyin_bottom_on image {
+	width: 32rpx;
+	height: 48rpx;
 }
-.songshou_txt{
+.songshou_txt {
 	font-size: 30rpx;
-		color: #aeaeae;
-		margin-bottom: 20rpx;
-		font-weight: bold;
+	color: #aeaeae;
+	margin-bottom: 20rpx;
+	font-weight: bold;
 }
-.chat_yuyin{
+.chat_yuyin {
 	padding-left: 70rpx;
 	display: flex;
 	align-items: center;
 }
-.chat_yuyin image{
-		width: 20rpx;
-		height: 30rpx;
-		margin-left: 20rpx;
+.chat_yuyin image {
+	width: 20rpx;
+	height: 30rpx;
+	margin-left: 20rpx;
 }
-.chat_yuyin_left{
+.chat_yuyin_left {
 	padding-right: 70rpx;
 	display: flex;
 	align-items: center;
 	position: relative;
 	top: 16rpx;
 }
-.weiting{
+.weiting {
 	display: inline-block;
-		width: 18rpx;
-		height: 18rpx;
+	width: 18rpx;
+	height: 18rpx;
 	position: absolute;
 	right: -40rpx;
 	top: 24rpx;
-		background-color: #fa5150;
-		border-radius: 100%;
+	background-color: #fa5150;
+	border-radius: 100%;
 }
-.chat_yuyin_left image{
+.chat_yuyin_left image {
 	width: 20rpx;
-		height: 30rpx;
-		margin-right: 20rpx;
+	height: 30rpx;
+	margin-right: 20rpx;
 }
-
 </style>

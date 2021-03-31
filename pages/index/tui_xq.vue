@@ -45,7 +45,7 @@
 				<view class="tui_btn">
 					<button type="" class="bai_30" @click="quxiao">取消退款</button>
 					<view class="qian_24">
-						退款审核通过后，资金将原路返回到用户的支付账户
+						退款审核通过后，资金将返回您的账户
 					</view>
 				</view>
 		</view>

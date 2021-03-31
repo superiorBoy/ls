@@ -1,34 +1,76 @@
 <template>
 	<view class="body">
 		<view class="head">
-			<view class="head_back"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
-			<view class="head_center hei_38_bold">VIP服务</view>
+			<view class="head_back"><image src="../../static/lsimg/bai_fanhui.png" mode="" @click="navigateBack()"></image></view>
+			<view class="head_center bai_38_bold">VIP服务</view>
 			<view class=" head_right hei_30_bold"></view>
 		</view>
 
 		<view class="zi_body ">
-			<view class="vip_top">
-				<image :src="img_url + user.photourl" mode=""></image>
-				<view class="vip_top_right">
-					<view class="hei_30 dengji">用户等级：{{user.isvip==1?'vip':'普通用户'}}</view>
-					<view class="hui_28" v-if="user.isvip==1">{{user.viptime | timeStamp}}</view>
-					<view class="hui_28"v-if="user.isvip!=1">当前暂未开通VIP服务'</view>
+			<view class="vip_top_bg">
+				<view class="vip_top">
+					<image :src="img_url + user.photourl" mode=""></image>
+					<view class="vip_top_right">
+						<view class="bai_30 dengji">
+							{{ user.nickname }}律师：
+							<text class="dengji_txt bai_20">{{ user.isvip == 1 ? 'vip' : '普通用户' }}</text>
+						</view>
+						<view class="bai_26" v-if="user.isvip == 1">
+							会员总时长：
+							<text class="shichang">{{ user.viptime | timeStamp }}</text>
+						</view>
+						<view class="bai_26" v-if="user.isvip != 1">
+							会员总时长：
+							<text class="shichang" @click="save">立即开通</text>
+						</view>
+					</view>
 				</view>
 			</view>
 
-			<view class="xuanze">
-				<view class="xuanze_title hei_34_bold">选择服务</view>
-				<view class="xuanze_body">
-					<view class="xuanze_item hei_30" :class="xuanze == index ? 'xuanzhong' : ''" @click="xuan(index, item.lawyervipid)" v-for="(item, index) in lawyervip">
-						<view class="jiage">
-							￥
-							<text class="hong_38">{{ item.price }}</text>
-						</view>
-						<view class="nian">{{ item.time }}年</view>
-						<view class="tiyan bai_22" v-if="index == 0">体验</view>
-						<view class="tiyan bai_22" v-if="index == 2">推荐</view>
+			<view class="quanyi">
+				<view class="vip_title hei_38_bold">
+					<image src="../../static/lsimg/vip_title_left.png" mode=""></image>
+					<text>会员权益</text>
+					<image src="../../static/lsimg/vip_title_right.png" mode=""></image>
+				</view>
+				<view class="quanyi_list hei_26">
+					<view class="quanyi_item">
+						<image src="../../static/lsimg/vip_quanyi1.png" mode=""></image>
+						<view class="">首页展示</view>
 					</view>
-					<!-- <view class="xuanze_item hei_30" :class="xuanze==2?'xuanzhong':''"@click="xuan(2)">
+					<view class="quanyi_item">
+						<image src="../../static/lsimg/vip_quanyi2.png" mode=""></image>
+						<view class="">排名靠前</view>
+					</view>
+					<view class="quanyi_item">
+						<image src="../../static/lsimg/vip_quanyi3.png" mode=""></image>
+						<view class="">优质推送</view>
+					</view>
+					<view class="quanyi_item">
+						<image src="../../static/lsimg/vip_quanyi4.png" mode=""></image>
+						<view class="">更多收益</view>
+					</view>
+				</view>
+			</view>
+
+			<view class="vip_body">
+				<view class="xuanze">
+					<view class="vip_title hei_38_bold">
+						<image src="../../static/lsimg/vip_title_left.png" mode=""></image>
+						<text>会员续费</text>
+						<image src="../../static/lsimg/vip_title_right.png" mode=""></image>
+					</view>
+					<view class="xuanze_body">
+						<view class="xuanze_item hei_30" :class="xuanze == index ? 'xuanzhong' : ''" @click="xuan(index, item.lawyervipid)" v-for="(item, index) in lawyervip">
+							<view class="xuanze_item_top">
+								<view class="nianxian hei_30_bold">{{ item.time }}年</view>
+								<view class="jiage huang_30">￥{{ item.price }}</view>
+							</view>
+							<view class="nian hui_22">赠送{{index==0?'3600':index==1?'7200':'10800'}}个金豆</view>
+							<view class="tiyan bai_22" v-if="index == 0">体验</view>
+							<view class="tiyan bai_22" v-if="index == 2">推荐</view>
+						</view>
+						<!-- <view class="xuanze_item hei_30" :class="xuanze==2?'xuanzhong':''"@click="xuan(2)">
 					<view class="jiage">
 						￥<text class="hong_38">3000</text> 
 					</view>
@@ -46,27 +88,58 @@
 					</view>
 					<view class="tiyan bai_22">推荐</view>
 				</view> -->
+					</view>
+
+					<view class="xuanze_kaitong bai_30" @click="save">立即开通</view>
 				</view>
-			</view>
 
-			<view class="haochu">
-				<view class="haochu_title hei_34_bold">加入VIP的好处</view>
-				<view class="haochu_list hui_24">
-					<view class="haochu_item">1.律师排名更前面，主页，咨询页面等排名前面！</view>
-					<view class="haochu_item">2.当地律师首屏展示，显示排名前面！</view>
-					<view class="haochu_item">3.加入网站律师展示广告位，得到更多展示！</view>
-					<view class="haochu_item">4.加入系统订单匹配，自动分配电话咨询订单，获取更多收入！</view>
-					<view class="haochu_item">5.加入系统订单匹配，自动分配在线咨询订单，获取更多收入！</view>
-					<view class="haochu_item">6.加入系统案件委托，优先推送当地的案件，获取更多收入！</view>
-					<view class="haochu_item">7.加入提问系统，优先推送当地提问咨询的人，获取更多收入！</view>
+				<view class="haochu">
+					<view class="vip_title hei_38_bold">
+						<image src="../../static/lsimg/vip_title_left.png" mode=""></image>
+						<text>权益详情</text>
+						<image src="../../static/lsimg/vip_title_right.png" mode=""></image>
+					</view>
+					<view class="haochu_list hui_24">
+						<view class="haochu_item">
+							<text></text>
+							律师排名更前面，主页，咨询页面等排名前面！
+						</view>
+						<view class="haochu_item">
+							<text></text>
+							当地律师首屏展示，显示排名前面！
+						</view>
+						<view class="haochu_item">
+							<text></text>
+							加入网站律师展示广告位，得到更多展示！
+						</view>
+						<view class="haochu_item">
+							<text></text>
+							加入系统订单匹配，自动分配电话咨询订单，获取更多收入！
+						</view>
+						<view class="haochu_item">
+							<text></text>
+							.加入系统订单匹配，自动分配在线咨询订单，获取更多收入！
+						</view>
+						<view class="haochu_item">
+							<text></text>
+							加入系统案件委托，优先推送当地的案件，获取更多收入！
+						</view>
+						<view class="haochu_item">
+							<text></text>
+							加入提问系统，优先推送当地提问咨询的人，获取更多收入！
+						</view>
+					</view>
 				</view>
-			</view>
 
-			<view class="zhifu">
-				<view class="zhifu_title hei_34_bold">选择支付方式</view>
+				<view class="zhifu">
+					<view class="vip_title hei_38_bold">
+						<image src="../../static/lsimg/vip_title_left.png" mode=""></image>
+						<text>支付方式</text>
+						<image src="../../static/lsimg/vip_title_right.png" mode=""></image>
+					</view>
 
-				<view class="fangshi">
-					<!-- <view class="fangshi_list_pay" @click="radio(1)">
+					<view class="fangshi">
+						<!-- <view class="fangshi_list_pay" @click="radio(1)">
 	            		<view class="fangshi_left hei_28">
 	            			<image src="@/static/img/pay_weixin.png" mode="" style="width:36rpx ;height: 31rpx;"></image>
 	            			微信支付
@@ -74,23 +147,24 @@
 	            		</view>
 	            		<label class="radio"><radio value="1" :checked="zhifu == 1" /></label>
 	            	</view> -->
-					<view class="fangshi_list_pay" @click="radio(2)">
-						<view class="fangshi_left hei_28">
-							<image src="@/static/img/pay_zhifubao.png" mode="" style="width: 39rpx;height: 39rpx;"></image>
-							支付宝支付
-							<text class="tuijian_txt hong_22">推荐</text>
+						<view class="fangshi_list_pay" @click="radio(2)">
+							<view class="fangshi_left hei_28">
+								<image src="@/static/img/pay_zhifubao.png" mode="" style="width: 39rpx;height: 39rpx;"></image>
+								支付宝支付
+								<text class="tuijian_txt hong_22">推荐</text>
+							</view>
+							<label class="radio"><radio value="2" :checked="zhifu == 2" /></label>
 						</view>
-						<label class="radio"><radio value="2" :checked="zhifu == 2" /></label>
-					</view>
-					<view class="fangshi_list_pay" @click="radio(3)">
-						<view class="fangshi_left hei_28">
-							<image src="@/static/img/yue_pay.png" mode="" style="width:36rpx ;height: 31rpx;"></image>
-							余额支付
+						<view class="fangshi_list_pay" @click="radio(3)">
+							<view class="fangshi_left hei_28">
+								<image src="@/static/img/yue_pay.png" mode="" style="width:36rpx ;height: 31rpx;"></image>
+								余额支付
+							</view>
+							<label class="radio"><radio value="3" :checked="zhifu == 3" /></label>
 						</view>
-						<label class="radio"><radio value="3" :checked="zhifu == 3" /></label>
 					</view>
+					<view class="kaitong_btn_wai"><button type="" class="kaitong_btn bai_30" @click="save">立即开通</button></view>
 				</view>
-				<button type="" class="kaitong_btn bai_30" @click="save">确认充值</button>
 			</view>
 		</view>
 	</view>
@@ -243,15 +317,24 @@ export default {
 
 <style>
 .head {
+	background-color: #232332;
+	border-bottom: 2rpx solid #232332;
 }
+
 .zi_body {
-	padding-left: 30rpx;
-	padding-right: 30rpx;
+}
+.vip_top_bg {
+	background: url(../../static/lsimg/vip_bg.png) no-repeat;
+	background-size: 100% 100%;
+	padding: 0 30rpx;
 }
 .vip_top {
 	display: flex;
 	align-items: center;
-	margin: 10rpx 0;
+	background: url(../../static/lsimg/vip_top.png) no-repeat;
+	background-size: 100% 100%;
+	height: 170rpx;
+	padding-left: 40rpx;
 }
 .vip_top image {
 	width: 110rpx;
@@ -259,22 +342,42 @@ export default {
 	border-radius: 100%;
 	margin-right: 30rpx;
 }
+.vip_body {
+}
 .dengji {
-	margin-bottom: 10rpx;
+	margin-bottom: 16rpx;
+}
+.dengji_txt {
+	height: 40rpx;
+	background-color: #211400;
+	border-radius: 20rpx;
+	display: inline-block;
+	line-height: 40rpx;
+	padding: 0 16rpx;
+}
+.shichang {
+	height: 40rpx;
+	line-height: 40rpx;
+	background-image: linear-gradient(90deg, #ecbd83 0%, #f8d9ad 100%), linear-gradient(#211400, #211400);
+	background-blend-mode: normal, normal;
+	border-radius: 20rpx;
+	display: inline-block;
+	padding: 0 16rpx;
+	font-size: 20rpx;
+	color: #5e4115;
 }
 .xuanze_item {
 	width: 216rpx;
-	height: 208rpx;
+	height: 256rpx;
 	background-color: #ffffff;
 	border-radius: 10rpx;
 	border: solid 1rpx #e3e3e3;
 	text-align: center;
-	padding: 36rpx 0 0;
+	padding: 0rpx 0 0;
 	box-sizing: border-box;
 	position: relative;
 }
 .jiage {
-	line-height: 100rpx;
 }
 .nian {
 	line-height: 68rpx;
@@ -283,7 +386,7 @@ export default {
 .tiyan {
 	width: 86rpx;
 	height: 46rpx;
-	background-color: #f33c3c;
+	background-color: #f4ab4e;
 	border-radius: 0rpx 0rpx 10rpx 0rpx;
 	position: absolute;
 	top: 0;
@@ -294,6 +397,7 @@ export default {
 .xuanze_body {
 	display: flex;
 	justify-content: space-between;
+	margin-top: 8rpx;
 }
 .xuanze_title {
 	line-height: 110rpx;
@@ -304,6 +408,16 @@ export default {
 .haochu_item {
 	line-height: 42rpx;
 }
+.haochu_item text {
+	display: inline-block;
+	width: 10rpx;
+	height: 10rpx;
+	background-color: #b58b49;
+	border-radius: 100%;
+	vertical-align: middle;
+	margin-right: 16rpx;
+}
+
 .zhifu_title {
 	line-height: 100rpx;
 }
@@ -343,20 +457,25 @@ export default {
 }
 .kaitong_btn {
 	height: 88rpx;
-	background-color: #0eb77e;
+	background-image: linear-gradient(90deg, #ecbd83 0%, #f8d9ad 100%), linear-gradient(#0eb77e, #0eb77e);
+	background-blend-mode: normal, normal;
+	box-shadow: 0rpx 6rpx 10rpx 0rpx rgba(27, 27, 40, 0.19);
+	color: #c48333;
+	font-weight: bold;
 	border-radius: 44rpx;
 	line-height: 88rpx;
-	margin-top: 80rpx;
+	margin-top: 20rpx;
 }
 .zhifu {
-	padding-bottom: 50rpx;
+	background-color: #f5f5f5;
+	padding: 0 0 20rpx;
 }
 .xuanzhong {
-	border: solid 1rpx #f33c3c !important;
+	border: solid 1rpx #f5af54 !important;
 	position: relative;
 }
 
-.xuanzhong::before {
+/* .xuanzhong::before {
 	content: '';
 	display: inline-block;
 	position: absolute;
@@ -366,5 +485,80 @@ export default {
 	height: 54rpx;
 	background: url(../../static/lsimg/vip_xuanzhong.png) no-repeat;
 	background-size: 100% 100%;
+} */
+.vip_title {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 30rpx 0;
+	background-color: #ffffff;
+}
+.vip_title image {
+	height: 52rpx;
+	width: 50rpx;
+}
+.vip_title text {
+	margin: 0 25rpx;
+}
+.quanyi {
+	margin-top: 40rpx;
+	padding-bottom: 40rpx;
+	border-bottom: 20rpx solid #f5f5f5;
+}
+
+.quanyi_list {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 30rpx;
+	margin-top: 20rpx;
+}
+.quanyi_item {
+	text-align: center;
+}
+.quanyi_item image {
+	width: 90rpx;
+	height: 89rpx;
+	margin-bottom: 20rpx;
+}
+.xuanze {
+	padding: 20rpx 30rpx 50rpx;
+	border-bottom: 20rpx solid #f5f5f5;
+}
+.huang_30 {
+	font-size: 30rpx;
+	color: #f5af54;
+	font-weight: bold;
+}
+.nianxian {
+	padding: 60rpx 0 14rpx;
+}
+.xuanze_item_top {
+	height: 185rpx;
+	box-sizing: border-box;
+	/* background-color: #0078FF; */
+}
+.xuanze_kaitong {
+	width: 320rpx;
+	height: 88rpx;
+	background-color: #f4ab4e;
+	border-radius: 44rpx;
+	line-height: 88rpx;
+	text-align: center;
+	margin: 47rpx auto 0;
+}
+.haochu {
+	padding: 0 30rpx 40rpx;
+	border-bottom: 20rpx solid #f5f5f5;
+}
+.fangshi {
+	background-color: #ffffff;
+	padding: 0 30rpx;
+}
+.kaitong_btn_wai {
+	padding: 0 30rpx;
+}
+.haochu_list {
+	margin-top: 6rpx;
 }
 </style>

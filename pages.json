@@ -108,6 +108,9 @@
 			"path":"pages/index/jiangli"
 		},
 		{
+			"path":"pages/index/wanshan"
+		},
+		{
 			"path":"pages/index/guanzhu"
 		},
 		{
@@ -298,6 +301,12 @@
 			"path":"pages/ls/up_anli"
 		},
 		{
+			"path":"pages/ls/jindou"
+		},
+		{
+			"path":"pages/ls/kefu"
+		},
+		{
 			"path":"pages/ls/up_neirong"
 		},
 		{
@@ -311,6 +320,9 @@
 		},
 		{
 			"path":"pages/ls/ls_meiti"
+		},
+		{
+			"path":"pages/ls/wanshan"
 		},
 		{
 			"path":"pages/ls/zixun_baojia"
