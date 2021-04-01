@@ -455,27 +455,27 @@ app_pay(consultid){
 			}
 		});
 },
-		yue_pay() {
-			// this.$http
-			// 	.post({
-			// 		url: '/index/consult/zhinengaccountpay',
-			// 		data: {
-			// 			consultid: consultid
-			// 		}
-			// 	})
-			// 	.then(res => {
-			// 		if (res.code == 0) {
-			// 			uni.showToast({
-			// 				title: '支付成功',
-			// 				duration: 2000
-			// 			});
-			// 			setTimeout(function() {
-			// 				uni.navigateTo({
-			// 					url: 'pipei?consultid=' + consultid
-			// 				});
-			// 			}, 1000);
-			// 		}
-			// 	});
+		yue_pay(consultid) {
+			this.$http
+				.post({
+					url: '/index/consult/zhinengaccountpay',
+					data: {
+						consultid: consultid
+					}
+				})
+				.then(res => {
+					if (res.code == 0) {
+						uni.showToast({
+							title: '支付成功',
+							duration: 2000
+						});
+						setTimeout(function() {
+							uni.navigateTo({
+								url: 'pipei?consultid=' + consultid
+							});
+						}, 1000);
+					}
+				});
 		},
 	}
 };

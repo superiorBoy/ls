@@ -231,6 +231,9 @@
 			"path":"pages/index/zaixian_list"
 		},
 		{
+			"path":"pages/index/geren_xinxi_xiugai"
+		},
+		{
 			"path":"pages/index/lvshi",
 			"style": {
 			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
@@ -286,6 +289,9 @@
 			"path":"pages/ls/fensi"
 		},
 		{
+			"path":"pages/ls/geren_xinxi_xiugai"
+		},
+		{
 			"path":"pages/ls/ls_xueshu"
 		},
 		{
@@ -301,7 +307,10 @@
 			"path":"pages/ls/up_anli"
 		},
 		{
-			"path":"pages/ls/jindou"
+			"path":"pages/ls/jindou",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
 		},
 		{
 			"path":"pages/ls/kefu"

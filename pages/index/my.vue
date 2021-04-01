@@ -7,9 +7,9 @@
 			</view> -->
 		<view class="my_top">
 			<view class="my_top_left">
-				<image :src=img_url+user.photourl mode="" class="ls_tx"></image>
+				<image :src=img_url+user.photourl mode="" class="ls_tx" @click="go_geren"></image>
 				<view class="my_top_left_r" v-if="is_login">
-					<view class="my_name hei_30_bold">{{user.nickname}}</view>
+					<view class="my_name hei_30_bold" @click="go_geren">{{user.nickname}}</view>
 					<view class="renzheng bai_20">普通用户</view>
 				</view>
 				<view class="my_top_weoienglu hei_26" v-if="!is_login">
@@ -125,7 +125,7 @@
 						<view class="hui_24 ">我要充值</view>
 					</navigator>
 					<navigator url="ls_liushui" class="zhanghao_item">
-						<image src="@/static/img/hy_liushui.png" mode="" style="width: 50rpx;height: 56rpx;"></image>
+						<image src="@/static/img/hy_liushui.png" mode="" style="width: 50rpx;height: 56rpx;margin-bottom: 0;"></image>
 						<view class="hui_24 ">流水明细</view>
 					</navigator>
 					<navigator url="help" class="zhanghao_item">
@@ -366,6 +366,11 @@ export default {
 					
 					this.baojia=res.data.zhan
 				});
+		},
+		go_geren(){
+			uni.navigateTo({
+				url:'geren_xinxi'
+			})
 		}
 	},
 	

@@ -3,30 +3,56 @@
 		<view class="head">
 			<view class="head_back"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
 			<view class="head_center hei_38_bold">个人信息</view>
-			<view class=" head_right hei_30_bold" @click="tuichu()">退出</view>
+			<view class=" head_right hei_30_bold" ></view>
 		</view>
 
 		<view class="zi_body shiming_body">
+			<view class="xinxi">
+				
 			<view class="shiming_list hei_28">
-				<view class="shiming_list_left">姓名</view>
+				<view class="shiming_list_left">头像</view>
+				<view class="shiming_list_right"  @click="up_zheng">
+					<image :src="touxiang" mode="" class="touxiang"></image>
+					<image src="../../static/lsimg/go_r.png" mode="" class="go_r"></image>
+				</view>	
+			</view>
+			<view class="shiming_list hei_28" @click="go_xiugai(1)">
+				<view class="shiming_list_left">昵称</view>
+				<view class="shiming_list_right">
 				<input type="text" value="" placeholder="" class="hei_26" v-model="name" disabled="true" />
+			     <image src="../../static/lsimg/go_r.png" mode="" class="go_r"></image>
+			</view>	
 			</view>
 			<view class="shiming_list hei_28">
 				<view class="shiming_list_left">手机号码</view>
 				<input type="text" value="" placeholder="" class="hei_26" v-model="shouji" disabled="true" />
 			</view>
-			<view class="shiming_list hei_28">
+			<view class="shiming_list hei_28" @click="go_xiugai(2)">
 				<view class="shiming_list_left">Q Q</view>
-				<input type="text" value="" placeholder="请输入qq" class="hei_26" v-model="qq" />
+				<view class="shiming_list_right">
+				<input type="text" value="" placeholder="请输入qq" class="hei_26" v-model="qq"  disabled="true"/>
+					<image src="../../static/lsimg/go_r.png" mode="" class="go_r"></image>
+					</view>
 			</view>
 
-			<view class="shiming_list hei_28">
+			<view class="shiming_list hei_28" @click="go_xiugai(3)">
 				<view class="shiming_list_left">微信</view>
-				<input type="text" value="" placeholder="请输入微信" class="hei_26" v-model="weixin" />
+				<view class="shiming_list_right">
+				<input type="text" value="" placeholder="请输入微信" class="hei_26" v-model="weixin" disabled="true"/>
+			<image src="../../static/lsimg/go_r.png" mode="" class="go_r"></image>
 			</view>
-			<view class="shiming_list hei_28">
+			</view>
+			<view class="shiming_list hei_28" @click="go_xiugai(4)">
 				<view class="shiming_list_left">电子邮箱</view>
-				<input type="text" value="" placeholder="请输入电子邮箱" class="hei_26" v-model="youxiang" />
+				<view class="shiming_list_right">
+				<input type="text" value="" placeholder="请输入电子邮箱" class="hei_26" v-model="youxiang" disabled="true"/>
+			   <image src="../../static/lsimg/go_r.png" mode="" class="go_r"></image>
+			</view>
+			</view>
+					</view>
+			<view class=" hei_28 tuichu_btn" @click="tuichu()">
+				退出当前账号
+				
 			</view>
 <!-- 			<view class="youshi">
 				<view class="youshi_top hei_28">个人优势</view>
@@ -42,7 +68,7 @@
 				</view>
 			</view> -->
 
-			<view class="baocun_btn"><button type="" class="bai_30 baocun_b" @click="save">保存</button></view>
+			<!-- <view class="baocun_btn"><button type="" class="bai_30 baocun_b" @click="save">保存</button></view> -->
 		</view>
 	</view>
 </template>
@@ -51,6 +77,7 @@
 export default {
 	data() {
 		return {
+			img_url: uni.getStorageSync('img_url'),
 			name: '',
 			shouji: '',
 			qq: '',
@@ -70,11 +97,16 @@ export default {
 				'有顾问单位经验',
 				'丰富的专业经验',
 				'专利代理经历'
-			]
+			],
+			touxiang:''
 		};
 	},
 	created() {},
 	onLoad(option) {
+		
+		
+	},
+	onShow() {
 		
 		// 获取用户信息
 				this.$http
@@ -82,14 +114,14 @@ export default {
 						url: '/mlawyerapi/user/getlawyer'
 					})
 					.then(res => {
-						
+						this.touxiang=this.img_url+res.data.user.photourl
 						this.name=res.data.user.nickname
 					    this.shouji=res.data.user.mobile
 						this.qq=res.data.user.qq
 						this.weixin=res.data.user.weixin
 						this.youxiang=res.data.user.email
+						this.data=res.data.user
 					});
-		
 	},
 	methods: {
 		navigateBack() {
@@ -110,13 +142,13 @@ export default {
 					}
 				});
 		},
-		up_zhiye() {
+		up_zheng() {
 			let that = this;
 			uni.chooseImage({
 				success(res) {
 					console.log(res);
 					// that.zhiye_zhao = res.tempFilePaths[0];
-					console.log(that.logo);
+					
 					// that.urlTobase64(res.tempFilePaths[0])
 					//#ifdef H5
 					uni.request({
@@ -127,7 +159,30 @@ export default {
 							let base64 = wx.arrayBufferToBase64(ress.data); //把arraybuffer转成base64
 							base64 = 'data:image/jpeg;base64,' + base64; //不加上这串字符，在页面无法显示的哦
 							// console.log(base64)
-							that.logo = base64;
+							
+							that.$http
+								.post({
+									url: '/mlawyerapi/lawyer/upnickname',
+									data: {
+										nickname:that.data.nickname,
+										img:base64
+									}
+								})
+								.then(res => {
+									console.log(res.code);
+									if (res.code == 0) {
+										uni.showToast({
+											title: '修改成功',
+											duration: 2000,
+											icon: 'none'
+										});
+										that.touxiang = base64;
+									}
+								});
+							
+							
+							
+							// that.touxiang = base64;
 						}
 					});
 					//#endif
@@ -141,7 +196,30 @@ export default {
 								function(file) {
 									var fileReader = new plus.io.FileReader();
 									fileReader.onload = function(data) {
-										that.logo = data.target.result;	
+										// that.touxiang = data.target.result;	
+										
+										that.$http
+											.post({
+												url: '/mlawyerapi/lawyer/upnickname',
+												data: {
+													nickname:that.data.nickname,
+													img:data.target.result
+												}
+											})
+											.then(res => {
+												console.log(res.code);
+												if (res.code == 0) {
+													uni.showToast({
+														title: '修改成功',
+														duration: 2000,
+														icon: 'none'
+													});
+													that.touxiang = data.target.result;	
+												}
+											});
+										
+										
+										
 									};
 									fileReader.onerror = function(error) {
 										console.log(error);
@@ -236,6 +314,11 @@ export default {
 					});
 				}
 			}
+		},
+		go_xiugai(state){
+			uni.navigateTo({
+				url:'geren_xinxi_xiugai?state='+state
+			})
 		}
 	}
 };
@@ -245,16 +328,22 @@ export default {
 .head {
 	border-bottom: 2rpx solid #e8e8e8;
 }
-
+page{
+	background-color:#f9f9f9 ;
+}
+.xinxi{
+padding: 0 30rpx;
+background-color: #ffffff;
+}
 .shiming_list {
-	height: 100rpx;
+	height: 130rpx;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	border-bottom: 2rpx solid #e8e8e8;
-	padding-left: 30rpx;
-	padding-right: 30rpx;
+
 	position: relative;
+	
 }
 
 .youshi {
@@ -379,5 +468,22 @@ export default {
 .xuan_txt {
 	background-color: #f43a51;
 	color: #ffffff;
+}
+.touxiang{
+		width: 80rpx;
+		height: 80rpx;
+		border-radius: 100% 100%;
+}
+.go_r{
+	width: 14rpx;
+		height: 24rpx;
+		margin-left: 12rpx;
+}
+.tuichu_btn{
+	height: 130rpx;
+	background-color: #FFFFFF;
+	margin-top: 20rpx;
+	line-height: 130rpx;
+	padding-left: 30rpx;
 }
 </style>

@@ -15,14 +15,14 @@
 
 				<view class="jindou_top_list">
 					<view class="jindou_top_item">
-						<view class="jindou_top_num">500</view>
+						<view class="jindou_top_num">{{user.jindou}}</view>
 						<view class="jindou_top_title">
 							<image src="../../static/lsimg/douzi.png" mode="" style="width: 24rpx;height: 22rpx;"></image>
 							我的金豆
 						</view>
 					</view>
 					<view class="jindou_top_item">
-						<view class="jindou_top_num">100</view>
+						<view class="jindou_top_num">{{user.activity}}</view>
 						<view class="jindou_top_title">
 							<image src="../../static/lsimg/renqi.png" mode="" style="width: 22rpx;height: 24rpx;"></image>
 							人气值
@@ -96,7 +96,7 @@
 						</view>
 					</view>	
 				</view>	
-				<navigator url="" class="renwu_item_right bai_26">去分享</navigator>
+				<navigator url="yaoqing" class="renwu_item_right bai_26">去分享</navigator>
 					
 				
 				</view>

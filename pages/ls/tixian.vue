@@ -7,7 +7,7 @@
 			</view>
 			<view class="head_center hei_38_bold">账户提现</view>
 			<view class=" head_right hei_30_bold">
-
+             <navigator url="liushui">明细</navigator>
 			</view>
 		</view>
 

@@ -3,7 +3,7 @@
 		<view class="head">
 			<view class="head_back"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
 			<view class="head_center hei_36_bold">完善个人资料</view>
-			<view class="head_right "><navigator url="index" class="hui_36_bold">跳过</navigator></view>
+			<view class="head_right "><navigator url="jiedan" class="hui_36_bold">跳过</navigator></view>
 		</view>
 
 		<view class="zi_body">
@@ -17,7 +17,7 @@
 				</view>
 
 				<view class="nicheng"><input type="text" value="" placeholder="请输入昵称" class="hei_30" /></view>
-				<navigator url="my" ><button type="" class="bai_30">进入首页</button></navigator>
+				<navigator url="my" ><button type="" class="bai_30" @click="go_shouye" >进入首页</button></navigator>
 			</view>
 		</view>
 	</view>
@@ -112,6 +112,34 @@ export default {
 				}
 			}
 			return '_www/' + path;
+		},
+		go_shouye(){
+			
+			this.$http
+				.post({
+					url: '/mlawyerapi/lawyer/upnickname',
+					data: {
+						nickname:this.nicheng,
+						img:this.zhiye_zhao
+					}
+				})
+				.then(res => {
+					console.log(res.code);
+					if (res.code == 0) {
+						uni.showToast({
+							title: '修改成功',
+							duration: 2000,
+							icon: 'none'
+						});
+						setTimeout(function(){
+							uni.reLaunch({
+								url:'jiedan'
+							})
+						},1000)
+					}
+				});
+		
+			
 		}
 	}
 };

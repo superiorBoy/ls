@@ -13,7 +13,7 @@
 					<view class="vip_top_right">
 						<view class="bai_30 dengji">
 							{{ user.nickname }}律师：
-							<text class="dengji_txt bai_20">{{ user.isvip == 1 ? 'vip会员' : '普通用户' }}</text>
+							<text class="dengji_txt bai_20">{{ user.isvip == 1 ? 'VIP会员' : '普通用户' }}</text>
 						</view>
 						<view class="bai_26" v-if="user.isvip == 1">
 							会员总时长：
@@ -66,7 +66,7 @@
 								<view class="nianxian hei_30_bold">{{ item.time }}年</view>
 								<view class="jiage huang_30">￥{{ item.price }}</view>
 							</view>
-							<view class="nian hui_22">赠送{{index==0?'3600':index==1?'7200':'10800'}}个金豆</view>
+							<view class="nian hui_22">赠送{{item.jindou}}个金豆</view>
 							<view class="tiyan bai_22" v-if="index == 0">体验</view>
 							<view class="tiyan bai_22" v-if="index == 2">推荐</view>
 						</view>
@@ -90,7 +90,7 @@
 				</view> -->
 					</view>
 
-					<view class="xuanze_kaitong bai_30" @click="save">{{user.isvip==1?'立即续费':'立即开通'}}</view>
+					<view class="xuanze_kaitong bai_30" @click="save">{{user.isvip==1?'会员续费':'立即开通'}}</view>
 				</view>
 
 				<view class="haochu">

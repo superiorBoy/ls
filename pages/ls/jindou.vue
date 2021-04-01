@@ -13,72 +13,19 @@
 
 		<view class="zi_body ">
 			<view class="liushui_list">
-				<view class="jindou_item">
+				<view class="jindou_item" v-for="item in liushui_list">
 					<view class="jindou_item_left" >
 						<view class="hei_28 jindou_item_title">
-							会员注册
+							{{item.information}}
 						</view>
 						<view class="qian_24">
-							2021-03-29 13:35:16
+							{{ item.addtime | timeStamp }}
 						</view>
 					</view>
-					<view class="jindou_item_right" >50金豆</view>	
+					<view class="jindou_item_right" >{{item.jindou}}金豆</view>	
 				</view>
-                 <view class="jindou_item">
-                 	<view class="jindou_item_left" >
-                 		<view class="hei_28 jindou_item_title">
-                 			提问采纳
-                 		</view>
-                 		<view class="qian_24">
-                 			2021-03-29 13:35:16
-                 		</view>
-                 	</view>
-                 	<view class="jindou_item_right" >3金豆</view>	
-                 </view>
-				 <view class="jindou_item">
-				 	<view class="jindou_item_left" >
-				 		<view class="hei_28 jindou_item_title">
-				 			回复前三
-				 		</view>
-				 		<view class="qian_24">
-				 			2021-03-29 13:35:16
-				 		</view>
-				 	</view>
-				 	<view class="jindou_item_right" >1金豆</view>	
-				 </view>
-				 <view class="jindou_item">
-				 	<view class="jindou_item_left" >
-				 		<view class="hei_28 jindou_item_title">
-				 			用户下单
-				 		</view>
-				 		<view class="qian_24">
-				 			2021-03-29 13:35:16
-				 		</view>
-				 	</view>
-				 	<view class="jindou_item_right" >1金豆</view>	
-				 </view>
-				 <view class="jindou_item">
-				 	<view class="jindou_item_left" >
-				 		<view class="hei_28 jindou_item_title">
-				 			邀请律师
-				 		</view>
-				 		<view class="qian_24">
-				 			2021-03-29 13:35:16
-				 		</view>
-				 	</view>
-				 	<view class="jindou_item_right" >50金豆</view>	
-				 </view>
-				 <view class="jindou_item">
-				 	<view class="jindou_item_left" >
-				 		<view class="hei_28 jindou_item_title">
-				 			充值VIP
-				 		</view>
-				 		<view class="qian_24">
-				 			2021-03-29 13:35:16
-				 		</view>
-				 	</view>
-				 	<view class="jindou_item_right" >3600金豆</view>	
-				 </view>
+              
+				
 
 			</view>
 		</view>
@@ -94,6 +41,7 @@
 						<image src="@/static/lsimg/xuan_xia.png" mode=""></image>
 					</view>
 					<view class="tan_list_bottom zhuanchang_arry hei_26" v-if="zhuan_show">
+						
 						<text v-for="(item,index) in leixing" :class="['' ,index==xuanzc?'xuanzhong': '']" @click="xuanzhuangchang(index,item)">
 							{{item}}</text>
 					</view>
@@ -148,7 +96,8 @@
 				liushui_list:[],
 				leixing:[],
 				str_time:'',
-				url:''
+				url:'',
+				typeid:''
 			}
 		},
 		created() {
@@ -156,7 +105,6 @@
 		},
 		//下拉刷新
 		onPullDownRefresh: function() {
-			
 
 			this.page=0
 			this.is_all=false
@@ -175,8 +123,8 @@
 		},
 		onLoad(option) {
 			
-			// this.huoqu_liushui()
-			this.huoqu_leixing()
+			this.huoqu_liushui()
+			// this.huoqu_leixing()
 		},
 		methods: {
 			//上拉加载
@@ -201,34 +149,43 @@
 			},
 	   huoqu_liushui(){
 		   // 获取流水记录
-		   
-	if(this.str_time!=''&&this.time!=''){
-		this.liushui_list=[]
-		var sou_time=this.str_time +' - '+this.time
-	}else{
-	    var 	sou_time=''
-	}
+		   var typeid =''
+				if(this.str_time!=''&&this.time!=''){
+					this.liushui_list=[]
+					var sou_time=this.str_time +' - '+this.time
+				}else{
+					var sou_time=''
+				}
+				if(this.zhuanchang_txt!=''){
+					for(let i in this.leixing) {
+					
+					if(this.leixing[i]==this.zhuanchang_txt){
+						
+						typeid = i
+					}
+					
+					
+					}
+				}
 		
-	if(this.zhuanchang_txt!='')	{
-		this.liushui_list=[]
-	}	   
 		   
 		   	this.$http
 		   		.post({
-		   			url:this.url,
+		   			url:'/mlawyerapi/user/jindoulist',
 		   			data:{
 		   				page:this.page,
-						grade:this.zhuanchang_txt,
+						type:typeid,
 						riqi:sou_time
 		   			}
 		   		})
 		   		.then(res => {
-						this.liushui_list=this.liushui_list.concat(res.data.bill);
+						this.liushui_list=this.liushui_list.concat(res.data.jindou);
 					
-						if(res.data.bill.length<10){
+						if(res.data.jindou.length<10){
 							this.is_all=true
 						}
-						this.leixing=res.data.grade
+						this.leixing=res.data.type
+						console.log(this.leixing)
 		   		});
 	   },
 
@@ -249,6 +206,7 @@
 			// 选择类型
 			xuanzhuangchang(index, item) {
 				this.xuanzc = index
+				console.log(index)
 				this.zhuanchang_txt2 = item
 			},
 			// 类型确定
@@ -268,6 +226,9 @@
 			// 确定搜索
 			queding_btn() {
 				console.log(this.time, this.zhuanchang_txt)
+				this.page=0
+				this.is_all=false
+				this.liushui_list=[]
 				this.$refs.popup.close()
 				this.huoqu_liushui()
 			}

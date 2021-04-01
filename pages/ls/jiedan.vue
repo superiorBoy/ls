@@ -11,7 +11,7 @@
 					<view class="jiedan_item_l">
 					<view class="jiedan_item_left">
 						<image src="@/static/lsimg/jiedan_bendi.png" mode="" class="jiedan_img" style="width: 60rpx;height: 60rpx;"></image>
-						<image src="@/static/lsimg/new.png" mode="" class="new" v-if="geshu.bendicount>0"></image>
+						<image src="@/static/lsimg/new.png" mode="" class="new" v-if="geshu.tiwen>0"></image>
 					</view>
 					<view class="jiedan_item_right">
 						<view class="hei_28 jiedan_item_title">本地咨询</view>
@@ -20,7 +20,7 @@
 					</view>
 					</view>
 					<view class="geshu">
-						<text class="zixun_num"v-if="geshu.bendicount>0" >+{{geshu.bendicount}}</text>
+						<text class="zixun_num"v-if="geshu.tiwen>0" >+{{geshu.tiwen}}</text>
 						<image src="@/static/lsimg/go_r.png" mode=""></image>
 					</view>
 				</navigator>

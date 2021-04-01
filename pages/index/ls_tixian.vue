@@ -43,7 +43,7 @@
 				</view>
 				<text class="tishi qian_26">*提现金额不能少于1元</text>
 
-				<button type="" class="tixian_btn bai_30" @click="save">立即提现</button>
+				<button type="" class="tixian_btn bai_30" @click="save" v-if="is_tixian==1">立即提现</button>
 
 
 				<view class="tixian_shuoming hei_30">
@@ -74,7 +74,8 @@
 				zhifubao: '',
 				jine: '',
 				yue: '',
-				name:''
+				name:'',
+				is_tixian:2
 			}
 		},
 		created() {},
@@ -88,12 +89,21 @@
 				this.yue=res.data.user.rmb
 			    
 			});
+			this.huoqu_tixian()
 		},
 		methods: {
 			navigateBack() {
 				uni.navigateBack()
 			},
-
+           huoqu_tixian(){
+			this.$http
+				.post({
+					url: '/mapi/index/getuser_withdrawal'
+				})
+				.then(res => {
+					this.is_tixian = res.data.user_withdrawal;
+				});
+		},
 			all() {
 				this.jine = this.yue
 			},

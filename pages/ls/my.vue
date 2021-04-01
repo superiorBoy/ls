@@ -7,10 +7,10 @@
 			</view> -->
 		<view class="my_top">
 			<view class="my_top_left">
-				<image :src="img_url + user.photourl" mode="" class="ls_tx" v-if="user"></image>
+				<image :src="img_url + user.photourl" mode="" class="ls_tx" v-if="user" @click="go_geren"></image>
 				<image src="@/static/lsimg/moren_tx.png" mode="" class="ls_tx" v-if="!user"></image>
 				<view class="my_top_left_r" v-if="is_login">
-					<view class="my_name hei_30_bold">
+					<view class="my_name hei_30_bold" @click="go_geren"> 
 						{{ user?user.nickname:'' }}律师
 						<view class="renzheng_xinxi" v-if="user">
 							<image src="../../static/lsimg/yi_renzheng1.png" mode="" class="renzheng1" v-if="user.isreal == 1"></image>
@@ -43,7 +43,7 @@
 			</view>
 			
 			<view  class="my_ziliao_item" @click="tiaozhuan('jindou')">
-				<view class="my_ziliao_item_top hei_28">0</view>
+				<view class="my_ziliao_item_top hei_28">{{user.jindou}}</view>
 				<view class="my_ziliao_item_bottom hei_22">金豆</view>
 			</view>
 			<view  class="my_ziliao_item" @click="tiaozhuan('tixian')">
@@ -460,6 +460,11 @@ export default {
 	   		console.log('WebSocket 已关闭！');
 	   	});
 	   },
+	   go_geren(){
+	   	uni.navigateTo({
+	   		url:'geren_xinxi'
+	   	})
+	   }
 	},
 
 };

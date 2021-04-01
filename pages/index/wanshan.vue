@@ -3,7 +3,7 @@
 		<view class="head">
 			<view class="head_back"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
 			<view class="head_center hei_36_bold">完善个人资料</view>
-			<view class="head_right "><navigator url="index" class="hui_36_bold">跳过</navigator></view>
+			<view class="head_right hui_36_bold"><text @click="tiaoguo">跳过</text></view>
 		</view>
 
 		<view class="zi_body">
@@ -16,7 +16,7 @@
 					<view class="hei_32">设置头像</view>
 				</view>
 
-				<view class="nicheng"><input type="text" value="" placeholder="请输入昵称" class="hei_30" /></view>
+				<view class="nicheng"><input type="text" value="" placeholder="请输入昵称" class="hei_30" v-model="nicheng"/></view>
 				<button type="" class="bai_30" @click="go_shouye">进入首页</button>
 			</view>
 		</view>
@@ -28,7 +28,8 @@ export default {
 	data() {
 		return {
 			img_url: uni.getStorageSync('img_url'),
-			zhiye_zhao: '../../static/img/moren_tx.png'
+			zhiye_zhao: '../../static/img/moren_tx.png',
+			nicheng:''
 		};
 	},
 	created() {},
@@ -115,6 +116,34 @@ export default {
 			return '_www/' + path;
 		},
 		go_shouye(){
+			
+			this.$http
+				.post({
+					url: '/mapi/user/upnickname',
+					data: {
+						nickname:this.nicheng,
+						img:this.zhiye_zhao
+					}
+				})
+				.then(res => {
+					console.log(res.code);
+					if (res.code == 0) {
+						uni.showToast({
+							title: '修改成功',
+							duration: 2000,
+							icon: 'none'
+						});
+						setTimeout(function(){
+							uni.switchTab({
+								url:'index'
+							})
+						},1000)
+					}
+				});
+		
+			
+		},
+		tiaoguo(){
 			uni.switchTab({
 				url:'index'
 			})
