@@ -44,7 +44,8 @@ export default {
 	data() {
 		return {
 			title:'',
-			body:''
+			body:'',
+			item:''
 		};
 	},
 	components: {
@@ -54,7 +55,8 @@ export default {
 	onLoad(option) {
 		// console.log(option);
 		this.title=option.title
-		   this.body=option.body
+		  this.body=option.body
+		   // this.item=JSON.parse(option.item)
 	},
 	methods: {
 		navigateBack() {

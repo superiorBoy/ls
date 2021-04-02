@@ -76,12 +76,29 @@ function post(obj) {
   return request(obj.url,'POST',obj.data)
 }
 
-
+  
+ function  jspost(URL, PARAMS=[]) {
+      var temp = document.createElement("form");
+      temp.action = URL;
+      temp.method = "post";
+      temp.target = "";//跳转到新页面
+      temp.style.display = "none";
+      for (var x in PARAMS) {
+          var opt = document.createElement("textarea");
+          opt.name = x;
+          opt.value = PARAMS[x];
+          temp.appendChild(opt);
+      }
+      document.body.appendChild(temp);
+      temp.submit();
+      return temp;
+  }
 
 export default {
   request,
   get,
   post,
   baseUrl,
-  WebSocket_url
+  WebSocket_url,
+  jspost
 }

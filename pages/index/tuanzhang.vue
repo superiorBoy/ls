@@ -128,6 +128,23 @@
 				</view>
 			   </view>
 			   </view>
+			   <view class="guize_list">
+			   <view class="guize_list_title hei_30_bold">
+			   	<image src="@/static/img/guize_tuanzhang.png"style="width:27rpx ;" mode="widthFix"></image>邀请成为律师
+			   </view>	
+			   <view class="guize_list_body hei_22">
+			   	<view class="guize_item">
+			   		<text class="bai_20">1</text>邀请律师入驻成功奖励50金豆！
+			   	</view>
+			   	<view class="guize_item">
+			   		<text class="bai_20">2</text>邀请律师入驻成功奖励5元！
+			   	</view>
+			   				<view class="guize_item">
+			   					<text class="bai_20">3</text>律师开通vip 奖励10%的提成！
+			   				</view>
+			   			
+			   </view>
+			   </view>
 				
 			</view>
 			<view class="paihang bai_xian">
@@ -445,7 +462,7 @@ page {
 	line-height: 32 rpx;
 }
 .guize{
-	height: 510rpx ;
+	height:720rpx ;
 	}
 	.guize .tuanzhang_title {
 		margin-bottom: 10rpx;

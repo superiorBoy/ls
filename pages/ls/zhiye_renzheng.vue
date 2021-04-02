@@ -78,7 +78,31 @@
 			</view>
 
 
+
+
+
 		</view>
+
+
+	<uni-popup type="center" ref="popup" :maskClick='false'>
+		<view class="shenhe_kefu">
+			<view class="tishi hong_30_bold">
+				<text></text>
+				<view class="">
+					<image src="../../static/lsimg/jinggao.png" mode=""></image>
+					温馨提示
+				</view>
+				<image src="../../static/lsimg/hei_close.png" mode="" class="close" @click="close_tan"></image>
+			</view>
+			<view class="shenhe_erweima">
+				<image :src="img_url+kefu.webweixinurl" mode=""></image>
+				<view class=" qian_28">
+					请添加管理员客服微信审核
+				</view>
+			</view>
+		</view>
+	</uni-popup>
+
 
 
 
@@ -90,6 +114,7 @@
 </template>
 
 <script>
+	import unpopup from '@/components/uni-popup/uni-popup-share.vue';
 	import pickerAddress from '@/components/pickerAddress/pickerAddress.vue'
 	export default {
 
@@ -111,11 +136,14 @@
 				tijiao_txt:'确认提交',
 				shan_id:[],
 				state:0,
-				xiangxi:''
+				xiangxi:'',
+				lawyerauth:'',
+				kefu:''
 			}
 		},
 		components: {
-			pickerAddress
+			pickerAddress,
+			unpopup,
 		},
 		created() {
 
@@ -123,7 +151,7 @@
 		onLoad(option) {
          this.get_shanchang();
 		 
-		
+		this.huoqu_kefu()
 		 
 
 		},
@@ -132,6 +160,16 @@
 				uni.redirectTo({
 					url:'my'
 				})
+			},
+			huoqu_kefu(){
+				this.$http
+					.post({
+						url: '/mlawyerapi/user/getkefu'
+				
+					})
+					.then(res => {
+						this.kefu = res.data.zhan;
+					});
 			},
 			// 获取律师擅长信息
 			get_shanchang() {
@@ -181,7 +219,7 @@
 							this.dizhi=res.data.lawyerauth.province+"-"+res.data.lawyerauth.city+"-"+res.data.lawyerauth.area
 							this.nianfen=res.data.lawyerauth.zhiyenianfen
 							this.zhuanchang=this.huoqu_zhuang[res.data.lawyerauth.expertise1].shanchangname+"-"+this.huoqu_zhuang[res.data.lawyerauth.expertise2].shanchangname+"-"+this.huoqu_zhuang[res.data.lawyerauth.expertise3].shanchangname
-							
+							this.lawyerauth=res.data.lawyerauth
 							this.shan_id=[]
 							this.shan_id.push(res.data.lawyerauth.expertise1)
 							this.shan_id.push(res.data.lawyerauth.expertise2)
@@ -194,6 +232,7 @@
 								this.zheng_img=''
 							}else if(res.data.lawyerauth.iszhiye==4){
 								this.tijiao_txt='认证中'
+								this.$refs.popup.open();
 							}
 							
 							
@@ -434,8 +473,12 @@
 				console.log(this.zhenghao,this.zhuanchang,this.zhiwu,this.nianfen,this.dizhi,this.lvsuo,this.gaikuo,this.zheng_img,)
 
 
+			},
+			close_tan(){
+				this.$refs.popup.close();
 			}
 		}
+		
 	}
 </script>
 
@@ -563,5 +606,43 @@
 	}
 	.dizhi{
 		color: #777777;
+	}
+	.tishi{
+		display: flex;
+		align-items: center;
+		margin-bottom: 40rpx;
+		justify-content: space-between;
+		border-bottom: 2rpx solid #e7e7e7;
+		height: 120rpx;
+	}
+	.tishi image{
+		width: 30rpx;
+			height: 26rpx;
+			margin-right: 13rpx;
+	}
+	.shenhe_erweima{
+		text-align: center;
+	}
+	.shenhe_erweima image{
+			width: 214rpx;
+			height: 214rpx;
+			background-color: #ffffff;
+			border: solid 1rpx #eeeeee;
+			margin-bottom: 30rpx;
+	}
+	.shiming_body{
+		padding-bottom: 40rpx;
+	}
+	.shenhe_kefu{
+		width: 650rpx;
+		height: 534rpx;
+		box-sizing: border-box;
+		padding: 0rpx 24rpx 0; 
+		background-color: #FFFFFF;
+			border-radius: 20rpx;
+	}
+	.close{
+			width: 22rpx;
+			height: 22rpx;
 	}
 </style>

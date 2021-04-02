@@ -127,7 +127,7 @@
 					<view class="tiwen_caozuo lv_26">
 						<view class="zhuiwen_caozuo zhuiwen_txt" @click="tan(item.crid)" v-if="data.consult.tiwenstate!=4"><image src="@/static/img/wen_zhui.png" mode="" style="width: 26rpx;height: 26rpx;"></image>追问</view>
 						<view class="zhuiwen_caozuo caina_txt"@click="xuanshang_tan(item.userid,item.photourl,item.nickname,item.replynum)" v-if="data.consult.tiwenstate==2"><image src="@/static/img/wen_caina.png" mode="" style="width: 23rpx;height: 27rpx;"></image>采纳悬赏</view>
-					   <navigator :url="'ls_zhuye?lawyerid='+item.userid" class="zhuiwen_caozuo lianxi_txt">
+					   <navigator :url="'chat?lawyerid='+item.userid" class="zhuiwen_caozuo lianxi_txt">
 						<image src="@/static/img/wen_zaixian.png" mode="" style="width: 28rpx;height: 27rpx;"></image>在线联系
 						</navigator>
 					    <navigator :url="'pingjia?lawyerid='+item.userid" class="zhuiwen_caozuo pingjia_txt">

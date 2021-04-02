@@ -101,60 +101,49 @@ export default {
 			}
 
 			if (this.apppaytype == 1) {
-				this.$http
-					.post({
-						url: '/mapi/user/chongzhih5',
-						data: {
-							paymoney: this.number
-						}
-					})
-					.then(res => {
-						var that = this;
-						if (res.code == 0) {
-							// #ifdef H5
-							window.open('' + res.data.response);
-							// #endif
-							// #ifdef APP-PLUS
-							plus.runtime.openURL('' + res.data.response);
-							// #endif
-
-							// const div = document.createElement('div');
-							// div.innerHTML = res.data.response;
-							// document.body.appendChild(div);
-							// document.forms[0].submit();
-
-							// uni.requestPayment({
-							//        provider: 'alipay',
-							//        orderInfo:res.data.response,
-							//        success: function(res) {
-							//            console.log('success:' + JSON.stringify(res));
-							// 		   uni.showToast({
-							// 		   	title: '支付成功',
-							// 		   	duration: 2000
-							// 		   });
-							// 		   that.number=''
-							// 		   that.huoqu_yue()
-							//        },
-							//        fail: function(err) {
-							// 		   uni.showToast({
-							// 		   	title: '支付失败',
-							// 		   	duration: 2000,
-							// 			icon: 'none'
-							// 		   });
-							//            console.log('fail:' + JSON.stringify(err));
-							//        }
-							//    });
-						}
-
-						console.log(res);
-					});
+			        this.h5_pay()
 			} else {
+				// #ifdef H5
+				   this.h5_pay()
+				// #endif
+				// #ifdef APP-PLUS
 				this.app_pay();
+				// #endif
 			}
 
 			console.log(this.number, this.zhifu);
 		},
-
+   h5_pay(){
+	   this.$http
+	   	.post({
+	   		url: '/mapi/user/chongzhih5',
+	   		data: {
+	   			paymoney: this.number
+	   		}
+	   	})
+	   	.then(res => {
+	   		var that = this;
+	   		if (res.code == 0) {
+	   			// #ifdef H5
+				// window.open('' + res.data.response);
+				this.$http.jspost(res.data.response)
+	   			// if (uni.getSystemInfoSync().platform === 'android') {
+	   			// 	// console.log('运行Android上')
+	   			// 	window.open('' + res.data.response);
+	   			// } else {
+	   			// 	// console.log('运行iOS上')
+	   			// 	window.locaton.href = res.data.response;
+	   			// }
+	   			// #endif
+	   			// #ifdef APP-PLUS
+	   			plus.runtime.openURL('' + res.data.response);
+	   			// #endif
+	   
+	   		}
+	   
+	   		console.log(res);
+	   	});
+   },
 		app_pay() {
 			this.$http
 				.post({

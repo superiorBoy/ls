@@ -78,7 +78,7 @@
 				<text></text>消耗金豆
 			</view>
 			<view class="xiaohao hei_30">
-				<image src="../../static/lsimg/xiaohao.png" mode=""></image>每匹配一次消耗10金豆
+				<image src="../../static/lsimg/xiaohao.png" mode=""></image>系统推送订单一次消耗10金豆
 			</view>
 			<view class="jindou_title hei_44_bold">
 				<text></text>任务中心
@@ -92,7 +92,7 @@
 							注册会员赠送50金豆
 						</view>
 						<view class="qian_24">
-							每次分享注册后获得50金豆，上不封顶。
+							注册会员获得50金豆，即时赠送。
 						</view>
 					</view>	
 				</view>	
@@ -342,7 +342,7 @@ page{
 		border-radius: 20rpx;
 		display: flex;
 		align-items: center;
-		padding-left: 47rpx;
+		padding-left: 30rpx;
 }
 .xiaohao image{
 		width: 101rpx;

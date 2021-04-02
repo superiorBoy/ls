@@ -13,24 +13,24 @@
 				<view class="kefu_list_left">
 					<image src="../../static/lsimg/kefu_zhuanyuan.png" mode="" style="width: 30rpx;height: 32rpx;"></image>客服专员
 				</view>
-				<text>小虎律师</text>
+				<text>{{kefu.contacts}}</text>
 			</view>
 			<view class="kefu_list">
 				<view class="kefu_list_left">
 					<image src="../../static/lsimg/kefu_shouji.png" mode="" style="width: 26rpx;height: 32rpx;"></image>客服电话
 				</view>
-				<text>18158424282</text>
+				<text>{{kefu.shopcontact}}</text>
 			</view>
 			<view class="kefu_list">
 				<view class="kefu_list_left">
 					<image src="../../static/lsimg/kefu_weixin.png" mode=""style="width: 38rpx;height: 32rpx;"></image>微信
 				</view>
-				<text>xhlvshi5</text>
+				<text>{{kefu.webweixin}}</text>
 			</view>
 			</view>
 			
 			<view class="kefu_bottom">
-				<image src="../../static/lsimg/kefu_erweima.png" mode=""></image>
+				<image :src="img_url+kefu.webweixinurl" mode=""></image>
 				<view class="qian_28">
 					扫一扫，添加客服
 				</view>
@@ -47,12 +47,13 @@
 export default {
 	data() {
 		return {
-
+			img_url: uni.getStorageSync('img_url'),
+              kefu:''
 		};
 	},
 	created() {},
 	onLoad(option) {
-		
+		this.huoqu_lawyer()
 	},
 	onShow() {
 		
@@ -65,16 +66,14 @@ export default {
 		huoqu_lawyer(){
 			this.$http
 				.post({
-					url: '/mlawyerapi/user/getlawyer'
+					url: '/mlawyerapi/user/getkefu'
 
 				})
 				.then(res => {
-					this.isvip = res.data.user.isvip;
+					this.kefu = res.data.zhan;
 				});
 		},
-		huoqu_kaiqi(){
-			
-		}
+
 
 		
 	}

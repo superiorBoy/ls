@@ -130,11 +130,11 @@ onLoad(option) {
 	
 	this.$http
 		.post({
-			url: '/mapi/index/getopenshenhe'
+			url: '/mapi/index/getlogincheck'
 		})
 		.then(res => {
 			console.log(res.data)
-			if(res.data.zhan.openshenhe==2){
+			if(res.data.logincheck==1){
 				this.isCheck=true
 			}
 		});

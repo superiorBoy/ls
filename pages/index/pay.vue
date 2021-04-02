@@ -418,7 +418,13 @@ export default {
 							if(this.apppaytype==1){
 								this.zfb_pay(res.data.consultid)
 							}else{
+								// #ifdef H5
+								   this.zfb_pay(res.data.consultid);
+								// #endif
+								// #ifdef APP-PLUS
 								this.app_pay(res.data.consultid)
+								// #endif
+								
 							}
 							
 						}else if(this.zhifu==3){
@@ -450,7 +456,16 @@ export default {
 					if (res.code == 0) {
 						
 						// #ifdef H5
-						  window.open(''+res.data.response);
+						  // window.open('' + res.data.response);
+						  this.$http.jspost(res.data.response)
+						  // if (uni.getSystemInfoSync().platform === 'android') {
+						  // 	// console.log('运行Android上')
+						  // 	window.open('' + res.data.response);
+						  // } else {
+						  // 	// console.log('运行iOS上')
+						  // 	window.locaton.href = res.data.response;
+						  
+						  // }
 						 // #endif
 						 // #ifdef APP-PLUS
 						 plus.runtime.openURL(''+res.data.response)

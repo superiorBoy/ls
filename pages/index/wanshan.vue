@@ -35,7 +35,7 @@ export default {
 	created() {},
 	onLoad(option) {
 	
-
+  this.huoqu_user()
 		
 	},
 	methods: {
@@ -114,6 +114,21 @@ export default {
 				}
 			}
 			return '_www/' + path;
+		},
+		huoqu_user(){
+			
+			this.$http
+				.post({
+					url: '/mapi/user/user'
+				})
+				.then(res => {
+					
+					if (res.code == 0) {
+						this.nicheng=res.data.user.nickname
+						this.zhiye_zhao=this.img_url+res.data.user.photourl
+					}
+				});
+			
 		},
 		go_shouye(){
 			

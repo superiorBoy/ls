@@ -150,11 +150,11 @@ export default {
 							url:'shiming_renzheng'
 						})
 					}
-					if(res.data.user.isreal==2 ||res.data.user.isreal==3){
+					if(res.data.user.isreal==2 ||res.data.user.isreal==3||res.data.user.isreal==4){
 						uni.redirectTo({
 							url:'shiming_renzheng'
 						})
-					}else if(res.data.user.iszhiye==2 || res.data.user.iszhiye==3){
+					}else if(res.data.user.iszhiye==2 || res.data.user.iszhiye==3|| res.data.user.iszhiye==4){
 						uni.redirectTo({
 							url:'zhiye_renzheng'
 						})

@@ -22,18 +22,47 @@
 				<button type="" class="fuzhi" @click="lianjiego">{{deng_txt}}</button>
 			</view>
 			<view class="guize bai_26">
-				<view class="guize_list">
-					<text></text>首次下单并成功邀请好友，即有资格领取现金红包！
+				
+				<view class="guize_title">
+					会员邀请会员奖励
 				</view>
 				<view class="guize_list">
-					<text></text>请好友注册会员奖励10元
+					<text></text>邀请新用户首次消费奖励{{peizhi.firstorder}}元！
 				</view>
 				<view class="guize_list">
-					<text></text>邀请好友注册律师并且完成律师认证奖励100元
+					<text></text>享受直属会员消费的{{peizhi.payreward}}%提成！
+				</view>
+		<view class="guize_title">
+			团长邀请奖励
+		</view>
+			<view class="guize_list">
+				<text></text>请新用户首次消费奖励{{peizhi.firstorder}}元！ 
+			</view>
+			<view class="guize_list">
+				<text></text>享受直属会员消费的{{peizhi.leaderpayreward}}%提成！
+			</view>	
+			<view class="guize_list">
+				<text></text>享受非直属会员消费的{{peizhi.feipayreward}}%作为提成！
+			</view>	
+				<view class="guize_list">
+					<text></text>非只属奖励给上线最近的团长！
+				</view>	
+				
+				<view class="guize_title">
+					邀请成为律师
 				</view>
 				<view class="guize_list">
+					<text></text>邀请律师入驻成功奖励50金豆！
+				</view>
+				<view class="guize_list">
+					<text></text>邀请律师入驻成功奖励5元！
+				</view>
+				<view class="guize_list">
+					<text></text>律师开通vip 奖励10%的提成！
+				</view>
+			<!-- 	<view class="guize_list">
 					<text></text>享受直属会员消费的1%的提成！
-				</view>
+				</view> -->
 			</view>
 			<view class="mingdan">
 			
@@ -68,6 +97,7 @@
 		},
 		onLoad(option){	
 			this.is_login()
+			this.huoqu_peizhi()
 		},
 		onShow() {
 			
@@ -83,13 +113,24 @@
 				lianjie:'用户端登录后即可生成邀请好友的专属链接',
 				deng_txt:'立即登录',  //复制邀请链接 --- 立即登录
 				weidu:0,
-				list:[]
+				list:[],
+				peizhi:''
 				
 			}
 		},
 		methods: {
 		navigateBack() {
 			uni.navigateBack()
+		},
+		huoqu_peizhi(){
+						this.$http
+							.post({
+								url: '/mapi/index/yaoqing'
+							})
+							.then(res => {
+								this.peizhi=res.data.info
+								
+							}); 
 		},
 		is_login(){
 			
@@ -166,11 +207,11 @@
 								url:'shiming_renzheng'
 							})
 						}
-						if(res.data.user.isreal==2 || res.data.user.isreal==3){
+						if(res.data.user.isreal==2 || res.data.user.isreal==3|| res.data.user.isreal==4){
 							uni.redirectTo({
 								url:'shiming_renzheng'
 							})
-						}else if(res.data.user.iszhiye==2|| res.data.user.iszhiye==3){
+						}else if(res.data.user.iszhiye==2|| res.data.user.iszhiye==3|| res.data.user.iszhiye==4){
 							uni.redirectTo({
 								url:'zhiye_renzheng'
 							})
@@ -268,9 +309,9 @@
 				letter-spacing: 2rpx;
 	}
 	.guize{
-		height: 376rpx;
+		height: 800rpx;
 		background: url(../../static/lsimg/guize_bg.png) no-repeat;
-		background-size: 100% auto;
+		background-size: 100% 100%;
 		padding: 110rpx   20rpx  0 62rpx;
 		box-sizing: border-box;
 		margin: 45rpx 0;
@@ -328,5 +369,8 @@
 		font-size: 44rpx;
 			font-style: italic;
 			color: #ffdb00;
+	}
+	.guize_title{
+		margin-bottom: 20rpx;
 	}
 </style>

@@ -82,10 +82,11 @@
 		
 			<view class="tiwen_bottom_btn">
 				<button type="" class="bai_30" @click="tijiao">提交</button>
-				<view class="qian_24">
+				<view class="qian_24" style="display: flex;justify-content: center;">
 					<checkbox :checked="isCheck" @click="checkBox($event)" />
 					我已阅读并同意
-					<text class="lv_24">《小虎网络服务协议》</text>
+					<navigator url="xieyi">
+					<text class="lv_24">《小虎网络服务协议》</text></navigator>
 				</view>
 			</view>
 		</view>

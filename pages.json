@@ -295,6 +295,15 @@
 			"path":"pages/ls/ls_xueshu"
 		},
 		{
+			"path":"pages/ls/anjian_weituo",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
+		},
+		{
+			"path":"pages/ls/weituo_xq"
+		},
+		{
 			"path":"pages/ls/fuwu_guanli"
 		},
 		{

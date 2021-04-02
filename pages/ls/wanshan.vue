@@ -16,7 +16,7 @@
 					<view class="hei_32">设置头像</view>
 				</view>
 
-				<view class="nicheng"><input type="text" value="" placeholder="请输入昵称" class="hei_30" /></view>
+				<view class="nicheng"><input type="text" value="" placeholder="请输入昵称" class="hei_30" v-model="nicheng"/></view>
 				<navigator url="my" ><button type="" class="bai_30" @click="go_shouye" >进入首页</button></navigator>
 			</view>
 		</view>
@@ -28,17 +28,33 @@ export default {
 	data() {
 		return {
 			img_url: uni.getStorageSync('img_url'),
-			zhiye_zhao: '../../static/img/moren_tx.png'
+			zhiye_zhao: '../../static/img/moren_tx.png',
+			nicheng:''
 		};
 	},
 	created() {},
 	onLoad(option) {
-		
+		this.huoqu_user()
 		
 	},
 	methods: {
 		navigateBack() {
 			uni.navigateBack();
+		},
+		huoqu_user(){
+			
+			this.$http
+				.post({
+					url: '/mlawyerapi/user/getlawyer'
+				})
+				.then(res => {
+					
+					if (res.code == 0) {
+						this.nicheng=res.data.user.nickname
+						this.zhiye_zhao=this.img_url+res.data.user.photourl
+					}
+				});
+			
 		},
 		up_zhiye() {
 			let that = this;

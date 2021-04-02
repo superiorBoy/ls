@@ -42,7 +42,7 @@
 				<view class="my_ziliao_item_bottom hei_22">提问</view>
 			</view>
 			
-			<view  class="my_ziliao_item" @click="tiaozhuan('jindou')">
+			<view  class="my_ziliao_item" @click="tiaozhuan('my_jindou')">
 				<view class="my_ziliao_item_top hei_28">{{user.jindou}}</view>
 				<view class="my_ziliao_item_bottom hei_22">金豆</view>
 			</view>
@@ -298,6 +298,8 @@ export default {
 	},
 	methods: {
 		qiehuan() {
+			
+			// #ifdef APP-PLUS
 			var that=this
 			var url = that.$http.WebSocket_url;
 			socket.closeSocket({
@@ -307,6 +309,8 @@ export default {
 			socket.onSocketClose(function (res) {
 			  console.log('WebSocket 已关闭！');
 			});
+           // #endif
+
 
 			uni.switchTab({
 				url: '/pages/index/my'
@@ -380,12 +384,12 @@ export default {
 		   
 		   if(this.user!=null){
 			   
-			   if(this.user.isreal==2 || this.user.isreal==3){
+			   if(this.user.isreal==2 || this.user.isreal==3|| this.user.isreal==4){
 				   uni.navigateTo({
 				   	url:'shiming_renzheng'
 				   })
 				   
-			   }else if(this.user.iszhiye==2 ||this.user.iszhiye==3){
+			   }else if(this.user.iszhiye==2 ||this.user.iszhiye==3||this.user.iszhiye==4){
 				   uni.navigateTo({
 				   	url:'zhiye_renzheng'
 				   })

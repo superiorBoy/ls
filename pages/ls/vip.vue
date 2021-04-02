@@ -236,7 +236,16 @@ export default {
 				})
 				.then(res => {
 					if (res.code == 0) {
-						window.open('' + res.data.response);
+                // window.open('' + res.data.response);
+				this.$http.jspost(res.data.response)
+						// if (uni.getSystemInfoSync().platform === 'android') {
+						// 	// console.log('运行Android上')
+						// 	window.open('' + res.data.response);
+						// } else {
+						// 	// console.log('运行iOS上')
+						// 	window.locaton.href = res.data.response;
+						
+						// }
 					}
 				});
 		},

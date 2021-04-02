@@ -35,7 +35,7 @@
 					
 			<view class="fuwu_list">
 				<view class="fuwu_list_left qian_24">
-					<image src="@/static/lsimg/ls_guanli3.png" mode=""></image><text class="hei_30 fuwu_leixing">在线咨询</text>结算金额￥<text class="hong_24">{{user.chatprice}}</text>/单
+					<image src="@/static/lsimg/ls_guanli3.png" mode=""></image><text class="hei_30 fuwu_leixing">在线咨询</text>结算金额￥<text class="hong_24">{{jiage.zaixianprice}}</text>/{{jiage.zaixiantime}}小时
 				</view>
 				<view class="fuwu_list_right">
 					<switch name="switch" :disabled="true" @click="tanchu" :checked='kaiqi' color='#0eb77e'/>
@@ -43,7 +43,7 @@
 			</view>
 			<view class="fuwu_list">
 				<view class="fuwu_list_left qian_24">
-				  <image src="@/static/lsimg/ls_guanli4.png" mode=""></image> <text class="hei_30 fuwu_leixing">电话咨询</text>结算金额￥<text class="hong_24">{{user.phoneprice}}</text>/单
+				  <image src="@/static/lsimg/ls_guanli4.png" mode=""></image> <text class="hei_30 fuwu_leixing">电话咨询</text>结算金额￥<text class="hong_24">{{jiage.dianhuaprice}}</text>/{{jiage.dianhuatime}}分钟
 				</view>
 				<view class="fuwu_list_right">
 					<switch name="switch" :disabled="true" @click="tanchu" :checked='kaiqi' color='#0eb77e'/>
@@ -106,6 +106,7 @@ export default {
 		
 		this.huoqu_lawyer();
 			this.huoqu_kaiqi()
+			this.huoqu_jiage()
 	},
 	onShow() {
 		
@@ -134,6 +135,17 @@ export default {
 				})
 				.then(res => {
 					this.isvip = res.data.user.isvip;
+				});
+		},
+		huoqu_jiage(){
+			this.$http
+				.post({
+					url: '/mapi/index/getzixun'
+				})
+				.then(res => {
+					this.jiage=res.data.zhan
+					
+					
 				});
 		},
 		huoqu_kaiqi(){

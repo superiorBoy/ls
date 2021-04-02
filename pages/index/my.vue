@@ -244,6 +244,7 @@ export default {
 			});
 		},
 		qiehuan() {
+					// #ifdef APP-PLUS
 			var that=this
 			var url = that.$http.WebSocket_url;
 			socket.closeSocket({
@@ -254,7 +255,7 @@ export default {
 			socket.onSocketClose(function (res) {
 			  console.log('WebSocket 已关闭！');
 			});
-			
+				// #endif
 			uni.reLaunch({
 				url: '../ls/my'
 			});
@@ -285,14 +286,12 @@ export default {
 		},
 		go_yaoqing(){
 			if(this.is_login){
-				/* #ifdef APP-PLUS */
+				
 				uni.navigateTo({
 					url:'app_down?lianjie='+this.yaoqing
 				})
-				  /* #endif */
-				  /* #ifdef H5 */
-				  window.open('/m/#/pages/index/app_down?lianjie='+this.yaoqing)
-				    /* #endif */
+				  
+			
 				
 			}else{
 				uni.navigateTo({

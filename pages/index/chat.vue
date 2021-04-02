@@ -243,8 +243,8 @@
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
 							<view class="send_xuanze hei_26">
-								<view class="">您好：遇到什么问题了，请先详细描述一下事情经过，我好根据您的情况解答！</view>
-								<view>描述完之后，选择一下您方便的咨询的方式：</view>
+								<view class="">{{tishiyu.welcomes}}</view>
+								<!-- <view>描述完之后，选择一下您方便的咨询的方式：</view> -->
 								<view class="hong_26" @click="send_zaixian()">【在线咨询-可看记录】</view>
 								<view class="hong_26" @click="send_dianhua()">【电话咨询-时时对话】</view>
 							</view>
@@ -328,9 +328,7 @@
 							<view class="send_xuanze hei_26">
 							<!-- 	<view>您的服务已到期，请重新订购服务</view>
 								<view>描述完之后，选择一下您方便的咨询的方式：</view> -->
-								<view class="">
-									{{item.content}}
-								</view>
+								<view class="">{{tishiyu.overdue}}</view>
 								<view class="hong_26" @click="send_zaixian()">【在线咨询-可看记录】</view>
 								<view class="hong_26" @click="send_dianhua()">【电话咨询-时时对话】</view>
 							</view>
@@ -513,8 +511,9 @@
 					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 5 && item.iswithdraw != 1" @longpress="changan(item.messageid)">
 						<view class="chat_right_txt hei_30">
 							<view class="send_xuanze hei_26">
-								<view class="">您好：遇到什么问题了，请先详细描述一下事情经过，我好根据您的情况解答！</view>
-								<view>描述完之后，选择一下您方便的咨询的方式：</view>
+							<!-- 	<view class="">您好：遇到什么问题了，请先详细描述一下事情经过，我好根据您的情况解答！</view>
+								<view>描述完之后，选择一下您方便的咨询的方式：</view> -->
+								<view class="">{{tishiyu.welcomes}}</view>
 								<view class="hong_26" @click="send_zaixian()">【在线咨询-可看记录】</view>
 								<view class="hong_26" @click="send_dianhua()">【电话咨询-时时对话】</view>
 							</view>
@@ -810,6 +809,7 @@ export default {
 		uParse
 	},
 	onLoad(option) {
+		this.huanying()
 		var self = this;
 		recorderManager.onStop(function(res) {
 			console.log('recorder stop' + JSON.stringify(res));
@@ -907,7 +907,8 @@ export default {
 			innerAudioContext: {},
 			voicePath: '',
 			intervalTime: 0,
-			isRecord: false
+			isRecord: false,
+			tishiyu:''
 			
 		};
 	},
@@ -934,6 +935,23 @@ export default {
 			// 	duration: 2000,
 			// 	icon: "none"
 			// });
+		},
+		huanying(){
+			
+				
+				this.$http
+					.post({
+						url: '/mapi/index/getchatmessage',
+		
+					})
+					.then(res => {
+						
+						if (res.code == 0) {
+							
+							this.tishiyu=res.data
+						}
+					});
+			
 		},
 		show_luyin() {
 			// #ifdef H5
