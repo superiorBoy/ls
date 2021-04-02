@@ -26,7 +26,7 @@
 				</view>
 				<view class="shijian qian_30">
 					<text>创建时间</text>
-					<text>{{addtime | timeStamp }}</text>
+					<text>{{ addtime | timeStamp }}</text>
 				</view>
 
 				<view class="zhifu">
@@ -76,14 +76,15 @@ export default {
 			lawyerid: '',
 			layer: '',
 			redid: '',
-			xinxi: ''
+			xinxi: '',
+			is_click: true
 		};
 	},
 	created() {},
 	onLoad(option) {
 		this.lawyerid = option.lawyerid;
 		this.redid = option.redid;
-		this.addtime=option.addtime
+		this.addtime = option.addtime;
 		this.huoqu_lawyer();
 		this.huoqu_xq();
 	},
@@ -136,29 +137,43 @@ export default {
 			}
 		},
 		h5_pay() {
-			this.$http
-				.post({
-					url: '/mapi/user/collectionh5',
-					data: {
-						redid: this.redid
-					}
-				})
-				.then(res => {
-					if (res.code == 0) {
-						if (res.code == 0) {
-							// window.open('' + res.data.response);
-							this.$http.jspost(res.data.response)
-							// if (uni.getSystemInfoSync().platform === 'android') {
-							// 	// console.log('运行Android上')
-							// 	window.open('' + res.data.response);
-							// } else {
-							// 	// console.log('运行iOS上')
-							// 	window.locaton.href = res.data.response;
-							
-							// }
+			var that = this;
+			if (this.is_click) {
+				that.is_click = false;
+				setTimeout(function() {
+					that.is_click = true;
+				}, 3000);
+
+				this.$http
+					.post({
+						url: '/mapi/user/collectionh5',
+						data: {
+							redid: that.redid
 						}
-					}
+					})
+					.then(res => {
+						if (res.code == 0) {
+							if (res.code == 0) {
+								// window.open('' + res.data.response);
+								that.$http.jspost(res.data.response);
+								// if (uni.getSystemInfoSync().platform === 'android') {
+								// 	// console.log('运行Android上')
+								// 	window.open('' + res.data.response);
+								// } else {
+								// 	// console.log('运行iOS上')
+								// 	window.locaton.href = res.data.response;
+
+								// }
+							}
+						}
+					});
+			} else {
+				uni.showToast({
+					title: '稍后操作',
+					duration: 2000,
+					icon: 'none'
 				});
+			}
 		},
 		app_pay() {
 			this.$http

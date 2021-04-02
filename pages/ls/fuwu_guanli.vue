@@ -50,6 +50,19 @@
 				</view>
 			</view>
 			</view>
+			<view class="fuwu_top">
+				
+			<navigator url="jiedan_time"class="fuwu_list">	
+			
+				<view class="fuwu_list_left qian_24">
+					<image src="../../static/lsimg/fuwu_jiedan.png" mode=""></image><text class="hei_30 fuwu_leixing">接单时间</text><text class="qian_24">{{jiedan_time.workstate==1?'全天24小时':jiedan_time.workstate==2?'白天（9:00-23:00）':jiedan_time.workstate==3?'晚上（23:00-9:00）':jiedan_time.workstarttime+'-'+jiedan_time.workendtime}}</text>
+				</view>
+				<view class="fuwu_list_right qian_24">
+					去设置<image src="../../static/lsimg/go_r.png" mode=""></image>
+				</view>
+			
+			</navigator>	
+			</view>
 			
 		</view>
 	<view class="bg" v-if="is_tan">
@@ -80,7 +93,8 @@ export default {
 		  zhuanchang_arry:[],
 		  kaiqi:false,
 		  userid:'',
-		  isvip:2
+		  isvip:2,
+		  jiedan_time:''
 			
 		};
 	},
@@ -94,6 +108,7 @@ export default {
 			.then(res => {
 				this.user = res.data.user;
 			});
+	
 			// 
 			this.$http
 				.post({
@@ -109,7 +124,14 @@ export default {
 			this.huoqu_jiage()
 	},
 	onShow() {
-		
+		// 获取接单时间
+		this.$http
+			.post({
+				url: '/mlawyerapi/consult/getworktime'
+			})
+			.then(res => {
+				this.jiedan_time = res.data;
+			});
 	},
 	methods: {
 		navigateBack() {
@@ -265,6 +287,7 @@ export default {
 .fuwu_list_right image{
 	width: 10rpx;
 		height: 17rpx;
+		margin-left: 10rpx;
 }
 .tan_tishi{
 				width: 472rpx;
@@ -319,4 +342,5 @@ export default {
 	.youshi{
 		margin-right: 10rpx;
 	}
+
 </style>

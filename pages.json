@@ -289,6 +289,9 @@
 			"path":"pages/ls/fensi"
 		},
 		{
+			"path":"pages/ls/jiedan_time"
+		},
+		{
 			"path":"pages/ls/geren_xinxi_xiugai"
 		},
 		{

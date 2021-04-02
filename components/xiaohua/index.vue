@@ -666,6 +666,9 @@ export default {
 				.then(res => {
 					this.is_update = res.data.banben.is_update;
 					console.log(res.data.banben, '版本');
+					if(res.data.banben.is_update==3){
+						return false
+					}
 					if (uni.getSystemInfoSync().platform == 'ios') {
 						console.log('ios', this.banben);
 						if (this.banben < res.data.banben.ios) {

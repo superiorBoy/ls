@@ -51,7 +51,8 @@ export default {
 			number: '',
 			yue: '0.00',
 			zhifu: '2',
-			apppaytype: ''
+			apppaytype: '',
+			is_click:true
 		};
 	},
 	created() {},
@@ -114,35 +115,40 @@ export default {
 			console.log(this.number, this.zhifu);
 		},
    h5_pay(){
-	   this.$http
-	   	.post({
-	   		url: '/mapi/user/chongzhih5',
-	   		data: {
-	   			paymoney: this.number
-	   		}
-	   	})
-	   	.then(res => {
-	   		var that = this;
-	   		if (res.code == 0) {
-	   			// #ifdef H5
-				// window.open('' + res.data.response);
-				this.$http.jspost(res.data.response)
-	   			// if (uni.getSystemInfoSync().platform === 'android') {
-	   			// 	// console.log('运行Android上')
-	   			// 	window.open('' + res.data.response);
-	   			// } else {
-	   			// 	// console.log('运行iOS上')
-	   			// 	window.locaton.href = res.data.response;
-	   			// }
-	   			// #endif
-	   			// #ifdef APP-PLUS
-	   			plus.runtime.openURL('' + res.data.response);
-	   			// #endif
-	   
-	   		}
-	   
-	   		console.log(res);
-	   	});
+	   var that=this
+	   if(this.is_click){
+		   that.is_click=false
+		   setTimeout(function(){
+		   	that.is_click=true
+		   },3000)
+		   
+		   this.$http
+		   	.post({
+		   		url: '/mapi/user/chongzhih5',
+		   		data: {
+		   			paymoney: that.number
+		   		}
+		   	})
+		   	.then(res => {
+		   		if (res.code == 0) {
+		   			// #ifdef H5
+		   				that.$http.jspost(res.data.response)
+		   			// #endif
+		   			// #ifdef APP-PLUS
+		   			plus.runtime.openURL('' + res.data.response);
+		   			// #endif
+		   
+		   		}
+		   
+		   console.log(res);
+		   });
+	   }else{
+		   uni.showToast({
+		   	title: '稍后操作',
+		   	duration: 2000,
+			icon:'none'
+		   });
+	   }
    },
 		app_pay() {
 			this.$http

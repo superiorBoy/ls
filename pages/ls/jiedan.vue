@@ -122,9 +122,12 @@ export default {
 	},
 	created() {},
 	onHide() {
-		// #ifdef APP-PLUS
-		socket.closeSocket();
-		// #endif
+	
+	},
+	beforeDestroy() {
+	    // #ifdef APP-PLUS
+	    socket.closeSocket();
+	    // #endif
 	},
 	onLoad() {
 		(this.list = []), this.huoqu_user();
@@ -301,11 +304,12 @@ export default {
 					console.log('say');
 
 					that.$refs.ls_mainindex.huoqunum();
-					// #ifdef APP-PLUS
-					void plus.push.createMessage('律师端收到一条新消息');
-					// #endif
+
 
 					if (data.state) {
+						// #ifdef APP-PLUS
+						void plus.push.createMessage('律师端收到一条新消息');
+						// #endif
 					}
 				} else {
 					console.log('else');

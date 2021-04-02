@@ -239,3 +239,7 @@ button::after{
 		 -o-user-select: auto!important;
 		 user-select: auto!important;
 	}
+
+.jiedan_top uni-radio .uni-radio-input{width: 30rpx;height: 30rpx;margin-right: 15rpx;}
+.jiedan_top  uni-radio .uni-radio-input.uni-radio-input-checked{width: 30rpx;
+	height: 30rpx; background:url(@/static/lsimg/fuwu_time.png) no-repeat !important;background-size: 100% 100% !important; }

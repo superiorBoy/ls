@@ -60,7 +60,7 @@
 										[图片]
 									</view> -->
 									<view class="" v-if="item.msgtype!=1 && item.iswithdraw!=1">
-									{{item.msgtype==2?'[图片]':item.msgtype==3?'[电话咨询]':item.msgtype==4?'[在线咨询]':item.msgtype==5?'[欢迎]':item.msgtype==6?'[电话咨询付费]':item.msgtype==7?'[在线咨询付费]':item.msgtype==8?'[订购]':item.msgtype==9?'[咨询超时]':item.msgtype==10?'[红包]':item.msgtype==11?'[服务收费]':item.msgtype==12?'[服务支付成功]':item.content}}
+									{{item.msgtype==2?'[图片]':item.msgtype==3?'[电话咨询]':item.msgtype==4?'[在线咨询]':item.msgtype==5?'[欢迎]':item.msgtype==6?'[电话咨询付费]':item.msgtype==7?'[在线咨询付费]':item.msgtype==8?'[订购]':item.msgtype==9?'[咨询超时]':item.msgtype==10?'[红包]':item.msgtype==11?'[服务收费]':item.msgtype==12?'[服务支付成功]':item.msgtype==13?'[语音消息]':item.content}}
 									</view>
 									<view class="" v-if="item.iswithdraw==1">
 								[撤回了一条消息]
@@ -116,6 +116,12 @@ export default {
 					
 				}
 			});
+	},
+	beforeDestroy() {
+		console.log('关闭当前页面')
+	    // #ifdef APP-PLUS
+	    socket.closeSocket();
+	    // #endif
 	},
 	onLoad() {
 		this.huoqu_xiaoxilist();
@@ -217,12 +223,12 @@ export default {
 					console.log('say');
 					that.huoqu_xiaoxilist();
 					that.$refs.ls_mainindex.huoqunum();
+		
+					
+					if (data.state) {
 					// #ifdef APP-PLUS
 					void plus.push.createMessage('律师端收到一条新消息');
 					// #endif
-					
-					if (data.state) {
-					
 					}
 				} else {
 					console.log('else');

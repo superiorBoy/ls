@@ -138,11 +138,15 @@
 							<!-- {{item.content}} -->
 							<!-- <image :src="url+img"  mode="" v-if="item.msgtype==4" style="height: 40rpx;width: 40rpx;"></image> -->
 							<image :src="img_url + item.content" mode="widthFix" style="max-width: 100rpx;" @click="clickImg(img_url + item.content)"></image>
-
+                             <view class="qian_20 du_zhuangtai">
+                             	{{item.read==1?'已读':'未读'}}
+                             </view>
 							<!-- <image :src="item.content" mode="widthFix" v-if="item.to != undefined" style="max-width: 100rpx;" ></image> -->
 						</view>
+				
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
+					
 					<view
 						class="chat_list chat_right"
 						v-if="item.userid_from != userid && item.msgtype == 1 && item.iswithdraw != 1"
@@ -153,8 +157,11 @@
 							<!-- <image :src="url+img"  mode="" v-if="item.msgtype==4" style="height: 40rpx;width: 40rpx;"></image> -->
 
 							<u-parse :content="replace_em(item.content)"></u-parse>
-
+                         
 							<image :src="item.content" mode="widthFix" v-if="item.to != undefined" style="max-width: 100rpx;"></image>
+					<view class="qian_20 du_zhuangtai">
+						{{item.read==1?'已读':'未读'}}
+					</view>
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
@@ -197,8 +204,13 @@
 									</view>
 									<!-- <button type="button" class="bai_24">立即购买</button> -->
 								</view>
+								
+							</view>
+							<view class="qian_20 du_zhuangtai">
+								{{item.read==1?'已读':'未读'}}
 							</view>
 						</view>
+					
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
 
@@ -242,7 +254,11 @@
 									<!-- <button type="button" class="bai_24">立即购买</button> -->
 								</view>
 							</view>
+							<view class="qian_20 du_zhuangtai">
+								{{item.read==1?'已读':'未读'}}
+							</view>
 						</view>
+						
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
 					<view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype == 5 && item.iswithdraw != 1" @longpress="changan(item.messageid)">
@@ -253,7 +269,11 @@
 								<view class="hong_26" style="margin-bottom: 10rpx;" @click="send_zaixian()">【在线咨询-可看记录】</view>
 								<view class="hong_26" @click="send_dianhua()">【电话咨询-时时对话】</view>
 							</view>
+							<view class="qian_20 du_zhuangtai">
+								{{item.read==1?'已读':'未读'}}
+							</view>
 						</view>
+						
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
 					<view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype == 6 && item.iswithdraw != 1" @longpress="changan(item.messageid)">
@@ -299,7 +319,11 @@
 									<view class="send_pay_bottom_neirong">咨询内容：{{ item.consult.information }}</view>
 								</view>
 							</view>
+							<view class="qian_20 du_zhuangtai">
+								{{item.read==1?'已读':'未读'}}
+							</view>
 						</view>
+					
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
 					<view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype == 7 && item.iswithdraw != 1" @longpress="changan(item.messageid)">
@@ -344,8 +368,13 @@
 									<view>咨询类型：{{ item.consult.typename }}</view>
 									<view class="send_pay_bottom_neirong">咨询内容：{{ item.consult.information }}</view>
 								</view>
+							
+							</view>
+							<view class="qian_20 du_zhuangtai">
+								{{item.read==1?'已读':'未读'}}
 							</view>
 						</view>
+					
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
 					<view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype == 8 && item.iswithdraw != 1" @longpress="changan(item.messageid)">
@@ -357,7 +386,11 @@
 								<view class="hong_26" style="margin-bottom: 10rpx;" @click="send_zaixian()">【在线咨询-可看记录】</view>
 								<view class="hong_26" @click="send_dianhua()">【电话咨询-时时对话】</view>
 							</view>
+							<view class="qian_20 du_zhuangtai">
+								{{item.read==1?'已读':'未读'}}
+							</view>
 						</view>
+					
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
 					<view class=" chat_chehui_tishi hei_26" v-if="item.userid_from != userid && item.iswithdraw == 1">
@@ -375,18 +408,26 @@
 								</view>
 								<view class="send_shoufei_bottom qian_24">律师发起了咨询服务费，请先支付</view>
 							</view>
+							<view class="qian_20 du_zhuangtai">
+								{{item.read==1?'已读':'未读'}}
+							</view>
 						</view>
+						
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
 
 					<!-- 发送语音消息 -->
-		<!-- 			<view class="chat_list chat_right" v-if="item.userid_from != userid">
-						<view class="chat_right_txt hei_30 chat_yuyin" @tap="playVoice">
+					<view class="chat_list chat_right" v-if="item.userid_from != userid&&item.msgtype == 13">
+						<view class="chat_right_txt hei_30 chat_yuyin" @tap="playVoice(item.content)">
 							3''
 							<image src="../../static/lsimg/chat_yuyin_right.png" mode=""></image>
+						<view class="qian_20 du_zhuangtai">
+							{{item.read==1?'已读':'未读'}}
 						</view>
+						</view>
+						
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-					</view> -->
+					</view>
 
 					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype == 1 && item.iswithdraw != 1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
@@ -394,6 +435,7 @@
 							<!-- <text class="ls_name">{{ title }}</text> -->
 
 							<view v-if="item.msgtype == 1"><u-parse :content="replace_em(item.content)"></u-parse></view>
+				
 						</view>
 					</view>
 					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype == 2 && item.iswithdraw != 1">
@@ -663,15 +705,15 @@
 					
 					
 					<!-- 收到语音消息 -->
-					<!-- <view class="chat_list chat_left" v-if="item.userid_from == userid">
+					<view class="chat_list chat_left" v-if="item.userid_from == userid &&item.msgtype == 13">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-						<view class="chat_left_txt hei_30 chat_yuyin_left"@tap="playVoice">
+						<view class="chat_left_txt hei_30 chat_yuyin_left" @tap="playVoice(item.content)">
 							
 							<image src="../../static/lsimg/chat_yuyin_left.png" mode=""></image>3''
-							<text class="weiting"></text>
+							<!-- <text class="weiting"></text> -->
 							
 						</view>
-					</view> -->
+					</view>
 					
 					
 				</view>
@@ -832,6 +874,7 @@ export default {
 		recorderManager.onStop(function(res) {
 			console.log('recorder stop' + JSON.stringify(res));
 			self.voicePath = res.tempFilePath;
+			self.Audio2dataURL(res.tempFilePath)
 		});
 		this.userid = option.userid;
         
@@ -941,6 +984,8 @@ export default {
 			// });
 		},
 		show_luyin() {
+			this.isShowEmj=false
+			this.bt_show=false
 			// this.is_yuyin=true
 			// #ifdef H5
 			uni.showToast({
@@ -1043,12 +1088,12 @@ export default {
 				}
 			}
 		},
-		playVoice() {
+		playVoice(voicePath) {
 			console.log('播放录音');
-			if (this.voicePath) {
-				innerAudioContext.src = this.voicePath;
+			
+				innerAudioContext.src = this.img_url+voicePath;
 				innerAudioContext.play();
-			}
+			
 		},
 		input_click(e) {
 			this.bottom_tip = true;
@@ -1074,6 +1119,75 @@ export default {
 			console.log(messageid);
 			this.messageid = messageid;
 			this.is_chehui = true;
+		},
+		Audio2dataURL(path) {
+			var that=this
+		    plus.io.resolveLocalFileSystemURL(path, function(entry){  
+		        entry.file(function(file){  
+		            var reader = new plus.io.FileReader();  
+		            reader.onloadend = function (e) {  
+		                console.log(e.target.result);  
+						
+					that.up_luyin(e.target.result)	
+						
+		            };  
+		            reader.readAsDataURL(file);  
+		        },function(e){  
+		            mui.toast("读写出现异常: " + e.message );  
+		        })  
+		    })  
+		},
+		
+		up_luyin(base64) {
+			console.log("up_luyin")
+		         var that=this
+							that.$http
+								.post({
+									url: '/lawyer/index/uploadaudiomessage',
+									data: {
+										audio: base64
+									}
+								})
+								.then(res => {
+									console.log(res)
+									if (res.code == 0) {
+										that.send_luyin(res.data.audio);
+									}
+								});
+		},
+		send_luyin(audio){
+			var that = this;
+			this.$http
+				.post({
+					url: '/push/gatewayworker/sendmessage1.html',
+					data: {
+						userid_to: this.userid,
+						msg: audio,
+						type:13 
+					}
+				})
+				.then(res => {
+					console.log(res)
+					if (res.code == 0) {
+						var data = {
+							content: audio,
+							msgtype: 13,
+							photourl_form: this.user.photourl,
+							messageid: res.data
+						};
+						this.message.push(data);
+						setTimeout(() => {
+							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+						}, 100);
+						var to = new Date(that.time1.replace(/-/g, '/'));
+						var now = new Date();
+						var time = to.getTime() - now.getTime();	
+						if (time < 0) {
+							
+							that.send_guoqi()
+						} 
+					}
+				});
 		},
 		huanying(){
 			
@@ -1206,6 +1320,8 @@ export default {
 		},
 		input_click() {
 			// this.bottom_tip =true;
+			this.isShowEmj=false
+			this.bt_show=false
 			setTimeout(() => {
 				uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 			}, 100);
@@ -1353,6 +1469,7 @@ export default {
 			}
 		},
 		showEmj() {
+			this.on_yuyin = false;
 			let bool = !this.isShowEmj;
 			if (bool) {
 				this.emojiIcon = 'cuIcon-keyboard';
@@ -1367,6 +1484,7 @@ export default {
 		jia() {
 			this.bt_show = !this.bt_show;
 			this.isShowEmj = false;
+			this.on_yuyin = false;
 		},
 		input_change() {
 			if (this.chat_txt == '') {
@@ -1570,7 +1688,7 @@ export default {
 
 							that.$http
 								.post({
-									url: '/index/zixun/uploadimgmessage',
+									url: '/lawyer/index/uploadimgmessage',
 									data: {
 										img: base64
 									}
@@ -1830,6 +1948,7 @@ page {
 	display: flex;
 	align-items: flex-start;
 	margin-bottom: 34rpx;
+	position: relative;
 }
 
 .chat_list .tx {
@@ -1886,6 +2005,7 @@ page {
 	border-radius: 10rpx;
 	top: 20rpx;
 	word-break: break-all;
+	margin-bottom: 40rpx;
 }
 .chat_left {
 	margin-bottom: 40rpx;
@@ -1905,6 +2025,7 @@ page {
 .chat_right {
 	justify-content: flex-end;
 	display: flex;
+	
 }
 
 .chat_right .tx {
@@ -2031,6 +2152,7 @@ page {
 	background-color: #e6e6e6;
 	padding: 24rpx 0 0 30rpx;
 	box-sizing: border-box;
+	position: relative;
 }
 .send_jia_top {
 	display: flex;
@@ -2167,7 +2289,7 @@ page {
 .send_fukuan_success {
 	width: 472rpx;
 	padding: 10rpx 0 0;
-
+position: relative;
 	background-color: #ffffff;
 }
 
@@ -2595,5 +2717,13 @@ page {
 	width: 20rpx;
 	height: 30rpx;
 	margin-right: 20rpx;
+}
+.du_zhuangtai{
+	position: absolute;
+	right:0rpx;
+	bottom: -32rpx;
+}
+.send_shoufei,.chat_right_txt{
+	position: relative;
 }
 </style>

@@ -276,10 +276,16 @@ export default {
 	
 		
 	},
-	onUnload() {
-		// #ifdef APP-PLUS
-		socket.closeSocket();
-		// #endif
+	// onUnload() {
+	// 	// #ifdef APP-PLUS
+	// 	socket.closeSocket();
+	// 	// #endif
+	// },
+	beforeDestroy() {
+		console.log('关闭当前页面')
+	    // #ifdef APP-PLUS
+	    socket.closeSocket();
+	    // #endif
 	},
 	onHide() {
 	

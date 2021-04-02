@@ -24,7 +24,7 @@
 			</view>
 			<view class="anli_list_bottom">
 				<text class="qian_24">{{ item.addtime | timeStamp }}</text>
-				<button type="" class="bai_26">详情</button>
+				<button type="" class="bai_26" @click="del(item.lyanliid)">删除</button>
 			</view>
 		</view>
 		</view>
@@ -103,6 +103,30 @@
 					url:'up_anli'
 				})
 			},
+			del(lyanliid){
+				
+				this.$http.post({
+						url: '/lawyer/lawyer/delanli',
+						data: {
+							lyanliid: lyanliid,
+						}
+					})
+					.then(res => {
+						
+						if(res.code==0){
+							uni.showToast({
+								title: '删除成功',
+								duration: 2000,
+								icon: 'none'
+							});
+							this.page=0
+							this.anli_list=[]
+							this.is_all=false
+							this.huoqu_list()
+							
+						}
+					});
+			}
 
 		},
 		filters: {

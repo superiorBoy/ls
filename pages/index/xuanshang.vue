@@ -67,7 +67,8 @@ export default {
 			leibie_arry: [],
 			laiyuan: 2,
 			apppaytype: '',
-			money: ''
+			money: '',
+			is_click: true
 		};
 	},
 
@@ -206,32 +207,39 @@ export default {
 		},
 
 		h5_pay() {
-			this.$http
-				.post({
-					url: '/mapi/consult/payh5',
-					data: {
-						consultid: this.consultid,
-						paymoney: this.money
-					}
-				})
-				.then(res => {
-					if (res.code == 0) {
-						// #ifdef H5
-// window.open('' + res.data.response);
-this.$http.jspost(res.data.response)
-						// if (uni.getSystemInfoSync().platform === 'android') {
-						// 	// console.log('运行Android上')
-						// 	window.open('' + res.data.response);
-						// } else {
-						// 	// console.log('运行iOS上')
-						// 	window.locaton.href = res.data.response;
-						// }
-						// #endif
-						// #ifdef APP-PLUS
-						plus.runtime.openURL('' + res.data.response);
-						// #endif
-					}
+			var that = this;
+			if (this.is_click) {
+				that.is_click = false;
+				setTimeout(function() {
+					that.is_click = true;
+				}, 3000);
+				this.$http
+					.post({
+						url: '/mapi/consult/payh5',
+						data: {
+							consultid: that.consultid,
+							paymoney: that.money
+						}
+					})
+					.then(res => {
+						if (res.code == 0) {
+							// #ifdef H5
+
+							that.$http.jspost(res.data.response);
+
+							// #endif
+							// #ifdef APP-PLUS
+							plus.runtime.openURL('' + res.data.response);
+							// #endif
+						}
+					});
+			} else {
+				uni.showToast({
+					title: '稍后操作',
+					duration: 2000,
+					icon: 'none'
 				});
+			}
 		},
 		app_pay() {
 			this.$http

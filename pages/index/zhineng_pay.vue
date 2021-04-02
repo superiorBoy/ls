@@ -149,7 +149,8 @@ export default {
 			dizhi: '',
 			yishu_num: 0,
 			lvshi:[],
-			apppaytype:''
+			apppaytype:'',
+			is_click:true
 		};
 	},
 	components: {
@@ -378,6 +379,14 @@ export default {
 		},
 
 		zfb_pay(consultid) {
+			
+			var that=this
+			if(this.is_click){
+					   that.is_click=false
+					   setTimeout(function(){
+					   	that.is_click=true
+					   },3000)
+			
 			this.$http
 				.post({
 					url: '/mapi/consult/zhinengpayh5',
@@ -388,47 +397,25 @@ export default {
 				.then(res => {
 					if (res.code == 0) {
 						// #ifdef H5
-						// if (uni.getSystemInfoSync().platform === 'android') {
-						// 	// console.log('运行Android上')
-						// 	window.open('' + res.data.response);
-						// } else {
-						// 	// console.log('运行iOS上')
-						// 	window.locaton.href = res.data.response;
-
-						// }
-	// window.open('' + res.data.response);
-	this.$http.jspost(res.data.response)
+	                   that.$http.jspost(res.data.response)
 						// #endif
 						// #ifdef APP-PLUS
 						plus.runtime.openURL('' + res.data.response);
 						// #endif
 
-						// uni.requestPayment({
-						//        provider: 'alipay',
-						//        orderInfo:res.data.response,
-						//        success: function(res) {
-						//            console.log('success:' + JSON.stringify(res));
-						// 		   uni.showToast({
-						// 		   	title: '支付成功',
-						// 		   	duration: 2000
-						// 		   });
-
-						// 		  setTimeout(function(){
-						// 		  				uni.navigateBack()
-						// 		  },2000)
-
-						//        },
-						//        fail: function(err) {
-						// 		   uni.showToast({
-						// 		   	title: '支付失败',
-						// 		   	duration: 2000,
-						// 			icon: 'none'
-						// 		   });
-						//            console.log('fail:' + JSON.stringify(err));
-						//        }
-						//    });
 					}
 				});
+				
+		}else{
+			uni.showToast({
+				title: '稍后操作',
+				duration: 2000,
+						icon:'none'
+			});
+		}		
+				
+				
+				
 		},
 app_pay(consultid){
 	this.$http

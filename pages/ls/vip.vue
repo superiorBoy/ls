@@ -66,7 +66,7 @@
 								<view class="nianxian hei_30_bold">{{ item.time }}年</view>
 								<view class="jiage huang_30">￥{{ item.price }}</view>
 							</view>
-							<view class="nian hui_22">赠送{{item.jindou}}个金豆</view>
+							<view class="nian hui_22">赠送{{ item.jindou }}个金豆</view>
 							<view class="tiyan bai_22" v-if="index == 0">体验</view>
 							<view class="tiyan bai_22" v-if="index == 2">推荐</view>
 						</view>
@@ -90,7 +90,7 @@
 				</view> -->
 					</view>
 
-					<view class="xuanze_kaitong bai_30" @click="save">{{user.isvip==1?'会员续费':'立即开通'}}</view>
+					<view class="xuanze_kaitong bai_30" @click="save">{{ user.isvip == 1 ? '会员续费' : '立即开通' }}</view>
 				</view>
 
 				<view class="haochu">
@@ -180,7 +180,8 @@ export default {
 			xuanze: 0,
 			money: '1800',
 			lawyervip: '',
-			lawyervipid: ''
+			lawyervipid: '',
+			is_click: true
 		};
 	},
 	created() {},
@@ -227,27 +228,32 @@ export default {
 			}
 		},
 		h5pay() {
-			this.$http
-				.post({
-					url: '/mlawyerapi/user/lawyerviph5',
-					data: {
-						lawyervipid: this.lawyervipid
-					}
-				})
-				.then(res => {
-					if (res.code == 0) {
-                // window.open('' + res.data.response);
-				this.$http.jspost(res.data.response)
-						// if (uni.getSystemInfoSync().platform === 'android') {
-						// 	// console.log('运行Android上')
-						// 	window.open('' + res.data.response);
-						// } else {
-						// 	// console.log('运行iOS上')
-						// 	window.locaton.href = res.data.response;
-						
-						// }
-					}
+			var that = this;
+			if (this.is_click) {
+				that.is_click = false;
+				setTimeout(function() {
+					that.is_click = true;
+				}, 3000);
+
+				this.$http
+					.post({
+						url: '/mlawyerapi/user/lawyerviph5',
+						data: {
+							lawyervipid: that.lawyervipid
+						}
+					})
+					.then(res => {
+						if (res.code == 0) {
+							that.$http.jspost(res.data.response);
+						}
+					});
+			} else {
+				uni.showToast({
+					title: '稍后操作',
+					duration: 2000,
+					icon: 'none'
 				});
+			}
 		},
 		zhifubao_pay() {
 			this.$http

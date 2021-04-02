@@ -397,13 +397,13 @@
 					</view>
 
 					<!-- 收到语音消息 -->
-					<!-- <view class="chat_list chat_left" v-if="item.userid_from == ls_id">
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id &&item.msgtype == 13">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-						<view class="chat_left_txt hei_30 chat_yuyin_left" @tap="playVoice">
+						<view class="chat_left_txt hei_30 chat_yuyin_left" @tap="playVoice(item.content)">
 							<image src="../../static/lsimg/chat_yuyin_left.png" mode=""></image>3''
-							<text class="weiting"></text>
+							<!-- <text class="weiting"></text> -->
 						</view>
-					</view> -->
+					</view>
 
 					<view
 						class="chat_list chat_right"
@@ -413,12 +413,19 @@
 						<view class="chat_right_txt hei_30">
 							<!-- {{item.content}} -->
 							<u-parse :content="replace_em(item.content)"></u-parse>
+							<view class="qian_20 du_zhuangtai">
+								{{item.read==1?'已读':'未读'}}
+							</view>
+							
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
 					<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 2 && item.iswithdraw != 1" @longpress="changan(item.messageid)">
 						<view class="chat_right_txt hei_30">
 							<image :src="img_url + item.content" mode="widthFix" style="max-width: 100rpx;" @click="clickImg(img_url + item.content)"></image>
+						<view class="qian_20 du_zhuangtai">
+							{{item.read==1?'已读':'未读'}}
+						</view>
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
@@ -461,6 +468,9 @@
 									</view>
 									<button type="button" class="bai_24" @click="dh_pay(ls_xinxi.phoneprice, '20分钟')">立即购买</button>
 								</view>
+							</view>
+							<view class="qian_20 du_zhuangtai">
+								{{item.read==1?'已读':'未读'}}
 							</view>
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
@@ -505,6 +515,9 @@
 									<button type="button" class="bai_24" @click="zaixian_pay(ls_xinxi.chatprice, '1天')">立即购买</button>
 								</view>
 							</view>
+							<view class="qian_20 du_zhuangtai">
+								{{item.read==1?'已读':'未读'}}
+							</view>
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
@@ -516,6 +529,9 @@
 								<view class="">{{tishiyu.welcomes}}</view>
 								<view class="hong_26" @click="send_zaixian()">【在线咨询-可看记录】</view>
 								<view class="hong_26" @click="send_dianhua()">【电话咨询-时时对话】</view>
+							</view>
+							<view class="qian_20 du_zhuangtai">
+								{{item.read==1?'已读':'未读'}}
 							</view>
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
@@ -562,6 +578,9 @@
 									</view>
 								</view>
 							</view>
+							<view class="qian_20 du_zhuangtai">
+								{{item.read==1?'已读':'未读'}}
+							</view>
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
@@ -596,6 +615,9 @@
 									</view>
 								</view>
 							</view>
+							<view class="qian_20 du_zhuangtai">
+								{{item.read==1?'已读':'未读'}}
+							</view>
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
@@ -609,6 +631,9 @@
 									<text>￥{{ item.money }}</text>
 								</view>
 								<view class="send_hongbao_bottom qian_24">{{ item.information }}</view>
+							</view>
+							<view class="qian_20 du_zhuangtai">
+								{{item.read==1?'已读':'未读'}}
 							</view>
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
@@ -632,6 +657,9 @@
 								</view>
 								<view class="send_hongbao_bottom qian_24">支付成功</view>
 							</view>
+							<view class="qian_20 du_zhuangtai">
+								{{item.read==1?'已读':'未读'}}
+							</view>
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
@@ -643,13 +671,16 @@
 					</view>
 
 					<!-- 发送语音消息 -->
-					<!-- 	<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 10 &&item.iswithdraw!=1" @longpress="changan(item.messageid,item.content)" >
-						<view class="chat_right_txt hei_30 chat_yuyin"  @tap="playVoice">
+						<view class="chat_list chat_right" v-if="item.userid_from != ls_id && item.msgtype == 13 &&item.iswithdraw!=1" @longpress="changan(item.messageid,item.content)" >
+						<view class="chat_right_txt hei_30 chat_yuyin"  @tap="playVoice(item.content)">
 							
 							3''<image src="../../static/lsimg/chat_yuyin_right.png" mode=""></image>
+							<view class="qian_20 du_zhuangtai">
+								{{item.read==1?'已读':'未读'}}
+							</view>
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-					</view> -->
+					</view>
 				</view>
 				<view class=" chat_chehui_tishi hei_26" v-if="is_zuijin_chehui">
 					<text class="chat_chehui_tishi_txt">
@@ -814,6 +845,9 @@ export default {
 		recorderManager.onStop(function(res) {
 			console.log('recorder stop' + JSON.stringify(res));
 			self.voicePath = res.tempFilePath;
+		
+			self.Audio2dataURL(res.tempFilePath)
+
 		});
 		this.ls_id = option.lawyerid;
 		// this.huoqu_xiaoxi_list();
@@ -954,6 +988,8 @@ export default {
 			
 		},
 		show_luyin() {
+			this.isShowEmj=false
+			this.bt_show=false
 			// #ifdef H5
 			uni.showToast({
 				title: '请下载APP使用语音功能',
@@ -1054,15 +1090,19 @@ export default {
 				}
 			}
 		},
-		playVoice() {
+		playVoice(voicePath) {
 			console.log('播放录音');
-			if (this.voicePath) {
-				innerAudioContext.src = this.voicePath;
+			
+				innerAudioContext.src =this.img_url+voicePath;
+				
+				
 				innerAudioContext.play();
-			}
+			
 		},
 		input_click(e) {
 			// this.bottom_tip =true;
+			this.isShowEmj=false
+			this.bt_show=false
 			setTimeout(() => {
 				uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 			}, 100);
@@ -1479,6 +1519,7 @@ export default {
 			}
 		},
 		showEmj() {
+			this.on_yuyin = false;
 			let bool = !this.isShowEmj;
 			if (bool) {
 				this.emojiIcon = 'cuIcon-keyboard';
@@ -1539,6 +1580,7 @@ export default {
 		jia() {
 			this.bt_show = !this.bt_show;
 			this.isShowEmj = false;
+			this.on_yuyin = false;
 		},
 		// input_change(){
 		// 	if(this.chat_txt==''){
@@ -1548,6 +1590,123 @@ export default {
 		// 	}
 
 		// },
+
+		Audio2dataURL(path) {  
+
+			var that=this
+		    plus.io.resolveLocalFileSystemURL(path, function(entry){  
+		        entry.file(function(file){  
+		            var reader = new plus.io.FileReader();  
+		            reader.onloadend = function (e) {  
+		                console.log(e.target.result);  
+
+					that.up_luyin(e.target.result)	
+						
+			
+			 // that.dataURL2Audio(e.target.result, function(entry){
+				// 	console.log(entry,'entry')
+			 //        var toURL = entry.toURL();
+			 //        // 播放音频
+			 //        // playAudio(toURL);
+			 //    })
+				
+						
+		            };  
+		            reader.readAsDataURL(file);  
+		        },function(e){  
+		            mui.toast("读写出现异常: " + e.message );  
+		        })  
+		    })  
+		},
+		dataURL2Audio (base64Str, callback) {
+			
+		    var base64Str = base64Str.replace('data:audio/amr;base64,','');
+		    var audioName = (new Date()).valueOf() + '.amr';
+		    plus.io.requestFileSystem(plus.io.PRIVATE_DOC,function(fs){
+		        fs.root.getFile(audioName,{create:true},function(entry){
+		            // 获得平台绝对路径
+		            var fullPath = entry.fullPath;
+		            if(mui.os.android){  
+		                // 读取音频
+		                var Base64 = plus.android.importClass("android.util.Base64");
+		                var FileOutputStream = plus.android.importClass("java.io.FileOutputStream");
+		                try{
+		                    var out = new FileOutputStream(fullPath);
+		                    var bytes = Base64.decode(base64Str, Base64.DEFAULT);
+							console.log(bytes,'bytes')
+		                    out.write(bytes); 
+		                    out.close();
+		                    // 回调
+		                    callback && callback(entry);
+		                }catch(e){
+		                    console.log(e.message);
+		                }
+		            }else if(mui.os.ios){
+		                var NSData = plus.ios.importClass('NSData');
+		                var nsData = new NSData();
+		                nsData = nsData.initWithBase64EncodedStringoptions(base64Str,0);
+		                if (nsData) {
+		                    nsData.plusCallMethod({writeToFile: fullPath,atomically:true});
+		                    plus.ios.deleteObject(nsData);
+		                }
+		                // 回调
+		                callback && callback(entry);
+		            }
+		        })
+		    })
+		},
+		
+		up_luyin(base64) {
+			console.log("up_luyin")
+		         var that=this
+							that.$http
+								.post({
+									url: '/index/zixun/uploadaudiomessage',
+									data: {
+										audio: base64
+									}
+								})
+								.then(res => {
+									console.log(res)
+									if (res.code == 0) {
+										that.send_luyin(res.data.audio);
+									}
+								});
+		},
+		send_luyin(audio){
+			var that = this;
+			this.$http
+				.post({
+					url: '/push/gatewayworker/sendmessage.html',
+					data: {
+						userid_to: this.ls_id,
+						msg: audio,
+						type:13 
+					}
+				})
+				.then(res => {
+					console.log(res)
+					if (res.code == 0) {
+						var data = {
+							content: audio,
+							msgtype: 13,
+							photourl_form: this.user.photourl,
+							messageid: res.data
+						};
+						this.message.push(data);
+						setTimeout(() => {
+							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+						}, 100);
+						var to = new Date(that.time1.replace(/-/g, '/'));
+						var now = new Date();
+						var time = to.getTime() - now.getTime();	
+						if (time < 0) {
+							
+							that.send_guoqi()
+						} 
+					}
+				});
+		},
 		up_img() {
 			var that = this;
 			uni.chooseImage({
@@ -2022,6 +2181,8 @@ page {
 	top: 20rpx;
 	word-break: break-all;
 	background-color: #e6e6e6;
+	margin-bottom: 40rpx;
+	
 }
 
 .chat_left_txt::before {
@@ -2056,6 +2217,7 @@ page {
 .chat_right {
 	justify-content: flex-end;
 	display: flex;
+	
 }
 
 .chat_right .tx {
@@ -2871,5 +3033,10 @@ button {
 	width: 20rpx;
 	height: 30rpx;
 	margin-right: 20rpx;
+}
+.du_zhuangtai{
+	position: absolute;
+	right:0rpx;
+	bottom: -32rpx;
 }
 </style>

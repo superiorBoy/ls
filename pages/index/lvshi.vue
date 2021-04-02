@@ -91,6 +91,7 @@ export default {
 		socket.closeSocket();
 		// #endif
 	},
+	
 	onShow() {
 		// uni.getStorage({
 		//     key: 'zhuanchang',
