@@ -136,6 +136,10 @@
 						<image src="@/static/img/hy_gonggao.png" mode="" style="width: 50rpx;height: 50rpx;"></image>
 						<view class="hui_24 ">网站公告</view>
 					</navigator>
+					<navigator url="kefu" class="zhanghao_item">
+						<image src="@/static/img/hy_kefu_icon.png" mode="" style="width:48rpx;height: 50rpx;"></image>
+						<view class="hui_24 ">联系客服</view>
+					</navigator>
 				</view>
 			</view>
 		</view>

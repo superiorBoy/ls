@@ -19,6 +19,12 @@
 			"path":"pages/index/tiwen_list_xq"
 		},
 		{
+			"path":"pages/index/kefu"
+		},
+		{
+			"path":"pages/index/anjian_xq"
+		},
+		{
 			"path":"pages/index/hongbao"
 		},
 		{
@@ -149,6 +155,7 @@
 		{
 			"path":"pages/index/ls_tixian"
 		},
+
 		{
 			"path":"pages/index/chongzhi"
 		},
@@ -240,7 +247,10 @@
 			}
 		},
 		{
-			"path":"pages/index/xiaoxi"
+			"path":"pages/index/xiaoxi",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
 		},
 		{
 			"path":"pages/index/my"
@@ -280,7 +290,10 @@
 			"path":"pages/ls/my"
 		},
 		{
-			"path":"pages/ls/xiaoxi"
+			"path":"pages/ls/xiaoxi",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
 		},
 		{
 			"path":"pages/ls/yaoqing"

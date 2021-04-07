@@ -134,13 +134,13 @@
 			   </view>	
 			   <view class="guize_list_body hei_22">
 			   	<view class="guize_item">
-			   		<text class="bai_20">1</text>邀请律师入驻成功奖励50金豆！
+			   		<text class="bai_20">1</text>邀请律师入驻成功奖励{{peizhi.lawyerjindou}}金豆！
 			   	</view>
 			   	<view class="guize_item">
-			   		<text class="bai_20">2</text>邀请律师入驻成功奖励5元！
+			   		<text class="bai_20">2</text>邀请律师入驻成功奖励{{peizhi.lawyerprice}}元！
 			   	</view>
 			   				<view class="guize_item">
-			   					<text class="bai_20">3</text>律师开通vip 奖励10%的提成！
+			   					<text class="bai_20">3</text>律师开通vip 奖励{{peizhi.lawyervipticheng}}%的提成！
 			   				</view>
 			   			
 			   </view>

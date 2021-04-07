@@ -20,7 +20,7 @@
 								
 							</view>
 						</view>
-						<view class="xuanshang_zhuangtai" v-if="item.tiwenstate != 4"><text class=" hong_26">{{item.state==1?'进行中':'已结束'}}</text></view>
+						<view class="xuanshang_zhuangtai" v-if="item.tiwenstate != 4"><text :class="item.state==1?'hong_26':'qian_26'">{{item.state==1?'进行中':'已结束'}}</text></view>
 					</view>
 					<view class="tiwen_item_top hui_26">{{ item.information }}</view>
 					<view class="tiwen_item_center qian_22" v-if="item.typeid">
@@ -42,8 +42,9 @@
 
 					<view class="huifu_btn">
 						<view class="anniu">
-							<button type="" class="huifu hong_24" @click="go_chat(item.userid)">联系TA</button>
-							<button type="" class="huifu hong_24" @click="xq(item)">详情</button>
+							<button type="" class="huifu hong_24" @click="go_chat(item.userid)" v-if="item.state==1">联系TA</button>
+							<button type="" class="huifu hong_24" @click="xq(item)" v-if="item.state==1">详情</button>
+							<button type="" class="huifu huifu_jieshu qian_24" @click="tishi()" v-if="item.state!=1">详情</button>
 						</view>
 					</view>
 				</view>
@@ -54,6 +55,25 @@
 				<view class="none_list_txt qian_26">暂无委托记录</view>
 			</view>
 		</view>
+		
+		
+		<view class="bg" v-if="is_tan">
+			<view class="tan_tishi" >
+				<view class="tan_tishi_top hei_30_bold">
+					<view class="tan_tishi_top_left hong_30_bold">
+				       <image src="@/static/lsimg/jinggao.png" mode=""></image>	<text>温馨提示</text>
+						</view>
+					 <image src="@/static/img/tan_close.png" mode="" @click="close" class="guanbi"></image>
+				</view>
+				<view class="hui_24 tan_tishi_txt">
+					此案件已停止委托，去查看进行中的案件
+				</view>
+				<button type="" class="bai_26" @click="close">知道啦</button>
+			</view>
+		</view>	
+		
+		
+		
 	</view>
 </template>
 
@@ -87,6 +107,7 @@ export default {
 			img_url: uni.getStorageSync('img_url'),
 			fenlei: '',
 			state: 1,
+			is_tan:false
 		};
 	},
 	created() {},
@@ -169,6 +190,12 @@ export default {
 			uni.navigateTo({
 				url: 'weituo_xq?item='+JSON.stringify(item)
 			});
+		},
+		close(){
+			this.is_tan=false
+		},
+		tishi(){
+			this.is_tan=true
 		}
 	},
 	filters: {
@@ -227,6 +254,14 @@ page {
 	margin: 0;
 	display: inline-block;
 	text-align: center;
+}
+.huifu_jieshu{
+	width: 160rpx;
+	height: 56rpx;
+	background-color: #ebebeb;
+	border-radius: 28rpx;
+		border: none;
+		margin: 0;
 }
 .huifu:first-child {
 	margin-right: 20rpx;
@@ -469,5 +504,57 @@ button::after {
 	margin-top: 150rpx;
 }
 
-
+.tan_tishi{
+			width: 544rpx;
+			height: 290rpx;
+			background-color: #ffffff;
+			border-radius: 5rpx;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			padding: 0 20rpx;
+			box-sizing: border-box;
+	}
+	.tan_tishi_top_left{
+		display: flex;
+		align-items: center;
+	}
+	.tan_tishi_top_left image{
+			width: 31rpx;
+			height: 27rpx;
+			margin-right: 10rpx;
+	}
+	.bg{
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0,0,0,0.3);
+		position: fixed;
+		top: 0;
+	}
+	.tan_tishi_top{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 86rpx;
+		border-bottom: 1rpx solid #cccccc;
+	}
+	.guanbi {
+		width: 17rpx;
+			height: 17rpx;
+	}
+	.tan_tishi button{
+			line-height: 61rpx;
+			margin: 0 auto;
+				width: 167rpx;
+				height: 61rpx;
+				background-color: #f43a51;
+				border-radius: 5rpx;
+	}
+	.tan_tishi_txt{
+		margin: 40rpx 0;
+	}
+	.youshi{
+		margin-right: 10rpx;
+	}
 </style>

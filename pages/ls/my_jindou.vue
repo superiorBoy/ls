@@ -78,7 +78,7 @@
 				<text></text>消耗金豆
 			</view>
 			<view class="xiaohao hei_30">
-				<image src="../../static/lsimg/xiaohao.png" mode=""></image>系统推送订单一次消耗10金豆
+				<image src="../../static/lsimg/xiaohao.png" mode=""></image>系统推送订单一次消耗{{peizhi.consultmatching}}金豆
 			</view>
 			<view class="jindou_title hei_44_bold">
 				<text></text>任务中心
@@ -89,10 +89,10 @@
 					<image src="../../static/lsimg/renwu1.png" mode="" style="width: 45rpx;height: 50rpx;"></image>
 					<view class="renwu_item_left_right">
 						<view class="hei_30">
-							注册会员赠送50金豆
+							注册会员赠送{{peizhi.registerjindou}}金豆
 						</view>
 						<view class="qian_24">
-							注册会员获得50金豆，即时赠送。
+							注册会员获得{{peizhi.registerjindou}}金豆，即时赠送。
 						</view>
 					</view>	
 				</view>	
@@ -105,10 +105,10 @@
 					<image src="../../static/lsimg/renwu2.png" mode="" style="width: 45rpx;height: 46rpx;"></image>
 					<view class="renwu_item_left_right">
 						<view class="hei_30">
-							提问获得采纳获得3金豆
+							提问获得采纳获得{{peizhi.lawyerconsult}}金豆
 						</view>
 						<view class="qian_24">
-							每次解答，用户采纳后获得3金豆
+							每次解答，用户采纳后获得{{peizhi.lawyerconsult}}金豆
 						</view>
 					</view>	
 				</view>	
@@ -121,11 +121,11 @@
 					<image src="../../static/lsimg/renwu3.png" mode="" style="width: 46rpx;height: 34rpx;"></image>
 					<view class="renwu_item_left_right">
 						<view class="hei_30">
-							提问回复前三获得1金豆
+							提问回复前三获得{{peizhi.lawyerreply}}金豆
 
 						</view>
 						<view class="qian_24">
-							解答提问，内容排列前三获得1金豆
+							解答提问，内容排列前三获得{{peizhi.lawyerreply}}金豆
 						</view>
 					</view>	
 				</view>	
@@ -138,7 +138,7 @@
 					<image src="../../static/lsimg/renwu4.png" mode="" style="width: 45rpx;height: 50rpx;"></image>
 					<view class="renwu_item_left_right">
 						<view class="hei_30">
-							提问联系TA，TA下单得10金豆
+							提问联系TA，TA下单得{{peizhi.lawyerconsultover}}金豆
 						</view>
 						<view class="qian_24">
 							通过提问联系用户，用户下单后可获得
@@ -154,7 +154,7 @@
 					<image src="../../static/lsimg/renwu5.png" mode="" style="width: 45rpx;height: 41rpx;"></image>
 					<view class="renwu_item_left_right">
 						<view class="hei_30">
-							邀请律师奖励50金豆
+							邀请律师奖励{{peizhi.lawyerjindou}}金豆
 						</view>
 						<view class="qian_24">
 							邀请新人好友认证律师获得金豆
@@ -165,12 +165,12 @@
 					
 				
 				</view>
-				<view class="renwu_item">
+				<view class="renwu_item" v-if="peizhi">
 				<view class="renwu_item_left">
 					<image src="../../static/lsimg/renwu6.png" mode="" style="width: 47rpx;height: 43rpx;"></image>
 					<view class="renwu_item_left_right">
 						<view class="hei_30">
-							充值VIP最多获得10800金豆
+							充值VIP最多获得{{this.peizhi.lawyervip[this.peizhi.lawyervip.length-1].jindou}}金豆
 						</view>
 						<view class="qian_24">
 							充值VIP消费赠送大额金豆
@@ -200,7 +200,8 @@ export default {
 	data() {
 		return {
 			img_url: uni.getStorageSync('img_url'),
-			user: ''
+			user: '',
+			peizhi:''
 		};
 	},
 	created() {},
@@ -213,11 +214,21 @@ export default {
 			.then(res => {
 				this.user = res.data.user;
 			});
+			//获取金豆奖励配置信息
+
+			this.$http
+				.post({
+					url: '/mapi/index/jindou'
+				})
+				.then(res => {
+					this.peizhi = res.data.info;
+				});
 	},
 	methods: {
 		navigateBack() {
 			uni.navigateBack();
-		}
+		},
+
 	},
 	filters: {
 		timeStamp: function(value) {

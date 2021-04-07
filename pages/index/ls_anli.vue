@@ -99,7 +99,7 @@
 					</view>
 				</view>
 				<view class="anli-body">
-					<view class="anli_list" v-for="item in anjian_list">
+					<view class="anli_list" v-for="item in anjian_list" @click="go_xq(item.lyanliid)">
 						<view class="anli_list_top hei_26">{{item.title}}</view>
 						<text class="hui_26 laiyuan">{{item.daili}}</text>
 					</view>
@@ -550,6 +550,11 @@ export default {
 			this.pay_money=money
 		    this.shichang_txt=text
 		},
+		go_xq(lyanliid){
+			uni.navigateTo({
+				url:'anjian_xq?lyanliid='+lyanliid
+			})
+		}
 	}
 };
 </script>

@@ -130,7 +130,8 @@ export default {
 	    // #endif
 	},
 	onLoad() {
-		(this.list = []), this.huoqu_user();
+		this.list = []
+		this.huoqu_user();
 	},
 	onShow() {
 		this.$http
@@ -140,6 +141,12 @@ export default {
 			.then(res => {
 				if (res.data.user != '') {
 					this.$refs.ls_mainindex.huoqunum();
+					this.$http
+						.post({
+							url: '/mlawyerapi/lawyer/lawyerclick'
+						})
+						.then(res => {
+						});
 					this.huoqu_diqu();
 					// #ifdef H5
 					this.connectSocketInit();

@@ -24,7 +24,10 @@
 			</view>
 			<view class="anli_list_bottom">
 				<text class="qian_24">{{ item.addtime | timeStamp }}</text>
+				<view class="anli_list_bottom_right">
+			    <button type="" class="bai_26 bianji" @click="bianji(item.lyanliid)">编辑</button>
 				<button type="" class="bai_26" @click="del(item.lyanliid)">删除</button>
+				</view>
 			</view>
 		</view>
 		</view>
@@ -54,6 +57,9 @@
 			
 		},
 		onShow() {
+			this.anli_list=[]
+			this.page=0
+			this.is_all=false
 			this.huoqu_list()
 			uni.removeStorageSync('neirong')
 		},
@@ -99,6 +105,12 @@
 					});
 			},
 			add() {
+				uni.removeStorage({
+				    key: 'neirong',
+				    success: function (res) {
+				        console.log('success');
+				    }
+				});
 				uni.navigateTo({
 					url:'up_anli'
 				})
@@ -126,6 +138,11 @@
 							
 						}
 					});
+			},
+			bianji(lyanliid){
+				uni.navigateTo({
+					url:'up_anli?lyanliid='+lyanliid
+				})
 			}
 
 		},
@@ -191,5 +208,12 @@
 }
 .laiyuan{
 	margin: 10rpx 0 20rpx;
+}
+.anli_list_bottom_right{
+	display: flex;
+	align-items: center;
+}
+.bianji{
+	margin-right: 20rpx !important;
 }
 </style>

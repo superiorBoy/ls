@@ -271,6 +271,10 @@ export default {
 		
 		this.huiqu_login();
 		this.huo_qu_is_yaoqing()
+		
+
+		
+		
 	},
 	onLoad(option) {
 	
@@ -355,6 +359,13 @@ export default {
 						this.is_login = true;
 						this.huoqu_user();
 				       this.huoqu_geshu()
+					   
+					   this.$http
+					   	.post({
+					   		url: '/mlawyerapi/lawyer/lawyerclick'
+					   	})
+					   	.then(res => {
+					   	});
 						// this.huoshu_weidu()
 						//#ifdef APP-PLUS
 						this.kaiqi();  

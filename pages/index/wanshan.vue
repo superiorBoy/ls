@@ -132,16 +132,15 @@ export default {
 		},
 		go_shouye(){
 			
-			this.$http
-				.post({
-					url: '/mapi/user/upnickname',
-					data: {
-						nickname:this.nicheng,
-						img:this.zhiye_zhao
-					}
-				})
-				.then(res => {
-					console.log(res.code);
+			var that=this
+			uni.request({
+				url: that.$http.baseUrl + '/mapi/user/upnickname',
+				method: 'POST',
+				data: {
+					nickname:this.nicheng,
+					img:this.zhiye_zhao
+				},
+				success: function(resp) {
 					if (res.code == 0) {
 						uni.showToast({
 							title: '修改成功',
@@ -153,8 +152,46 @@ export default {
 								url:'index'
 							})
 						},1000)
+					}else{
+						setTimeout(function(){
+							uni.switchTab({
+								url:'index'
+							})
+						},1000)
 					}
-				});
+				},
+				fail: function(resp) {}
+			});
+			
+			// this.$http
+			// 	.post({
+			// 		url: '/mapi/user/upnickname',
+			// 		data: {
+			// 			nickname:this.nicheng,
+			// 			img:this.zhiye_zhao
+			// 		}
+			// 	})
+			// 	.then(res => {
+			// 		console.log(res.code);
+			// 		if (res.code == 0) {
+			// 			uni.showToast({
+			// 				title: '修改成功',
+			// 				duration: 2000,
+			// 				icon: 'none'
+			// 			});
+			// 			setTimeout(function(){
+			// 				uni.switchTab({
+			// 					url:'index'
+			// 				})
+			// 			},1000)
+			// 		}else{
+			// 			setTimeout(function(){
+			// 				uni.switchTab({
+			// 					url:'index'
+			// 				})
+			// 			},1000)
+			// 		}
+			// 	});
 		
 			
 		},

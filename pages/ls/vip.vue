@@ -181,7 +181,8 @@ export default {
 			money: '1800',
 			lawyervip: '',
 			lawyervipid: '',
-			is_click: true
+			is_click: true,
+			apppaytype:''
 		};
 	},
 	created() {},
@@ -202,6 +203,19 @@ export default {
 			.then(res => {
 				this.user = res.data.user;
 			});
+			
+	
+			this.$http
+				.post({
+					url: '/mapi/index/getapppaytype'
+				})
+				.then(res => {
+					if (res.code == 0) {
+						
+						this.apppaytype=res.data.zhan.apppaytype
+					}
+				});
+		
 	},
 	methods: {
 		navigateBack() {
@@ -216,6 +230,12 @@ export default {
 		},
 		save() {
 			if (this.zhifu == 2) {
+				
+				if(this.apppaytype==1){
+					this.h5pay();
+					
+				}else{
+				
 				// #ifdef H5
 				this.h5pay();
 				// #endif
@@ -223,6 +243,9 @@ export default {
 				// #ifdef APP-PLUS
 				this.zhifubao_pay();
 				// #endif
+			}	
+				
+				
 			} else {
 				this.yue_pay();
 			}
@@ -244,7 +267,14 @@ export default {
 					})
 					.then(res => {
 						if (res.code == 0) {
-							that.$http.jspost(res.data.response);
+							
+							// #ifdef H5
+							that.$http.jspost(res.data.response)
+							// #endif
+							// #ifdef APP-PLUS
+								plus.runtime.openURL('' + res.data.response);
+							// #endif
+							
 						}
 					});
 			} else {

@@ -52,13 +52,13 @@
 					邀请成为律师
 				</view>
 				<view class="guize_list">
-					<text></text>邀请律师入驻成功奖励50金豆！
+					<text></text>邀请律师入驻成功奖励{{peizhi.lawyerjindou}}金豆！
 				</view>
 				<view class="guize_list">
-					<text></text>邀请律师入驻成功奖励5元！
+					<text></text>邀请律师入驻成功奖励{{peizhi.lawyerprice}}元！
 				</view>
 				<view class="guize_list">
-					<text></text>律师开通vip 奖励10%的提成！
+					<text></text>律师开通vip 奖励{{peizhi.lawyervipticheng}}%的提成！
 				</view>
 			<!-- 	<view class="guize_list">
 					<text></text>享受直属会员消费的1%的提成！

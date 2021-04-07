@@ -17,7 +17,7 @@
 				<view class="shiming_list_left">
 					案件类型
 				</view>
-				<picker :range="lei" @change="leixing_change">
+				<picker :range="lei" @change="leixing_change" class="picker">
 					<view :class="['zhuanchang_xuan',leixing=='请选择'?'qian_26':'hei_26']"><text>{{leixing}}</text>
 						<image src="@/static/lsimg/go_r.png" mode=""></image>
 					</view>
@@ -33,7 +33,7 @@
 				<view class="shiming_list_left">
 					案件专长
 				</view>
-				<picker :range="fenlei" @change="zhuanchang_change" :range-key="'typename'">
+				<picker :range="fenlei" @change="zhuanchang_change" :range-key="'typename'" class="picker">
 					<view :class="['zhuanchang_xuan',zhuanchang=='请选择'?'qian_26':'hei_26']"><text>{{zhuanchang}}</text>
 						<image src="@/static/lsimg/go_r.png" mode=""></image>
 					</view>
@@ -49,7 +49,7 @@
 				<view class="shiming_list_left">
 					判决时间
 				</view>
-				<picker mode='date' @change="biye_change">
+				<picker mode='date' @change="biye_change" class="picker">
 					<view :class="['zhuanchang_xuan',shijian=='请选择'?'qian_26':'hei_26']">{{shijian}}
 						<image src="@/static/lsimg/go_r.png" mode=""></image>
 					</view>
@@ -77,7 +77,7 @@
 				<view class="shiming_list_left">
 					案情内容
 				</view>
-				<navigator url="up_neirong">
+				<navigator :url='"up_neirong?lyanliid="+lyanliid'>
 				<view class="zhuanchang_xuan hei_26"><text class="neirong_txt">{{neirong}}</text>
 					<image src="@/static/lsimg/go_r.png" mode=""></image>
 				</view>
@@ -87,7 +87,7 @@
 				<view class="shiming_list_left">
 					代理方向
 				</view>
-				<picker :range="fangxiang_arry" @change="fangxiang_change">
+				<picker :range="fangxiang_arry" @change="fangxiang_change" class="picker">
 					<view :class="['zhuanchang_xuan',fangxiang=='请选择'?'qian_26':'hei_26']"><text>{{fangxiang}}</text>
 						<image src="@/static/lsimg/go_r.png" mode=""></image>
 					</view>
@@ -97,7 +97,7 @@
 				<view class="shiming_list_left">
 					判决结果
 				</view>
-				<picker :range="jieguo_arry" @change="jieguo_change">
+				<picker :range="jieguo_arry" @change="jieguo_change" class="picker">
 					<view :class="['zhuanchang_xuan',jieguo=='请选择'?'qian_26':'hei_26']"><text>{{jieguo}}</text>
 						<image src="@/static/lsimg/go_r.png" mode=""></image>
 					</view>
@@ -140,7 +140,9 @@
 				jiazhi: '',
 				fayuan: '',
 				neirong: '',
-				zhuanchang_id:''
+				zhuanchang_id:'',
+				state:'',
+				lyanliid:''
 
 
 			}
@@ -149,6 +151,14 @@
 
 		},
 		onLoad(option) {
+			
+			if(option.lyanliid){
+				this.lyanliid=option.lyanliid
+				this.state=2
+				
+			}
+			
+			
 		// 获取分类
 			this.$http
 				.post({
@@ -160,6 +170,12 @@
 						array.push(res.data.type[key]);
 					}
 					this.fenlei = array;
+					this.zhuan=res.data.type
+					if(option.lyanliid){
+						this.xq()
+						
+					}
+					
 				});
 		},
 		onShow() {
@@ -174,6 +190,37 @@
 		methods: {
 			navigateBack() {
 				uni.navigateBack()
+			},
+			xq(){
+				this.$http
+					.post({
+						url: '/mapi/lawyer/anli_xq',
+						data:{
+							lyanliid:this.lyanliid
+						}
+					})
+					.then(res => {
+						this.lyanli=res.data.anli
+						this.biaoti=res.data.anli.title
+						this.zhuanchang = this.zhuan[res.data.anli.typeid].typename;
+						this.zhuanchang_id = res.data.anli.typeid;
+						this.anhao=res.data.anli.anlinum
+						this.shijian= res.data.anli.endtime
+						this.fayuan= res.data.anli.fayuan
+						this.biaodi= res.data.anli.anlibiao
+						this.hangye= res.data.anli.hangye
+						this.neirong= res.data.anli.information
+						this.fangxiang= res.data.anli.daili
+						this.jieguo= res.data.anli.jieguo
+						this.jiazhi= res.data.anli.jiazhi
+						uni.setStorage({
+												key: 'neirong',　　　　　　　　　　　　
+												data: this.neirong,　
+												success: function () {　 
+													
+												}
+											}) 
+					});
 			},
 			ruxue_change(data) {
 				this.ruxue = data.detail.value
@@ -287,6 +334,40 @@
 					return false
 				} 
 
+if(this.state==2){
+	this.$http
+					.post({
+						url: '/lawyer/lawyer/upanli',
+						data:{
+							bianti:this.biaoti,
+							zhuanchang:this.zhuanchang_id,
+							anhao:this.anhao,
+							nianyueri:this.shijian,
+							fayuan:this.fayuan,
+							biaodi:this.biaodi,
+							hangye:this.hangye,
+							neirong:this.neirong,
+							fangxiang:this.fangxiang,
+							jieguo:this.jieguo,
+							jiazhi:this.jiazhi,
+							lyanliid:this.lyanliid
+						}
+					})
+					.then(res => {
+						uni.removeStorage('neirong')
+						if(res.code==0){
+							uni.showToast({
+								title: '修改成功',
+								duration: 2000
+							});
+							setTimeout(function(){
+											uni.navigateBack()
+										},2000)
+							
+						}
+					});
+}else{
+	
 
              this.$http
 				.post({
@@ -319,7 +400,7 @@
 					}
 				});
 
-
+}
 
 
 				console.log(this.leixing, this.biaoti, this.zhuanchang, this.anhao, this.shijian)
@@ -394,5 +475,9 @@
 		text-overflow:ellipsis; 
 		white-space:nowrap; 
 		max-width: 500rpx;
+		height: 40rpx;
+	}
+	.picker image{
+		right: 0;
 	}
 </style>

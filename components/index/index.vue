@@ -344,7 +344,7 @@ export default {
 			current: 0,
 			banner: [
 				{
-					img: '../../static/img/banner1.jpg'
+					img: '../../static/img/banner1.png'
 				},
 				{
 					img: '../../static/img/banner2.jpg'

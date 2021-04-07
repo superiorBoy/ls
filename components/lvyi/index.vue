@@ -49,19 +49,20 @@
 		</view>
 		<view class="index_zixun_num_body">
 			<view class="index_zixun_num hei_26">
-				<view class="index_zixun_num_left">
-					<image src="../../static/img/lvyi_zaixiannum.png" mode=""></image>
-					在线咨询 <text class="hong_26">{{jiequ(data.serve.zixun)}}</text>人
-				</view>
 				<view class="index_zixun_num_right">
 					<image src="../../static/img/lvyi_jinrinum.png" mode=""></image>
-					今日咨询
+					今日咨询人数
 					<text class="hong_26" v-if="data">
 						
 						{{jiequ(data.serve.today)}}
 					</text>
 					次
 				</view>
+				<view class="index_zixun_num_left">
+					<image src="../../static/img/lvyi_zaixiannum.png" mode=""></image>
+					今日律师解答 <text class="hong_26">{{jiequ(data.serve.todayreply)}}</text>问题
+				</view>
+				
 			</view>
 		</view>
 		<view class="index_tab hei_24">

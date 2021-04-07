@@ -104,6 +104,12 @@ export default {
 			.then(res => {
 				if (res.data.user != '') {
 				this.$refs.ls_mainindex.huoqunum();
+				this.$http
+					.post({
+						url: '/mlawyerapi/lawyer/lawyerclick'
+					})
+					.then(res => {
+					});
 				// #ifdef H5
 				this.connectSocketInit();
 				// #endif
@@ -138,11 +144,38 @@ export default {
 			active: '0',
 			xiaoxi_list: [],
 			weidu:0,
-			theKey:0
+			theKey:0,
+			is_all: false,
+			page:0
 			// is_xianshi:false
 		};
 	},
+	//下拉刷新
+	onPullDownRefresh: function() {
+		this.page=0
+		this.is_all=false
+		this.xiaoxi_list=[]
+		this.huoqu_xiaoxilist()
+		
+	},
 	methods: {
+		//上拉加载
+		onReachBottom() {
+			console.log('jiazai');
+			if(this.is_all){
+				uni.showToast({
+					title: '没有更多内容了',
+					duration: 2000,
+					icon: "none"
+				});
+				uni.stopPullDownRefresh();
+				return false
+			}else{
+		
+				this.page++
+				this.huoqu_xiaoxilist()
+			}
+		},
 		huoqu_user() {
 			
 			// 获取用户信息
@@ -220,12 +253,11 @@ export default {
 					// 		console.log(res, 'bind');
 					// 	});
 				} else if (data.type == 'say') {
-					console.log('say');
-					that.huoqu_xiaoxilist();
-					that.$refs.ls_mainindex.huoqunum();
-		
-					
+			
 					if (data.state) {
+						that.jieshou_xiaoxi(data)
+						that.$refs.mainindex.huoqunum();
+						
 					// #ifdef APP-PLUS
 					void plus.push.createMessage('律师端收到一条新消息');
 					// #endif
@@ -250,6 +282,13 @@ export default {
 			return str;
 		},
 		go_chat(id) {
+			var that=this
+			     this.xiaoxi_list.forEach((item, index, array) => {
+			     　　console.log(item);
+				 if(item.user_to.userid==id){
+					 item.messagecount=0
+				 }
+			     });
 			uni.navigateTo({
 				url: 'chat?userid=' + id
 			});
@@ -260,6 +299,13 @@ export default {
 			});
 		},
 		go_kefu() {
+			var that=this
+			     this.xiaoxi_list.forEach((item, index, array) => {
+			     　　console.log(item);
+				 if(item.user_to.userid==7){
+					 item.messagecount=0
+				 }
+			     });
 			uni.navigateTo({
 				url: 'chat?userid=7'
 			});
@@ -269,11 +315,31 @@ export default {
 			var that=this
 			this.$http
 				.post({
-					url: '/mlawyerapi/consult/messagelist'
+					url: '/mlawyerapi/consult/messagelist',
+					data:{
+						page:this.page
+					}
 				})
 				.then(res => {
 					// this.is_xianshi=true
-					this.xiaoxi_list = res.data.messagelist;
+					// this.xiaoxi_list = res.data.messagelist;
+					that.xiaoxi_list =that.xiaoxi_list.concat(res.data.messagelist) ;
+					if(res.data.messagelist.length<20){
+						that.is_all=true
+					}
+
+					var i=0
+					that.xiaoxi_list.forEach((item, index, array) => {
+					
+					if(item.user_to){
+							i++			
+					}
+					});
+					
+					if(i<6&&res.data.messagelist.length>1){
+						that.page++
+						that.huoqu_xiaoxilist()
+					}
 					// var num=0
 					// for (var i in res.data.messagelist){
 					// num+=res.data.messagelist[i].messagecount
@@ -284,7 +350,7 @@ export default {
 					that.theKey++
 				});
 		},
-		connectSocketInit() {
+		connectSocketInit() { 
 			let that = this;
 			var url = window.location.host;
 			var ws = new WebSocket('wss://' + url + ':3348');
@@ -316,8 +382,13 @@ export default {
 					});
 				} else if (data.type == 'say') {
 					console.log('say');
-					that.huoqu_xiaoxilist();
 					
+					if (data.state) {
+						// that.huoqu_xiaoxilist();
+						that.jieshou_xiaoxi(data)
+						that.$refs.mainindex.huoqunum();
+						
+					}
 					
 				} else {
 					console.log('else');
@@ -329,6 +400,22 @@ export default {
 			ws.onerror = function(evt) {
 				console.log('WebSocketError!', evt);
 			};
+		},
+		jieshou_xiaoxi(data){
+			var that=this
+		         this.xiaoxi_list.forEach((item, index, array) => {
+		         　　console.log(item);
+				 if(item.user_to.userid==data.userid_from){
+					 this.xiaoxi_list.splice(index,1)
+					 item.messagecount++
+					 item.content=data.msg
+					 item.msgtype=data.state
+					 this.xiaoxi_list.unshift(item)
+					 that.$forceUpdate();
+					 that.theKey++;
+				 }
+		         });
+			
 		}
 	},
 	filters: {
