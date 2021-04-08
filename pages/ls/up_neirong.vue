@@ -10,8 +10,10 @@
 			<view class="up_neirong" @click="zhanshi">
 				
 				<!-- <textarea value="" placeholder="" class=" hei_26" v-model="neirong_txt" maxlength="5000" /> -->
-				<editor id="editor" class="ql-container hei_26" @ready="onEditorReady" @input="getEditorContent" placeholder=""></editor>
-			
+				<!-- <editor id="editor" class="ql-container hei_26" @ready="onEditorReady" @input="getEditorContent" placeholder=""></editor> -->
+			<editor id="editor" show-img-size  show-img-resize show-img-toolbar class="ql-container"
+			 placeholder="" @statuschange="onStatusChange" @ready="onEditorReady" @input="getEditorContent">
+			</editor>
 			<!-- <u-parse :content="neirong_txt"></u-parse> -->
 		
 			</view>
@@ -65,6 +67,19 @@ export default {
 		// });
 		if(option.lyanliid){
 		that.show = true;
+		
+		
+	// this.$http
+	// 		.post({
+	// 			url: '/mapi/lawyer/anli_xq',
+	// 			data:{
+	// 				lyanliid:this.lyanliid
+	// 			}
+	// 		})
+	// 		.then(res => {
+	// 			that.neirong_txt= res.data.anli.information
+	// 		});			
+		
 		}
 	},
 	methods: {
@@ -102,17 +117,39 @@ export default {
 		})
 		.then(res => {
 			that.neirong_txt= res.data.anli.information
-			uni.createSelectorQuery()
-				.select('#editor')
-				.context(res => {
-					var contentVal_1 =that.neirong_txt ;
+			
+			
+			     while(that.neirong_txt.indexOf('<o:p></o:p>') != -1 ) {
+			        that.neirong_txt = that.neirong_txt.replace('<o:p></o:p>',"")
+			       
+			     }
+				 while(that.neirong_txt.indexOf('&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;') != -1 ) {
+				    that.neirong_txt = that.neirong_txt.replace('&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;',"")
+				   
+				 }
+			   
+			
+			var contentVal_1 =that.neirong_txt
+
+			uni.createSelectorQuery().select('#editor').context(res => {
 					
+				
+					
+				// 	    while(contentVal_1.indexOf('&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;') != -1 ) {
+				// 	       contentVal_1 = contentVal_1.replace('&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;',"")
+					       
+				// 	    }
+					    
+				console.log(contentVal_1)	
 					//将内容写入编辑器
-					this.editorCtx = res.context;
-					let EContent = {
-						html: contentVal_1
-					};
-					this.editorCtx.setContents(EContent); //设置富文本编辑器的内容
+					that.editorCtx = res.context;
+					// let EContent = {
+					// 	html: contentVal_1
+					// };
+					that.editorCtx.setContents({
+					               html:contentVal_1    
+					       }) 
+					// this.editorCtx.setContents(EContent); //设置富文本编辑器的内容
 				})
 				.exec();
 				
@@ -134,6 +171,7 @@ export default {
 			}
 				
 		},
+
 		getEditorContent(e) {
 			this.neirong_txt = e.detail.html;
 		},
@@ -194,7 +232,7 @@ export default {
 }
 .up_neirong {
 	width: 100%;
-	height: 500rpx;
+	height: 1000rpx;
 	position: absolute;
 	left: 0;
 }
@@ -214,6 +252,6 @@ export default {
 	text-align: center;
 }
 .ql-container{
-	height:500rpx;
+	height:1000rpx;
 }
 </style>

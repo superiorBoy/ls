@@ -397,7 +397,7 @@
 					</view>
 
 					<!-- 收到语音消息 -->
-					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 13">
+					<view class="chat_list chat_left" v-if="item.userid_from == ls_id && item.msgtype == 13 && item.iswithdraw!=1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30 chat_yuyin_left" @tap="playVoice(item.content,index,item.duration)" :class="yuyin_index==index?'bofang':''">
 							<image src="../../static/lsimg/chat_yuyin_left.png" mode=""  class="yuyin_icon"></image>
@@ -1057,6 +1057,7 @@ export default {
 		},
 		// 点击长按录音
 		dian_luyin() {
+			var that=this
 			this.is_yuyin = true;
 			this.timer = setInterval(() => {
 				this.intervalTime += 0.5;
@@ -1072,6 +1073,18 @@ export default {
 					recorderManager.start({
 						format: 'mp3'
 					});
+					
+					
+				}
+				// console.log(this.intervalTime)
+				if(this.intervalTime>=60){
+					uni.showToast({
+						title: '不得超过60秒',
+						duration: 2000,
+						icon:'none'
+					});
+					that.songkai()
+					
 				}
 			}, 500);
 		},
@@ -1096,6 +1109,7 @@ export default {
 					console.log('录音太短了!!!');
 				}
 
+                  
 				clearInterval(this.timer);
 
 				if (this.isRecord) {
@@ -1327,9 +1341,16 @@ export default {
 					}
 
 					this.message = res.data.message.concat(this.message);
-					if (res.data.message.length < 100) {
-						this.is_all = true;
+					if(this.page==0){
+						if (res.data.message.length < 10) {
+							this.is_all = true;
+						}
+					}else{
+						if (res.data.message.length < 100) {
+							this.is_all = true;
+						}
 					}
+					
 					if (!this.is_xiala) {
 						setTimeout(() => {
 							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });

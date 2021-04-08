@@ -37,21 +37,23 @@
 					</view>
 					<view class="top_shijian bai_20 ">
 						<!-- 10-16 -->
-						<view class="" v-for="item in xiaoxi_list" v-if="item.user_to && item.user_to.userid == 7">
-							<text class="ke_weidu" v-if="item.messagecount != 0">{{ item.messagecount }}</text>
+						<view class="" v-for="item in xiaoxi_list" v-if="item.lawyerid == 7">
+							<text class="ke_weidu" v-if="item.readnum != 0">{{ item.readnum }}</text>
 						</view>
 					</view>
 				</view>
 			</view>
 			<view class="xiaoxi_list">
-				<view class="xiaoxi_item" v-for="item in xiaoxi_list" @click="go_chat(item.user_to.userid)" v-if="item.user_to && item.user_to.userid != 7">
+				
+				
+				<view class="xiaoxi_item" v-for="(item,index) in xiaoxi_list" @click="go_chat(item.lawyerid)" v-if="item.lawyerid != 7":class="chumo_index==index?'chumo':''"   @touchstart='kaishi(index)'  @touchend='songkai(index)'>
 					<view class="xiaoxi_item_left">
 						<view class="xiaoxi_tx">
-							<image :src="img_url + item.user_to.photourl" mode=""></image>
-							<text class="xiaoxi_num bai_20" v-if="item.messagecount > 0">{{ item.messagecount }}</text>
+							<image :src="img_url + item.lawyer.photourl" mode=""></image>
+							<text class="xiaoxi_num bai_20" v-if="item.readnum > 0">{{ item.readnum }}</text>
 						</view>
 						<view class="xiaoxi_item_left_name">
-							<view class="hei_30_bold xiaoxi_item_name">{{ item.user_to.nickname }}</view>
+							<view class="hei_30_bold xiaoxi_item_name">{{ item.lawyer.nickname }}</view>
 							<view class="qian_26 txt_over">
 								<view class="xiaoxi_title" v-if="item.msgtype == 1 && item.iswithdraw != 1">
 									<u-parse :content="replace_em(item.content)" :key="theKey"></u-parse>
@@ -125,7 +127,7 @@ export default {
 					}
 
 					// this.huoqu_xiaoxilist();
-					// this.$refs.mainindex.huoqunum();
+					this.$refs.mainindex.huoqunum();
 					// #ifdef H5
 					this.connectSocketInit();
 					// #endif
@@ -155,7 +157,8 @@ export default {
 			islogin: '',
 			theKey: 0,
 			is_all: false,
-			page:0
+			page:0,
+			chumo_index:-1
 			// is_xianshi:false
 		};
 	},
@@ -266,23 +269,25 @@ export default {
 			var that=this
 			     this.xiaoxi_list.forEach((item, index, array) => {
 			     　　console.log(item);
-				 if(item.user_to.userid==id){
-					 item.messagecount=0
+				 if(item.lawyerid==id){
+					 item.readnum=0
 				 }
 			     });
+				 that.$refs.mainindex.huoqunum();
 			uni.navigateTo({
 				url: 'chat?lawyerid=' + id
 			});
 		},
 		go_kefu() {
 			
-			var that=this
-			     this.xiaoxi_list.forEach((item, index, array) => {
-			     　　console.log(item);
-				 if(item.user_to.userid==7){
-					 item.messagecount=0
-				 }
-			     });
+		    	var that=this
+			  //    this.xiaoxi_list.forEach((item, index, array) => {
+			  //    　　console.log(item);
+				 // if(item.user_to.userid==7){
+					//  item.messagecount=0
+				 // }
+			  //    });
+				 that.$refs.mainindex.huoqunum();
 			uni.navigateTo({
 				url: 'chat?lawyerid=7'
 			});
@@ -297,7 +302,7 @@ export default {
 			var that = this;
 			this.$http
 				.post({
-					url: '/mapi/consult/messagelist',
+					url: '/mapi/consult/messagelist1',
 					data:{
 						page:this.page
 					}
@@ -307,22 +312,24 @@ export default {
 					// that.xiaoxi_list = res.data.messagelist;
 				
 					that.xiaoxi_list =that.xiaoxi_list.concat(res.data.messagelist) ;
+					
+					
 					if(res.data.messagelist.length<20){
 						that.is_all=true
 					}
 					
-					var i=0
-					that.xiaoxi_list.forEach((item, index, array) => {
+					// var i=0
+					// that.xiaoxi_list.forEach((item, index, array) => {
 					
-					if(item.user_to){
-							i++			
-					}
-					});
+					// if(item.user_to){
+					// 		i++			
+					// }
+					// });
 					
-					if(i<6&&res.data.messagelist.length>1){
-						that.page++
-						that.huoqu_xiaoxilist()
-					}
+					// if(that.xiaoxi_list.length<6&&res.data.messagelist.length>1){
+					// 	that.page++
+					// 	that.huoqu_xiaoxilist()
+					// }
 					// var num=0
 					// for (var i in this.xiaoxi_list){
 					// if(!this.xiaoxi_list[i].user_to){
@@ -332,6 +339,10 @@ export default {
 					// console.log(num)
 					that.$forceUpdate();
 					that.theKey++;
+					
+					
+					
+					
 				});
 		},
 		connectSocketInit() {
@@ -388,17 +399,44 @@ export default {
 			var that=this
 		         this.xiaoxi_list.forEach((item, index, array) => {
 		         　　console.log(item);
-				 if(item.user_to.userid==data.userid_from){
+				 if(item.user.userid==data.userid_from){
 					 this.xiaoxi_list.splice(index,1)
-					 item.messagecount++
+					 item.readnum++
 					 item.content=data.msg
 					 item.msgtype=data.state
 					 this.xiaoxi_list.unshift(item)
 					 that.$forceUpdate();
 					 that.theKey++;
+				 }else{
+					 
+					 // var xinxi={
+						//  addtime:'',
+						//  content: data.msg,
+						//  lawyerid: data.userid_from,
+						//  lawyerreadnum:1,
+						//  msgtype: data.state,
+						//  readnum: 1,
+						//  lawyer: {
+						// 	 userid: data.userid_from, 
+						//      photourl: data.userid_from_pic,
+						//      nickname: data.userid_from,
+						//  },
+						//  userid:data.userid_from 
+					 // }
+					 // this.xiaoxi_list.unshift(item)
+					 // that.$forceUpdate();
+					 // that.theKey++;
+					 
 				 }
 		         });
 			
+		},
+		kaishi(index){
+			// console.log(index)
+			this.chumo_index=index
+		},
+		songkai(){
+			this.chumo_index=-1
 		}
 	},
 	filters: {
@@ -475,6 +513,12 @@ page {
 	display: flex;
 	position: relative;
 	justify-content: space-between;
+	-webkit-touch-callout: none !important;
+	-webkit-user-select: none !important;
+	-khtml-user-select: none !important;
+	-moz-user-select: none !important;
+	-ms-user-select: none !important;
+	user-select: none !important;
 }
 .xiaoxi_item::before {
 	content: '';
@@ -559,5 +603,8 @@ page {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+.chumo{
+	background-color: rgba(0,0,0,0.1);
 }
 </style>

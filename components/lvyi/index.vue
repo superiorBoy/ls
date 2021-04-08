@@ -2,8 +2,8 @@
 	<view class="body">
 		<view class="index_top">
 			<view class="index_top_dingwei">
-				<view class="dingwei lv_30">
-					<image src="@/static/img/lvyi_dingwei.png" mode=""></image>
+				<view class="dingwei bai_30">
+					<image src="@/static/img/dingwei.png" mode=""></image>
 					<pickerAddress @change="xuandizhi"><view class="dingwei_text">
 						{{ dizhi==''?'定位中':dizhi }}
 					</view> </pickerAddress>
@@ -11,17 +11,17 @@
 				</view>
 				<view class="lvyi_logo_img">
 					
-					<image src="../../static/img/lvyi_logo.png" mode="widthFix" class="lvyi_logo"></image>
+					<image src="../../static/img/lvyi_logo2.png" mode="widthFix" class="lvyi_logo"></image>
 				</view>
 				
 				<navigator url="tiwen" style="width: 20%; text-align: right;">
-				<image src="../../static/img/lvyi_sousuo.png" mode="" class="sousuo_img"></image>
+				<image src="../../static/img/bai_sousuo.png" mode="" class="sousuo_img"></image>
 				</navigator>
 			</view>
 
 			<view class="tab">
 				<wuc-tab :tab-list="tabList" :tabCur.sync="TabCur" @change="tabChange" class="fenlei hei_26"></wuc-tab>
-				<image src="@/static/img/lvyi_qita.png" mode=""></image>
+				<image src="../../static/img/qita.png" mode=""></image>
 			</view>
 
 			<view class="lunbo">
@@ -353,7 +353,10 @@ export default {
 			current: 0,
 			banner: [
 				{
-					img: '../../static/img/lvyi_banner.png'
+					img: '../../static/img/lvyi_banner1.png'
+				},
+				{
+					img: '../../static/img/lvyi_banner2.png'
 				}
 			],
 			btnnum: 1,
@@ -984,11 +987,11 @@ export default {
 	align-items: center;
 	margin-top: 44rpx;
 	padding: 0 30rpx;
-	background-color: #bff0c3;
+	background-color: #b83947;
 	
 }
 .wuc-tab{
-	color: #0eb77e !important;
+	color: #FFFFFF !important;
 }
 .tab image {
 	width: 23rpx;
@@ -1077,7 +1080,7 @@ export default {
 	box-sizing: border-box;
 	top: 0;
 	max-width: 750px;
-	background-color: #bff0c3;
+	background-color: #b83947;
 	
 }
 
@@ -1810,6 +1813,9 @@ scroll-view ::-webkit-scrollbar {
 .lvyi_logo_img{
 	width: 30%;
 	text-align: center;
+}
+.lvyi_logo_img image{
+		width: 93rpx;
 }
 .lvyi_logo{
 	width: 166rpx;

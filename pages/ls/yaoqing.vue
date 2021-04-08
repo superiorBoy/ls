@@ -151,7 +151,7 @@
 	                     this.huoqu_ls_login()
 						 this.huoqu_lianjie()
 						 this.huoqu_list()
-						 this.$refs.ls_mainindex.huoqunum();
+						 // this.$refs.ls_mainindex.huoqunum();
 					}
 					
 				});

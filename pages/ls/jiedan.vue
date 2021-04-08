@@ -140,7 +140,7 @@ export default {
 			})
 			.then(res => {
 				if (res.data.user != '') {
-					this.$refs.ls_mainindex.huoqunum();
+					// this.$refs.ls_mainindex.huoqunum();
 					this.$http
 						.post({
 							url: '/mlawyerapi/lawyer/lawyerclick'

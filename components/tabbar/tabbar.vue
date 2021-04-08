@@ -156,15 +156,14 @@ export default {
 			console.log('ls未读')
 			this.$http
 				.post({
-					url: '/mlawyerapi/consult/messagecount'
+					url: '/mlawyerapi/consult/messagecount1'
 				})
 				.then(res => {
 					if(res.code==0){
 					this.num=	res.data.messagecount
 					if(res.data.messagecount>0){
 						
-						// void plus.push.createMessage('律师端有未读消息');
-						// console.log('111')
+
 					}
 					}
 				});

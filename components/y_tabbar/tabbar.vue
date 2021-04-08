@@ -167,17 +167,26 @@ export default {
 		huoqunum(){
 			this.$http
 				.post({
-					url: '/mapi/consult/messagelist'
+					url: '/mapi/consult/messagecount1'
 				})
 				.then(res => {
-					for (var i in res.data.messagelist){
-					if(!res.data.messagelist[i].user_to){
-						this.closenum+=res.data.messagelist[i].messagecount
+					if(res.code==0){
+					this.num=res.data.messagecount
 					}
-					}
-					// console.log(this.closenum)
-					this.huoqu_xiaoxi_list()
 				});
+			// this.$http
+			// 	.post({
+			// 		url: '/mapi/consult/messagelist'
+			// 	})
+			// 	.then(res => {
+			// 		for (var i in res.data.messagelist){
+			// 		if(!res.data.messagelist[i].user_to){
+			// 			this.closenum+=res.data.messagelist[i].messagecount
+			// 		}
+			// 		}
+			// 		// console.log(this.closenum)
+			// 		this.huoqu_xiaoxi_list()
+			// 	});
 			
 		}
 	}
