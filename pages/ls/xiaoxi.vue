@@ -462,12 +462,12 @@ export default {
 		jieshou_xiaoxi(data){
 			var that=this
 			var list=this.xiaoxi_list
-			var is_cuzai=1
+			var is_cuzai=false
 			
 		console.log(data,'收到消息')
 			for (let i = 0; i < list.length; i++) {
 			           if (JSON.stringify(list[i].user.userid).indexOf(JSON.stringify(data.userid_from)  ) > -1) {
-						    is_cuzai=2
+						    is_cuzai=true
 							var weifu=list[i].lawyerreadnum
 							console.log(i,'存在联系人',weifu,list[i])
 							list.splice(i, 1);//存在即删除
@@ -498,7 +498,7 @@ export default {
 					}	
 					
 					console.log('bucaunzai',is_cuzai)
-				if(is_cuzai){
+				if(!is_cuzai){
 					console.log('bucaunzai')
 					var xinxi={
 							 addtime:new Date().getTime(),
