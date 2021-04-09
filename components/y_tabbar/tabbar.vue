@@ -160,6 +160,7 @@ export default {
 				})
 				.then(res => {
 					if(res.code==0){
+						
 					this.num=res.data.messagecount-this.closenum
 					}
 				});
@@ -172,6 +173,7 @@ export default {
 				.then(res => {
 					if(res.code==0){
 					this.num=res.data.messagecount
+					console.log(res.data.messagecount,'未读')
 					}
 				});
 			// this.$http

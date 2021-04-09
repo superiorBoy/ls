@@ -842,8 +842,9 @@ export default {
 		uParse
 	},
 	onLoad(option) {
+		this.userid = option.userid;
 		this.huanying();
-
+this.huoqu_xiaoxi_list();
 		var self = this;
 		recorderManager.onStop(function(res) {
 			console.log('recorder stop' + JSON.stringify(res));
@@ -856,7 +857,7 @@ export default {
 			}
 			
 		});
-		this.userid = option.userid;
+		
 
 		// 获取用户信息
 		this.$http
@@ -875,25 +876,71 @@ export default {
 				this.huoqu_renzheng();
 			});
 
-		// #ifdef H5
-		this.connectSocketInit();
-		// #endif
+		
 		// 进入这个页面的时候创建websocket连接【整个页面随时使用】
 		// this.connectSocketInit();
-		// #ifdef APP-PLUS
-		this.app_lianjie();
-		// #endif
+		
 	},
 	onShow() {
-		this.huoqu_xiaoxi_list();
+		
+	},
+	onReady() {
+
+		var that=this
+		setTimeout(function(){
+			// #ifdef H5
+			that.connectSocketInit();
+			// #endif
+			// #ifdef APP-PLUS
+			
+			that.app_lianjie();
+			// #endif
+		},1000)
+	
+
 	},
 	onHide() {
-		// // #ifdef APP-PLUS
-		// socket.closeSocket();
-		// // #endif
+		
+		// #ifdef APP-PLUS
+		socket.closeSocket();
+		// #endif
+		
+	// 	this.$http
+	// 		.post({
+	// 			url: '/mlawyerapi/consult/chatdeatils',
+	// 			data: {
+	// 				page:0,
+	// 				userid: this.userid
+	// 			}
+	// 		})
+	// 		.then(res => {
+	
+	// 		});
+			
 	},
 	onUnload(e){
+		this.huoqu_xiaoxi_list()
+		var ls_chat_list = uni.getStorageSync('ls_chat_list') ;//读取缓存
+		
+		if(ls_chat_list){
+			ls_chat_list=JSON.parse(ls_chat_list)
+			for (let i in ls_chat_list) {
+			   if(ls_chat_list[i].user.userid==this.userid){
+				   
+				   ls_chat_list[i].content=this.message[this.message.length-1].content
+				   ls_chat_list[i].msgtype=this.message[this.message.length-1].msgtype
+				   ls_chat_list[i].lawyerreadnum=0
+			   }
+			}
+			
+			uni.setStorageSync('ls_chat_list', JSON.stringify(ls_chat_list));  //设置缓存
+				
+		}
+
 	    innerAudioContext.stop();//暂停这个实例
+		// #ifdef APP-PLUS
+		socket.closeSocket();
+		// #endif
 	 },
 	data() {
 		return {
@@ -940,7 +987,8 @@ export default {
 			isRecord: false,
 			tishiyu: '',
 			is_xiala: false,
-			yuyin_index:0
+			yuyin_index:0,
+			dakai:false
 		};
 	},
 	//下拉刷新
@@ -1281,6 +1329,9 @@ export default {
 			this.is_chehui = false;
 		},
 		huoqu_xiaoxi_list() {
+			
+			
+			
 			var that = this;
 			this.$http
 				.post({
@@ -1407,7 +1458,9 @@ export default {
 		app_lianjie() {
 			let that = this;
 			Object.assign(uni, socket);
-			console.log(Object.assign(uni, socket));
+			// console.log(Object.assign(uni, socket));
+			
+			console.log('111111');
 			var url = that.$http.WebSocket_url;
 
 			socket.connectSocket({
@@ -1424,6 +1477,7 @@ export default {
 				console.log('WebSocket连接打开失败，请检查！', JSON.stringify(res));
 			});
 			socket.onSocketMessage(function(res) {
+				that.dakai=true
 				console.log('收到服务器内容：' + res.data);
 				var data = JSON.parse(res.data);
 
@@ -1508,6 +1562,7 @@ export default {
 			});
 			socket.onSocketClose(function(res) {
 				console.log('WebSocket 已关闭！');
+				that.dakai=false
 			});
 		},
 

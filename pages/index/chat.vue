@@ -824,12 +824,17 @@ export default {
 			}
 		});
 		// #endif
+		
+		
+		
 	},
 	components: {
 		emotion,
 		uParse
 	},
 	onLoad(option) {
+		this.ls_id = option.lawyerid;
+		this.huoqu_xiaoxi_list();
 		this.huanying();
 		var self = this;
 		recorderManager.onStop(function(res) {
@@ -842,7 +847,7 @@ export default {
 		    	self.Audio2dataURL(res.tempFilePath);
 			}
 		});
-		this.ls_id = option.lawyerid;
+		
 		// this.huoqu_xiaoxi_list();
 		this.huqu_zhiwu();
 		// 获取用户信息
@@ -862,36 +867,67 @@ export default {
 				this.huqu_ls_xinxi();
 			});
 
-		// #ifdef H5
-		this.connectSocketInit();
-		// #endif
+	
 		// 进入这个页面的时候创建websocket连接【整个页面随时使用】
 		// this.connectSocketInit();
-		// #ifdef APP-PLUS
 
-		this.app_lianjie();
-		// #endif
+	
+		
 	},
 
 	onShow() {
-		this.huoqu_xiaoxi_list();
-		
+
 	
 	},
 	onReady() {
-		this.innerAudioContext.src = 'https://leleossa.oss-cn-hangzhou.aliyuncs.com/audio/20210407/161776435149011.mp3';
-		
-		let duration = this.innerAudioContext.duration;
-		
-		console.log(duration)
+		var that=this
+		setTimeout(function(){
+			// #ifdef H5
+			that.connectSocketInit();
+			// #endif
+			// #ifdef APP-PLUS
+			
+			that.app_lianjie();
+			// #endif
+		},1000)
+	
+
 	},
-	onHide() {},
+	onHide() {
+
+		
+	},
 	onUnload() {
 		// console.log('onUnload');
 		// this.time1 = '0';
+		this.huoqu_xiaoxi_list()
+		this.huoqu_shichang()
+		var user_chat_list = uni.getStorageSync('user_chat_list');//读取缓存
+		
+		if(user_chat_list){
+			user_chat_list=JSON.parse(user_chat_list)
+			for (let i in user_chat_list) {
+			   if(user_chat_list[i].lawyer.userid==this.ls_id){
+				   
+				   user_chat_list[i].content=this.message[this.message.length-1].content
+				   user_chat_list[i].msgtype=this.message[this.message.length-1].msgtype
+				   user_chat_list[i].readnum=0
+				   
+			   }
+			}
+		
+			uni.setStorageSync('user_chat_list', JSON.stringify(user_chat_list));  //设置缓存
+		
 		// #ifdef APP-PLUS
 		socket.closeSocket();
 		// #endif
+		}
+		
+		
+		console.log(user_chat_list)
+		
+		
+	
 		innerAudioContext.stop();//暂停这个实例
 	},
 	data() {

@@ -44,7 +44,7 @@
 				</view>
 			</view>
 			<view class="xiaoxi_list">
-				<view class="xiaoxi_item" v-for="(item,index) in xiaoxi_list" @click="go_chat(item.user.userid)" v-if="item.userid != 7" :class="chumo_index==index?'chumo':''"   @touchstart='kaishi(index)'  @touchend='songkai(index)'>
+				<view class="xiaoxi_item" v-for="(item,index) in xiaoxi_list" @click="go_chat(item.user.userid)" v-if="item.user" :class="chumo_index==index?'chumo':''"   @touchstart='kaishi(index)'  @touchend='songkai(index)'>
 					<view class="xiaoxi_item_left">
 						<view class="xiaoxi_tx">
 							<image :src="img_url + item.user.photourl" mode=""></image>
@@ -94,16 +94,30 @@ export default {
 	created() {},
 
 	onShow() {
-		// #ifdef APP-PLUS
-		socket.closeSocket();
-		// #endif
+        var that=this
+		var ls_chat_list = uni.getStorageSync('ls_chat_list') ;//读取缓存
+		if(ls_chat_list){
+			ls_chat_list=JSON.parse(ls_chat_list)
+			// this.xiaoxi_list=[]	
+			that.xiaoxi_list=ls_chat_list
+			that.$forceUpdate();
+			that.theKey++;	
+		}else{
+			
+			this.page=0
+			this.is_all=false
+			this.xiaoxi_list=[]
+			this.huoqu_xiaoxilist()
+		}	
+		
+	var that=this
 		this.$http
 			.post({
 				url: '/lawyer/login/islogin'
 			})
 			.then(res => {
 				if (res.data.user != '') {
-				this.$refs.ls_mainindex.huoqunum();
+				that.$refs.ls_mainindex.huoqunum();
 				this.$http
 					.post({
 						url: '/mlawyerapi/lawyer/lawyerclick'
@@ -123,16 +137,47 @@ export default {
 				}
 			});
 	},
-	beforeDestroy() {
+	onHide() {
+		// uni.removeStorageSync('ls_chat_list');
 		console.log('关闭当前页面')
-	    // #ifdef APP-PLUS
-	    socket.closeSocket();
-	    // #endif
+		// #ifdef APP-PLUS
+		socket.closeSocket();
+		// #endif
+	},
+	beforeDestroy() {
+		uni.removeStorageSync('ls_chat_list');
+		
+		console.log('beforeDestroy')
+		
+		// #ifdef APP-PLUS
+		socket.closeSocket();
+		// #endif
+		// uni.removeStorageSync('user_chat_list');
+	
 	},
 	onLoad() {
-		this.huoqu_xiaoxilist();
+		console.log('load')
+		// this.huoqu_xiaoxilist();
 		this.huoqu_user()
+	// var ls_chat_list =uni.getStorageSync('ls_chat_list') ;//读取缓存
 	
+	// console.log(ls_chat_list)
+	// if(ls_chat_list){
+		
+	// 	ls_chat_list=JSON.parse(ls_chat_list)
+			
+	// 	// this.xiaoxi_list=[]	
+	// 	this.xiaoxi_list=ls_chat_list
+	// 	this.$forceUpdate();
+	// 	this.theKey++;	
+	
+	// }else{
+	// 	console.log('loadlist')
+	// 	this.page=0
+	// 	this.is_all=false
+	// 	this.xiaoxi_list=[]
+	// 	this.huoqu_xiaoxilist()
+	// }
 
 		
 	},
@@ -283,14 +328,16 @@ export default {
 			return str;
 		},
 		go_chat(id) {
+			    uni.setStorageSync('ls_chat_list', JSON.stringify(this.xiaoxi_list));  //设置缓存
 			var that=this
 			     this.xiaoxi_list.forEach((item, index, array) => {
-			     　　console.log(item);
+			     // 　　console.log(item);
 				 if(item.user.userid==id){
 					 item.lawyerreadnum=0
 				 }
 			     });
-				 // that.$refs.ls_mainindex.huoqunum();
+				 that.$refs.ls_mainindex.huoqunum();
+				
 			uni.navigateTo({
 				url: 'chat?userid=' + id
 			});
@@ -301,6 +348,9 @@ export default {
 			});
 		},
 		go_kefu() {
+			uni.setStorageSync('ls_chat_list', JSON.stringify(this.xiaoxi_list));  //设置缓存
+				
+				
 			var that=this
 			  //    this.xiaoxi_list.forEach((item, index, array) => {
 			  //    　　console.log(item);
@@ -315,6 +365,7 @@ export default {
 		},
 		huoqu_xiaoxilist() {
 			// this.is_xianshi=false
+			console.log('huoqu_xiaoxi')
 			var that=this
 			this.$http
 				.post({
@@ -352,6 +403,9 @@ export default {
 					// this.weidu=num
 					that.$forceUpdate()
 					that.theKey++
+					
+					uni.setStorageSync('ls_chat_list', JSON.stringify(that.xiaoxi_list));  //设置缓存
+					
 				});
 		},
 		connectSocketInit() { 
@@ -407,41 +461,70 @@ export default {
 		},
 		jieshou_xiaoxi(data){
 			var that=this
-		         this.xiaoxi_list.forEach((item, index, array) => {
-		         　　console.log(item);
-				 　　console.log(data);
-				 if(item.user.userid==data.userid_from){
-					 
-					 this.xiaoxi_list.splice(index,1)
-					 item.lawyerreadnum++
-					 item.content=data.msg
-					 item.msgtype=data.state
-					 this.xiaoxi_list.unshift(item)
-					 that.$forceUpdate();
-					 that.theKey++;
-				 }else{
-					 
-					 // var xinxi={
-						//  addtime:'',
-						//  content: data.msg,
-						//  lawyerid: data.userid_from,
-						//  lawyerreadnum:1,
-						//  msgtype: data.state,
-						//  readnum: 0,
-						//  user: {userid: data.userid_from, 
-						//  photourl: data.userid_from_pic,
-						//   nickname: data.userid_from,
-						//   },
-						//  userid:data.userid_from
-						 
-					 // }
-					 // this.xiaoxi_list.unshift(item)
-					 // that.$forceUpdate();
-					 // that.theKey++;
-					 
-				 }
-		         });
+			var list=this.xiaoxi_list
+			var is_cuzai=1
 			
+		console.log(data,'收到消息')
+			for (let i = 0; i < list.length; i++) {
+			           if (JSON.stringify(list[i].user.userid).indexOf(JSON.stringify(data.userid_from)  ) > -1) {
+						    is_cuzai=2
+							var weifu=list[i].lawyerreadnum
+							console.log(i,'存在联系人',weifu,list[i])
+							list.splice(i, 1);//存在即删除
+							
+							var xinxi={
+									 addtime:new Date().getTime(),
+									 content: data.msg,
+									 lawyerid: data.userid_from,
+									 lawyerreadnum:weifu+1,
+									 msgtype: data.state,
+									 readnum: 1,
+									 user: {
+										 userid: data.userid_from, 
+										 photourl: data.userid_from_pic,
+										 nickname: data.userid_from_nickname,
+										 mobile:data.userid_from_mobile
+									 },
+									 userid:data.userid_to 
+							}
+							
+			                 list.unshift(xinxi)
+							 that.xiaoxi_list=list
+							 that.$refs.ls_mainindex.huoqunum();
+							 that.$forceUpdate();
+							 that.theKey++;	
+			            }
+						
+					}	
+					
+					console.log('bucaunzai',is_cuzai)
+				if(is_cuzai){
+					console.log('bucaunzai')
+					var xinxi={
+							 addtime:new Date().getTime(),
+							 content: data.msg,
+							 lawyerid: data.userid_from,
+							 lawyerreadnum:1,
+							 msgtype: data.state,
+							 readnum: 1,
+							 user: {
+								 userid: data.userid_from, 
+								 photourl: data.userid_from_pic,
+								 nickname: data.userid_from_nickname,
+								 mobile:data.userid_from_mobile
+							 },
+							userid:data.userid_to 
+					}
+					list.unshift(xinxi)
+
+                    that.xiaoxi_list=list
+					that.$refs.ls_mainindex.huoqunum();
+					that.$forceUpdate();
+					that.theKey++;
+				}		
+
+                  	
+
 		},
 		kaishi(index){
 			// console.log(index)

@@ -109,6 +109,7 @@ export default {
 					})
 					.then(res => {
 						if(res.code==0){
+							uni.removeStorageSync('ls_chat_list');
 							uni.reLaunch({
 								url:'my'
 							})

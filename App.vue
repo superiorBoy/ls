@@ -32,11 +32,18 @@ export default {
 	},
 
 	onShow: function() {
-
+       uni.removeStorageSync('user_chat_list');
+		uni.removeStorageSync('ls_chat_list');
 		console.log('App Show');
 	},
 	onHide: function() {
 		console.log('App Hide');
+		
+		uni.removeStorageSync('user_chat_list');
+		uni.removeStorageSync('ls_chat_list');
+	
+		
+		
 	}
 
 };

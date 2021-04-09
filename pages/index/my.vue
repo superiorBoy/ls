@@ -250,16 +250,21 @@ export default {
 		qiehuan() {
 					// #ifdef APP-PLUS
 			var that=this
-			var url = that.$http.WebSocket_url;
-			socket.closeSocket({
-			  url: 'wss://' + url + ':3348',
-			});
-			
+			// var url = that.$http.WebSocket_url;
+			// socket.closeSocket({
+			//   url: 'wss://' + url + ':3348',
+			// });
+			socket.closeSocket();
 
 			socket.onSocketClose(function (res) {
 			  console.log('WebSocket 已关闭！');
 			});
 				// #endif
+				
+				
+				uni.removeStorageSync('user_chat_list');
+				
+				
 			uni.reLaunch({
 				url: '../ls/my'
 			});

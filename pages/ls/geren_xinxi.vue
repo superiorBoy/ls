@@ -136,6 +136,7 @@ export default {
 				.then(res => {
 					console.log(res.code)
 					if (res.code == 100000) {
+						uni.removeStorageSync('ls_chat_list');
 						uni.reLaunch({
 							url: 'my'
 						});

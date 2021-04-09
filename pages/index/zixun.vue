@@ -120,7 +120,7 @@ export default {
 	// stopPullDownRefresh:function(){
 
 	// },
-	onShow() {
+	onLoad() {
 		// 获取分类
 		this.$http
 			.post({

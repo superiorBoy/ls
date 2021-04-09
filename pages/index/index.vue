@@ -10,7 +10,7 @@
 import index from '@/components/index/index.vue';
 import xiaohua from '@/components/xiaohua/index.vue';
 import lvyi from '@/components/lvyi/index.vue';
-
+import socket from 'plus-websocket';
 export default {
 	data() {
 		return {
@@ -36,12 +36,18 @@ export default {
 		
 	},
 	onHide() {
+
 	// #ifdef APP-PLUS
 	socket.closeSocket();
 	// #endif
 	},
 	onShow() {
-		this.$refs.shouye.shuxin_zujian();
+		
+			
+		// this.$refs.shouye.shuxin_zujian();
+	
+	},
+	onReady() {
 	},
 	methods: {
 

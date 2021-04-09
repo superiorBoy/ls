@@ -111,6 +111,8 @@ export default {
 					})
 					.then(res => {
 						if(res.code==0){
+							uni.removeStorageSync('user_chat_list');
+							uni.removeStorageSync('ls_chat_list');
 							if(this.type==3){
 								uni.reLaunch({
 									url:'../ls/yaoqing'
@@ -150,6 +152,8 @@ export default {
 				})
 				.then(res => {
 					if(res.code==0){
+						uni.removeStorageSync('user_chat_list');
+						uni.removeStorageSync('ls_chat_list');
 						uni.reLaunch({
 							url:'../ls/my'
 						})

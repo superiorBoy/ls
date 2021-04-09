@@ -302,6 +302,8 @@ onLoad(option) {
 								// uni.switchTab({
 								// 	url:'index'
 								// })
+								uni.removeStorageSync('user_chat_list');
+								uni.removeStorageSync('ls_chat_list');
 								uni.reLaunch({
 									url:'wanshan'
 								})
@@ -329,6 +331,8 @@ onLoad(option) {
 						.then(res => {
 							console.log(res);
 							if(res.code==0){
+								uni.removeStorageSync('user_chat_list');
+								uni.removeStorageSync('ls_chat_list');
 								wx.reLaunch({
 									url:'../ls/wanshan'
 								})

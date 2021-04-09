@@ -156,6 +156,7 @@ export default {
 				})
 				.then(res => {
 					if (res.code == 0) {
+						 uni.removeStorageSync('user_chat_list');
 						var url = that.$http.WebSocket_url;
 						socket.closeSocket({
 							url: 'wss://' + url + ':3348'
