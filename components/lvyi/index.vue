@@ -326,7 +326,7 @@
 			</view>
 		</view>
 
-		<tabBar :currentPage="currentPage" ref="mainindex"></tabBar>
+		<!-- <tabBar :currentPage="currentPage" ref="mainindex"></tabBar> -->
 	</view>
 </template>
 
@@ -636,9 +636,9 @@ export default {
 				.then(res => {
 					if (res.data.user != '') {
 						this.is_login = true;
-						//#ifdef APP-PLUS
-                              this.kaiqi();
-						//#endif
+						// //#ifdef APP-PLUS
+      //                         this.kaiqi();
+						// //#endif
 						
 					} else {
 						this.is_login = false;
@@ -665,10 +665,9 @@ export default {
 					console.log(res.data.banben, '版本');
 					
 					if(res.data.banben.is_update==3){
-						return false
-					}
-					
-					
+						
+					}else{
+
 					if (uni.getSystemInfoSync().platform == 'ios') {
 						console.log('ios', this.banben);
 						if (this.banben < res.data.banben.ios) {
@@ -683,6 +682,8 @@ export default {
 							this.down_url = res.data.banben.androidurl;
 							uni.hideTabBar();
 						}
+					}
+					
 					}
 				});
 
@@ -710,7 +711,7 @@ export default {
 		kaiqi() {
 			let that = this;
 			that.$refs.mainindex.huoqunum();
-			Object.assign(uni, socket);
+			// Object.assign(uni, socket);
 			console.log(Object.assign(uni, socket));
 			var url = that.$http.WebSocket_url;
 			socket.connectSocket({

@@ -900,34 +900,78 @@ export default {
 	onUnload() {
 		// console.log('onUnload');
 		// this.time1 = '0';
-		this.huoqu_xiaoxi_list()
-		this.huoqu_shichang()
-		var user_chat_list = uni.getStorageSync('user_chat_list');//读取缓存
-		
-		if(user_chat_list){
-			user_chat_list=JSON.parse(user_chat_list)
-			for (let i in user_chat_list) {
-			   if(user_chat_list[i].lawyer.userid==this.ls_id){
-				   
-				   user_chat_list[i].content=this.message[this.message.length-1].content
-				   user_chat_list[i].msgtype=this.message[this.message.length-1].msgtype
-				   user_chat_list[i].readnum=0
-				   
-			   }
-			}
-		
-			uni.setStorageSync('user_chat_list', JSON.stringify(user_chat_list));  //设置缓存
-		
+		// this.huoqu_xiaoxi_list()
+		this.$http
+			.post({
+				url: '/mapi/consult/chatdeatils',
+				data: {
+					page:0,
+					userid: this.ls_id
+				}
+			})
+			.then(res => {
+				
+			});
 		// #ifdef APP-PLUS
 		socket.closeSocket();
 		// #endif
+		
+		
+		var user_chat_list = uni.getStorageSync('user_chat_list');//读取缓存
+		var that=this
+		var is_cuzai=false
+
+		if(user_chat_list){
+			user_chat_list=JSON.parse(user_chat_list)
+			for (let i in user_chat_list) {
+
+			   if(user_chat_list[i].lawyer.userid==that.ls_id){
+				   
+				 var xinxi={
+				"lawyerid": that.ls_id,
+				"userid": that.user.userid,
+				"content": that.message[that.message.length-1].content,
+				"msgtype": that.message[that.message.length-1].msgtype,
+				"readnum": 0,
+				"lawyerreadnum": 0,
+				"addtime": new Date().getTime(),
+				"lawyer": {
+					"userid": that.ls_xinxi.userid,
+					"photourl": that.ls_xinxi.photourl,
+					"nickname": that.ls_xinxi.nickname
+				}
+                }
+				user_chat_list.splice(i, 1);//存在即删除
+				user_chat_list.unshift(xinxi)
+				console.log('存在',user_chat_list[i])
+				   console.log('存在')
+				   is_cuzai=true
+				   // user_chat_list[i].content=that.message[that.message.length-1].content
+				   // user_chat_list[i].msgtype=that.message[that.message.length-1].msgtype
+				   // user_chat_list[i].readnum=0   
+			   }
+			   uni.setStorageSync('user_chat_list', JSON.stringify(user_chat_list));  //设置缓存
+			   
+			
+			}
+
 		}
 		
 		
+		if(!is_cuzai){
+			
+			console.log('不存在')
+			
+			uni.removeStorageSync('user_chat_list');
+			
+
+		// #ifdef APP-PLUS
+		socket.closeSocket();
+		// #endif
+		
+		}
+		
 		console.log(user_chat_list)
-		
-		
-	
 		innerAudioContext.stop();//暂停这个实例
 	},
 	data() {
@@ -2196,9 +2240,7 @@ export default {
 				url: 'fuwufei?lawyerid=' + this.chat_xinxi.userid + '&redid=' + redid + '&addtime=' + addtime
 			});
 		},
-		huoqu_shichang(){
-			console.log('4456')
-		}
+
 	},
 	filters: {
 		timeStamp: function(value) {

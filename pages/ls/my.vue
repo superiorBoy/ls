@@ -292,7 +292,13 @@ export default {
 	    // #endif
 	},
 	onHide() {
-	
+	// #ifdef APP-PLUS
+
+	  socket.closeSocket();
+				socket.onSocketClose(function (res) {
+				  console.log('WebSocket 已关闭！');
+				});
+	// #endif
 	},
 	data() {
 		return {
@@ -348,7 +354,7 @@ uni.removeStorageSync('ls_chat_list');
 				});
 		},
 		huiqu_login() {
-		
+		var that=this
 			this.$http
 				.post({
 					url: '/lawyer/login/islogin'
@@ -357,6 +363,11 @@ uni.removeStorageSync('ls_chat_list');
 					
 					if (res.data.user != '') {
 						this.is_login = true;
+						//#ifdef APP-PLUS
+						// setTimeout(function(){
+							that.kaiqi();  
+						// },500)
+						//#endif
 						this.huoqu_user();
 				       this.huoqu_geshu()
 					   
@@ -365,13 +376,14 @@ uni.removeStorageSync('ls_chat_list');
 					   		url: '/mlawyerapi/lawyer/lawyerclick'
 					   	})
 					   	.then(res => {
+							
 					   	});
 						// this.huoshu_weidu()
-						//#ifdef APP-PLUS
-						this.kaiqi();  
-						//#endif
+					
+					    	
+						
 					} else {
-						this.is_login = false;
+						that.is_login = false;
 						
 					}
 				});

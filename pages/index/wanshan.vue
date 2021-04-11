@@ -140,7 +140,7 @@ export default {
 					nickname:this.nicheng,
 					img:this.zhiye_zhao
 				},
-				success: function(resp) {
+				success: function(res) {
 					if (res.code == 0) {
 						uni.showToast({
 							title: '修改成功',

@@ -138,7 +138,10 @@ export default {
 					.then(res => {
 						if (res.code == 0) {
 							// window.open('' + res.data.response);
+							
+							// #ifdef H5
 							that.$http.jspost(res.data.response);
+							// #endif
 							// if (uni.getSystemInfoSync().platform === 'android') {
 							// 	// console.log('运行Android上')
 							// 	window.open('' + res.data.response);

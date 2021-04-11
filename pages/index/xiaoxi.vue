@@ -46,7 +46,7 @@
 			<view class="xiaoxi_list">
 				
 				
-				<view class="xiaoxi_item" v-for="(item,index) in xiaoxi_list" @click="go_chat(item.lawyer.userid)" v-if="item.lawyer" :class="chumo_index==index?'chumo':''"   @touchstart='kaishi(index)'  @touchend='songkai(index)'>
+				<view class="xiaoxi_item" v-for="(item,index) in xiaoxi_list" @click="go_chat(item.lawyer.userid)" v-if="item.lawyer" :class="chumo_index==index?'chumo':''"   @touchstart='kaishi(index)'  @touchend='songkai(index)' @touchcancel='songkai(index)'>
 					<view class="xiaoxi_item_left">
 						<view class="xiaoxi_tx">
 							<image :src="img_url + item.lawyer.photourl" mode=""></image>
@@ -136,6 +136,7 @@ export default {
 			that.theKey++;	
 			
 		}else{
+			console.log('缓存不存在')
 			this.page=0
 			this.is_all=false
 			that.xiaoxi_list=[]
@@ -296,10 +297,24 @@ export default {
 		go_chat(id) {
 			
 			
-		uni.setStorageSync('user_chat_list', JSON.stringify(this.xiaoxi_list));  //设置缓存	
+		// uni.setStorageSync('user_chat_list', JSON.stringify(this.xiaoxi_list));  //设置缓存	
+		
+// 		var data={
+// 			"type":"say",
+// 		    "state":"1",
+// 			"userid_from":7,
+// 			"userid_to":"178",
+// 			"userid_from_pic":"lawyerauth\/20210309\/161525757587800.jpeg",
+// 			"userid_from_nickname":"\u5c0f\u864e",
+// 			"userid_to_pic":"user\/20210310\/161535389829559.png",
+// 			"msg":"0",
+// 			"duration":null,
+// 			"url":"https:\/\/leleossa.oss-cn-hangzhou.aliyuncs.com\/"
+// 			}
+		
+// 			this.jieshou_xiaoxi(data)
 			
-			
-
+// return false
 			var that=this
 			     this.xiaoxi_list.forEach((item, index, array) => {
 			     　　console.log(item);
@@ -313,7 +328,7 @@ export default {
 			});
 		},
 		go_kefu() {
-			uni.setStorageSync('user_chat_list', JSON.stringify(this.xiaoxi_list));  //设置缓存
+			// uni.setStorageSync('user_chat_list', JSON.stringify(this.xiaoxi_list));  //设置缓存
 		    	var that=this
 			  //    this.xiaoxi_list.forEach((item, index, array) => {
 			  //    　　console.log(item);
@@ -333,7 +348,7 @@ export default {
 		},
 		huoqu_xiaoxilist() {
 			// this.is_xianshi=false
-			console.log('huoqu_xiaoxi')
+			console.log('huoqu_xiaoxi','请求列表')
 			var that = this;
 			this.$http
 				.post({
@@ -436,7 +451,7 @@ export default {
 			var is_cuzai=false
 			
 			for (let i = 0; i < list.length; i++) {
-			           if (JSON.stringify(list[i].lawyer.userid).indexOf(JSON.stringify(data.userid_from)  ) > -1) {
+			           if (list[i].lawyer.userid==data.userid_from) {
 						  console.log('存在')
 							is_cuzai=true
 							var weifu=list[i].readnum
@@ -500,6 +515,7 @@ export default {
 			this.chumo_index=index
 		},
 		songkai(){
+			console.log('4444444')
 			this.chumo_index=-1
 		}
 	},

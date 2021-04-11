@@ -1,19 +1,25 @@
 <template>
 	<view class="body">
-		<view class="index_top" :style="{ background: topbg }" :class="[ 'index_top', current == 0 ? 'index_top0' : current == 1 ? 'index_top1' : current == 2 ? 'index_top2' : current == 3 ? 'index_top3' : current == 4 ? 'index_top4' : '']"
+		<view
+			class="index_top"
+			:style="{ background: topbg }"
+			:class="[
+				'index_top',
+				current == 0 ? 'index_top0' : current == 1 ? 'index_top1' : current == 2 ? 'index_top2' : current == 3 ? 'index_top3' : current == 4 ? 'index_top4' : ''
+			]"
 		>
 			<view class="index_top_dingwei" :style="{ background: topbg }">
 				<view class="dingwei bai_20">
 					<image src="@/static/img/dingwei.png" mode=""></image>
-					<pickerAddress @change="xuandizhi">{{ dizhi==''?'定位中':dizhi }}</pickerAddress>
+					<pickerAddress @change="xuandizhi">{{ dizhi == '' ? '定位中' : dizhi }}</pickerAddress>
 					<!-- <text>{{dizhi}}</text> -->
 				</view>
 				<navigator url="tiwen">
-				       <view class="index_sousuo qian_24">
-					     <image src="@/static/img/sousuo.png" mode=""></image>
-					     <input confirm-type="search" @confirm="confirm" type="text" v-model="sou_txt" placeholder="详实输入案情经过，获得更精准的解答" class="hei_26" />
-				       </view>
-			    </navigator>
+					<view class="index_sousuo qian_24">
+						<image src="@/static/img/sousuo.png" mode=""></image>
+						<input confirm-type="search" @confirm="confirm" type="text" v-model="sou_txt" placeholder="详实输入案情经过，获得更精准的解答" class="hei_26" />
+					</view>
+				</navigator>
 			</view>
 
 			<view class="tab">
@@ -73,22 +79,20 @@
 				<image src="@/static/img/tab6.png" mode=""></image>
 				<view>电话咨询</view>
 			</navigator>
-           <navigator url="weituo" class="index_tab_item">
+			<navigator url="weituo" class="index_tab_item">
 				<image src="@/static/img/tab7_1.png" mode=""></image>
 				<view>案件委托</view>
 			</navigator>
-			<navigator url="tuanzhang" class="index_tab_item" v-if="is_yaoqing==1">
+			<navigator url="tuanzhang" class="index_tab_item" v-if="is_yaoqing == 1">
 				<image src="@/static/img/tab7.png" mode=""></image>
 				<view>升级团长</view>
 			</navigator>
-			<navigator url="changshi" class="index_tab_item" v-if="is_yaoqing==2">
-						<!-- <view  class="index_tab_item" v-if="is_yaoqing==2"> -->
-							<image src="@/static/img/tab8_baike.png" mode=""></image>
-							<view>法律百科</view>
-						<!-- </view> -->
-		    </navigator>
- 
-			
+			<navigator url="changshi" class="index_tab_item" v-if="is_yaoqing == 2">
+				<!-- <view  class="index_tab_item" v-if="is_yaoqing==2"> -->
+				<image src="@/static/img/tab8_baike.png" mode=""></image>
+				<view>法律百科</view>
+				<!-- </view> -->
+			</navigator>
 		</view>
 
 		<view class="index_wenti">
@@ -169,7 +173,7 @@
 							</view>
 							<view class="ls_dizhi qian_22">
 								<image src="@/static/img/dizhi.png" mode=""></image>
-								{{ item.province+'-'+ item.city+'-'+ item.area}}
+								{{ item.province + '-' + item.city + '-' + item.area }}
 							</view>
 							<view class="ls_bottom qian_22">
 								<view class="ls_fuwu">
@@ -194,14 +198,10 @@
 				查看更多律师>>
 			</button>
 		</view>
-		
+
 		<view class="xiao_banner">
-			<navigator url="ls_fuwu" class="">
-				<image src="../../static/img/xiao_banner1.png" mode="" class="xiao_banner_item"></image>
-             </navigator>
-			<navigator url="ls_fuwu" class="">
-				<image src="../../static/img/xiao_banner2.png" mode=""class="xiao_banner_item"></image>
-			   </navigator>
+			<navigator url="ls_fuwu" class=""><image src="../../static/img/xiao_banner1.png" mode="" class="xiao_banner_item"></image></navigator>
+			<navigator url="ls_fuwu" class=""><image src="../../static/img/xiao_banner2.png" mode="" class="xiao_banner_item"></image></navigator>
 		</view>
 		<view class="index_zixun">
 			<view class="zixun_tab qian_28">
@@ -284,40 +284,42 @@
 					<view class="tan_bottom hui_27" v-if="!is_xiazai">
 						<view class="">解决了旧版本中已知BUG</view>
 						<view class="tan_txt">优化了一部分不合理的功能</view>
-						<image src="@/static/img/gengxin_btn.png" mode="widthFix" @click="down" :class="['',is_update==1?'padding_top':'']"></image>
-						<view  class="guanbi qian_28" v-if="is_update==2" @click="guanbi">稍后更新</view>
+						<image src="@/static/img/gengxin_btn.png" mode="widthFix" @click="down" :class="['', is_update == 1 ? 'padding_top' : '']"></image>
+						<view class="guanbi qian_28" v-if="is_update == 2" @click="guanbi">稍后更新</view>
 					</view>
 					<view class="tan_bottom hui_27 is_xia_bottom" v-if="is_xiazai">
-						<view class="xiazai_tishi"><text>{{xiazai_txt}}</text><text>{{baifen}}%</text></view>
-						<view class="tan_jindu"><text :style="{width:baifen+'%'}"></text></view>
-						<button  :class="['bai_30',xiazai_state=='取消'?'is_xia_btn':'is_xia_btn_wan']" @click="quxiao">{{xiazai_state}}</button>
+						<view class="xiazai_tishi">
+							<text>{{ xiazai_txt }}</text>
+							<text>{{ baifen }}%</text>
+						</view>
+						<view class="tan_jindu"><text :style="{ width: baifen + '%' }"></text></view>
+						<button :class="['bai_30', xiazai_state == '取消' ? 'is_xia_btn' : 'is_xia_btn_wan']" @click="quxiao">{{ xiazai_state }}</button>
 					</view>
 				</view>
 			</view>
-			
-		<view class="tab_bg" v-if="is_xieyi">
-			<view class="tan_xiyi hei_26">
-			<view class="tan_xiyi_title hei_30">温馨提示</view>
-			<view class="tan_xiyi_txt">
-				欢迎您使用 “小虎律师” 软件及相关的服务
+
+			<view class="tab_bg" v-if="is_xieyi">
+				<view class="tan_xiyi hei_26">
+					<view class="tan_xiyi_title hei_30">温馨提示</view>
+					<view class="tan_xiyi_txt">欢迎您使用 “小虎律师” 软件及相关的服务</view>
+					<view class="tan_xiyi_txt">“小虎律师”软件服务由台州律易网络科技有限公司 (以下简称 “ 我们” )开发并发布。我们依据法律法规收集、使用个人信息。</view>
+					<view class="tan_xiyi_txt ">
+						在使用“小虎律师”
+						软件及相关服务前，请您务必仔细阅读并理解我们的《用户协议》及《隐私政策》。您一旦选择“同意”，即意味着您授权我们收集、保存、使用、共享、披露及保护您的信息。点击查看
+						<text class="hong_26" @click="go_xieyi">《用户协议》</text>
+						和
+						<text class="hong_26" @click="go_yinsi">《隐私政策》</text>
+						。
+					</view>
+					<view class="tan_xiyi_bottom">
+						<button type="" class="tan_xiyi_butongyi bai_26" @click="butongyi">不同意</button>
+						<button type="" class="tan_xiyi_tongyi bai_26" @click="tongyi">同意</button>
+					</view>
+				</view>
 			</view>
-			<view class="tan_xiyi_txt">
-				“小虎律师”软件服务由台州律易网络科技有限公司 (以下简称 “ 我们” )开发并发布。我们依据法律法规收集、使用个人信息。
-			</view>
-			<view class="tan_xiyi_txt ">
-				在使用“小虎律师” 软件及相关服务前，请您务必仔细阅读并理解我们的《用户协议》及《隐私政策》。您一旦选择“同意”，即意味着您授权我们收集、保存、使用、共享、披露及保护您的信息。点击查看
-				<text class="hong_26" @click="go_xieyi">《用户协议》 </text>和 <text class="hong_26" @click="go_yinsi">《隐私政策》</text>。
-			</view>
-			<view class="tan_xiyi_bottom">
-				<button type="" class="tan_xiyi_butongyi bai_26" @click="butongyi">不同意</button>
-				<button type="" class="tan_xiyi_tongyi bai_26" @click="tongyi">同意</button>
-			</view>
-			</view>
-		</view>	
-			
 		</view>
-		
-		<tabBar :currentPage="currentPage" ref="mainindex"></tabBar>
+
+		<!-- <tabBar :currentPage="currentPage" ref="mainindex"></tabBar> -->
 	</view>
 </template>
 
@@ -339,7 +341,7 @@ export default {
 			url: uni.getStorageSync('img_url'),
 			data: '',
 			tabList: '',
-			currentPage:'index/index',
+			currentPage: 'index/index',
 			TabCur: 0,
 			current: 0,
 			banner: [
@@ -366,15 +368,15 @@ export default {
 			down_url: '',
 			tiao_type: 1,
 			zhineng: '',
-			is_yaoqing:2,
-			is_xiazai:false,
-			baifen:0,
-			is_xieyi:false,
-			is_login:false,
-			is_update:2,
-			xiazai_state:'取消',
-			filename:'',
-			xiazai_txt:'正在下载中，请稍后...'
+			is_yaoqing: 2,
+			is_xiazai: false,
+			baifen: 0,
+			is_xieyi: false,
+			is_login: false,
+			is_update: 2,
+			xiazai_state: '取消',
+			filename: '',
+			xiazai_txt: '正在下载中，请稍后...'
 		};
 	},
 	components: {
@@ -390,33 +392,34 @@ export default {
 		// #endif
 	},
 	created() {
-	// #ifdef APP-PLUS
-			var that = this;
-				plus.geolocation.getCurrentPosition(function(p){
-							that.dizhi = p.address.city;
-							that.shuxin_zujian()
-							uni.setStorage({
-								key: 'dizhi',
-								data: {
-									sheng: p.address.province,
-									shi: p.address.city,
-									qu: p.address.district
-								},
-								})
-						}, function(e){
-							
-				      })
-				// #endif
-			// #ifdef H5
-			var that=this
-			that.shuxin_zujian()
-			window.initBaiduMapScript = () => {
-				// console.log(BMap);
-				this.getlocation();
-			};
-			loadBMap('initBaiduMapScript');
-			// #endif
-			
+		// #ifdef APP-PLUS
+		var that = this;
+		plus.geolocation.getCurrentPosition(
+			function(p) {
+				that.dizhi = p.address.city;
+				that.shuxin_zujian();
+				uni.setStorage({
+					key: 'dizhi',
+					data: {
+						sheng: p.address.province,
+						shi: p.address.city,
+						qu: p.address.district
+					}
+				});
+			},
+			function(e) {}
+		);
+		// #endif
+		// #ifdef H5
+		var that = this;
+		that.shuxin_zujian();
+		window.initBaiduMapScript = () => {
+			// console.log(BMap);
+			this.getlocation();
+		};
+		loadBMap('initBaiduMapScript');
+		// #endif
+
 		//#ifdef APP-PLUS
 		plus.runtime.getProperty(plus.runtime.appid, wgtinfo => {
 			console.log(JSON.stringify(wgtinfo));
@@ -424,20 +427,17 @@ export default {
 			this.banben = wgtinfo.versionCode;
 			this.huiqu_banben();
 		});
-		
-		
+
 		//#endif
 		this.$http
 			.post({
 				url: '/mapi/index/getopenshenhe'
 			})
 			.then(res => {
-				if(res.data.zhan.openshenhe==1){
-					
-					if(uni.getStorageSync('is_tongyi')){
-						
-					}else{
-						this.is_xieyi=true
+				if (res.data.zhan.openshenhe == 1) {
+					if (uni.getStorageSync('is_tongyi')) {
+					} else {
+						this.is_xieyi = true;
 					}
 				}
 			});
@@ -448,8 +448,7 @@ export default {
 			.then(res => {
 				this.url = res.data.url;
 				uni.setStorageSync('img_url', res.data.url);
-				
-			});		
+			});
 		// 获取知识一级
 		this.$http
 			.post({
@@ -457,193 +456,169 @@ export default {
 			})
 			.then(res => {
 				this.fa_zhishi = res.data.type[1];
-			});	
-			
+			});
+
 		// this.shuxin_zujian()
-		
 	},
 	onLoad() {
-		
 		// if (this._isMobile()) {
 		//      alert("手机端");
 		//    } else {
 		//      alert("pc端");
 		//    }
-		
-		
 	},
-	onShow() {
-		
-			
-			
-	},
+	onShow() {},
+	mounted() {},
 	methods: {
-		go_tiwen(){
+		go_tiwen() {
 			uni.navigateTo({
-				url:'../../pages/index/tiwen'
-			})
+				url: '../../pages/index/tiwen'
+			});
 		},
-			
-		huoqu_index(){
+
+		huoqu_index() {
 			// 获取首页信息
 			this.$http
 				.post({
 					url: '/mapi/index/index',
-					data:{
-						city:this.dizhi
+					data: {
+						city: this.dizhi
 					}
 				})
 				.then(res => {
 					this.data = res.data;
 				});
-			
 		},
-		shuxin_zujian(){
+		shuxin_zujian() {
+			this.huo_qu_is_yaoqing();
+			this.huiqu_login();
+			// 获取分类
+			this.$http
+				.post({
+					url: '/mapi/index/gettype'
+				})
+				.then(res => {
+					this.tabList = res.data.type;
+				});
 
-				this.huo_qu_is_yaoqing()
-				this.huiqu_login()
-				// 获取分类
-				this.$http
-					.post({
-						url: '/mapi/index/gettype'
-					})
-					.then(res => {
-						this.tabList = res.data.type;
-					});
-				
-				// 获取首页信息
-				this.$http
-					.post({
-						url: '/mapi/index/index',
-						data:{
-							city:this.dizhi
-						}
-					})
-					.then(res => {
-						this.data = res.data;
-					});
-		
-				
-				// 获取跳转链接
-				this.$http
-					.post({
-						url: '/mapi/index/getzixunjump'
-					})
-					.then(res => {
-						this.tiao_type = res.data.zhan.zixunjump;
-					});
-				// 查看只能服务报价
-				this.$http
-					.post({
-						url: '/mapi/index/getzixun'
-					})
-					.then(res => {
-						this.zhineng = res.data.zhan;
-					});	
+			// 获取首页信息
+			this.$http
+				.post({
+					url: '/mapi/index/index',
+					data: {
+						city: this.dizhi
+					}
+				})
+				.then(res => {
+					this.data = res.data;
+				});
 
+			// 获取跳转链接
+			this.$http
+				.post({
+					url: '/mapi/index/getzixunjump'
+				})
+				.then(res => {
+					this.tiao_type = res.data.zhan.zixunjump;
+				});
+			// 查看只能服务报价
+			this.$http
+				.post({
+					url: '/mapi/index/getzixun'
+				})
+				.then(res => {
+					this.zhineng = res.data.zhan;
+				});
 		},
 		down() {
-			
 			//#ifdef APP-PLUS
 			var urlStr = encodeURI(this.down_url); //把字符串作为url进行编码
-			
-		if (uni.getSystemInfoSync().platform == 'ios') {
-			      plus.runtime.openURL(urlStr);
-		}else if (uni.getSystemInfoSync().platform === 'android') {
-			
-			var that=this
-		var dtask = plus.downloader.createDownload(
-		
-			urlStr, {},
-			function(d, status) {
-				uni.showToast({
-					title: '下载完成',
-					mask: false,
-					duration: 1000
-				});
-				// 下载完成
-				if (status == 200) {
-			     	that.filename=d.filename
-					
-					plus.runtime.install(plus.io.convertLocalFileSystemURL(d.filename), {}, e => e, function(error) {
+
+			if (uni.getSystemInfoSync().platform == 'ios') {
+				plus.runtime.openURL(urlStr);
+			} else if (uni.getSystemInfoSync().platform === 'android') {
+				var that = this;
+				var dtask = plus.downloader.createDownload(urlStr, {}, function(d, status) {
+					uni.showToast({
+						title: '下载完成',
+						mask: false,
+						duration: 1000
+					});
+					// 下载完成
+					if (status == 200) {
+						that.filename = d.filename;
+
+						plus.runtime.install(plus.io.convertLocalFileSystemURL(d.filename), {}, e => e, function(error) {
+							uni.showToast({
+								title: '安装失败-01',
+								mask: false,
+								duration: 1500
+							});
+						});
+					} else {
 						uni.showToast({
-							title: '安装失败-01',
+							title: '更新失败-02',
 							mask: false,
 							duration: 1500
 						});
-					})
-				} else {
+					}
+				});
+				try {
+					dtask.start(); // 开启下载的任务
+					that.is_xiazai = true;
+					var prg = 0;
+					// var showLoading = plus.nativeUI.showWaiting("正在下载");  //创建一个showWaiting对象
+					dtask.addEventListener('statechanged', function(task, status) {
+						// 给下载任务设置一个监听 并根据状态  做操作
+						switch (task.state) {
+							case 1:
+								// showLoading.setTitle("正在下载");
+
+								break;
+							case 2:
+								// showLoading.setTitle("已连接到服务器");
+								break;
+							case 3:
+								prg = parseInt((parseFloat(task.downloadedSize) / parseFloat(task.totalSize)) * 100);
+								// showLoading.setTitle("  正在下载" + prg + "%  ");
+								that.baifen = prg;
+								break;
+							case 4:
+								that.xiazai_state = '安装';
+								that.xiazai_txt = '下载已完成';
+								plus.nativeUI.closeWaiting();
+								//下载完成
+								break;
+						}
+					});
+				} catch (err) {
+					plus.nativeUI.closeWaiting();
 					uni.showToast({
-						title: '更新失败-02',
+						title: '更新失败-03',
 						mask: false,
 						duration: 1500
 					});
 				}
-			});
-		 try {
-			dtask.start(); // 开启下载的任务
-			that.is_xiazai=true
-			var prg = 0;
-			// var showLoading = plus.nativeUI.showWaiting("正在下载");  //创建一个showWaiting对象 
-			dtask.addEventListener('statechanged', function(
-			  task,
-			  status
-			) {
-			  // 给下载任务设置一个监听 并根据状态  做操作
-			  switch (task.state) {
-				case 1:
-				  // showLoading.setTitle("正在下载");
-				  
-				  break;
-				case 2:
-				  // showLoading.setTitle("已连接到服务器");
-				  break;
-				case 3:
-				  prg = parseInt(
-					(parseFloat(task.downloadedSize) /
-					  parseFloat(task.totalSize)) *
-					  100
-				  );
-				  // showLoading.setTitle("  正在下载" + prg + "%  ");
-				  that.baifen=prg
-				  break;
-				case 4:
-				   that.xiazai_state='安装'
-				   that.xiazai_txt='下载已完成'
-				   plus.nativeUI.closeWaiting();
-					//下载完成
-				  break;
-			  }
-			});
-		  } catch (err) {
-			  plus.nativeUI.closeWaiting();
-			  uni.showToast({
-			  	title: '更新失败-03',
-			  	mask: false,
-			  	duration: 1500
-			  });
-		  }	
-		  
-	}	  
-		  
+			}
+
 			//#endif
 		},
-		guanbi(){
-			this.is_gengxin=false
+		guanbi() {
+			this.is_gengxin = false;
 		},
-		quxiao(){
-			if(this.xiazai_state=='安装'){
+		quxiao() {
+			if (this.xiazai_state == '安装') {
 				plus.runtime.install(plus.io.convertLocalFileSystemURL(this.filename), {}, e => e, function(error) {
 					uni.showToast({
 						title: '安装失败-01',
 						mask: false,
 						duration: 1500
 					});
-				})
-			}else{
+				});
+			} else {
 				plus.downloader.clear();
-				this.is_xiazai=false
-				this.baifen=0
+				this.is_xiazai = false;
+				this.baifen = 0;
 				uni.showToast({
 					title: '下载已取消',
 					duration: 2000,
@@ -652,31 +627,31 @@ export default {
 			}
 		},
 
-		huiqu_login(){
+		huiqu_login() {
 			this.$http
 				.post({
 					url: '/index/login/islogin'
 				})
 				.then(res => {
-					if(res.data.user!=''){
-						this.is_login=true
-                        //#ifdef APP-PLUS
-                              this.kaiqi();
-                        //#endif
-					}else{
-						this.is_login=false
+					if (res.data.user != '') {
+						this.is_login = true;
+						// this.$refs.mainindex.huoqunum();
+						// //#ifdef APP-PLUS
+						//       this.kaiqi();
+						// //#endif
+					} else {
+						this.is_login = false;
 					}
 				});
 		},
 
-		huo_qu_is_yaoqing(){
+		huo_qu_is_yaoqing() {
 			this.$http
 				.post({
 					url: '/mapi/index/openinvite'
 				})
 				.then(res => {
-					
-					this.is_yaoqing=res.data.openinvite
+					this.is_yaoqing = res.data.openinvite;
 				});
 		},
 		huiqu_banben() {
@@ -685,29 +660,27 @@ export default {
 					url: '/mapi/index/banben'
 				})
 				.then(res => {
-					this.is_update=res.data.banben.is_update
+					this.is_update = res.data.banben.is_update;
 					console.log(res.data.banben, '版本');
-					if(res.data.banben.is_update==3){
-						return false
-					}
-					
-					if (uni.getSystemInfoSync().platform == 'ios') {
-						console.log('ios', this.banben);
-						if (this.banben < res.data.banben.ios) {
-							this.is_gengxin = true;
-							this.down_url = res.data.banben.iosurl;
-							uni.hideTabBar();
+					if (res.data.banben.is_update == 3) {
+						// return false
+					} else {
+						if (uni.getSystemInfoSync().platform == 'ios') {
+							console.log('ios', this.banben);
+							if (this.banben < res.data.banben.ios) {
+								this.is_gengxin = true;
+								this.down_url = res.data.banben.iosurl;
+								uni.hideTabBar();
+							}
+						} else if (uni.getSystemInfoSync().platform === 'android') {
+							console.log('android', this.banben);
+							if (this.banben < res.data.banben.android) {
+								this.is_gengxin = true;
+								this.down_url = res.data.banben.androidurl;
+								uni.hideTabBar();
+							}
 						}
-					} else if (uni.getSystemInfoSync().platform === 'android') {
-						console.log('android', this.banben);
-						if (this.banben < res.data.banben.android) {
-							this.is_gengxin = true;
-							this.down_url = res.data.banben.androidurl;
-							uni.hideTabBar();
-						}
 					}
-					
-					
 				});
 
 			const clientInfo = plus.push.getClientInfo();
@@ -733,7 +706,7 @@ export default {
 		},
 		kaiqi() {
 			let that = this;
-			that.$refs.mainindex.huoqunum();
+			// that.$refs.mainindex.huoqunum();
 			Object.assign(uni, socket);
 			// console.log(Object.assign(uni, socket));
 			var url = that.$http.WebSocket_url;
@@ -774,9 +747,8 @@ export default {
 						// #ifdef APP-PLUS
 						void plus.push.createMessage('用户端收到一条新消息');
 						// #endif
-						that.huoqu_weidu();
-						 that.$refs.mainindex.huoqunum();
-
+						// that.huoqu_weidu();
+						// that.$refs.mainindex.huoqunum();
 					}
 				} else {
 					console.log('else');
@@ -830,7 +802,7 @@ export default {
 		},
 		xuandizhi(data) {
 			this.dizhi = data.data[1];
-			this.shuxin_zujian()
+			this.shuxin_zujian();
 			//                this.txt = data.data.join('')
 			//                console.log(data.data.join(''))
 		},
@@ -839,7 +811,7 @@ export default {
 				url: 'lvshi'
 			});
 		},
-		tiao_jingxuan(){
+		tiao_jingxuan() {
 			uni.switchTab({
 				url: 'zixun'
 			});
@@ -875,35 +847,36 @@ export default {
 				url: 'ls_zhuye?lawyerid=' + id
 			});
 		},
-      go_xieyi(){
-		uni.navigateTo({
-			url: 'xieyi'
-		});  
-	  },
-	  go_yinsi(){
-		  uni.navigateTo({
-		  	url: 'yinsi'
-		  });  
-	  },
-	  butongyi(){
-		   // #ifdef APP-PLUS
-		  			 if (plus.os.name.toLowerCase() === 'android') {
-		  					 plus.runtime.quit();
-		  				 }
-		  				 else{ 
-		  					 const threadClass = plus.ios.importClass("NSThread");
-		  					 const mainThread = plus.ios.invoke(threadClass, "mainThread");
-		  					 plus.ios.invoke(mainThread, "exit");
-		  					 // ios11
-		  					 plus.ios.import("UIApplication").sharedApplication().performSelector("exit")
-		  				 }
-		  // #endif
-
-	  },
-	  tongyi(){
-		  this.is_xieyi=false
-		  uni.setStorageSync("is_tongyi",true)
-	  },
+		go_xieyi() {
+			uni.navigateTo({
+				url: 'xieyi'
+			});
+		},
+		go_yinsi() {
+			uni.navigateTo({
+				url: 'yinsi'
+			});
+		},
+		butongyi() {
+			// #ifdef APP-PLUS
+			if (plus.os.name.toLowerCase() === 'android') {
+				plus.runtime.quit();
+			} else {
+				const threadClass = plus.ios.importClass('NSThread');
+				const mainThread = plus.ios.invoke(threadClass, 'mainThread');
+				plus.ios.invoke(mainThread, 'exit');
+				// ios11
+				plus.ios
+					.import('UIApplication')
+					.sharedApplication()
+					.performSelector('exit');
+			}
+			// #endif
+		},
+		tongyi() {
+			this.is_xieyi = false;
+			uni.setStorageSync('is_tongyi', true);
+		},
 		// 获取经纬度
 		getlocation() {
 			const that = this;
@@ -922,14 +895,13 @@ export default {
 				try {
 					const geolocation = new BMap.Geolocation();
 					geolocation.getCurrentPosition(function(r) {
-						
 						// uni.request({
 						// 	url: that.$http.baseUrl + '/push/gatewayworker/bind',
 						// 	method: 'POST',
 						// 	data: {
 						// 		client_id: data.client_id
 						// 	},
-						
+
 						// 	success: function(resp) {
 						// 		console.log(resp, 'bind');
 						// 	},
@@ -945,9 +917,9 @@ export default {
 							timeout: 5000,
 							contentType: 'application/json; charset=utf-8',
 							success: function(res) {
-								console.log(res)
+								console.log(res);
 								that.dizhi = res.result.addressComponent.city;
-								that.huoqu_index()
+								that.huoqu_index();
 								uni.setStorage({
 									key: 'dizhi',
 									data: {
@@ -957,9 +929,9 @@ export default {
 									}
 								});
 							},
-							error: function (err) {
-								console.log(err)
-								that.huoqu_index()
+							error: function(err) {
+								console.log(err);
+								that.huoqu_index();
 							}
 						});
 						// var url = wei_url+'/geocoder/v2/?ak=eIxDStjzbtH0WtU50gqdXYCz&output=json&pois=1&location=' + r.latitude + ',' + r.longitude;
@@ -1588,43 +1560,41 @@ scroll-view ::-webkit-scrollbar {
 	background-color: rgba(0, 0, 0, 0.3);
 	z-index: 99999;
 }
-.xiazai_tishi{
+.xiazai_tishi {
 	display: flex;
 	justify-content: space-between;
-	
 }
-.is_xia_bottom{
-	padding:48rpx 60rpx 0;
+.is_xia_bottom {
+	padding: 48rpx 60rpx 0;
 }
-.tan_jindu{
-		height: 11rpx;
-		background-color: #f4f4f4;
-		border-radius: 6rpx;
-		margin: 20rpx 0 85rpx;
-		position: relative;
+.tan_jindu {
+	height: 11rpx;
+	background-color: #f4f4f4;
+	border-radius: 6rpx;
+	margin: 20rpx 0 85rpx;
+	position: relative;
 }
-.tan_jindu text{
+.tan_jindu text {
 	position: absolute;
 	left: 0;
-	
-	    height: 11rpx;
-		background-color: #0eb77e;
-		border-radius: 6rpx;
-		display: inline-block;
+
+	height: 11rpx;
+	background-color: #0eb77e;
+	border-radius: 6rpx;
+	display: inline-block;
 }
-.is_xia_bottom button{
+.is_xia_bottom button {
 	width: 300rpx;
-		height: 60rpx;
-		border-radius: 30rpx;
-		line-height: 60rpx;
+	height: 60rpx;
+	border-radius: 30rpx;
+	line-height: 60rpx;
 }
-.is_xia_btn{
+.is_xia_btn {
 	background-color: #c6c6c6;
 }
-.is_xia_btn_wan{
+.is_xia_btn_wan {
 	background-color: #0eb77e;
 }
-
 
 .zhineng {
 	display: flex;
@@ -1659,15 +1629,15 @@ scroll-view ::-webkit-scrollbar {
 .zhineng_item_txt {
 	margin-bottom: 6rpx;
 }
-.body{
+.body {
 	padding-bottom: 150rpx;
 }
-.tan_xiyi{
-	background-color: #FFFFFF;
+.tan_xiyi {
+	background-color: #ffffff;
 	position: absolute;
 	left: 50%;
 	top: 50%;
-	transform: translate(-50%,-50%);
+	transform: translate(-50%, -50%);
 	width: 600rpx;
 	border-radius: 20rpx;
 	padding: 0rpx 30rpx 10rpx;
@@ -1679,51 +1649,49 @@ scroll-view ::-webkit-scrollbar {
 	justify-content: center;
 	margin: 30rpx 0 20rpx;
 }
-.tan_xiyi_bottom button{
+.tan_xiyi_bottom button {
 	width: 200rpx;
-	height:60rpx;
+	height: 60rpx;
 	line-height: 60rpx;
 }
-.tan_xiyi_butongyi{
-	    background-color: #999999 ;
-	    box-shadow: 0 16rpx 16rpx #b7b2b7 ;
-		border-radius: 30rpx;
+.tan_xiyi_butongyi {
+	background-color: #999999;
+	box-shadow: 0 16rpx 16rpx #b7b2b7;
+	border-radius: 30rpx;
 }
-.tan_xiyi_tongyi{
-	    background-color: #fd386c;
-	    border-radius: 30rpx;
-	    margin-left: 30rpx;
-	    box-shadow: 0 16rpx 16rpx #ff8e99;
+.tan_xiyi_tongyi {
+	background-color: #fd386c;
+	border-radius: 30rpx;
+	margin-left: 30rpx;
+	box-shadow: 0 16rpx 16rpx #ff8e99;
 }
-.tan_xiyi_title{
+.tan_xiyi_title {
 	text-align: center;
 	line-height: 100rpx;
 }
-.tan_xiyi_txt{
+.tan_xiyi_txt {
 	line-height: 40rpx;
 }
-.tan_xiyi_txt_flex{
+.tan_xiyi_txt_flex {
 	display: flex;
 }
-.guanbi{
-letter-spacing:4rpx
-	
+.guanbi {
+	letter-spacing: 4rpx;
 }
-.padding_top{
+.padding_top {
 	padding-top: 30rpx;
 }
-.xiao_banner{
+.xiao_banner {
 	height: 206rpx;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	padding: 0 20rpx;
 }
-.xiao_banner_item{
-width: 345rpx;
+.xiao_banner_item {
+	width: 345rpx;
 	height: 167rpx;
 	background-color: #fff9ec;
 	border-radius: 10rpx;
 }
-
 </style>

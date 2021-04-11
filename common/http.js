@@ -78,6 +78,7 @@ function post(obj) {
 
   
  function  jspost(URL, PARAMS=[]) {
+	 // #ifdef H5
       var temp = document.createElement("form");
       temp.action = URL;
       temp.method = "post";
@@ -92,6 +93,7 @@ function post(obj) {
       document.body.appendChild(temp);
       temp.submit();
       return temp;
+	  // #endif
   }
 
 export default {

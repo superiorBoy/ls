@@ -38,13 +38,13 @@
 					<view class="top_shijian qian_20">
 						<!-- 10-16 -->
 						<view class="" v-for="item in xiaoxi_list" v-if="item.user.userid == 7">
-							<text class="ke_weidu" v-if="item.lawyerreadnum != 0">{{ item.lawyerreadnum }}</text>
+							<text class="ke_weidu bai_20" v-if="item.lawyerreadnum != 0">{{ item.lawyerreadnum }}</text>
 						</view>
 					</view>
 				</view>
 			</view>
 			<view class="xiaoxi_list">
-				<view class="xiaoxi_item" v-for="(item,index) in xiaoxi_list" @click="go_chat(item.user.userid)" v-if="item.user" :class="chumo_index==index?'chumo':''"   @touchstart='kaishi(index)'  @touchend='songkai(index)'>
+				<view class="xiaoxi_item" v-for="(item,index) in xiaoxi_list" @click="go_chat(item.user.userid)" v-if="item.user" :class="chumo_index==index?'chumo':''"   @touchstart='kaishi(index)'  @touchend='songkai(index)' @touchcancel='songkai(index)'>
 					<view class="xiaoxi_item_left">
 						<view class="xiaoxi_tx">
 							<image :src="img_url + item.user.photourl" mode=""></image>
@@ -328,7 +328,7 @@ export default {
 			return str;
 		},
 		go_chat(id) {
-			    uni.setStorageSync('ls_chat_list', JSON.stringify(this.xiaoxi_list));  //设置缓存
+			    // uni.setStorageSync('ls_chat_list', JSON.stringify(this.xiaoxi_list));  //设置缓存
 			var that=this
 			     this.xiaoxi_list.forEach((item, index, array) => {
 			     // 　　console.log(item);
@@ -348,7 +348,7 @@ export default {
 			});
 		},
 		go_kefu() {
-			uni.setStorageSync('ls_chat_list', JSON.stringify(this.xiaoxi_list));  //设置缓存
+			// uni.setStorageSync('ls_chat_list', JSON.stringify(this.xiaoxi_list));  //设置缓存
 				
 				
 			var that=this
@@ -365,7 +365,7 @@ export default {
 		},
 		huoqu_xiaoxilist() {
 			// this.is_xianshi=false
-			console.log('huoqu_xiaoxi')
+			console.log('请求列表')
 			var that=this
 			this.$http
 				.post({
@@ -466,7 +466,7 @@ export default {
 			
 		console.log(data,'收到消息')
 			for (let i = 0; i < list.length; i++) {
-			           if (JSON.stringify(list[i].user.userid).indexOf(JSON.stringify(data.userid_from)  ) > -1) {
+			           if (list[i].user.userid==data.userid_from) {
 						    is_cuzai=true
 							var weifu=list[i].lawyerreadnum
 							console.log(i,'存在联系人',weifu,list[i])

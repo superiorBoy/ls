@@ -27,7 +27,7 @@ export default {
 		}).then(res => {
 		uni.setStorageSync("img_url",res.data.url)
 		})
-		// uni.hideTabBar({})
+		uni.hideTabBar({})
 
 	},
 

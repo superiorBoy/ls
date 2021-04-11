@@ -421,12 +421,7 @@
 			 "enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
 			 }
 		},
-		{
-			"path":"pages/ls/ceshi",
-			  "style": {
-			  "enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
-			  }
-		},
+
 		{
 			"path":"pages/ls/tiwen_ji_xq"
 		},

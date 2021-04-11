@@ -919,28 +919,71 @@ this.huoqu_xiaoxi_list();
 			
 	},
 	onUnload(e){
-		this.huoqu_xiaoxi_list()
-		var ls_chat_list = uni.getStorageSync('ls_chat_list') ;//读取缓存
+		// this.huoqu_xiaoxi_list()
 		
+		this.$http
+			.post({
+				url: '/mlawyerapi/consult/chatdeatils',
+				data: {
+					page:0,
+					userid: this.userid
+				}
+			})
+			.then(res => {
+				
+			});
+
+		innerAudioContext.stop();//暂停这个实例
+		// #ifdef APP-PLUS
+		socket.closeSocket();
+		// #endif
+
+		var ls_chat_list = uni.getStorageSync('ls_chat_list') ;//读取缓存
+		var that=this
+		var is_cuzai=false
 		if(ls_chat_list){
 			ls_chat_list=JSON.parse(ls_chat_list)
 			for (let i in ls_chat_list) {
 			   if(ls_chat_list[i].user.userid==this.userid){
+				   console.log('存在')
+				   console.log('存在',ls_chat_list[i])
 				   
-				   ls_chat_list[i].content=this.message[this.message.length-1].content
-				   ls_chat_list[i].msgtype=this.message[this.message.length-1].msgtype
-				   ls_chat_list[i].lawyerreadnum=0
+				   var xinxi={
+				   "lawyerid": that.renzheng.userid,
+				   "userid": that.userid,
+				   "content": that.message[that.message.length-1].content,
+				   "msgtype": that.message[that.message.length-1].msgtype,
+				   "readnum": 0,
+				   "lawyerreadnum": 0,
+				   "addtime": new Date().getTime(),
+				   "user": {
+				   	"userid":that.userid,
+				   	"photourl": that.yh_user.photourl,
+				   	"nickname": that.yh_user.nickname,
+					"mobile": that.yh_user.mobile
+				   }
+				   }
+				   ls_chat_list.splice(i, 1);//存在即删除
+				   ls_chat_list.unshift(xinxi)
+
+				   is_cuzai=true
+				   // ls_chat_list[i].content=this.message[this.message.length-1].content
+				   // ls_chat_list[i].msgtype=this.message[this.message.length-1].msgtype
+				   // ls_chat_list[i].lawyerreadnum=0
+			    uni.setStorageSync('ls_chat_list', JSON.stringify(ls_chat_list));  //设置缓存
 			   }
+
 			}
 			
-			uni.setStorageSync('ls_chat_list', JSON.stringify(ls_chat_list));  //设置缓存
+			if(!is_cuzai){
+				console.log('不存在')
+				uni.removeStorageSync('ls_chat_list');
 				
+			}
+	
 		}
 
-	    innerAudioContext.stop();//暂停这个实例
-		// #ifdef APP-PLUS
-		socket.closeSocket();
-		// #endif
+	
 	 },
 	data() {
 		return {
