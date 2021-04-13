@@ -8,17 +8,11 @@
 
 		<view class="zi_body ">
 			<view class="up_neirong" @click="zhanshi">
-				
-				<!-- <textarea value="" placeholder="" class=" hei_26" v-model="neirong_txt" maxlength="5000" /> -->
-				<!-- <editor id="editor" class="ql-container hei_26" @ready="onEditorReady" @input="getEditorContent" placeholder=""></editor> -->
-			<editor id="editor" show-img-size  show-img-resize show-img-toolbar class="ql-container"
-			 placeholder="" @statuschange="onStatusChange" @ready="onEditorReady" @input="getEditorContent">
-			</editor>
-			<!-- <u-parse :content="neirong_txt"></u-parse> -->
-		
+				<mp-html  :content="neirong_txt" :editable='true' ref="article" :placeholder='placeholder' />
+
 			</view>
 
-			<view class="neirong hui_26" v-if="!show">
+		<!-- 	<view class="neirong hui_26" v-if="!show">
 				<view class="">案情内容建议格式:</view>
 				<view class="center" style="margin: 60rpx 0;">案情标题、案号、审理法院信息</view>
 				<view class="">案情简介</view>
@@ -31,26 +25,28 @@
 				<view class="">裁判日期</view>
 				<view class="center" style="margin-top: 80rpx;">请按照以上要求填写案件内容。</view>
 				<view class="center">以中国裁判文书网的案例格式为准！</view>
-			</view>
+			</view> -->
 		</view>
 	</view>
 </template>
 
 <script>
-	import uParse from '@/components/feng-parse/parse.vue';
-	
+	// import uParse from '@/components/feng-parse/parse.vue';
+	 import mpHtml from 'mp-html/dist/uni-app/components/mp-html/mp-html'
 	
 export default {
 	data() {
 		return {
 			neirong_txt: '',
 			show: false,
-			lyanliid:''
+			lyanliid:'',
+			ctx:'',
+			placeholder:''
 		};
 	},
 	components: {
-		
-		uParse
+		mpHtml
+		// uParse
 	},
 	created() {},
 	onLoad(option) {
@@ -65,114 +61,113 @@ export default {
 		// 		}
 		// 	}
 		// });
+		this.ctx = this.$refs.article
 		if(option.lyanliid){
 		that.show = true;
-		
-		
-	// this.$http
-	// 		.post({
-	// 			url: '/mapi/lawyer/anli_xq',
-	// 			data:{
-	// 				lyanliid:this.lyanliid
-	// 			}
-	// 		})
-	// 		.then(res => {
-	// 			that.neirong_txt= res.data.anli.information
-	// 		});			
+		this.placeholder='请输入'
+	this.$http
+			.post({
+				url: '/mapi/lawyer/anli_xq',
+				data:{
+					lyanliid:this.lyanliid
+				}
+			})
+			.then(res => {
+				that.neirong_txt= res.data.anli.information
+				
+				// while(that.neirong_txt.indexOf('<o:p></o:p>') != -1 ) {
+				//    that.neirong_txt = that.neirong_txt.replace('<o:p></o:p>',"")
+				  
+				// }
+				// while(that.neirong_txt.indexOf('&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;') != -1 ) {
+				//    that.neirong_txt = that.neirong_txt.replace('&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;',"")
+				  
+				// }
+				
+				
+				
+				
+				
+			});			
 		
 		}
+		
+
 	},
 	methods: {
 		navigateBack() {
 			uni.navigateBack();
 		},
-		//转意符换成普通字符
-		  escape2Html(str) { 
-		  var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'}; 
-		  return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];}); 
-		 },
-		   removeHTMLTag(str) {
-		    str = str.replace(/<\/?[^>]*>/g,''); //去除HTML tag
-		    str = str.replace(/[ | ]*\n/g,'\n'); //去除行尾空白
-		    //str = str.replace(/\n[\s| | ]*\r/g,'\n'); //去除多余空行
-		    str=str.replace(/ /ig,'');//去掉 
-		    return str;
-		  },
-		   formatQuoteInStyle(htmlString) {
-		      var stylePattern = /style="[^=>]*"[\s+\w+=|>]/g;
-		      var innerQuotePattern = /(?<!=)"(?!>)/g;
-		      return htmlString.replace(stylePattern, function(matches) {
-		          return matches.replace(innerQuotePattern, '\'');
-		      });
-		  },
-		onEditorReady() {
-			var that = this;
-			if(this.lyanliid){
-      	this.$http
-		.post({
-			url: '/mapi/lawyer/anli_xq',
-			data:{
-				lyanliid:this.lyanliid
-			}
-		})
-		.then(res => {
-			that.neirong_txt= res.data.anli.information
+
+		// onEditorReady() {
+		// 	var that = this;
+		// 	if(this.lyanliid){
+  //     	this.$http
+		// .post({
+		// 	url: '/mapi/lawyer/anli_xq',
+		// 	data:{
+		// 		lyanliid:this.lyanliid
+		// 	}
+		// })
+		// .then(res => {
+		// 	that.neirong_txt= res.data.anli.information
 			
 			
-			     while(that.neirong_txt.indexOf('<o:p></o:p>') != -1 ) {
-			        that.neirong_txt = that.neirong_txt.replace('<o:p></o:p>',"")
+		// 	     while(that.neirong_txt.indexOf('<o:p></o:p>') != -1 ) {
+		// 	        that.neirong_txt = that.neirong_txt.replace('<o:p></o:p>',"")
 			       
-			     }
-				 while(that.neirong_txt.indexOf('&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;') != -1 ) {
-				    that.neirong_txt = that.neirong_txt.replace('&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;',"")
+		// 	     }
+		// 		 while(that.neirong_txt.indexOf('&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;') != -1 ) {
+		// 		    that.neirong_txt = that.neirong_txt.replace('&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;',"")
 				   
-				 }
+		// 		 }
 			   
 			
-			var contentVal_1 =that.neirong_txt
+		// 	var contentVal_1 =that.neirong_txt
 
-			uni.createSelectorQuery().select('#editor').context(res => {
+		// 	uni.createSelectorQuery().select('#editor').context(res => {
 					
 				
 					
-				// 	    while(contentVal_1.indexOf('&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;') != -1 ) {
-				// 	       contentVal_1 = contentVal_1.replace('&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;',"")
+		// 		// 	    while(contentVal_1.indexOf('&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;') != -1 ) {
+		// 		// 	       contentVal_1 = contentVal_1.replace('&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;',"")
 					       
-				// 	    }
+		// 		// 	    }
 					    
-				console.log(contentVal_1)	
-					//将内容写入编辑器
-					that.editorCtx = res.context;
-					// let EContent = {
-					// 	html: contentVal_1
-					// };
-					that.editorCtx.setContents({
-					               html:contentVal_1    
-					       }) 
-					// this.editorCtx.setContents(EContent); //设置富文本编辑器的内容
-				})
-				.exec();
+		// 		console.log(contentVal_1)	
+		// 			//将内容写入编辑器
+		// 			that.editorCtx = res.context;
+		// 			// let EContent = {
+		// 			// 	html: contentVal_1
+		// 			// };
+		// 			that.editorCtx.setContents({
+		// 			               html:contentVal_1    
+		// 			       }) 
+		// 			// this.editorCtx.setContents(EContent); //设置富文本编辑器的内容
+		// 		})
+		// 		.exec();
 				
-				});		
-			}	else{
-				uni.createSelectorQuery()
-					.select('#editor')
-					.context(res => {
-						var contentVal_1 =that.neirong_txt ;
+		// 		});		
+		// 	}	else{
+		// 		uni.createSelectorQuery()
+		// 			.select('#editor')
+		// 			.context(res => {
+		// 				var contentVal_1 =that.neirong_txt ;
 						
-						//将内容写入编辑器
-						this.editorCtx = res.context;
-						let EContent = {
-							html: contentVal_1
-						};
-						this.editorCtx.setContents(EContent); //设置富文本编辑器的内容
-					})
-					.exec();
-			}
+		// 				//将内容写入编辑器
+		// 				this.editorCtx = res.context;
+		// 				let EContent = {
+		// 					html: contentVal_1
+		// 				};
+		// 				this.editorCtx.setContents(EContent); //设置富文本编辑器的内容
+		// 			})
+		// 			.exec();
+		// 	}
 				
-		},
+		// },
 
-		getEditorContent(e) {
+		quzhi(e) {
+			console.log(e)
 			this.neirong_txt = e.detail.html;
 		},
 		change() {
@@ -182,7 +177,8 @@ export default {
 			this.show = true;
 		},
 		save() {
-			console.log(this.neirong_txt, '1111');
+			
+			  this.neirong_txt = this.$refs.article.getContent() // 获取编辑好的 html
 			uni.setStorage({
 				key: 'neirong',
 				data: this.neirong_txt,
@@ -235,6 +231,7 @@ export default {
 	height: 1000rpx;
 	position: absolute;
 	left: 0;
+	padding-top: 30rpx;
 }
 
 .neirong,
@@ -242,6 +239,10 @@ export default {
 	padding: 30rpx;
 	line-height: 40rpx;
 	box-sizing: border-box;
+}
+.neirong{
+	padding-top: 100rpx;
+	font-size: 30rpx;
 }
 .up_neirong textarea {
 	padding: 0;

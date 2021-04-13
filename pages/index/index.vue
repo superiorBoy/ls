@@ -1,21 +1,25 @@
 <template>
-	<view class="body">
-
-	<index v-if="muban==1" ref="shouye"></index>
-	<xiaohua v-if="muban==2" ref="shouye"></xiaohua>	
-	<lvyi v-if="muban==3" ref="shouye"></lvyi>
-	<index v-else ref="shouye"></index>
-
+	<view class="" >
+<!-- 	首页首页首页首页首页首页首页首页首页首页首页首页
+	首页首页首页首页首页首页首页首页首页首页首页首页
+	首页首页首页首页首页首页首页首页首页首页首页首页
+	首页首页首页首页首页首页首页首页首页首页首页首页 -->
+		<index v-if="muban==1" ref="shouye"></index> 
+		<xiaohua v-if="muban==2" ref="shouye"></xiaohua>	
+		<lvyi v-if="muban==3" ref="shouye"></lvyi>
+	 
+	
 	<tabBar :currentPage="currentPage" ref="mainindex"></tabBar>
-    </view>
+	</view>
 </template>
 
 <script>
-import index from '@/components/index/index.vue';
-import xiaohua from '@/components/xiaohua/index.vue';
-import lvyi from '@/components/lvyi/index.vue';
-import socket from 'plus-websocket';
-import tabBar from '@/components/y_tabbar/tabbar.vue';
+	import index from '@/components/index/index.vue';
+	import xiaohua from '@/components/xiaohua/index.vue';
+	import lvyi from '@/components/lvyi/index.vue';
+	import socket from 'plus-websocket';
+	import tabBar from '@/components/y_tabbar/tabbar.vue';
+	
 export default {
 	data() {
 		return {
@@ -40,7 +44,7 @@ export default {
 		});
 	},
 	onLoad() {
-		
+	
 	},
 	onHide() {
 
@@ -131,9 +135,8 @@ export default {
 	
 	},
 
-};
+};	
 </script>
 
 <style>
-
 </style>

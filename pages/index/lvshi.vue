@@ -66,7 +66,7 @@
 					</view>
 				</view>
 			</view>
-		</view>
+	</view>
 		<tabBar :currentPage="currentPage"  ref="mainindex"></tabBar>
 	</view>
 </template>

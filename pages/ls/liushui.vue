@@ -123,11 +123,7 @@
 
 		},
 		onLoad(option) {
-			if(option.state==2){
-				this.url='/mlawyerapi/user/liushui'
-			}else{
-				this.url='/mapi/user/liushui'
-			}
+	
 			this.huoqu_liushui()
 		},
 		methods: {
@@ -167,7 +163,7 @@
 		   
 		   	this.$http
 		   		.post({
-		   			url:this.url,
+		   			url:'/mlawyerapi/user/liushui',
 		   			data:{
 		   				page:this.page,
 						grade:this.zhuanchang_txt,
@@ -359,6 +355,8 @@
 		display: flex;
 		margin-top: 20rpx;
 		flex-wrap: wrap;
+		max-height: 200rpx;
+		overflow: auto;
 	}
 
 	.zhuanchang_arry text {

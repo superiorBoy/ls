@@ -27,20 +27,35 @@ export default {
 		}).then(res => {
 		uni.setStorageSync("img_url",res.data.url)
 		})
-		uni.hideTabBar({})
+		// uni.hideTabBar({})
 
 	},
 
 	onShow: function() {
-       uni.removeStorageSync('user_chat_list');
-		uni.removeStorageSync('ls_chat_list');
+		var ls_chat_list = uni.getStorageSync('ls_chat_list') ;//读取缓存
+		if(ls_chat_list){
+			uni.removeStorageSync('ls_chat_list');
+		}
+		var user_chat_list = uni.getStorageSync('user_chat_list') ;//读取缓存
+		if(user_chat_list){
+			uni.removeStorageSync('user_chat_list');
+		}
+		
+
+		
 		console.log('App Show');
 	},
 	onHide: function() {
 		console.log('App Hide');
 		
-		uni.removeStorageSync('user_chat_list');
-		uni.removeStorageSync('ls_chat_list');
+		var ls_chat_list = uni.getStorageSync('ls_chat_list') ;//读取缓存
+		if(ls_chat_list){
+			uni.removeStorageSync('ls_chat_list');
+		}
+		var user_chat_list = uni.getStorageSync('user_chat_list') ;//读取缓存
+		if(user_chat_list){
+			uni.removeStorageSync('user_chat_list');
+		}
 	
 		
 		

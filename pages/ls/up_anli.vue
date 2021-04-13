@@ -73,16 +73,16 @@
 				</view>
 				<input type="text" value="" placeholder="如：餐饮行业" class="hei_26" v-model="hangye" />
 			</view>
-			<view class="shiming_list hei_28">
+				
+			<view class="shiming_list hei_28" @click="go_neirong">
 				<view class="shiming_list_left">
 					案情内容
 				</view>
-				<navigator :url='"up_neirong?lyanliid="+lyanliid'>
 				<view class="zhuanchang_xuan hei_26"><text class="neirong_txt">{{neirong}}</text>
 					<image src="@/static/lsimg/go_r.png" mode=""></image>
 				</view>
-				</navigator>
 			</view>
+				
 			<view class="shiming_list hei_28">
 				<view class="shiming_list_left">
 					代理方向
@@ -190,6 +190,11 @@
 		methods: {
 			navigateBack() {
 				uni.navigateBack()
+			},
+			go_neirong(){
+				uni.navigateTo({
+					url:'up_neirong?lyanliid='+this.lyanliid
+				})
 			},
 			xq(){
 				this.$http
@@ -460,13 +465,14 @@ if(this.state==2){
 		align-items: center;
 		justify-content: right;
 		text-align: right;
+		position: relative;
 	}
 
 	.zhuanchang_xuan image {
 		width: 13rpx;
 		height: 23rpx;
 		position: absolute;
-		right: 30rpx;
+		right: 0;
 
 	}
 	.neirong_txt{
@@ -477,7 +483,7 @@ if(this.state==2){
 		max-width: 500rpx;
 		height: 40rpx;
 	}
-	.picker image{
+/* 	.picker image{
 		right: 0;
-	}
+	} */
 </style>

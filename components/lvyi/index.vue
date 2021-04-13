@@ -766,9 +766,9 @@ export default {
 		},
 		tabChange(index) {
 			this.TabCur = index;
-			uni.switchTab({
-				url: 'zixun'
-			});
+			uni.reLaunch({
+				url:'../../pages/index/zixun'
+			})
 			uni.setStorage({
 				key: 'zhuanchang',
 				data: this.tabList[index].typename
@@ -817,14 +817,14 @@ export default {
 			});
 		},
 		tiao_jingxuan() {
-			uni.switchTab({
-				url: 'zixun'
-			});
+			uni.reLaunch({
+				url:'../../pages/index/zixun'
+			})
 		},
 		tiaozhuan_zixun() {
-			uni.switchTab({
-				url: 'zixun'
-			});
+			uni.reLaunch({
+				url:'../../pages/index/zixun'
+			})
 		},
 		zixun_xq(id) {
 			uni.navigateTo({

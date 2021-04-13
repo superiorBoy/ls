@@ -1,9 +1,9 @@
 {
 	"pages": [
-		{
+		  {
 		"path": "pages/index/index"
           },
-		{
+		 {
 			"path":"pages/index/zixun",
 			"style": {
 			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
@@ -537,12 +537,6 @@
 						"text":"首页",
 						"iconPath":"static/img/shouye_icon.png",
 						"selectedIconPath":"static/img/on_shouye_icon.png"
-					},
-					{
-						"pagePath":"pages/index/zixun",
-						"text":"咨询",
-						"iconPath":"static/img/zixun_icon.png",
-						"selectedIconPath":"static/img/on_zixun_icon.png"
 					},
 					{
 						"pagePath":"pages/index/lvshi",

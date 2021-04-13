@@ -130,7 +130,7 @@ export default {
 	    // #endif
 	},
 	onLoad() {
-		this.list = []
+		
 		this.huoqu_user();
 	},
 	onShow() {

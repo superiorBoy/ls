@@ -15,7 +15,7 @@
 							<view class="qian_26">花落谁家关注了你</view>
 						</view>
 					</view>
-					<view class="top_shijian qian_20"><!-- 10-16 --></view>
+					<view class="top_shijian qian_20"></view>
 				</view>
 				<view class="xiaoxi_top_list" @click="go_gonggao">
 					<view class="xiaoxi_top_list_left">
@@ -25,7 +25,7 @@
 							<view class="qian_26">查看公告</view>
 						</view>
 					</view>
-					<view class="top_shijian qian_20"><!-- 10-16 --></view>
+					<view class="top_shijian qian_20"></view>
 				</view>
 				<view class="xiaoxi_top_list">
 					<view class="xiaoxi_top_list_left">
@@ -62,33 +62,7 @@
 									[图片]
 								</view> -->
 								<view class="" v-if="item.msgtype != 1 && item.iswithdraw != 1">
-									{{
-										item.msgtype == 2
-											? '[图片]'
-											: item.msgtype == 3
-											? '[电话咨询]'
-											: item.msgtype == 4
-											? '[在线咨询]'
-											: item.msgtype == 5
-											? '[欢迎]'
-											: item.msgtype == 6
-											? '[电话咨询付费]'
-											: item.msgtype == 7
-											? '[在线咨询付费]'
-											: item.msgtype == 8
-											? '[订购]'
-											: item.msgtype == 9
-											? '[咨询超时]'
-											: item.msgtype == 10
-											? '[红包]'
-											: item.msgtype == 11
-											? '[服务收费]'
-											: item.msgtype == 12
-											? '[服务支付成功]'
-											: item.msgtype == 13
-											? '[语音消息]'
-											: item.content
-									}}
+										{{item.msgtype==2?'[图片]':item.msgtype==3?'[电话咨询]':item.msgtype==4?'[在线咨询]':item.msgtype==5?'[欢迎]':item.msgtype==6?'[电话咨询付费]':item.msgtype==7?'[在线咨询付费]':item.msgtype==8?'[订购]':item.msgtype==9?'[咨询超时]':item.msgtype==10?'[红包]':item.msgtype==11?'[服务收费]':item.msgtype==12?'[服务支付成功]':item.msgtype==13?'[语音消息]':item.content}}
 								</view>
 								<view class="" v-if="item.iswithdraw == 1">[撤回了一条消息]</view>
 							</view>

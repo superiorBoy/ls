@@ -8,7 +8,7 @@
 				current == 0 ? 'index_top0' : current == 1 ? 'index_top1' : current == 2 ? 'index_top2' : current == 3 ? 'index_top3' : current == 4 ? 'index_top4' : ''
 			]"
 		>
-			<view class="index_top_dingwei" :style="{ background: topbg }">
+			<view  :style="{ background: topbg }" class="index_top_dingwei">
 				<view class="dingwei bai_20">
 					<image src="@/static/img/dingwei.png" mode=""></image>
 					<pickerAddress @change="xuandizhi">{{ dizhi == '' ? '定位中' : dizhi }}</pickerAddress>
@@ -761,9 +761,9 @@ export default {
 		},
 		tabChange(index) {
 			this.TabCur = index;
-			uni.switchTab({
-				url: 'zixun'
-			});
+			uni.reLaunch({
+				url:'../../pages/index/zixun'
+			})
 			uni.setStorage({
 				key: 'zhuanchang',
 				data: this.tabList[index].typename
@@ -783,6 +783,7 @@ export default {
 		},
 
 		swiperchang(e) {
+			
 			this.current = e.detail.current;
 			if (e.target.current == 0) {
 				this.topbg = '#86dbbe';
@@ -795,6 +796,8 @@ export default {
 			} else if (e.target.current == 4) {
 				this.topbg = '#b83947';
 			}
+			
+			this.$forceUpdate();
 		},
 
 		change(e) {
@@ -812,14 +815,20 @@ export default {
 			});
 		},
 		tiao_jingxuan() {
-			uni.switchTab({
-				url: 'zixun'
-			});
+			// uni.switchTab({
+			// 	url: 'zixun'
+			// });
+			uni.reLaunch({
+				url:'../../pages/index/zixun'
+			})
 		},
 		tiaozhuan_zixun() {
-			uni.switchTab({
-				url: 'zixun'
-			});
+			// uni.switchTab({
+			// 	url: 'zixun'
+			// });
+			uni.reLaunch({
+				url:'../../pages/index/zixun'
+			})
 		},
 		zixun_xq(id) {
 			uni.navigateTo({
@@ -1693,5 +1702,8 @@ scroll-view ::-webkit-scrollbar {
 	height: 167rpx;
 	background-color: #fff9ec;
 	border-radius: 10rpx;
+}
+.index_top_dingwei{
+	
 }
 </style>
