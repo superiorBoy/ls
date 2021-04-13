@@ -269,8 +269,13 @@
 						<view class="chat_right_txt hei_30">
 							<view class="send_fukuan_success">
 								<view class="lv_26 send_fukuan_title">
+									<view class="lv_24_bold send_fukuan_title_left">
 									<image src="@/static/img/chat_duihao.png" mode=""></image>
 									付款成功
+									</view>
+								<!-- 	<text class="hong_24">
+										￥{{ item.consult.paymoney }}
+									</text> -->
 								</view>
 								<view class="send_pay_ls">
 									<image :src="img_url + user.photourl" mode=""></image>
@@ -293,6 +298,10 @@
 												}}
 											</view>
 										</view>
+										<!-- <view class="hei_26 consult_typename">
+											{{ item.consult.typename }}
+													
+										</view> -->
 										<view class="hei_20">
 											{{ user.nickname }}律师
 											<text class="qian_20 send_pay_ls_zhiwu">{{ renzheng.zhiwu }}</text>
@@ -306,7 +315,12 @@
 									</view>
 									<view>咨询类型：{{ item.consult.typename }}</view>
 									<view class="send_pay_bottom_neirong">咨询内容：{{ item.consult.information }}</view>
+					
 								</view>
+							<!-- 	<view class="fufei_success_tips qian_24">
+									{{item.consult.baojiamode=='zhineng_zaixian'?tips.zhinengpaytip:tips.consultpaytip}}
+									
+								</view> -->
 							</view>
 							<view class="qian_20 du_zhuangtai">{{ item.read == 1 ? '已读' : '未读' }}</view>
 						</view>
@@ -317,8 +331,13 @@
 						<view class="chat_right_txt hei_30">
 							<view class="send_fukuan_success">
 								<view class="lv_26 send_fukuan_title">
+									<view class="lv_24_bold send_fukuan_title_left">
 									<image src="@/static/img/chat_duihao.png" mode=""></image>
 									付款成功
+									</view>
+									<!-- <text class="hong_24">
+										￥{{ item.consult.paymoney }}
+									</text> -->
 								</view>
 								<view class="send_pay_ls">
 									<image :src="img_url + user.photourl" mode=""></image>
@@ -341,6 +360,10 @@
 												}}
 											</view>
 										</view>
+										<!-- <view class="hei_26 consult_typename">
+											{{ item.consult.typename }}
+													
+										</view> -->
 										<view class="hei_20">
 											{{ user.nickname }}律师
 											<text class="qian_20 send_pay_ls_zhiwu">{{ renzheng.zhiwu }}</text>
@@ -355,6 +378,11 @@
 									<view>咨询类型：{{ item.consult.typename }}</view>
 									<view class="send_pay_bottom_neirong">咨询内容：{{ item.consult.information }}</view>
 								</view>
+								<view class="fufei_success_tips qian_24">
+									{{item.consult.baojiamode=='zhineng_zaixian'?tips.zhinengpaytip:tips.consultpaytip}}
+									
+								</view>
+
 							</view>
 							<view class="qian_20 du_zhuangtai">{{ item.read == 1 ? '已读' : '未读' }}</view>
 						</view>
@@ -407,6 +435,78 @@
 
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
+					<!-- 发送文件-->
+					<view class="chat_list chat_right" v-if="item.userid_from != userid &&item.msgtype == 14 && item.iswithdraw != 1"  @longpress="changan(item.messageid, item.content)">
+					<view class="chat_right_txt ">
+						<view class="send_wenjian_html">
+							<view class="send_wenjian_html_left">
+								<view class="hei_30 send_wenjian_html_title">
+									{{wenjian(item.content)}}
+								</view>
+								<!-- <view class="qian_24">
+									180K
+								</view> -->
+							</view>
+							<view class="send_wenjian_html_right">
+								<image src="../../static/img/word.png" mode=""></image>
+								
+							</view>
+							
+						</view>
+						<view class="qian_20 du_zhuangtai">{{ item.read == 1 ? '已读' : '未读' }}</view>
+						</view>
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+					</view>
+					
+					<!-- 其他咨询 -->
+				<view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype == 7 && item.iswithdraw != 1" @longpress="changan(item.messageid)">
+					<view class="chat_right_txt hei_30">
+						<view class="send_fukuan_success">
+							<view class="lv_26 send_fukuan_title">
+								<view class="lv_24_bold send_fukuan_title_left">
+								<image src="@/static/img/chat_duihao.png" mode=""></image>
+								付款成功
+								</view>
+								<!-- <text class="hong_24">
+									￥{{ item.consult.paymoney }}
+								</text> -->
+							</view>
+							<view class="send_pay_ls">
+								<image :src="img_url + user.photourl" mode=""></image>
+								<view class="send_pay_ls_riht">
+									<view class="end_pay_leixing hei_26">
+										{{item.consult.baojia[item.consult.baojiamode]}}
+									</view>
+									<!-- <view class="hei_26 consult_typename">
+										{{ item.consult.typename }}
+												
+									</view> -->
+									<view class="hei_20">
+										{{ user.nickname }}律师
+										<text class="qian_20 send_pay_ls_zhiwu">{{ renzheng.zhiwu }}</text>
+									</view>
+								</view>
+							</view>
+							<view class="send_pay_bottom hei_24">
+								<view>
+									手机号码：{{ item.consult.phone }}
+									<!-- <text class="send_pay_call bai_24"@click="call2(item.consult.phone)">打电话给他</text> -->
+								</view>
+								<view>咨询类型：{{ item.consult.typename }}</view>
+								<view class="send_pay_bottom_neirong">咨询内容：{{ item.consult.information }}</view>
+							</view>
+							<view class="fufei_success_tips qian_24">
+								{{item.consult.baojiamode=='zhineng_zaixian'?tips.zhinengpaytip:tips.consultpaytip}}
+								
+							</view>
+				
+						</view>
+						<view class="qian_20 du_zhuangtai">{{ item.read == 1 ? '已读' : '未读' }}</view>
+					</view>
+				
+					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+				</view>
+					
 
 					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype == 1 && item.iswithdraw != 1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
@@ -525,20 +625,25 @@
 							</view>
 						</view>
 					</view>
-					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype == 6 && item.iswithdraw != 1">
+					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype ==6 && item.iswithdraw != 1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
 							<view class="send_fukuan_success">
 								<view class="lv_26 send_fukuan_title">
+									<view class="lv_24_bold send_fukuan_title_left">
 									<image src="@/static/img/chat_duihao.png" mode=""></image>
 									付款成功
+										</view>
+								<!-- 	<text class="hong_24">
+										￥{{ item.consult.paymoney }}
+									</text> -->
 								</view>
 								<view class="send_pay_ls">
 									<image :src="img_url + user.photourl" mode=""></image>
 									<view class="send_pay_ls_riht">
 										<view class="end_pay_leixing hei_26">
-											电话咨询
+											电话咨询  
 											<view class="hong_26">
 												&ensp;￥
 												<text class="style_hong_16_bold">{{ item.consult.paymoney }}</text>
@@ -555,6 +660,10 @@
 												}}
 											</view>
 										</view>
+									<!-- 	<view class="hei_26 consult_typename">
+											{{ item.consult.typename }}
+													
+										</view> -->
 										<view class="hei_20">
 											{{ user.nickname }}律师
 											<text class="qian_20 send_pay_ls_zhiwu">{{ renzheng.zhiwu }}</text>
@@ -569,6 +678,10 @@
 									<view>咨询类型：{{ item.consult.typename }}</view>
 									<view class="send_pay_bottom_neirong">咨询内容：{{ item.consult.information }}</view>
 								</view>
+								<!-- <view class="fufei_success_tips qian_24">
+									{{item.consult.baojiamode=='zhineng_zaixian'?tips.zhinengpaytip:tips.consultpaytip}}
+									
+								</view> -->
 							</view>
 						</view>
 					</view>
@@ -578,8 +691,13 @@
 							<!-- <text class="ls_name">{{ title }}</text> -->
 							<view class="send_fukuan_success">
 								<view class="lv_26 send_fukuan_title">
+									<view class="lv_24_bold send_fukuan_title_left">
 									<image src="@/static/img/chat_duihao.png" mode=""></image>
 									付款成功
+									</view>
+									<!-- <text class="hong_24">
+										￥{{ item.consult.paymoney }}
+									</text> -->
 								</view>
 								<view class="send_pay_ls">
 									<image :src="img_url + user.photourl" mode=""></image>
@@ -602,10 +720,15 @@
 												}}
 											</view>
 										</view>
+									<!-- 	<view class="hei_26 consult_typename">
+											{{ item.consult.typename }}
+			
+										</view> -->
 										<view class="hei_20">
 											{{ user.nickname }}律师
 											<text class="qian_20 send_pay_ls_zhiwu">{{ renzheng.zhiwu }}</text>
 										</view>
+										
 									</view>
 								</view>
 								<view class="send_pay_bottom hei_24">
@@ -615,6 +738,10 @@
 									</view>
 									<view>咨询类型：{{ item.consult.typename }}</view>
 									<view class="send_pay_bottom_neirong">咨询内容：{{ item.consult.information }}</view>
+								</view>
+								<view class="fufei_success_tips qian_24">
+									{{item.consult.baojiamode=='zhineng_zaixian'?tips.zhinengpaytip:tips.consultpaytip}}
+									
 								</view>
 							</view>
 						</view>
@@ -635,7 +762,7 @@
 
 					<view class="chat_list chat_left" v-if="item.msgtype == 9 && item.iswithdraw != 1">
 						<image src="@/static/img/xitong.png" mode="" class="tx"></image>
-						<view class="chat_left_txt hei_30">系统提示，由于您超时未服务，订单已取消</view>
+						<view class="chat_left_txt hei_30">{{tips.consultovertimetip}}</view>
 					</view>
 
 					<view class=" chat_chehui_tishi hei_26" v-if="item.userid_from == userid && item.iswithdraw == 1">
@@ -691,6 +818,111 @@
 							<!-- <text class="weiting"></text> -->
 						</view>
 					</view>
+					
+					<!-- 收到文件 -->
+					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype == 14 && item.iswithdraw!=1" @tap="onOpenDoc(item.content)">
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+						<view class="chat_left_txt hei_30 " >
+							<view class="send_wenjian_html">
+								<view class="send_wenjian_html_left">
+									<view class="hei_30 send_wenjian_html_title">
+										{{wenjian(item.content)}}
+									</view>
+									<!-- <view class="qian_24">
+										180K
+									</view> -->
+								</view>
+								<view class="send_wenjian_html_right">
+									<image src="../../static/img/word.png" mode=""></image>
+									
+								</view>
+								
+							</view>
+							
+						</view>
+					</view>
+					
+					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype == 15 && item.iswithdraw != 1">
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+						<view class="chat_left_txt hei_30">
+							<!-- <text class="ls_name">{{ title }}</text> -->
+							<view class="send_fukuan_success">
+								<view class="lv_26 send_fukuan_title">
+									<view class="lv_24_bold send_fukuan_title_left">
+									<image src="@/static/img/chat_duihao.png" mode=""></image>
+									付款成功
+									</view>
+									<!-- <text class="hong_24">
+										￥{{ item.consult.paymoney }}
+									</text> -->
+								</view>
+								<view class="send_pay_ls">
+									<image :src="img_url + user.photourl" mode=""></image>
+									<view class="send_pay_ls_riht">
+										{{item.consult.baojia[item.consult.baojiamode]}}
+									<!-- 	<view class="hei_26 consult_typename">
+											{{ item.consult.typename }}
+								
+										</view> -->
+										<view class="hei_20">
+											{{ user.nickname }}律师
+											<text class="qian_20 send_pay_ls_zhiwu">{{ renzheng.zhiwu }}</text>
+										</view>
+										
+									</view>
+								</view>
+								<view class="send_pay_bottom hei_24">
+									<view>
+										手机号码：{{ item.consult.phone }}
+										<!-- <text class="send_pay_call bai_24"@click="call2(item.consult.phone)">打电话给他</text> -->
+									</view>
+									<view>咨询类型：{{ item.consult.typename }}</view>
+									<view class="send_pay_bottom_neirong">咨询内容：{{ item.consult.information }}</view>
+								</view>
+								<view class="fufei_success_tips qian_24">
+									{{item.consult.baojiamode=='zhineng_zaixian'?tips.zhinengpaytip:tips.consultpaytip}}
+									
+								</view>
+							</view>
+						</view>
+					</view>
+					
+					<!-- 申请退款 -->
+					<!-- <view class="chat_list chat_left" v-if="item.userid_from == userid" >
+					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+					<view class="chat_left_txt ">
+						<view class="send_tuikuan">
+							<view class="send_tuikuan_top">
+								<text class="hei_26">
+									{{title}}申请了退款
+								</text>
+								<view class="send_tuikuan_top_right hong_26_bold">
+									
+								</view>
+							</view>
+							<view class="send_tuikuan_bottom qian_24">
+								<view class="">
+									退款金额：￥58.00
+								</view>
+								<view class="">
+									类型/时长：婚姻家庭/1小时
+								</view>
+								<view class="">
+									退款原因：律师长时间未接单
+								</view>
+								<view class="">
+									退款状态：退款中
+								</view>
+							</view>
+						</view>
+						
+						</view>
+						
+					</view> -->
+					
+					
+					
+					
 				</view>
 
 				<view class=" chat_chehui_tishi hei_26" v-if="is_zuijin_chehui">
@@ -770,6 +1002,18 @@
 						<image src="../../static/lsimg/chat_shoukuan.png" mode=""></image>
 						<view>发起收款</view>
 					</view>
+					<view class="chat_bt_item" @click="yuyin_chat">
+						<image src="../../static/img/bottom_yuyin.png" mode=""></image>
+						<view>语音聊天</view>
+					</view>
+					<view class="chat_bt_item" @click="shipin_chat">
+						<image src="../../static/img/bottom_shipin.png" mode=""></image>
+						<view>视频聊天</view>
+					</view>
+				<!-- 	<view class="chat_bt_item" @click="send_wenjian">
+						<image src="../../static/img/bottom_wenjian.png" mode=""></image>
+						<view>发送文件</view>
+					</view> -->
 				</view>
 			</view>
 		</view>
@@ -805,6 +1049,7 @@
 				<view class="qian_32 chehui_quxiao" @click="che_quxiao">取消</view>
 			</view>
 		</view>
+		<l-file ref="lFile" @up-success="onSuccess"></l-file>
 	</view>
 </template>
 
@@ -816,6 +1061,7 @@ import emotion from '@/components/bkhumor-emoji/index.vue';
 import uParse from '@/components/feng-parse/parse.vue';
 import socket from 'plus-websocket';
 import permision from '@/common/permission.js';
+import lfile from '@/components/l-file/l-file.vue'
 export default {
 	computed: {
 		intIntervalTime() {
@@ -839,12 +1085,14 @@ export default {
 	},
 	components: {
 		emotion,
-		uParse
+		uParse,
+		lfile
 	},
 	onLoad(option) {
 		this.userid = option.userid;
 		this.huanying();
 this.huoqu_xiaoxi_list();
+this.tishiyu_tip();
 		var self = this;
 		recorderManager.onStop(function(res) {
 			console.log('recorder stop' + JSON.stringify(res));
@@ -1031,7 +1279,9 @@ this.huoqu_xiaoxi_list();
 			tishiyu: '',
 			is_xiala: false,
 			yuyin_index:0,
-			dakai:false
+			dakai:false,
+			tips:''
+			
 		};
 	},
 	//下拉刷新
@@ -1059,6 +1309,7 @@ this.huoqu_xiaoxi_list();
 			// 	icon: "none"
 			// });
 		},
+		
 		show_luyin() {
 			this.isShowEmj = false;
 			this.bt_show = false;
@@ -1333,6 +1584,17 @@ this.huoqu_xiaoxi_list();
 				.then(res => {
 					if (res.code == 0) {
 						this.tishiyu = res.data;
+					}
+				});
+		},
+		tishiyu_tip(){
+			this.$http
+				.post({
+					url: '/mapi/index/tips'
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.tips = res.data;
 					}
 				});
 		},
@@ -1832,6 +2094,139 @@ this.huoqu_xiaoxi_list();
 				}
 			});
 		},
+		wenjian(str){
+			str=str.substring(str.lastIndexOf("/")+1);
+			
+			return  str
+			
+			
+			// console.log(str)
+		},
+		yuyin_chat(){
+			
+		},
+		shipin_chat(){
+			
+		},
+		onOpenDoc(src) {
+			let url =this.img_url+src
+			/* 下载返回临时路径（退出应用失效） */
+			
+			
+			
+			uni.downloadFile({
+					url: url,//下载地址接口返回
+					success: (data) => {
+						if (data.statusCode === 200) {
+							//文件保存到本地
+							uni.saveFile({
+								tempFilePath: data.tempFilePath, //临时路径
+								success: function(res) {
+									uni.showToast({
+										icon: 'none',
+										mask: true,
+										title: '文件已保存：' + res.savedFilePath, //保存路径
+										duration: 3000,
+									});
+									setTimeout(() => {
+										//打开文档查看
+										uni.openDocument({
+											filePath: res.savedFilePath,
+											success: function(res) {
+												// console.log('打开文档成功');
+											}
+										});
+									}, 3000)
+								}
+							});
+						}
+					},
+					fail: (err) => {
+						console.log(err);
+						uni.showToast({
+							icon: 'none',
+							mask: true,
+							title: '失败请重新下载',
+						});
+					},
+				});
+			
+			
+			
+			
+			
+			
+			
+			
+			// console.log(url)
+			// this.$refs.lFile.download({url})
+			// .then(path=>{
+			// 	/* 预览 */
+			// 	this.$refs.lFile.open(path);
+			// });
+			
+		},
+		send_wenjian(){
+			/**
+			 * currentWebview: 当前webview
+			 * url：上传接口地址
+			 * name：附件key,服务端根据key值获取文件流，默认file,上传文件的key
+			 * header: 上传接口请求头
+			 */
+			this.$refs.lFile.upload({
+				// #ifdef APP-PLUS
+				// nvue页面使用时请查阅nvue获取当前webview的api，当前示例为vue窗口
+				currentWebview: this.$mp.page.$getAppWebview(),
+				// #endif
+				url: '/api/lawyer/index/uploadfile', //替换为你的
+				name: 'files'
+			});
+		},
+		onSuccess(res) {
+			console.log('上传成功回调',JSON.stringify(res));
+			
+			console.log(res.data.file)
+			// uni.showToast({
+			// 	title: JSON.stringify(res),
+			// 	icon: 'none'
+			// })
+			this.send_wenjian_txt(res.data.file)
+		},
+		send_wenjian_txt(localPath) {
+			var that = this;
+			
+			this.$http
+				.post({
+					url: '/push/gatewayworker/sendmessage1.html',
+					data: {
+						userid_to: this.userid,
+						msg: localPath,
+						type: 14
+					}
+				})
+				.then(res => {
+					console.log(res);
+					if (res.code == 0) {
+						var data = {
+							content: localPath,
+							msgtype: 14,
+							photourl_form: this.user.photourl,
+							messageid: res.data
+							
+						};
+						this.message.push(data);
+						setTimeout(() => {
+							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+						}, 100);
+						var to = new Date(that.time1.replace(/-/g, '/'));
+						var now = new Date();
+						var time = to.getTime() - now.getTime();
+						if (time < 0) {
+							that.send_guoqi();
+						}
+					}
+				});
+		},
 		up_img() {
 			let that = this;
 			uni.chooseImage({
@@ -2225,14 +2620,14 @@ page {
 .chat_bottom_bottom {
 	background-color: #fafafa;
 	display: flex;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	padding: 40rpx 0;
 	flex-wrap: wrap;
 }
 
 .chat_bt_item {
 	text-align: center;
-	width: 33.33%;
+	width: 25%;
 	margin-bottom: 50rpx;
 }
 .chat_bt_item:nth-child(4) {
@@ -2395,9 +2790,9 @@ page {
 }
 .send_pay_ls {
 	display: flex;
-	margin-left: 25rpx;
+	/* margin-left: 25rpx; */
 	align-items: center;
-	border-top: 2rpx solid #ffffff;
+	/* border-top: 2rpx solid #ffffff; */
 	height: 118rpx;
 }
 .send_pay_ls image {
@@ -2411,8 +2806,8 @@ page {
 }
 
 .send_pay_bottom {
-	background-color: #ffffff;
-	padding: 13rpx 0rpx 13rpx 20rpx;
+	/* background-color: #ffffff; */
+	padding: 13rpx 0rpx 13rpx 0rpx;
 	border-top: 2rpx solid #d9d9d9;
 }
 .end_pay_leixing {
@@ -2429,7 +2824,8 @@ page {
 .send_fukuan_title {
 	display: flex;
 	align-items: center;
-	padding-left: 26rpx;
+	/* padding-left: 26rpx; */
+	justify-content: space-between;
 }
 .send_fukuan_title image {
 	margin-right: 9rpx;
@@ -2455,7 +2851,7 @@ page {
 	width: 472rpx;
 	padding: 10rpx 0 0;
 	position: relative;
-	background-color: #ffffff;
+	/* background-color: #ffffff; */
 }
 
 .send_pay_bottom_neirong {
@@ -2901,4 +3297,63 @@ page {
 .bofang .yuyin_icon{
 	display: none;
 }
+.fufei_success_tips{
+	border-top: 2rpx solid #D9D9D9;
+	padding: 10rpx 0;
+}
+	
+.consult_typename{
+	margin-bottom: 10rpx;
+}
+.send_tuikuan{
+	width: 476rpx;
+}
+.send_tuikuan_top{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+padding-top: 10rpx;
+}
+
+.send_tuikuan_bottom{
+	border-top: 2rpx solid #f6f6f6;
+	margin-top: 20rpx;
+	padding-top: 10rpx;
+	
+}
+.send_tuikuan_bottom view{
+	margin-bottom: 10rpx;
+	
+}
+.send_wenjian_html{
+	display: flex;
+	align-items: center;
+	width: 470rpx;
+	justify-content: space-between;
+	padding: 20rpx 0;
+}
+.send_wenjian_html_right image{
+	width: 76rpx;
+		height: 91rpx;
+}
+.send_wenjian_html_title{
+	margin-bottom: 6rpx;
+		
+}
+.chat_left_txt .send_wenjian_html{
+	position: relative;
+	
+	}
+	.chat_left_txt .send_wenjian_html::before{
+		position: absolute;
+		content: '';
+		display: inline-block;
+		top:50%;
+		right: -58rpx;
+		width: 26rpx;
+		height: 26rpx;
+		background: url(../../static/img/xiazai.png) no-repeat;
+		background-size: 100% 100%;
+		transform: translate(0,-50%);
+	}
 </style>

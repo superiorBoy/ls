@@ -139,7 +139,7 @@
 				<view class="fangshi_list_pay" @click="radio(3)">
 					<view class="fangshi_left hei_28">
 						<image src="@/static/img/yue_pay.png" mode="" style="width:36rpx ;height: 31rpx;"></image>
-						余额支付
+						余额支付 <text class="hong_28 yue_show">(￥{{user.rmb}})</text>
 					</view>
 					<label class="radio"><radio value="3" :checked="zhifu == 3" /></label>
 				</view>
@@ -243,6 +243,7 @@ export default {
 			})
 			.then(res => {
 				this.phone = res.data.user.mobile;
+				this.user=res.data.user
 			});
 
 		this.huoqu_pay_fs();
@@ -813,4 +814,7 @@ page {
 .dis_fir {
 	align-items: flex-start;
 }
+	.yue_show{
+		margin-left: 10rpx;
+	}
 </style>
