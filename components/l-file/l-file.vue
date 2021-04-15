@@ -62,6 +62,7 @@ export default {
 			uni.showToast({title,duration,icon});
 		},
 		getRequest(url) {  
+			
 			let theRequest = new Object(); 
 			let index = url.indexOf("?");
 			if (index != -1) {  
@@ -83,7 +84,8 @@ export default {
 		*/
 		appChooseFile({currentWebview,url,name = 'file',header,...formData} = {}) {
 			// #ifdef APP-PLUS
-				let wvPath = 'common/hybrid/html/index.html';
+
+				let wvPath = '/hybrid/html/index.html';
 				let wv = plus.webview.create("",wvPath,{
 					'uni-app': 'none',
 					top: 0,

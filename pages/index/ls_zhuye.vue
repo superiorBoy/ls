@@ -71,7 +71,7 @@
 			</view>
 			
 			<view class="fuwu_body">
-				<view class="fuwu_lei_list">
+				<!-- <view class="fuwu_lei_list">
 					<view class="fuwu_lei"  @click="tan(1,baojia.chatprice)" >
 						<view class="fuwu_lei_left">
 							<view class="bai_26 fuwu_lei_top" >
@@ -106,10 +106,6 @@
 							</view>
 							<text class="hui_20 fuwu_lei_title">实时聊天,快速沟通</text>
 						</view>
-					<!-- 	<view class=" dianhua_btn bai_30" v-if="lvshi!=''">
-							<image src="@/static/img/zhuye_tab2.png" mode="widthFix" style="width: 12rpx;"></image>
-							<text>{{ lvshi.mobile }}</text>
-						</view> -->
 						<view class="lei_btn boda_btn hong_28" @click="tan(0,baojia.jianmian)" v-if="baojia.jianmian"><text class="hong34_bold"> {{baojia.jianmian}}</text>/次</view>
 						<view class="lei_btn boda_btn hong_28" v-if="!baojia.jianmian" >未报价 </view>
 					</view>
@@ -117,7 +113,113 @@
 				<view class="ls_jianjie hei_24">
 					<view class="ls_jianjie_title hei_28_bold">个人资料</view>
 					{{ lvshi.miaoshu }}
+				</view> -->
+				
+				
+				<view class="ls_feiyong">
+					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.chatprice,'在线咨询',1)">
+						<view class="hei_26">
+							在线咨询
+						</view>
+						<view class="qian_20 ls_feiyong_list_title">
+							简易需求，在线解答
+						</view>
+						<view class="hong_24">
+							￥{{baojia.chatprice}}/元
+						</view>
+					</view>
+					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.phoneprice,'电话咨询',2)">
+						<view class="hei_26">
+							电话咨询
+						</view>
+						<view class="qian_20 ls_feiyong_list_title">
+							实时对话，快速沟通
+						</view>
+						<view class="hong_24">
+							￥{{baojia.phoneprice}}/元
+						</view>
+					</view>
+					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.hetong_shenhe,'合同审核',3)">
+						<view class="hei_26">
+							合同审核
+						</view>
+						<view class="qian_20 ls_feiyong_list_title">
+							告知风险，提出修改
+						</view>
+						<view class="hong_24">
+							￥{{baojia.hetong_shenhe}}/元
+						</view>
+					</view>
+					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.hetong_daixie,'代写合同',3)">
+						<view class="hei_26">
+							代写合同
+						</view>
+						<view class="qian_20 ls_feiyong_list_title">
+							快速交付，不限修改
+						</view>
+						<view class="hong_24">
+							￥{{baojia.hetong_daixie}}/元
+						</view>
+					</view>
+					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.hetong_wenshu,'代写文书',3)">
+						<view class="hei_26">
+							代写文书
+						</view>
+						<view class="qian_20 ls_feiyong_list_title">
+							多类文件，代写严格
+						</view>
+						<view class="hong_24">
+							￥{{baojia.hetong_wenshu}}/元
+						</view>
+					</view>
+					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.lvshi_huijian,'律师会见',4)">
+						<view class="hei_26">
+							律师会见
+						</view>
+						<view class="qian_20 ls_feiyong_list_title">
+							了解案情，保障权益
+						</view>
+						<view class="hong_24">
+							￥{{baojia.lvshi_huijian}}/元
+						</view>
+					</view>
+					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.lvshihan,'发律师函',4)">
+						<view class="hei_26">
+							发律师函
+						</view>
+						<view class="qian_20 ls_feiyong_list_title">
+							依法警告，促使和解
+						</view>
+						<view class="hong_24">
+							￥{{baojia.lvshihan}}/元
+						</view>
+					</view>
+					<view class="ls_feiyong_list"  @click="go_zhifu(lawyerid,baojia.anjianzhidao,'案件指导',4)">
+						<view class="hei_26">
+							案件指导
+						</view>
+						<view class="qian_20 ls_feiyong_list_title">
+							案件流程，申请执行
+						</view>
+						<view class="hong_24">
+							￥{{baojia.anjianzhidao}}/元
+						</view>
+					</view>
+					<view class="ls_feiyong_list"  @click="go_zhifu(lawyerid,baojia.jianmian,'1次',0)">
+						<view class="hei_26">
+							见面咨询
+						</view>
+						<view class="qian_20 ls_feiyong_list_title">
+							面见律师，高效解决
+						</view>
+						<view class="hong_24">
+							￥{{baojia.jianmian}}/元
+						</view>
+					</view>
 				</view>
+				
+				
+				
 			<!-- 	<view class="lianxi" v-if="ls_xinxi!=''">
 					<view class=" xixin_title hei_28_bold">联系方式</view>
 					<view class="jiben_xixin_list hei_26">
@@ -476,6 +578,11 @@ export default {
 		decodeUnicode(str) {
 			str = str.replace(/\\/g, '%');
 			return unescape(str);
+		},
+		go_zhifu(lawyerid,money,time,type){
+			uni.navigateTo({
+				url:'pay?lawyerid='+lawyerid+'&type='+type+'&time='+time+'&pay_money='+money
+			})
 		},
         huoqu_baojia(){
 			this.$http
@@ -1415,5 +1522,66 @@ display: flex;
 .liao image{
 width: 45rpx;
 	height: 42rpx;	
+}
+.ls_feiyong{
+	padding: 0 30rpx 20rpx;
+	border-bottom: 20rpx solid #f3f3f3;
+	margin-top: 20rpx;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.ls_feiyong_list{
+	width: 216rpx;
+		height: 140rpx;
+		background-color: #f4fffe;
+		box-shadow: 0rpx 0rpx 7rpx 0rpx 
+			rgba(0, 0, 0, 0.07);
+		border-radius: 5rpx;
+		background: url(../../static/img/jia_beijing1.png) no-repeat;
+		margin:0 0rpx 20rpx 0;
+		text-align: center;
+		box-sizing: border-box;
+		background-size: 100% 100%;
+		padding-top: 20rpx;
+}
+.ls_feiyong_list:nth-child(2){
+	background: url(../../static/img/jia_beijing2.png) no-repeat;
+
+}
+.ls_feiyong_list:nth-child(3){
+	background: url(../../static/img/jia_beijing3.png) no-repeat;
+
+}
+.ls_feiyong_list:nth-child(4){
+	background: url(../../static/img/jia_beijing4.png) no-repeat;
+
+}
+.ls_feiyong_list:nth-child(5){
+	background: url(../../static/img/jia_beijing5.png) no-repeat;
+
+}
+.ls_feiyong_list:nth-child(6){
+	background: url(../../static/img/jia_beijing6.png) no-repeat;
+
+}
+.ls_feiyong_list:nth-child(7){
+	background: url(../../static/img/jia_beijing7.png) no-repeat;
+
+}
+.ls_feiyong_list:nth-child(8){
+	background: url(../../static/img/jia_beijing8.png) no-repeat;
+
+}
+.ls_feiyong_list:nth-child(9){
+	background: url(../../static/img/jia_beijing9.png) no-repeat;
+
+}
+.ls_feiyong_list_title{
+	/* margin: 4rpx 0 0; */
+	font-size: 24rpx;
+	transform: scale(0.85 )
 }
 </style>

@@ -58,7 +58,7 @@
 				<view class="fukuan lv_26" v-if="item.zixunstate == 4" @click="go_pingjia(item.lawyerid)">
 					我要评价
 				</view>
-				<view class="fukuan lv_26" v-if="item.zixunstate == 2 &&!item.refundstate" @click="go_tuikuan(item)">
+				<view class="fukuan lv_26" v-if="item.zixunstate == 2 ||item.zixunstate == 3 &&!item.refundstate" @click="go_tuikuan(item)">
 					申请退款
 				</view>
 				<view class="fukuan lv_26" v-if="item.refundstate" @click="tui_xq(item)">

@@ -195,7 +195,9 @@
 					<view class="tuijian_item_bottom">
 						<view class="tuijian_item_bottom_title hui_24" :class="{ zhankai_on: zhankai_arry.indexOf(index) != -1 }">
 							<view class="tuijian_item_bottom_title_left">
-								<text>家庭婚姻</text><text>家庭婚姻</text><text>家庭婚姻</text>
+								<text v-if="zhuanchang_arry[item.expertise1] && zhuanchang_arry[item.expertise1].shanchangname">{{zhuanchang_arry[item.expertise1].shanchangname}}</text>
+								<text v-if="zhuanchang_arry[item.expertise2] && zhuanchang_arry[item.expertise2].shanchangname">{{zhuanchang_arry[item.expertise2].shanchangname}}</text>
+								<text v-if="zhuanchang_arry[item.expertise3] && zhuanchang_arry[item.expertise3].shanchangname">{{zhuanchang_arry[item.expertise3].shanchangname}}</text>
 							</view>
 							
 							<view class="tuijian_item_bottom_title_right" @click="zhankai(index)">{{zhankai_arry.indexOf(index) != -1?'收起':'展开'}}  <image src="../../static/img/xiangxia.png" mode=""></image></view>
@@ -221,7 +223,7 @@
 							<view class="tuijian_item_bottom_item_top">
 								合同审核
 							</view>
-							<view class="tuijian_item_bottom_item_bottom hong_24">
+							<view class="tuijian_item_bottom_item_bottom hong_20">
 								￥<text class="">{{item.hetong_shenhe}}</text>/元
 							</view>
 						</view>
@@ -262,7 +264,7 @@
 								案件指导
 							</view>
 							<view class="tuijian_item_bottom_item_bottom hong_20">
-								￥<text class="">{{item.anjianzhidao}}</text>
+								￥<text class="">{{item.anjianzhidao}}</text>/元
 							</view>
 						</view>
 						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.jianmian,'1次',0)">
@@ -473,6 +475,7 @@ export default {
 			filename: '',
 			xiazai_txt: '正在下载中，请稍后...',
 			zhankai_arry:[0,1,2],
+			zhuanchang_arry:[]
 		};
 	},
 	components: {
@@ -553,7 +556,14 @@ export default {
 			.then(res => {
 				this.fa_zhishi = res.data.type[1];
 			});
-
+			// 获取擅长
+	this.$http
+			.post({
+				url: '/mapi/index/getshanchang'
+			})
+			.then(res => {
+				this.zhuanchang_arry=res.data.shanchang
+			});
 		// this.shuxin_zujian()
 	},
 	onLoad() {

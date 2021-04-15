@@ -62,13 +62,13 @@
 									[图片]
 								</view> -->
 								<view class="" v-if="item.msgtype != 1 && item.iswithdraw != 1">
-										{{item.msgtype==2?'[图片]':item.msgtype==3?'[电话咨询]':item.msgtype==4?'[在线咨询]':item.msgtype==5?'[欢迎]':item.msgtype==6?'[电话咨询付费]':item.msgtype==7?'[在线咨询付费]':item.msgtype==8?'[订购]':item.msgtype==9?'[咨询超时]':item.msgtype==10?'[红包]':item.msgtype==11?'[服务收费]':item.msgtype==12?'[服务支付成功]':item.msgtype==13?'[语音消息]':item.msgtype==14?'[文件]':item.content}}
+										{{item.msgtype==2?'[图片]':item.msgtype==3?'[电话咨询]':item.msgtype==4?'[在线咨询]':item.msgtype==5?'[欢迎]':item.msgtype==6?'[电话咨询付费]':item.msgtype==7?'[在线咨询付费]':item.msgtype==8?'[订购]':item.msgtype==9?'[咨询超时]':item.msgtype==10?'[红包]':item.msgtype==11?'[服务收费]':item.msgtype==12?'[服务支付成功]':item.msgtype==13?'[语音消息]':item.msgtype==14?'[文件]':item.msgtype==15?'[其他咨询支付成功]':item.msgtype==16?'[咨询退款]':item.msgtype==17?'[取消退款]':item.content}}
 								</view>
 								<view class="" v-if="item.iswithdraw == 1">[撤回了一条消息]</view>
 							</view>
 						</view>
 					</view>
-					<view class="xiaoxi_item_right qian_20">{{ item.addtime | timeStamp }}</view>
+					<view class="xiaoxi_item_right qian_20">{{ item.uptime | timeStamp }}</view>
 				</view>
 			</view>
 		</view>
@@ -432,6 +432,7 @@ export default {
 							list.splice(i, 1);//存在即删除
 							var xinxi={
 									 addtime:new Date().getTime(),
+									 uptime:new Date().getTime(),
 									 content: data.msg,
 									 lawyerid: data.userid_from,
 									 lawyerreadnum:1,
@@ -461,6 +462,7 @@ export default {
 				console.log('不存在')
 				var xinxi={
 						 addtime:new Date().getTime(),
+						 uptime:new Date().getTime(),
 						 content: data.msg,
 						 lawyerid: data.userid_from,
 						 lawyerreadnum:1,

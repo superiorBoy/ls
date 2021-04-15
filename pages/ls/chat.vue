@@ -436,7 +436,7 @@
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
 					<!-- 发送文件-->
-					<view class="chat_list chat_right" v-if="item.userid_from != userid &&item.msgtype == 14 && item.iswithdraw != 1"  @longpress="changan(item.messageid, item.content)">
+					<view class="chat_list chat_right" v-if="item.userid_from != userid &&item.msgtype == 14 && item.iswithdraw != 1"  @longpress="changan(item.messageid, item.content)" @tap="onOpenDoc(item.content)">
 					<view class="chat_right_txt ">
 						<view class="send_wenjian_html">
 							<view class="send_wenjian_html_left">
@@ -879,16 +879,16 @@
 									<view>咨询类型：{{ item.consult.typename }}</view>
 									<view class="send_pay_bottom_neirong">咨询内容：{{ item.consult.information }}</view>
 								</view>
-								<view class="fufei_success_tips qian_24">
+								<!-- <view class="fufei_success_tips qian_24">
 									{{item.consult.baojiamode=='zhineng_zaixian'?tips.zhinengpaytip:tips.consultpaytip}}
 									
-								</view>
+								</view> -->
 							</view>
 						</view>
 					</view>
 					
 					<!-- 申请退款 -->
-					<!-- <view class="chat_list chat_left" v-if="item.userid_from == userid" >
+					<view class="chat_list chat_left" v-if="item.msgtype == 16" >
 					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					<view class="chat_left_txt ">
 						<view class="send_tuikuan">
@@ -902,23 +902,23 @@
 							</view>
 							<view class="send_tuikuan_bottom qian_24">
 								<view class="">
-									退款金额：￥58.00
+									退款金额：￥{{item.refund.refundmoney}}
 								</view>
 								<view class="">
-									类型/时长：婚姻家庭/1小时
+									类型/时长：{{gettype[item.refund.typeid].typename}}/{{item.refund.zixunshicahng==24?'1天':item.refund.zixunshicahng==72?'3天':item.refund.zixunshicahng==720?'1个月':item.refund.zixunshicahng+'小时'}}
 								</view>
 								<view class="">
-									退款原因：律师长时间未接单
+									退款原因：{{item.refund.refundreason}}
 								</view>
 								<view class="">
-									退款状态：退款中
+									退款状态：{{item.refund.state==1?'退款中':item.refund.state==2?'同意退款':item.refund.state==3?'拒绝退款':item.refund.state==4?'取消退款':''}}
 								</view>
 							</view>
 						</view>
 						
 						</view>
 						
-					</view> -->
+					</view>
 					
 					
 					
@@ -1010,10 +1010,10 @@
 						<image src="../../static/img/bottom_shipin.png" mode=""></image>
 						<view>视频聊天</view>
 					</view>
-				<!-- 	<view class="chat_bt_item" @click="send_wenjian">
+					<view class="chat_bt_item" @click="send_wenjian">
 						<image src="../../static/img/bottom_wenjian.png" mode=""></image>
 						<view>发送文件</view>
-					</view> -->
+					</view>
 				</view>
 			</view>
 		</view>
@@ -1093,6 +1093,7 @@ export default {
 		this.huanying();
 this.huoqu_xiaoxi_list();
 this.tishiyu_tip();
+this.huoqu_type()
 		var self = this;
 		recorderManager.onStop(function(res) {
 			console.log('recorder stop' + JSON.stringify(res));
@@ -1130,10 +1131,6 @@ this.tishiyu_tip();
 		
 	},
 	onShow() {
-		
-	},
-	onReady() {
-
 		var that=this
 		setTimeout(function(){
 			// #ifdef H5
@@ -1144,7 +1141,8 @@ this.tishiyu_tip();
 			that.app_lianjie();
 			// #endif
 		},1000)
-	
+	},
+	onReady() {
 
 	},
 	onHide() {
@@ -1191,8 +1189,11 @@ this.tishiyu_tip();
 		var is_cuzai=false
 		if(ls_chat_list){
 			ls_chat_list=JSON.parse(ls_chat_list)
+			console.log(ls_chat_list)
 			for (let i in ls_chat_list) {
 			   if(ls_chat_list[i].user.userid==this.userid){
+				   	 if(that.message[that.message.length-1].addtime!=that.is_last_msguptime){
+				   
 				   console.log('存在')
 				   console.log('存在',ls_chat_list[i])
 				   
@@ -1204,6 +1205,7 @@ this.tishiyu_tip();
 				   "readnum": 0,
 				   "lawyerreadnum": 0,
 				   "addtime": new Date().getTime(),
+				   "uptime": that.message[that.message.length-1].addtime,
 				   "user": {
 				   	"userid":that.userid,
 				   	"photourl": that.yh_user.photourl,
@@ -1213,15 +1215,21 @@ this.tishiyu_tip();
 				   }
 				   ls_chat_list.splice(i, 1);//存在即删除
 				   ls_chat_list.unshift(xinxi)
-
-				   is_cuzai=true
+                  }
+				   
 				   // ls_chat_list[i].content=this.message[this.message.length-1].content
 				   // ls_chat_list[i].msgtype=this.message[this.message.length-1].msgtype
 				   // ls_chat_list[i].lawyerreadnum=0
+			   } 
+			   
+			 //     ls_chat_list[i].readnum=0
+				// ls_chat_list[i]= ls_chat_list[i].addtime,
+			     is_cuzai=true
 			    uni.setStorageSync('ls_chat_list', JSON.stringify(ls_chat_list));  //设置缓存
 			   }
 
 			}
+			
 			
 			if(!is_cuzai){
 				console.log('不存在')
@@ -1229,7 +1237,7 @@ this.tishiyu_tip();
 				
 			}
 	
-		}
+		
 
 	
 	 },
@@ -1280,7 +1288,9 @@ this.tishiyu_tip();
 			is_xiala: false,
 			yuyin_index:0,
 			dakai:false,
-			tips:''
+			tips:'',
+			gettype:'',
+			is_last_msguptime:''
 			
 		};
 	},
@@ -1309,7 +1319,17 @@ this.tishiyu_tip();
 			// 	icon: "none"
 			// });
 		},
-		
+		huoqu_type(){
+			this.$http
+				.post({
+					url: '/mapi/index/gettype'
+				})
+				.then(res => {
+					if (res.code == 0) {
+						this.gettype = res.data.type;
+					}
+				});
+		},		
 		show_luyin() {
 			this.isShowEmj = false;
 			this.bt_show = false;
@@ -1561,7 +1581,8 @@ this.tishiyu_tip();
 							msgtype: 13,
 							photourl_form: this.user.photourl,
 							messageid: res.data,
-							duration:duration
+							duration:duration,
+							addtime: new Date().getTime()
 						};
 						this.message.push(data);
 						setTimeout(() => {
@@ -1690,6 +1711,8 @@ this.tishiyu_tip();
 						if (res.data.message.length < 10) {
 							this.is_all = true;
 						}
+						this.is_last_msguptime=this.message[this.message.length-1].addtime
+						
 					}else{
 						if (res.data.message.length < 100) {
 							this.is_all = true;
@@ -1837,7 +1860,8 @@ this.tishiyu_tip();
 											is_pay: ress.data.red_envelope.is_pay,
 											information: ress.data.red_envelope.information,
 											paymode: ress.data.red_envelope.paymode,
-											type: ress.data.red_envelope.type
+											type: ress.data.red_envelope.type,
+											addtime: new Date().getTime()
 										};
 										that.message.push(xiaoxi);
 									});
@@ -1849,7 +1873,8 @@ this.tishiyu_tip();
 								photourl_to: data.userid_to_pic,
 								content: data.msg,
 								msgtype: data.state,
-								userid_from: data.userid_from
+								userid_from: data.userid_from,
+								addtime: new Date().getTime()
 							};
 							if (that.user.userid != data.userid_from) {
 								that.message.push(xiaoxi);
@@ -1978,7 +2003,8 @@ this.tishiyu_tip();
 							content: txt,
 							msgtype: 1,
 							photourl_form: this.user.photourl,
-							messageid: res.data
+							messageid: res.data,
+							addtime: new Date().getTime()
 						};
 						this.message.push(data);
 						setTimeout(() => {
@@ -2005,7 +2031,8 @@ this.tishiyu_tip();
 							content: '[欢迎]',
 							msgtype: 5,
 							photourl_form: this.user.photourl,
-							messageid: res.data
+							messageid: res.data,
+							addtime: new Date().getTime()
 						};
 						this.message.push(data);
 						setTimeout(() => {
@@ -2031,7 +2058,8 @@ this.tishiyu_tip();
 							content: '[在线咨询]',
 							msgtype: 4,
 							photourl_form: this.user.photourl,
-							messageid: res.data
+							messageid: res.data,
+							addtime: new Date().getTime()
 						};
 						this.message.push(data);
 						setTimeout(() => {
@@ -2057,7 +2085,8 @@ this.tishiyu_tip();
 							content: '[电话咨询]',
 							msgtype: 3,
 							photourl_form: this.user.photourl,
-							messageid: res.data
+							messageid: res.data,
+							addtime: new Date().getTime()
 						};
 						this.message.push(data);
 						setTimeout(() => {
@@ -2111,6 +2140,31 @@ this.tishiyu_tip();
 		onOpenDoc(src) {
 			let url =this.img_url+src
 			/* 下载返回临时路径（退出应用失效） */
+			// #ifdef H5
+			
+				  let dload = document.createElement("a");
+				  dload.download = '';// 设置下载的文件名，默认是'下载'
+				  dload.href = url;
+				  document.body.appendChild(dload);
+				  dload.click();
+				  dload.remove(); // 下载之后把创建的元素删除
+				  uni.showToast({
+				  title: "正在下载",
+				  icon: "success"
+				  });
+				// #endif
+			
+				
+				// #ifdef APP-PLUS
+			
+			// console.log(url)
+			// 	this.$refs.lFile.download({url})
+			// 	.then(path=>{
+			// 		/* 预览 */
+					
+			// 		this.$refs.lFile.open(path);
+			// 	});
+			// 	socket.closeSocket();
 			
 			
 			
@@ -2126,8 +2180,9 @@ this.tishiyu_tip();
 										icon: 'none',
 										mask: true,
 										title: '文件已保存：' + res.savedFilePath, //保存路径
-										duration: 3000,
+										duration: 2000,
 									});
+								
 									setTimeout(() => {
 										//打开文档查看
 										uni.openDocument({
@@ -2152,18 +2207,7 @@ this.tishiyu_tip();
 				});
 			
 			
-			
-			
-			
-			
-			
-			
-			// console.log(url)
-			// this.$refs.lFile.download({url})
-			// .then(path=>{
-			// 	/* 预览 */
-			// 	this.$refs.lFile.open(path);
-			// });
+				// #endif
 			
 		},
 		send_wenjian(){
@@ -2173,12 +2217,17 @@ this.tishiyu_tip();
 			 * name：附件key,服务端根据key值获取文件流，默认file,上传文件的key
 			 * header: 上传接口请求头
 			 */
+			var url='/api/lawyer/index/uploadfile';
+			
+			// #ifdef APP-PLUS
+			       url=this.$http.baseUrl + '/lawyer/index/uploadfile'
+			// #endif
 			this.$refs.lFile.upload({
 				// #ifdef APP-PLUS
 				// nvue页面使用时请查阅nvue获取当前webview的api，当前示例为vue窗口
 				currentWebview: this.$mp.page.$getAppWebview(),
 				// #endif
-				url: '/api/lawyer/index/uploadfile', //替换为你的
+				url: url, //替换为你的
 				name: 'files'
 			});
 		},
@@ -2211,7 +2260,8 @@ this.tishiyu_tip();
 							content: localPath,
 							msgtype: 14,
 							photourl_form: this.user.photourl,
-							messageid: res.data
+							messageid: res.data,
+							addtime: new Date().getTime()
 							
 						};
 						this.message.push(data);
@@ -2341,7 +2391,8 @@ this.tishiyu_tip();
 							content: img,
 							msgtype: 2,
 							photourl_form: this.user.photourl,
-							messageid: res.data
+							messageid: res.data,
+							addtime: new Date().getTime()
 						};
 						this.message.push(data);
 						setTimeout(() => {
@@ -2422,7 +2473,8 @@ this.tishiyu_tip();
 											is_pay: ress.data.red_envelope.is_pay,
 											information: ress.data.red_envelope.information,
 											paymode: ress.data.red_envelope.paymode,
-											type: ress.data.red_envelope.type
+											type: ress.data.red_envelope.type,
+											addtime: new Date().getTime()
 										};
 										that.message.push(xiaoxi);
 									});
@@ -2434,7 +2486,8 @@ this.tishiyu_tip();
 								photourl_to: data.userid_to_pic,
 								content: data.msg,
 								msgtype: data.state,
-								userid_from: data.userid_from
+								userid_from: data.userid_from,
+								addtime: new Date().getTime()
 							};
 							that.message.push(xiaoxi);
 						}

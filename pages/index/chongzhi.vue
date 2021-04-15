@@ -3,7 +3,7 @@
 		<view class="head">
 			<view class="head_back"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
 			<view class="head_center hei_38_bold">账户充值</view>
-			<view class=" head_right hei_30_bold"><navigator url="../ls/liushui">明细</navigator></view>
+			<view class=" head_right hei_30_bold"><navigator url="ls_liushui">明细</navigator></view>
 		</view>
 
 		<view class="zi_body ">
