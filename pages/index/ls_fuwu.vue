@@ -56,7 +56,7 @@
 							<view class="fuwu_item_shoufei_title">合同审核</view>
 							<view class="bai_20">
 								￥
-								<text class="bai_30">{{item.hetong_shenhe}}</text>
+								<text class="bai_30">{{item.hetong_shenhe}}</text>/次
 							</view>
 						</view>
 						<view class="fuwu_item_shoufei" @click="go_zhifu(item.userid,item.hetong_daixie,'代写合同',3)">
@@ -64,7 +64,7 @@
 							<view class="bai_20">
 								￥
 								<text class="bai_30">{{item.hetong_daixie}}</text>
-								/起
+								/次
 							</view>
 						</view>
 						<view class="fuwu_item_shoufei" @click="go_zhifu(item.userid,item.hetong_wenshu,'代写文书',3)">
@@ -72,7 +72,7 @@
 							<view class="bai_20">
 								￥
 								<text class="bai_30">{{item.hetong_wenshu}}</text>
-								/起
+								/次
 							</view>
 						</view>
 						<view class="fuwu_item_shoufei"  @click="go_zhifu(item.userid,item.lvshi_huijian,'律师会见',4)">
@@ -80,7 +80,7 @@
 							<view class="bai_20">
 								￥
 								<text class="bai_30">{{item.lvshi_huijian}}</text>
-								/起
+								/次
 							</view>
 						</view>
 						<view class="fuwu_item_shoufei" @click="go_zhifu(item.userid,item.lvshihan,'发律师函',4)">
@@ -88,14 +88,14 @@
 							<view class="bai_20">
 								￥
 								<text class="bai_30">{{item.lvshihan}}</text>
-								/起
+								/次
 							</view>
 						</view>
 						<view class="fuwu_item_shoufei"  @click="go_zhifu(item.userid,item.anjianzhidao,'案件指导',4)">
 							<view class="fuwu_item_shoufei_title">案件指导</view>
 							<view class="bai_20">
 								￥
-								<text class="bai_30">{{item.anjianzhidao}}</text>
+								<text class="bai_30">{{item.anjianzhidao}}</text>/次
 							</view>
 						</view>
 						<view class="fuwu_item_shoufei" @click="go_zhifu(item.userid,item.jianmian,'1次',0)">
@@ -106,6 +106,7 @@
 								/次
 							</view>
 						</view>
+						
 					</view>
 				</view>
 			</view>
@@ -450,6 +451,7 @@ button::after {
 	display: none;
 	align-items: center;
 	flex-wrap: wrap;
+	justify-content: space-between;
 }
 .fuwu_item_shoufei {
 	width: 216rpx;

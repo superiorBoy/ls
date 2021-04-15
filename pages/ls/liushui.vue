@@ -23,7 +23,8 @@
 							<text class="hong_28">￥{{item.cash}} </text>
 							</view>
 							<view class="liushui_item_bottom qian_26">
-								备注：{{item.information}}
+							<text>	备注：{{item.information}}</text>
+							<text class="hong_24">	操作后余额：<text class="hong_28">{{item.rmb_after}}</text></text>
 								</view>
 					
 				</view>
@@ -269,7 +270,7 @@
 	}
 	.liushui_item{
 		border-bottom: 2rpx solid #e5e5e5;
-		padding: 14rpx 0;
+		padding: 20rpx 0 20rpx;
 	}
 .liushui_item_top,.liushui_item_center{
 	display: flex;
@@ -382,5 +383,9 @@
 	.xuanzhong {
 		color: #f43a51;
 		border: 2rpx solid #f43a51 !important;
+	}
+	.liushui_item_bottom{
+		display: flex;
+		justify-content: space-between;
 	}
 </style>

@@ -292,7 +292,7 @@
 								</view>
 								<view class="send_pay_bottom hei_24">
 									<view>
-										手机号码：{{item.consult.phone}} <text class="send_pay_call bai_24" @click="call2(item.consult.phone)">打电话给他</text>
+										手机号码：{{dianhua}} <text class="send_pay_call bai_24" @click="call2(dianhua)">打电话给他</text>
 										
 									</view>
 									<view >咨询类型：{{gettype[item.consult.typeid].typename}}</view>
@@ -348,7 +348,7 @@
 								</view>
 								<view class="send_pay_bottom hei_24">
 									<view>
-										手机号码：{{item.consult.phone}}
+										手机号码：{{dianhua}}
 										
 									</view>
 									<view >咨询类型：{{gettype[item.consult.typeid].typename}}</view>
@@ -504,7 +504,7 @@
 								</view>
 								<view class="send_pay_bottom hei_24">
 									<view>
-										手机号码：{{item.consult.phone}}
+										手机号码：{{dianhua}}
 										
 									</view>
 									<view >咨询类型：{{gettype[item.consult.typeid].typename}}</view>
@@ -690,7 +690,7 @@
 								</view>
 								<view class="send_pay_bottom hei_24">
 									<view>
-										手机号码：{{ item.consult.phone }}  <text class="send_pay_call bai_24" @click="call2(item.consult.phone)">打电话给他</text>
+										手机号码：{{ dianhua }}  <text class="send_pay_call bai_24" @click="call2(dianhua)">打电话给他</text>
 										
 									</view>
 									<view >咨询类型：{{gettype[item.consult.typeid].typename}}</view>
@@ -743,7 +743,7 @@
 								</view>
 								<view class="send_pay_bottom hei_24">
 									<view>
-										手机号码：{{item.consult.phone}}
+										手机号码：{{dianhua}}
 										
 									</view>
 									<view >咨询类型：{{gettype[item.consult.typeid].typename}}</view>
@@ -869,7 +869,7 @@
 								</view>
 								<view class="send_pay_bottom hei_24">
 									<view>
-										手机号码：{{ item.consult.phone }}
+										手机号码：{{ dianhua }}
 										
 									</view>
 									<view >咨询类型：{{gettype[item.consult.typeid].typename}}</view>
@@ -887,15 +887,45 @@
 					
 					
 					<!-- 申请退款 -->
-					<view
-						class="chat_list chat_right"
-						v-if="item.msgtype == 16 && item.refund.cstate==2"
-					>
+					<view class="chat_list chat_right" v-if="item.msgtype == 16&&item.refund" >
+					<view class="chat_right_txt ">
+						<view class="send_tuikuan">
+							<view class="send_tuikuan_top">
+								<text class="hei_26_bold" v-if="item.refund.state!=2">
+									我申请了退款
+								</text>
+								<text class="hei_26_bold" v-if="item.refund.state==2">
+									退款成功
+								</text>
+								<view class="send_tuikuan_top_right hong_26_bold">
+									<image src="../../static/img/tuikuan.png" mode=""></image>{{item.refund.state==1?'退款中':item.refund.state==2?'同意退款':item.refund.state==3?'拒绝退款':item.refund.state==4?'取消退款':''}}
+								</view>
+							</view>
+							<view class="send_tuikuan_bottom qian_24">
+								<view class="">
+									退款金额：￥{{item.refund.refundmoney}}
+								</view>
+								<view class="">
+									类型/时长：{{gettype[item.refund.typeid].typename}}/{{item.refund.zixunshicahng==24?'1天':item.refund.zixunshicahng==72?'3天':item.refund.zixunshicahng==720?'1个月':item.refund.zixunshicahng+'小时'}}
+								</view>
+								<view class="">
+									退款原因：{{item.refund.refundreason}}
+								</view>
+							</view>
+						</view>
+						<view class="qian_20 du_zhuangtai">{{ item.read == 1 ? '已读' : '未读' }}</view>
+						</view>
+						
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+					</view>
+					
+					<!-- 取消退款 -->
+					<view class="chat_list chat_right" v-if="item.msgtype == 17&&item.refund" >
 					<view class="chat_right_txt ">
 						<view class="send_tuikuan">
 							<view class="send_tuikuan_top">
 								<text class="hei_26_bold">
-									我申请了退款
+									我取消了退款
 								</text>
 								<view class="send_tuikuan_top_right hong_26_bold">
 									<image src="../../static/img/tuikuan.png" mode=""></image>{{item.refund.state==1?'退款中':item.refund.state==2?'同意退款':item.refund.state==3?'拒绝退款':item.refund.state==4?'取消退款':''}}

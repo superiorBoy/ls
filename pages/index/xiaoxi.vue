@@ -96,9 +96,9 @@ export default {
 			.then(res => {
 				if (res.data.user != '') {
 					if(res.data.user.grade==2){
-						// uni.reLaunch({
-						// 	url:'../ls/xiaoxi'
-						// })
+						uni.reLaunch({
+							url:'../ls/xiaoxi'
+						})
 					}
 	var user_chat_list = uni.getStorageSync('user_chat_list') ;//读取缓存
 		if(user_chat_list){

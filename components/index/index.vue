@@ -203,20 +203,20 @@
 							<view class="tuijian_item_bottom_title_right" @click="zhankai(index)">{{zhankai_arry.indexOf(index) != -1?'收起':'展开'}}  <image src="../../static/img/xiangxia.png" mode=""></image></view>
 						</view>
 						<view class="tuijian_item_bottom_list hei_20"  :class="{ zhankai_on: zhankai_arry.indexOf(index) != -1 }">
-						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.chatprice,'在线咨询',1)">
+						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.chatprice,'1天',1)">
 							<view class="tuijian_item_bottom_item_top">
 								在线咨询
 							</view>
 							<view class="tuijian_item_bottom_item_bottom hong_20">
-								￥<text class="">{{item.chatprice}}</text>/元
+								￥<text class="">{{item.chatprice}}</text>/天
 							</view>
 						</view>
-						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.phoneprice,'电话咨询',2)">
+						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.phoneprice,'20分钟',2)">
 							<view class="tuijian_item_bottom_item_top">
 								电话咨询
 							</view>
 							<view class="tuijian_item_bottom_item_bottom hong_20">
-								￥<text class="">{{item.phoneprice}}</text>/元
+								￥<text class="">{{item.phoneprice}}</text>/20分钟
 							</view>
 						</view>
 						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.hetong_shenhe,'合同审核',3)">
@@ -224,7 +224,7 @@
 								合同审核
 							</view>
 							<view class="tuijian_item_bottom_item_bottom hong_20">
-								￥<text class="">{{item.hetong_shenhe}}</text>/元
+								￥<text class="">{{item.hetong_shenhe}}</text>/次
 							</view>
 						</view>
 						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.hetong_daixie,'代写合同',3)">
@@ -232,7 +232,7 @@
 								代写合同
 							</view>
 							<view class="tuijian_item_bottom_item_bottom hong_20">
-								￥<text class="">{{item.hetong_daixie}}</text>/元
+								￥<text class="">{{item.hetong_daixie}}</text>/次
 							</view>
 						</view>
 						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.hetong_wenshu,'代写文书',3)">
@@ -240,7 +240,7 @@
 								代写文书
 							</view>
 							<view class="tuijian_item_bottom_item_bottom hong_20">
-								￥<text class="">{{item.hetong_wenshu}}</text>/元
+								￥<text class="">{{item.hetong_wenshu}}</text>/次
 							</view>
 						</view>
 						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.lvshi_huijian,'律师会见',4)">
@@ -248,7 +248,7 @@
 								律师会见
 							</view>
 							<view class="tuijian_item_bottom_item_bottom hong_20">
-								￥<text class="">{{item.lvshi_huijian}}</text>/元
+								￥<text class="">{{item.lvshi_huijian}}</text>/次
 							</view>
 						</view>
 						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.lvshihan,'发律师函',4)">
@@ -256,15 +256,15 @@
 								发律师函
 							</view>
 							<view class="tuijian_item_bottom_item_bottom hong_20">
-								￥<text class="">{{item.lvshihan}}</text>/元
+								￥<text class="">{{item.lvshihan}}</text>/次
 							</view>
 						</view>
-						<view class="tuijian_item_bottom_item"  @click="go_zhifu(item.userid,item.anjianzhidao,'案件指导',4)">
+					<!-- 	<view class="tuijian_item_bottom_item"  @click="go_zhifu(item.userid,item.anjianzhidao,'案件指导',4)">
 							<view class="tuijian_item_bottom_item_top">
 								案件指导
 							</view>
 							<view class="tuijian_item_bottom_item_bottom hong_20">
-								￥<text class="">{{item.anjianzhidao}}</text>/元
+								￥<text class="">{{item.anjianzhidao}}</text>/次
 							</view>
 						</view>
 						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.jianmian,'1次',0)">
@@ -272,9 +272,9 @@
 								见面咨询
 							</view>
 							<view class="tuijian_item_bottom_item_bottom hong_20">
-								￥<text class="">{{item.jianmian}}</text>/元
+								￥<text class="">{{item.jianmian}}</text>/次
 							</view>
-						</view>
+						</view> -->                 
 						
 						<view class="tuijian_item_bottom_item"  @click="go_zhuye(item.userid)">
 							<view class="tuijian_item_bottom_item_top">
@@ -1841,7 +1841,7 @@ scroll-view ::-webkit-scrollbar {
 		line-height: 43rpx;
 }
 .tuijian_item_bottom_item{
-		width: 132rpx;
+		width: 165rpx;
 		height: 91rpx;
 		background: url(../../static/img/jia_beijing1.png) no-repeat;
 		box-shadow: 0rpx 0rpx 7rpx 0rpx 
@@ -1854,37 +1854,45 @@ scroll-view ::-webkit-scrollbar {
 }
 .tuijian_item_bottom_item:nth-child(2){
 	background: url(../../static/img/jia_beijing2.png) no-repeat;
+	background-size: 100% 100%;
 
 }
 .tuijian_item_bottom_item:nth-child(3){
 	background: url(../../static/img/jia_beijing3.png) no-repeat;
+	background-size: 100% 100%;
 
 }
 .tuijian_item_bottom_item:nth-child(4){
 	background: url(../../static/img/jia_beijing4.png) no-repeat;
+	background-size: 100% 100%;
 
 }
 .tuijian_item_bottom_item:nth-child(5){
 	background: url(../../static/img/jia_beijing5.png) no-repeat;
+	background-size: 100% 100%;
 
 }
 .tuijian_item_bottom_item:nth-child(6){
 	background: url(../../static/img/jia_beijing6.png) no-repeat;
+	background-size: 100% 100%;
 
 }
 .tuijian_item_bottom_item:nth-child(7){
 	background: url(../../static/img/jia_beijing7.png) no-repeat;
+	background-size: 100% 100%;
 
 }
 .tuijian_item_bottom_item:nth-child(8){
 	background: url(../../static/img/jia_beijing8.png) no-repeat;
+	background-size: 100% 100%;
 
 }
 .tuijian_item_bottom_item:nth-child(9){
 	background: url(../../static/img/jia_beijing9.png) no-repeat;
+	background-size: 100% 100%;
 
 }
-.tuijian_item_bottom_item:nth-child(5n){
+.tuijian_item_bottom_item:nth-child(4n){
 	margin-right: 0;
 }
 .tuijian_item_bottom_list{
@@ -1931,7 +1939,7 @@ scroll-view ::-webkit-scrollbar {
 	-o-transform:rotate(180deg); 	/* Opera */
 }
 .tuijian_item_bottom_item_bottom {
-	color: #12ab83;
+	/* color: #12ab83; */
 	/* display: inline-block; */
 	/* transform: scale(0.83,0.83) ; */
 }

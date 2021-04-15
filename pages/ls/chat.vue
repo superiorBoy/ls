@@ -888,13 +888,21 @@
 					</view>
 					
 					<!-- 申请退款 -->
-					<view class="chat_list chat_left" v-if="item.msgtype == 16" >
+					<view class="chat_list chat_left" v-if="item.msgtype == 16&&item.refund" >
 					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					<view class="chat_left_txt ">
 						<view class="send_tuikuan">
-							<view class="send_tuikuan_top">
+							<view class="send_tuikuan_top" v-if="item.refund.state!=2">
 								<text class="hei_26">
 									{{title}}申请了退款
+								</text>
+								<view class="send_tuikuan_top_right hong_26_bold">
+									
+								</view>
+							</view>
+							<view class="send_tuikuan_top" v-if="item.refund.state==2">
+								<text class="hei_26">
+									退款成功
 								</text>
 								<view class="send_tuikuan_top_right hong_26_bold">
 									
@@ -913,6 +921,9 @@
 								<view class="">
 									退款状态：{{item.refund.state==1?'退款中':item.refund.state==2?'同意退款':item.refund.state==3?'拒绝退款':item.refund.state==4?'取消退款':''}}
 								</view>
+								<view class="">
+									操作时间：{{ item.refund.addtime | timeStamp }}
+								</view>
 							</view>
 						</view>
 						
@@ -921,7 +932,41 @@
 					</view>
 					
 					
-					
+					<!-- 取消退款 -->
+					<view class="chat_list chat_left" v-if="item.msgtype == 17&&item.refund" >
+					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+					<view class="chat_left_txt ">
+						<view class="send_tuikuan">
+							<view class="send_tuikuan_top">
+								<text class="hei_26">
+									{{title}}取消了退款
+								</text>
+								<view class="send_tuikuan_top_right hong_26_bold">
+									
+								</view>
+							</view>
+							<view class="send_tuikuan_bottom qian_24">
+								<view class="">
+									退款金额：￥{{item.refund.refundmoney}}
+								</view>
+								<view class="">
+									类型/时长：{{gettype[item.refund.typeid].typename}}/{{item.refund.zixunshicahng==24?'1天':item.refund.zixunshicahng==72?'3天':item.refund.zixunshicahng==720?'1个月':item.refund.zixunshicahng+'小时'}}
+								</view>
+								<view class="">
+									退款原因：{{item.refund.refundreason}}
+								</view>
+								<view class="">
+									退款状态：{{item.refund.state==1?'退款中':item.refund.state==2?'同意退款':item.refund.state==3?'拒绝退款':item.refund.state==4?'取消退款':''}}
+								</view>
+								<view class="">
+									操作时间：{{ item.refund.addtime | timeStamp }}
+								</view>
+							</view>
+						</view>
+						
+						</view>
+						
+					</view>
 					
 				</view>
 

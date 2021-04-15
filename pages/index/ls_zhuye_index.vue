@@ -107,7 +107,7 @@
 				</view> -->
 
 <view class="ls_feiyong">
-					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.chatprice,'在线咨询',1)">
+					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.chatprice,'1天',1)">
 						<view class="hei_26">
 							在线咨询
 						</view>
@@ -115,10 +115,10 @@
 							简易需求，在线解答
 						</view>
 						<view class="hong_24">
-							￥{{baojia.chatprice}}/元
+							￥{{baojia.chatprice}}/天
 						</view>
 					</view>
-					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.phoneprice,'电话咨询',2)">
+					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.phoneprice,'20分钟',2)">
 						<view class="hei_26">
 							电话咨询
 						</view>
@@ -126,7 +126,7 @@
 							实时对话，快速沟通
 						</view>
 						<view class="hong_24">
-							￥{{baojia.phoneprice}}/元
+							￥{{baojia.phoneprice}}/20分钟
 						</view>
 					</view>
 					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.hetong_shenhe,'合同审核',3)">
@@ -137,7 +137,7 @@
 							告知风险，提出修改
 						</view>
 						<view class="hong_24">
-							￥{{baojia.hetong_shenhe}}/元
+							￥{{baojia.hetong_shenhe}}/次
 						</view>
 					</view>
 					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.hetong_daixie,'代写合同',3)">
@@ -148,7 +148,7 @@
 							快速交付，不限修改
 						</view>
 						<view class="hong_24">
-							￥{{baojia.hetong_daixie}}/元
+							￥{{baojia.hetong_daixie}}/次
 						</view>
 					</view>
 					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.hetong_wenshu,'代写文书',3)">
@@ -159,7 +159,7 @@
 							多类文件，代写严格
 						</view>
 						<view class="hong_24">
-							￥{{baojia.hetong_wenshu}}/元
+							￥{{baojia.hetong_wenshu}}/次
 						</view>
 					</view>
 					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.lvshi_huijian,'律师会见',4)">
@@ -170,7 +170,7 @@
 							了解案情，保障权益
 						</view>
 						<view class="hong_24">
-							￥{{baojia.lvshi_huijian}}/元
+							￥{{baojia.lvshi_huijian}}/次
 						</view>
 					</view>
 					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.lvshihan,'发律师函',4)">
@@ -181,7 +181,7 @@
 							依法警告，促使和解
 						</view>
 						<view class="hong_24">
-							￥{{baojia.lvshihan}}/元
+							￥{{baojia.lvshihan}}/次
 						</view>
 					</view>
 					<view class="ls_feiyong_list"  @click="go_zhifu(lawyerid,baojia.anjianzhidao,'案件指导',4)">
@@ -192,7 +192,7 @@
 							案件流程，申请执行
 						</view>
 						<view class="hong_24">
-							￥{{baojia.anjianzhidao}}/元
+							￥{{baojia.anjianzhidao}}/次
 						</view>
 					</view>
 					<view class="ls_feiyong_list"  @click="go_zhifu(lawyerid,baojia.jianmian,'1次',0)">
@@ -203,7 +203,7 @@
 							面见律师，高效解决
 						</view>
 						<view class="hong_24">
-							￥{{baojia.jianmian}}/元
+							￥{{baojia.jianmian}}/次
 						</view>
 					</view>
 				</view>
@@ -1441,35 +1441,35 @@ align-items: center;
 	}
 	.ls_feiyong_list:nth-child(2){
 		background: url(../../static/img/jia_beijing2.png) no-repeat;
-	
+	background-size: 100% 100%;
 	}
 	.ls_feiyong_list:nth-child(3){
 		background: url(../../static/img/jia_beijing3.png) no-repeat;
-	
+	background-size: 100% 100%;
 	}
 	.ls_feiyong_list:nth-child(4){
 		background: url(../../static/img/jia_beijing4.png) no-repeat;
-	
+	background-size: 100% 100%;
 	}
 	.ls_feiyong_list:nth-child(5){
 		background: url(../../static/img/jia_beijing5.png) no-repeat;
-	
+	background-size: 100% 100%;
 	}
 	.ls_feiyong_list:nth-child(6){
 		background: url(../../static/img/jia_beijing6.png) no-repeat;
-	
+	background-size: 100% 100%;
 	}
 	.ls_feiyong_list:nth-child(7){
 		background: url(../../static/img/jia_beijing7.png) no-repeat;
-	
+	background-size: 100% 100%;
 	}
 	.ls_feiyong_list:nth-child(8){
 		background: url(../../static/img/jia_beijing8.png) no-repeat;
-	
+	background-size: 100% 100%;
 	}
 	.ls_feiyong_list:nth-child(9){
 		background: url(../../static/img/jia_beijing9.png) no-repeat;
-	
+	background-size: 100% 100%;
 	}
 	.ls_feiyong_list_title{
 		/* margin: 4rpx 0 0; */
