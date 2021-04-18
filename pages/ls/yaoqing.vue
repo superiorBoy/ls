@@ -110,7 +110,7 @@
 		beforeDestroy() {
 			console.log('关闭当前页面')
 		    // #ifdef APP-PLUS
-		    socket.closeSocket();
+		    uni.closeSocket();
 		    // #endif
 		},
 		data() {

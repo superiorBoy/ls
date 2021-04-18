@@ -1,131 +1,193 @@
 <template>
 	<view>
-		<l-file ref="lFile" :logo="logo" @up-success="onSuccess"></l-file>
-		
-		<view class="padding text-center">
-			<view class="padding">
-				<button @tap="onOpenDoc">预览</button>
-			</view>
-			<view class="padding">
-				<button @tap="onDown">下载到本地</button>
-				<view class="text-center padding-sm" @tap="onOpenNameDoc(localPath)">点击打开：{{localPath}}</view>
-			</view>
-			<view class="padding">
-				<button @tap="onUpload">上传</button>
-			</view>
-			<view class="padding" style="font-size: 26rpx;text-align: center;">
-				<text decode>{{tip}}</text>
-			</view>
+		<view class="" style="margin-top: 200px;">
+			
 		</view>
+		url
+		<view class="">
+			WebSocket:{{WebSocket}}
+		</view>
+		<view class="">
+			WebSocketerr:{{WebSocketerr}}
+		</view>
+		<button type="default" @click="go_cwshi2">跳转测试2页面</button>
+		<button type="default" @click="go_cwshi3">测试三页面</button>
+		<button type="default" @click="go_cwshi4">测试四页面</button>
+		<button type="default" @click="go_cwshi5">测试五</button>
+		<button type="default" @click="go_cwshi6">测试6</button>
+		<button type="default" @click="app_lianjie">开启</button>
+		<button :disabled="!isIos" @click="judgeIosPermission('location')">位置权限</button>
+		<button :disabled="!isIos" @click="judgeIosPermission('camera')">摄像头权限</button>
+		<button :disabled="!isIos" @click="judgeIosPermission('photoLibrary')">相册权限</button>
+		<button :disabled="!isIos" @click="judgeIosPermission('record')">麦克风权限</button>
+		<button :disabled="!isIos" @click="judgeIosPermission('push')">推送权限</button>
+		<button :disabled="!isIos" @click="judgeIosPermission('contact')">通讯录权限</button>
+		<button :disabled="!isIos" @click="judgeIosPermission('calendar')">日历权限</button>
+		<button :disabled="!isIos" @click="judgeIosPermission('memo')">备忘录权限</button>
+		<button type="default" @click="close">关闭</button>
 	</view>
 </template>
 <script>
-	
-	import lfile from '@/components/l-file/l-file.vue'
-	
-	
-	
-	export default {
-		components: {
-			lfile
+	import permision from '@/common/permission.js';
+export default {
+	  data() {
+		return {
+			url:'url',
+			socketTask:'1111',
+			WebSocket:'WebSocket',
+			WebSocketerr:'WebSocketerr',
+			isIos:''
+		};
+	  },
+	onLoad() {
+		this.app_lianjie();
+		this.isIos = (plus.os.name == "iOS")
+	},
+	computed: {},
+	methods: {
+		judgeIosPermission: function(permisionID) {
+			var result = permision.judgeIosPermission(permisionID)
+			console.log(result);
+			var strStatus = (result) ? "已" : "未"
+			uni.showModal({
+				content: permisionID + '权限' + strStatus + "获得授权",
+				showCancel: false
+			});
+			
+			
 			
 		},
-		data() {
-			this.api = '';
-			return {
-			logo: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fbpic.588ku.com%2Felement_origin_min_pic%2F00%2F00%2F07%2F155788a6d8a5c42.jpg&refer=http%3A%2F%2Fbpic.588ku.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1619847627&t=2da40b583002205c204d980b54b35040',
-			localPath: '',
-			tip: `
-				希望能帮到你\n
-				不喜勿喷，不要期待更新，我很懒\n
-				`,
+		async requestAndroidPermission(permisionID) {
+			var result = await permision.requestAndroidPermission(permisionID)
+			var strStatus
+			if (result == 1) {
+				strStatus = "已获得授权"
+			} else if (result == 0) {
+				strStatus = "未获得授权"
+			} else {
+				strStatus = "被永久拒绝权限"
 			}
+			uni.showModal({
+				content: permisionID + strStatus,
+				showCancel: false
+			});
 		},
-		onLoad() {
+		go_cwshi2(){
+		uni.navigateTo({
+			url:'ceshi2'
+		})
 			
+		},
+		go_cwshi3(){
+		uni.navigateTo({
+			url:'ceshi3'
+		})
 			
-		    },
-			 computed: {
-			   
-			  },
-		    methods: {
-				onLogin() {
-							},
-							onOpenNameDoc(path = '') {
-								if (!path) {return;}
-								/* 打开文件 */
-								this.$refs.lFile.open(path);
-							},
-							onOpenDoc() {
-								let url = 'https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg';
-								/* 下载返回临时路径（退出应用失效） */
-								this.$refs.lFile.download({url})
-								.then(path=>{
-									/* 预览 */
-									this.$refs.lFile.open(path);
-								});
-							},
-				/**
-				* 保存到本地
-				* type 非save为临时下载
-				* customName 仅type=save生效 附件自定义名称需带后缀，自定义目录需以/结尾
-				* DownloadOptions 仅type=save生效 可选参数(http://www.html5plus.org/doc/zh_cn/downloader.html#plus.downloader.DownloadOptions)
-				* 默认下载到_downloads/files/ 可通过DownloadOptions自定义
-				*/
-							onDown() {
-								let url = 'https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg';
-								this.$refs.lFile.download({
-									url, //必填，附件网络地址
-									type:'save', //选填，非save为临时下载
-									customName:'自定义文件名需要带后缀.jpg',
-									//...DownloadOptions直接写key:value 
-									// 例如：
-									method: 'GET'
-								})
-								.then(path=>{
-									this.localPath = path;
-								}); 
-							},
-							
-							/* 上传 */
-							onUpload() { 
-								/**
-								 * currentWebview: 当前webview
-								 * url：上传接口地址
-								 * name：附件key,服务端根据key值获取文件流，默认file,上传文件的key
-								 * header: 上传接口请求头
-								 */
-								this.$refs.lFile.upload({
-									// #ifdef APP-PLUS
-									// nvue页面使用时请查阅nvue获取当前webview的api，当前示例为vue窗口
-									currentWebview: this.$mp.page.$getAppWebview(),
-									// #endif
-									url: this.api+'/dropbox/document/upload', //替换为你的
-									name: 'file',
-									header: {  //根据你接口需求自定义
-										'Authorization': '',
-										'uid': '3871',
-										'client': 'app',
-										'accountid': 'IMED5274'
-									}
-									// body参数直接写key,value,如：
-									// key1: 'value1',
-									// key2: 'value2',
-								});
-							},
-							onSuccess(res) {
-								console.log('上传成功回调',JSON.stringify(res));
-								uni.showToast({
-									title: JSON.stringify(res),
-									icon: 'none'
-								})
-							}
-		    }
+		},
+		go_cwshi4(){
+		uni.navigateTo({
+			url:'ceshi4'
+		})
+			
+		},
+		go_cwshi5(){
+		uni.navigateTo({
+			url:'ceshi5'
+		})
+			
+		},
+		go_cwshi6(){
+		uni.navigateTo({
+			url:'ceshi6'
+		})
+			
+		},
+		close(){
+			 uni.closeSocket();
+		},
+		app_lianjie() {
+			let that = this;
+			that.WebSocket = '开始连接lalala';
+			var url = that.$http.WebSocket_url;
+that.url = that.$http.WebSocket_url+'----'+ 'wss://' + url + ':3348';
+// var url = 'www.xhlvshi.com';
+			// uni.connectSocket({
+			//   url: 'wss://' + url + ':3348',
+			// });
+			console.log(that.url)
+			this.socketTask = uni.connectSocket({
+				url: 'wss://' + url + ':3348',
+				success: data => {
+					that.WebSocket = '接成功data' + data;
+					console.log('websocket连接成功', data);
+				},
+				fail: err => {
+					
+					that.WebSocketerr =err;
+					console.log(err,'连接失败')
+				},
+				complete: res => {
+					that.WebSocket = 'complete';
+                 console.log(res,'连接失败complete')
+					that.WebSocket = 'complete' + res;
+				}
+			});
+			that.WebSocket = '开始连接3348' + url;
+			uni.onSocketOpen(function(res) {
+				console.log('WebSocket连接已打开！', res);
+				that.WebSocket = '开始连接uniapp打开:' + res;
+			});
+			that.WebSocket = '开始连接33333' + url;
+			uni.onSocketError(function(res) {
+				console.log('WebSocket连接打开失败，请检查！');
+				that.WebSocket = '开始连接uniapp失败:' + res;
+			});
+
+			that.WebSocket = '开始连接444' + url;
+
+			uni.onSocketMessage(function(res) {
+				var data = JSON.parse(res.data);
+
+				if (data.type == 'init') {
+					console.log('init');
+					console.log('client_id', data.client_id);
+					uni.request({
+						url: that.$http.baseUrl + '/push/gatewayworker/bind',
+						method: 'POST',
+						data: {
+							client_id: data.client_id
+						},
+						success: function(resp) {
+							console.log(resp, 'bind');
+						},
+						fail: function(resp) {}
+					});
+				} else if (data.type == 'say') {
+					console.log('say');
+
+					if (data.state) {
+						// that.huoqu_xiaoxilist();
+						that.WebSocket = res.data + '收到服务器内容say';
+						that.jieshou_xiaoxi(data);
+						that.$refs.mainindex.huoqunum();
+					}
+				} else {
+					console.log('else');
+				}
+
+				that.WebSocket = 'uniapp收到服务器内容:' + res.data;
+			});
+			that.WebSocket = '开始连接55555' + url;
+			uni.onSocketClose(function(res) {
+				console.log('uniapp 已关闭！');
+				
+				that.WebSocket = 'uniapp 已关闭:' +JSON.stringify(res) ;
+			});
+
+			that.WebSocket = 'zuihou' + url;
+		}
 	}
+};
 </script>
 
-
-<style>
-
-</style>
-
+<style></style>

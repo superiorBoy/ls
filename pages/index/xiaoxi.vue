@@ -43,9 +43,8 @@
 					</view>
 				</view>
 			</view>
+
 			<view class="xiaoxi_list">
-				
-				
 				<view class="xiaoxi_item" v-for="(item,index) in xiaoxi_list" @click="go_chat(item.lawyer.userid)" v-if="item.lawyer" :class="chumo_index==index?'chumo':''"   @touchstart='kaishi(index)'  @touchend='songkai(index)' @touchcancel='songkai(index)'>
 					<view class="xiaoxi_item_left">
 						<view class="xiaoxi_tx">
@@ -79,7 +78,7 @@
 
 <script>
 import uParse from '@/components/feng-parse/parse.vue';
-import socket from 'plus-websocket';
+// import socket from 'plus-websocket';
 import tabBar from '@/components/y_tabbar/tabbar.vue';
 export default {
 	created() {},
@@ -111,22 +110,26 @@ export default {
 			
 		}else{
 			console.log('缓存不存在')
+			
 			this.page=0
 			this.is_all=false
 			that.xiaoxi_list=[]
 			that.huoqu_xiaoxilist()
 		}
 
-
+              
 					// this.huoqu_xiaoxilist();
 					this.$refs.mainindex.huoqunum();
 					// #ifdef H5
 					this.connectSocketInit();
 					// #endif
 					// #ifdef APP-PLUS
+					
 					this.app_lianjie();
 					// #endif
 				} else {
+					
+					
 				}
 			});
 	},
@@ -140,13 +143,14 @@ export default {
 	onHide() {
 		
 		// #ifdef APP-PLUS
-		socket.closeSocket();
+		uni.closeSocket();
 		// #endif
 	},
 
 	onUnload() {
+		
 		// #ifdef APP-PLUS
-		socket.closeSocket();
+		uni.closeSocket();
 		// #endif
 	
 	},
@@ -163,11 +167,11 @@ export default {
 			is_all: false,
 			page:0,
 			chumo_index:-1
-			// is_xianshi:false
 		};
 	},
 	//下拉刷新
 	onPullDownRefresh: function() {
+		
 		this.page=0
 		this.is_all=false
 		this.xiaoxi_list=[]
@@ -194,26 +198,33 @@ export default {
 		},
 		app_lianjie() {
 			let that = this;
-			Object.assign(uni, socket);
-			// console.log(Object.assign(uni, socket));
 			var url = that.$http.WebSocket_url;
-
-			socket.connectSocket({
-				url: 'wss://' + url + ':3348',
-				success(data) {
-					console.log('websocket已连接', JSON.stringify(data));
+			uni.connectSocket({
+			    url: 'wss://' + url + ':3348',
+				success:(data)=>{
+					console.log("websocket连接成功",data);
+				},
+				fail:(err)=> {
+				},
+			    complete: (res)=> {
+	
 				}
 			});
-			socket.onSocketOpen(function(res) {
-				console.log('WebSocket连接已打开！');
+			
+			uni.onSocketOpen(function (res) {
+			  console.log('WebSocket连接已打开！',res);
+			 
 			});
-			socket.onSocketError(function(res) {
-				console.log('WebSocket连接打开失败，请检查！', JSON.stringify(res));
+			
+			uni.onSocketError(function (res) {
+			  console.log('WebSocket连接打开失败，请检查！');
+			  
 			});
-			socket.onSocketMessage(function(res) {
-				console.log('收到服务器内容：' + res.data);
+			
+	
+			
+			uni.onSocketMessage(function (res) {
 				var data = JSON.parse(res.data);
-
 				if (data.type == 'init') {
 					console.log('init');
 					console.log('client_id', data.client_id);
@@ -223,39 +234,32 @@ export default {
 						data: {
 							client_id: data.client_id
 						},
-
 						success: function(resp) {
 							console.log(resp, 'bind');
 						},
 						fail: function(resp) {}
 					});
-
-					// that.$http
-					// 	.post({
-					// 		url: '/push/gatewayworker/bind',
-					// 		data: {
-					// 			client_id: data.client_id
-					// 		}
-					// 	})
-					// 	.then(res => {
-					// 		console.log(res, 'bind');
-					// 	});
+				
 				} else if (data.type == 'say') {
 					console.log('say');
+					
 					if (data.state) {
 						// that.huoqu_xiaoxilist();
-						
 						that.jieshou_xiaoxi(data)
 						that.$refs.mainindex.huoqunum();
 					}
 				} else {
 					console.log('else');
 				}
-				console.log(data);
+				
+			  
 			});
-			socket.onSocketClose(function(res) {
-				console.log('WebSocket 已关闭！');
+			
+			uni.onSocketClose(function (res) {
+			  console.log('uniapp 已关闭！');
 			});
+	
+
 		},
 		xiaoxi_qiehuan(index) {
 			this.active = index;
@@ -453,6 +457,7 @@ export default {
 							 that.$refs.mainindex.huoqunum();
 							 that.$forceUpdate();
 							 that.theKey++;	
+							 uni.setStorageSync('user_chat_list', JSON.stringify(that.xiaoxi_list));  //设置缓存
 			            }
 						
 					}
@@ -481,6 +486,7 @@ export default {
 			that.$refs.mainindex.huoqunum();
 			that.$forceUpdate();
 			that.theKey++;	
+			uni.setStorageSync('user_chat_list', JSON.stringify(that.xiaoxi_list));  //设置缓存
 			}
 			
 		

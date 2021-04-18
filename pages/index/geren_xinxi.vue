@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import socket from 'plus-websocket';
+
 export default {
 	data() {
 		return {
@@ -157,14 +157,8 @@ export default {
 				.then(res => {
 					if (res.code == 0) {
 						 uni.removeStorageSync('user_chat_list');
-						var url = that.$http.WebSocket_url;
-						socket.closeSocket({
-							url: 'wss://' + url + ':3348'
-						});
-
-						socket.onSocketClose(function(res) {
-							console.log('WebSocket 已关闭！');
-						});
+						uni.closeSocket();
+						
 						uni.switchTab({
 							url: 'my'
 						});

@@ -85,7 +85,7 @@
 <script>
 import uParse from '@/components/feng-parse/parse.vue';
 import tabBar from '@/components/tabbar/tabbar.vue';
-import socket from 'plus-websocket';
+// import socket from 'plus-websocket';
 export default {
 	components: {
 		uParse,
@@ -141,7 +141,7 @@ export default {
 		// uni.removeStorageSync('ls_chat_list');
 		console.log('关闭当前页面')
 		// #ifdef APP-PLUS
-		socket.closeSocket();
+		uni.closeSocket();
 		// #endif
 	},
 	beforeDestroy() {
@@ -150,7 +150,7 @@ export default {
 		console.log('beforeDestroy')
 		
 		// #ifdef APP-PLUS
-		socket.closeSocket();
+		uni.closeSocket();
 		// #endif
 		// uni.removeStorageSync('user_chat_list');
 	
@@ -251,26 +251,32 @@ export default {
 		},
 		app_lianjie() {
 			let that = this;
-			Object.assign(uni, socket);
-			// console.log(Object.assign(uni, socket));
 			var url = that.$http.WebSocket_url;
 
-			socket.connectSocket({
-				url: 'wss://' + url + ':3348',
-				success(data) {
-					console.log('websocket已连接', JSON.stringify(data));
+             uni.connectSocket({
+			    url: 'wss://' + url + ':3348',
+				success:(data)=>{
+					console.log("websocket连接成功",data);
+				},
+				fail:(err)=> {
+				},
+			    complete: (res)=> {
+	
 				}
 			});
-			socket.onSocketOpen(function(res) {
-				console.log('WebSocket连接已打开！');
+			
+			uni.onSocketOpen(function (res) {
+			  console.log('WebSocket连接已打开！',res);
+			 
 			});
-			socket.onSocketError(function(res) {
-				console.log('WebSocket连接打开失败，请检查！', JSON.stringify(res));
+			
+			uni.onSocketError(function (res) {
+			  console.log('WebSocket连接打开失败，请检查！');
+			  
 			});
-			socket.onSocketMessage(function(res) {
-				console.log('收到服务器内容：' + res.data);
-				var data = JSON.parse(res.data);
 
+	uni.onSocketMessage(function (res) {
+				var data = JSON.parse(res.data);
 				if (data.type == 'init') {
 					console.log('init');
 					console.log('client_id', data.client_id);
@@ -281,41 +287,33 @@ export default {
 							client_id: data.client_id,
 							type:1
 						},
-
 						success: function(resp) {
 							console.log(resp, 'bind');
 						},
 						fail: function(resp) {}
 					});
-
-					// that.$http
-					// 	.post({
-					// 		url: '/push/gatewayworker/bind',
-					// 		data: {
-					// 			client_id: data.client_id
-					// 		}
-					// 	})
-					// 	.then(res => {
-					// 		console.log(res, 'bind');
-					// 	});
+				
 				} else if (data.type == 'say') {
-			
+					console.log('say');
+					
 					if (data.state) {
 						that.jieshou_xiaoxi(data)
-						that.$refs.ls_mainindex.huoqunum();
-						
-					// #ifdef APP-PLUS
-					void plus.push.createMessage('律师端收到一条新消息');
-					// #endif
+							that.$refs.ls_mainindex.huoqunum();
+						// #ifdef APP-PLUS
+						void plus.push.createMessage('律师端收到一条新消息');
+						// #endif
 					}
 				} else {
 					console.log('else');
 				}
-				console.log(data);
+				
+			  
 			});
-			socket.onSocketClose(function(res) {
-				console.log('WebSocket 已关闭！');
+			
+			uni.onSocketClose(function (res) {
+			  console.log('uniapp 已关闭！');
 			});
+
 		},
 		xiaoxi_qiehuan(index) {
 			this.active = index;
@@ -494,6 +492,7 @@ export default {
 							 that.$refs.ls_mainindex.huoqunum();
 							 that.$forceUpdate();
 							 that.theKey++;	
+							 uni.setStorageSync('ls_chat_list', JSON.stringify(that.xiaoxi_list));  //设置缓存
 			            }
 						
 					}	
@@ -523,6 +522,7 @@ export default {
 					that.$refs.ls_mainindex.huoqunum();
 					that.$forceUpdate();
 					that.theKey++;
+					uni.setStorageSync('ls_chat_list', JSON.stringify(that.xiaoxi_list));  //设置缓存
 				}		
 
                   	

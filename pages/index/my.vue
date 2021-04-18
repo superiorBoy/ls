@@ -50,7 +50,7 @@
 			<view class="my_guanli zixun_guanli">
 				<view class="my_title hei_30_bold">咨询管理</view>
 				<view class="my_list">
-				<!-- 	<navigator url="ceshi" class="ls_item">
+					<!-- <navigator url="ceshi" class="ls_item">
 						<image src="@/static/img/hy_tiwen_jilu_icon.png" mode="" style="width: 34rpx;height: 40rpx;"></image>
 						<view class="hui_24 ">测试</view>
 					</navigator> -->
@@ -149,7 +149,7 @@
 
 <script>
 	import tabBar from '@/components/y_tabbar/tabbar.vue';
-	import socket from 'plus-websocket';
+	
 export default {
 	created() {},
 	onShow() {
@@ -166,7 +166,7 @@ export default {
 	},
       onHide() {
 		// #ifdef APP-PLUS
-		socket.closeSocket();
+		uni.closeSocket();
 		// #endif
 		},
 	data() {
@@ -185,67 +185,69 @@ export default {
 	},
 	methods: {
 		kaiqi() {
-		
+		console.log('kaiqi')
 			let that = this;
-			// Object.assign(uni, socket);
-			// #ifdef APP-PLUS
-			Object.assign(uni, socket)
-			// #endif
-			// console.log(Object.assign(uni, socket));
+
 			var url = that.$http.WebSocket_url;
+		uni.connectSocket({
+		    url: 'wss://' + url + ':3348',
+			success:(data)=>{
+				console.log("websocket连接成功",data);
+			},
+			fail:(err)=> {
+			},
+		    complete: (res)=> {
+			
+			}
+		});
+         uni.onSocketOpen(function (res) {
+			  console.log('WebSocket连接已打开！',res);
+			 
+			});
+			
+			uni.onSocketError(function (res) {
+			  console.log('WebSocket连接打开失败，请检查！');
+			  
+			});
 		
-			socket.connectSocket({
-				url: 'wss://' + url + ':3348',
-				success(data) {
-					console.log('websocket已连接', JSON.stringify(data));
+		
+		uni.onSocketMessage(function (res) {
+			var data = JSON.parse(res.data);
+			if (data.type == 'init') {
+				console.log('init');
+				console.log('client_id', data.client_id);
+				uni.request({
+					url: that.$http.baseUrl + '/push/gatewayworker/bind',
+					method: 'POST',
+					data: {
+						client_id: data.client_id
+					},
+					success: function(resp) {
+						console.log(resp, 'bind');
+					},
+					fail: function(resp) {}
+				});
+			
+			} else if (data.type == 'say') {
+				console.log('say');
 				
+				if (data.state) {
+					// #ifdef APP-PLUS
+					void plus.push.createMessage('用户端收到一条新消息');
+					// #endif
+
+					 that.$refs.mainindex.huoqunum();
 				}
-			});
-			socket.onSocketOpen(function(res) {
-				console.log('WebSocket连接已打开！');
-				
-			});
-			socket.onSocketError(function(res) {
-				console.log('WebSocket连接打开失败，请检查！', JSON.stringify(res));
-			});
-			socket.onSocketMessage(function(res) {
-				console.log('收到服务器内容：' + res.data);
-				var data = JSON.parse(res.data);
+			} else {
+				console.log('else');
+			}
+			
+		});
 		
-				if (data.type == 'init') {
-					console.log('init');
-					console.log('client_id', data.client_id);
-					uni.request({
-						url: that.$http.baseUrl + '/push/gatewayworker/bind',
-						method: 'POST',
-						data: {
-							client_id: data.client_id
-						},
+		uni.onSocketClose(function (res) {
+		  console.log('uniapp 已关闭！');
+		});
 		
-						success: function(resp) {
-							console.log(resp, 'bind');
-						},
-						fail: function(resp) {}
-					});
-				} else if (data.type == 'say') {
-					console.log('say');
-					if (data.state) {
-						// #ifdef APP-PLUS
-						void plus.push.createMessage('用户端收到一条新消息');
-						// #endif
-						
-						
-						 that.$refs.mainindex.huoqunum();
-		
-					}
-				} else {
-					console.log('else');
-				}
-				console.log(data);
-			});
-			socket.onSocketClose(function(res) {
-				console.log('WebSocket 已关闭！');
-			});
 		},
 		qiehuan() {
 					// #ifdef APP-PLUS
@@ -254,11 +256,8 @@ export default {
 			// socket.closeSocket({
 			//   url: 'wss://' + url + ':3348',
 			// });
-			socket.closeSocket();
+			uni.closeSocket();
 
-			socket.onSocketClose(function (res) {
-			  console.log('WebSocket 已关闭！');
-			});
 				// #endif
 				
 				

@@ -64,7 +64,7 @@
 		onHide() {
 			
 			// #ifdef APP-PLUS
-			socket.closeSocket();
+			uni.closeSocket();
 			// #endif
 			
 		},

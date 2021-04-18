@@ -1,6 +1,6 @@
 <template>
 	<view class="tabBar">
-		<view v-for="(item, index) in tabBar" :key="item.url" class="tabbar_item" :class="{ active: item.url == currentPage }" @click="navTo(item, index)">
+		<view v-for="(item, index) in tabBar" :key="index" class="tabbar_item" :class="{ active: item.url == currentPage }" @click="navTo(item, index)">
 		<view class="">
 			<image v-if="item.url == currentPage" :src="item.imgClick" mode=""></image>
 		</view>	

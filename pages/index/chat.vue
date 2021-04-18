@@ -956,6 +956,7 @@
 						<text class="lv_26" @click="bianji">重新编辑</text>
 					</text>
 				</view>
+
 				<!-- 	<view class="chat_list chat_left">
 					<image src="@/static/lsimg/yh_tx.png" mode="" class="tx"></image>
 					<view class="chat_left_txt hei_30">
@@ -1027,11 +1028,11 @@
 						<image src="../../static/img/hongbao.png" mode=""></image>
 						<view>发红包</view>
 					</view>
-					<view class="chat_bt_item" @click="yuyin_chat">
+					<view class="chat_bt_item" @click="yuyin_chat" v-if="is_kaiqi_yuyin==1">
 						<image src="../../static/img/bottom_yuyin.png" mode=""></image>
 						<view>语音聊天</view>
 					</view>
-					<view class="chat_bt_item" @click="shipin_chat">
+					<view class="chat_bt_item" @click="shipin_chat"  v-if="is_kaiqi_yuyin==1">
 						<image src="../../static/img/bottom_shipin.png" mode=""></image>
 						<view>视频聊天</view>
 					</view>
@@ -1099,7 +1100,6 @@ const innerAudioContext = uni.createInnerAudioContext();
 innerAudioContext.autoplay = true;
 import emotion from '@/components/bkhumor-emoji/index.vue';
 import uParse from '@/components/feng-parse/parse.vue';
-import socket from 'plus-websocket';
 import permision from '@/common/permission.js';
 import lfile from '@/components/l-file/l-file.vue'
 export default {
@@ -1167,7 +1167,14 @@ export default {
 				this.zhuanchang_arry = res.data.shanchang;
 				this.huqu_ls_xinxi();
 			});
-
+			// 获取是否开启语音
+	this.$http
+			.post({
+				url: '/mapi/index/getopenchat'
+			})
+			.then(res => {
+				this.is_kaiqi_yuyin=res.data.openchat
+			});
 	
 		// 进入这个页面的时候创建websocket连接【整个页面随时使用】
 		// this.connectSocketInit();
@@ -1221,7 +1228,7 @@ export default {
 				
 			});
 		// #ifdef APP-PLUS
-		socket.closeSocket();
+		uni.closeSocket();
 		// #endif
 		
 		
@@ -1259,31 +1266,35 @@ export default {
 			
 				   // user_chat_list[i].content=that.message[that.message.length-1].content
 				   // user_chat_list[i].msgtype=that.message[that.message.length-1].msgtype
+				   uni.setStorageSync('user_chat_list', JSON.stringify(user_chat_list));  //设置缓存
+				   console.log('存在',user_chat_list[i])
+				      console.log('重新设置')
+				      is_cuzai=true
+				    }else{
+				        is_cuzai=true
+						user_chat_list[i].content=that.message[that.message.length-1].content
+						user_chat_list[i].msgtype=that.message[that.message.length-1].msgtype
+						user_chat_list[i].readnum=0   
+						uni.setStorageSync('user_chat_list', JSON.stringify(user_chat_list));  //设置缓存
+						console.log('存在',user_chat_list[i])
+						   
+						   
+				        // uni.removeStorageSync('user_chat_list');
+				   
+			        }
 				   // user_chat_list[i].readnum=0   
 			   }
 			   
-			   uni.setStorageSync('user_chat_list', JSON.stringify(user_chat_list));  //设置缓存
-			   console.log('存在',user_chat_list[i])
-			      console.log('存在')
-			      is_cuzai=true
-			    }
-			   
-			   
-			
 			}
 
 		}
 		
 		
 		if(!is_cuzai){
-			
 			console.log('不存在')
-			
 			uni.removeStorageSync('user_chat_list');
-			
-
 		// #ifdef APP-PLUS
-		socket.closeSocket();
+		uni.closeSocket();
 		// #endif
 		
 		}
@@ -1348,7 +1359,9 @@ export default {
 			tips:'',
 			gettype:'',
 			localPath: '',
-			is_last_msguptime:''
+			is_last_msguptime:'',
+			is_kaiqi_yuyin:2,
+
 		};
 	},
 	//下拉刷新
@@ -1609,6 +1622,7 @@ export default {
 			// #endif
 		},
 		judgeIosPermission(permisionID) {
+		
 			var result = permision.judgeIosPermission(permisionID)
 			console.log(result);
 			var strStatus = (result) ? "已" : "未"
@@ -1616,11 +1630,25 @@ export default {
 			if(strStatus=='已'){
 				this.on_yuyin = true;
 				}else{
-					uni.showToast({
-						title: '请授权语音功能',
-						duration: 1000,
-						icon: 'none'
-					});
+					// uni.showToast({
+					// 	title: '麦克风权限没有开启',
+					// 	duration: 1000,
+					// 	icon: 'none'
+					// });
+					
+					// setTimeout(function(){
+					// 	permision.gotoAppPermissionSetting();
+					// },1000)
+					uni.showModal({
+							content: "需要开启麦克风权限",
+							confirmText: "设置",
+							success: function(res) {
+							 if (res.confirm) {
+		                   permision.gotoAppPermissionSetting();
+											   }
+											    }
+						}) 
+
 				}
 			// uni.showModal({
 			// 	content: permisionID + '权限' + strStatus + "获得授权",
@@ -1628,22 +1656,24 @@ export default {
 			// });
 		},
 		async requestAndroidPermission(permisionID) {
+			
 			var result = await permision.requestAndroidPermission(permisionID);
 			var strStatus;
 			if (result == 1) {
 				strStatus = '已获得授权';
 				this.on_yuyin = true;
 			} else if (result == 0) {
+				
 				strStatus = '未获得授权';
 				uni.showToast({
-					title: '请授权语音功能',
+					title: '麦克风权限没有开启',
 					duration: 1000,
 					icon: 'none'
 				});
 			} else {
 				strStatus = '被永久拒绝权限';
 				uni.showToast({
-					title: '请授权语音功能',
+					title: '麦克风权限被禁止',
 					duration: 1000,
 					icon: 'none'
 				});
@@ -1999,27 +2029,33 @@ export default {
 
 		app_lianjie() {
 			let that = this;
-			Object.assign(uni, socket);
-			// console.log(Object.assign(uni, socket));
 			var url = that.$http.WebSocket_url;
-
-			socket.connectSocket({
-				url: 'wss://' + url + ':3348',
-				success(data) {
-					console.log(url);
-					console.log('websocket已连接', JSON.stringify(data));
+	  uni.connectSocket({
+			    url: 'wss://' + url + ':3348',
+				success:(data)=>{
+					console.log("websocket连接成功",data);
+				},
+				fail:(err)=> {
+				},
+			    complete: (res)=> {
+	
 				}
 			});
-			socket.onSocketOpen(function(res) {
-				console.log('WebSocket连接已打开！');
+			
+			uni.onSocketOpen(function (res) {
+			  console.log('WebSocket连接已打开！',res);
+			 
 			});
-			socket.onSocketError(function(res) {
-				console.log('WebSocket连接打开失败，请检查！', JSON.stringify(res));
+			
+			uni.onSocketError(function (res) {
+			  console.log('WebSocket连接打开失败，请检查！');
+			  
 			});
-			socket.onSocketMessage(function(res) {
-				console.log('收到服务器内容：' + res.data);
-				var data = JSON.parse(res.data);
 
+uni.onSocketMessage(function (res) {
+	
+	console.log('收到服务器内容',res)
+				var data = JSON.parse(res.data);
 				if (data.type == 'init') {
 					console.log('init');
 					console.log('client_id', data.client_id);
@@ -2029,26 +2065,17 @@ export default {
 						data: {
 							client_id: data.client_id
 						},
-
 						success: function(resp) {
 							console.log(resp, 'bind');
 						},
 						fail: function(resp) {}
 					});
-
-					// that.$http
-					// 	.post({
-					// 		url: '/push/gatewayworker/bind',
-					// 		data: {
-					// 			client_id: data.client_id
-					// 		}
-					// 	})
-					// 	.then(res => {
-					// 		console.log(res, 'bind');
-					// 	});
+				
 				} else if (data.type == 'say') {
 					console.log('say');
+					
 					if (data.state) {
+						
 						if (data.state == 9) {
 							if (data.userid) {
 								this.$http
@@ -2122,7 +2149,7 @@ export default {
 							};
 							that.message.push(xiaoxi);
 						}
-
+						
 						setTimeout(() => {
 							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 						}, 200);
@@ -2130,11 +2157,15 @@ export default {
 				} else {
 					console.log('else');
 				}
-				console.log(data);
+				
+			  
 			});
-			socket.onSocketClose(function(res) {
-				console.log('WebSocket 已关闭！');
+			
+			uni.onSocketClose(function (res) {
+			  console.log('uniapp 已关闭！');
 			});
+
+
 		},
 
 		dianzan() {
@@ -2295,7 +2326,8 @@ export default {
 						reader.readAsDataURL(file);
 					},
 					function(e) {
-						mui.toast('读写出现异常: ' + e.message);
+						console.log('读写出现异常: ' + e.message)
+						
 					}
 				);
 			});
@@ -2357,6 +2389,7 @@ export default {
 				});
 		},
 		send_luyin(audio) {
+			console.log('send1111111111')
 			var that = this;
 			var duration=Math.round(this.intervalTime)
 			this.$http
@@ -2939,7 +2972,7 @@ page {
 .chat_bottom_bottom {
 	background-color: #fafafa;
 	display: flex;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	padding: 40rpx 0 0;
 	flex-wrap: wrap;
 }

@@ -202,6 +202,9 @@ export default {
 			})
 			.then(res => {
 				this.fenlei = res.data.type;
+				
+				this.huoqu_list();
+				
 			});
 			this.$http
 				.post({
@@ -242,13 +245,13 @@ export default {
 		// this.sheng = '';
 		// this.shi = '';
 		// this.xuanzc = '9999';
-		this.page = 0;
-		this.jilu_list = [];
+		// this.page = 0;
+		// this.jilu_list = [];
 		// this.weihui=[]
 		// this.is_all = false;
 		// this.huoqu_list();
 		
-			this.huoqu_list();
+			
 		
 	},
 

@@ -1047,11 +1047,11 @@
 						<image src="../../static/lsimg/chat_shoukuan.png" mode=""></image>
 						<view>发起收款</view>
 					</view>
-					<view class="chat_bt_item" @click="yuyin_chat">
+					<view class="chat_bt_item" @click="yuyin_chat"  v-if="is_kaiqi_yuyin==1">
 						<image src="../../static/img/bottom_yuyin.png" mode=""></image>
 						<view>语音聊天</view>
 					</view>
-					<view class="chat_bt_item" @click="shipin_chat">
+					<view class="chat_bt_item" @click="shipin_chat"  v-if="is_kaiqi_yuyin==1">
 						<image src="../../static/img/bottom_shipin.png" mode=""></image>
 						<view>视频聊天</view>
 					</view>
@@ -1104,7 +1104,7 @@ const innerAudioContext = uni.createInnerAudioContext();
 innerAudioContext.autoplay = true;
 import emotion from '@/components/bkhumor-emoji/index.vue';
 import uParse from '@/components/feng-parse/parse.vue';
-import socket from 'plus-websocket';
+
 import permision from '@/common/permission.js';
 import lfile from '@/components/l-file/l-file.vue'
 export default {
@@ -1169,7 +1169,14 @@ this.huoqu_type()
 				this.zhuanchang_arry = res.data.shanchang;
 				this.huoqu_renzheng();
 			});
-
+			// 获取是否开启语音
+	this.$http
+			.post({
+				url: '/mapi/index/getopenchat'
+			})
+			.then(res => {
+				this.is_kaiqi_yuyin=res.data.openchat
+			});
 		
 		// 进入这个页面的时候创建websocket连接【整个页面随时使用】
 		// this.connectSocketInit();
@@ -1193,7 +1200,7 @@ this.huoqu_type()
 	onHide() {
 		
 		// #ifdef APP-PLUS
-		socket.closeSocket();
+		uni.closeSocket();
 		// #endif
 		
 	// 	this.$http
@@ -1226,7 +1233,7 @@ this.huoqu_type()
 
 		innerAudioContext.stop();//暂停这个实例
 		// #ifdef APP-PLUS
-		socket.closeSocket();
+		uni.closeSocket();
 		// #endif
 
 		var ls_chat_list = uni.getStorageSync('ls_chat_list') ;//读取缓存
@@ -1239,7 +1246,7 @@ this.huoqu_type()
 			   if(ls_chat_list[i].user.userid==this.userid){
 				   	 if(that.message[that.message.length-1].addtime!=that.is_last_msguptime){
 				   
-				   console.log('存在')
+				   console.log('重新设置')
 				   console.log('存在',ls_chat_list[i])
 				   
 				   var xinxi={
@@ -1260,7 +1267,17 @@ this.huoqu_type()
 				   }
 				   ls_chat_list.splice(i, 1);//存在即删除
 				   ls_chat_list.unshift(xinxi)
-                  }
+				   is_cuzai=true
+				   uni.setStorageSync('ls_chat_list', JSON.stringify(ls_chat_list));  //设置缓存
+                  }else{
+					  
+					  is_cuzai=true
+					  ls_chat_list[i].content=this.message[this.message.length-1].content
+					  ls_chat_list[i].msgtype=this.message[this.message.length-1].msgtype
+					  ls_chat_list[i].lawyerreadnum=0
+					  uni.setStorageSync('ls_chat_list', JSON.stringify(ls_chat_list));  //设置缓存
+					  // uni.removeStorageSync('ls_chat_list');
+				  }
 				   
 				   // ls_chat_list[i].content=this.message[this.message.length-1].content
 				   // ls_chat_list[i].msgtype=this.message[this.message.length-1].msgtype
@@ -1269,8 +1286,7 @@ this.huoqu_type()
 			   
 			 //     ls_chat_list[i].readnum=0
 				// ls_chat_list[i]= ls_chat_list[i].addtime,
-			     is_cuzai=true
-			    uni.setStorageSync('ls_chat_list', JSON.stringify(ls_chat_list));  //设置缓存
+			  
 			   }
 
 			}
@@ -1335,7 +1351,8 @@ this.huoqu_type()
 			dakai:false,
 			tips:'',
 			gettype:'',
-			is_last_msguptime:''
+			is_last_msguptime:'',
+			is_kaiqi_yuyin:2
 			
 		};
 	},
@@ -1406,11 +1423,20 @@ this.huoqu_type()
 			if(strStatus=='已'){
 				this.on_yuyin = true;
 				}else{
-					uni.showToast({
-						title: '请授权语音功能',
-						duration: 1000,
-						icon: 'none'
-					});
+					// uni.showToast({
+					// 	title: '麦克风权限没有开启',
+					// 	duration: 1000,
+					// 	icon: 'none'
+					// });
+					uni.showModal({
+							content: "需要开启麦克风权限",
+							confirmText: "设置",
+							success: function(res) {
+							 if (res.confirm) {
+					       permision.gotoAppPermissionSetting();
+											   }
+											    }
+						}) 
 				}
 			// uni.showModal({
 			// 	content: permisionID + '权限' + strStatus + "获得授权",
@@ -1426,14 +1452,14 @@ this.huoqu_type()
 			} else if (result == 0) {
 				strStatus = '未获得授权';
 				uni.showToast({
-					title: '请授权语音功能',
+					title: '麦克风权限没有开启',
 					duration: 1000,
 					icon: 'none'
 				});
 			} else {
 				strStatus = '被永久拒绝权限';
 				uni.showToast({
-					title: '请授权语音功能',
+					title: '麦克风权限被禁止',
 					duration: 1000,
 					icon: 'none'
 				});
@@ -1830,70 +1856,80 @@ this.huoqu_type()
 		},
 		app_lianjie() {
 			let that = this;
-			Object.assign(uni, socket);
-			// console.log(Object.assign(uni, socket));
-			
-			console.log('111111');
 			var url = that.$http.WebSocket_url;
-
-			socket.connectSocket({
-				url: 'wss://' + url + ':3348',
-				success(data) {
-					console.log('websocket已连接', JSON.stringify(data));
+  uni.connectSocket({
+			    url: 'wss://' + url + ':3348',
+				success:(data)=>{
+					console.log("websocket连接成功",data);
+				},
+				fail:(err)=> {
+				},
+			    complete: (res)=> {
+	
 				}
 			});
-
-			socket.onSocketOpen(function(res) {
-				console.log('WebSocket连接已打开！');
+			
+			uni.onSocketOpen(function (res) {
+			  console.log('WebSocket连接已打开！',res);
+			 
 			});
-			socket.onSocketError(function(res) {
-				console.log('WebSocket连接打开失败，请检查！', JSON.stringify(res));
+			
+			uni.onSocketError(function (res) {
+			  console.log('WebSocket连接打开失败，请检查！');
+			  
 			});
-			socket.onSocketMessage(function(res) {
-				that.dakai=true
-				console.log('收到服务器内容：' + res.data);
-				var data = JSON.parse(res.data);
-
-				if (data.type == 'init') {
-					console.log('init');
-					console.log('client_id', data.client_id);
-					uni.request({
-						url: that.$http.baseUrl + '/push/gatewayworker/bind',
-						method: 'POST',
-						data: {
-							client_id: data.client_id,
-							type: 1
-						},
-
-						success: function(resp) {
-							console.log(resp, 'bind');
-						},
-						fail: function(resp) {}
-					});
-					// that.$http
-					// 	.post({
-					// 		url: '/push/gatewayworker/bind',
-					// 		data: {
-					// 			client_id: data.client_id
-					// 		}
-					// 	})
-					// 	.then(res => {
-					// 		console.log(res, 'bind');
-					// 	});
-				} else if (data.type == 'say') {
-					console.log('say');
-					if (data.state) {
-						if (data.state == 10) {
-							if (data.content) {
-								this.$http
-									.post({
-										url: '/mlawyerapi/consult/red_envelope',
-										data: {
-											redid: data.content,
-											userid: that.userid
+			uni.onSocketMessage(function (res) {
+						var data = JSON.parse(res.data);
+						if (data.type == 'init') {
+							console.log('init');
+							console.log('client_id', data.client_id);
+							uni.request({
+								url: that.$http.baseUrl + '/push/gatewayworker/bind',
+								method: 'POST',
+								data: {
+									client_id: data.client_id,
+									type:1
+								},
+								success: function(resp) {
+									console.log(resp, 'bind');
+								},
+								fail: function(resp) {}
+							});
+						
+						} else if (data.type == 'say') {
+							console.log('say');
+							
+							if (data.state) {
+								
+									if (data.state == 10) {
+										if (data.content) {
+											this.$http
+												.post({
+													url: '/mlawyerapi/consult/red_envelope',
+													data: {
+														redid: data.content,
+														userid: that.userid
+													}
+												})
+												.then(ress => {
+													var xiaoxi = {
+														photourl_form: data.userid_from_pic,
+														userid_to: data.userid_to,
+														photourl_to: data.userid_to_pic,
+														content: data.msg,
+														msgtype: data.state,
+														userid_from: data.userid_from,
+														money: ress.data.red_envelope.money,
+														is_pay: ress.data.red_envelope.is_pay,
+														information: ress.data.red_envelope.information,
+														paymode: ress.data.red_envelope.paymode,
+														type: ress.data.red_envelope.type,
+														addtime: new Date().getTime()
+													};
+													that.message.push(xiaoxi);
+												});
 										}
-									})
-									.then(ress => {
+									} else {
 										var xiaoxi = {
 											photourl_form: data.userid_from_pic,
 											userid_to: data.userid_to,
@@ -1901,44 +1937,28 @@ this.huoqu_type()
 											content: data.msg,
 											msgtype: data.state,
 											userid_from: data.userid_from,
-											money: ress.data.red_envelope.money,
-											is_pay: ress.data.red_envelope.is_pay,
-											information: ress.data.red_envelope.information,
-											paymode: ress.data.red_envelope.paymode,
-											type: ress.data.red_envelope.type,
 											addtime: new Date().getTime()
 										};
-										that.message.push(xiaoxi);
-									});
+										if (that.user.userid != data.userid_from) {
+											that.message.push(xiaoxi);
+										}
+									}
+								
+									setTimeout(() => {
+										uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+									}, 200);
 							}
 						} else {
-							var xiaoxi = {
-								photourl_form: data.userid_from_pic,
-								userid_to: data.userid_to,
-								photourl_to: data.userid_to_pic,
-								content: data.msg,
-								msgtype: data.state,
-								userid_from: data.userid_from,
-								addtime: new Date().getTime()
-							};
-							if (that.user.userid != data.userid_from) {
-								that.message.push(xiaoxi);
-							}
+							console.log('else');
 						}
-
-						setTimeout(() => {
-							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
-						}, 200);
-					}
-				} else {
-					console.log('else');
-				}
-				console.log(data);
-			});
-			socket.onSocketClose(function(res) {
-				console.log('WebSocket 已关闭！');
-				that.dakai=false
-			});
+						
+					  
+					});
+					
+					uni.onSocketClose(function (res) {
+					  console.log('uniapp 已关闭！');
+					});
+	
 		},
 
 		handleEmj(i) {

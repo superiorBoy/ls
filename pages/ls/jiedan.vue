@@ -115,7 +115,7 @@
 
 <script>
 import tabBar from '@/components/tabbar/tabbar.vue';
-import socket from 'plus-websocket';
+
 export default {
 	components: {
 		tabBar
@@ -126,7 +126,7 @@ export default {
 	},
 	beforeDestroy() {
 	    // #ifdef APP-PLUS
-	    socket.closeSocket();
+	    uni.closeSocket();
 	    // #endif
 	},
 	onLoad() {
@@ -271,61 +271,67 @@ export default {
 		},
 		app_lianjie() {
 			let that = this;
-			Object.assign(uni, socket);
-			// console.log(Object.assign(uni, socket));
+
 			var url = that.$http.WebSocket_url;
-
-			socket.connectSocket({
-				url: 'wss://' + url + ':3348',
-				success(data) {
-					console.log('websocket已连接', JSON.stringify(data));
+ uni.connectSocket({
+			    url: 'wss://' + url + ':3348',
+				success:(data)=>{
+					console.log("websocket连接成功",data);
+				},
+				fail:(err)=> {
+				},
+			    complete: (res)=> {
+	
 				}
 			});
-			socket.onSocketOpen(function(res) {
-				console.log('WebSocket连接已打开！');
+			
+			uni.onSocketOpen(function (res) {
+			  console.log('WebSocket连接已打开！',res);
+			 
 			});
-			socket.onSocketError(function(res) {
-				console.log('WebSocket连接打开失败，请检查！', JSON.stringify(res));
+			
+			uni.onSocketError(function (res) {
+			  console.log('WebSocket连接打开失败，请检查！');
+			  
 			});
-			socket.onSocketMessage(function(res) {
-				console.log('收到服务器内容：' + res.data);
-				var data = JSON.parse(res.data);
-
-				if (data.type == 'init') {
-					console.log('init');
-					console.log('client_id', data.client_id);
-					uni.request({
-						url: that.$http.baseUrl + '/push/gatewayworker/bind',
-						method: 'POST',
-						data: {
-							client_id: data.client_id,
-							type: 1
-						},
-
-						success: function(resp) {
-							console.log(resp, 'bind');
-						},
-						fail: function(resp) {}
+			uni.onSocketMessage(function (res) {
+						var data = JSON.parse(res.data);
+						if (data.type == 'init') {
+							console.log('init');
+							console.log('client_id', data.client_id);
+							uni.request({
+								url: that.$http.baseUrl + '/push/gatewayworker/bind',
+								method: 'POST',
+								data: {
+									client_id: data.client_id,
+									type:1
+								},
+								success: function(resp) {
+									console.log(resp, 'bind');
+								},
+								fail: function(resp) {}
+							});
+						
+						} else if (data.type == 'say') {
+							console.log('say');
+							
+							if (data.state) {
+								that.$refs.ls_mainindex.huoqunum();
+									// #ifdef APP-PLUS
+									void plus.push.createMessage('律师端收到一条新消息');
+									// #endif
+							}
+						} else {
+							console.log('else');
+						}
+						
+					  
 					});
-				} else if (data.type == 'say') {
-					console.log('say');
+					
+					uni.onSocketClose(function (res) {
+					  console.log('uniapp 已关闭！');
+					});
 
-					that.$refs.ls_mainindex.huoqunum();
-
-
-					if (data.state) {
-						// #ifdef APP-PLUS
-						void plus.push.createMessage('律师端收到一条新消息');
-						// #endif
-					}
-				} else {
-					console.log('else');
-				}
-				console.log(data);
-			});
-			socket.onSocketClose(function(res) {
-				console.log('WebSocket 已关闭！');
-			});
 		}
 	},
 	filters: {
