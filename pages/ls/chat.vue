@@ -270,10 +270,10 @@
 							<view class="send_fukuan_success">
 								<view class="lv_26 send_fukuan_title">
 									<view class="lv_24_bold send_fukuan_title_left">
-									<image src="@/static/img/chat_duihao.png" mode=""></image>
-									付款成功
+										<image src="@/static/img/chat_duihao.png" mode=""></image>
+										付款成功
 									</view>
-								<!-- 	<text class="hong_24">
+									<!-- 	<text class="hong_24">
 										￥{{ item.consult.paymoney }}
 									</text> -->
 								</view>
@@ -315,9 +315,8 @@
 									</view>
 									<view>咨询类型：{{ item.consult.typename }}</view>
 									<view class="send_pay_bottom_neirong">咨询内容：{{ item.consult.information }}</view>
-					
 								</view>
-							<!-- 	<view class="fufei_success_tips qian_24">
+								<!-- 	<view class="fufei_success_tips qian_24">
 									{{item.consult.baojiamode=='zhineng_zaixian'?tips.zhinengpaytip:tips.consultpaytip}}
 									
 								</view> -->
@@ -332,8 +331,8 @@
 							<view class="send_fukuan_success">
 								<view class="lv_26 send_fukuan_title">
 									<view class="lv_24_bold send_fukuan_title_left">
-									<image src="@/static/img/chat_duihao.png" mode=""></image>
-									付款成功
+										<image src="@/static/img/chat_duihao.png" mode=""></image>
+										付款成功
 									</view>
 									<!-- <text class="hong_24">
 										￥{{ item.consult.paymoney }}
@@ -378,11 +377,7 @@
 									<view>咨询类型：{{ item.consult.typename }}</view>
 									<view class="send_pay_bottom_neirong">咨询内容：{{ item.consult.information }}</view>
 								</view>
-								<view class="fufei_success_tips qian_24">
-									{{item.consult.baojiamode=='zhineng_zaixian'?tips.zhinengpaytip:tips.consultpaytip}}
-									
-								</view>
-
+								<view class="fufei_success_tips qian_24">{{ item.consult.baojiamode == 'zhineng_zaixian' ? tips.zhinengpaytip : tips.consultpaytip }}</view>
 							</view>
 							<view class="qian_20 du_zhuangtai">{{ item.read == 1 ? '已读' : '未读' }}</view>
 						</view>
@@ -425,9 +420,9 @@
 					</view>
 
 					<!-- 发送语音消息 -->
-					<view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype == 13 && item.iswithdraw!=1">
-						<view class="chat_right_txt hei_30 chat_yuyin" @tap="playVoice(item.content,index,item.duration)" :class="yuyin_index==index?'bofang':''">
-							{{item.duration?item.duration:'5'}}'' 
+					<view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype == 13 && item.iswithdraw != 1">
+						<view class="chat_right_txt hei_30 chat_yuyin" @tap="playVoice(item.content, index, item.duration)" :class="yuyin_index == index ? 'bofang' : ''">
+							{{ item.duration ? item.duration : '5' }}''
 							<image src="../../static/lsimg/chat_yuyin_right.png" mode="" class="yuyin_icon"></image>
 							<image src="../../static/img/bofang_right.gif" mode="" class="yuyin_bofang"></image>
 							<view class="qian_20 du_zhuangtai">{{ item.read == 1 ? '已读' : '未读' }}</view>
@@ -436,77 +431,69 @@
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
 					<!-- 发送文件-->
-					<view class="chat_list chat_right" v-if="item.userid_from != userid &&item.msgtype == 14 && item.iswithdraw != 1"  @longpress="changan(item.messageid, item.content)" @tap="onOpenDoc(item.content)">
-					<view class="chat_right_txt ">
-						<view class="send_wenjian_html">
-							<view class="send_wenjian_html_left">
-								<view class="hei_30 send_wenjian_html_title">
-									{{wenjian(item.content)}}
-								</view>
-								<!-- <view class="qian_24">
+					<view
+						class="chat_list chat_right"
+						v-if="item.userid_from != userid && item.msgtype == 14 && item.iswithdraw != 1"
+						@longpress="changan(item.messageid, item.content)"
+						@tap="onOpenDoc(item.content)"
+					>
+						<view class="chat_right_txt ">
+							<view class="send_wenjian_html">
+								<view class="send_wenjian_html_left">
+									<view class="hei_30 send_wenjian_html_title">{{ wenjian(item.content) }}</view>
+									<!-- <view class="qian_24">
 									180K
 								</view> -->
+								</view>
+								<view class="send_wenjian_html_right"><image src="../../static/img/word.png" mode=""></image></view>
 							</view>
-							<view class="send_wenjian_html_right">
-								<image src="../../static/img/word.png" mode=""></image>
-								
-							</view>
-							
-						</view>
-						<view class="qian_20 du_zhuangtai">{{ item.read == 1 ? '已读' : '未读' }}</view>
+							<view class="qian_20 du_zhuangtai">{{ item.read == 1 ? '已读' : '未读' }}</view>
 						</view>
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
-					
+
 					<!-- 其他咨询 -->
-				<view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype == 7 && item.iswithdraw != 1" @longpress="changan(item.messageid)">
-					<view class="chat_right_txt hei_30">
-						<view class="send_fukuan_success">
-							<view class="lv_26 send_fukuan_title">
-								<view class="lv_24_bold send_fukuan_title_left">
-								<image src="@/static/img/chat_duihao.png" mode=""></image>
-								付款成功
-								</view>
-								<!-- <text class="hong_24">
+					<view class="chat_list chat_right" v-if="item.userid_from != userid && item.msgtype == 7 && item.iswithdraw != 1" @longpress="changan(item.messageid)">
+						<view class="chat_right_txt hei_30">
+							<view class="send_fukuan_success">
+								<view class="lv_26 send_fukuan_title">
+									<view class="lv_24_bold send_fukuan_title_left">
+										<image src="@/static/img/chat_duihao.png" mode=""></image>
+										付款成功
+									</view>
+									<!-- <text class="hong_24">
 									￥{{ item.consult.paymoney }}
 								</text> -->
-							</view>
-							<view class="send_pay_ls">
-								<image :src="img_url + user.photourl" mode=""></image>
-								<view class="send_pay_ls_riht">
-									<view class="end_pay_leixing hei_26">
-										{{item.consult.baojia[item.consult.baojiamode]}}
-									</view>
-									<!-- <view class="hei_26 consult_typename">
+								</view>
+								<view class="send_pay_ls">
+									<image :src="img_url + user.photourl" mode=""></image>
+									<view class="send_pay_ls_riht">
+										<view class="end_pay_leixing hei_26">{{ item.consult.baojia[item.consult.baojiamode] }}</view>
+										<!-- <view class="hei_26 consult_typename">
 										{{ item.consult.typename }}
 												
 									</view> -->
-									<view class="hei_20">
-										{{ user.nickname }}律师
-										<text class="qian_20 send_pay_ls_zhiwu">{{ renzheng.zhiwu }}</text>
+										<view class="hei_20">
+											{{ user.nickname }}律师
+											<text class="qian_20 send_pay_ls_zhiwu">{{ renzheng.zhiwu }}</text>
+										</view>
 									</view>
 								</view>
-							</view>
-							<view class="send_pay_bottom hei_24">
-								<view>
-									手机号码：{{ item.consult.phone }}
-									<!-- <text class="send_pay_call bai_24"@click="call2(item.consult.phone)">打电话给他</text> -->
+								<view class="send_pay_bottom hei_24">
+									<view>
+										手机号码：{{ item.consult.phone }}
+										<!-- <text class="send_pay_call bai_24"@click="call2(item.consult.phone)">打电话给他</text> -->
+									</view>
+									<view>咨询类型：{{ item.consult.typename }}</view>
+									<view class="send_pay_bottom_neirong">咨询内容：{{ item.consult.information }}</view>
 								</view>
-								<view>咨询类型：{{ item.consult.typename }}</view>
-								<view class="send_pay_bottom_neirong">咨询内容：{{ item.consult.information }}</view>
+								<view class="fufei_success_tips qian_24">{{ item.consult.baojiamode == 'zhineng_zaixian' ? tips.zhinengpaytip : tips.consultpaytip }}</view>
 							</view>
-							<view class="fufei_success_tips qian_24">
-								{{item.consult.baojiamode=='zhineng_zaixian'?tips.zhinengpaytip:tips.consultpaytip}}
-								
-							</view>
-				
+							<view class="qian_20 du_zhuangtai">{{ item.read == 1 ? '已读' : '未读' }}</view>
 						</view>
-						<view class="qian_20 du_zhuangtai">{{ item.read == 1 ? '已读' : '未读' }}</view>
+
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 					</view>
-				
-					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-				</view>
-					
 
 					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype == 1 && item.iswithdraw != 1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
@@ -625,17 +612,17 @@
 							</view>
 						</view>
 					</view>
-					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype ==6 && item.iswithdraw != 1">
+					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype == 6 && item.iswithdraw != 1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
 							<!-- <text class="ls_name">{{ title }}</text> -->
 							<view class="send_fukuan_success">
 								<view class="lv_26 send_fukuan_title">
 									<view class="lv_24_bold send_fukuan_title_left">
-									<image src="@/static/img/chat_duihao.png" mode=""></image>
-									付款成功
-										</view>
-								<!-- 	<text class="hong_24">
+										<image src="@/static/img/chat_duihao.png" mode=""></image>
+										付款成功
+									</view>
+									<!-- 	<text class="hong_24">
 										￥{{ item.consult.paymoney }}
 									</text> -->
 								</view>
@@ -643,7 +630,7 @@
 									<image :src="img_url + user.photourl" mode=""></image>
 									<view class="send_pay_ls_riht">
 										<view class="end_pay_leixing hei_26">
-											电话咨询  
+											电话咨询
 											<view class="hong_26">
 												&ensp;￥
 												<text class="style_hong_16_bold">{{ item.consult.paymoney }}</text>
@@ -660,7 +647,7 @@
 												}}
 											</view>
 										</view>
-									<!-- 	<view class="hei_26 consult_typename">
+										<!-- 	<view class="hei_26 consult_typename">
 											{{ item.consult.typename }}
 													
 										</view> -->
@@ -692,8 +679,8 @@
 							<view class="send_fukuan_success">
 								<view class="lv_26 send_fukuan_title">
 									<view class="lv_24_bold send_fukuan_title_left">
-									<image src="@/static/img/chat_duihao.png" mode=""></image>
-									付款成功
+										<image src="@/static/img/chat_duihao.png" mode=""></image>
+										付款成功
 									</view>
 									<!-- <text class="hong_24">
 										￥{{ item.consult.paymoney }}
@@ -720,7 +707,7 @@
 												}}
 											</view>
 										</view>
-									<!-- 	<view class="hei_26 consult_typename">
+										<!-- 	<view class="hei_26 consult_typename">
 											{{ item.consult.typename }}
 			
 										</view> -->
@@ -728,7 +715,6 @@
 											{{ user.nickname }}律师
 											<text class="qian_20 send_pay_ls_zhiwu">{{ renzheng.zhiwu }}</text>
 										</view>
-										
 									</view>
 								</view>
 								<view class="send_pay_bottom hei_24">
@@ -739,10 +725,7 @@
 									<view>咨询类型：{{ item.consult.typename }}</view>
 									<view class="send_pay_bottom_neirong">咨询内容：{{ item.consult.information }}</view>
 								</view>
-								<view class="fufei_success_tips qian_24">
-									{{item.consult.baojiamode=='zhineng_zaixian'?tips.zhinengpaytip:tips.consultpaytip}}
-									
-								</view>
+								<view class="fufei_success_tips qian_24">{{ item.consult.baojiamode == 'zhineng_zaixian' ? tips.zhinengpaytip : tips.consultpaytip }}</view>
 							</view>
 						</view>
 					</view>
@@ -762,7 +745,7 @@
 
 					<view class="chat_list chat_left" v-if="item.msgtype == 9 && item.iswithdraw != 1">
 						<image src="@/static/img/xitong.png" mode="" class="tx"></image>
-						<view class="chat_left_txt hei_30">{{tips.consultovertimetip}}</view>
+						<view class="chat_left_txt hei_30">{{ tips.consultovertimetip }}</view>
 					</view>
 
 					<view class=" chat_chehui_tishi hei_26" v-if="item.userid_from == userid && item.iswithdraw == 1">
@@ -809,39 +792,32 @@
 					</view>
 
 					<!-- 收到语音消息 -->
-					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype == 13 && item.iswithdraw!=1">
+					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype == 13 && item.iswithdraw != 1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-							<view class="chat_left_txt hei_30 chat_yuyin_left" @tap="playVoice(item.content,index,item.duration)" :class="yuyin_index==index?'bofang':''">
-								<image src="../../static/lsimg/chat_yuyin_left.png" mode=""  class="yuyin_icon"></image>
-								<image src="../../static/img/bofang.gif" mode="" class="yuyin_bofang"></image>
-							{{item.duration?item.duration:'5'}}''  
+						<view class="chat_left_txt hei_30 chat_yuyin_left" @tap="playVoice(item.content, index, item.duration)" :class="yuyin_index == index ? 'bofang' : ''">
+							<image src="../../static/lsimg/chat_yuyin_left.png" mode="" class="yuyin_icon"></image>
+							<image src="../../static/img/bofang.gif" mode="" class="yuyin_bofang"></image>
+							{{ item.duration ? item.duration : '5' }}''
 							<!-- <text class="weiting"></text> -->
 						</view>
 					</view>
-					
+
 					<!-- 收到文件 -->
-					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype == 14 && item.iswithdraw!=1" @tap="onOpenDoc(item.content)">
+					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype == 14 && item.iswithdraw != 1" @tap="onOpenDoc(item.content)">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-						<view class="chat_left_txt hei_30 " >
+						<view class="chat_left_txt hei_30 ">
 							<view class="send_wenjian_html">
 								<view class="send_wenjian_html_left">
-									<view class="hei_30 send_wenjian_html_title">
-										{{wenjian(item.content)}}
-									</view>
+									<view class="hei_30 send_wenjian_html_title">{{ wenjian(item.content) }}</view>
 									<!-- <view class="qian_24">
 										180K
 									</view> -->
 								</view>
-								<view class="send_wenjian_html_right">
-									<image src="../../static/img/word.png" mode=""></image>
-									
-								</view>
-								
+								<view class="send_wenjian_html_right"><image src="../../static/img/word.png" mode=""></image></view>
 							</view>
-							
 						</view>
 					</view>
-					
+
 					<view class="chat_list chat_left" v-if="item.userid_from == userid && item.msgtype == 15 && item.iswithdraw != 1">
 						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
 						<view class="chat_left_txt hei_30">
@@ -849,8 +825,8 @@
 							<view class="send_fukuan_success">
 								<view class="lv_26 send_fukuan_title">
 									<view class="lv_24_bold send_fukuan_title_left">
-									<image src="@/static/img/chat_duihao.png" mode=""></image>
-									付款成功
+										<image src="@/static/img/chat_duihao.png" mode=""></image>
+										付款成功
 									</view>
 									<!-- <text class="hong_24">
 										￥{{ item.consult.paymoney }}
@@ -859,8 +835,8 @@
 								<view class="send_pay_ls">
 									<image :src="img_url + user.photourl" mode=""></image>
 									<view class="send_pay_ls_riht">
-										{{item.consult.baojia[item.consult.baojiamode]}}
-									<!-- 	<view class="hei_26 consult_typename">
+										{{ item.consult.baojia[item.consult.baojiamode] }}
+										<!-- 	<view class="hei_26 consult_typename">
 											{{ item.consult.typename }}
 								
 										</view> -->
@@ -868,7 +844,6 @@
 											{{ user.nickname }}律师
 											<text class="qian_20 send_pay_ls_zhiwu">{{ renzheng.zhiwu }}</text>
 										</view>
-										
 									</view>
 								</view>
 								<view class="send_pay_bottom hei_24">
@@ -886,88 +861,94 @@
 							</view>
 						</view>
 					</view>
-					
+
 					<!-- 申请退款 -->
-					<view class="chat_list chat_left" v-if="item.msgtype == 16&&item.refund" >
-					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-					<view class="chat_left_txt ">
-						<view class="send_tuikuan">
-							<view class="send_tuikuan_top" v-if="item.refund.state!=2">
-								<text class="hei_26">
-									{{title}}申请了退款
-								</text>
-								<view class="send_tuikuan_top_right hong_26_bold">
-									
+					<view class="chat_list chat_left" v-if="item.msgtype == 16 && item.refund">
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+						<view class="chat_left_txt ">
+							<view class="send_tuikuan">
+								<view class="send_tuikuan_top" v-if="item.refund.state != 2">
+									<text class="hei_26">{{ title }}申请了退款</text>
+									<view class="send_tuikuan_top_right hong_26_bold"></view>
 								</view>
-							</view>
-							<view class="send_tuikuan_top" v-if="item.refund.state==2">
-								<text class="hei_26">
-									退款成功
-								</text>
-								<view class="send_tuikuan_top_right hong_26_bold">
-									
+								<view class="send_tuikuan_top" v-if="item.refund.state == 2">
+									<text class="hei_26">退款成功</text>
+									<view class="send_tuikuan_top_right hong_26_bold"></view>
 								</view>
-							</view>
-							<view class="send_tuikuan_bottom qian_24">
-								<view class="">
-									退款金额：￥{{item.refund.refundmoney}}
-								</view>
-								<view class="">
-									类型/时长：{{gettype[item.refund.typeid].typename}}/{{item.refund.zixunshicahng==24?'1天':item.refund.zixunshicahng==72?'3天':item.refund.zixunshicahng==720?'1个月':item.refund.zixunshicahng+'小时'}}
-								</view>
-								<view class="">
-									退款原因：{{item.refund.refundreason}}
-								</view>
-								<view class="">
-									退款状态：{{item.refund.state==1?'退款中':item.refund.state==2?'同意退款':item.refund.state==3?'拒绝退款':item.refund.state==4?'取消退款':''}}
-								</view>
-								<view class="">
-									操作时间：{{ item.refund.addtime | timeStamp }}
+								<view class="send_tuikuan_bottom qian_24">
+									<view class="">退款金额：￥{{ item.refund.refundmoney }}</view>
+									<view class="">
+										类型/时长：{{ gettype[item.refund.typeid].typename }}/{{
+											item.refund.zixunshicahng == 24
+												? '1天'
+												: item.refund.zixunshicahng == 72
+												? '3天'
+												: item.refund.zixunshicahng == 720
+												? '1个月'
+												: item.refund.zixunshicahng + '小时'
+										}}
+									</view>
+									<view class="">退款原因：{{ item.refund.refundreason }}</view>
+									<view class="">
+										退款状态：{{
+											item.refund.state == 1
+												? '退款中'
+												: item.refund.state == 2
+												? '同意退款'
+												: item.refund.state == 3
+												? '拒绝退款'
+												: item.refund.state == 4
+												? '取消退款'
+												: ''
+										}}
+									</view>
+									<view class="">操作时间：{{ item.refund.addtime | timeStamp }}</view>
 								</view>
 							</view>
 						</view>
-						
-						</view>
-						
 					</view>
-					
-					
+
 					<!-- 取消退款 -->
-					<view class="chat_list chat_left" v-if="item.msgtype == 17&&item.refund" >
-					<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
-					<view class="chat_left_txt ">
-						<view class="send_tuikuan">
-							<view class="send_tuikuan_top">
-								<text class="hei_26">
-									{{title}}取消了退款
-								</text>
-								<view class="send_tuikuan_top_right hong_26_bold">
-									
+					<view class="chat_list chat_left" v-if="item.msgtype == 17 && item.refund">
+						<image :src="img_url + item.photourl_form" mode="" class="tx"></image>
+						<view class="chat_left_txt ">
+							<view class="send_tuikuan">
+								<view class="send_tuikuan_top">
+									<text class="hei_26">{{ title }}取消了退款</text>
+									<view class="send_tuikuan_top_right hong_26_bold"></view>
 								</view>
-							</view>
-							<view class="send_tuikuan_bottom qian_24">
-								<view class="">
-									退款金额：￥{{item.refund.refundmoney}}
-								</view>
-								<view class="">
-									类型/时长：{{gettype[item.refund.typeid].typename}}/{{item.refund.zixunshicahng==24?'1天':item.refund.zixunshicahng==72?'3天':item.refund.zixunshicahng==720?'1个月':item.refund.zixunshicahng+'小时'}}
-								</view>
-								<view class="">
-									退款原因：{{item.refund.refundreason}}
-								</view>
-								<view class="">
-									退款状态：{{item.refund.state==1?'退款中':item.refund.state==2?'同意退款':item.refund.state==3?'拒绝退款':item.refund.state==4?'取消退款':''}}
-								</view>
-								<view class="">
-									操作时间：{{ item.refund.addtime | timeStamp }}
+								<view class="send_tuikuan_bottom qian_24">
+									<view class="">退款金额：￥{{ item.refund.refundmoney }}</view>
+									<view class="">
+										类型/时长：{{ gettype[item.refund.typeid].typename }}/{{
+											item.refund.zixunshicahng == 24
+												? '1天'
+												: item.refund.zixunshicahng == 72
+												? '3天'
+												: item.refund.zixunshicahng == 720
+												? '1个月'
+												: item.refund.zixunshicahng + '小时'
+										}}
+									</view>
+									<view class="">退款原因：{{ item.refund.refundreason }}</view>
+									<view class="">
+										退款状态：{{
+											item.refund.state == 1
+												? '退款中'
+												: item.refund.state == 2
+												? '同意退款'
+												: item.refund.state == 3
+												? '拒绝退款'
+												: item.refund.state == 4
+												? '取消退款'
+												: ''
+										}}
+									</view>
+									<view class="">操作时间：{{ item.refund.addtime | timeStamp }}</view>
 								</view>
 							</view>
 						</view>
-						
-						</view>
-						
 					</view>
-					
 				</view>
 
 				<view class=" chat_chehui_tishi hei_26" v-if="is_zuijin_chehui">
@@ -1022,7 +1003,7 @@
 					/>
 
 					<image src="@/static/lsimg/chat_biaoqing.png" mode="" @tap="showEmj"></image>
-					<image src="@/static/lsimg/chat_jia.png" mode="" @click="jia"  v-if="!chat_txt"></image>
+					<image src="@/static/lsimg/chat_jia.png" mode="" @click="jia" v-if="!chat_txt"></image>
 					<text class="fasong" @click="send()" v-if="chat_txt">发送</text>
 				</view>
 
@@ -1047,11 +1028,11 @@
 						<image src="../../static/lsimg/chat_shoukuan.png" mode=""></image>
 						<view>发起收款</view>
 					</view>
-					<view class="chat_bt_item" @click="yuyin_chat"  v-if="is_kaiqi_yuyin==1">
+					<view class="chat_bt_item" @click="yuyin_chat" v-if="is_kaiqi_yuyin == 1">
 						<image src="../../static/img/bottom_yuyin.png" mode=""></image>
 						<view>语音聊天</view>
 					</view>
-					<view class="chat_bt_item" @click="shipin_chat"  v-if="is_kaiqi_yuyin==1">
+					<view class="chat_bt_item" @click="shipin_chat" v-if="is_kaiqi_yuyin == 1">
 						<image src="../../static/img/bottom_shipin.png" mode=""></image>
 						<view>视频聊天</view>
 					</view>
@@ -1106,7 +1087,7 @@ import emotion from '@/components/bkhumor-emoji/index.vue';
 import uParse from '@/components/feng-parse/parse.vue';
 
 import permision from '@/common/permission.js';
-import lfile from '@/components/l-file/l-file.vue'
+import lfile from '@/components/l-file/l-file.vue';
 export default {
 	computed: {
 		intIntervalTime() {
@@ -1136,22 +1117,19 @@ export default {
 	onLoad(option) {
 		this.userid = option.userid;
 		this.huanying();
-this.huoqu_xiaoxi_list();
-this.tishiyu_tip();
-this.huoqu_type()
+		this.huoqu_xiaoxi_list();
+		this.tishiyu_tip();
+		this.huoqu_type();
 		var self = this;
 		recorderManager.onStop(function(res) {
 			console.log('recorder stop' + JSON.stringify(res));
 			self.voicePath = res.tempFilePath;
 			if (self.is_quxiao) {
 				console.log('已取消录音');
-			}else{
-				
+			} else {
 				self.Audio2dataURL(res.tempFilePath);
 			}
-			
 		});
-		
 
 		// 获取用户信息
 		this.$http
@@ -1169,139 +1147,122 @@ this.huoqu_type()
 				this.zhuanchang_arry = res.data.shanchang;
 				this.huoqu_renzheng();
 			});
-			// 获取是否开启语音
-	this.$http
+		// 获取是否开启语音
+		this.$http
 			.post({
 				url: '/mapi/index/getopenchat'
 			})
 			.then(res => {
-				this.is_kaiqi_yuyin=res.data.openchat
+				this.is_kaiqi_yuyin = res.data.openchat;
 			});
-		
+
 		// 进入这个页面的时候创建websocket连接【整个页面随时使用】
 		// this.connectSocketInit();
-		
 	},
 	onShow() {
-		var that=this
-		setTimeout(function(){
+		var that = this;
+		setTimeout(function() {
 			// #ifdef H5
 			that.connectSocketInit();
 			// #endif
 			// #ifdef APP-PLUS
-			
+
 			that.app_lianjie();
 			// #endif
-		},1000)
+		}, 1000);
 	},
-	onReady() {
-
-	},
+	onReady() {},
 	onHide() {
-		
 		// #ifdef APP-PLUS
 		uni.closeSocket();
 		// #endif
-		
-	// 	this.$http
-	// 		.post({
-	// 			url: '/mlawyerapi/consult/chatdeatils',
-	// 			data: {
-	// 				page:0,
-	// 				userid: this.userid
-	// 			}
-	// 		})
-	// 		.then(res => {
-	
-	// 		});
-			
+
+		// 	this.$http
+		// 		.post({
+		// 			url: '/mlawyerapi/consult/chatdeatils',
+		// 			data: {
+		// 				page:0,
+		// 				userid: this.userid
+		// 			}
+		// 		})
+		// 		.then(res => {
+
+		// 		});
 	},
-	onUnload(e){
+	onUnload(e) {
 		// this.huoqu_xiaoxi_list()
-		
+
 		this.$http
 			.post({
 				url: '/mlawyerapi/consult/chatdeatils',
 				data: {
-					page:0,
+					page: 0,
 					userid: this.userid
 				}
 			})
-			.then(res => {
-				
-			});
+			.then(res => {});
 
-		innerAudioContext.stop();//暂停这个实例
+		innerAudioContext.stop(); //暂停这个实例
 		// #ifdef APP-PLUS
 		uni.closeSocket();
 		// #endif
 
-		var ls_chat_list = uni.getStorageSync('ls_chat_list') ;//读取缓存
-		var that=this
-		var is_cuzai=false
-		if(ls_chat_list){
-			ls_chat_list=JSON.parse(ls_chat_list)
-			console.log(ls_chat_list)
+		var ls_chat_list = uni.getStorageSync('ls_chat_list'); //读取缓存
+		var that = this;
+		var is_cuzai = false;
+		if (ls_chat_list) {
+			ls_chat_list = JSON.parse(ls_chat_list);
+			console.log(ls_chat_list);
 			for (let i in ls_chat_list) {
-			   if(ls_chat_list[i].user.userid==this.userid){
-				   	 if(that.message[that.message.length-1].addtime!=that.is_last_msguptime){
-				   
-				   console.log('重新设置')
-				   console.log('存在',ls_chat_list[i])
-				   
-				   var xinxi={
-				   "lawyerid": that.renzheng.userid,
-				   "userid": that.userid,
-				   "content": that.message[that.message.length-1].content,
-				   "msgtype": that.message[that.message.length-1].msgtype,
-				   "readnum": 0,
-				   "lawyerreadnum": 0,
-				   "addtime": new Date().getTime(),
-				   "uptime": that.message[that.message.length-1].addtime,
-				   "user": {
-				   	"userid":that.userid,
-				   	"photourl": that.yh_user.photourl,
-				   	"nickname": that.yh_user.nickname,
-					"mobile": that.yh_user.mobile
-				   }
-				   }
-				   ls_chat_list.splice(i, 1);//存在即删除
-				   ls_chat_list.unshift(xinxi)
-				   is_cuzai=true
-				   uni.setStorageSync('ls_chat_list', JSON.stringify(ls_chat_list));  //设置缓存
-                  }else{
-					  
-					  is_cuzai=true
-					  ls_chat_list[i].content=this.message[this.message.length-1].content
-					  ls_chat_list[i].msgtype=this.message[this.message.length-1].msgtype
-					  ls_chat_list[i].lawyerreadnum=0
-					  uni.setStorageSync('ls_chat_list', JSON.stringify(ls_chat_list));  //设置缓存
-					  // uni.removeStorageSync('ls_chat_list');
-				  }
-				   
-				   // ls_chat_list[i].content=this.message[this.message.length-1].content
-				   // ls_chat_list[i].msgtype=this.message[this.message.length-1].msgtype
-				   // ls_chat_list[i].lawyerreadnum=0
-			   } 
-			   
-			 //     ls_chat_list[i].readnum=0
+				if (ls_chat_list[i].user.userid == this.userid) {
+					if (that.message[that.message.length - 1].addtime != that.is_last_msguptime) {
+						console.log('重新设置');
+						console.log('存在', ls_chat_list[i]);
+
+						var xinxi = {
+							lawyerid: that.renzheng.userid,
+							userid: that.userid,
+							content: that.message[that.message.length - 1].content,
+							msgtype: that.message[that.message.length - 1].msgtype,
+							readnum: 0,
+							lawyerreadnum: 0,
+							addtime: new Date().getTime(),
+							uptime: that.message[that.message.length - 1].addtime,
+							user: {
+								userid: that.userid,
+								photourl: that.yh_user.photourl,
+								nickname: that.yh_user.nickname,
+								mobile: that.yh_user.mobile
+							}
+						};
+						ls_chat_list.splice(i, 1); //存在即删除
+						ls_chat_list.unshift(xinxi);
+						is_cuzai = true;
+						uni.setStorageSync('ls_chat_list', JSON.stringify(ls_chat_list)); //设置缓存
+					} else {
+						is_cuzai = true;
+						ls_chat_list[i].content = this.message[this.message.length - 1].content;
+						ls_chat_list[i].msgtype = this.message[this.message.length - 1].msgtype;
+						ls_chat_list[i].lawyerreadnum = 0;
+						uni.setStorageSync('ls_chat_list', JSON.stringify(ls_chat_list)); //设置缓存
+						// uni.removeStorageSync('ls_chat_list');
+					}
+
+					// ls_chat_list[i].content=this.message[this.message.length-1].content
+					// ls_chat_list[i].msgtype=this.message[this.message.length-1].msgtype
+					// ls_chat_list[i].lawyerreadnum=0
+				}
+
+				//     ls_chat_list[i].readnum=0
 				// ls_chat_list[i]= ls_chat_list[i].addtime,
-			  
-			   }
-
 			}
-			
-			
-			if(!is_cuzai){
-				console.log('不存在')
-				uni.removeStorageSync('ls_chat_list');
-				
-			}
-	
-		
+		}
 
-	
-	 },
+		if (!is_cuzai) {
+			console.log('不存在');
+			uni.removeStorageSync('ls_chat_list');
+		}
+	},
 	data() {
 		return {
 			title: '',
@@ -1347,13 +1308,13 @@ this.huoqu_type()
 			isRecord: false,
 			tishiyu: '',
 			is_xiala: false,
-			yuyin_index:0,
-			dakai:false,
-			tips:'',
-			gettype:'',
-			is_last_msguptime:'',
-			is_kaiqi_yuyin:2
-			
+			yuyin_index: 0,
+			dakai: false,
+			tips: '',
+			gettype: '',
+			is_last_msguptime: '',
+			is_kaiqi_yuyin: 2,
+			is_first: true
 		};
 	},
 	//下拉刷新
@@ -1381,7 +1342,7 @@ this.huoqu_type()
 			// 	icon: "none"
 			// });
 		},
-		huoqu_type(){
+		huoqu_type() {
 			this.$http
 				.post({
 					url: '/mapi/index/gettype'
@@ -1391,7 +1352,7 @@ this.huoqu_type()
 						this.gettype = res.data.type;
 					}
 				});
-		},		
+		},
 		show_luyin() {
 			this.isShowEmj = false;
 			this.bt_show = false;
@@ -1405,39 +1366,42 @@ this.huoqu_type()
 			// #endif
 			// #ifdef APP-PLUS
 			if (uni.getSystemInfoSync().platform == 'ios') {
-				  this.judgeIosPermission('record')    
-					  
-			}else if (uni.getSystemInfoSync().platform === 'android') {
-				
-			
-			this.requestAndroidPermission('android.permission.RECORD_AUDIO');
-			
+				this.judgeIosPermission('record');
+			} else if (uni.getSystemInfoSync().platform === 'android') {
+				this.requestAndroidPermission('android.permission.RECORD_AUDIO');
 			}
 			// #endif
 		},
 		judgeIosPermission(permisionID) {
-			var result = permision.judgeIosPermission(permisionID)
+			var result = permision.judgeIosPermission(permisionID);
 			console.log(result);
-			var strStatus = (result) ? "已" : "未"
+			var strStatus = result ? '已' : '未';
 			console.log(strStatus);
-			if(strStatus=='已'){
+			if (strStatus == '已') {
 				this.on_yuyin = true;
-				}else{
-					// uni.showToast({
-					// 	title: '麦克风权限没有开启',
-					// 	duration: 1000,
-					// 	icon: 'none'
-					// });
+			} else {
+				if (that.is_first) {
+					recorderManager.start({
+						format: 'mp3'
+					});
+					that.is_quxiao = true;
+					setTimeout(function() {
+						recorderManager.stop();
+					}, 300);
+
+					that.is_first = false;
+				} else {
 					uni.showModal({
-							content: "需要开启麦克风权限",
-							confirmText: "设置",
-							success: function(res) {
-							 if (res.confirm) {
-					       permision.gotoAppPermissionSetting();
-											   }
-											    }
-						}) 
+						content: '需要开启麦克风权限',
+						confirmText: '设置',
+						success: function(res) {
+							if (res.confirm) {
+								permision.gotoAppPermissionSetting();
+							}
+						}
+					});
 				}
+			}
 			// uni.showModal({
 			// 	content: permisionID + '权限' + strStatus + "获得授权",
 			// 	showCancel: false
@@ -1470,7 +1434,7 @@ this.huoqu_type()
 		},
 		// 点击长按录音
 		dian_luyin() {
-			var that=this
+			var that = this;
 			this.is_yuyin = true;
 			this.timer = setInterval(() => {
 				this.intervalTime += 0.5;
@@ -1487,18 +1451,16 @@ this.huoqu_type()
 						format: 'mp3'
 					});
 				}
-				
+
 				// console.log(this.intervalTime)
-				if(this.intervalTime>=60){
+				if (this.intervalTime >= 60) {
 					uni.showToast({
 						title: '不得超过60秒',
 						duration: 2000,
-						icon:'none'
+						icon: 'none'
 					});
-					that.songkai()
-					
+					that.songkai();
 				}
-				
 			}, 500);
 		},
 		yiru() {
@@ -1515,7 +1477,7 @@ this.huoqu_type()
 
 		songkai() {
 			var that = this;
-			
+
 			console.log('songkai', this.is_quxiao);
 			if (this.is_quxiao) {
 				console.log('已取消录音');
@@ -1547,21 +1509,21 @@ this.huoqu_type()
 			this.is_yuyin = false;
 			this.is_quxiao = false;
 		},
-		playVoice(voicePath,index,duration) {
+		playVoice(voicePath, index, duration) {
 			console.log('播放录音');
-			var that=this
-            this.yuyin_index=index
-			
-			if(duration){
-				var daoji=Number(duration)*1000
-			}else{
-				var daoji=5*1000
+			var that = this;
+			this.yuyin_index = index;
+
+			if (duration) {
+				var daoji = Number(duration) * 1000;
+			} else {
+				var daoji = 5 * 1000;
 			}
-			setTimeout(function(){
-				that.yuyin_index=0
-			},daoji)
-			
-			console.log(this.img_url + voicePath)
+			setTimeout(function() {
+				that.yuyin_index = 0;
+			}, daoji);
+
+			console.log(this.img_url + voicePath);
 			innerAudioContext.src = this.img_url + voicePath;
 			innerAudioContext.play();
 		},
@@ -1612,7 +1574,7 @@ this.huoqu_type()
 
 		up_luyin(base64) {
 			console.log('up_luyin');
-			var  urlrep=base64.replace("mpeg","mp3") ;
+			var urlrep = base64.replace('mpeg', 'mp3');
 			var that = this;
 			that.$http
 				.post({
@@ -1630,10 +1592,9 @@ this.huoqu_type()
 		},
 		send_luyin(audio) {
 			var that = this;
-			
-			
-			var duration=Math.round(this.intervalTime)
-			
+
+			var duration = Math.round(this.intervalTime);
+
 			this.$http
 				.post({
 					url: '/push/gatewayworker/sendmessage1.html',
@@ -1641,7 +1602,7 @@ this.huoqu_type()
 						userid_to: this.userid,
 						msg: audio,
 						type: 13,
-						duration:duration
+						duration: duration
 					}
 				})
 				.then(res => {
@@ -1652,7 +1613,7 @@ this.huoqu_type()
 							msgtype: 13,
 							photourl_form: this.user.photourl,
 							messageid: res.data,
-							duration:duration,
+							duration: duration,
 							addtime: new Date().getTime()
 						};
 						this.message.push(data);
@@ -1679,7 +1640,7 @@ this.huoqu_type()
 					}
 				});
 		},
-		tishiyu_tip(){
+		tishiyu_tip() {
 			this.$http
 				.post({
 					url: '/mapi/index/tips'
@@ -1726,9 +1687,6 @@ this.huoqu_type()
 			this.is_chehui = false;
 		},
 		huoqu_xiaoxi_list() {
-			
-			
-			
 			var that = this;
 			this.$http
 				.post({
@@ -1771,20 +1729,18 @@ this.huoqu_type()
 						// 		res.data.message[key] = Object.assign(res.data.message[key], shichang);
 						// 		this.$forceUpdate();
 						// 	})
-										
-						
+
 						// }
 					}
 
 					this.message = res.data.message.concat(this.message);
-					
-					if(this.page==0){
+
+					if (this.page == 0) {
 						if (res.data.message.length < 10) {
 							this.is_all = true;
 						}
-						this.is_last_msguptime=this.message[this.message.length-1].addtime
-						
-					}else{
+						this.is_last_msguptime = this.message[this.message.length - 1].addtime;
+					} else {
 						if (res.data.message.length < 100) {
 							this.is_all = true;
 						}
@@ -1857,79 +1813,54 @@ this.huoqu_type()
 		app_lianjie() {
 			let that = this;
 			var url = that.$http.WebSocket_url;
-  uni.connectSocket({
-			    url: 'wss://' + url + ':3348',
-				success:(data)=>{
-					console.log("websocket连接成功",data);
+			uni.connectSocket({
+				url: 'wss://' + url + ':3348',
+				success: data => {
+					console.log('websocket连接成功', data);
 				},
-				fail:(err)=> {
-				},
-			    complete: (res)=> {
-	
-				}
+				fail: err => {},
+				complete: res => {}
 			});
-			
-			uni.onSocketOpen(function (res) {
-			  console.log('WebSocket连接已打开！',res);
-			 
+
+			uni.onSocketOpen(function(res) {
+				console.log('WebSocket连接已打开！', res);
 			});
-			
-			uni.onSocketError(function (res) {
-			  console.log('WebSocket连接打开失败，请检查！');
-			  
+
+			uni.onSocketError(function(res) {
+				console.log('WebSocket连接打开失败，请检查！');
 			});
-			uni.onSocketMessage(function (res) {
-						var data = JSON.parse(res.data);
-						if (data.type == 'init') {
-							console.log('init');
-							console.log('client_id', data.client_id);
-							uni.request({
-								url: that.$http.baseUrl + '/push/gatewayworker/bind',
-								method: 'POST',
-								data: {
-									client_id: data.client_id,
-									type:1
-								},
-								success: function(resp) {
-									console.log(resp, 'bind');
-								},
-								fail: function(resp) {}
-							});
-						
-						} else if (data.type == 'say') {
-							console.log('say');
-							
-							if (data.state) {
-								
-									if (data.state == 10) {
-										if (data.content) {
-											this.$http
-												.post({
-													url: '/mlawyerapi/consult/red_envelope',
-													data: {
-														redid: data.content,
-														userid: that.userid
-													}
-												})
-												.then(ress => {
-													var xiaoxi = {
-														photourl_form: data.userid_from_pic,
-														userid_to: data.userid_to,
-														photourl_to: data.userid_to_pic,
-														content: data.msg,
-														msgtype: data.state,
-														userid_from: data.userid_from,
-														money: ress.data.red_envelope.money,
-														is_pay: ress.data.red_envelope.is_pay,
-														information: ress.data.red_envelope.information,
-														paymode: ress.data.red_envelope.paymode,
-														type: ress.data.red_envelope.type,
-														addtime: new Date().getTime()
-													};
-													that.message.push(xiaoxi);
-												});
+			uni.onSocketMessage(function(res) {
+				var data = JSON.parse(res.data);
+				if (data.type == 'init') {
+					console.log('init');
+					console.log('client_id', data.client_id);
+					uni.request({
+						url: that.$http.baseUrl + '/push/gatewayworker/bind',
+						method: 'POST',
+						data: {
+							client_id: data.client_id,
+							type: 1
+						},
+						success: function(resp) {
+							console.log(resp, 'bind');
+						},
+						fail: function(resp) {}
+					});
+				} else if (data.type == 'say') {
+					console.log('say');
+
+					if (data.state) {
+						if (data.state == 10) {
+							if (data.content) {
+								this.$http
+									.post({
+										url: '/mlawyerapi/consult/red_envelope',
+										data: {
+											redid: data.content,
+											userid: that.userid
 										}
-									} else {
+									})
+									.then(ress => {
 										var xiaoxi = {
 											photourl_form: data.userid_from_pic,
 											userid_to: data.userid_to,
@@ -1937,28 +1868,43 @@ this.huoqu_type()
 											content: data.msg,
 											msgtype: data.state,
 											userid_from: data.userid_from,
+											money: ress.data.red_envelope.money,
+											is_pay: ress.data.red_envelope.is_pay,
+											information: ress.data.red_envelope.information,
+											paymode: ress.data.red_envelope.paymode,
+											type: ress.data.red_envelope.type,
 											addtime: new Date().getTime()
 										};
-										if (that.user.userid != data.userid_from) {
-											that.message.push(xiaoxi);
-										}
-									}
-								
-									setTimeout(() => {
-										uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
-									}, 200);
+										that.message.push(xiaoxi);
+									});
 							}
 						} else {
-							console.log('else');
+							var xiaoxi = {
+								photourl_form: data.userid_from_pic,
+								userid_to: data.userid_to,
+								photourl_to: data.userid_to_pic,
+								content: data.msg,
+								msgtype: data.state,
+								userid_from: data.userid_from,
+								addtime: new Date().getTime()
+							};
+							if (that.user.userid != data.userid_from) {
+								that.message.push(xiaoxi);
+							}
 						}
-						
-					  
-					});
-					
-					uni.onSocketClose(function (res) {
-					  console.log('uniapp 已关闭！');
-					});
-	
+
+						setTimeout(() => {
+							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+						}, 200);
+					}
+				} else {
+					console.log('else');
+				}
+			});
+
+			uni.onSocketClose(function(res) {
+				console.log('uniapp 已关闭！');
+			});
 		},
 
 		handleEmj(i) {
@@ -2188,104 +2134,94 @@ this.huoqu_type()
 				}
 			});
 		},
-		wenjian(str){
-			str=str.substring(str.lastIndexOf("/")+1);
-			
-			return  str
-			
-			
+		wenjian(str) {
+			str = str.substring(str.lastIndexOf('/') + 1);
+
+			return str;
+
 			// console.log(str)
 		},
-		yuyin_chat(){
-			
-		},
-		shipin_chat(){
-			
-		},
+		yuyin_chat() {},
+		shipin_chat() {},
 		onOpenDoc(src) {
-			let url =this.img_url+src
+			let url = this.img_url + src;
 			/* 下载返回临时路径（退出应用失效） */
 			// #ifdef H5
-			
-				  let dload = document.createElement("a");
-				  dload.download = '';// 设置下载的文件名，默认是'下载'
-				  dload.href = url;
-				  document.body.appendChild(dload);
-				  dload.click();
-				  dload.remove(); // 下载之后把创建的元素删除
-				  uni.showToast({
-				  title: "正在下载",
-				  icon: "success"
-				  });
-				// #endif
-			
-				
-				// #ifdef APP-PLUS
-			
+
+			let dload = document.createElement('a');
+			dload.download = ''; // 设置下载的文件名，默认是'下载'
+			dload.href = url;
+			document.body.appendChild(dload);
+			dload.click();
+			dload.remove(); // 下载之后把创建的元素删除
+			uni.showToast({
+				title: '正在下载',
+				icon: 'success'
+			});
+			// #endif
+
+			// #ifdef APP-PLUS
+
 			// console.log(url)
 			// 	this.$refs.lFile.download({url})
 			// 	.then(path=>{
 			// 		/* 预览 */
-					
+
 			// 		this.$refs.lFile.open(path);
 			// 	});
 			// 	socket.closeSocket();
-			
-			
-			
+
 			uni.downloadFile({
-					url: url,//下载地址接口返回
-					success: (data) => {
-						if (data.statusCode === 200) {
-							//文件保存到本地
-							uni.saveFile({
-								tempFilePath: data.tempFilePath, //临时路径
-								success: function(res) {
-									uni.showToast({
-										icon: 'none',
-										mask: true,
-										title: '文件已保存：' + res.savedFilePath, //保存路径
-										duration: 2000,
+				url: url, //下载地址接口返回
+				success: data => {
+					if (data.statusCode === 200) {
+						//文件保存到本地
+						uni.saveFile({
+							tempFilePath: data.tempFilePath, //临时路径
+							success: function(res) {
+								uni.showToast({
+									icon: 'none',
+									mask: true,
+									title: '文件已保存：' + res.savedFilePath, //保存路径
+									duration: 2000
+								});
+
+								setTimeout(() => {
+									//打开文档查看
+									uni.openDocument({
+										filePath: res.savedFilePath,
+										success: function(res) {
+											// console.log('打开文档成功');
+										}
 									});
-								
-									setTimeout(() => {
-										//打开文档查看
-										uni.openDocument({
-											filePath: res.savedFilePath,
-											success: function(res) {
-												// console.log('打开文档成功');
-											}
-										});
-									}, 3000)
-								}
-							});
-						}
-					},
-					fail: (err) => {
-						console.log(err);
-						uni.showToast({
-							icon: 'none',
-							mask: true,
-							title: '失败请重新下载',
+								}, 3000);
+							}
 						});
-					},
-				});
-			
-			
-				// #endif
-			
+					}
+				},
+				fail: err => {
+					console.log(err);
+					uni.showToast({
+						icon: 'none',
+						mask: true,
+						title: '失败请重新下载'
+					});
+				}
+			});
+
+			// #endif
 		},
-		send_wenjian(){
+		send_wenjian() {
 			/**
 			 * currentWebview: 当前webview
 			 * url：上传接口地址
 			 * name：附件key,服务端根据key值获取文件流，默认file,上传文件的key
 			 * header: 上传接口请求头
 			 */
-			var url='/api/lawyer/index/uploadfile';
-			
+			var url = '/api/lawyer/index/uploadfile';
+
 			// #ifdef APP-PLUS
-			       url=this.$http.baseUrl + '/lawyer/index/uploadfile'
+			url = this.$http.baseUrl + '/lawyer/index/uploadfile';
 			// #endif
 			this.$refs.lFile.upload({
 				// #ifdef APP-PLUS
@@ -2297,18 +2233,18 @@ this.huoqu_type()
 			});
 		},
 		onSuccess(res) {
-			console.log('上传成功回调',JSON.stringify(res));
-			
-			console.log(res.data.file)
+			console.log('上传成功回调', JSON.stringify(res));
+
+			console.log(res.data.file);
 			// uni.showToast({
 			// 	title: JSON.stringify(res),
 			// 	icon: 'none'
 			// })
-			this.send_wenjian_txt(res.data.file)
+			this.send_wenjian_txt(res.data.file);
 		},
 		send_wenjian_txt(localPath) {
 			var that = this;
-			
+
 			this.$http
 				.post({
 					url: '/push/gatewayworker/sendmessage1.html',
@@ -2327,7 +2263,6 @@ this.huoqu_type()
 							photourl_form: this.user.photourl,
 							messageid: res.data,
 							addtime: new Date().getTime()
-							
 						};
 						this.message.push(data);
 						setTimeout(() => {
@@ -3406,72 +3341,68 @@ page {
 .chat_right_txt {
 	position: relative;
 }
-.yuyin_bofang{
+.yuyin_bofang {
 	display: none;
 }
-.bofang .yuyin_bofang{
+.bofang .yuyin_bofang {
 	display: inline-block;
 }
-.bofang .yuyin_icon{
+.bofang .yuyin_icon {
 	display: none;
 }
-.fufei_success_tips{
-	border-top: 2rpx solid #D9D9D9;
+.fufei_success_tips {
+	border-top: 2rpx solid #d9d9d9;
 	padding: 10rpx 0;
 }
-	
-.consult_typename{
+
+.consult_typename {
 	margin-bottom: 10rpx;
 }
-.send_tuikuan{
+.send_tuikuan {
 	width: 476rpx;
 }
-.send_tuikuan_top{
+.send_tuikuan_top {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-padding-top: 10rpx;
+	padding-top: 10rpx;
 }
 
-.send_tuikuan_bottom{
+.send_tuikuan_bottom {
 	border-top: 2rpx solid #f6f6f6;
 	margin-top: 20rpx;
 	padding-top: 10rpx;
-	
 }
-.send_tuikuan_bottom view{
+.send_tuikuan_bottom view {
 	margin-bottom: 10rpx;
-	
 }
-.send_wenjian_html{
+.send_wenjian_html {
 	display: flex;
 	align-items: center;
 	width: 470rpx;
 	justify-content: space-between;
 	padding: 20rpx 0;
 }
-.send_wenjian_html_right image{
+.send_wenjian_html_right image {
 	width: 76rpx;
-		height: 91rpx;
+	height: 91rpx;
 }
-.send_wenjian_html_title{
+.send_wenjian_html_title {
 	margin-bottom: 6rpx;
-		
 }
-.chat_left_txt .send_wenjian_html{
+.chat_left_txt .send_wenjian_html {
 	position: relative;
-	
-	}
-	.chat_left_txt .send_wenjian_html::before{
-		position: absolute;
-		content: '';
-		display: inline-block;
-		top:50%;
-		right: -58rpx;
-		width: 26rpx;
-		height: 26rpx;
-		background: url(../../static/img/xiazai.png) no-repeat;
-		background-size: 100% 100%;
-		transform: translate(0,-50%);
-	}
+}
+.chat_left_txt .send_wenjian_html::before {
+	position: absolute;
+	content: '';
+	display: inline-block;
+	top: 50%;
+	right: -58rpx;
+	width: 26rpx;
+	height: 26rpx;
+	background: url(../../static/img/xiazai.png) no-repeat;
+	background-size: 100% 100%;
+	transform: translate(0, -50%);
+}
 </style>
