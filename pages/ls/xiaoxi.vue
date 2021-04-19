@@ -377,7 +377,7 @@ export default {
 					// this.is_xianshi=true
 					// this.xiaoxi_list = res.data.messagelist;
 					that.xiaoxi_list =that.xiaoxi_list.concat(res.data.messagelist) ;
-					if(res.data.messagelist.length<20){
+					if(res.data.messagelist.length<res.data.count){
 						that.is_all=true
 					}
 

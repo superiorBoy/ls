@@ -1125,7 +1125,16 @@ export default {
 	},
 	onLoad(option) {
 		this.ls_id = option.lawyerid;
-		this.huoqu_xiaoxi_list();
+		// 查看消息保留条数
+		this.$http
+			.post({
+				url: '/mapi/index/getmessagecount'
+			})
+			.then(res => {
+				this.first_xiaoxi = res.data.messagecount;
+				this.huoqu_xiaoxi_list();
+			});
+
 		this.huanying();
 		this.tishiyu_tip();
 		this.huoqu_type();
@@ -1158,6 +1167,7 @@ export default {
 				this.zhuanchang_arry = res.data.shanchang;
 				this.huqu_ls_xinxi();
 			});
+
 		// 获取是否开启语音
 		this.$http
 			.post({
@@ -1329,29 +1339,45 @@ export default {
 			localPath: '',
 			is_last_msguptime: '',
 			is_kaiqi_yuyin: 2,
-			is_first: true
+			is_first: true,
+			first_xiaoxi: '',
+			first_height: 0
 		};
 	},
 	//下拉刷新
 	onPullDownRefresh: function() {
 		// this.getList();
-		this.is_xiala = true;
-
-		if (this.is_all) {
-			uni.showToast({
-				title: '没有更多内容了',
-				duration: 2000,
-				icon: 'none'
-			});
-			uni.stopPullDownRefresh();
-		} else {
-			this.page++;
-			this.huoqu_xiaoxi_list();
-		}
 	},
 	// stopPullDownRefresh:function(){
 	// },
 	methods: {
+		onPageScroll(res) {
+			var that = this;
+			if (res.scrollTop == 0) {
+				this.is_xiala = true;
+
+				if (this.is_all) {
+					uni.showToast({
+						title: '没有更多内容了',
+						duration: 2000,
+						icon: 'none'
+					});
+					uni.stopPullDownRefresh();
+				} else {
+					uni.showLoading({ title: '加载中', mask: true });
+					this.page++;
+					this.huoqu_xiaoxi_list();
+				}
+			}
+			let info = uni.createSelectorQuery().select('.chat_body');
+			info.boundingClientRect(function(data) {
+				//data - 各种参数
+				// 　　　  　console.log(data)  // 获取元素宽度
+
+				that.first_height = data.height;
+			}).exec();
+			// console.log(res.scrollTop)
+		},
 		//上拉加载
 		onReachBottom() {
 			// uni.showToast({
@@ -1916,8 +1942,9 @@ export default {
 					}
 
 					this.message = res.data.message.concat(this.message);
+
 					if (this.page == 0) {
-						if (res.data.message.length < 10) {
+						if (res.data.message.length < that.first_xiaoxi) {
 							this.is_all = true;
 						}
 						this.is_last_msguptime = this.message[this.message.length - 1].addtime;
@@ -1932,6 +1959,14 @@ export default {
 						setTimeout(() => {
 							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 						}, 400);
+					} else {
+						setTimeout(() => {
+							let info = uni.createSelectorQuery().select('.chat_body');
+							info.boundingClientRect(function(data) {
+								//data - 各种参数
+								uni.pageScrollTo({ scrollTop: data.height - that.first_height, duration: 0 });
+							}).exec();
+						}, 1000);
 					}
 
 					that.time1 = res.data.shijian;
@@ -1957,6 +1992,10 @@ export default {
 							that.minute = minute;
 							that.seconds = seconds;
 						}
+					}, 1000);
+
+					setTimeout(function() {
+						uni.hideLoading();
 					}, 1000);
 				});
 		},

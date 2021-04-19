@@ -271,7 +271,6 @@
 		{
 			"path":"pages/index/chat",
 			"style": {
-			"enablePullDownRefresh": true , //允许上拉加载和下拉刷新为true
 			//手机软键盘升起不让其将页面头部上推
 			"app-plus": {
 				"softinputMode": "adjustResize"
@@ -499,7 +498,6 @@
 		{
 			"path":"pages/ls/chat",
 			"style": {
-			"enablePullDownRefresh": true,  //允许上拉加载和下拉刷新为true
 			//手机软键盘升起不让其将页面头部上推
 			"app-plus": {
 				"softinputMode": "adjustResize"

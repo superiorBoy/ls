@@ -36,7 +36,7 @@ function request(url,method,data,header={}){
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function(resp) {
-        uni.hideLoading();
+        // uni.hideLoading();
 		if (resp.data.code == 0) {
 			resolve(resp.data);
 		}
@@ -55,7 +55,7 @@ function request(url,method,data,header={}){
 		}
       },
       fail: function(resp) {
-        uni.hideLoading();
+        // uni.hideLoading();
         reject(resp);
       },
 	  complete(end) {

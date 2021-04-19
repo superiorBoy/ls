@@ -130,6 +130,7 @@
 			</view>
 
 			<view :class="['chat_body', bt_show ? 'chat_body_jia' : '']" @click="tan_hide">
+				
 				<view class="time qian_20" v-if="message != ''">{{ message[0].addtime | timeStamp }}</view>
 				<view v-for="(item, index) in message">
 					<view class="time qian_20" v-if="index > 1 && message[index].addtime - message[index - 1].addtime > 300">{{ message[index].addtime | timeStamp }}</view>
@@ -1117,7 +1118,16 @@ export default {
 	onLoad(option) {
 		this.userid = option.userid;
 		this.huanying();
-		this.huoqu_xiaoxi_list();
+		// 查看消息保留条数
+		this.$http
+			.post({
+				url: '/mapi/index/getmessagecount'
+			})
+			.then(res => {
+				this.first_xiaoxi=res.data.messagecount
+				this.huoqu_xiaoxi_list();
+			});	
+		
 		this.tishiyu_tip();
 		this.huoqu_type();
 		var self = this;
@@ -1170,6 +1180,7 @@ export default {
 			that.app_lianjie();
 			// #endif
 		}, 1000);
+		
 	},
 	onReady() {},
 	onHide() {
@@ -1314,26 +1325,56 @@ export default {
 			gettype: '',
 			is_last_msguptime: '',
 			is_kaiqi_yuyin: 2,
-			is_first: true
+			is_first: true,
+			first_xiaoxi:'',
+			first_height: 0
 		};
 	},
 	//下拉刷新
 	onPullDownRefresh: function() {
-		this.is_xiala = true;
+		// this.is_xiala = true;
 
-		if (this.is_all) {
-			uni.showToast({
-				title: '没有更多内容了',
-				duration: 2000,
-				icon: 'none'
-			});
-			uni.stopPullDownRefresh();
-		} else {
-			this.page++;
-			this.huoqu_xiaoxi_list();
-		}
+		// if (this.is_all) {
+		// 	uni.showToast({
+		// 		title: '没有更多内容了',
+		// 		duration: 2000,
+		// 		icon: 'none'
+		// 	});
+		// 	uni.stopPullDownRefresh();
+		// } else {
+		// 	this.page++;
+		// 	this.huoqu_xiaoxi_list();
+		// }
 	},
 	methods: {
+		onPageScroll(res) {
+		       var that=this
+						if(res.scrollTop==0){
+							this.is_xiala = true;
+							
+							if (this.is_all) {
+								uni.showToast({
+									title: '没有更多内容了',
+									duration: 2000,
+									icon: 'none'
+								});
+								uni.stopPullDownRefresh();
+							} else {
+								uni.showLoading({title: '加载中',mask:true});
+								this.page++;
+								this.huoqu_xiaoxi_list();
+							}
+						}
+						// console.log(res.scrollTop)
+						
+						let info = uni.createSelectorQuery().select('.chat_body');
+						info.boundingClientRect(function(data) {
+							//data - 各种参数
+							// 　　　  　console.log(data)  // 获取元素宽度
+						
+							that.first_height = data.height;
+						}).exec();
+		   },
 		//上拉加载
 		onReachBottom() {
 			// uni.showToast({
@@ -1736,7 +1777,7 @@ export default {
 					this.message = res.data.message.concat(this.message);
 
 					if (this.page == 0) {
-						if (res.data.message.length < 10) {
+						if (res.data.message.length < that.first_xiaoxi) {
 							this.is_all = true;
 						}
 						this.is_last_msguptime = this.message[this.message.length - 1].addtime;
@@ -1748,10 +1789,19 @@ export default {
 					// if (res.data.message.length < 100) {
 					// 	this.is_all = true;
 					// }
+	
 					if (!this.is_xiala) {
 						setTimeout(() => {
 							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 						}, 400);
+					}else{
+						setTimeout(() => {
+							let info = uni.createSelectorQuery().select('.chat_body');
+							info.boundingClientRect(function(data) {
+								//data - 各种参数
+								uni.pageScrollTo({ scrollTop: data.height - that.first_height, duration: 0 });
+							}).exec();
+						}, 1000);
 					}
 
 					that.time1 = res.data.shijian;
@@ -1778,6 +1828,7 @@ export default {
 							that.seconds = seconds;
 						}
 					}, 1000);
+					setTimeout(function () {uni.hideLoading();}, 1000);
 				});
 		},
 		huoqu_renzheng() {
