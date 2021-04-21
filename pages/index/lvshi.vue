@@ -221,7 +221,7 @@ export default {
 		//     }
 		// })
 		
-		
+		uni.removeStorageSync('user_chat_list');
 			
 		this.$http
 			.post({

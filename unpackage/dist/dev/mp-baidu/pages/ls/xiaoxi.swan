@@ -1,0 +1,95 @@
+<view>
+    <view class="head">
+        <view class="head_back"></view>
+        <view class="head_center hei_38_bold">消息</view>
+        <view class="head_right"></view>
+    </view>
+    <view class="zi_body">
+        <view class="xiaoxi_top">
+            <view class="xiaoxi_top_list">
+                <view class="xiaoxi_top_list_left">
+                    <view class="xiaoxi_tx">
+                        <image src="/static/img/fensi_icon.png" mode></image>
+                    </view>
+                    <view class="xiaoxi_top_list_left_txt">
+                        <view class="hei_30_bold top_txt">粉丝</view>
+                        <view class="qian_26">花落谁家关注了你</view>
+                    </view>
+                </view>
+                <view class="top_shijian qian_20"></view>
+            </view>
+            <view data-event-opts="{{[['tap',[['go_gonggao',['$event']]]]]}}" class="xiaoxi_top_list" bindtap="__e">
+                <view class="xiaoxi_top_list_left">
+                    <view class="xiaoxi_tx">
+                        <image src="{{url}}uniapp/lsimg/xiaoxi_tongzhi.png" mode></image>
+                    </view>
+                    <view class="xiaoxi_top_list_left_txt">
+                        <view class="hei_30_bold top_txt">公告</view>
+                        <view class="qian_26">查看公告</view>
+                    </view>
+                </view>
+                <view class="top_shijian qian_20"></view>
+            </view>
+            <view class="xiaoxi_top_list">
+                <view class="xiaoxi_top_list_left">
+                    <view class="xiaoxi_tx">
+                        <image src="{{url}}uniapp/lsimg/xiaoxi_kefu.png" mode></image>
+                    </view>
+                    <view data-event-opts="{{[['tap',[['go_kefu']]]]}}" class="xiaoxi_top_list_left_txt" bindtap="__e">
+                        <view class="hei_30_bold top_txt">客服</view>
+                        <view class="qian_26">点击查看客服对话及售后通知</view>
+                    </view>
+                </view>
+                <view class="top_shijian qian_20">
+                    <block s-for="{{xiaoxi_list}}" s-for-item="item" s-for-index="__i0__">
+                        <block s-if="{{item.user.userid==7}}">
+                            <view>
+                                <block s-if="{{item.lawyerreadnum!=0}}"><text
+                                        class="ke_weidu bai_20">{{item.lawyerreadnum}}</text></block>
+                            </view>
+                        </block>
+                    </block>
+                </view>
+            </view>
+        </view>
+        <view class="xiaoxi_list">
+            <block s-for="{{$root.l0}}" s-for-item="item" s-for-index="index" s-key="*this">
+                <block s-if="{{item.$orig.user}}">
+                    <view
+                        data-event-opts="{{[['tap',[['go_chat',['$0'],[[['xiaoxi_list','',index,'user.userid']]]]]],['touchstart',[['kaishi',[index]]]],['touchend',[['songkai',[index]]]],['touchcancel',[['songkai',[index]]]]]}}"
+                        class="{{['xiaoxi_item',chumo_index==index?'chumo':'']}}" bindtap="__e" bindtouchstart="__e"
+                        bindtouchend="__e" bindtouchcancel="__e">
+                        <view class="xiaoxi_item_left">
+                            <view class="xiaoxi_tx">
+                                <image src="{{img_url+item.$orig.user.photourl}}" mode></image>
+                                <block s-if="{{item.$orig.lawyerreadnum>0}}"><text
+                                        class="xiaoxi_num bai_20">{{item.$orig.lawyerreadnum}}</text></block>
+                            </view>
+                            <view class="xiaoxi_item_left_name">
+                                <view class="hei_30_bold xiaoxi_item_name">{{item.$orig.user.mobile}}</view>
+                                <view class="qian_26 txt_over">
+                                    <block s-if="{{item.$orig.msgtype==1&&item.$orig.iswithdraw!=1}}">
+                                        <view class="xiaoxi_title">
+                                            <u-parse vue-id="{{'26967cc8-1-'+index}}" content="{{item.m0}}"></u-parse>
+                                        </view>
+                                    </block>
+                                    <block s-if="{{item.$orig.msgtype!=1&&item.$orig.iswithdraw!=1}}">
+                                        <view>
+                                            {{''+(item.$orig.msgtype==2?'[图片]':item.$orig.msgtype==3?'[电话咨询]':item.$orig.msgtype==4?'[在线咨询]':item.$orig.msgtype==5?'[欢迎]':item.$orig.msgtype==6?'[电话咨询付费]':item.$orig.msgtype==7?'[在线咨询付费]':item.$orig.msgtype==8?'[订购]':item.$orig.msgtype==9?'[咨询超时]':item.$orig.msgtype==10?'[红包]':item.$orig.msgtype==11?'[服务收费]':item.$orig.msgtype==12?'[服务支付成功]':item.$orig.msgtype==13?'[语音消息]':item.$orig.msgtype==14?'[文件]':item.$orig.msgtype==15?'[其他咨询支付成功]':item.$orig.msgtype==16?'[咨询退款]':item.$orig.msgtype==17?'[取消退款]':item.$orig.content)+''}}
+                                        </view>
+                                    </block>
+                                    <block s-if="{{item.$orig.iswithdraw==1}}">
+                                        <view>[撤回了一条消息]</view>
+                                    </block>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="xiaoxi_item_right qian_20">{{item.f0}}</view>
+                    </view>
+                </block>
+            </block>
+        </view>
+    </view>
+    <view class="padding_bottom"></view>
+    <tab-bar class="vue-ref" vue-id="26967cc8-2" currentPage="{{currentPage}}" data-ref="ls_mainindex"></tab-bar>
+</view>

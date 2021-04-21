@@ -1,0 +1,8 @@
+{
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/uni-popup",
+    "picker-address": "/components/pickerAddress_buxian/wangding-pickerAddress",
+    "unpopup": "/components/uni-popup/uni-popup-share"
+  }
+}

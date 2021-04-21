@@ -1,0 +1,15 @@
+<view class="tabBar">
+    <block s-for="{{tabBar}}" s-for-item="item" s-for-index="index" s-key="url">
+        <view data-event-opts="{{[['tap',[['navTo',['$0',index],[[['tabBar','url',item.url]]]]]]]}}"
+            class="{{['tabbar_item',(item.url==currentPage)?'active':'']}}" bindtap="__e">
+            <block s-if="{{item.url==currentPage}}">
+                <image src="{{item.imgClick}}" mode></image>
+            </block>
+            <block s-else>
+                <image src="{{item.imgNormal}}" mode></image>
+            </block>
+            <block s-if="{{index==1&&num>0}}"><text class="weidu">{{num}}</text></block>
+            <view class="text">{{item.text}}</view>
+        </view>
+    </block>
+</view>

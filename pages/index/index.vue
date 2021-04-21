@@ -69,7 +69,7 @@ export default {
 					}
 				});	
 		// this.$refs.shouye.shuxin_zujian();
-	
+	uni.removeStorageSync('user_chat_list');
 	},
 	onReady() {
 		

@@ -1,0 +1,65 @@
+
+.head {
+	border-bottom: 2rpx solid #e8e8e8;
+}
+.tixian_body {
+	padding: 0 30rpx;
+}
+.tixian_top {
+	height: 237rpx;
+	background: url(https://leleossa.oss-cn-hangzhou.aliyuncs.com/uniapp/img/chongzhi_bg.png) no-repeat;
+	background-size: 100% 100%;
+	text-align: center;
+	padding-top: 75rpx;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+.tixian_top image {
+	width: 30rpx;
+	height: 28rpx;
+	margin-right: 13rpx;
+}
+.jine {
+	font-size: 60rpx;
+	color: #ffffff;
+	font-weight: bold;
+}
+.tixian_btn {
+	height: 88rpx;
+	background-color: #0eb77e;
+	-webkit-border-radius: 44rpx;
+	        border-radius: 44rpx;
+	line-height: 88rpx;
+	margin: 260rpx 0 50rpx;
+}
+.jine_shuru {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	border-bottom: 2rpx solid #f7f7f7;
+	padding-bottom: 8rpx;
+}
+.chong_txt {
+	margin: 30rpx 0 36rpx;
+}
+.fangshi_txt {
+	margin: 70rpx 0 56rpx;
+}
+.fangshi_left image {
+	width: 41rpx;
+	height: 41rpx;
+	margin-right: 20rpx;
+}
+.fangshi_list {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	margin-bottom: 42rpx;
+}
+

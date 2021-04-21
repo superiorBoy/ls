@@ -1,0 +1,8 @@
+{
+  "enablePullDownRefresh": true,
+  "component": true,
+  "usingComponents": {
+    "u-parse": "/components/feng-parse/parse",
+    "tab-bar": "/components/y_tabbar/tabbar"
+  }
+}

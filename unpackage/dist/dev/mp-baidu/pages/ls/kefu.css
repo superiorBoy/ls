@@ -1,0 +1,35 @@
+
+.kefu_banner {
+		height: 319rpx;
+		width: 100%;
+}
+.kefu_list{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	border-bottom: 2rpx solid #eeeeee;
+	height: 100rpx;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.kefu_center{
+	padding: 0 30rpx;
+}
+.kefu_list_left image{
+	vertical-align: middle;
+	margin-right: 16rpx;
+}
+.kefu_bottom{
+	text-align: center;
+	margin-top: 110rpx;
+}
+.kefu_bottom image{
+	width: 320rpx;
+		height: 320rpx;
+		margin-bottom: 40rpx;
+}
+

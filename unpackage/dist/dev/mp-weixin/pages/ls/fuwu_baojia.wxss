@@ -1,0 +1,45 @@
+
+.head {
+	border-bottom: 2rpx solid #e8e8e8;
+}
+.baojia_list {
+	padding: 26rpx 30rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	border-bottom: 20rpx solid #e8e8e8;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.baojia_list_left {
+}
+.xiugai {
+	margin: 0;
+
+	width: 160rpx;
+	height: 56rpx;
+	background-color: #ffffff;
+	-webkit-border-radius: 28rpx;
+	        border-radius: 28rpx;
+	border: solid 2rpx #f43a51;
+	line-height: 56rpx;
+}
+.list_top {
+	margin-bottom: 22rpx;
+}
+.paixu {
+	display: inline-block;
+	height: 36rpx;
+	background-color: #f43a51;
+	-webkit-border-radius: 2rpx;
+	        border-radius: 2rpx;
+	line-height: 36rpx;
+	width: 36rpx;
+	text-align: center;
+	margin-right: 9rpx;
+}
+

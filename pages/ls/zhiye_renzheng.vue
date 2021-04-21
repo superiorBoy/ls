@@ -452,7 +452,7 @@
 								shi:di[1],
 								qu:di[2],
 								address:this.xiangxi,
-								dizhi:this.dizhi,
+								dizhi:this.lvsuo,
 								gaikuo:this.gaikuo
 						}
 					})

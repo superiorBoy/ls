@@ -155,7 +155,7 @@ export default {
 	onShow() {
 		this.huiqu_login()
 		this.huo_qu_is_yaoqing()
-		
+		uni.removeStorageSync('user_chat_list');
 	},
 	components: {
 

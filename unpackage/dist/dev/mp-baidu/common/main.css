@@ -1,0 +1,317 @@
+.bai_20{font-size: 20rpx;color: #FFFFFF;}
+.bai_21{font-size: 21rpx;color: #FFFFFF;}
+.bai_22{font-size: 22rpx;color: #FFFFFF;}
+.bai_23{font-size: 23rpx;color: #FFFFFF;}
+.bai_24{font-size: 24rpx;color: #FFFFFF;}
+.bai_25{font-size: 25rpx;color: #FFFFFF;}
+.bai_26{font-size: 26rpx;color: #FFFFFF;}
+.bai_27{font-size: 27rpx;color: #FFFFFF;}
+.bai_28{font-size: 28rpx;color: #FFFFFF;}
+.bai_29{font-size: 29rpx;color: #FFFFFF;}
+.bai_30{font-size: 30rpx;color: #FFFFFF;}
+.bai_31{font-size: 31rpx;color: #FFFFFF;}
+.bai_32{font-size: 32rpx;color: #FFFFFF;}
+.bai_34{font-size: 34rpx;color: #FFFFFF;}
+.bai_39{font-size: 39rpx;color: #FFFFFF;}
+.bai_38{font-size: 38rpx;color: #FFFFFF;}
+.bai_40{font-size: 40rpx;color: #FFFFFF;}
+.bai_20_bold{font-size: 20rpx;color: #FFFFFF; font-weight: bold;}
+.bai_21_bold{font-size: 21rpx;color: #FFFFFF; font-weight: bold;}
+.bai_22_bold{font-size: 22rpx;color: #FFFFFF; font-weight: bold;}
+.bai_23_bold{font-size: 23rpx;color: #FFFFFF; font-weight: bold;}
+.bai_24_bold{font-size: 24rpx;color: #FFFFFF; font-weight: bold;}
+.bai_25_bold{font-size: 25rpx;color: #FFFFFF; font-weight: bold;}
+.bai_26_bold{font-size: 26rpx;color: #FFFFFF; font-weight: bold;}
+.bai_27_bold{font-size: 27rpx;color: #FFFFFF; font-weight: bold;}
+.bai_28_bold{font-size: 28rpx;color: #FFFFFF; font-weight: bold;}
+.bai_29_bold{font-size: 29rpx;color: #FFFFFF; font-weight: bold;}
+.bai_30_bold{font-size: 30rpx;color: #FFFFFF; font-weight: bold;}
+.bai_31_bold{font-size: 31rpx;color: #FFFFFF; font-weight: bold;}
+.bai_32_bold{font-size: 32rpx;color: #FFFFFF; font-weight: bold;}
+.bai_38_bold{font-size: 38rpx;color: #FFFFFF; font-weight: bold;}
+.bai_40_bold{font-size: 40rpx;color: #FFFFFF; font-weight: bold;}
+.hei_20{font-size: 20rpx;color: #333333;}
+.hei_21{font-size: 21rpx;color: #333333;}
+.hei_22{font-size: 22rpx;color: #333333;}
+.hei_23{font-size: 23rpx;color: #333333;}
+.hei_24{font-size: 24rpx;color: #333333;}
+.hei_25{font-size: 25rpx;color: #333333;}
+.hei_26{font-size: 26rpx;color: #333333;}
+.hei_27{font-size: 27rpx;color: #333333;}
+.hei_28{font-size: 28rpx;color: #333333;}
+.hei_29{font-size: 29rpx;color: #333333;}
+.hei_30{font-size: 30rpx;color: #333333;}
+.hei_31{font-size: 31rpx;color: #333333;}
+.hei_32{font-size: 32rpx;color: #333333;}
+.hei_34{font-size: 34rpx;color: #333333;}
+.hei_20_bold{font-size: 20rpx;color: #333333; font-weight: bold;}
+.hei_21_bold{font-size: 21rpx;color: #333333; font-weight: bold;}
+.hei_22_bold{font-size: 22rpx;color: #333333; font-weight: bold;}
+.hei_23_bold{font-size: 23rpx;color: #333333; font-weight: bold;}
+.hei_24_bold{font-size: 24rpx;color: #333333; font-weight: bold;}
+.hei_25_bold{font-size: 25rpx;color: #333333; font-weight: bold;}
+.hei_26_bold{font-size: 26rpx;color: #333333; font-weight: bold;}
+.hei_27_bold{font-size: 27rpx;color: #333333; font-weight: bold;}
+.hei_28_bold{font-size: 28rpx;color: #333333; font-weight: bold;}
+.hei_29_bold{font-size: 29rpx;color: #333333; font-weight: bold;}
+.hei_30_bold{font-size: 30rpx;color: #333333; font-weight: bold;}
+.hei_31_bold{font-size: 31rpx;color: #333333; font-weight: bold;}
+.hei_32_bold{font-size: 32rpx;color: #333333; font-weight: bold;}
+.hei_34_bold{font-size: 34rpx;color: #333333; font-weight: bold;}
+.hei_36_bold{font-size: 36rpx;color: #333333; font-weight: bold;}
+.hei_38_bold{font-size: 38rpx;color: #333333; font-weight: bold;}
+.hei_44_bold{font-size: 44rpx;color: #333333; font-weight: bold;}
+.hui_20{font-size: 20rpx;color: #666666;}
+.hui_21{font-size: 21rpx;color: #666666;}
+.hui_22{font-size: 22rpx;color: #666666;}
+.hui_23{font-size: 23rpx;color: #666666;}
+.hui_24{font-size: 24rpx;color: #666666;}
+.hui_25{font-size: 25rpx;color: #666666;}
+.hui_26{font-size: 26rpx;color: #666666;}
+.hui_27{font-size: 27rpx;color: #666666;}
+.hui_28{font-size: 28rpx;color: #666666;}
+.hui_29{font-size: 29rpx;color: #666666;}
+.hui_30{font-size: 30rpx;color: #666666;}
+.hui_31{font-size: 31rpx;color: #666666;}
+.hui_32{font-size: 32rpx;color: #666666;}
+.hui_36{font-size: 36rpx;color: #666666;}
+.hui_20_bold{font-size: 20rpx;color: #666666; font-weight: bold;}
+.hui_21_bold{font-size: 21rpx;color: #666666; font-weight: bold;}
+.hui_22_bold{font-size: 22rpx;color: #666666; font-weight: bold;}
+.hui_23_bold{font-size: 23rpx;color: #666666; font-weight: bold;}
+.hui_24_bold{font-size: 24rpx;color: #666666; font-weight: bold;}
+.hui_25_bold{font-size: 25rpx;color: #666666; font-weight: bold;}
+.hui_26_bold{font-size: 26rpx;color: #666666; font-weight: bold;}
+.hui_27_bold{font-size: 27rpx;color: #666666; font-weight: bold;}
+.hui_28_bold{font-size: 28rpx;color: #666666; font-weight: bold;}
+.hui_29_bold{font-size: 29rpx;color: #666666; font-weight: bold;}
+.hui_30_bold{font-size: 30rpx;color: #666666; font-weight: bold;}
+.hui_31_bold{font-size: 31rpx;color: #666666; font-weight: bold;}
+.hui_32_bold{font-size: 32rpx;color: #666666; font-weight: bold;}
+.hui_36_bold{font-size: 36rpx;color: #666666; font-weight: bold;}
+.qian_20{font-size: 20rpx;color: #999999;}
+.qian_21{font-size: 21rpx;color: #999999;}
+.qian_22{font-size: 22rpx;color: #999999;}
+.qian_23{font-size: 23rpx;color: #999999;}
+.qian_24{font-size: 24rpx;color: #999999;}
+.qian_25{font-size: 25rpx;color: #999999;}
+.qian_26{font-size: 26rpx;color: #999999;}
+.qian_27{font-size: 27rpx;color: #999999;}
+.qian_28{font-size: 28rpx;color: #999999;}
+.qian_29{font-size: 29rpx;color: #999999;}
+.qian_30{font-size: 30rpx;color: #999999;}
+.qian_31{font-size: 31rpx;color: #999999;}
+.qian_32{font-size: 32rpx;color: #999999;}
+.qian_20_bold{font-size: 20rpx;color: #999999; font-weight: bold;}
+.qian_21_bold{font-size: 21rpx;color: #999999; font-weight: bold;}
+.qian_22_bold{font-size: 22rpx;color: #999999; font-weight: bold;}
+.qian_23_bold{font-size: 23rpx;color: #999999; font-weight: bold;}
+.qian_24_bold{font-size: 24rpx;color: #999999; font-weight: bold;}
+.qian_25_bold{font-size: 25rpx;color: #999999; font-weight: bold;}
+.qian_26_bold{font-size: 26rpx;color: #999999; font-weight: bold;}
+.qian_27_bold{font-size: 27rpx;color: #999999; font-weight: bold;}
+.qian_28_bold{font-size: 28rpx;color: #999999; font-weight: bold;}
+.qian_29_bold{font-size: 29rpx;color: #999999; font-weight: bold;}
+.qian_30_bold{font-size: 30rpx;color: #999999; font-weight: bold;}
+.qian_31_bold{font-size: 31rpx;color: #999999; font-weight: bold;}
+.qian_32_bold{font-size: 32rpx;color: #999999; font-weight: bold;}
+.lv_20{font-size: 20rpx;color: #0eb77e;}
+.lv_21{font-size: 21rpx;color: #0eb77e;}
+.lv_22{font-size: 22rpx;color: #0eb77e;}
+.lv_23{font-size: 23rpx;color: #0eb77e;}
+.lv_24{font-size: 24rpx;color: #0eb77e;}
+.lv_25{font-size: 25rpx;color: #0eb77e;}
+.lv_26{font-size: 26rpx;color: #0eb77e;}
+.lv_27{font-size: 27rpx;color: #0eb77e;}
+.lv_28{font-size: 28rpx;color: #0eb77e;}
+.lv_29{font-size: 29rpx;color: #0eb77e;}
+.lv_30{font-size: 30rpx;color: #0eb77e;}
+.lv_31{font-size: 31rpx;color: #0eb77e;}
+.lv_32{font-size: 32rpx;color: #0eb77e;}
+.lv_34{font-size: 34rpx;color: #0eb77e;}
+.lv_20_bold{font-size: 20rpx;color: #0eb77e; font-weight: bold;}
+.lv_21_bold{font-size: 21rpx;color: #0eb77e; font-weight: bold;}
+.lv_22_bold{font-size: 22rpx;color: #0eb77e; font-weight: bold;}
+.lv_23_bold{font-size: 23rpx;color: #0eb77e; font-weight: bold;}
+.lv_24_bold{font-size: 24rpx;color: #0eb77e; font-weight: bold;}
+.lv_25_bold{font-size: 25rpx;color: #0eb77e; font-weight: bold;}
+.lv_26_bold{font-size: 26rpx;color: #0eb77e; font-weight: bold;}
+.lv_27_bold{font-size: 27rpx;color: #0eb77e; font-weight: bold;}
+.lv_28_bold{font-size: 28rpx;color: #0eb77e; font-weight: bold;}
+.lv_29_bold{font-size: 29rpx;color: #0eb77e; font-weight: bold;}
+.lv_30_bold{font-size: 30rpx;color: #0eb77e; font-weight: bold;}
+.lv_31_bold{font-size: 31rpx;color: #0eb77e; font-weight: bold;}
+.lv_32_bold{font-size: 32rpx;color: #0eb77e; font-weight: bold;}
+.lv_34_bold{font-size: 34rpx;color: #0eb77e; font-weight: bold;}
+.hong_20{font-size: 20rpx;color: #f43a51;}
+.hong_21{font-size: 21rpx;color: #f43a51;}
+.hong_22{font-size: 22rpx;color: #f43a51;}
+.hong_23{font-size: 23rpx;color: #f43a51;}
+.hong_24{font-size: 24rpx;color: #f43a51;}
+.hong_25{font-size: 25rpx;color: #f43a51;}
+.hong_26{font-size: 26rpx;color: #f43a51;}
+.hong_27{font-size: 27rpx;color: #f43a51;}
+.hong_28{font-size: 28rpx;color: #f43a51;}
+.hong_29{font-size: 29rpx;color: #f43a51;}
+.hong_30{font-size: 30rpx;color: #f43a51;}
+.hong_31{font-size: 31rpx;color: #f43a51;}
+.hong_32{font-size: 32rpx;color: #f43a51;}
+.hong_38{font-size: 38rpx;color: #f43a51;}
+.hong_20_bold{font-size: 20rpx;color: #f43a51; font-weight: bold;}
+.hong_21_bold{font-size: 21rpx;color: #f43a51; font-weight: bold;}
+.hong_22_bold{font-size: 22rpx;color: #f43a51; font-weight: bold;}
+.hong_23_bold{font-size: 23rpx;color: #f43a51; font-weight: bold;}
+.hong_24_bold{font-size: 24rpx;color: #f43a51; font-weight: bold;}
+.hong_25_bold{font-size: 25rpx;color: #f43a51; font-weight: bold;}
+.hong_26_bold{font-size: 26rpx;color: #f43a51; font-weight: bold;}
+.hong_27_bold{font-size: 27rpx;color: #f43a51; font-weight: bold;}
+.hong_28_bold{font-size: 28rpx;color: #f43a51; font-weight: bold;}
+.hong_29_bold{font-size: 29rpx;color: #f43a51; font-weight: bold;}
+.hong_30_bold{font-size: 30rpx;color: #f43a51; font-weight: bold;}
+.hong_31_bold{font-size: 31rpx;color: #f43a51; font-weight: bold;}
+.hong_32_bold{font-size: 32rpx;color: #f43a51; font-weight: bold;}
+.hong_38_bold{font-size: 38rpx;color: #f43a51; font-weight: bold;}
+.zhuce_list input{
+	font-size: 28rpx;
+}
+uni-checkbox .uni-checkbox-input{ width: 22rpx;
+	height: 22rpx;
+	background-color: #ffffff;
+	-webkit-border-radius: 3rpx;
+	        border-radius: 3rpx;
+	border: solid 1px #dcdcdc;
+}
+uni-checkbox .uni-checkbox-input.uni-checkbox-input-checked{width: 22rpx;
+	height: 22rpx; background:url(/static/img/xaunze_bg.png) no-repeat;background-size: 100% 100%;
+}
+.uni-picker-container .uni-picker-action.uni-picker-action-confirm{
+	color: #f43a51;
+}
+uni-radio .uni-radio-input{
+	width: 20rpx;
+		height: 20rpx;
+		background-color: #FFFFFF !important;
+		border-color: #E8E8E8 !important;
+}
+uni-radio .uni-radio-input.uni-radio-input-checked{width: 20rpx;
+	height: 20rpx; background:url(/static/lsimg/reado_on.png) no-repeat;background-size: 100% 100%;
+}
+.uni-picker-container .uni-picker-content{
+	height: 446rpx;
+}
+button::after{
+	content: none !important;
+}
+.fangshi_list uni-radio .uni-radio-input{width: 30rpx;height: 30rpx;}
+.fangshi_list uni-radio .uni-radio-input.uni-radio-input-checked{width: 30rpx;
+	height: 30rpx; background:url(/static/img/zhifu_xuan_bg.png) no-repeat;background-size: 100% 100%;
+}
+.fangshi_list_pay uni-radio .uni-radio-input{width: 30rpx;height: 30rpx;}
+.fangshi_list_pay uni-radio .uni-radio-input.uni-radio-input-checked{width: 30rpx;
+	height: 30rpx; background:url(/static/img/pay_xuan_bg.png) no-repeat;background-size: 100% 100%;
+}
+.vip_list uni-radio .uni-radio-input{width: 40rpx;height: 40rpx;margin-right: 0;}
+.vip_list uni-radio .uni-radio-input.uni-radio-input-checked{width: 40rpx;
+	height: 40rpx; background:url(/static/img/vip_xuan.png) no-repeat;background-size: 100% 100%;
+}
+.uni-scroll-view::-webkit-scrollbar {
+			width: 0;
+			height: 0;
+			background-color: transparent;
+}
+.weituo_list_lianxi uni-radio .uni-radio-input{width: 26rpx;height: 26rpx;margin-right: 0;}
+.weituo_list_lianxi  uni-radio .uni-radio-input.uni-radio-input-checked{width: 26rpx;
+	height: 26rpx; background:url(/static/img/weituo_sex.png) no-repeat !important;background-size: 100% 100% !important;
+}
+input, textarea{
+		-webkit-user-select: auto!important;
+		 -o-user-select: auto!important;
+		 user-select: auto!important;
+}
+.jiedan_top uni-radio .uni-radio-input{width: 30rpx;height: 30rpx;margin-right: 15rpx;}
+.jiedan_top  uni-radio .uni-radio-input.uni-radio-input-checked{width: 30rpx;
+	height: 30rpx; background:url(/static/lsimg/fuwu_time.png) no-repeat !important;background-size: 100% 100% !important;
+}
+/* 解决头条小程序组件内引入字体不生效的问题 */
+.head{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	padding: 26rpx 30rpx;
+	background-color: #FFFFFF;
+	z-index: 99;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.head_back,.head_center,.head_right{width: 33%;}
+.head_center{text-align: center;}
+.head_right{text-align: right;}
+.head_back image{width: 22rpx;height: 41rpx;}
+.zi_body{padding-top: 104rpx;position: relative;}
+.tab_zi_body{padding-top: 154rpx;}
+.padding_bottom{height: 100rpx;}
+input{border: none !important;}
+.uni-picker-container{z-index: 9;}
+view{
+	max-width: 750px;
+}
+uni-checkbox .uni-checkbox-input.uni-checkbox-input-checked:before,uni-radio .uni-radio-input.uni-radio-input-checked:before{
+	content: none !important;
+}
+uni-checkbox:not([disabled]) .uni-checkbox-input:hover,uni-radio:not([disabled]) .uni-radio-input:hover{
+	border-color: #E8E8E8 !important;
+	content: none !important;
+}
+.uni-popup__wrapper-box{
+	max-height: 100%;
+	overflow: auto;
+}
+/* 最大宽度 */
+.uni-popup__wrapper-box{
+		margin-top: 120rpx;
+}
+/* app沉浸式配置	 */
+/* APP-PLUS */
+.sw-1__swiper{
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+
+
+  .head{
+  	padding-top: 120rpx !important;
+  }
+  .zi_body {
+  	padding-top: 198rpx;
+  }
+  .tab_zi_body{
+  	padding-top: 248rpx;
+  }
+  .tab_top{
+  	top: 190rpx !important;
+  }
+  .index_top{
+  	padding-top: 130rpx !important;
+  }
+  .my_top{
+  	padding-top: 134rpx !important;
+  }
+  .chat_jiage{
+	  top: 196rpx !important;
+  }
+  .index_top_dingwei{
+	  padding-top: 124rpx !important;
+
+  }
+  .chat_body{
+	  padding-top: 90rpx !important;
+  }

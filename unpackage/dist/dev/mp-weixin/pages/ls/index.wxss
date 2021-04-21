@@ -1,0 +1,73 @@
+
+.jiedan_tab{
+	width: 361rpx;
+		height: 74rpx;
+		background-color: #f8f8f8;
+		-webkit-border-radius: 37rpx;
+		        border-radius: 37rpx;
+		margin: 0 auto;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		
+		-webkit-box-pack: center;
+		
+		-webkit-justify-content: center;
+		
+		        justify-content: center;
+}
+.jiedan_tab_item{
+	line-height: 63rpx;
+	text-align: center;
+	width: 170rpx;
+	height: 63rpx;
+}
+.jiedan_tab_item_active{
+		background-color: #f43a51;
+		-webkit-border-radius: 31rpx;
+		        border-radius: 31rpx;
+		color: #FFFFFF;
+}
+.jiedan_item{
+	padding: 30rpx 30rpx;
+	border-bottom: 2rpx #e8e8e8 solid; 
+	display: -webkit-box; 
+	display: -webkit-flex; 
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+}
+.jiedan_item_left{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+}
+.jiedan_item_left image{
+	width: 82rpx;
+		height: 81rpx;
+		-webkit-border-radius: 100%;
+		        border-radius: 100%;
+		margin-right: 19rpx;
+}
+.jiedan_btn{
+	width: 160rpx;
+		height: 50rpx;
+		background-color: #ffffff;
+		-webkit-border-radius: 25rpx;
+		        border-radius: 25rpx;
+		border: solid 1rpx #ff2b46;
+		line-height: 50rpx;
+		text-align: center;
+		margin-top: 10rpx;
+}
+.jiedan_item_name{
+	margin-bottom: 10rpx;
+}
+

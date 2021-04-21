@@ -1,0 +1,9 @@
+{
+  "enablePullDownRefresh": true,
+  "component": true,
+  "usingComponents": {
+    "unpopup": "/components/uni-popup/uni-popup-share",
+    "picker-address2": "/components/wangding-pickerAddress/wangding-pickerAddress",
+    "tab-bar": "/components/y_tabbar/tabbar"
+  }
+}

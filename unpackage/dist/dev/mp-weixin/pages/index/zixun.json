@@ -1,0 +1,7 @@
+{
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "picker-address2": "/components/wangding-pickerAddress/wangding-pickerAddress",
+    "tab-bar": "/components/y_tabbar/tabbar"
+  }
+}

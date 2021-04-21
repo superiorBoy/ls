@@ -1,0 +1,376 @@
+<view class="body">
+    <view class="index_top">
+        <view class="index_top_dingwei">
+            <navigator style="width:76%;" url="tiwen">
+                <view class="index_sousuo qian_24">
+                    <image src="{{url}}uniapp/img/xh_sousuo.png" mode></image><input class="hei_30" confirm-type="search"
+                        type="text" placeholder="输入关键字..."
+                        data-event-opts="{{[['confirm',[['confirm',['$event']]]],['input',[['__set_model',['','sou_txt','$event',[]]]]]]}}"
+                        value="{{sou_txt}}" bindconfirm="__e" bindinput="__e" />
+                </view>
+            </navigator>
+            <view class="dingwei hei_30">
+                <image src="{{url}}uniapp/img/xh_dingwei.png" mode></image>
+                <picker-address bind:change="__e" vue-id="78d99d2a-1"
+                    data-event-opts="{{[['^change',[['xuandizhi']]]]}}" vue-slots="{{['default']}}">
+                    {{dizhi==''?'定位中':dizhi}}</picker-address>
+            </view>
+        </view>
+        <view class="tab">
+            <wuc-tab class="fenlei hei_26" vue-id="78d99d2a-2" tab-list="{{tabList}}" tabCur="{{TabCur}}"
+                data-event-opts="{{[['^updateTabCur',[['__set_sync',['$0','TabCur','$event'],['']]]],['^updateTabCur',[['__set_sync',['$0','TabCur','$event'],['']]]],['^change',[['tabChange']]]]}}"
+                bind:updateTabCur="__e" bind:change="__e"></wuc-tab>
+            <image src="{{url}}uniapp/img/xh_qita.png" mode></image>
+        </view>
+        <view class="lunbo">
+            <swiper class="swiper" indicator-dots="{{false}}" autoplay="{{true}}" circular="true"
+                easing-function="default" interval="{{5000}}" indicator-color="#c7c7c7" indicator-active-color="#ffffff"
+                duration="{{500}}" data-event-opts="{{[['change',[['swiperchang',['$event']]]]]}}" bindchange="__e">
+                <block s-for="{{banner}}" s-for-item="item" s-for-index="__i0__">
+                    <swiper-item data-event-opts="{{[['tap',[['go_tiwen',['$event']]]]]}}" bindtap="__e">
+                        <view class="swiper-item">
+                            <image src="{{item.img}}"></image>
+                        </view>
+                    </swiper-item>
+                </block>
+            </swiper>
+        </view>
+    </view>
+    <view class="index_zixun_num_body">
+        <view class="index_zixun_num hei_26">
+            <view class="index_zixun_num_left">
+                <image src="{{url}}uniapp/img/index_renzheng.png" mode></image>平台律师均三重认证
+            </view>
+            <view class="index_zixun_num_right">
+                <image src="{{url}}uniapp/img/index_zixun.png" mode></image>今日咨询<block s-if="{{data}}"><text
+                        class="lv_26">{{''+$root.m0+''}}</text></block>次
+            </view>
+        </view>
+    </view>
+    <view class="index_tab hei_24">
+        <view class="index_tab_item">
+            <navigator url="tiwen">
+                <image src="{{url}}uniapp/img/xh_tab1.png" mode></image>
+                <view>问律师</view>
+            </navigator>
+        </view>
+        <view data-event-opts="{{[['tap',[['tiaozhuan',['$event']]]]]}}" class="index_tab_item" bindtap="__e">
+            <image src="{{url}}uniapp/img/xh_tab2.png" mode></image>
+            <view>找律师</view>
+        </view>
+        <view data-event-opts="{{[['tap',[['tiao_jingxuan',['$event']]]]]}}" class="index_tab_item" bindtap="__e">
+            <image src="{{url}}uniapp/img/xh_tab3.png" mode></image>
+            <view>精选问答</view>
+        </view>
+        <navigator class="index_tab_item" url="changshi">
+            <image src="{{url}}uniapp/img/xh_tab4.png" mode></image>
+            <view>法律知识</view>
+        </navigator>
+    </view>
+    <view class="index_bankuai">
+        <view class="index_bankuai_list">
+            <view data-event-opts="{{[['tap',[['go_ls_list',['$event']]]]]}}"
+                class="index_bankuai_item index_bankuai_item1" bindtap="__e">
+                <view class="hei_28 index_bankuai_item_title">在线咨询</view>
+                <view class="hui_26">律师1对1服务</view>
+            </view>
+            <navigator class="index_bankuai_item index_bankuai_item2" url="dianhua_zixun">
+                <view class="hei_28 index_bankuai_item_title">电话咨询</view>
+                <view class="hui_26">律师主动沟通</view>
+            </navigator>
+        </view>
+        <view class="index_bankuai_list">
+            <navigator class="index_bankuai_item index_bankuai_item3" url="weituo">
+                <view class="hei_28 index_bankuai_item_title">案件委托</view>
+                <view class="hui_26">打官司·约见律师</view>
+            </navigator>
+            <navigator class="index_bankuai_item index_bankuai_item3" url="changshi">
+                <view class="hei_28 index_bankuai_item_title">法律百科</view>
+                <view class="hui_26">热点知识全都有</view>
+            </navigator>
+        </view>
+    </view>
+    <view class="index_wenti">
+        <navigator url="tiwen">
+            <image src="{{url}}uniapp/img/xh_guanggao.png" mode></image>
+        </navigator>
+    </view>
+    <view class="index_zhineng">
+        <navigator class="index_zhineng_item" url="zhineng_pay?type=1">
+            <image class="index_zhineng_item_lei" src="{{url}}uniapp/img/xh_zaixian.png" mode></image>
+            <view class="index_zhineng_item_right">
+                <view class="index_zhineng_item_top hei_30_bold">在线咨询<image src="{{url}}uniapp/img/xh_hot.png" mode>
+                    </image>
+                </view>
+                <view class="index_zhineng_item_bottom qian_24">专业律师·限时应答</view>
+            </view>
+        </navigator>
+        <navigator class="index_zhineng_item" url="zhineng_pay?type=2">
+            <image class="index_zhineng_item_lei" src="{{url}}uniapp/img/xh_dianhua.png" mode></image>
+            <view class="index_zhineng_item_right">
+                <view class="index_zhineng_item_top hei_30_bold">电话咨询<image src="{{url}}uniapp/img/xh_tuijian.png" mode>
+                    </image>
+                </view>
+                <view class="index_zhineng_item_bottom qian_24">超值咨询·高效便捷</view>
+            </view>
+        </navigator>
+    </view>
+    <view class="tuijian">
+        <view class="tuijian_top">
+            <image src="{{url}}uniapp/img/tuijian_title.png" mode></image>
+        </view>
+        <view class="tuijian_list">
+            <block s-for="{{$root.l0}}" s-for-item="item" s-for-index="index">
+                <block>
+                    <view class="tuijian_item_body">
+                        <view class="tuijian_item">
+                            <view
+                                data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['data.loginlawyer','',index,'userid']]]]]]]}}"
+                                class="tuijian_item_left" bindtap="__e">
+                                <image src="{{url+item.$orig.photourl}}" mode></image>
+                            </view>
+                            <view class="tuijian_item_right">
+                                <view class="ls_name">
+                                    <view
+                                        data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['data.loginlawyer','',index,'userid']]]]]]]}}"
+                                        class="ls_name_left hei_30_bold" bindtap="__e">{{''+item.$orig.nickname+''}}
+                                        <image src="{{url}}uniapp/img/renzheng.png" mode></image>
+                                    </view>
+                                    <view
+                                        data-event-opts="{{[['tap',[['tochat',['$0'],[[['data.loginlawyer','',index,'userid']]]]]]]}}"
+                                        class="ls_name_right lv_20" bindtap="__e">
+                                        <image src="{{url}}uniapp/img/xiaoxi.png" mode></image>在线咨询
+                                    </view>
+                                </view>
+                                <view class="ls_gongsi hui_24"><text
+                                        class="bai_20 tese_ls">特色律师</text>{{''+item.$orig.zhiwu+''}}</view>
+                                <view class="ls_dizhi qian_22">
+                                    <image src="{{url}}uniapp/img/dizhi.png" mode></image>
+                                    {{''+(item.$orig.province+'-'+item.$orig.city+'-'+item.$orig.area)+''}}
+                                </view>
+                                <view class="ls_bottom qian_22">
+                                    <view class="ls_fuwu">
+                                        <image src="{{url}}uniapp/img/xin.png" mode></image>已服务<text
+                                            class="lv_22">{{item.$orig.replynum}}</text>人
+                                    </view>
+                                    <view class="ls_pingjia">
+                                        <image src="{{url}}uniapp/img/pingjia.png" mode></image>评价<text
+                                            class="lv_22">{{item.$orig.haopingnum}}</text>人
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="tuijian_item_bottom">
+                            <view class="{{['tuijian_item_bottom_title hui_24',(item.g0!=-1)?'zhankai_on':'']}}">
+                                <view class="tuijian_item_bottom_title_left">
+                                    <block
+                                        s-if="{{zhuanchang_arry[item.$orig.expertise1]&&zhuanchang_arry[item.$orig.expertise1].shanchangname}}">
+                                        <text>{{zhuanchang_arry[item.$orig.expertise1].shanchangname}}</text></block>
+                                    <block
+                                        s-if="{{zhuanchang_arry[item.$orig.expertise2]&&zhuanchang_arry[item.$orig.expertise2].shanchangname}}">
+                                        <text>{{zhuanchang_arry[item.$orig.expertise2].shanchangname}}</text></block>
+                                    <block
+                                        s-if="{{zhuanchang_arry[item.$orig.expertise3]&&zhuanchang_arry[item.$orig.expertise3].shanchangname}}">
+                                        <text>{{zhuanchang_arry[item.$orig.expertise3].shanchangname}}</text></block>
+                                </view>
+                                <view data-event-opts="{{[['tap',[['zhankai',[index]]]]]}}"
+                                    class="tuijian_item_bottom_title_right" bindtap="__e">{{(item.g1!=-1?'收起':'展开')+''}}
+                                    <image src="{{url}}uniapp/img/xiangxia.png" mode></image>
+                                </view>
+                            </view>
+                            <view class="{{['tuijian_item_bottom_list hei_20',(item.g2!=-1)?'zhankai_on':'']}}">
+                                <view
+                                    data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','1天',1],[[['data.loginlawyer','',index,'userid']],[['data.loginlawyer','',index,'chatprice']]]]]]]}}"
+                                    class="tuijian_item_bottom_item" bindtap="__e">
+                                    <view class="tuijian_item_bottom_item_top">在线咨询</view>
+                                    <view class="tuijian_item_bottom_item_bottom hong_20">
+                                        ￥<text>{{item.$orig.chatprice}}</text>/天</view>
+                                </view>
+                                <view
+                                    data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','20分钟',2],[[['data.loginlawyer','',index,'userid']],[['data.loginlawyer','',index,'phoneprice']]]]]]]}}"
+                                    class="tuijian_item_bottom_item" bindtap="__e">
+                                    <view class="tuijian_item_bottom_item_top">电话咨询</view>
+                                    <view class="tuijian_item_bottom_item_bottom hong_20">
+                                        ￥<text>{{item.$orig.phoneprice}}</text>/20分钟</view>
+                                </view>
+                                <view
+                                    data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','合同审核',3],[[['data.loginlawyer','',index,'userid']],[['data.loginlawyer','',index,'hetong_shenhe']]]]]]]}}"
+                                    class="tuijian_item_bottom_item" bindtap="__e">
+                                    <view class="tuijian_item_bottom_item_top">合同审核</view>
+                                    <view class="tuijian_item_bottom_item_bottom hong_20">
+                                        ￥<text>{{item.$orig.hetong_shenhe}}</text>/次</view>
+                                </view>
+                                <view
+                                    data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','代写合同',3],[[['data.loginlawyer','',index,'userid']],[['data.loginlawyer','',index,'hetong_daixie']]]]]]]}}"
+                                    class="tuijian_item_bottom_item" bindtap="__e">
+                                    <view class="tuijian_item_bottom_item_top">代写合同</view>
+                                    <view class="tuijian_item_bottom_item_bottom hong_20">
+                                        ￥<text>{{item.$orig.hetong_daixie}}</text>/次</view>
+                                </view>
+                                <view
+                                    data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','代写文书',3],[[['data.loginlawyer','',index,'userid']],[['data.loginlawyer','',index,'hetong_wenshu']]]]]]]}}"
+                                    class="tuijian_item_bottom_item" bindtap="__e">
+                                    <view class="tuijian_item_bottom_item_top">代写文书</view>
+                                    <view class="tuijian_item_bottom_item_bottom hong_20">
+                                        ￥<text>{{item.$orig.hetong_wenshu}}</text>/次</view>
+                                </view>
+                                <view
+                                    data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','律师会见',4],[[['data.loginlawyer','',index,'userid']],[['data.loginlawyer','',index,'lvshi_huijian']]]]]]]}}"
+                                    class="tuijian_item_bottom_item" bindtap="__e">
+                                    <view class="tuijian_item_bottom_item_top">律师会见</view>
+                                    <view class="tuijian_item_bottom_item_bottom hong_20">
+                                        ￥<text>{{item.$orig.lvshi_huijian}}</text>/次</view>
+                                </view>
+                                <view
+                                    data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','发律师函',4],[[['data.loginlawyer','',index,'userid']],[['data.loginlawyer','',index,'lvshihan']]]]]]]}}"
+                                    class="tuijian_item_bottom_item" bindtap="__e">
+                                    <view class="tuijian_item_bottom_item_top">发律师函</view>
+                                    <view class="tuijian_item_bottom_item_bottom hong_20">
+                                        ￥<text>{{item.$orig.lvshihan}}</text>/次</view>
+                                </view>
+                                <view
+                                    data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['data.loginlawyer','',index,'userid']]]]]]]}}"
+                                    class="tuijian_item_bottom_item" bindtap="__e">
+                                    <view class="tuijian_item_bottom_item_top">了解更多</view>
+                                    <view class="tuijian_item_bottom_item_bottom qian_20">前往律师主页</view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </block>
+            </block>
+        </view><button class="qian_26 ls_more" type data-event-opts="{{[['tap',[['tiaozhuan',['$event']]]]]}}"
+            bindtap="__e">
+            <image src="{{url}}uniapp/img/gengduo.png" mode></image>查看更多律师>>
+        </button>
+    </view>
+    <view class="index_zixun">
+        <view class="zixun_tab qian_28"><text data-event-opts="{{[['tap',[['change',[1]]]]]}}"
+                class="{{[(btnnum==1)?'hei':'']}}" bindtap="__e">最新解答</text><text
+                data-event-opts="{{[['tap',[['change',[0]]]]]}}" class="{{[(btnnum==0)?'hei':'']}}"
+                bindtap="__e">最新咨询</text></view>
+        <view class="index_zixun_list">
+            <block s-if="{{data!=''}}">
+                <block>
+                    <block s-for="{{$root.l1}}" s-for-item="item" s-for-index="__i1__">
+                        <block s-if="{{btnnum==0}}">
+                            <block>
+                                <view
+                                    data-event-opts="{{[['tap',[['zixun_xq',['$0'],[[['data.consultlist.new','',__i1__,'consultid']]]]]]]}}"
+                                    class="index_zixun_item" bindtap="__e">
+                                    <view class="zixun_title hei_26">{{item.$orig.information}}</view>
+                                    <view class="index_zixun_item_bottom qian_22">
+                                        <view class="shijian">
+                                            <image src="{{url}}uniapp/img/shijian.png" mode></image>{{''+item.f0+''}}
+                                        </view>
+                                        <view class="biaoqian">
+                                            <image src="{{url}}uniapp/img/biaoqian.png" mode></image>
+                                            {{''+tabList[item.$orig.typeid].typename+''}}
+                                        </view>
+                                        <view class="dizhi">
+                                            <image src="{{url}}uniapp/img/dizhi.png" mode></image>
+                                            {{''+item.$orig.province+"-"+item.$orig.city+''}}
+                                        </view>
+                                    </view>
+                                </view>
+                            </block>
+                        </block>
+                    </block>
+                </block>
+            </block>
+            <block s-if="{{data!=''}}">
+                <block>
+                    <block s-for="{{$root.l2}}" s-for-item="item" s-for-index="__i2__">
+                        <block s-if="{{btnnum==1}}">
+                            <block>
+                                <view
+                                    data-event-opts="{{[['tap',[['zixun_xq',['$0'],[[['data.consultlist.reply','',__i2__,'consultid']]]]]]]}}"
+                                    class="index_zixun_item" bindtap="__e">
+                                    <view class="zixun_title hei_26">{{item.$orig.information}}</view>
+                                    <view class="index_zixun_item_bottom qian_22">
+                                        <view class="shijian">
+                                            <image src="{{url}}uniapp/img/shijian.png" mode></image>{{''+item.f1+''}}
+                                        </view>
+                                        <view class="biaoqian">
+                                            <image src="{{url}}uniapp/img/biaoqian.png" mode></image>
+                                            {{''+tabList[item.$orig.typeid].typename+''}}
+                                        </view>
+                                        <view class="dizhi">
+                                            <image src="{{url}}uniapp/img/dizhi.png" mode></image>
+                                            {{''+item.$orig.province+"-"+item.$orig.city+''}}
+                                        </view>
+                                    </view>
+                                </view>
+                            </block>
+                        </block>
+                    </block>
+                </block>
+            </block>
+        </view>
+    </view><button class="qian_26 ls_more" type data-event-opts="{{[['tap',[['tiaozhuan_zixun',['$event']]]]]}}"
+        bindtap="__e">
+        <image src="{{url}}uniapp/img/gengduo.png" mode></image>查看更多咨询>>
+    </button>
+    <view style="display:none;" id="allmap" class="_div"></view>
+    <view class="zhuanti">
+        <view class="index_fazhi hei_32_bold">
+            <image src="{{url}}uniapp/img/index_fazhi.png" mode></image>法律知识
+        </view>
+        <view class="zhuanti_list hei_26">
+            <block s-for="{{fa_zhishi}}" s-for-item="item" s-for-index="__i3__">
+                <view
+                    data-event-opts="{{[['tap',[['go_zhishi_xq',['$0','$1'],[[['fa_zhishi','',__i3__,'knowledgetypeid']],[['fa_zhishi','',__i3__,'knowledgetypename']]]]]]]}}"
+                    bindtap="__e">{{item.knowledgetypename}}</view>
+            </block>
+        </view>
+        <navigator class="qian_26 more_zhuanti" url="changshi">
+            <image src="{{url}}uniapp/img/gengduo.png" mode></image>查看更多热门专题>>
+        </navigator>
+        <block s-if="{{is_gengxin}}">
+            <view class="tab_bg">
+                <view class="tan">
+                    <block s-if="{{!is_xiazai}}">
+                        <view class="tan_bottom hui_27">
+                            <view>解决了旧版本中已知BUG</view>
+                            <view class="tan_txt">优化了一部分不合理的功能</view>
+                            <image class="{{['',is_update==1?'padding_top':'']}}" src="{{url}}uniapp/img/gengxin_btn.png"
+                                mode="widthFix" data-event-opts="{{[['tap',[['down',['$event']]]]]}}" bindtap="__e">
+                            </image>
+                            <block s-if="{{is_update==2}}">
+                                <view data-event-opts="{{[['tap',[['guanbi',['$event']]]]]}}" class="guanbi qian_28"
+                                    bindtap="__e">稍后更新</view>
+                            </block>
+                        </view>
+                    </block>
+                    <block s-if="{{is_xiazai}}">
+                        <view class="tan_bottom hui_27 is_xia_bottom">
+                            <view class="xiazai_tishi"><text>{{xiazai_txt}}</text><text>{{baifen+"%"}}</text></view>
+                            <view class="tan_jindu"><text style="{{'width:'+(baifen+'%')+';'}}"></text></view><button
+                                data-event-opts="{{[['tap',[['quxiao',['$event']]]]]}}"
+                                class="{{['bai_30',xiazai_state=='取消'?'is_xia_btn':'is_xia_btn_wan']}}"
+                                bindtap="__e">{{xiazai_state}}</button>
+                        </view>
+                    </block>
+                </view>
+            </view>
+        </block>
+        <block s-if="{{is_xieyi}}">
+            <view class="tab_bg">
+                <view class="tan_xiyi hei_26">
+                    <view class="tan_xiyi_title hei_30">温馨提示</view>
+                    <view class="tan_xiyi_txt">欢迎您使用 “小虎律师” 软件及相关的服务</view>
+                    <view class="tan_xiyi_txt">“小虎律师”软件服务由台州律易网络科技有限公司 (以下简称 “ 我们” )开发并发布。我们依据法律法规收集、使用个人信息。</view>
+                    <view class="tan_xiyi_txt ">在使用“小虎律师”
+                        软件及相关服务前，请您务必仔细阅读并理解我们的《用户协议》及《隐私政策》。您一旦选择“同意”，即意味着您授权我们收集、保存、使用、共享、披露及保护您的信息。点击查看<text
+                            data-event-opts="{{[['tap',[['go_xieyi',['$event']]]]]}}" class="hong_26"
+                            bindtap="__e">《用户协议》</text>和<text data-event-opts="{{[['tap',[['go_yinsi',['$event']]]]]}}"
+                            class="hong_26" bindtap="__e">《隐私政策》</text>。</view>
+                    <view class="tan_xiyi_bottom"><button class="tan_xiyi_butongyi bai_26" type
+                            data-event-opts="{{[['tap',[['butongyi',['$event']]]]]}}" bindtap="__e">不同意</button><button
+                            class="tan_xiyi_tongyi bai_26" type data-event-opts="{{[['tap',[['tongyi',['$event']]]]]}}"
+                            bindtap="__e">同意</button></view>
+                </view>
+            </view>
+        </block>
+    </view>
+</view>

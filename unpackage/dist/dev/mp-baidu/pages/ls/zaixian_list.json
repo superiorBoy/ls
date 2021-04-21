@@ -1,0 +1,7 @@
+{
+  "enablePullDownRefresh": true,
+  "component": true,
+  "usingComponents": {
+    "u-parse": "/components/feng-parse/parse"
+  }
+}

@@ -1,0 +1,122 @@
+
+page{
+		background-color: #f3f3f3;
+}
+.head {
+	border-bottom: 2rpx solid #e8e8e8;
+}
+.fuwu_top{
+	padding: 0 30rpx;
+	background-color: #FFFFFF;
+	margin-bottom: 20rpx;
+}
+.fuwu_list{
+	height: 100rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	border-bottom: 2rpx solid #e8e8e8;
+}
+.fuwu_list_left{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.fuwu_list_left image{
+	width: 36rpx;
+		height: 36rpx;
+		margin-right: 20rpx;
+		-webkit-border-radius: 5rpx;
+		        border-radius: 5rpx;
+}
+.fuwu_list:last-child{
+	border: none;
+}
+.fuwu_leixing{
+	margin-right: 22rpx;
+}
+.fuwu_list_right{
+}
+.fuwu_list_right image{
+	width: 10rpx;
+		height: 17rpx;
+		margin-left: 10rpx;
+}
+.tan_tishi{
+				width: 472rpx;
+				height: 290rpx;
+				background-color: #ffffff;
+				-webkit-border-radius: 5rpx;
+				        border-radius: 5rpx;
+			
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-webkit-transform: translate(-50%,-50%);
+			        transform: translate(-50%,-50%);
+			padding: 0 20rpx;
+			-webkit-box-sizing: border-box;
+			        box-sizing: border-box;
+}
+.tan_tishi_top_left{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+}
+.tan_tishi_top_left image{
+			width: 31rpx;
+			height: 27rpx;
+			margin-right: 10rpx;
+}
+.bg{
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0,0,0,0.3);
+		position: fixed;
+		top: 0;
+}
+.tan_tishi_top{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		-webkit-box-pack: justify;
+		-webkit-justify-content: space-between;
+		        justify-content: space-between;
+		height: 86rpx;
+		border-bottom: 1px solid #cccccc;
+}
+.guanbi {
+		width: 17rpx;
+			height: 17rpx;
+}
+.tan_tishi button{
+			width: 167rpx;
+			height: 50rpx;
+			background-color: #0eb77e;
+			-webkit-border-radius: 5rpx;
+			        border-radius: 5rpx;
+			line-height: 50rpx;
+}
+.tan_tishi_txt{
+		margin: 40rpx 0;
+}
+.youshi{
+		margin-right: 10rpx;
+}
+
+

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "picker-address": "/components/pickerAddress/pickerAddress",
+    "uni-popup": "/components/uni-popup/uni-popup",
+    "unpopup": "/components/uni-popup/uni-popup-share"
+  }
+}

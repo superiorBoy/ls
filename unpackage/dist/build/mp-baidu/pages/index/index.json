@@ -1,0 +1,10 @@
+{
+  "enablePullDownRefresh": true,
+  "component": true,
+  "usingComponents": {
+    "index": "/components/index/index",
+    "xiaohua": "/components/xiaohua/index",
+    "lvyi": "/components/lvyi/index",
+    "tab-bar": "/components/y_tabbar/tabbar"
+  }
+}

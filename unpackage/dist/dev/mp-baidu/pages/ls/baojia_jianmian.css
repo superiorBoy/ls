@@ -1,0 +1,109 @@
+
+.head {
+	border-bottom: 2rpx solid #e8e8e8;
+}
+.jianmian_top {
+	padding: 0 30rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	height: 116rpx;
+	
+	-webkit-box-align: center;
+	
+	-webkit-align-items: center;
+	
+	        align-items: center;
+}
+.jianmian_top_right{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.jianmian_top_right input{
+	text-align: right;
+	margin-right: 4rpx;
+}
+.jianmian_bottom{
+	padding: 0 30rpx;
+	border-bottom: 20rpx solid #e8e8e8;
+}
+.jiamian_riqi_item{
+		width: 210rpx;
+		height: 56rpx;
+		background-color: #f7f7f7;
+		-webkit-border-radius: 10rpx;
+		        border-radius: 10rpx;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		        justify-content: center;
+}
+.jiamian_riqi_item image{
+	width: 24rpx;
+		height: 24rpx;
+		margin-right: 7rpx;
+}
+.jiamian_riqi{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	border-bottom: 2rpx solid #EEEEEE;
+	padding-bottom: 40rpx;
+}
+.jiamian_riqi_item_time{
+	width: 335rpx;
+		height: 56rpx;
+		background-color: #f7f7f7;
+		-webkit-border-radius: 10rpx;
+		        border-radius: 10rpx;
+		text-align: center;
+		line-height: 56rpx;
+}
+.jianmian_dizhi{
+	height: 88rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+}
+.jianmian_dizhi input{
+	text-align: right;
+}
+.tianjie_btn{
+	padding: 0 30rpx;
+	margin: 400rpx 0 50rpx;
+}
+.tianjie_btn button{
+			height: 88rpx;
+			background-color: #f43a51;
+			-webkit-border-radius: 44rpx;
+			        border-radius: 44rpx;
+}
+.riqi_active{
+		background-color: #f43a51;
+		color: #FFFFFF;
+}
+

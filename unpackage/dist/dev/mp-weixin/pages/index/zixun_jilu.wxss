@@ -1,0 +1,305 @@
+
+page {
+		/* background-color: #F7F7F7; */
+		min-height: 100%;
+}
+.tab_top {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		-webkit-box-pack: justify;
+		-webkit-justify-content: space-between;
+		        justify-content: space-between;
+		padding: 10rpx 38rpx;
+		background-color: #FFFFFF;
+		position: fixed;
+		top: 100rpx;
+		width: 100%;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
+		z-index: 9;
+}
+.head_right image {
+		width: 40rpx;
+		height: 41rpx;
+}
+.zixun_item_tx_img  {
+	width: 100%;
+	height: 100%;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
+		
+		-webkit-border-radius: 100%;
+		
+		        border-radius: 100%;
+}
+.zixun_item_tx{
+		width: 80rpx;
+		height: 81rpx;
+		position: relative;
+		margin-right: 18rpx;
+}
+.zixun_item_ren{
+		width: 15rpx;
+		height: 16rpx;
+		background-color: #ffffff;
+		border: solid 2rpx #ffffff;
+		position: absolute;
+		right: 8rpx;
+		bottom: 0;
+		-webkit-border-radius: 100%;
+		        border-radius: 100%;
+}
+.zixun_item {
+		border-top: 20rpx solid #F7F7F7;
+		background-color: #ffffff;
+		margin-bottom: 20rpx;
+		padding: 30rpx 49rpx 0rpx 30rpx;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
+}
+.zixun_item:last-child {
+			border-bottom: 20rpx solid #F7F7F7;
+}
+.zixun_item_top{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: start;
+	-webkit-align-items: flex-start;
+	        align-items: flex-start;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+}
+.zixun_item:first-child {
+		margin-top: 20rpx;
+}
+.zixun_item_left {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+}
+.zixun_item_feiyong {
+		margin: 18rpx 0 0;
+}
+.item_zhuangtai {
+		
+		/* -moz-transform: rotate(-10deg); */
+		/* -webkit-transform: rotate(-10deg); */
+}
+.zhengzai {
+		background-color: #0eb77e;
+}
+.go_fufei {
+		border: 2rpx solid #0eb77e;
+		color: #0eb77e;
+}
+.jieshu {
+		color: #999999;
+		background-color: #dee0e2;
+}
+.tan {
+		width: 100%;
+		height: 758rpx;
+		background-color: #FFFFFF;
+		padding: 0 23rpx;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
+		position: relative;
+}
+.tan_title {
+		text-align: center;
+		line-height: 120rpx;
+}
+.tan_list {}
+.tan_list image {
+		width: 22rpx;
+		height: 12rpx;
+		margin-left: 10rpx;
+		vertical-align: middle;
+}
+.tan_list_top {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		border-bottom: 2rpx solid #E8E8E8;
+		height: 98rpx;
+		-webkit-box-pack: justify;
+		-webkit-justify-content: space-between;
+		        justify-content: space-between;
+}
+.tan_list input {
+		text-align: right;
+}
+.tan_buttom {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		position: absolute;
+		bottom: 120rpx;
+}
+button {
+		margin: 0;
+		border: none;
+}
+button::after {
+		content: none;
+}
+.zhuanchang_arry {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		margin-top: 20rpx;
+		-webkit-flex-wrap: wrap;
+		        flex-wrap: wrap;
+}
+.zhuanchang_arry text {
+		border: 2rpx solid #E8E8E8;
+		-webkit-border-radius: 20rpx;
+		        border-radius: 20rpx;
+		padding: 4rpx 20rpx;
+		display: inline-block;
+		margin-right: 28rpx;
+		margin-bottom: 20rpx;
+}
+.zhuanchang_quer_ding {
+		height: 88rpx;
+		background-color: #0eb77e;
+		-webkit-border-radius: 44rpx;
+		        border-radius: 44rpx;
+		line-height: 88rpx;
+		position: absolute;
+		bottom: 50rpx;
+		width: 691rpx;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
+}
+.quxiao {
+		width: 342rpx;
+		height: 88rpx;
+		background-color: #dcfff3;
+		-webkit-border-radius: 44rpx 0rpx 0rpx 44rpx;
+		        border-radius: 44rpx 0rpx 0rpx 44rpx;
+		line-height: 88rpx;
+}
+.queren {
+		width: 342rpx;
+		height: 88rpx;
+		line-height: 88rpx;
+		background-color: #0eb77e;
+		-webkit-border-radius: 0rpx 44rpx 44rpx 0rpx;
+		        border-radius: 0rpx 44rpx 44rpx 0rpx;
+}
+.xuanzhong {
+		color: #f43a51;
+		border: 2rpx solid #f43a51 !important;
+}
+.daifu{
+			border: solid 1px #f43a51;
+			color:#f43a51 ;
+}
+.yifu{
+		border: solid 1px #0eb77e;
+		color: #0eb77e;
+}
+.zixun {
+		width: 164rpx;
+		height: 44rpx;
+		background-color: #ffffff;
+		-webkit-border-radius: 22rpx;
+		        border-radius: 22rpx;
+		border: solid 1rpx #f43a51;
+		text-align: center;
+		line-height: 44rpx;
+		margin-top: 10rpx;
+}
+.zixun image {
+		width: 18rpx;
+		height: 18rpx;
+		margin-right: 5rpx;
+}
+.zixun_item_leixing{
+		
+		margin: 15rpx 0;
+}
+.zixun_item_jiage{
+		margin-left: 9rpx;
+}
+.iten_lianxi{
+			width: 186rpx;
+			height: 60rpx;
+			background-color: #ffffff;
+			-webkit-border-radius: 30rpx;
+			        border-radius: 30rpx;
+			border: solid 1rpx #0eb77e;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			        align-items: center;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			        justify-content: center;
+}
+.iten_lianxi image{
+			width: 28rpx;
+			height: 27rpx;
+			margin-right: 10rpx;
+}
+.zixun_item_top_bottom{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-pack: end;
+		-webkit-justify-content: flex-end;
+		        justify-content: flex-end;
+		border-top: 2rpx dashed #c6c6c6;
+		padding:  20rpx 0;
+}
+.fukuan{
+		width: 187rpx;
+			height: 60rpx;
+			background-color: #ffffff;
+			-webkit-border-radius: 30rpx;
+			        border-radius: 30rpx;
+			border: solid 1rpx #0eb77e;
+			line-height: 60rpx;
+			text-align: center;
+			margin-right: 20rpx;
+}
+.zixun_item_tx_img  {
+	width: 100%;
+	height: 100%;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
+		
+		-webkit-border-radius: 100%;
+		
+		        border-radius: 100%;
+}
+.mohu{
+		width: 150rpx;
+		height: 30rpx;
+}
+.none_list{
+		text-align: center;
+		background-color: #FFFFFF;
+		border-top: 20rpx solid #F7F7F7;
+}
+.none_list image{
+		width: 500rpx;
+		margin-bottom: 30rpx;
+		margin-top: 150rpx;
+}
+

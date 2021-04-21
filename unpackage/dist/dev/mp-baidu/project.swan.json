@@ -1,0 +1,72 @@
+{
+    "appInfo": {},
+    "appid": "24005116",
+    "appkey": "",
+    "compilation-args": {
+        "common": {
+            "useStrict": false
+        },
+        "options": [
+            {
+                "extra": {
+                    "compileArgs": "--module cmd",
+                    "ext": {},
+                    "index": "pages/index/xiaoxi",
+                    "isPrefetch": false,
+                    "query": "",
+                    "scene": {},
+                    "single": false,
+                    "singleArgs": null
+                },
+                "id": 0,
+                "text": "pages/index/xiaoxi"
+            },
+            {
+                "extra": {
+                    "compileArgs": "--module cmd",
+                    "ext": {},
+                    "index": "pages/ls/mingpian",
+                    "query": "",
+                    "scene": {},
+                    "single": false,
+                    "singleArgs": null
+                },
+                "id": 1,
+                "text": "pages/ls/mingpian"
+            }
+        ],
+        "selected": -2
+    },
+    "condition": {
+        "swan": {
+            "current": 0,
+            "list": [
+                {
+                    "id": 0,
+                    "name": "",
+                    "pathName": "pages/index/index",
+                    "query": ""
+                }
+            ]
+        }
+    },
+    "host": "baiduboxapp",
+    "libVersion": "",
+    "projectname": "小虎律师法律咨询",
+    "publish": {
+        "tips": [
+            "小程序包内容将被百度解析和收录，用于内容的风险控制。",
+            "您已开通分享web化，请确保分享web化体验无问题后，再进行发布。"
+        ],
+        "version": "1.0.1"
+    },
+    "setting": {
+        "urlCheck": false
+    },
+    "swan": {
+        "baiduboxapp": {
+            "swanJsVersion": "3.290.28",
+            "extensionJsVersion": "1.21.2"
+        }
+    }
+}

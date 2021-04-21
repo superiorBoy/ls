@@ -29,7 +29,7 @@
 				</view>
 			</view>
               <view class="ming_pian">
-               	<image :src="codeImg" mode="" ></image>
+               	<image src="https://www.xhlvshi.com/mlawyerapi/user/lawyer_qrcode" mode="" ></image>
 				<view class="qian_26">
 					扫描二维码，法律问题来咨询
 				</view>

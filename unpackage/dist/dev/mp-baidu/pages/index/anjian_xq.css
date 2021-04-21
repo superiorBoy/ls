@@ -1,0 +1,31 @@
+
+.zi_body{
+		padding-left: 30rpx;
+		padding-right: 30rpx;
+}
+.head_center{
+	width: 50%;
+}
+.title{
+	margin: 10rpx 0 20rpx;
+}
+.lei_item{
+	margin-bottom: 10rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: start;
+	-webkit-align-items: flex-start;
+	        align-items: flex-start;
+}
+.lei_item text{
+	display: inline-block;
+	width: 80%;
+	color: #333333;
+}
+.neirong{
+	margin-top: 20rpx;
+	padding-bottom: 50rpx;
+	line-height: 40rpx;
+}
+

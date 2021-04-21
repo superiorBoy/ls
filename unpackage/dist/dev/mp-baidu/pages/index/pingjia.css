@@ -1,0 +1,190 @@
+
+page{
+		background-color: #F7F7F7;
+}
+.head {
+		border-bottom: 2rpx solid #F7F7F7;
+}
+.pingjia_fuwu{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		margin-top: 30rpx;
+}
+.pingjia_fuwu text{
+		margin: 0 6rpx;
+}
+.pingjia_fuwu image{
+		width: 27rpx;
+		height: 23rpx;
+		margin-right: 9rpx;
+}
+.ping_tx{
+		width: 110rpx;
+		height: 110rpx;
+}
+.pingjia_top{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		padding:  30rpx;
+		-webkit-box-pack: justify;
+		-webkit-justify-content: space-between;
+		        justify-content: space-between;
+		background-color: #FFFFFF;
+}
+.ls_name{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-pack: justify;
+		-webkit-justify-content: space-between;
+		        justify-content: space-between;
+}
+.pingjia_top_right{
+		width: 80%;
+}
+.pingjia_center{
+		background-color: #FFFFFF;
+		margin: 20rpx 0;
+        padding-bottom: 25rpx;
+}
+.pingjia_xing{
+		height: 94rpx;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		padding: 0 30rpx;
+		border-bottom: 2rpx solid #F7F7F7;
+}
+.xing{
+		background: url(/static/img/xing_no.png) no-repeat;
+		background-size: 100% 100% !important;
+		width: 30rpx;
+			height: 30rpx;
+			margin-right: 6rpx;
+}
+.on1 .xing:nth-child(1){
+		background: url(/static/img/xing_on.png) no-repeat;
+		background-size: 100% 100%;
+}
+.on2 .xing:nth-child(1),.on2 .xing:nth-child(2){
+		background: url(/static/img/xing_on.png) no-repeat;
+		background-size: 100% 100%;
+}
+.on3 .xing:nth-child(1),.on3 .xing:nth-child(2),.on3 .xing:nth-child(3){
+		background: url(/static/img/xing_on.png) no-repeat;
+		background-size: 100% 100%;
+}
+.on4 .xing:nth-child(1),.on4 .xing:nth-child(2),.on4 .xing:nth-child(3),.on4 .xing:nth-child(4){
+		background: url(/static/img/xing_on.png) no-repeat;
+		background-size: 100% 100%;
+}
+.on5 .xing{
+		background: url(/static/img/xing_on.png) no-repeat;
+		background-size: 100% 100%;
+}
+.xing_arry{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+}
+.ping_shuru{
+		padding: 30rpx ;
+		width: 100%;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
+		height: 330rpx;
+}
+.up_tu{
+			width: 140rpx;
+			height: 140rpx;
+			background-color: #f5f5f5;
+			-webkit-border-radius: 10rpx;
+			        border-radius: 10rpx;
+}
+.tu_arry{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-flex-wrap: wrap;
+		        flex-wrap: wrap;
+}
+.img_tu{
+		position: relative;
+}
+.del{
+		position: absolute;
+		top: 0;
+		right: 14rpx;
+}
+.tu_arry image{
+		width: 140rpx;
+		height: 140rpx;
+		margin-right: 10rpx;
+		margin-bottom: 10rpx;
+}
+.tu{
+		padding: 0 30rpx;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-flex-wrap: wrap;
+		        flex-wrap: wrap;
+}
+.yinxiang{
+		background-color: #FFFFFF;
+		padding: 0 30rpx 10rpx;
+}
+.yinxiang_top{
+		line-height: 100rpx;
+}
+.yinxiang_arry{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-pack: justify;
+		-webkit-justify-content: space-between;
+		        justify-content: space-between;
+		-webkit-flex-wrap: wrap;
+		        flex-wrap: wrap;
+}
+.yinxiang_arry text{
+		width: 154rpx;
+		height: 50rpx;
+			background-color: #f5f5f5;
+			-webkit-border-radius: 25rpx;
+			        border-radius: 25rpx;
+			display: inline-block;
+			margin-bottom: 30rpx;
+			text-align: center;
+			line-height: 50rpx;
+}
+.baocun_btn{
+		padding: 0 30rpx;
+		margin-top: 174rpx;
+		margin-bottom: 50rpx;
+}
+.baocun_b {
+			height: 88rpx;
+			background-color: #0eb77e;
+			-webkit-border-radius: 44rpx;
+			        border-radius: 44rpx;
+			line-height: 88rpx;
+}
+.baocun_b image{
+			width: 25rpx;
+			height: 25rpx;
+			margin-right: 16rpx;
+}
+.xuan_txt{
+		background-color: #fdd8dc !important;
+		color: #f43a51;
+}
+

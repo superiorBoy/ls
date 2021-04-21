@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "emotion": "/components/bkhumor-emoji/index",
+    "u-parse": "/components/feng-parse/parse"
+  }
+}

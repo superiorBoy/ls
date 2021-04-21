@@ -1,0 +1,66 @@
+
+.head {
+	/* background-color:#0eb77e ; */
+	background: none;
+}
+page{
+	height: 100%;
+	background: url(/static/img/pipei_bg.png) no-repeat;
+	background-size: 100% auto;
+	background-position: center;
+	background-color:#0eb77e ;
+	width: 100%;
+}
+.pipei_txt{
+padding-top: 60%;
+text-align: center;
+}
+.pipei_ls{
+	text-align: center;
+	position: fixed;
+	width: 100%;
+	bottom: 80rpx;
+}
+.pipei_ls_top{
+		width: 150rpx;
+		height: 150rpx;
+		background-color: #3c86c7;
+		border: solid 3rpx #ceffee;
+		position: relative;
+		-webkit-border-radius: 100%;
+		        border-radius: 100%;
+		margin: 0 auto 20rpx;
+}
+.pipei_ls_tx{
+	width: 100%;
+	height: 100%;
+	-webkit-border-radius: 100%;
+	        border-radius: 100%;
+}
+.pipei_ls_ren{
+	position: absolute;
+	bottom: 10rpx;
+	right: 10rpx;
+		width: 15rpx;
+		height: 16rpx;
+		background-color: #FFFFFF;
+		border: solid 2rpx #ffffff;
+		-webkit-border-radius: 100%;
+		        border-radius: 100%;
+}
+.jieda_num{
+	margin: 10rpx 0;
+}
+.pipei_ls button{
+	width: 406rpx;
+		height: 88rpx;
+		background-color: #ffffff;
+		-webkit-border-radius: 44rpx;
+		        border-radius: 44rpx;
+		line-height: 88rpx;
+		margin-top: 40rpx;
+}
+.shanchang_arry text{
+	margin-right: 10rpx;
+}
+

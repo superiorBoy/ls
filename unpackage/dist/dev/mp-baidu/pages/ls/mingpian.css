@@ -1,0 +1,128 @@
+
+.head {
+	border-bottom: 2rpx solid #e8e8e8;
+}
+.mingpain_top{
+		height: 543rpx;
+		background: url(/static/lsimg/ming_bg.png) no-repeat;
+		background-size: 100% 100%;
+		text-align: center;
+		padding-top: 40rpx;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
+}
+.mingpain_top_tx{
+	width: 150rpx;
+		height: 151rpx;
+		background-color: #3c86c7;
+		border: solid 3rpx #ceffee;
+		-webkit-border-radius: 100%;
+		        border-radius: 100%;
+		position: relative;
+		margin: 0rpx auto 20rpx;
+}
+.tx{
+	width: 100%;
+	height: 100%;
+	-webkit-border-radius: 100%;
+	        border-radius: 100%;
+}
+.ren{
+		width: 18rpx;
+		height: 18rpx;
+		background-color: #ffad2b;
+		border: solid 2rpx #ffffff;
+		-webkit-border-radius: 100%;
+		        border-radius: 100%;
+		position: absolute;
+		bottom: 10rpx;
+		right: 10rpx;
+}
+.mingpian_dizhi{
+	margin: 20rpx 0;
+}
+.mingpian_dizhi image{
+		width: 28rpx;
+		height: 29rpx;
+		vertical-align: middle;
+		margin-right: 10rpx;
+}
+.mingpian_lvsuo image{
+		width: 34rpx;
+			height: 33rpx;
+		vertical-align: middle;
+		margin-right: 10rpx;
+}
+.mingpian_zhuanchang{
+	margin-top: 36rpx;
+}
+.mingpian_zhuanchang text{
+	display: inline-block;
+		height: 60rpx;
+		background-color: #39bf84;
+		line-height: 60rpx;
+		padding: 0 30rpx;
+		margin-right: 20rpx;
+}
+.mingpian_zhuanchang text:last-child{
+	margin-right: 0;
+}
+.ming_pian{
+	text-align: center;
+	margin-top: 65rpx;
+}
+.ming_pian image{
+		width: 254rpx;
+		height: 258rpx;
+		margin-bottom: 30rpx;
+}
+#poster{
+	padding-bottom: 160rpx;
+}
+.fenxiang{
+	margin: 0rpx 0 50rpx;
+	text-align: center;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.fenxiang text{
+	width: 150rpx;
+	height: 2rpx;
+	background-color: #c6c6c6;
+	display: inline-block;
+}
+.fenxiang text:first-child{
+	margin-right: 20rpx;
+}
+.fenxiang text:last-child{
+	margin-left: 20rpx;
+}
+.fenxiang_list{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	padding: 0 100rpx 100rpx;
+}
+.fenxiang_item{
+	text-align: center;
+}
+.fenxiang_item image{
+		width: 62rpx;
+		height: 61rpx;
+		margin-bottom: 20rpx;
+}
+
+

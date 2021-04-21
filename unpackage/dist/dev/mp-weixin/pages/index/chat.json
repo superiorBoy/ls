@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "l-file": "/components/l-file/l-file",
+    "emotion": "/components/bkhumor-emoji/index",
+    "u-parse": "/components/feng-parse/parse",
+    "lfile": "/components/l-file/l-file"
+  }
+}

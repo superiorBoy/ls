@@ -1,0 +1,222 @@
+
+page {
+	background-color: #f7f7f7;
+}
+.head {
+	border-bottom: 2rpx solid #e8e8e8;
+}
+.jine {
+	font-size: 60rpx;
+	color: #ffffff;
+	font-weight: bold;
+}
+.jine_shuru {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	border-bottom: 2rpx solid #f7f7f7;
+	padding-bottom: 8rpx;
+}
+.fangshi_list_pay {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	height: 100rpx;
+	border-bottom: 2rpx solid #f7f7f7;
+}
+.pay_list,
+.pay_list_top {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+}
+.pay_list input {
+	text-align: right;
+}
+.xuanshang_title {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	height: 98rpx;
+	padding-left: 27rpx;
+}
+.xuanshang_title image {
+	margin-right: 10rpx;
+}
+.pay_top {
+	background-color: #ffffff;
+	padding: 0 30rpx;
+}
+.pay_list {
+	height: 100rpx;
+	border-bottom: 2rpx solid #f7f7f7;
+}
+.pay_list_jine {
+	height: 92rpx;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	padding: 27rpx 0;
+}
+.fangshi {
+	background-color: #ffffff;
+	padding: 0 30rpx;
+}
+.xuanshang {
+	width: 335rpx;
+	height: 88rpx;
+	background-color: #0eb77e;
+	-webkit-border-radius: 44rpx;
+	        border-radius: 44rpx;
+	line-height: 88rpx;
+}
+.zanbu {
+	width: 335rpx;
+	height: 88rpx;
+	background-color: #dcdcdc;
+	-webkit-border-radius: 44rpx;
+	        border-radius: 44rpx;
+	line-height: 88rpx;
+}
+.tuijian {
+	border: 2rpx solid #fd4358;
+	width: 62rpx;
+	height: 30rpx;
+	display: inline-block;
+	line-height: 30rpx;
+	text-align: center;
+	margin-left: 7rpx;
+}
+.pay_btn {
+	padding: 0 30rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	margin-top: 70rpx;
+}
+.wen_list {
+	display: block;
+	padding-bottom: 30rpx;
+	height: auto;
+}
+.wen_list_top {
+	line-height: 80rpx;
+}
+.wen_neirong {
+	width: 100%;
+	padding: 0rpx 16rpx 10rpx 0;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	word-break: break-all;
+}
+.wen_neirong_txt {
+	height: 100rpx;
+	overflow: auto;
+	word-break: break-all;
+}
+.wen_neirong_textarea {
+	height: 264rpx;
+}
+.height_auto {
+	height: auto;
+	padding: 20rpx 0;
+}
+.dis_fir {
+	-webkit-box-align: start;
+	-webkit-align-items: flex-start;
+	        align-items: flex-start;
+}
+.jine_list {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-flex-wrap: wrap;
+	        flex-wrap: wrap;
+	background-color: #ffffff;
+	padding: 46rpx 30rpx 10rpx 30rpx;
+}
+.jine_item {
+	width: 210rpx;
+	height: 90rpx;
+	background-color: #efefef;
+	-webkit-border-radius: 3rpx;
+	        border-radius: 3rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	margin: 0 30rpx 30rpx 0;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+.jine_item:nth-child(3n) {
+	margin-right: 0;
+}
+.jine_item image {
+	width: 26rpx;
+	height: 30rpx;
+	margin-right: 9rpx;
+}
+.qian_on {
+	display: none;
+}
+.xuan_active {
+	border: 2rpx solid #0eb77e;
+	color: #0eb77e;
+	background-color: #ffffff;
+	position: relative;
+}
+.xuan_active .qian_on {
+	display: inline-block;
+}
+.xuan_active .qian_no {
+	display: none;
+}
+.xuan_active::before {
+	content: '';
+	display: inline-block;
+	width: 58rpx;
+	height: 54rpx;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	background: url(/static/img/xuanshang_xuan.png) no-repeat;
+	background-size: 100% 100%;
+}
+.xuan_tishi {
+	text-align: center;
+	padding-bottom: 50rpx;
+	margin-top: 30rpx;
+}
+.xuan_tishi_fir {
+	margin-bottom: 10rpx;
+}
+

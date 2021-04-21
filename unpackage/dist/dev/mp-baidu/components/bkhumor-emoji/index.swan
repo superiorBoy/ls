@@ -1,0 +1,56 @@
+<view class="emotion-box data-v-473d9acb">
+    <swiper class="swiper data-v-473d9acb" disable-programmatic-animation="true" indicator-dots="true">
+        <swiper-item class="emotion-box-line data-v-473d9acb">
+            <block s-for="{{$root.l1}}" s-for-item="line" s-for-index="i" s-key="i">
+                <view class="data-v-473d9acb">
+                    <block s-for="{{line.l0}}" s-for-item="im" s-for-index="ix" s-key="ix">
+                        <view data-event-opts="{{[['tap',[['clickHandler',['$0'],[[['list1','',i],['','',ix]]]]]]]}}"
+                            class="swiper-item emotion-item data-v-473d9acb" style="width:'35%"
+                            bindtap="__e">
+                            <rich-text nodes="{{im.g0}}" class="data-v-473d9acb"></rich-text>
+                        </view>
+                    </block>
+                </view>
+            </block>
+        </swiper-item>
+        <swiper-item class="emotion-box-line data-v-473d9acb">
+            <block s-for="{{$root.l3}}" s-for-item="line" s-for-index="i" s-key="i">
+                <view class="data-v-473d9acb">
+                    <block s-for="{{line.l2}}" s-for-item="im" s-for-index="ix" s-key="ix">
+                        <view data-event-opts="{{[['tap',[['clickHandler',['$0'],[[['list2','',i],['','',ix]]]]]]]}}"
+                            class="swiper-item emotion-item data-v-473d9acb" style="width:'35%"
+                            bindtap="__e">
+                            <rich-text nodes="{{im.g1}}" class="data-v-473d9acb"></rich-text>
+                        </view>
+                    </block>
+                </view>
+            </block>
+        </swiper-item>
+        <swiper-item class="emotion-box-line data-v-473d9acb">
+            <block s-for="{{$root.l5}}" s-for-item="line" s-for-index="i" s-key="i">
+                <view class="data-v-473d9acb">
+                    <block s-for="{{line.l4}}" s-for-item="im" s-for-index="ix" s-key="ix">
+                        <view data-event-opts="{{[['tap',[['clickHandler',['$0'],[[['list3','',i],['','',ix]]]]]]]}}"
+                            class="swiper-item emotion-item data-v-473d9acb" style="width:'35%"
+                            bindtap="__e">
+                            <rich-text nodes="{{im.g2}}" class="data-v-473d9acb"></rich-text>
+                        </view>
+                    </block>
+                </view>
+            </block>
+        </swiper-item>
+        <swiper-item class="emotion-box-line data-v-473d9acb">
+            <block s-for="{{$root.l7}}" s-for-item="line" s-for-index="i" s-key="i">
+                <view class="data-v-473d9acb">
+                    <block s-for="{{line.l6}}" s-for-item="im" s-for-index="ix" s-key="ix">
+                        <view data-event-opts="{{[['tap',[['clickHandler',['$0'],[[['list4','',i],['','',ix]]]]]]]}}"
+                            class="swiper-item emotion-item data-v-473d9acb" style="width:'35%"
+                            bindtap="__e">
+                            <rich-text nodes="{{im.g3}}" class="data-v-473d9acb"></rich-text>
+                        </view>
+                    </block>
+                </view>
+            </block>
+        </swiper-item>
+    </swiper>
+</view>
