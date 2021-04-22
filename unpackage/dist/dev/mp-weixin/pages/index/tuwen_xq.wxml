@@ -1,1 +1,38 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">图文详情</view><view class=" head_right hei_30_bold"></view></view><view class="zi_body "><view class="zhishi_xq"><view class="xq_title hei_30_bold">{{tuwen.tuwen.title}}</view><view class="xq_top qian_24"><view class="xq_top_item1"><image src="/static/img/biaoqian.png" mode></image>{{''+type_list[tuwen.tuwen.typeid].typename+''}}</view><view class="xq_top_item2"><image src="/static/img/changshi_time.png" mode></image>{{''+$root.f0+''}}</view><view class="xq_top_item3"><image src="/static/img/changshi_liulan.png" mode></image>{{''+tuwen.tuwen.readnum+'浏览'}}</view></view><view class="lvshi"><view class="lvshi_left"><image src="{{img_url+tuwen.lawyer.photourl}}" mode></image><view class="lvshi_left_r"><view class="hei_26 ls_name">{{tuwen.lawyer.nickname+"律师"}}</view><view class="hui_24">{{tuwen.lawyer.lvsuo}}</view></view></view><button class="bai_24" type data-event-opts="{{[['tap',[['go_chat',['$0'],['tuwen.lawyer.lawyerid']]]]]}}" bindtap="__e">咨询TA</button></view><view class="zhengwen hei_26"><image src="{{img_url+tuwen.tuwen.pic}}" mode="widthFix"></image><view class="zhengwen_body">{{tuwen.tuwen.information}}</view></view></view></view></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">图文详情</view>
+		<view class=" head_right hei_30_bold"></view>
+	</view>
+	<view class="zi_body ">
+		<view class="zhishi_xq">
+			<view class="xq_title hei_30_bold">{{tuwen.tuwen.title}}</view>
+			<view class="xq_top qian_24">
+				<view class="xq_top_item1">
+					<image src="{{img_url}}/uniapp/img/biaoqian.png" mode></image>{{''+type_list[tuwen.tuwen.typeid].typename+''}}
+				</view>
+				<view class="xq_top_item2">
+					<image src="{{img_url}}/uniapp/img/changshi_time.png" mode></image>{{''+$root.f0+''}}
+				</view>
+				<view class="xq_top_item3">
+					<image src="{{img_url}}/uniapp/img/changshi_liulan.png" mode></image>{{''+tuwen.tuwen.readnum+'浏览'}}
+				</view>
+			</view>
+			<view class="lvshi">
+				<view class="lvshi_left">
+					<image src="{{img_url+tuwen.lawyer.photourl}}" mode></image>
+					<view class="lvshi_left_r">
+						<view class="hei_26 ls_name">{{tuwen.lawyer.nickname+"律师"}}</view>
+						<view class="hui_24">{{tuwen.lawyer.lvsuo}}</view>
+					</view>
+				</view><button class="bai_24" type data-event-opts="{{[['tap',[['go_chat',['$0'],['tuwen.lawyer.lawyerid']]]]]}}" bindtap="__e">咨询TA</button>
+			</view>
+			<view class="zhengwen hei_26">
+				<image src="{{img_url+tuwen.tuwen.pic}}" mode="widthFix"></image>
+				<view class="zhengwen_body">{{tuwen.tuwen.information}}</view>
+			</view>
+		</view>
+	</view>
+</view>

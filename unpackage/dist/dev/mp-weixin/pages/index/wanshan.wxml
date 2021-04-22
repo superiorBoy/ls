@@ -1,1 +1,20 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_36_bold">完善个人资料</view><view class="head_right hui_36_bold"><text data-event-opts="{{[['tap',[['tiaoguo',['$event']]]]]}}" bindtap="__e">跳过</text></view></view><view class="zi_body"><view class="wanshang_body"><view class="wanshang_top"><view data-event-opts="{{[['tap',[['up_zhiye',['$event']]]]]}}" class="shangchuan" bindtap="__e"><image class="tx" src="{{zhiye_zhao}}" mode></image><text class="bai_24 genghuan">点击更换</text></view><view class="hei_32">设置头像</view></view><view class="nicheng"><input class="hei_30" type="text" value="{{nicheng}}" placeholder="请输入昵称" data-event-opts="{{[['input',[['__set_model',['','nicheng','$event',[]]]]]]}}" bindinput="__e"/></view><button class="bai_30" type data-event-opts="{{[['tap',[['go_shouye',['$event']]]]]}}" bindtap="__e">进入首页</button></view></view></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_36_bold">完善个人资料</view>
+		<view class="head_right hui_36_bold"><text data-event-opts="{{[['tap',[['tiaoguo',['$event']]]]]}}" bindtap="__e">跳过</text></view>
+	</view>
+	<view class="zi_body">
+		<view class="wanshang_body">
+			<view class="wanshang_top">
+				<view data-event-opts="{{[['tap',[['up_zhiye',['$event']]]]]}}" class="shangchuan" bindtap="__e">
+					<image class="tx" src="{{zhiye_zhao}}" mode></image><text class="bai_24 genghuan">点击更换</text>
+				</view>
+				<view class="hei_32">设置头像</view>
+			</view>
+			<view class="nicheng"><input class="hei_30" type="text" value="{{nicheng}}" placeholder="请输入昵称" data-event-opts="{{[['input',[['__set_model',['','nicheng','$event',[]]]]]]}}" bindinput="__e" /></view><button class="bai_30" type data-event-opts="{{[['tap',[['go_shouye',['$event']]]]]}}" bindtap="__e">进入首页</button>
+		</view>
+	</view>
+</view>

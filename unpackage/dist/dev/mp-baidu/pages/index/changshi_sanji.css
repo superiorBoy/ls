@@ -44,7 +44,7 @@ page {
 	display: flex;
 	-webkit-flex-wrap: wrap;
 	        flex-wrap: wrap;
-	
+
 	border-top: 1px solid #f7f7f7;
 	padding: 40rpx  30rpx 0;
 }
@@ -242,7 +242,8 @@ page {
 	margin-right: 4rpx;
 }
 .fenye image{
-	height: 20rpx;
+    height: 20rpx;
+    width:20rpx
 }
 .fenye_next image{
 	margin-left: 4rpx;

@@ -1,1 +1,65 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">法律知识</view><view class=" head_right hei_30_bold"></view></view><view class="zi_body "><view class="lunbo"><swiper class="swiper" indicator-dots="{{false}}" autoplay="{{false}}" circular="true" easing-function="default" interval="{{3000}}" indicator-color="#c7c7c7" indicator-active-color="#ffffff" duration="{{500}}" data-event-opts="{{[['change',[['swiperchang',['$event']]]]]}}" bindchange="__e"><block wx:for="{{banner}}" wx:for-item="item" wx:for-index="__i0__"><swiper-item><view class="swiper-item"><image src="{{item.img}}"></image></view><view class="lun_txt"><text class="over_fl">{{item.text}}</text><view class="lun_num">{{current+1+"/"+banner.length}}</view></view></swiper-item></block></swiper></view><view class="zhishi_list"><block wx:for="{{fenlei}}" wx:for-item="item" wx:for-index="__i1__"><view data-event-opts="{{[['tap',[['go_erji',['$0'],[[['fenlei','',__i1__,'knowledgetypeid']]]]]]]}}" class="zhishi_item hei_30" bindtap="__e"><block wx:if="{{item&&item.pic}}"><image src="{{img_url+item.pic}}" mode="widthFix"></image></block><block wx:if="{{item&&item.knowledgetypename}}"><view>{{item.knowledgetypename}}</view></block></view></block><view data-event-opts="{{[['tap',[['go_index']]]]}}" class="zhishi_item hei_30" bindtap="__e"><image src="/static/img/zhishi_back.png" mode="widthFix"></image><view>返回首页</view></view></view><view class="zhishi_title hei_28"><image src="/static/img/zhishi_huo.png" mode></image>热点知识</view><view class="tuijian_list"><block wx:for="{{$root.l0}}" wx:for-item="item" wx:for-index="__i2__"><view data-event-opts="{{[['tap',[['go_xq',['$0'],[[['remenlist','',__i2__,'knowledgeid']]]]]]]}}" class="tuijian_item" bindtap="__e"><image class="tuijan_img" src="{{img_url+item.$orig.pic}}" mode></image><view class="tuijian_item_right"><view class="tuijian_item_top hei_26">{{item.$orig.title}}</view><view class="tuijian_item_txt qian_22"><u-parse vue-id="{{'25aa99de-1-'+__i2__}}" content="{{item.$orig.information}}" bind:__l="__l"></u-parse></view><view class="tuijian_item_bottom qian_24"><view class="tuijian_item_time "><image src="/static/img/changshi_time.png" mode></image>{{''+item.f0+''}}</view><view class="tuijian_item_liulan"><image src="/static/img/changshi_liulan.png" mode></image>{{''+item.$orig.readnum+'浏览'}}</view></view></view></view></block></view></view></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">法律知识</view>
+		<view class=" head_right hei_30_bold"></view>
+	</view>
+	<view class="zi_body ">
+		<view class="lunbo">
+			<swiper class="swiper" indicator-dots="{{false}}" autoplay="{{false}}" circular="true" easing-function="default" interval="{{3000}}" indicator-color="#c7c7c7" indicator-active-color="#ffffff" duration="{{500}}" data-event-opts="{{[['change',[['swiperchang',['$event']]]]]}}" bindchange="__e">
+				<block wx:for="{{banner}}" wx:for-item="item" wx:for-index="__i0__">
+					<swiper-item>
+						<view class="swiper-item">
+							<image src="{{item.img}}"></image>
+						</view>
+						<view class="lun_txt"><text class="over_fl">{{item.text}}</text>
+							<view class="lun_num">{{current+1+"/"+banner.length}}</view>
+						</view>
+					</swiper-item>
+				</block>
+			</swiper>
+		</view>
+		<view class="zhishi_list">
+			<block wx:for="{{fenlei}}" wx:for-item="item" wx:for-index="__i1__">
+				<view data-event-opts="{{[['tap',[['go_erji',['$0'],[[['fenlei','',__i1__,'knowledgetypeid']]]]]]]}}" class="zhishi_item hei_30" bindtap="__e">
+					<block wx:if="{{item&&item.pic}}">
+						<image src="{{img_url+item.pic}}" mode="widthFix"></image>
+					</block>
+					<block wx:if="{{item&&item.knowledgetypename}}">
+						<view>{{item.knowledgetypename}}</view>
+					</block>
+				</view>
+			</block>
+			<view data-event-opts="{{[['tap',[['go_index']]]]}}" class="zhishi_item hei_30" bindtap="__e">
+				<image src="{{img_url}}/uniapp/img/zhishi_back.png" mode="widthFix"></image>
+				<view>返回首页</view>
+			</view>
+		</view>
+		<view class="zhishi_title hei_28">
+			<image src="{{img_url}}/uniapp/img/zhishi_huo.png" mode></image>热点知识
+		</view>
+		<view class="tuijian_list">
+			<block wx:for="{{$root.l0}}" wx:for-item="item" wx:for-index="__i2__">
+				<view data-event-opts="{{[['tap',[['go_xq',['$0'],[[['remenlist','',__i2__,'knowledgeid']]]]]]]}}" class="tuijian_item" bindtap="__e">
+					<image class="tuijan_img" src="{{img_url+item.$orig.pic}}" mode></image>
+					<view class="tuijian_item_right">
+						<view class="tuijian_item_top hei_26">{{item.$orig.title}}</view>
+						<view class="tuijian_item_txt qian_22">
+							<u-parse vue-id="{{'25aa99de-1-'+__i2__}}" content="{{item.$orig.information}}" bind:__l="__l"></u-parse>
+						</view>
+						<view class="tuijian_item_bottom qian_24">
+							<view class="tuijian_item_time ">
+								<image src="{{img_url}}/uniapp/img/changshi_time.png" mode></image>{{''+item.f0+''}}
+							</view>
+							<view class="tuijian_item_liulan">
+								<image src="{{img_url}}/uniapp/img/changshi_liulan.png" mode></image>{{''+item.$orig.readnum+'浏览'}}
+							</view>
+						</view>
+					</view>
+				</view>
+			</block>
+		</view>
+	</view>
+</view>

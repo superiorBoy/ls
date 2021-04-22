@@ -1,1 +1,48 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">流水明细</view><view class=" head_right"><image src="/static/lsimg/sousuo.png" mode data-event-opts="{{[['tap',[['tan',['$event']]]]]}}" bindtap="__e"></image></view></view><view class="zi_body "><view class="liushui_list"><block wx:for="{{$root.l0}}" wx:for-item="item" wx:for-index="index"><view class="liushui_item"><view class="liushui_item_top"><text class="hei_28_bold">{{item.$orig.information}}</text><text class="qian_24">{{item.f0}}</text></view><view class="liushui_item_center hui_26"><text>{{item.$orig.incode+''}}</text><text class="hong_28">{{"￥"+item.$orig.cash+''}}</text></view><view class="liushui_item_bottom qian_26"><text>{{'备注：'+item.$orig.information}}</text><text class="hong_24">操作后余额：<text class="hong_28">{{item.$orig.rmb_after}}</text></text></view></view></block></view></view><uni-popup class="vue-ref" vue-id="144dd4d4-1" type="bottom" data-ref="popup" bind:__l="__l" vue-slots="{{['default']}}"><view class="tan"><view class="tan_title hei_30">查询条件</view><view class="tan_list hei_26"><view data-event-opts="{{[['tap',[['zhuan_togg',['$event']]]]]}}" class="tan_list_top" bindtap="__e"><text>{{zhuanchang_txt==""?'订单类型':zhuanchang_txt}}</text><image src="/static/lsimg/xuan_xia.png" mode></image></view><block wx:if="{{zhuan_show}}"><view class="tan_list_bottom zhuanchang_arry hei_26"><block wx:for="{{leixing}}" wx:for-item="item" wx:for-index="index"><text data-event-opts="{{[['tap',[['xuanzhuangchang',[index,'$0'],[[['leixing','',index]]]]]]]}}" class="{{['',index==xuanzc?'xuanzhong':'']}}" bindtap="__e">{{''+item}}</text></block></view></block><block wx:if="{{zhuan_show}}"><button class="zhuanchang_quer_ding bai_30" type data-event-opts="{{[['tap',[['zhuanchang_go',['$event']]]]]}}" bindtap="__e">确定</button></block></view><view class="tan_list hei_26"><view class="tan_list_top"><picker class="aaaaaa" mode="date" data-event-opts="{{[['change',[['change1',['$event']]]]]}}" bindchange="__e"><text class="dizhi">{{str_time==''?'开始时间':str_time}}</text></picker><picker class="aaaaaa" mode="date" data-event-opts="{{[['change',[['change',['$event']]]]]}}" bindchange="__e"><text class="dizhi">{{time==''?'结束时间':time}}</text></picker><image src="/static/lsimg/xuan_xia.png" mode></image></view></view><block wx:if="{{!zhuan_show}}"><view class="tan_buttom "><button class="quxiao hong_30" type data-event-opts="{{[['tap',[['quxiao_btn',['$event']]]]]}}" bindtap="__e">取消搜索</button><button class="queren bai_30" type data-event-opts="{{[['tap',[['queding_btn',['$event']]]]]}}" bindtap="__e">确认搜索</button></view></block></view></uni-popup></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">流水明细</view>
+		<view class=" head_right">
+			<image src="{{img_url}}/uniapp/lsimg/sousuo.png" mode data-event-opts="{{[['tap',[['tan',['$event']]]]]}}" bindtap="__e"></image>
+		</view>
+	</view>
+	<view class="zi_body ">
+		<view class="liushui_list">
+			<block wx:for="{{$root.l0}}" wx:for-item="item" wx:for-index="index">
+				<view class="liushui_item">
+					<view class="liushui_item_top"><text class="hei_28_bold">{{item.$orig.information}}</text><text class="qian_24">{{item.f0}}</text></view>
+					<view class="liushui_item_center hui_26"><text>{{item.$orig.incode+''}}</text><text class="hong_28">{{"￥"+item.$orig.cash+''}}</text></view>
+					<view class="liushui_item_bottom qian_26"><text>{{'备注：'+item.$orig.information}}</text><text class="hong_24">操作后余额：<text class="hong_28">{{item.$orig.rmb_after}}</text></text></view>
+				</view>
+			</block>
+		</view>
+	</view>
+	<uni-popup class="vue-ref" vue-id="144dd4d4-1" type="bottom" data-ref="popup" bind:__l="__l" vue-slots="{{['default']}}">
+		<view class="tan">
+			<view class="tan_title hei_30">查询条件</view>
+			<view class="tan_list hei_26">
+				<view data-event-opts="{{[['tap',[['zhuan_togg',['$event']]]]]}}" class="tan_list_top" bindtap="__e"><text>{{zhuanchang_txt==""?'订单类型':zhuanchang_txt}}</text>
+					<image src="{{img_url}}/uniapp/lsimg/xuan_xia.png" mode></image>
+				</view>
+				<block wx:if="{{zhuan_show}}">
+					<view class="tan_list_bottom zhuanchang_arry hei_26">
+						<block wx:for="{{leixing}}" wx:for-item="item" wx:for-index="index"><text data-event-opts="{{[['tap',[['xuanzhuangchang',[index,'$0'],[[['leixing','',index]]]]]]]}}" class="{{['',index==xuanzc?'xuanzhong':'']}}" bindtap="__e">{{''+item}}</text></block>
+					</view>
+				</block>
+				<block wx:if="{{zhuan_show}}"><button class="zhuanchang_quer_ding bai_30" type data-event-opts="{{[['tap',[['zhuanchang_go',['$event']]]]]}}" bindtap="__e">确定</button></block>
+			</view>
+			<view class="tan_list hei_26">
+				<view class="tan_list_top">
+					<picker class="aaaaaa" mode="date" data-event-opts="{{[['change',[['change1',['$event']]]]]}}" bindchange="__e"><text class="dizhi">{{str_time==''?'开始时间':str_time}}</text></picker>
+					<picker class="aaaaaa" mode="date" data-event-opts="{{[['change',[['change',['$event']]]]]}}" bindchange="__e"><text class="dizhi">{{time==''?'结束时间':time}}</text></picker>
+					<image src="{{img_url}}/uniapp/lsimg/xuan_xia.png" mode></image>
+				</view>
+			</view>
+			<block wx:if="{{!zhuan_show}}">
+				<view class="tan_buttom "><button class="quxiao hong_30" type data-event-opts="{{[['tap',[['quxiao_btn',['$event']]]]]}}" bindtap="__e">取消搜索</button><button class="queren bai_30" type data-event-opts="{{[['tap',[['queding_btn',['$event']]]]]}}" bindtap="__e">确认搜索</button></view>
+			</block>
+		</view>
+	</uni-popup>
+</view>

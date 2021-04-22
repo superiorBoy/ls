@@ -1,1 +1,19 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">我的奖励</view><view class=" head_right"></view></view><view class="zi_body "><view class="jiangli_list"><block wx:for="{{$root.l0}}" wx:for-item="item" wx:for-index="__i0__"><view class="jiangli_item"><view class="jiangli_item_top"><text class="hei_28">{{item.$orig.incode}}</text><text class="hong_30">{{"+"+item.$orig.money}}</text></view><view class="jiangli_item_bittom"><text class="hui_26">{{item.$orig.explain}}</text><text class="qian_24">{{item.f0}}</text></view></view></block></view></view></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">我的奖励</view>
+		<view class=" head_right"></view>
+	</view>
+	<view class="zi_body ">
+		<view class="jiangli_list">
+			<block wx:for="{{$root.l0}}" wx:for-item="item" wx:for-index="__i0__">
+				<view class="jiangli_item">
+					<view class="jiangli_item_top"><text class="hei_28">{{item.$orig.incode}}</text><text class="hong_30">{{"+"+item.$orig.money}}</text></view>
+					<view class="jiangli_item_bittom"><text class="hui_26">{{item.$orig.explain}}</text><text class="qian_24">{{item.f0}}</text></view>
+				</view>
+			</block>
+		</view>
+	</view>
+</view>

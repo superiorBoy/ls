@@ -1,1 +1,19 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">委托详情</view><view class=" head_right"></view></view><view class="zi_body "><view class="hei_28 weituo_body">{{''+item.information+''}}<view class="time">{{$root.f0}}</view></view><view class="weituo_list hei_28"><text>委托费用</text><text>面议</text></view><view class="weituo_list hei_28"><text>案件地区</text><text>{{item.province+"-"+item.city+"-"+item.area}}</text></view><view class="weituo_list hei_28"><text>联系人</text><text>{{item.name}}</text></view><view class="weituo_list hei_28"><text>电话号码</text><text>{{item.phone}}</text></view><view data-event-opts="{{[['tap',[['tingzhi',['$event']]]]]}}" class="tingzhi lv_30" bindtap="__e">停止委托</view></view></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">委托详情</view>
+		<view class=" head_right"></view>
+	</view>
+	<view class="zi_body ">
+		<view class="hei_28 weituo_body">{{''+item.information+''}}
+			<view class="time">{{$root.f0}}</view>
+		</view>
+		<view class="weituo_list hei_28"><text>委托费用</text><text>面议</text></view>
+		<view class="weituo_list hei_28"><text>案件地区</text><text>{{item.province+"-"+item.city+"-"+item.area}}</text></view>
+		<view class="weituo_list hei_28"><text>联系人</text><text>{{item.name}}</text></view>
+		<view class="weituo_list hei_28"><text>电话号码</text><text>{{item.phone}}</text></view>
+		<view data-event-opts="{{[['tap',[['tingzhi',['$event']]]]]}}" class="tingzhi lv_30" bindtap="__e">停止委托</view>
+	</view>
+</view>

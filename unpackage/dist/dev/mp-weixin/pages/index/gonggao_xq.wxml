@@ -1,1 +1,18 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">网站公告</view><view class=" head_right hei_30_bold"></view></view><view class="zi_body "><view class="gg_xq_top"><view class="xq_title hei_30_bold">{{''+body.title+''}}</view><view class="qian_24">{{''+$root.f0+''}}</view></view><view class="xq_body hei_26"><u-parse vue-id="5280eb28-1" content="{{body.information}}" bind:__l="__l"></u-parse></view></view></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">网站公告</view>
+		<view class=" head_right hei_30_bold"></view>
+	</view>
+	<view class="zi_body ">
+		<view class="gg_xq_top">
+			<view class="xq_title hei_30_bold">{{''+body.title+''}}</view>
+			<view class="qian_24">{{''+$root.f0+''}}</view>
+		</view>
+		<view class="xq_body hei_26">
+			<u-parse vue-id="5280eb28-1" content="{{body.information}}" bind:__l="__l"></u-parse>
+		</view>
+	</view>
+</view>

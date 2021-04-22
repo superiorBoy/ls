@@ -245,12 +245,15 @@ var _default =
           if (res.code == 0) {
             uni.removeStorageSync('user_chat_list');
             uni.removeStorageSync('ls_chat_list');
+            uni.setStorageSync('token',res.data.token);
             if (_this2.type == 3) {
               uni.reLaunch({
                 url: '../ls/yaoqing' });
 
             } else if (res.data.grade == 2) {
-              _this2.ls_login();
+              // _this2.ls_login();
+              uni.reLaunch({
+                url: '../ls/my' });
             } else {
               uni.switchTab({
                 url: 'index' });
@@ -288,8 +291,6 @@ var _default =
           uni.removeStorageSync('ls_chat_list');
           uni.reLaunch({
             url: '../ls/my' });
-
-
         }
         console.log(res);
       });

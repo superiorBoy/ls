@@ -1,1 +1,65 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">个人信息</view><view class=" head_right hei_30_bold"></view></view><view class="zi_body shiming_body"><view class="xinxi"><view class="shiming_list hei_28"><view class="shiming_list_left">头像</view><view data-event-opts="{{[['tap',[['up_zheng',['$event']]]]]}}" class="shiming_list_right" bindtap="__e"><image class="touxiang" src="{{touxiang}}" mode></image><image class="go_r" src="../../static/lsimg/go_r.png" mode></image></view></view><view data-event-opts="{{[['tap',[['go_xiugai',[1]]]]]}}" class="shiming_list hei_28" bindtap="__e"><view class="shiming_list_left">昵称</view><view class="shiming_list_right"><input class="hei_26" type="text" value="{{name}}" placeholder disabled="true" data-event-opts="{{[['input',[['__set_model',['','name','$event',[]]]]]]}}" bindinput="__e"/><image class="go_r" src="../../static/lsimg/go_r.png" mode></image></view></view><view class="shiming_list hei_28"><view class="shiming_list_left">手机号码</view><input class="hei_26" type="text" value="{{shouji}}" placeholder disabled="true" data-event-opts="{{[['input',[['__set_model',['','shouji','$event',[]]]]]]}}" bindinput="__e"/></view><view data-event-opts="{{[['tap',[['go_xiugai',[2]]]]]}}" class="shiming_list hei_28" bindtap="__e"><view class="shiming_list_left">Q Q</view><view class="shiming_list_right"><input class="hei_26" type="text" value="{{qq}}" placeholder="请输入qq" disabled="true" data-event-opts="{{[['input',[['__set_model',['','qq','$event',[]]]]]]}}" bindinput="__e"/><image class="go_r" src="../../static/lsimg/go_r.png" mode></image></view></view><view data-event-opts="{{[['tap',[['go_xiugai',[3]]]]]}}" class="shiming_list hei_28" bindtap="__e"><view class="shiming_list_left">微信</view><view class="shiming_list_right"><input class="hei_26" type="text" value="{{weixin}}" placeholder="请输入微信" disabled="true" data-event-opts="{{[['input',[['__set_model',['','weixin','$event',[]]]]]]}}" bindinput="__e"/><image class="go_r" src="../../static/lsimg/go_r.png" mode></image></view></view><view data-event-opts="{{[['tap',[['go_xiugai',[4]]]]]}}" class="shiming_list hei_28" bindtap="__e"><view class="shiming_list_left">电子邮箱</view><view class="shiming_list_right"><input class="hei_26" type="text" value="{{youxiang}}" placeholder="请输入电子邮箱" disabled="true" data-event-opts="{{[['input',[['__set_model',['','youxiang','$event',[]]]]]]}}" bindinput="__e"/><image class="go_r" src="../../static/lsimg/go_r.png" mode></image></view></view><view class="shiming_list hei_28"><view class="shiming_list_left">客服电话</view><text>0576-83885500</text></view><view data-event-opts="{{[['tap',[['go_xiugai',[5]]]]]}}" class="shiming_list hei_28" bindtap="__e"><view class="shiming_list_left">简介</view><view class="shiming_list_right"><image class="go_r" src="../../static/lsimg/go_r.png" mode></image></view></view><navigator class="shiming_list hei_28" url="xieyi"><view class="shiming_list_left">用户协议</view><image class="go_r" src="../../static/lsimg/go_r.png" mode></image></navigator><navigator class="shiming_list hei_28" url="yinsi"><view class="shiming_list_left">隐私政策</view><image class="go_r" src="../../static/lsimg/go_r.png" mode></image></navigator></view><view data-event-opts="{{[['tap',[['tuichu',['$event']]]]]}}" class="tuichu hei_28" bindtap="__e">退出当前账号</view></view></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">个人信息</view>
+		<view class=" head_right hei_30_bold"></view>
+	</view>
+	<view class="zi_body shiming_body">
+		<view class="xinxi">
+			<view class="shiming_list hei_28">
+				<view class="shiming_list_left">头像</view>
+				<view data-event-opts="{{[['tap',[['up_zheng',['$event']]]]]}}" class="shiming_list_right" bindtap="__e">
+					<image class="touxiang" src="{{touxiang}}" mode></image>
+					<image class="go_r" src="{{img_url}}/uniapp/lsimg/go_r.png" mode></image>
+				</view>
+			</view>
+			<view data-event-opts="{{[['tap',[['go_xiugai',[1]]]]]}}" class="shiming_list hei_28" bindtap="__e">
+				<view class="shiming_list_left">昵称</view>
+				<view class="shiming_list_right"><input class="hei_26" type="text" value="{{name}}" placeholder disabled="true" data-event-opts="{{[['input',[['__set_model',['','name','$event',[]]]]]]}}" bindinput="__e" />
+					<image class="go_r" src="{{img_url}}/uniapp/lsimg/go_r.png" mode></image>
+				</view>
+			</view>
+			<view class="shiming_list hei_28">
+				<view class="shiming_list_left">手机号码</view><input class="hei_26" type="text" value="{{shouji}}" placeholder disabled="true" data-event-opts="{{[['input',[['__set_model',['','shouji','$event',[]]]]]]}}" bindinput="__e" />
+			</view>
+			<view data-event-opts="{{[['tap',[['go_xiugai',[2]]]]]}}" class="shiming_list hei_28" bindtap="__e">
+				<view class="shiming_list_left">Q Q</view>
+				<view class="shiming_list_right"><input class="hei_26" type="text" value="{{qq}}" placeholder="请输入qq" disabled="true" data-event-opts="{{[['input',[['__set_model',['','qq','$event',[]]]]]]}}" bindinput="__e" />
+					<image class="go_r" src="{{img_url}}/uniapp/lsimg/go_r.png" mode></image>
+				</view>
+			</view>
+			<view data-event-opts="{{[['tap',[['go_xiugai',[3]]]]]}}" class="shiming_list hei_28" bindtap="__e">
+				<view class="shiming_list_left">微信</view>
+				<view class="shiming_list_right"><input class="hei_26" type="text" value="{{weixin}}" placeholder="请输入微信" disabled="true" data-event-opts="{{[['input',[['__set_model',['','weixin','$event',[]]]]]]}}" bindinput="__e" />
+					<image class="go_r" src="{{img_url}}/uniapp/lsimg/go_r.png" mode></image>
+				</view>
+			</view>
+			<view data-event-opts="{{[['tap',[['go_xiugai',[4]]]]]}}" class="shiming_list hei_28" bindtap="__e">
+				<view class="shiming_list_left">电子邮箱</view>
+				<view class="shiming_list_right"><input class="hei_26" type="text" value="{{youxiang}}" placeholder="请输入电子邮箱" disabled="true" data-event-opts="{{[['input',[['__set_model',['','youxiang','$event',[]]]]]]}}" bindinput="__e" />
+					<image class="go_r" src="{{img_url}}/uniapp/lsimg/go_r.png" mode></image>
+				</view>
+			</view>
+			<view class="shiming_list hei_28">
+				<view class="shiming_list_left">客服电话</view><text>0576-83885500</text>
+			</view>
+			<view data-event-opts="{{[['tap',[['go_xiugai',[5]]]]]}}" class="shiming_list hei_28" bindtap="__e">
+				<view class="shiming_list_left">简介</view>
+				<view class="shiming_list_right">
+					<image class="go_r" src="{{img_url}}/uniapp/lsimg/go_r.png" mode></image>
+				</view>
+			</view>
+			<navigator class="shiming_list hei_28" url="xieyi">
+				<view class="shiming_list_left">用户协议</view>
+				<image class="go_r" src="{{img_url}}/uniapp/lsimg/go_r.png" mode></image>
+			</navigator>
+			<navigator class="shiming_list hei_28" url="yinsi">
+				<view class="shiming_list_left">隐私政策</view>
+				<image class="go_r" src="{{img_url}}/uniapp/lsimg/go_r.png" mode></image>
+			</navigator>
+		</view>
+		<view data-event-opts="{{[['tap',[['tuichu',['$event']]]]]}}" class="tuichu hei_28" bindtap="__e">退出当前账号</view>
+	</view>
+</view>

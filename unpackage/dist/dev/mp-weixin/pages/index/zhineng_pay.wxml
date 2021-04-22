@@ -1,1 +1,96 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">智能匹配</view><view class=" head_right hei_30_bold"></view></view><view class="zi_body "><view class="pay_top"><view class="pay_list wen_list"><view class="hei_30_bold wen_list_top">问题描述</view><textarea class="hei_26 wen_neirong wen_neirong_textarea" value="{{neirong}}" placeholder="请输入您想要咨询的问题..." maxlength="2000" data-event-opts="{{[['input',[['__set_model',['','neirong','$event',[]]],['bianhua',['$event']]]]]}}" bindinput="__e"></textarea><view class="yishuru qian_24">{{yishu_num+"/2000"}}</view></view><view class="pay_list"><picker range="{{type_arry}}" range-key="typename" data-event-opts="{{[['change',[['zhuanchang_change',['$event']]]]]}}" bindchange="__e"><view class="pay_list_xuanze "><image style="width:26rpx;height:26rpx;margin-right:12rpx;" src="/static/img/tiwen_lei.png" mode></image><text class="{{['xaunze',leixing==''?'qian_24':'hei_24']}}">{{leixing==''?'请选择咨询类型':leixing}}</text></view></picker><image style="width:12rpx;height:21rpx;margin-left:10rpx;vertical-align:middle;" src="/static/lsimg/go_r.png" mode></image></view><view class="pay_list "><picker-address bind:change="__e" vue-id="32bd2d98-1" data-event-opts="{{[['^change',[['change']]]]}}" bind:__l="__l" vue-slots="{{['default']}}"><view class="pay_list_xuanze "><image style="width:20rpx;height:26rpx;margin-right:12rpx;" src="/static/img/tiwen_dizhi.png" mode></image><text class="{{['xaunze',dizhi==''?'qian_24':'hei_24']}}">{{dizhi==''?'请选择咨询地址':dizhi}}</text></view></picker-address><image style="width:12rpx;height:21rpx;margin-left:10rpx;vertical-align:middle;" src="/static/lsimg/go_r.png" mode></image></view><view class="pay_list"><view class="pay_list_shouji"><image style="width:18rpx;height:26rpx;margin-right:12rpx;" src="/static/img/lv_shouji.png" mode></image><input class="hei_24" type="text" value="{{phone}}" placeholder="请输入手机号码" data-event-opts="{{[['input',[['__set_model',['','phone','$event',[]]]]]]}}" bindinput="__e"/></view></view><view class="xuanze"><view class="xuanze_title hei_30_bold">选择服务</view><block wx:if="{{zhineng}}"><view class="pay_fa_list"><view data-event-opts="{{[['tap',[['qiehuan',[1]]]]]}}" class="{{['pay_fa_item',type==1?'xuan_item_active':'']}}" bindtap="__e"><view class="pay_fa_item_top hong_26"><view class="hei_30_bold pay_fa_item_top_lei">在线咨询</view><view>{{''+zhineng.zaixianprice+"元/"+zhineng.zaixiantime+'小时'}}</view></view><view class="pay_fa_item_bottom qian_20"><view class="pay_fa_txt">极速响应，3秒分配律师！</view><view class="pay_fa_txt">不限次数解答，私密聊天！</view><view class="pay_fa_txt">不限沟通，解决率达99%！</view></view><text class="tuijian_xuanze bai_20">推荐</text></view><view data-event-opts="{{[['tap',[['qiehuan',[2]]]]]}}" class="{{['pay_fa_item',type==2?'xuan_item_active':'']}}" bindtap="__e"><view class="pay_fa_item_top hong_26"><view class="hei_30_bold pay_fa_item_top_lei">电话咨询</view><view>{{zhineng.dianhuaprice+"元/"+zhineng.dianhuatime+"分钟"}}</view></view><view class="pay_fa_item_bottom qian_20"><view class="pay_fa_txt">极速响应，3秒分配律师！</view><view class="pay_fa_txt">主动打律师电话，不满退款！</view><view class="pay_fa_txt">高效解答率99%！</view></view><text class="tuijian_xuanze bai_20">效率高</text></view></view></block><view class="xuanze_bottom"><view class="xuanze_bottom_title hei_20"><text class="hei_30_bold">以下律师正在等待接单！</text><text class="suoxiao">大数据会匹配最佳一位律师为您服务</text></view><view class="xuanze_bottom_ls qian_20"><view class="xuanze_bottom_ls_left"><block wx:for="{{lvshi}}" wx:for-item="item" wx:for-index="index"><block wx:if="{{index<5}}"><image src="{{img_url+item.photourl}}" mode></image></block></block><text class="suoxiao suoxiao2">律师已通过小虎网认证，小虎等980+位律师等待解答中...</text></view></view></view></view></view><view class="fangshi"><view data-event-opts="{{[['tap',[['radio',[2]]]]]}}" class="fangshi_list_pay" bindtap="__e"><view class="fangshi_left hei_28"><image style="width:39rpx;height:39rpx;" src="/static/img/pay_zhifubao.png" mode></image>支付宝支付<text class="tuijian_txt hong_22">推荐</text></view><label class="radio"><radio value="2" checked="{{zhifu==2}}"></radio></label></view><view data-event-opts="{{[['tap',[['radio',[3]]]]]}}" class="fangshi_list_pay" bindtap="__e"><view class="fangshi_left hei_28"><image style="width:36rpx;height:31rpx;" src="/static/img/yue_pay.png" mode></image>余额支付<block wx:if="{{user}}"><text class="hong_28 yue_show">{{"(￥"+user.rmb+")"}}</text></block></view><label class="radio"><radio value="3" checked="{{zhifu==3}}"></radio></label></view></view><view class="pay_btn"><button class="tixian_btn bai_30" type data-event-opts="{{[['tap',[['save',['$event']]]]]}}" bindtap="__e">支付并发起咨询</button></view></view></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">智能匹配</view>
+		<view class=" head_right hei_30_bold"></view>
+	</view>
+	<view class="zi_body ">
+		<view class="pay_top">
+			<view class="pay_list wen_list">
+				<view class="hei_30_bold wen_list_top">问题描述</view><textarea class="hei_26 wen_neirong wen_neirong_textarea" value="{{neirong}}" placeholder="请输入您想要咨询的问题..." maxlength="2000" data-event-opts="{{[['input',[['__set_model',['','neirong','$event',[]]],['bianhua',['$event']]]]]}}" bindinput="__e"></textarea>
+				<view class="yishuru qian_24">{{yishu_num+"/2000"}}</view>
+			</view>
+			<view class="pay_list">
+				<picker range="{{type_arry}}" range-key="typename" data-event-opts="{{[['change',[['zhuanchang_change',['$event']]]]]}}" bindchange="__e">
+					<view class="pay_list_xuanze ">
+						<image style="width:26rpx;height:26rpx;margin-right:12rpx;" src="{{img_url}}/uniapp/img/tiwen_lei.png" mode></image><text class="{{['xaunze',leixing==''?'qian_24':'hei_24']}}">{{leixing==''?'请选择咨询类型':leixing}}</text>
+					</view>
+				</picker>
+				<image style="width:12rpx;height:21rpx;margin-left:10rpx;vertical-align:middle;" src="{{img_url}}/uniapp/lsimg/go_r.png" mode></image>
+			</view>
+			<view class="pay_list ">
+				<picker-address bind:change="__e" vue-id="32bd2d98-1" data-event-opts="{{[['^change',[['change']]]]}}" bind:__l="__l" vue-slots="{{['default']}}">
+					<view class="pay_list_xuanze ">
+						<image style="width:20rpx;height:26rpx;margin-right:12rpx;" src="{{img_url}}/uniapp/img/tiwen_dizhi.png" mode></image><text class="{{['xaunze',dizhi==''?'qian_24':'hei_24']}}">{{dizhi==''?'请选择咨询地址':dizhi}}</text>
+					</view>
+				</picker-address>
+				<image style="width:12rpx;height:21rpx;margin-left:10rpx;vertical-align:middle;" src="{{img_url}}/uniapp/lsimg/go_r.png" mode></image>
+			</view>
+			<view class="pay_list">
+				<view class="pay_list_shouji">
+					<image style="width:18rpx;height:26rpx;margin-right:12rpx;" src="{{img_url}}/uniapp/img/lv_shouji.png" mode></image><input class="hei_24" type="text" value="{{phone}}" placeholder="请输入手机号码" data-event-opts="{{[['input',[['__set_model',['','phone','$event',[]]]]]]}}" bindinput="__e" />
+				</view>
+			</view>
+			<view class="xuanze">
+				<view class="xuanze_title hei_30_bold">选择服务</view>
+				<block wx:if="{{zhineng}}">
+					<view class="pay_fa_list">
+						<view data-event-opts="{{[['tap',[['qiehuan',[1]]]]]}}" class="{{['pay_fa_item',type==1?'xuan_item_active':'']}}" bindtap="__e">
+							<view class="pay_fa_item_top hong_26">
+								<view class="hei_30_bold pay_fa_item_top_lei">在线咨询</view>
+								<view>{{''+zhineng.zaixianprice+"元/"+zhineng.zaixiantime+'小时'}}</view>
+							</view>
+							<view class="pay_fa_item_bottom qian_20">
+								<view class="pay_fa_txt">极速响应，3秒分配律师！</view>
+								<view class="pay_fa_txt">不限次数解答，私密聊天！</view>
+								<view class="pay_fa_txt">不限沟通，解决率达99%！</view>
+							</view><text class="tuijian_xuanze bai_20">推荐</text>
+						</view>
+						<view data-event-opts="{{[['tap',[['qiehuan',[2]]]]]}}" class="{{['pay_fa_item',type==2?'xuan_item_active':'']}}" bindtap="__e">
+							<view class="pay_fa_item_top hong_26">
+								<view class="hei_30_bold pay_fa_item_top_lei">电话咨询</view>
+								<view>{{zhineng.dianhuaprice+"元/"+zhineng.dianhuatime+"分钟"}}</view>
+							</view>
+							<view class="pay_fa_item_bottom qian_20">
+								<view class="pay_fa_txt">极速响应，3秒分配律师！</view>
+								<view class="pay_fa_txt">主动打律师电话，不满退款！</view>
+								<view class="pay_fa_txt">高效解答率99%！</view>
+							</view><text class="tuijian_xuanze bai_20">效率高</text>
+						</view>
+					</view>
+				</block>
+				<view class="xuanze_bottom">
+					<view class="xuanze_bottom_title hei_20"><text class="hei_30_bold">以下律师正在等待接单！</text><text class="suoxiao">大数据会匹配最佳一位律师为您服务</text></view>
+					<view class="xuanze_bottom_ls qian_20">
+						<view class="xuanze_bottom_ls_left">
+							<block wx:for="{{lvshi}}" wx:for-item="item" wx:for-index="index">
+								<block wx:if="{{index<5}}">
+									<image src="{{img_url+item.photourl}}" mode></image>
+								</block>
+							</block><text class="suoxiao suoxiao2">律师已通过小虎网认证，小虎等980+位律师等待解答中...</text>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="fangshi">
+			<view data-event-opts="{{[['tap',[['radio',[2]]]]]}}" class="fangshi_list_pay" bindtap="__e">
+				<view class="fangshi_left hei_28">
+					<image style="width:39rpx;height:39rpx;" src="{{img_url}}/uniapp/img/pay_zhifubao.png" mode></image>支付宝支付<text class="tuijian_txt hong_22">推荐</text>
+				</view><label class="radio">
+					<radio value="2" checked="{{zhifu==2}}"></radio>
+				</label>
+			</view>
+			<view data-event-opts="{{[['tap',[['radio',[3]]]]]}}" class="fangshi_list_pay" bindtap="__e">
+				<view class="fangshi_left hei_28">
+					<image style="width:36rpx;height:31rpx;" src="{{img_url}}/uniapp/img/yue_pay.png" mode></image>余额支付<block wx:if="{{user}}"><text class="hong_28 yue_show">{{"(￥"+user.rmb+")"}}</text></block>
+				</view><label class="radio">
+					<radio value="3" checked="{{zhifu==3}}"></radio>
+				</label>
+			</view>
+		</view>
+		<view class="pay_btn"><button class="tixian_btn bai_30" type data-event-opts="{{[['tap',[['save',['$event']]]]]}}" bindtap="__e">支付并发起咨询</button></view>
+	</view>
+</view>

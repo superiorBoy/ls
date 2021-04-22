@@ -1,1 +1,35 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">退款详情</view><view class=" head_right hei_30_bold"></view></view><view class="zi_body "><block wx:if="{{item.photourl}}"><view class="tui_top hei_30"><image src="{{img_url+item.photourl}}" mode></image><view class="hei_30_bold">{{''+item.nickname+'律师'}}</view></view></block><view class="tui_center"><view class="tui_list hei_26">类型/时长<text class="hei_30">{{(type==1?'在线咨询':type==2?'电话咨询':'')+'/'}}<block wx:if="{{type==1}}"><text style="margin-left:0;">{{item.zixunshicahng==24?'1天':item.zixunshicahng==72?'3天':item.zixunshicahng==720?'1个月':item.zixunshicahng+'小时'}}</text></block><block wx:if="{{type==2}}"><text style="margin-left:0;">{{item.baojiamode=='zhineng_dianhua'?item.zixunshicahng+'分钟':item.baojiamode=='phoneprice'?'20分钟':item.baojiamode=='dianhua1'?'1天':item.baojiamode=='dianhua3'?'3天':item.baojiamode=='dianhua30'?'1月':''}}</text></block></text></view><view class="tui_list hei_26">咨询地区<text class="hei_30">{{item.province+"-"+item.city}}</text></view><block wx:if="{{fenlei&&fenlei[item.typeid].typename}}"><view class="tui_list hei_26">咨询类型<text class="hei_30">{{fenlei[item.typeid].typename}}</text></view></block></view><view class="tui_jine"><view class="tui_list hei_26">退款金额<text class="hei_30">{{"￥"+xq.refundmoney}}</text><text class="qian_22 tui_xiugai">{{"退款不可修改，最多￥"+xq.refundmoney}}</text></view><view class="tuiyuanyin hei_26">退款原因<text class="hei_26">{{xq.refundreason}}</text></view></view><view class=" hei_26 jindu"><text>退款进度</text><text class="hei_30">{{xq.state==1?'退款中':xq.state==2?'同意退款':xq.state==3?'拒绝退款':'取消退款'}}</text></view><view class="tui_btn"><button class="bai_30" type data-event-opts="{{[['tap',[['quxiao',['$event']]]]]}}" bindtap="__e">取消退款</button><view class="qian_24">退款审核通过后，资金将返回您的账户</view></view></view></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">退款详情</view>
+		<view class=" head_right hei_30_bold"></view>
+	</view>
+	<view class="zi_body ">
+		<block wx:if="{{item.photourl}}">
+			<view class="tui_top hei_30">
+				<image src="{{img_url+item.photourl}}" mode></image>
+				<view class="hei_30_bold">{{''+item.nickname+'律师'}}</view>
+			</view>
+		</block>
+		<view class="tui_center">
+			<view class="tui_list hei_26">类型/时长<text class="hei_30">{{(type==1?'在线咨询':type==2?'电话咨询':'')+'/'}}
+				<block wx:if="{{type==1}}"><text style="margin-left:0;">{{item.zixunshicahng==24?'1天':item.zixunshicahng==72?'3天':item.zixunshicahng==720?'1个月':item.zixunshicahng+'小时'}}</text></block>
+				<block wx:if="{{type==2}}"><text style="margin-left:0;">{{item.baojiamode=='zhineng_dianhua'?item.zixunshicahng+'分钟':item.baojiamode=='phoneprice'?'20分钟':item.baojiamode=='dianhua1'?'1天':item.baojiamode=='dianhua3'?'3天':item.baojiamode=='dianhua30'?'1月':''}}</text></block>
+				</text></view>
+			<view class="tui_list hei_26">咨询地区<text class="hei_30">{{item.province+"-"+item.city}}</text></view>
+			<block wx:if="{{fenlei&&fenlei[item.typeid].typename}}">
+				<view class="tui_list hei_26">咨询类型<text class="hei_30">{{fenlei[item.typeid].typename}}</text></view>
+			</block>
+		</view>
+		<view class="tui_jine">
+			<view class="tui_list hei_26">退款金额<text class="hei_30">{{"￥"+xq.refundmoney}}</text><text class="qian_22 tui_xiugai">{{"退款不可修改，最多￥"+xq.refundmoney}}</text></view>
+			<view class="tuiyuanyin hei_26">退款原因<text class="hei_26">{{xq.refundreason}}</text></view>
+		</view>
+		<view class=" hei_26 jindu"><text>退款进度</text><text class="hei_30">{{xq.state==1?'退款中':xq.state==2?'同意退款':xq.state==3?'拒绝退款':'取消退款'}}</text></view>
+		<view class="tui_btn"><button class="bai_30" type data-event-opts="{{[['tap',[['quxiao',['$event']]]]]}}" bindtap="__e">取消退款</button>
+			<view class="qian_24">退款审核通过后，资金将返回您的账户</view>
+		</view>
+	</view>
+</view>

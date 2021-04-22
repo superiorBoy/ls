@@ -1,1 +1,54 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">委托记录</view><view class=" head_right"><image src="/static/lsimg/sousuo.png" mode data-event-opts="{{[['tap',[['tan',['$event']]]]]}}" bindtap="__e"></image></view></view><view class="tab_top hui_26"><block wx:for="{{tab_arry}}" wx:for-item="item" wx:for-index="index"><text data-event-opts="{{[['tap',[['qiehuan',[index]]]]]}}" class="{{['',index==active?'lv_26_bold':'']}}" bindtap="__e">{{item}}</text></block></view><view class="zi_body tab_zi_body"><view class="tiwen_list"><block wx:for="{{$root.l0}}" wx:for-item="item" wx:for-index="index"><view class="tiwen_item"><view data-event-opts="{{[['tap',[['go_xq',['$0'],[[['weituo_list','',index]]]]]]]}}" class="tiwen_item_top hui_26" bindtap="__e"><text class="{{['zhuangtai',item.$orig.state==1?'jinxing':'yijieshu']}}">{{item.$orig.state==1?'进行中':'已结束'}}</text>{{''+item.$orig.information+''}}</view><view class="tiwen_item_center qian_22"><view class="tiwen_item_biaoqian"><image src="/static/img/weituo_yonghu.png" mode></image>{{item.$orig.name+''}}</view><view class="tiwen_item_shijian"><image src="/static/img/weitui_shouji.png" mode></image>{{item.$orig.phone+''}}</view><view class="tiwen_item_dizhi"><image src="/static/img/dizhi.png" mode></image>{{item.$orig.province+"-"+item.$orig.city+''}}</view></view><view class="huifu_btn"><view class="tiwen_ren qian_22">{{''+item.f0+''}}</view><button class="huifu bai_24" type data-event-opts="{{[['tap',[['caozuo',['$0','$1'],[[['weituo_list','',index,'state']],[['weituo_list','',index,'entrustid']]]]]]]}}" bindtap="__e">{{item.$orig.state==1?'停止委托':'删除委托'}}</button></view></view></block><block wx:if="{{weituo_list.length==0}}"><view class="none_list"><image src="../../static/img/none_weituo.png" mode="widthFix"></image><view class="none_list_txt qian_26">暂无委托记录</view></view></block></view></view><uni-popup class="vue-ref" vue-id="3597573c-1" type="bottom" data-ref="popup" bind:__l="__l" vue-slots="{{['default']}}"><view class="tan"><view class="tan_title hei_30">查询条件</view><view class="tan_list hei_26"><view class="tan_list_top"><text>委托标题</text><input class="hei_26" type="text" value="{{biaoti}}" placeholder="输入标题" data-event-opts="{{[['input',[['__set_model',['','biaoti','$event',[]]]]]]}}" bindinput="__e"/></view></view><block wx:if="{{!zhuan_show}}"><view class="tan_buttom "><button class="quxiao hong_30" type data-event-opts="{{[['tap',[['quxiao_btn',['$event']]]]]}}" bindtap="__e">取消搜索</button><button class="queren bai_30" type data-event-opts="{{[['tap',[['queding_btn',['$event']]]]]}}" bindtap="__e">确认搜索</button></view></block></view></uni-popup></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">委托记录</view>
+		<view class=" head_right">
+			<image src="{{img_url}}/uniapp/lsimg/sousuo.png" mode data-event-opts="{{[['tap',[['tan',['$event']]]]]}}" bindtap="__e"></image>
+		</view>
+	</view>
+	<view class="tab_top hui_26">
+		<block wx:for="{{tab_arry}}" wx:for-item="item" wx:for-index="index"><text data-event-opts="{{[['tap',[['qiehuan',[index]]]]]}}" class="{{['',index==active?'lv_26_bold':'']}}" bindtap="__e">{{item}}</text></block>
+	</view>
+	<view class="zi_body tab_zi_body">
+		<view class="tiwen_list">
+			<block wx:for="{{$root.l0}}" wx:for-item="item" wx:for-index="index">
+				<view class="tiwen_item">
+					<view data-event-opts="{{[['tap',[['go_xq',['$0'],[[['weituo_list','',index]]]]]]]}}" class="tiwen_item_top hui_26" bindtap="__e"><text class="{{['zhuangtai',item.$orig.state==1?'jinxing':'yijieshu']}}">{{item.$orig.state==1?'进行中':'已结束'}}</text>{{''+item.$orig.information+''}}</view>
+					<view class="tiwen_item_center qian_22">
+						<view class="tiwen_item_biaoqian">
+							<image src="{{img_url}}/uniapp/img/weituo_yonghu.png" mode></image>{{item.$orig.name+''}}
+						</view>
+						<view class="tiwen_item_shijian">
+							<image src="{{img_url}}/uniapp/img/weitui_shouji.png" mode></image>{{item.$orig.phone+''}}
+						</view>
+						<view class="tiwen_item_dizhi">
+							<image src="{{img_url}}/uniapp/img/dizhi.png" mode></image>{{item.$orig.province+"-"+item.$orig.city+''}}
+						</view>
+					</view>
+					<view class="huifu_btn">
+						<view class="tiwen_ren qian_22">{{''+item.f0+''}}</view><button class="huifu bai_24" type data-event-opts="{{[['tap',[['caozuo',['$0','$1'],[[['weituo_list','',index,'state']],[['weituo_list','',index,'entrustid']]]]]]]}}" bindtap="__e">{{item.$orig.state==1?'停止委托':'删除委托'}}</button>
+					</view>
+				</view>
+			</block>
+			<block wx:if="{{weituo_list.length==0}}">
+				<view class="none_list">
+					<image src="{{img_url}}/uniapp/img/none_weituo.png" mode="widthFix"></image>
+					<view class="none_list_txt qian_26">暂无委托记录</view>
+				</view>
+			</block>
+		</view>
+	</view>
+	<uni-popup class="vue-ref" vue-id="3597573c-1" type="bottom" data-ref="popup" bind:__l="__l" vue-slots="{{['default']}}">
+		<view class="tan">
+			<view class="tan_title hei_30">查询条件</view>
+			<view class="tan_list hei_26">
+				<view class="tan_list_top"><text>委托标题</text><input class="hei_26" type="text" value="{{biaoti}}" placeholder="输入标题" data-event-opts="{{[['input',[['__set_model',['','biaoti','$event',[]]]]]]}}" bindinput="__e" /></view>
+			</view>
+			<block wx:if="{{!zhuan_show}}">
+				<view class="tan_buttom "><button class="quxiao hong_30" type data-event-opts="{{[['tap',[['quxiao_btn',['$event']]]]]}}" bindtap="__e">取消搜索</button><button class="queren bai_30" type data-event-opts="{{[['tap',[['queding_btn',['$event']]]]]}}" bindtap="__e">确认搜索</button></view>
+			</block>
+		</view>
+	</uni-popup>
+</view>

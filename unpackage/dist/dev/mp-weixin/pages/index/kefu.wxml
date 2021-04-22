@@ -1,1 +1,51 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">联系客服</view><view class=" head_right"></view></view><view class="zi_body "><view class="kefu_banner"><image src="../../static/img/kefu_banner.png" mode></image></view><view class="kefu_top"><view class="kefu_title hei_30_bold"><image style="width:28rpx;height:30rpx;" src="/static/img/hy_kefu_icon.png" mode></image>在线客服</view><view class="kefu_lianxi hei_26"><view class="kefu_lianxi_left">用户客服：<image src="/static/img/kefu_zaixian.png" mode data-event-opts="{{[['tap',[['go_chat',['$event']]]]]}}" bindtap="__e"></image></view><view class="kefu_lianxi_right">商家客服：<image src="../../static/img/ls_kefu.png" mode data-event-opts="{{[['tap',[['go_chat',['$event']]]]]}}" bindtap="__e"></image></view></view><view class="dianhua"><view class="dianhua_item"><image style="width:50rpx;height:58rpx;" src="../../static/img/zuoji.png" mode></image><view class="dianhua_item_right"><view class="qian_24 dianhua_item_title">用户咨询热线</view><view class="qian_24">{{''+xinxi.usercontact+''}}</view></view></view><view class="dianhua_item"><image style="width:40rpx;height:58rpx;" src="../../static/img/shouji.png" mode></image><view class="dianhua_item_right"><view class="qian_24 dianhua_item_title">商家咨询热线</view><view class="qian_24">{{''+xinxi.shopcontact+''}}</view></view></view></view><view class="hei_26 shijian_title">电话客服工作时间：</view><view class="qian_26">周一到周末  8:30-21:00（法定节假日除外）</view></view><view class="kefu_bottom"><view class="kefu_title hei_30_bold"><image style="width:24rpx;height:29rpx;" src="../../static/img/dingwei_icon.png" mode></image>公司地址</view><view class="dizhi"><image src="../../static/img/ditu.png" mode></image></view></view></view></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">联系客服</view>
+		<view class=" head_right"></view>
+	</view>
+	<view class="zi_body ">
+		<view class="kefu_banner">
+			<image src="{{img_url}}/uniapp/img/kefu_banner.png" mode></image>
+		</view>
+		<view class="kefu_top">
+			<view class="kefu_title hei_30_bold">
+				<image style="width:28rpx;height:30rpx;" src="{{img_url}}/uniapp/img/hy_kefu_icon.png" mode></image>在线客服
+			</view>
+			<view class="kefu_lianxi hei_26">
+				<view class="kefu_lianxi_left">用户客服：<image src="{{img_url}}/uniapp/img/kefu_zaixian.png" mode data-event-opts="{{[['tap',[['go_chat',['$event']]]]]}}" bindtap="__e"></image>
+				</view>
+				<view class="kefu_lianxi_right">商家客服：<image src="{{img_url}}/uniapp/img/ls_kefu.png" mode data-event-opts="{{[['tap',[['go_chat',['$event']]]]]}}" bindtap="__e"></image>
+				</view>
+			</view>
+			<view class="dianhua">
+				<view class="dianhua_item">
+					<image style="width:50rpx;height:58rpx;" src="{{img_url}}/uniapp/img/zuoji.png" mode></image>
+					<view class="dianhua_item_right">
+						<view class="qian_24 dianhua_item_title">用户咨询热线</view>
+						<view class="qian_24">{{''+xinxi.usercontact+''}}</view>
+					</view>
+				</view>
+				<view class="dianhua_item">
+					<image style="width:40rpx;height:58rpx;" src="{{img_url}}/uniapp/img/shouji.png" mode></image>
+					<view class="dianhua_item_right">
+						<view class="qian_24 dianhua_item_title">商家咨询热线</view>
+						<view class="qian_24">{{''+xinxi.shopcontact+''}}</view>
+					</view>
+				</view>
+			</view>
+			<view class="hei_26 shijian_title">电话客服工作时间：</view>
+			<view class="qian_26">周一到周末 8:30-21:00（法定节假日除外）</view>
+		</view>
+		<view class="kefu_bottom">
+			<view class="kefu_title hei_30_bold">
+				<image style="width:24rpx;height:29rpx;" src="{{img_url}}/uniapp/img/dingwei_icon.png" mode></image>公司地址
+			</view>
+			<view class="dizhi">
+				<image src="{{img_url}}/uniapp/img/ditu.png" mode></image>
+			</view>
+		</view>
+	</view>
+</view>

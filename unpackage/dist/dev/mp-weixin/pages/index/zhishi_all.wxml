@@ -1,1 +1,31 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold" style="width:40%;">全部知识分类</view><view class=" head_right hei_30_bold"></view></view><view class="zi_body "><view class="zhishi_list"><block wx:for="{{fenlei}}" wx:for-item="item" wx:for-index="__i0__"><view class="zhishi_item hei_26"><image src="{{item.img}}" mode></image><view>{{item.text}}</view></view></block></view><view class="fenlei_item"><view class="fenlei_title hei_26_bold"><image src="/static/img/changshi1.png" mode></image>婚姻家庭</view><view class="xiaolei hui_22"><text>结婚</text><text>离婚</text><text>子女抚养</text></view></view><view class="fenlei_item"><view class="fenlei_title hei_26_bold"><image src="/static/img/changshi2.png" mode></image>交通事故</view><view class="xiaolei hui_22"><text>交通事故处理</text><text>交通事故责任</text><text>交通事故类鉴定</text><text>交通事故赔偿</text><text>交通肇事</text></view></view></view></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold" style="width:40%;">全部知识分类</view>
+		<view class=" head_right hei_30_bold"></view>
+	</view>
+	<view class="zi_body ">
+		<view class="zhishi_list">
+			<block wx:for="{{fenlei}}" wx:for-item="item" wx:for-index="__i0__">
+				<view class="zhishi_item hei_26">
+					<image src="{{item.img}}" mode></image>
+					<view>{{item.text}}</view>
+				</view>
+			</block>
+		</view>
+		<view class="fenlei_item">
+			<view class="fenlei_title hei_26_bold">
+				<image src="{{img_url}}/uniapp/img/changshi1.png" mode></image>婚姻家庭
+			</view>
+			<view class="xiaolei hui_22"><text>结婚</text><text>离婚</text><text>子女抚养</text></view>
+		</view>
+		<view class="fenlei_item">
+			<view class="fenlei_title hei_26_bold">
+				<image src="{{img_url}}/uniapp/img/changshi2.png" mode></image>交通事故
+			</view>
+			<view class="xiaolei hui_22"><text>交通事故处理</text><text>交通事故责任</text><text>交通事故类鉴定</text><text>交通事故赔偿</text><text>交通肇事</text></view>
+		</view>
+	</view>
+</view>

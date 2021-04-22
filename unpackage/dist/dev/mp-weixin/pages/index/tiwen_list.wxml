@@ -1,1 +1,82 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">提问记录</view><view class=" head_right"><image src="/static/lsimg/sousuo.png" mode data-event-opts="{{[['tap',[['tan',['$event']]]]]}}" bindtap="__e"></image></view></view><view class="tab_top hui_26"><block wx:for="{{tab_arry}}" wx:for-item="item" wx:for-index="index"><text data-event-opts="{{[['tap',[['qiehuan',[index]]]]]}}" class="{{['',index==active?'lv_26_bold':'']}}" bindtap="__e">{{item}}</text></block></view><view class="zi_body tab_zi_body"><block wx:for="{{$root.l0}}" wx:for-item="item" wx:for-index="__i0__"><view class="tiwen_list"><view class="tiwen_list_name"><view data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['jilu_list','',__i0__,'reply.__$n0.userid']]]]]]]}}" class="tiwen_list_name_l" bindtap="__e"><block wx:if="{{item.$orig.replynum!=0}}"><image class="tiwen_list_name_tx" src="{{img_url+item.$orig.reply[0].photourl}}" mode></image></block><block wx:if="{{item.$orig.replynum==0}}"><image class="tiwen_list_name_tx" src="/static/img/mohu.png" mode></image></block><view class="tiwen_list_name_right"><block wx:if="{{item.$orig.replynum!=0}}"><view data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['jilu_list','',__i0__,'reply.__$n0.userid']]]]]]]}}" class="hui_24 tiwen_list_name_right_dianhua" bindtap="__e">{{''+item.$orig.reply[0].mobile+''}}</view></block><block wx:if="{{item.$orig.replynum==0}}"><view class="hui_24 tiwen_list_name_right_dianhua"><image src="/static/img/dian_mohu.png" mode></image></view></block><view class="hong_24">{{'悬赏：'+item.$orig.paymoney+'元'}}</view></view></view><text class="hong_26">{{item.$orig.tiwenstate==2?'待悬赏':item.$orig.tiwenstate==3?'已悬赏':item.$orig.tiwenstate==4?'已完成':''}}</text></view><view class="tiwen_list_wenti hei_28">{{''+item.$orig.information+''}}</view><view><text class="qian_22">{{item.f0}}</text></view><view class="tiwen_list_bottom qian_26"><block wx:if="{{item.$orig.reply.length==0}}"><view class="tiwen_list_huida_no"><image class="shijian" src="/static/img/shijian.png" mode></image>等待律师回复</view></block><block wx:if="{{item.$orig.reply.length!=0}}"><view class="tiwen_list_huida"><image src="/static/img/yihui.png" mode></image><text class="zhanwei"></text>等<text class="hong_26">{{item.$orig.replynum}}</text>位律师回复</view></block><view class="tiwen_caozuo lv_24"><block wx:if="{{item.$orig.ispay==1}}"><text data-event-opts="{{[['tap',[['pay',['$0'],[[['jilu_list','',__i0__,'consultid']]]]]]]}}" bindtap="__e">立即支付</text></block><block wx:if="{{item.$orig.tiwenstate==4}}"><text data-event-opts="{{[['tap',[['go_pingjia',['$0'],[[['jilu_list','',__i0__,'reply.__$n0.userid']]]]]]]}}" class="pingjia" bindtap="__e"><image src="/static/img/wen_pingjia.png" mode></image>评价</text></block><block wx:if="{{item.$orig.tiwenstate==2}}"><text data-event-opts="{{[['tap',[['xq',['$0'],[[['jilu_list','',__i0__,'consultid']]]]]]]}}" bindtap="__e">去悬赏</text></block><text data-event-opts="{{[['tap',[['xq',['$0'],[[['jilu_list','',__i0__,'consultid']]]]]]]}}" bindtap="__e">详情</text></view></view></view></block><block wx:if="{{jilu_list.length==0}}"><view class="none_list"><image src="../../static/img/none_tiwen.png" mode="widthFix"></image><view class="none_list_txt qian_26">暂无提问记录</view></view></block></view><uni-popup class="vue-ref" vue-id="319607c4-1" type="bottom" data-ref="popup" bind:__l="__l" vue-slots="{{['default']}}"><view class="tan"><view class="tan_title hei_30">查询条件</view><view class="tan_list hei_26"><view class="tan_list_top"><text>悬赏金额</text><input class="hei_26" type="text" value="{{name}}" placeholder="请输入" data-event-opts="{{[['input',[['__set_model',['','name','$event',[]]]]]]}}" bindinput="__e"/></view></view><view class="tan_list hei_26"><view class="tan_list_top"><text>提问内容</text><input class="hei_26" type="text" value="{{neirong}}" placeholder="请输入" data-event-opts="{{[['input',[['__set_model',['','neirong','$event',[]]]]]]}}" bindinput="__e"/></view></view><view class="tan_list hei_26 tan_list_shijian"><text>提问时间</text><picker mode="date" data-event-opts="{{[['change',[['time_change',['$event']]]]]}}" bindchange="__e"><text class="{{['',time==''?'qian_26':'hei_26']}}">{{''+(time==''?'开始时间':time)+''}}</text></picker><picker mode="date" data-event-opts="{{[['change',[['time_change2',['$event']]]]]}}" bindchange="__e"><text class="{{['',time2==''?'qian_26':'hei_26']}}">{{''+(time2==''?'结束时间':time2)+''}}</text></picker></view><view class="tan_buttom "><button class="quxiao lv_30" type data-event-opts="{{[['tap',[['quxiao_btn',['$event']]]]]}}" bindtap="__e">取消搜索</button><button class="queren bai_30" type data-event-opts="{{[['tap',[['queding_btn',['$event']]]]]}}" bindtap="__e">确认搜索</button></view></view></uni-popup></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">提问记录</view>
+		<view class=" head_right">
+			<image src="{{img_url}}/uniapp/lsimg/sousuo.png" mode data-event-opts="{{[['tap',[['tan',['$event']]]]]}}" bindtap="__e"></image>
+		</view>
+	</view>
+	<view class="tab_top hui_26">
+		<block wx:for="{{tab_arry}}" wx:for-item="item" wx:for-index="index"><text data-event-opts="{{[['tap',[['qiehuan',[index]]]]]}}" class="{{['',index==active?'lv_26_bold':'']}}" bindtap="__e">{{item}}</text></block>
+	</view>
+	<view class="zi_body tab_zi_body">
+		<block wx:for="{{$root.l0}}" wx:for-item="item" wx:for-index="__i0__">
+			<view class="tiwen_list">
+				<view class="tiwen_list_name">
+					<view data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['jilu_list','',__i0__,'reply.__$n0.userid']]]]]]]}}" class="tiwen_list_name_l" bindtap="__e">
+						<block wx:if="{{item.$orig.replynum!=0}}">
+							<image class="tiwen_list_name_tx" src="{{img_url+item.$orig.reply[0].photourl}}" mode></image>
+						</block>
+						<block wx:if="{{item.$orig.replynum==0}}">
+							<image class="tiwen_list_name_tx" src="{{img_url}}/uniapp/img/mohu.png" mode></image>
+						</block>
+						<view class="tiwen_list_name_right">
+							<block wx:if="{{item.$orig.replynum!=0}}">
+								<view data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['jilu_list','',__i0__,'reply.__$n0.userid']]]]]]]}}" class="hui_24 tiwen_list_name_right_dianhua" bindtap="__e">{{''+item.$orig.reply[0].mobile+''}}</view>
+							</block>
+							<block wx:if="{{item.$orig.replynum==0}}">
+								<view class="hui_24 tiwen_list_name_right_dianhua">
+									<image src="{{img_url}}/uniapp/img/dian_mohu.png" mode></image>
+								</view>
+							</block>
+							<view class="hong_24">{{'悬赏：'+item.$orig.paymoney+'元'}}</view>
+						</view>
+					</view><text class="hong_26">{{item.$orig.tiwenstate==2?'待悬赏':item.$orig.tiwenstate==3?'已悬赏':item.$orig.tiwenstate==4?'已完成':''}}</text>
+				</view>
+				<view class="tiwen_list_wenti hei_28">{{''+item.$orig.information+''}}</view>
+				<view><text class="qian_22">{{item.f0}}</text></view>
+				<view class="tiwen_list_bottom qian_26">
+					<block wx:if="{{item.$orig.reply.length==0}}">
+						<view class="tiwen_list_huida_no">
+							<image class="shijian" src="{{img_url}}/uniapp/img/shijian.png" mode></image>等待律师回复
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.reply.length!=0}}">
+						<view class="tiwen_list_huida">
+							<image src="{{img_url}}/uniapp/img/yihui.png" mode></image><text class="zhanwei"></text>等<text class="hong_26">{{item.$orig.replynum}}</text>位律师回复
+						</view>
+					</block>
+					<view class="tiwen_caozuo lv_24">
+						<block wx:if="{{item.$orig.ispay==1}}"><text data-event-opts="{{[['tap',[['pay',['$0'],[[['jilu_list','',__i0__,'consultid']]]]]]]}}" bindtap="__e">立即支付</text></block>
+						<block wx:if="{{item.$orig.tiwenstate==4}}"><text data-event-opts="{{[['tap',[['go_pingjia',['$0'],[[['jilu_list','',__i0__,'reply.__$n0.userid']]]]]]]}}" class="pingjia" bindtap="__e"><image src="{{img_url}}/uniapp/img/wen_pingjia.png" mode></image>评价</text></block>
+						<block wx:if="{{item.$orig.tiwenstate==2}}"><text data-event-opts="{{[['tap',[['xq',['$0'],[[['jilu_list','',__i0__,'consultid']]]]]]]}}" bindtap="__e">去悬赏</text></block><text data-event-opts="{{[['tap',[['xq',['$0'],[[['jilu_list','',__i0__,'consultid']]]]]]]}}" bindtap="__e">详情</text>
+					</view>
+				</view>
+			</view>
+		</block>
+		<block wx:if="{{jilu_list.length==0}}">
+			<view class="none_list">
+				<image src="{{img_url}}/uniapp/img/none_tiwen.png" mode="widthFix"></image>
+				<view class="none_list_txt qian_26">暂无提问记录</view>
+			</view>
+		</block>
+	</view>
+	<uni-popup class="vue-ref" vue-id="319607c4-1" type="bottom" data-ref="popup" bind:__l="__l" vue-slots="{{['default']}}">
+		<view class="tan">
+			<view class="tan_title hei_30">查询条件</view>
+			<view class="tan_list hei_26">
+				<view class="tan_list_top"><text>悬赏金额</text><input class="hei_26" type="text" value="{{name}}" placeholder="请输入" data-event-opts="{{[['input',[['__set_model',['','name','$event',[]]]]]]}}" bindinput="__e" /></view>
+			</view>
+			<view class="tan_list hei_26">
+				<view class="tan_list_top"><text>提问内容</text><input class="hei_26" type="text" value="{{neirong}}" placeholder="请输入" data-event-opts="{{[['input',[['__set_model',['','neirong','$event',[]]]]]]}}" bindinput="__e" /></view>
+			</view>
+			<view class="tan_list hei_26 tan_list_shijian"><text>提问时间</text>
+				<picker mode="date" data-event-opts="{{[['change',[['time_change',['$event']]]]]}}" bindchange="__e"><text class="{{['',time==''?'qian_26':'hei_26']}}">{{''+(time==''?'开始时间':time)+''}}</text></picker>
+				<picker mode="date" data-event-opts="{{[['change',[['time_change2',['$event']]]]]}}" bindchange="__e"><text class="{{['',time2==''?'qian_26':'hei_26']}}">{{''+(time2==''?'结束时间':time2)+''}}</text></picker>
+			</view>
+			<view class="tan_buttom "><button class="quxiao lv_30" type data-event-opts="{{[['tap',[['quxiao_btn',['$event']]]]]}}" bindtap="__e">取消搜索</button><button class="queren bai_30" type data-event-opts="{{[['tap',[['queding_btn',['$event']]]]]}}" bindtap="__e">确认搜索</button></view>
+		</view>
+	</uni-popup>
+</view>

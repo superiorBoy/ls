@@ -283,7 +283,34 @@ uni-checkbox:not([disabled]) .uni-checkbox-input:hover,uni-radio:not([disabled])
 /* APP-PLUS */
 
 
+.head{
+	padding-top: 120rpx !important;
+}
+.zi_body {
+	padding-top: 198rpx;
+}
+.tab_zi_body{
+	padding-top: 248rpx;
+}
+.tab_top{
+	top: 190rpx !important;
+}
+.index_top{
+	padding-top: 130rpx !important;
+}
+.my_top{
+	padding-top: 134rpx !important;
+}
+.chat_jiage{
+	top: 196rpx !important;
+}
+.index_top_dingwei{
+	padding-top: 124rpx !important;
 
+}
+.chat_body{
+	padding-top: 90rpx !important;
+}
 
 
 

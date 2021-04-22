@@ -1,1 +1,67 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">{{type==1?'在线咨询':type==2?'电话咨询':type==3?'合同文书':'诉讼委托'}}</view><view class=" head_right hei_30_bold"></view></view><view class="zi_body "><block wx:if="{{type==1}}"><view class="baojia_list"><view class="baojia_list_item hei_28"><text>1天</text><view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{chatprice}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','chatprice','$event',[]]]]]]}}" bindinput="__e"/>元</view></view><view class="baojia_list_item hei_28"><text>3天</text><view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{zaixian3}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','zaixian3','$event',[]]]]]]}}" bindinput="__e"/>元</view></view><view class="baojia_list_item hei_28"><text>1个月</text><view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{zaixian30}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','zaixian30','$event',[]]]]]]}}" bindinput="__e"/>元</view></view></view></block><block wx:if="{{type==2}}"><view class="baojia_list"><view class="baojia_list_item hei_28"><text>20分钟</text><view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{phoneprice}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','phoneprice','$event',[]]]]]]}}" bindinput="__e"/>元</view></view><view class="baojia_list_item hei_28"><text>1天</text><view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{dianhua1}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','dianhua1','$event',[]]]]]]}}" bindinput="__e"/>元</view></view><view class="baojia_list_item hei_28"><text>3天</text><view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{dianhua3}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','dianhua3','$event',[]]]]]]}}" bindinput="__e"/>元</view></view><view class="baojia_list_item hei_28"><text>1个月</text><view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{dianhua30}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','dianhua30','$event',[]]]]]]}}" bindinput="__e"/>元</view></view></view></block><block wx:if="{{type==3}}"><view class="baojia_list"><view class="baojia_list_item hei_28"><text>合同审核</text><view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{hetong_shenhe}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','hetong_shenhe','$event',[]]]]]]}}" bindinput="__e"/>元</view></view><view class="baojia_list_item hei_28"><text>代写合同</text><view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{hetong_daixie}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','hetong_daixie','$event',[]]]]]]}}" bindinput="__e"/>元</view></view><view class="baojia_list_item hei_28"><text>代写文书</text><view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{hetong_wenshu}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','hetong_wenshu','$event',[]]]]]]}}" bindinput="__e"/>元</view></view></view></block><block wx:if="{{type==4}}"><view class="baojia_list"><view class="baojia_list_item hei_28"><text>律师会见</text><view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{lvshi_huijian}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','lvshi_huijian','$event',[]]]]]]}}" bindinput="__e"/>元</view></view><view class="baojia_list_item hei_28"><text>发律师函</text><view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{lvshihan}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','lvshihan','$event',[]]]]]]}}" bindinput="__e"/>元</view></view><view class="baojia_list_item hei_28"><text>案件知道</text><view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{anjianzhidao}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','anjianzhidao','$event',[]]]]]]}}" bindinput="__e"/>元</view></view></view></block><view class="baocun_btn"><button class="bai_30" type data-event-opts="{{[['tap',[['save',['$event']]]]]}}" bindtap="__e">立即添加</button></view></view></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">{{type==1?'在线咨询':type==2?'电话咨询':type==3?'合同文书':'诉讼委托'}}</view>
+		<view class=" head_right hei_30_bold"></view>
+	</view>
+	<view class="zi_body ">
+		<block wx:if="{{type==1}}">
+			<view class="baojia_list">
+				<view class="baojia_list_item hei_28"><text>1天</text>
+					<view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{chatprice}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','chatprice','$event',[]]]]]]}}" bindinput="__e" />元</view>
+				</view>
+				<view class="baojia_list_item hei_28"><text>3天</text>
+					<view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{zaixian3}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','zaixian3','$event',[]]]]]]}}" bindinput="__e" />元</view>
+				</view>
+				<view class="baojia_list_item hei_28"><text>1个月</text>
+					<view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{zaixian30}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','zaixian30','$event',[]]]]]]}}" bindinput="__e" />元</view>
+				</view>
+			</view>
+		</block>
+		<block wx:if="{{type==2}}">
+			<view class="baojia_list">
+				<view class="baojia_list_item hei_28"><text>20分钟</text>
+					<view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{phoneprice}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','phoneprice','$event',[]]]]]]}}" bindinput="__e" />元</view>
+				</view>
+				<view class="baojia_list_item hei_28"><text>1天</text>
+					<view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{dianhua1}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','dianhua1','$event',[]]]]]]}}" bindinput="__e" />元</view>
+				</view>
+				<view class="baojia_list_item hei_28"><text>3天</text>
+					<view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{dianhua3}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','dianhua3','$event',[]]]]]]}}" bindinput="__e" />元</view>
+				</view>
+				<view class="baojia_list_item hei_28"><text>1个月</text>
+					<view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{dianhua30}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','dianhua30','$event',[]]]]]]}}" bindinput="__e" />元</view>
+				</view>
+			</view>
+		</block>
+		<block wx:if="{{type==3}}">
+			<view class="baojia_list">
+				<view class="baojia_list_item hei_28"><text>合同审核</text>
+					<view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{hetong_shenhe}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','hetong_shenhe','$event',[]]]]]]}}" bindinput="__e" />元</view>
+				</view>
+				<view class="baojia_list_item hei_28"><text>代写合同</text>
+					<view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{hetong_daixie}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','hetong_daixie','$event',[]]]]]]}}" bindinput="__e" />元</view>
+				</view>
+				<view class="baojia_list_item hei_28"><text>代写文书</text>
+					<view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{hetong_wenshu}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','hetong_wenshu','$event',[]]]]]]}}" bindinput="__e" />元</view>
+				</view>
+			</view>
+		</block>
+		<block wx:if="{{type==4}}">
+			<view class="baojia_list">
+				<view class="baojia_list_item hei_28"><text>律师会见</text>
+					<view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{lvshi_huijian}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','lvshi_huijian','$event',[]]]]]]}}" bindinput="__e" />元</view>
+				</view>
+				<view class="baojia_list_item hei_28"><text>发律师函</text>
+					<view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{lvshihan}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','lvshihan','$event',[]]]]]]}}" bindinput="__e" />元</view>
+				</view>
+				<view class="baojia_list_item hei_28"><text>案件知道</text>
+					<view class="baojia_list_item_right "><input class="hei_28" type="text" value="{{anjianzhidao}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','anjianzhidao','$event',[]]]]]]}}" bindinput="__e" />元</view>
+				</view>
+			</view>
+		</block>
+		<view class="baocun_btn"><button class="bai_30" type data-event-opts="{{[['tap',[['save',['$event']]]]]}}" bindtap="__e">立即添加</button></view>
+	</view>
+</view>

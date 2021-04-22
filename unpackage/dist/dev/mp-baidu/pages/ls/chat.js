@@ -46,7 +46,7 @@
                 var _chat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__( /*! ./chat.vue?vue&type=script&lang=js& */ 1108);
                 /* harmony reexport (unknown) */
                 for (var __WEBPACK_IMPORT_KEY__ in _chat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__)
-                    if (__WEBPACK_IMPORT_KEY__ !== 'default') (function (key) {
+                    if (__WEBPACK_IMPORT_KEY__ !== 'default')(function (key) {
                         __webpack_require__.d(__webpack_exports__, key, function () {
                             return _chat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key];
                         })
@@ -185,42 +185,42 @@
 
                         var f1 =
                             index > 1 &&
-                                _vm.message[index].addtime - _vm.message[index - 1].addtime > 300 ?
-                                _vm._f("timeStamp")(_vm.message[index].addtime) :
-                                null
+                            _vm.message[index].addtime - _vm.message[index - 1].addtime > 300 ?
+                            _vm._f("timeStamp")(_vm.message[index].addtime) :
+                            null
                         var m0 =
                             item.userid_from != _vm.userid &&
-                                item.msgtype == 1 &&
-                                item.iswithdraw != 1 ?
-                                _vm.replace_em(item.content) :
-                                null
+                            item.msgtype == 1 &&
+                            item.iswithdraw != 1 ?
+                            _vm.replace_em(item.content) :
+                            null
                         var m1 =
                             item.userid_from != _vm.userid &&
-                                item.msgtype == 14 &&
-                                item.iswithdraw != 1 ?
-                                _vm.wenjian(item.content) :
-                                null
+                            item.msgtype == 14 &&
+                            item.iswithdraw != 1 ?
+                            _vm.wenjian(item.content) :
+                            null
                         var m2 =
                             item.userid_from == _vm.userid &&
-                                item.msgtype == 1 &&
-                                item.iswithdraw != 1 &&
-                                item.msgtype == 1 ?
-                                _vm.replace_em(item.content) :
-                                null
+                            item.msgtype == 1 &&
+                            item.iswithdraw != 1 &&
+                            item.msgtype == 1 ?
+                            _vm.replace_em(item.content) :
+                            null
                         var m3 =
                             item.userid_from == _vm.userid &&
-                                item.msgtype == 14 &&
-                                item.iswithdraw != 1 ?
-                                _vm.wenjian(item.content) :
-                                null
+                            item.msgtype == 14 &&
+                            item.iswithdraw != 1 ?
+                            _vm.wenjian(item.content) :
+                            null
                         var f2 =
                             item.msgtype == 16 && item.refund ?
-                                _vm._f("timeStamp")(item.refund.addtime) :
-                                null
+                            _vm._f("timeStamp")(item.refund.addtime) :
+                            null
                         var f3 =
                             item.msgtype == 17 && item.refund ?
-                                _vm._f("timeStamp")(item.refund.addtime) :
-                                null
+                            _vm._f("timeStamp")(item.refund.addtime) :
+                            null
                         return {
                             $orig: $orig,
                             f1: f1,
@@ -266,7 +266,7 @@
                 var _F_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_chat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(_F_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_chat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
                 /* harmony reexport (unknown) */
                 for (var __WEBPACK_IMPORT_KEY__ in _F_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_chat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__)
-                    if (__WEBPACK_IMPORT_KEY__ !== 'default') (function (key) {
+                    if (__WEBPACK_IMPORT_KEY__ !== 'default')(function (key) {
                         __webpack_require__.d(__webpack_exports__, key, function () {
                             return _F_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_chat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key];
                         })
@@ -2528,7 +2528,7 @@
                         }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
                     };
                     var uParse = function uParse() {
-                        Promise.all( /*! require.ensure | components/feng-parse/parse */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/feng-parse/parse")]).then((function () {
+                        Promise.all( /*! require.ensure | components/feng-parse/parse */ [__webpack_require__.e("common/vendor"), __webpack_require__.e("components/feng-parse/parse")]).then((function () {
                             return resolve(__webpack_require__( /*! @/components/feng-parse/parse.vue */ 1163));
                         }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
                     };
@@ -2544,7 +2544,7 @@
                                 return Math.round(this.intervalTime);
                             }
                         },
-                        created: function created() { },
+                        created: function created() {},
                         components: {
                             emotion: emotion,
                             uParse: uParse,
@@ -2597,6 +2597,17 @@
                             setTimeout(function () {
                                 that.app_lianjie()
                             }, 1000);
+
+                            let up_path = swan.getStorageSync('up_path');
+                            console.log(up_path, '111111')
+
+                            if (up_path) {
+
+                                that.send_wenjian_txt(up_path)
+                            }
+
+
+
                         },
                         onReady: function onReady() {
                             var that = this;
@@ -2619,7 +2630,7 @@
                             });
 
 
-                         },
+                        },
                         onHide: function onHide() { // 	this.$http
                             // 		.post({
                             // 			url: '/mlawyerapi/consult/chatdeatils',
@@ -2640,7 +2651,7 @@
                                     page: 0,
                                     userid: this.userid
                                 }
-                            }).then(function (res) { });
+                            }).then(function (res) {});
                             innerAudioContext.stop(); //暂停这个实例
                             var ls_chat_list = uni.getStorageSync('ls_chat_list'); //读取缓存
                             var that = this;
@@ -2762,832 +2773,838 @@
                             // }
                         },
                         methods: (_methods = {
-                            onPageScroll: function onPageScroll(res) {
-                                var that = this;
-                                if (res.scrollTop == 0) {
-                                    this.is_xiala = true;
-                                    if (this.is_all) {
-                                        uni.showToast({
-                                            title: '没有更多内容了',
-                                            duration: 2000,
-                                            icon: 'none'
-                                        });
-                                        uni.stopPullDownRefresh();
+                                onPageScroll: function onPageScroll(res) {
+                                    var that = this;
+                                    if (res.scrollTop == 0) {
+                                        this.is_xiala = true;
+                                        if (this.is_all) {
+                                            uni.showToast({
+                                                title: '没有更多内容了',
+                                                duration: 2000,
+                                                icon: 'none'
+                                            });
+                                            uni.stopPullDownRefresh();
+                                        } else {
+                                            uni.showLoading({
+                                                title: '加载中',
+                                                mask: true
+                                            });
+                                            this.page++;
+                                            this.huoqu_xiaoxi_list();
+                                        }
+                                    } // console.log(res.scrollTop)
+                                    var info = uni.createSelectorQuery().select('.chat_body');
+                                    info.boundingClientRect(function (data) { //data - 各种参数
+                                        // 　　　  　console.log(data)  // 获取元素宽度
+                                        that.first_height = data.height;
+                                    }).exec();
+                                }, //上拉加载
+                                onReachBottom: function onReachBottom() { // uni.showToast({
+                                    // 	title: '没有更多内容了',
+                                    // 	duration: 2000,
+                                    // 	icon: "none"
+                                    // });
+                                },
+                                huoqu_type: function huoqu_type() {
+                                    var _this2 = this;
+                                    this.$http.post({
+                                        url: '/mapi/index/gettype'
+                                    }).then(function (res) {
+                                        if (res.code == 0) {
+                                            _this2.gettype = res.data.type;
+                                        }
+                                    });
+                                },
+                                show_luyin: function show_luyin() {
+                                    var that = this;
+                                    this.isShowEmj = false;
+                                    this.bt_show = false;
+                                    // this.is_yuyin=true
+                                    swan.authorize({
+                                        scope: 'scope.record',
+                                        success(res) {
+                                            // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+                                            console.log(res);
+                                            that.on_yuyin = true;
+                                        },
+                                        fail: function fail(err) {
+                                            console.log(err);
+                                            swan.showToast({
+                                                title: '请开启麦克风权限',
+                                                icon: 'none'
+                                            });
+
+                                        }
+                                    })
+                                },
+
+                                hide_luyin: function hide_luyin() {
+                                    this.on_yuyin = false;
+
+                                }, // 点击长按录音
+                                dian_luyin: function dian_luyin() {
+                                    var _this4 = this;
+                                    var that = this;
+                                    this.is_yuyin = true;
+                                    this.timer = setInterval(function () {
+                                        _this4.intervalTime += 0.5;
+                                        if (_this4.intervalTime >= 0.5 && !_this4.isRecord) { //如果用户录制的时间太短,就不会去开启录音, 因为有个bug: recorderManager.stop()在短时间内开启在关闭的话,实际上他还在不停地录音,不知道你们有没有遇到过
+                                            console.log('开始录音');
+                                            _this4.isRecord = true;
+                                            _this4.intervalTime = 0;
+                                            const options = {
+                                                duration: 60000,
+                                                sampleRate: 44100,
+                                                numberOfChannels: 1,
+                                                encodeBitRate: 96000,
+                                                format: 'aac'
+                                            };
+                                            that.recorderManager.start(options);
+
+                                        } // console.log(this.intervalTime)
+                                        if (_this4.intervalTime >= 60) {
+                                            uni.showToast({
+                                                title: '不得超过60秒',
+                                                duration: 2000,
+                                                icon: 'none'
+                                            });
+                                            that.songkai();
+                                        }
+                                    }, 500);
+                                },
+                                yiru: function yiru() {
+                                    this.on_yuyin = false;
+                                },
+                                moveStop: function moveStop(e) {
+                                    console.log(e.touches[0].clientY);
+                                    if (e.touches[0].clientY < 650) {
+                                        this.is_quxiao = true;
                                     } else {
-                                        uni.showLoading({
-                                            title: '加载中',
-                                            mask: true
-                                        });
-                                        this.page++;
-                                        this.huoqu_xiaoxi_list();
+                                        this.is_quxiao = false;
                                     }
-                                } // console.log(res.scrollTop)
-                                var info = uni.createSelectorQuery().select('.chat_body');
-                                info.boundingClientRect(function (data) { //data - 各种参数
-                                    // 　　　  　console.log(data)  // 获取元素宽度
-                                    that.first_height = data.height;
-                                }).exec();
-                            }, //上拉加载
-                            onReachBottom: function onReachBottom() { // uni.showToast({
-                                // 	title: '没有更多内容了',
-                                // 	duration: 2000,
-                                // 	icon: "none"
-                                // });
-                            },
-                            huoqu_type: function huoqu_type() {
-                                var _this2 = this;
-                                this.$http.post({
-                                    url: '/mapi/index/gettype'
-                                }).then(function (res) {
-                                    if (res.code == 0) {
-                                        _this2.gettype = res.data.type;
+                                },
+                                songkai: function songkai() {
+                                    var _this5 = this;
+                                    var that = this;
+                                    console.log('songkai', this.is_quxiao);
+                                    if (that.is_quxiao) {
+                                        console.log('已取消录音');
+                                        clearInterval(that.timer);
+                                        that.recorderManager.stop();
+                                    } else {
+                                        if (that.intervalTime <= 0.5) {
+                                            console.log('录音太短了!!!');
+                                            clearInterval(that.timer);
+                                            that.recorderManager.stop();
+                                        }
+                                        clearInterval(that.timer);
+                                        if (that.isRecord) {
+                                            setTimeout(function () {
+                                                that.recorderManager.stop();
+                                                _this5.isRecord = false; // var data = {
+                                                // 	content: '',
+                                                // 	msgtype: 12,
+                                                // 	photourl_form: that.user.photourl
+                                                // };
+                                                // that.message.push(data);
+                                                // setTimeout(() => {
+                                                // 	uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
+                                                // }, 100);
+                                                console.log(_this5.isRecord);
+                                            }, 500); //延迟小段时间停止录音, 更好的体验
+                                        }
                                     }
-                                });
-                            },
-                            show_luyin: function show_luyin() {
-                                var that = this;
+                                    this.is_yuyin = false;
+                                    this.is_quxiao = false;
+                                },
+                                playVoice: function playVoice(voicePath, index, duration) {
+                                    console.log('播放录音');
+                                    var that = this;
+                                    this.yuyin_index = index;
+                                    if (duration) {
+                                        var daoji = Number(duration) * 1000;
+                                    } else {
+                                        var daoji = 5 * 1000;
+                                    }
+                                    setTimeout(function () {
+                                        that.yuyin_index = 0;
+                                    }, daoji);
+                                    console.log(this.img_url + voicePath);
+                                    innerAudioContext.src = this.img_url + voicePath;
+                                    innerAudioContext.play();
+                                },
+                                input_click: function input_click(e) {
+                                    this.bottom_tip = true;
+                                },
+                                input_blur: function input_blur() {
+                                    var _this6 = this;
+                                    setTimeout(function () {
+                                        _this6.bottom_tip = false;
+                                    }, 300);
+                                    console.log('失去焦点事件');
+                                },
+                                navigateBack: function navigateBack() {
+                                    uni.navigateBack();
+                                },
+                                bianji: function bianji() {
+                                    this.chat_txt = this.zuijin_txt;
+                                },
+                                changan: function changan(messageid, txt) {
+                                    if (txt) {
+                                        this.zuijin_txt = txt;
+                                    } else {
+                                        this.zuijin_txt = '';
+                                    }
+                                    console.log(messageid);
+                                    this.messageid = messageid;
+                                    this.is_chehui = true;
+                                },
+                                Audio2dataURL: function Audio2dataURL(path) {
+                                    var that = this;
+
+                                    this.fileSystemManager = swan.getFileSystemManager();
+
+                                    this.fileSystemManager.readFile({
+                                        filePath: path,
+                                        encoding: 'base64',
+                                        success: res => {
+                                            that.up_luyin(res.data);
+                                            console.log('readFile success成功', res);
+                                        },
+                                        fail: err => {
+                                            swan.showToast({
+                                                title: JSON.stringify(err),
+                                                icon: 'none'
+                                            });
+                                            console.log('readFile fail 异常', err);
+                                        }
+                                    });
+
+                                },
+                                up_luyin: function up_luyin(base64) {
+                                    console.log('up_luyin');
+                                    // var urlrep = base64.replace('mpeg', 'mp3');
+                                    var that = this;
+                                    var urlrep = 'data:audio/mp3;base64,' + base64;
+                                    that.$http.post({
+                                        url: '/lawyer/index/uploadaudiomessage',
+                                        data: {
+                                            audio: urlrep
+                                        }
+                                    }).then(function (res) {
+                                        console.log(res);
+                                        if (res.code == 0) {
+                                            that.send_luyin(res.data.audio);
+                                        }
+                                    });
+                                },
+                                send_luyin: function send_luyin(audio) {
+                                    var _this7 = this;
+                                    var that = this;
+                                    var duration = Math.round(this.intervalTime);
+                                    this.$http.post({
+                                        url: '/push/gatewayworker/sendmessage1.html',
+                                        data: {
+                                            userid_to: this.userid,
+                                            msg: audio,
+                                            type: 13,
+                                            duration: duration
+                                        }
+                                    }).then(function (res) {
+                                        console.log(res);
+                                        if (res.code == 0) {
+                                            var data = {
+                                                content: audio,
+                                                msgtype: 13,
+                                                photourl_form: _this7.user.photourl,
+                                                messageid: res.data,
+                                                duration: duration,
+                                                addtime: new Date().getTime()
+                                            };
+                                            _this7.message.push(data);
+                                            setTimeout(function () {
+                                                uni.pageScrollTo({
+                                                    scrollTop: 99999,
+                                                    duration: 0
+                                                });
+                                            }, 100);
+                                            var to = new Date(that.time1.replace(/-/g, '/'));
+                                            var now = new Date();
+                                            var time = to.getTime() - now.getTime();
+                                            if (time < 0) {
+                                                that.send_guoqi();
+                                            }
+                                        }
+                                    });
+                                },
+                                huanying: function huanying() {
+                                    var _this8 = this;
+                                    this.$http.post({
+                                        url: '/mapi/index/getchatmessage'
+                                    }).then(function (res) {
+                                        if (res.code == 0) {
+                                            _this8.tishiyu = res.data;
+                                        }
+                                    });
+                                },
+                                tishiyu_tip: function tishiyu_tip() {
+                                    var _this9 = this;
+                                    this.$http.post({
+                                        url: '/mapi/index/tips'
+                                    }).then(function (res) {
+                                        if (res.code == 0) {
+                                            _this9.tips = res.data;
+                                        }
+                                    });
+                                },
+                                che_queding: function che_queding() {
+                                    var _this10 = this;
+                                    console.log(this.messageid, '666');
+                                    this.$http.post({
+                                        url: '/lawyer/index/withdraw',
+                                        data: {
+                                            messageid: this.messageid
+                                        }
+                                    }).then(function (res) {
+                                        console.log(res, '555');
+                                        if (res.code == 0) {
+                                            uni.showToast({
+                                                title: '消息已撤回',
+                                                duration: 2000
+                                            });
+                                            _this10.message.forEach(function (item, index, array) {
+                                                if (item.messageid == _this10.messageid) {
+                                                    _this10.message.splice(index, 1);
+                                                }
+                                            });
+                                            _this10.is_chehui = false;
+                                            if (_this10.zuijin_txt != '') {
+                                                _this10.is_zuijin_chehui = true;
+                                            } else {
+                                                _this10.is_zuijin_chehui = false;
+                                                _this10.chat_txt = '';
+                                            }
+                                        }
+                                    });
+                                },
+                                che_quxiao: function che_quxiao() {
+                                    this.is_chehui = false;
+                                },
+                                huoqu_xiaoxi_list: function huoqu_xiaoxi_list() {
+                                    var _this11 = this;
+                                    var that = this;
+                                    this.$http.post({
+                                        url: '/mlawyerapi/consult/chatdeatils',
+                                        data: {
+                                            page: this.page,
+                                            userid: this.userid
+                                        }
+                                    }).then(function (res) {
+                                        _this11.title = res.data.user_to.mobile;
+                                        _this11.dianhua = res.data.user_to.mobile;
+                                        _this11.yh_user = res.data.user_to;
+                                        _this11.zixuncount = res.data.zixuncount;
+                                        var _loop = function _loop(key) {
+                                            if (res.data.message[key].msgtype == 10 || res.data.message[key].msgtype == 11 || res.data.message[key].msgtype == 12) {
+                                                _this11.$http.post({
+                                                    url: '/mlawyerapi/consult/red_envelope',
+                                                    data: {
+                                                        redid: res.data.message[key].content,
+                                                        userid: that.userid
+                                                    }
+                                                }).then(function (ress) {
+                                                    console.log(ress);
+                                                    res.data.message[key] = Object.assign(res.data.message[key], ress.data.red_envelope);
+                                                    _this11.$forceUpdate();
+                                                });
+                                            } // if (res.data.message[key].msgtype == 13) {
+                                            // 	console.log(key)
+                                            // 	innerAudioContext.src =that.img_url+res.data.message[key].content;
+                                            // 	innerAudioContext.onTimeUpdate(() => {
+                                            // 	    console.log(innerAudioContext.duration,key);
+                                            // 		let shichang={
+                                            // 			shitime:innerAudioContext.duration.toFixed(0)
+                                            // 		}
+                                            // 		res.data.message[key] = Object.assign(res.data.message[key], shichang);
+                                            // 		this.$forceUpdate();
+                                            // 	})
+                                            // }
+                                        };
+                                        for (var key in res.data.message) {
+                                            _loop(key);
+                                        }
+                                        _this11.message = res.data.message.concat(_this11.message);
+                                        if (_this11.page == 0) {
+                                            if (res.data.message.length < that.first_xiaoxi) {
+                                                _this11.is_all = true;
+                                            }
+                                            _this11.is_last_msguptime = _this11.message[_this11.message.length - 1].addtime;
+                                        } else {
+                                            if (res.data.message.length < 100) {
+                                                _this11.is_all = true;
+                                            }
+                                        } // if (res.data.message.length < 100) {
+                                        // 	this.is_all = true;
+                                        // }
+                                        if (!_this11.is_xiala) {
+                                            setTimeout(function () {
+                                                uni.pageScrollTo({
+                                                    scrollTop: 99999,
+                                                    duration: 0
+                                                });
+                                            }, 400);
+                                        } else {
+                                            setTimeout(function () {
+                                                var info = uni.createSelectorQuery().select('.chat_body');
+                                                info.boundingClientRect(function (data) { //data - 各种参数
+                                                    uni.pageScrollTo({
+                                                        scrollTop: data.height - that.first_height,
+                                                        duration: 0
+                                                    });
+                                                }).exec();
+                                            }, 1000);
+                                        }
+                                        that.time1 = res.data.shijian;
+                                        console.log(that.time1); // 倒计时
+                                        var interval = setInterval(function () {
+                                            var to = new Date(that.time1.replace(/-/g, '/'));
+                                            var now = new Date();
+                                            var time = to.getTime() - now.getTime();
+                                            if (time < 0) {
+                                                clearInterval(interval);
+                                            } else {
+                                                var day = parseInt(time / 1000 / 60 / 60 / 24);
+                                                var hour = parseInt(time / 1000 / 60 / 60 % 24);
+                                                var minute = parseInt(time / 1000 / 60 % 60);
+                                                var seconds = parseInt(time / 1000 % 60);
+                                                if (minute <= 9) minute = '0' + minute;
+                                                if (seconds <= 9) seconds = '0' + seconds;
+                                                that.day = day;
+                                                that.hour = hour;
+                                                that.minute = minute;
+                                                that.seconds = seconds;
+                                            }
+                                        }, 1000);
+                                        setTimeout(function () {
+                                            uni.hideLoading();
+                                        }, 1000);
+                                    });
+                                },
+                                huoqu_renzheng: function huoqu_renzheng() {
+                                    var _this12 = this;
+                                    this.$http.post({
+                                        url: '/mlawyerapi/lawyer/auth',
+                                        data: {
+                                            type: 2
+                                        }
+                                    }).then(function (res) {
+                                        _this12.renzheng = res.data.lawyerauth;
+                                    });
+                                }
+                            }, _defineProperty(_methods, "input_click", function input_click() { // this.bottom_tip =true;
                                 this.isShowEmj = false;
                                 this.bt_show = false;
-                                // this.is_yuyin=true
-                                swan.authorize({
-                                    scope: 'scope.record',
-                                    success(res) {
-                                        // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
-                                        console.log(res);
-                                        that.on_yuyin = true;
-                                    },
-                                    fail: function fail(err) {
-                                        console.log(err);
-                                        swan.showToast({
-                                            title: '请开启麦克风权限',
-                                            icon: 'none'
-                                        });
-
-                                    }
-                                })
-                            },
-
-                            hide_luyin: function hide_luyin() {
-                                this.on_yuyin = false;
-
-                            }, // 点击长按录音
-                            dian_luyin: function dian_luyin() {
-                                var _this4 = this;
-                                var that = this;
-                                this.is_yuyin = true;
-                                this.timer = setInterval(function () {
-                                    _this4.intervalTime += 0.5;
-                                    if (_this4.intervalTime >= 0.5 && !_this4.isRecord) { //如果用户录制的时间太短,就不会去开启录音, 因为有个bug: recorderManager.stop()在短时间内开启在关闭的话,实际上他还在不停地录音,不知道你们有没有遇到过
-                                        console.log('开始录音');
-                                        _this4.isRecord = true;
-                                        _this4.intervalTime = 0;
-                                        const options = {
-                                            duration: 60000,
-                                            sampleRate: 44100,
-                                            numberOfChannels: 1,
-                                            encodeBitRate: 96000,
-                                            format: 'aac'
-                                        };
-                                        that.recorderManager.start(options);
-
-                                    } // console.log(this.intervalTime)
-                                    if (_this4.intervalTime >= 60) {
-                                        uni.showToast({
-                                            title: '不得超过60秒',
-                                            duration: 2000,
-                                            icon: 'none'
-                                        });
-                                        that.songkai();
-                                    }
-                                }, 500);
-                            },
-                            yiru: function yiru() {
-                                this.on_yuyin = false;
-                            },
-                            moveStop: function moveStop(e) {
-                                console.log(e.touches[0].clientY);
-                                if (e.touches[0].clientY < 650) {
-                                    this.is_quxiao = true;
-                                } else {
-                                    this.is_quxiao = false;
-                                }
-                            },
-                            songkai: function songkai() {
-                                var _this5 = this;
-                                var that = this;
-                                console.log('songkai', this.is_quxiao);
-                                if (that.is_quxiao) {
-                                    console.log('已取消录音');
-                                    clearInterval(that.timer);
-                                    that.recorderManager.stop();
-                                } else {
-                                    if (that.intervalTime <= 0.5) {
-                                        console.log('录音太短了!!!');
-                                        clearInterval(that.timer);
-                                       that.recorderManager.stop();
-                                    }
-                                    clearInterval(that.timer);
-                                    if (that.isRecord) {
-                                        setTimeout(function () {
-                                            that.recorderManager.stop();
-                                            _this5.isRecord = false; // var data = {
-                                            // 	content: '',
-                                            // 	msgtype: 12,
-                                            // 	photourl_form: that.user.photourl
-                                            // };
-                                            // that.message.push(data);
-                                            // setTimeout(() => {
-                                            // 	uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
-                                            // }, 100);
-                                            console.log(_this5.isRecord);
-                                        }, 500); //延迟小段时间停止录音, 更好的体验
-                                    }
-                                }
-                                this.is_yuyin = false;
-                                this.is_quxiao = false;
-                            },
-                            playVoice: function playVoice(voicePath, index, duration) {
-                                console.log('播放录音');
-                                var that = this;
-                                this.yuyin_index = index;
-                                if (duration) {
-                                    var daoji = Number(duration) * 1000;
-                                } else {
-                                    var daoji = 5 * 1000;
-                                }
                                 setTimeout(function () {
-                                    that.yuyin_index = 0;
-                                }, daoji);
-                                console.log(this.img_url + voicePath);
-                                innerAudioContext.src = this.img_url + voicePath;
-                                innerAudioContext.play();
-                            },
-                            input_click: function input_click(e) {
-                                this.bottom_tip = true;
-                            },
-                            input_blur: function input_blur() {
-                                var _this6 = this;
+                                    uni.pageScrollTo({
+                                        scrollTop: 99999,
+                                        duration: 0
+                                    });
+                                }, 100);
+                            }), _defineProperty(_methods, "huojiao", function huojiao() {
                                 setTimeout(function () {
-                                    _this6.bottom_tip = false;
-                                }, 300);
-                                console.log('失去焦点事件');
-                            },
-                            navigateBack: function navigateBack() {
-                                uni.navigateBack();
-                            },
-                            bianji: function bianji() {
-                                this.chat_txt = this.zuijin_txt;
-                            },
-                            changan: function changan(messageid, txt) {
-                                if (txt) {
-                                    this.zuijin_txt = txt;
-                                } else {
-                                    this.zuijin_txt = '';
-                                }
-                                console.log(messageid);
-                                this.messageid = messageid;
-                                this.is_chehui = true;
-                            },
-                            Audio2dataURL: function Audio2dataURL(path) {
+                                    uni.pageScrollTo({
+                                        scrollTop: 99999,
+                                        duration: 0
+                                    });
+                                }, 600);
+                            }), _defineProperty(_methods, "shiqu", function shiqu() {
+                                setTimeout(function () {
+                                    uni.pageScrollTo({
+                                        scrollTop: 99999,
+                                        duration: 0
+                                    });
+                                }, 200);
+                            }), _defineProperty(_methods, "app_lianjie", function app_lianjie() {
                                 var that = this;
-
-                                this.fileSystemManager = swan.getFileSystemManager();
-
-                                this.fileSystemManager.readFile({
-                                    filePath: path,
-                                    encoding: 'base64',
-                                    success: res => {
-                                        that.up_luyin(res.data);
-                                        console.log('readFile success成功', res);
+                                var url = that.$http.WebSocket_url;
+                                uni.connectSocket({
+                                    url: 'wss://' + url + ':3348',
+                                    success: function success(data) {
+                                        console.log('websocket连接成功', data);
                                     },
-                                    fail: err => {
-                                        swan.showToast({
-                                            title: JSON.stringify(err),
-                                            icon: 'none'
+                                    fail: function fail(err) {},
+                                    complete: function complete(res) {}
+                                });
+                                uni.onSocketOpen(function (res) {
+                                    console.log('WebSocket连接已打开！', res);
+                                });
+                                uni.onSocketError(function (res) {
+                                    console.log('WebSocket连接打开失败，请检查！');
+                                });
+                                uni.onSocketMessage(function (res) {
+                                    var data = JSON.parse(res.data);
+                                    if (data.type == 'init') {
+                                        console.log('init');
+                                        console.log('client_id', data.client_id);
+                                        uni.request({
+                                            url: that.$http.baseUrl + '/push/gatewayworker/bind',
+                                            method: 'POST',
+                                            header: {
+                                                'Token': swan.getStorageSync("token")
+                                            },
+                                            data: {
+                                                client_id: data.client_id,
+                                                type: 1
+                                            },
+                                            success: function success(resp) {
+                                                console.log(resp, 'bind');
+                                            },
+                                            fail: function fail(resp) {}
                                         });
-                                        console.log('readFile fail 异常', err);
+                                    } else if (data.type == 'say') {
+                                        console.log('say');
+                                        if (data.state) {
+                                            if (data.state == 10) {
+                                                if (data.content) {
+                                                    this.$http.post({
+                                                        url: '/mlawyerapi/consult/red_envelope',
+                                                        data: {
+                                                            redid: data.content,
+                                                            userid: that.userid
+                                                        }
+                                                    }).then(function (ress) {
+                                                        var xiaoxi = {
+                                                            photourl_form: data.userid_from_pic,
+                                                            userid_to: data.userid_to,
+                                                            photourl_to: data.userid_to_pic,
+                                                            content: data.msg,
+                                                            msgtype: data.state,
+                                                            userid_from: data.userid_from,
+                                                            money: ress.data.red_envelope.money,
+                                                            is_pay: ress.data.red_envelope.is_pay,
+                                                            information: ress.data.red_envelope.information,
+                                                            paymode: ress.data.red_envelope.paymode,
+                                                            type: ress.data.red_envelope.type,
+                                                            addtime: new Date().getTime()
+                                                        };
+                                                        that.message.push(xiaoxi);
+                                                    });
+                                                }
+                                            } else {
+                                                var xiaoxi = {
+                                                    photourl_form: data.userid_from_pic,
+                                                    userid_to: data.userid_to,
+                                                    photourl_to: data.userid_to_pic,
+                                                    content: data.msg,
+                                                    msgtype: data.state,
+                                                    userid_from: data.userid_from,
+                                                    addtime: new Date().getTime()
+                                                };
+                                                if (that.user.userid != data.userid_from) {
+                                                    that.message.push(xiaoxi);
+                                                }
+                                            }
+                                            setTimeout(function () {
+                                                uni.pageScrollTo({
+                                                    scrollTop: 99999,
+                                                    duration: 0
+                                                });
+                                            }, 200);
+                                        }
+                                    } else {
+                                        console.log('else');
                                     }
                                 });
-
-                            },
-                            up_luyin: function up_luyin(base64) {
-                                console.log('up_luyin');
-                                // var urlrep = base64.replace('mpeg', 'mp3');
-                                var that = this;
-                                var urlrep = 'data:audio/mp3;base64,'+base64;
-                                that.$http.post({
-                                    url: '/lawyer/index/uploadaudiomessage',
-                                    data: {
-                                        audio: urlrep
-                                    }
-                                }).then(function (res) {
-                                    console.log(res);
-                                    if (res.code == 0) {
-                                        that.send_luyin(res.data.audio);
-                                    }
+                                uni.onSocketClose(function (res) {
+                                    console.log('uniapp 已关闭！');
                                 });
-                            },
-                            send_luyin: function send_luyin(audio) {
-                                var _this7 = this;
+                            }), _defineProperty(_methods, "handleEmj", function handleEmj(i) {
+                                console.log(i);
+                                if (i == '[em_98]') { //匹配最后一个表情符号并删除。
+                                    this.chat_txt = this.chat_txt.replace(/(\[[^\]]+\]|[\s\S])$/, '');
+                                } else {
+                                    this.chat_txt += i;
+                                }
+                            }), _defineProperty(_methods, "replace_em", function replace_em(str) {
+                                str = str.replace(/\</g, '&lt;');
+                                str = str.replace(/\>/g, '&gt;');
+                                str = str.replace(/\n/g, '<br/>');
+                                str = str.replace(/\[em_([0-9]*)\]/g, '<img src="{{url}}uniapp/bkhumor-emoji/$1.gif" border="0" style="width:40rpx"/>');
+                                return str;
+                            }), _defineProperty(_methods, "handleEmj", function handleEmj(i) {
+                                console.log(i);
+                                if (i == '[em_98]') { //匹配最后一个表情符号并删除。
+                                    this.chat_txt = this.chat_txt.replace(/(\[[^\]]+\]|[\s\S])$/, '');
+                                } else {
+                                    this.chat_txt += i;
+                                }
+                            }), _defineProperty(_methods, "showEmj", function showEmj() {
+                                this.on_yuyin = false;
+                                var bool = !this.isShowEmj;
+                                if (bool) {
+                                    this.emojiIcon = 'cuIcon-keyboard';
+                                    this.bt_show = false;
+                                } else {
+                                    this.emojiIcon = 'cuIcon-emoji';
+                                }
+                                this.isShowEmj = bool;
+                                this.$emit('show');
+                            }), _defineProperty(_methods, "jia", function jia() {
+                                this.bt_show = !this.bt_show;
+                                this.isShowEmj = false;
+                                this.on_yuyin = false;
+                            }), _defineProperty(_methods, "input_change", function input_change() {
+                                if (this.chat_txt == '') {
+                                    this.is_fa = false;
+                                } else {
+                                    this.is_fa = true;
+                                }
+                            }), _defineProperty(_methods, "send", function send() {
                                 var that = this;
-                                var duration = Math.round(this.intervalTime);
+                                if (this.chat_txt == '') {
+                                    uni.showToast({
+                                        title: '请输入内容',
+                                        duration: 2000,
+                                        icon: 'none'
+                                    });
+                                    return false;
+                                }
+                                if (this.canClick) {
+                                    this.canClick = false;
+                                    this.send_txt();
+                                    setTimeout(function () {
+                                        that.canClick = true;
+                                    }, 1000);
+                                } else {
+                                    uni.showToast({
+                                        title: '请稍后发送',
+                                        duration: 2000,
+                                        icon: 'none'
+                                    });
+                                }
+                            }), _defineProperty(_methods, "send_txt", function send_txt() {
+                                var _this13 = this;
+                                var data = {
+                                    content: '' + this.chat_txt,
+                                    userid_from: '' + this.id
+                                };
+                                var txt = this.replace_em(this.chat_txt);
+                                if (txt == '') {
+                                    uni.showToast({
+                                        title: '请输入内容',
+                                        duration: 2000,
+                                        icon: 'none'
+                                    });
+                                    return false;
+                                }
                                 this.$http.post({
                                     url: '/push/gatewayworker/sendmessage1.html',
                                     data: {
                                         userid_to: this.userid,
-                                        msg: audio,
-                                        type: 13,
-                                        duration: duration
+                                        msg: this.chat_txt,
+                                        type: 1
                                     }
                                 }).then(function (res) {
-                                    console.log(res);
                                     if (res.code == 0) {
+                                        _this13.chat_txt = '';
+                                        _this13.is_zuijin_chehui = false;
                                         var data = {
-                                            content: audio,
-                                            msgtype: 13,
-                                            photourl_form: _this7.user.photourl,
+                                            content: txt,
+                                            msgtype: 1,
+                                            photourl_form: _this13.user.photourl,
                                             messageid: res.data,
-                                            duration: duration,
                                             addtime: new Date().getTime()
                                         };
-                                        _this7.message.push(data);
+                                        _this13.message.push(data);
                                         setTimeout(function () {
                                             uni.pageScrollTo({
                                                 scrollTop: 99999,
                                                 duration: 0
                                             });
                                         }, 100);
-                                        var to = new Date(that.time1.replace(/-/g, '/'));
-                                        var now = new Date();
-                                        var time = to.getTime() - now.getTime();
-                                        if (time < 0) {
-                                            that.send_guoqi();
-                                        }
-                                    }
+                                    } // this.canClick=true
                                 });
-                            },
-                            huanying: function huanying() {
-                                var _this8 = this;
+                            }), _defineProperty(_methods, "send_huanying", function send_huanying() {
+                                var _this14 = this;
                                 this.$http.post({
-                                    url: '/mapi/index/getchatmessage'
-                                }).then(function (res) {
-                                    if (res.code == 0) {
-                                        _this8.tishiyu = res.data;
-                                    }
-                                });
-                            },
-                            tishiyu_tip: function tishiyu_tip() {
-                                var _this9 = this;
-                                this.$http.post({
-                                    url: '/mapi/index/tips'
-                                }).then(function (res) {
-                                    if (res.code == 0) {
-                                        _this9.tips = res.data;
-                                    }
-                                });
-                            },
-                            che_queding: function che_queding() {
-                                var _this10 = this;
-                                console.log(this.messageid, '666');
-                                this.$http.post({
-                                    url: '/lawyer/index/withdraw',
+                                    url: '/push/gatewayworker/sendmessage1.html',
                                     data: {
-                                        messageid: this.messageid
+                                        userid_to: this.userid,
+                                        msg: '[欢迎]',
+                                        type: 5
                                     }
                                 }).then(function (res) {
-                                    console.log(res, '555');
                                     if (res.code == 0) {
-                                        uni.showToast({
-                                            title: '消息已撤回',
-                                            duration: 2000
+                                        _this14.chat_txt = '';
+                                        var data = {
+                                            content: '[欢迎]',
+                                            msgtype: 5,
+                                            photourl_form: _this14.user.photourl,
+                                            messageid: res.data,
+                                            addtime: new Date().getTime()
+                                        };
+                                        _this14.message.push(data);
+                                        setTimeout(function () {
+                                            uni.pageScrollTo({
+                                                scrollTop: 99999,
+                                                duration: 0
+                                            });
+                                        }, 100);
+                                    }
+                                });
+                            }), _defineProperty(_methods, "send_zaixian", function send_zaixian() {
+                                var _this15 = this;
+                                this.$http.post({
+                                    url: '/push/gatewayworker/sendmessage1.html',
+                                    data: {
+                                        userid_to: this.userid,
+                                        msg: '[在线咨询]',
+                                        type: 4
+                                    }
+                                }).then(function (res) {
+                                    if (res.code == 0) {
+                                        _this15.chat_txt = '';
+                                        var data = {
+                                            content: '[在线咨询]',
+                                            msgtype: 4,
+                                            photourl_form: _this15.user.photourl,
+                                            messageid: res.data,
+                                            addtime: new Date().getTime()
+                                        };
+                                        _this15.message.push(data);
+                                        setTimeout(function () {
+                                            uni.pageScrollTo({
+                                                scrollTop: 99999,
+                                                duration: 0
+                                            });
+                                        }, 100);
+                                    }
+                                });
+                            }), _defineProperty(_methods, "send_dianhua", function send_dianhua() {
+                                var _this16 = this;
+                                this.$http.post({
+                                    url: '/push/gatewayworker/sendmessage1.html',
+                                    data: {
+                                        userid_to: this.userid,
+                                        msg: '[电话咨询]',
+                                        type: 3
+                                    }
+                                }).then(function (res) {
+                                    if (res.code == 0) {
+                                        _this16.chat_txt = '';
+                                        var data = {
+                                            content: '[电话咨询]',
+                                            msgtype: 3,
+                                            photourl_form: _this16.user.photourl,
+                                            messageid: res.data,
+                                            addtime: new Date().getTime()
+                                        };
+                                        _this16.message.push(data);
+                                        setTimeout(function () {
+                                            uni.pageScrollTo({
+                                                scrollTop: 99999,
+                                                duration: 0
+                                            });
+                                        }, 100);
+                                    }
+                                });
+                            }), _defineProperty(_methods, "call", function call() {
+                                uni.makePhoneCall({ // 手机号
+                                    phoneNumber: this.dianhua + '', // 成功回调
+                                    success: function success(res) {
+                                        console.log('调用成功!');
+                                    }, // 失败回调
+                                    fail: function fail(res) {
+                                        console.log('调用失败!');
+                                    }
+                                });
+                            }), _defineProperty(_methods, "call2", function call2(dianhua) {
+                                uni.makePhoneCall({ // 手机号
+                                    phoneNumber: dianhua + '', // 成功回调
+                                    success: function success(res) {
+                                        console.log('调用成功!');
+                                    }, // 失败回调
+                                    fail: function fail(res) {
+                                        console.log('调用失败!');
+                                    }
+                                });
+                            }), _defineProperty(_methods, "wenjian", function wenjian(str) {
+                                str = str.substring(str.lastIndexOf('/') + 1);
+                                return str; // console.log(str)
+                            }), _defineProperty(_methods, "yuyin_chat", function yuyin_chat() {}), _defineProperty(_methods, "shipin_chat", function shipin_chat() {}),
+                             _defineProperty(_methods, "onOpenDoc", function onOpenDoc(src) {
+                                var url = this.img_url + src; /* 下载返回临时路径（退出应用失效） */
+                                console.log(url);
+
+                                swan.downloadFile({
+                                    url: url,
+                                    success: res => {
+                                        swan.showToast({
+                                            title: '已保存：' + res.tempFilePath,
+                                            icon: 'none'
                                         });
-                                        _this10.message.forEach(function (item, index, array) {
-                                            if (item.messageid == _this10.messageid) {
-                                                _this10.message.splice(index, 1);
+                                        console.log(res.tempFilePath)
+
+
+                                        swan.openDocument({
+                                            filePath: res.tempFilePath,
+                                            success: res => {
+                                                console.log('openDocument success', res);
+                                            },
+                                            fail: err => {
+                                                console.log('openDocument fail', err);
+                                                swan.showToast({
+                                                    title: '已下载-' + '暂不支持打开此格式文件',
+                                                    icon: 'none'
+                                                });
                                             }
                                         });
-                                        _this10.is_chehui = false;
-                                        if (_this10.zuijin_txt != '') {
-                                            _this10.is_zuijin_chehui = true;
-                                        } else {
-                                            _this10.is_zuijin_chehui = false;
-                                            _this10.chat_txt = '';
-                                        }
+                                    },
+                                    fail: err => {
+                                        console.log('downloadFile fail', err);
                                     }
                                 });
-                            },
-                            che_quxiao: function che_quxiao() {
-                                this.is_chehui = false;
-                            },
-                            huoqu_xiaoxi_list: function huoqu_xiaoxi_list() {
-                                var _this11 = this;
+
+
+
+
+
+
+
+
+                            }), _defineProperty(_methods, "send_wenjian", function send_wenjian() {
+                                /**
+                                 * currentWebview: 当前webview
+                                 * url：上传接口地址
+                                 * name：附件key,服务端根据key值获取文件流，默认file,上传文件的key
+                                 * header: 上传接口请求头
+                                 */
+
+                                uni.navigateTo({
+                                    url: 'up_file'
+                                });
+                                // var url = '/api/lawyer/index/uploadfile';
+                                // this.$refs.lFile.upload({
+                                //     url: url, //替换为你的
+                                //     name: 'files'
+                                // });
+
+                            }), _defineProperty(_methods, "onSuccess", function onSuccess(
+                                res) {
+                                console.log('上传成功回调', JSON.stringify(res));
+
+                                console.log(res.data.file);
+                                // uni.showToast({
+                                // 	title: JSON.stringify(res),
+                                // 	icon: 'none'
+                                // })
+                                this.send_wenjian_txt(res.data.file);
+                            }), _defineProperty(_methods, "send_wenjian_txt", function send_wenjian_txt(
+                                localPath) {
+                                var _this17 = this;
                                 var that = this;
-                                this.$http.post({
-                                    url: '/mlawyerapi/consult/chatdeatils',
-                                    data: {
-                                        page: this.page,
-                                        userid: this.userid
-                                    }
-                                }).then(function (res) {
-                                    _this11.title = res.data.user_to.mobile;
-                                    _this11.dianhua = res.data.user_to.mobile;
-                                    _this11.yh_user = res.data.user_to;
-                                    _this11.zixuncount = res.data.zixuncount;
-                                    var _loop = function _loop(key) {
-                                        if (res.data.message[key].msgtype == 10 || res.data.message[key].msgtype == 11 || res.data.message[key].msgtype == 12) {
-                                            _this11.$http.post({
-                                                url: '/mlawyerapi/consult/red_envelope',
-                                                data: {
-                                                    redid: res.data.message[key].content,
-                                                    userid: that.userid
-                                                }
-                                            }).then(function (ress) {
-                                                console.log(ress);
-                                                res.data.message[key] = Object.assign(res.data.message[key], ress.data.red_envelope);
-                                                _this11.$forceUpdate();
-                                            });
-                                        } // if (res.data.message[key].msgtype == 13) {
-                                        // 	console.log(key)
-                                        // 	innerAudioContext.src =that.img_url+res.data.message[key].content;
-                                        // 	innerAudioContext.onTimeUpdate(() => {
-                                        // 	    console.log(innerAudioContext.duration,key);
-                                        // 		let shichang={
-                                        // 			shitime:innerAudioContext.duration.toFixed(0)
-                                        // 		}
-                                        // 		res.data.message[key] = Object.assign(res.data.message[key], shichang);
-                                        // 		this.$forceUpdate();
-                                        // 	})
-                                        // }
-                                    };
-                                    for (var key in res.data.message) {
-                                        _loop(key);
-                                    }
-                                    _this11.message = res.data.message.concat(_this11.message);
-                                    if (_this11.page == 0) {
-                                        if (res.data.message.length < that.first_xiaoxi) {
-                                            _this11.is_all = true;
-                                        }
-                                        _this11.is_last_msguptime = _this11.message[_this11.message.length - 1].addtime;
-                                    } else {
-                                        if (res.data.message.length < 100) {
-                                            _this11.is_all = true;
-                                        }
-                                    } // if (res.data.message.length < 100) {
-                                    // 	this.is_all = true;
-                                    // }
-                                    if (!_this11.is_xiala) {
-                                        setTimeout(function () {
-                                            uni.pageScrollTo({
-                                                scrollTop: 99999,
-                                                duration: 0
-                                            });
-                                        }, 400);
-                                    } else {
-                                        setTimeout(function () {
-                                            var info = uni.createSelectorQuery().select('.chat_body');
-                                            info.boundingClientRect(function (data) { //data - 各种参数
-                                                uni.pageScrollTo({
-                                                    scrollTop: data.height - that.first_height,
-                                                    duration: 0
-                                                });
-                                            }).exec();
-                                        }, 1000);
-                                    }
-                                    that.time1 = res.data.shijian;
-                                    console.log(that.time1); // 倒计时
-                                    var interval = setInterval(function () {
-                                        var to = new Date(that.time1.replace(/-/g, '/'));
-                                        var now = new Date();
-                                        var time = to.getTime() - now.getTime();
-                                        if (time < 0) {
-                                            clearInterval(interval);
-                                        } else {
-                                            var day = parseInt(time / 1000 / 60 / 60 / 24);
-                                            var hour = parseInt(time / 1000 / 60 / 60 % 24);
-                                            var minute = parseInt(time / 1000 / 60 % 60);
-                                            var seconds = parseInt(time / 1000 % 60);
-                                            if (minute <= 9) minute = '0' + minute;
-                                            if (seconds <= 9) seconds = '0' + seconds;
-                                            that.day = day;
-                                            that.hour = hour;
-                                            that.minute = minute;
-                                            that.seconds = seconds;
-                                        }
-                                    }, 1000);
-                                    setTimeout(function () {
-                                        uni.hideLoading();
-                                    }, 1000);
-                                });
-                            },
-                            huoqu_renzheng: function huoqu_renzheng() {
-                                var _this12 = this;
-                                this.$http.post({
-                                    url: '/mlawyerapi/lawyer/auth',
-                                    data: {
-                                        type: 2
-                                    }
-                                }).then(function (res) {
-                                    _this12.renzheng = res.data.lawyerauth;
-                                });
-                            }
-                        }, _defineProperty(_methods, "input_click", function input_click() { // this.bottom_tip =true;
-                            this.isShowEmj = false;
-                            this.bt_show = false;
-                            setTimeout(function () {
-                                uni.pageScrollTo({
-                                    scrollTop: 99999,
-                                    duration: 0
-                                });
-                            }, 100);
-                        }), _defineProperty(_methods, "huojiao", function huojiao() {
-                            setTimeout(function () {
-                                uni.pageScrollTo({
-                                    scrollTop: 99999,
-                                    duration: 0
-                                });
-                            }, 600);
-                        }), _defineProperty(_methods, "shiqu", function shiqu() {
-                            setTimeout(function () {
-                                uni.pageScrollTo({
-                                    scrollTop: 99999,
-                                    duration: 0
-                                });
-                            }, 200);
-                        }), _defineProperty(_methods, "app_lianjie", function app_lianjie() {
-                            var that = this;
-                            var url = that.$http.WebSocket_url;
-                            uni.connectSocket({
-                                url: 'wss://' + url + ':3348',
-                                success: function success(data) {
-                                    console.log('websocket连接成功', data);
-                                },
-                                fail: function fail(err) { },
-                                complete: function complete(res) { }
-                            });
-                            uni.onSocketOpen(function (res) {
-                                console.log('WebSocket连接已打开！', res);
-                            });
-                            uni.onSocketError(function (res) {
-                                console.log('WebSocket连接打开失败，请检查！');
-                            });
-                            uni.onSocketMessage(function (res) {
-                                var data = JSON.parse(res.data);
-                                if (data.type == 'init') {
-                                    console.log('init');
-                                    console.log('client_id', data.client_id);
-                                    uni.request({
-                                        url: that.$http.baseUrl + '/push/gatewayworker/bind',
-                                        method: 'POST',
-                                        header: {
-                                            'Token': swan.getStorageSync("token")
-                                        },
-                                        data: {
-                                            client_id: data.client_id,
-                                            type: 1
-                                        },
-                                        success: function success(resp) {
-                                            console.log(resp, 'bind');
-                                        },
-                                        fail: function fail(resp) { }
-                                    });
-                                } else if (data.type == 'say') {
-                                    console.log('say');
-                                    if (data.state) {
-                                        if (data.state == 10) {
-                                            if (data.content) {
-                                                this.$http.post({
-                                                    url: '/mlawyerapi/consult/red_envelope',
-                                                    data: {
-                                                        redid: data.content,
-                                                        userid: that.userid
-                                                    }
-                                                }).then(function (ress) {
-                                                    var xiaoxi = {
-                                                        photourl_form: data.userid_from_pic,
-                                                        userid_to: data.userid_to,
-                                                        photourl_to: data.userid_to_pic,
-                                                        content: data.msg,
-                                                        msgtype: data.state,
-                                                        userid_from: data.userid_from,
-                                                        money: ress.data.red_envelope.money,
-                                                        is_pay: ress.data.red_envelope.is_pay,
-                                                        information: ress.data.red_envelope.information,
-                                                        paymode: ress.data.red_envelope.paymode,
-                                                        type: ress.data.red_envelope.type,
-                                                        addtime: new Date().getTime()
-                                                    };
-                                                    that.message.push(xiaoxi);
-                                                });
-                                            }
-                                        } else {
-                                            var xiaoxi = {
-                                                photourl_form: data.userid_from_pic,
-                                                userid_to: data.userid_to,
-                                                photourl_to: data.userid_to_pic,
-                                                content: data.msg,
-                                                msgtype: data.state,
-                                                userid_from: data.userid_from,
-                                                addtime: new Date().getTime()
-                                            };
-                                            if (that.user.userid != data.userid_from) {
-                                                that.message.push(xiaoxi);
-                                            }
-                                        }
-                                        setTimeout(function () {
-                                            uni.pageScrollTo({
-                                                scrollTop: 99999,
-                                                duration: 0
-                                            });
-                                        }, 200);
-                                    }
-                                } else {
-                                    console.log('else');
-                                }
-                            });
-                            uni.onSocketClose(function (res) {
-                                console.log('uniapp 已关闭！');
-                            });
-                        }), _defineProperty(_methods, "handleEmj", function handleEmj(i) {
-                            console.log(i);
-                            if (i == '[em_98]') { //匹配最后一个表情符号并删除。
-                                this.chat_txt = this.chat_txt.replace(/(\[[^\]]+\]|[\s\S])$/, '');
-                            } else {
-                                this.chat_txt += i;
-                            }
-                        }), _defineProperty(_methods, "replace_em", function replace_em(str) {
-                            str = str.replace(/\</g, '&lt;');
-                            str = str.replace(/\>/g, '&gt;');
-                            str = str.replace(/\n/g, '<br/>');
-                            str = str.replace(/\[em_([0-9]*)\]/g, '<img src="{{url}}uniapp/bkhumor-emoji/$1.gif" border="0" style="width:40rpx"/>');
-                            return str;
-                        }), _defineProperty(_methods, "handleEmj", function handleEmj(i) {
-                            console.log(i);
-                            if (i == '[em_98]') { //匹配最后一个表情符号并删除。
-                                this.chat_txt = this.chat_txt.replace(/(\[[^\]]+\]|[\s\S])$/, '');
-                            } else {
-                                this.chat_txt += i;
-                            }
-                        }), _defineProperty(_methods, "showEmj", function showEmj() {
-                            this.on_yuyin = false;
-                            var bool = !this.isShowEmj;
-                            if (bool) {
-                                this.emojiIcon = 'cuIcon-keyboard';
-                                this.bt_show = false;
-                            } else {
-                                this.emojiIcon = 'cuIcon-emoji';
-                            }
-                            this.isShowEmj = bool;
-                            this.$emit('show');
-                        }), _defineProperty(_methods, "jia", function jia() {
-                            this.bt_show = !this.bt_show;
-                            this.isShowEmj = false;
-                            this.on_yuyin = false;
-                        }), _defineProperty(_methods, "input_change", function input_change() {
-                            if (this.chat_txt == '') {
-                                this.is_fa = false;
-                            } else {
-                                this.is_fa = true;
-                            }
-                        }), _defineProperty(_methods, "send", function send() {
-                            var that = this;
-                            if (this.chat_txt == '') {
-                                uni.showToast({
-                                    title: '请输入内容',
-                                    duration: 2000,
-                                    icon: 'none'
-                                });
-                                return false;
-                            }
-                            if (this.canClick) {
-                                this.canClick = false;
-                                this.send_txt();
-                                setTimeout(function () {
-                                    that.canClick = true;
-                                }, 1000);
-                            } else {
-                                uni.showToast({
-                                    title: '请稍后发送',
-                                    duration: 2000,
-                                    icon: 'none'
-                                });
-                            }
-                        }), _defineProperty(_methods, "send_txt", function send_txt() {
-                            var _this13 = this;
-                            var data = {
-                                content: '' + this.chat_txt,
-                                userid_from: '' + this.id
-                            };
-                            var txt = this.replace_em(this.chat_txt);
-                            if (txt == '') {
-                                uni.showToast({
-                                    title: '请输入内容',
-                                    duration: 2000,
-                                    icon: 'none'
-                                });
-                                return false;
-                            }
-                            this.$http.post({
-                                url: '/push/gatewayworker/sendmessage1.html',
-                                data: {
-                                    userid_to: this.userid,
-                                    msg: this.chat_txt,
-                                    type: 1
-                                }
-                            }).then(function (res) {
-                                if (res.code == 0) {
-                                    _this13.chat_txt = '';
-                                    _this13.is_zuijin_chehui = false;
-                                    var data = {
-                                        content: txt,
-                                        msgtype: 1,
-                                        photourl_form: _this13.user.photourl,
-                                        messageid: res.data,
-                                        addtime: new Date().getTime()
-                                    };
-                                    _this13.message.push(data);
-                                    setTimeout(function () {
-                                        uni.pageScrollTo({
-                                            scrollTop: 99999,
-                                            duration: 0
-                                        });
-                                    }, 100);
-                                } // this.canClick=true
-                            });
-                        }), _defineProperty(_methods, "send_huanying", function send_huanying() {
-                            var _this14 = this;
-                            this.$http.post({
-                                url: '/push/gatewayworker/sendmessage1.html',
-                                data: {
-                                    userid_to: this.userid,
-                                    msg: '[欢迎]',
-                                    type: 5
-                                }
-                            }).then(function (res) {
-                                if (res.code == 0) {
-                                    _this14.chat_txt = '';
-                                    var data = {
-                                        content: '[欢迎]',
-                                        msgtype: 5,
-                                        photourl_form: _this14.user.photourl,
-                                        messageid: res.data,
-                                        addtime: new Date().getTime()
-                                    };
-                                    _this14.message.push(data);
-                                    setTimeout(function () {
-                                        uni.pageScrollTo({
-                                            scrollTop: 99999,
-                                            duration: 0
-                                        });
-                                    }, 100);
-                                }
-                            });
-                        }), _defineProperty(_methods, "send_zaixian", function send_zaixian() {
-                            var _this15 = this;
-                            this.$http.post({
-                                url: '/push/gatewayworker/sendmessage1.html',
-                                data: {
-                                    userid_to: this.userid,
-                                    msg: '[在线咨询]',
-                                    type: 4
-                                }
-                            }).then(function (res) {
-                                if (res.code == 0) {
-                                    _this15.chat_txt = '';
-                                    var data = {
-                                        content: '[在线咨询]',
-                                        msgtype: 4,
-                                        photourl_form: _this15.user.photourl,
-                                        messageid: res.data,
-                                        addtime: new Date().getTime()
-                                    };
-                                    _this15.message.push(data);
-                                    setTimeout(function () {
-                                        uni.pageScrollTo({
-                                            scrollTop: 99999,
-                                            duration: 0
-                                        });
-                                    }, 100);
-                                }
-                            });
-                        }), _defineProperty(_methods, "send_dianhua", function send_dianhua() {
-                            var _this16 = this;
-                            this.$http.post({
-                                url: '/push/gatewayworker/sendmessage1.html',
-                                data: {
-                                    userid_to: this.userid,
-                                    msg: '[电话咨询]',
-                                    type: 3
-                                }
-                            }).then(function (res) {
-                                if (res.code == 0) {
-                                    _this16.chat_txt = '';
-                                    var data = {
-                                        content: '[电话咨询]',
-                                        msgtype: 3,
-                                        photourl_form: _this16.user.photourl,
-                                        messageid: res.data,
-                                        addtime: new Date().getTime()
-                                    };
-                                    _this16.message.push(data);
-                                    setTimeout(function () {
-                                        uni.pageScrollTo({
-                                            scrollTop: 99999,
-                                            duration: 0
-                                        });
-                                    }, 100);
-                                }
-                            });
-                        }), _defineProperty(_methods, "call", function call() {
-                            uni.makePhoneCall({ // 手机号
-                                phoneNumber: this.dianhua + '', // 成功回调
-                                success: function success(res) {
-                                    console.log('调用成功!');
-                                }, // 失败回调
-                                fail: function fail(res) {
-                                    console.log('调用失败!');
-                                }
-                            });
-                        }), _defineProperty(_methods, "call2", function call2(dianhua) {
-                            uni.makePhoneCall({ // 手机号
-                                phoneNumber: dianhua + '', // 成功回调
-                                success: function success(res) {
-                                    console.log('调用成功!');
-                                }, // 失败回调
-                                fail: function fail(res) {
-                                    console.log('调用失败!');
-                                }
-                            });
-                        }), _defineProperty(_methods, "wenjian", function wenjian(str) {
-                            str = str.substring(str.lastIndexOf('/') + 1);
-                            return str; // console.log(str)
-                        }), _defineProperty(_methods, "yuyin_chat", function yuyin_chat() { }), _defineProperty(_methods, "shipin_chat", function shipin_chat() { }), _defineProperty(_methods, "onOpenDoc", function onOpenDoc(src) {
-                            var url = this.img_url + src; /* 下载返回临时路径（退出应用失效） */
-
-
-                            var url = this.img_url + src; /* 下载返回临时路径（退出应用失效） */
-                            console.log(url);
-
-                            swan.downloadFile({
-                                // 仅为示例，并非真实的接口地址
-                                url: url,
-                                success: res => {
-                                    swan.openDocument({
-                                        filePath: res.tempFilePath,
-                                        success: res => {
-                                            console.log('openDocument success', res);
-                                        },
-                                        fail: err => {
-                                            console.log('openDocument fail', err);
-                                        }
-                                    });
-                                },
-                                fail: err => {
-                                    console.log('downloadFile fail', err);
-                                }
-                            });
-
-
-
-
-
-
-
-                        }), _defineProperty(_methods, "send_wenjian", function send_wenjian() {
-                            /**
-                             * currentWebview: 当前webview
-                             * url：上传接口地址
-                             * name：附件key,服务端根据key值获取文件流，默认file,上传文件的key
-                             * header: 上传接口请求头
-                             */
-                            var url = '/api/lawyer/index/uploadfile';
-
-
-
-                            this.$refs.lFile.upload({
-
-
-
-
-                                url: url, //替换为你的
-                                name: 'files'
-                            });
-
-                        }), _defineProperty(_methods, "onSuccess", function onSuccess(
-                            res) {
-                            console.log('上传成功回调', JSON.stringify(res));
-
-                            console.log(res.data.file);
-                            // uni.showToast({
-                            // 	title: JSON.stringify(res),
-                            // 	icon: 'none'
-                            // })
-                            this.send_wenjian_txt(res.data.file);
-                        }), _defineProperty(_methods, "send_wenjian_txt", function send_wenjian_txt(
-                            localPath) {
-                            var _this17 = this;
-                            var that = this;
-
-                            this.$http.
+                                swan.setStorageSync("up_path", '');
+                                this.$http.
                                 post({
                                     url: '/push/gatewayworker/sendmessage1.html',
                                     data: {
@@ -3600,6 +3617,9 @@
 
                                 then(function (res) {
                                     console.log(res);
+
+
+
                                     if (res.code == 0) {
                                         var data = {
                                             content: localPath,
@@ -3624,89 +3644,89 @@
                                         }
                                     }
                                 });
-                        }), _defineProperty(_methods, "up_img", function up_img() {
-                            var that = this;
-                            uni.chooseImage({
-                                success: function success(res) {
-                                    console.log(res);
+                            }), _defineProperty(_methods, "up_img", function up_img() {
+                                var that = this;
+                                uni.chooseImage({
+                                    success: function success(res) {
+                                        console.log(res);
 
 
-                                    var tempFilePaths = res.tempFilePaths;
-                                    for (var x = 0; x < res.tempFilePaths.length; x++) {
-                                        uni.getFileSystemManager().readFile({
-                                            filePath: res.tempFilePaths[x], //选择图片返回的相对路径
-                                            encoding: "base64",//这个是很重要的
-                                            success: res => { //成功的回调
-                                                //返回base64格式
-                                                //  console.log('data:image/png;base64,' + res.data)
-                                                var img_base = 'data:image/png;base64,' + res.data
-                                                that.sendbase(img_base)
+                                        var tempFilePaths = res.tempFilePaths;
+                                        for (var x = 0; x < res.tempFilePaths.length; x++) {
+                                            uni.getFileSystemManager().readFile({
+                                                filePath: res.tempFilePaths[x], //选择图片返回的相对路径
+                                                encoding: "base64", //这个是很重要的
+                                                success: res => { //成功的回调
+                                                    //返回base64格式
+                                                    //  console.log('data:image/png;base64,' + res.data)
+                                                    var img_base = 'data:image/png;base64,' + res.data
+                                                    that.sendbase(img_base)
 
-                                            }
-                                        })
+                                                }
+                                            })
+                                        }
+
+
+
+
+
                                     }
+                                });
+
+                            }),
+                            _defineProperty(_methods, "sendbase", function sendbase(img_base) {
+                                var that = this;
+                                this.$http.post({
+                                    url: '/lawyer/index/uploadimgmessage',
+                                    data: {
+                                        img: img_base
+                                    }
+                                }).then(function (res) {
+
+                                    that.send_img(res.data.img)
+                                });
+
+
+
+
+                            }),
 
 
 
 
 
+
+
+
+
+
+
+                            _defineProperty(_methods, "getLocalFilePath", function getLocalFilePath(
+                                path) {
+                                console.log('getLocalFilePath', '111');
+                                if (path.indexOf('_www') === 0 || path.indexOf('_doc') === 0 || path.indexOf('_documents') === 0 || path.indexOf('_downloads') === 0) {
+                                    return path;
                                 }
-                            });
-
-                        }),
-                        _defineProperty(_methods, "sendbase", function sendbase(img_base) {
-                            var that = this;
-                            this.$http.post({
-                                url: '/lawyer/index/uploadimgmessage',
-                                data:{
-                                    img: img_base
+                                if (path.indexOf('file://') === 0) {
+                                    return path;
                                 }
-                            }).then(function (res) {
-
-                                that.send_img(res.data.img)
-                            });
-
-
-
-
-                        }),
-
-
-
-
-
-
-
-
-
-
-
-                        _defineProperty(_methods, "getLocalFilePath", function getLocalFilePath(
-                            path) {
-                            console.log('getLocalFilePath', '111');
-                            if (path.indexOf('_www') === 0 || path.indexOf('_doc') === 0 || path.indexOf('_documents') === 0 || path.indexOf('_downloads') === 0) {
-                                return path;
-                            }
-                            if (path.indexOf('file://') === 0) {
-                                return path;
-                            }
-                            if (path.indexOf('/storage/emulated/0/') === 0) {
-                                return path;
-                            }
-                            if (path.indexOf('/') === 0) {
-                                var localFilePath = plus.io.convertAbsoluteFileSystem(path);
-                                if (localFilePath !== path) {
-                                    return localFilePath;
-                                } else {
-                                    path = path.substr(1);
+                                if (path.indexOf('/storage/emulated/0/') === 0) {
+                                    return path;
                                 }
-                            }
-                            return '_www/' + path;
-                        }),
-                         _defineProperty(_methods, "send_img", function send_img(
-                            img) {
-                            var _this18 = this;
-                            this.$http.
+                                if (path.indexOf('/') === 0) {
+                                    var localFilePath = plus.io.convertAbsoluteFileSystem(path);
+                                    if (localFilePath !== path) {
+                                        return localFilePath;
+                                    } else {
+                                        path = path.substr(1);
+                                    }
+                                }
+                                return '_www/' + path;
+                            }),
+                            _defineProperty(_methods, "send_img", function send_img(
+                                img) {
+                                var _this18 = this;
+                                this.$http.
                                 post({
                                     url: '/push/gatewayworker/sendmessage1.html',
                                     data: {
@@ -3736,61 +3756,61 @@
                                         }, 100);
                                     }
                                 });
-                        }), _defineProperty(_methods, "changyong_change", function changyong_change(
-                            data) {
-                            this.changyong = this.changyong_arry[data.detail.value];
-                            this.chat_txt = this.changyong_arry[data.detail.value];
-                            console.log(this.changyong);
-                        }), _defineProperty(_methods, "tan_hide", function tan_hide() {
-                            this.isShowEmj = false;
-                            this.bt_show = false;
-                        }), _defineProperty(_methods, "clickImg", function clickImg(
-                            img) {
-                            uni.previewImage({
-                                urls: ['' + img], //需要预览的图片http链接列表，多张的时候，url直接写在后面就行了
-                                current: '', // 当前显示图片的http链接，默认是第一个
-                                success: function success(res) { },
-                                fail: function fail(res) { },
-                                complete: function complete(res) { }
-                            });
+                            }), _defineProperty(_methods, "changyong_change", function changyong_change(
+                                data) {
+                                this.changyong = this.changyong_arry[data.detail.value];
+                                this.chat_txt = this.changyong_arry[data.detail.value];
+                                console.log(this.changyong);
+                            }), _defineProperty(_methods, "tan_hide", function tan_hide() {
+                                this.isShowEmj = false;
+                                this.bt_show = false;
+                            }), _defineProperty(_methods, "clickImg", function clickImg(
+                                img) {
+                                uni.previewImage({
+                                    urls: ['' + img], //需要预览的图片http链接列表，多张的时候，url直接写在后面就行了
+                                    current: '', // 当前显示图片的http链接，默认是第一个
+                                    success: function success(res) {},
+                                    fail: function fail(res) {},
+                                    complete: function complete(res) {}
+                                });
 
-                        }), _defineProperty(_methods, "connectSocketInit", function connectSocketInit() {
-                            var that = this;
-                            var url = window.location.host;
-                            console.log(url);
-                            var ws = new WebSocket('wss://' + url + ':3348');
-                            ws.onopen = function (evt) {
-                                console.log('Connection open ...');
-                                // ws.send("你好");
-                            };
-                            ws.onmessage = function (evt) {
-                                console.log('Received Message: ' + evt.data);
-                                // json数据转换成js对象
-                                var data = JSON.parse(evt.data);
-                                if (data.type == 'init') {
-                                    console.log('init');
-                                    console.log('client_id', data.client_id);
-                                    uni.request({
-                                        url: that.$http.baseUrl + '/push/gatewayworker/bind',
-                                        method: 'POST',
-                                        data: {
-                                            client_id: data.client_id,
-                                            type: 1
-                                        },
+                            }), _defineProperty(_methods, "connectSocketInit", function connectSocketInit() {
+                                var that = this;
+                                var url = window.location.host;
+                                console.log(url);
+                                var ws = new WebSocket('wss://' + url + ':3348');
+                                ws.onopen = function (evt) {
+                                    console.log('Connection open ...');
+                                    // ws.send("你好");
+                                };
+                                ws.onmessage = function (evt) {
+                                    console.log('Received Message: ' + evt.data);
+                                    // json数据转换成js对象
+                                    var data = JSON.parse(evt.data);
+                                    if (data.type == 'init') {
+                                        console.log('init');
+                                        console.log('client_id', data.client_id);
+                                        uni.request({
+                                            url: that.$http.baseUrl + '/push/gatewayworker/bind',
+                                            method: 'POST',
+                                            data: {
+                                                client_id: data.client_id,
+                                                type: 1
+                                            },
 
 
-                                        success: function success(resp) {
-                                            console.log(resp, 'bind');
-                                        },
-                                        fail: function fail(resp) { }
-                                    });
+                                            success: function success(resp) {
+                                                console.log(resp, 'bind');
+                                            },
+                                            fail: function fail(resp) {}
+                                        });
 
-                                } else if (data.type == 'say') {
-                                    console.log('say');
-                                    if (data.state) {
-                                        if (data.state == 10) {
-                                            if (data.content) {
-                                                this.$http.
+                                    } else if (data.type == 'say') {
+                                        console.log('say');
+                                        if (data.state) {
+                                            if (data.state == 10) {
+                                                if (data.content) {
+                                                    this.$http.
                                                     post({
                                                         url: '/mlawyerapi/consult/red_envelope',
                                                         data: {
@@ -3818,43 +3838,43 @@
 
                                                         that.message.push(xiaoxi);
                                                     });
+                                                }
+                                            } else {
+                                                var xiaoxi = {
+                                                    photourl_form: data.userid_from_pic,
+                                                    userid_to: data.userid_to,
+                                                    photourl_to: data.userid_to_pic,
+                                                    content: data.msg,
+                                                    msgtype: data.state,
+                                                    userid_from: data.userid_from,
+                                                    addtime: new Date().getTime()
+                                                };
+
+                                                that.message.push(xiaoxi);
                                             }
-                                        } else {
-                                            var xiaoxi = {
-                                                photourl_form: data.userid_from_pic,
-                                                userid_to: data.userid_to,
-                                                photourl_to: data.userid_to_pic,
-                                                content: data.msg,
-                                                msgtype: data.state,
-                                                userid_from: data.userid_from,
-                                                addtime: new Date().getTime()
-                                            };
-
-                                            that.message.push(xiaoxi);
+                                            setTimeout(function () {
+                                                uni.pageScrollTo({
+                                                    scrollTop: 99999,
+                                                    duration: 0
+                                                });
+                                            }, 100);
                                         }
-                                        setTimeout(function () {
-                                            uni.pageScrollTo({
-                                                scrollTop: 99999,
-                                                duration: 0
-                                            });
-                                        }, 100);
+                                    } else {
+                                        console.log('else');
                                     }
-                                } else {
-                                    console.log('else');
-                                }
-                            };
-                            ws.onclose = function (evt) {
-                                console.log('Connection closed.');
-                            };
-                            ws.onerror = function (evt) {
-                                console.log('WebSocketError!', evt);
-                            };
-                        }), _defineProperty(_methods, "go_shoukuan", function go_shoukuan() {
-                            uni.navigateTo({
-                                url: 'shoukuan?userid=' + this.userid
-                            });
+                                };
+                                ws.onclose = function (evt) {
+                                    console.log('Connection closed.');
+                                };
+                                ws.onerror = function (evt) {
+                                    console.log('WebSocketError!', evt);
+                                };
+                            }), _defineProperty(_methods, "go_shoukuan", function go_shoukuan() {
+                                uni.navigateTo({
+                                    url: 'shoukuan?userid=' + this.userid
+                                });
 
-                        }), _methods),
+                            }), _methods),
 
                         filters: {
                             timeStamp: function timeStamp(value) {
@@ -3902,7 +3922,7 @@
                 var _F_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_F_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_F_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_chat_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(_F_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_F_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_F_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_chat_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
                 /* harmony reexport (unknown) */
                 for (var __WEBPACK_IMPORT_KEY__ in _F_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_F_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_F_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_chat_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__)
-                    if (__WEBPACK_IMPORT_KEY__ !== 'default') (function (key) {
+                    if (__WEBPACK_IMPORT_KEY__ !== 'default')(function (key) {
                         __webpack_require__.d(__webpack_exports__, key, function () {
                             return _F_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_F_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_F_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_F_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_chat_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key];
                         })

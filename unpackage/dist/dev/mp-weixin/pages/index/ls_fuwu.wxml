@@ -1,1 +1,98 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">律师服务</view><view class=" head_right"><image src="/static/lsimg/sousuo.png" mode data-event-opts="{{[['tap',[['tan',['$event']]]]]}}" bindtap="__e"></image></view></view><view class="zi_body "><view class="fuwu_list"><block wx:for="{{$root.l0}}" wx:for-item="item" wx:for-index="index"><view class="{{['fuwu_item',(item.g0!=-1)?'zhankai_on':'']}}"><view class="fuwu_item_top"><view class="fuwu_item_top_left"><view data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['lslist','',index,'userid']]]]]]]}}" class="fuwu_item_top_tx" bindtap="__e"><image class="tx" src="{{img_url+item.$orig.photourl}}" mode></image><image class="ren" src="../../static/img/renzheng2.png" mode></image></view><view class="fuwu_item_top_zhuangtai qian_22"><image src="../../static/img/zaixian.png" mode></image>在线</view></view><view data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['lslist','',index,'userid']]]]]]]}}" class="fuwu_item_top_right" bindtap="__e"><view class="hei_32_bold">{{item.$orig.nickname+"律师"}}</view><view class="hei_26 fuwu_item_lvsuo"><image src="../../static/img/heise_lvsuo.png" mode></image>{{''+item.$orig.lvsuo}}</view><view class="qian_22 fuwu"><view class="fuwu_num"><image src="../../static/img/fuwu.png" mode></image>已服务<text class="lv_22">{{item.$orig.replynum}}</text>人</view><view class="fuwu_pingjia"><image src="../../static/img/pingjia.png" mode></image>评价<text class="lv_22">{{item.$orig.haopingnum}}</text>次</view></view><view class="fuwu_item_top_shanchang qian_24"><block wx:if="{{shanchang_obj[item.$orig.expertise1]&&shanchang_obj[item.$orig.expertise1].shanchangname}}"><text>{{shanchang_obj[item.$orig.expertise1].shanchangname}}</text></block><block wx:if="{{shanchang_obj[item.$orig.expertise2]&&shanchang_obj[item.$orig.expertise2].shanchangname}}"><text>{{shanchang_obj[item.$orig.expertise2].shanchangname}}</text></block><block wx:if="{{shanchang_obj[item.$orig.expertise3]&&shanchang_obj[item.$orig.expertise3].shanchangname}}"><text>{{shanchang_obj[item.$orig.expertise3].shanchangname}}</text></block></view></view><view data-event-opts="{{[['tap',[['zhankai',[index]]]]]}}" class="shou_zhangtai hui_24" bindtap="__e">{{''+(item.g1!=-1?'收起':'展开')+''}}<image src="../../static/img/xiangxia.png" mode></image></view></view><view class="fuwu_item_bottom bai_28"><view data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','合同审核',3],[[['lslist','',index,'userid']],[['lslist','',index,'hetong_shenhe']]]]]]]}}" class="fuwu_item_shoufei " bindtap="__e"><view class="fuwu_item_shoufei_title">合同审核</view><view class="bai_20">￥<text class="bai_30">{{item.$orig.hetong_shenhe}}</text>/次</view></view><view data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','代写合同',3],[[['lslist','',index,'userid']],[['lslist','',index,'hetong_daixie']]]]]]]}}" class="fuwu_item_shoufei" bindtap="__e"><view class="fuwu_item_shoufei_title">代写合同</view><view class="bai_20">￥<text class="bai_30">{{item.$orig.hetong_daixie}}</text>/次</view></view><view data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','代写文书',3],[[['lslist','',index,'userid']],[['lslist','',index,'hetong_wenshu']]]]]]]}}" class="fuwu_item_shoufei" bindtap="__e"><view class="fuwu_item_shoufei_title">代写文书</view><view class="bai_20">￥<text class="bai_30">{{item.$orig.hetong_wenshu}}</text>/次</view></view><view data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','律师会见',4],[[['lslist','',index,'userid']],[['lslist','',index,'lvshi_huijian']]]]]]]}}" class="fuwu_item_shoufei" bindtap="__e"><view class="fuwu_item_shoufei_title">律师会见</view><view class="bai_20">￥<text class="bai_30">{{item.$orig.lvshi_huijian}}</text>/次</view></view><view data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','发律师函',4],[[['lslist','',index,'userid']],[['lslist','',index,'lvshihan']]]]]]]}}" class="fuwu_item_shoufei" bindtap="__e"><view class="fuwu_item_shoufei_title">发律师函</view><view class="bai_20">￥<text class="bai_30">{{item.$orig.lvshihan}}</text>/次</view></view><view data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','案件指导',4],[[['lslist','',index,'userid']],[['lslist','',index,'anjianzhidao']]]]]]]}}" class="fuwu_item_shoufei" bindtap="__e"><view class="fuwu_item_shoufei_title">案件指导</view><view class="bai_20">￥<text class="bai_30">{{item.$orig.anjianzhidao}}</text>/次</view></view><view data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','1次',0],[[['lslist','',index,'userid']],[['lslist','',index,'jianmian']]]]]]]}}" class="fuwu_item_shoufei" bindtap="__e"><view class="fuwu_item_shoufei_title">见面咨询</view><view class="bai_20">￥<text class="bai_30">{{item.$orig.jianmian}}</text>/次</view></view></view></view></block></view></view><uni-popup class="vue-ref" vue-id="6a683127-1" type="bottom" data-ref="popup" bind:__l="__l" vue-slots="{{['default']}}"><view class="tan"><view class="tan_title hei_30">查询条件</view><picker mode="selector" range="{{zhuanchang_arry}}" range-key="shanchangname" data-event-opts="{{[['change',[['zhuanchang_change',['$event']]]]]}}" bindchange="__e"><view class="tan_list hei_26"><view class="tan_list_top"><text>选择专长</text>{{''+(zhuanchang?zhuanchang:'请选择')+''}}</view></view></picker><picker-address2 bind:change="__e" vue-id="{{('6a683127-2')+','+('6a683127-1')}}" data-event-opts="{{[['^change',[['change']]]]}}" bind:__l="__l" vue-slots="{{['default']}}"><view class="tan_list hei_26"><view class="tan_list_top"><text>服务地区</text>{{''+(dizhi?dizhi:'请选择')+''}}</view></view></picker-address2><view class="tan_buttom "><button class="quxiao hong_30" type data-event-opts="{{[['tap',[['quxiao_btn',['$event']]]]]}}" bindtap="__e">取消搜索</button><button class="queren bai_30" type data-event-opts="{{[['tap',[['queding_btn',['$event']]]]]}}" bindtap="__e">确认搜索</button></view></view></uni-popup></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">律师服务</view>
+		<view class=" head_right">
+			<image src="{{img_url}}/uniapp/lsimg/sousuo.png" mode data-event-opts="{{[['tap',[['tan',['$event']]]]]}}" bindtap="__e"></image>
+		</view>
+	</view>
+	<view class="zi_body ">
+		<view class="fuwu_list">
+			<block wx:for="{{$root.l0}}" wx:for-item="item" wx:for-index="index">
+				<view class="{{['fuwu_item',(item.g0!=-1)?'zhankai_on':'']}}">
+					<view class="fuwu_item_top">
+						<view class="fuwu_item_top_left">
+							<view data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['lslist','',index,'userid']]]]]]]}}" class="fuwu_item_top_tx" bindtap="__e">
+								<image class="tx" src="{{img_url+item.$orig.photourl}}" mode></image>
+								<image class="ren" src="{{img_url}}/uniapp/img/renzheng2.png" mode></image>
+							</view>
+							<view class="fuwu_item_top_zhuangtai qian_22">
+								<image src="{{img_url}}/uniapp/img/zaixian.png" mode></image>在线
+							</view>
+						</view>
+						<view data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['lslist','',index,'userid']]]]]]]}}" class="fuwu_item_top_right" bindtap="__e">
+							<view class="hei_32_bold">{{item.$orig.nickname+"律师"}}</view>
+							<view class="hei_26 fuwu_item_lvsuo">
+								<image src="{{img_url}}/uniapp/img/heise_lvsuo.png" mode></image>{{''+item.$orig.lvsuo}}
+							</view>
+							<view class="qian_22 fuwu">
+								<view class="fuwu_num">
+									<image src="{{img_url}}/uniapp/img/fuwu.png" mode></image>已服务<text class="lv_22">{{item.$orig.replynum}}</text>人
+								</view>
+								<view class="fuwu_pingjia">
+									<image src="{{img_url}}/uniapp/img/pingjia.png" mode></image>评价<text class="lv_22">{{item.$orig.haopingnum}}</text>次
+								</view>
+							</view>
+							<view class="fuwu_item_top_shanchang qian_24">
+								<block wx:if="{{shanchang_obj[item.$orig.expertise1]&&shanchang_obj[item.$orig.expertise1].shanchangname}}"><text>{{shanchang_obj[item.$orig.expertise1].shanchangname}}</text></block>
+								<block wx:if="{{shanchang_obj[item.$orig.expertise2]&&shanchang_obj[item.$orig.expertise2].shanchangname}}"><text>{{shanchang_obj[item.$orig.expertise2].shanchangname}}</text></block>
+								<block wx:if="{{shanchang_obj[item.$orig.expertise3]&&shanchang_obj[item.$orig.expertise3].shanchangname}}"><text>{{shanchang_obj[item.$orig.expertise3].shanchangname}}</text></block>
+							</view>
+						</view>
+						<view data-event-opts="{{[['tap',[['zhankai',[index]]]]]}}" class="shou_zhangtai hui_24" bindtap="__e">{{''+(item.g1!=-1?'收起':'展开')+''}}
+							<image src="{{img_url}}/uniapp/img/xiangxia.png" mode></image>
+						</view>
+					</view>
+					<view class="fuwu_item_bottom bai_28">
+						<view data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','合同审核',3],[[['lslist','',index,'userid']],[['lslist','',index,'hetong_shenhe']]]]]]]}}" class="fuwu_item_shoufei " bindtap="__e">
+							<view class="fuwu_item_shoufei_title">合同审核</view>
+							<view class="bai_20">￥<text class="bai_30">{{item.$orig.hetong_shenhe}}</text>/次</view>
+						</view>
+						<view data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','代写合同',3],[[['lslist','',index,'userid']],[['lslist','',index,'hetong_daixie']]]]]]]}}" class="fuwu_item_shoufei" bindtap="__e">
+							<view class="fuwu_item_shoufei_title">代写合同</view>
+							<view class="bai_20">￥<text class="bai_30">{{item.$orig.hetong_daixie}}</text>/次</view>
+						</view>
+						<view data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','代写文书',3],[[['lslist','',index,'userid']],[['lslist','',index,'hetong_wenshu']]]]]]]}}" class="fuwu_item_shoufei" bindtap="__e">
+							<view class="fuwu_item_shoufei_title">代写文书</view>
+							<view class="bai_20">￥<text class="bai_30">{{item.$orig.hetong_wenshu}}</text>/次</view>
+						</view>
+						<view data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','律师会见',4],[[['lslist','',index,'userid']],[['lslist','',index,'lvshi_huijian']]]]]]]}}" class="fuwu_item_shoufei" bindtap="__e">
+							<view class="fuwu_item_shoufei_title">律师会见</view>
+							<view class="bai_20">￥<text class="bai_30">{{item.$orig.lvshi_huijian}}</text>/次</view>
+						</view>
+						<view data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','发律师函',4],[[['lslist','',index,'userid']],[['lslist','',index,'lvshihan']]]]]]]}}" class="fuwu_item_shoufei" bindtap="__e">
+							<view class="fuwu_item_shoufei_title">发律师函</view>
+							<view class="bai_20">￥<text class="bai_30">{{item.$orig.lvshihan}}</text>/次</view>
+						</view>
+						<view data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','案件指导',4],[[['lslist','',index,'userid']],[['lslist','',index,'anjianzhidao']]]]]]]}}" class="fuwu_item_shoufei" bindtap="__e">
+							<view class="fuwu_item_shoufei_title">案件指导</view>
+							<view class="bai_20">￥<text class="bai_30">{{item.$orig.anjianzhidao}}</text>/次</view>
+						</view>
+						<view data-event-opts="{{[['tap',[['go_zhifu',['$0','$1','1次',0],[[['lslist','',index,'userid']],[['lslist','',index,'jianmian']]]]]]]}}" class="fuwu_item_shoufei" bindtap="__e">
+							<view class="fuwu_item_shoufei_title">见面咨询</view>
+							<view class="bai_20">￥<text class="bai_30">{{item.$orig.jianmian}}</text>/次</view>
+						</view>
+					</view>
+				</view>
+			</block>
+		</view>
+	</view>
+	<uni-popup class="vue-ref" vue-id="6a683127-1" type="bottom" data-ref="popup" bind:__l="__l" vue-slots="{{['default']}}">
+		<view class="tan">
+			<view class="tan_title hei_30">查询条件</view>
+			<picker mode="selector" range="{{zhuanchang_arry}}" range-key="shanchangname" data-event-opts="{{[['change',[['zhuanchang_change',['$event']]]]]}}" bindchange="__e">
+				<view class="tan_list hei_26">
+					<view class="tan_list_top"><text>选择专长</text>{{''+(zhuanchang?zhuanchang:'请选择')+''}}</view>
+				</view>
+			</picker>
+			<picker-address2 bind:change="__e" vue-id="{{('6a683127-2')+','+('6a683127-1')}}" data-event-opts="{{[['^change',[['change']]]]}}" bind:__l="__l" vue-slots="{{['default']}}">
+				<view class="tan_list hei_26">
+					<view class="tan_list_top"><text>服务地区</text>{{''+(dizhi?dizhi:'请选择')+''}}</view>
+				</view>
+			</picker-address2>
+			<view class="tan_buttom "><button class="quxiao hong_30" type data-event-opts="{{[['tap',[['quxiao_btn',['$event']]]]]}}" bindtap="__e">取消搜索</button><button class="queren bai_30" type data-event-opts="{{[['tap',[['queding_btn',['$event']]]]]}}" bindtap="__e">确认搜索</button></view>
+		</view>
+	</uni-popup>
+</view>

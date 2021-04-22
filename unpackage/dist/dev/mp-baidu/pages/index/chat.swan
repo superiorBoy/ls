@@ -908,4 +908,5 @@
             </view>
         </view>
     </block>
+       <web-view src="{{up_url}}" s-if='is_upfile'></web-view>
 </view>

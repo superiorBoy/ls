@@ -1,1 +1,57 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">知识详情</view><view class=" head_right hei_30_bold"></view></view><view class="zi_body "><view class="erji_weizhi hui_26_bold"><text data-event-opts="{{[['tap',[['go_index']]]]}}" bindtap="__e">首页</text><image src="/static/img/zhishi_weizhi.png" mode></image><navigator url="changshi">法律知识</navigator><block wx:if="{{yiji_title!=''}}"><image src="/static/img/zhishi_weizhi.png" mode></image></block><block wx:if="{{yiji_title!=''}}"><navigator url="{{'changshi_erji?typeid='+yiid}}">{{yiji_title+''}}</navigator></block><block wx:if="{{er_title!=''}}"><image src="/static/img/zhishi_weizhi.png" mode></image></block><block wx:if="{{er_title!=''}}"><navigator url="{{'changshi_sanji?erjiid='+er_id+'&yi_id='+yiid}}">{{er_title+''}}</navigator></block><image src="/static/img/zhishi_weizhi.png" mode></image><text class="hei_30">详情</text></view><view class="zhishi_xq"><view class="xq_title hei_30_bold">{{data.title}}</view><view class="xq_top qian_24"><view class="xq_top_item1"><image src="/static/img/shuqian.png" mode></image>小虎网络整理</view><view class="xq_top_item2"><image src="/static/img/changshi_time.png" mode></image>{{''+$root.f0+''}}</view><view class="xq_top_item3"><image src="/static/img/changshi_liulan.png" mode></image>{{''+data.readnum+'浏览'}}</view></view><block wx:if="{{data.daodu!=''}}"><view class="zhaiyao hui_26">{{data.daodu}}</view></block><view class="zhengwen hei_26"><u-parse vue-id="63991453-1" content="{{data.information}}" bind:__l="__l"></u-parse></view></view><view class="changshi_bottom"><view class="changshi_bottom_left"><image class="changshi_xiaoxi" style="width:60rpx;height:55rpx;" src="/static/img/changshi_xiaoxi.png" mode></image><view class="changshi_bottom_l hei_28"><view>当前在线律师<text class="hong_28">1000+</text>人</view><view>获取解答只需要<text class="hong_28">1分钟</text></view></view></view><navigator class="changshi_bottom_right bai_30" url="tiwen">我要问律师</navigator></view></view></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">知识详情</view>
+		<view class=" head_right hei_30_bold"></view>
+	</view>
+	<view class="zi_body ">
+		<view class="erji_weizhi hui_26_bold"><text data-event-opts="{{[['tap',[['go_index']]]]}}" bindtap="__e">首页</text>
+			<image src="{{img_url}}/uniapp/img/zhishi_weizhi.png" mode></image>
+			<navigator url="changshi">法律知识</navigator>
+			<block wx:if="{{yiji_title!=''}}">
+				<image src="{{img_url}}/uniapp/img/zhishi_weizhi.png" mode></image>
+			</block>
+			<block wx:if="{{yiji_title!=''}}">
+				<navigator url="{{'changshi_erji?typeid='+yiid}}">{{yiji_title+''}}</navigator>
+			</block>
+			<block wx:if="{{er_title!=''}}">
+				<image src="{{img_url}}/uniapp/img/zhishi_weizhi.png" mode></image>
+			</block>
+			<block wx:if="{{er_title!=''}}">
+				<navigator url="{{'changshi_sanji?erjiid='+er_id+'&yi_id='+yiid}}">{{er_title+''}}</navigator>
+			</block>
+			<image src="{{img_url}}/uniapp/img/zhishi_weizhi.png" mode></image><text class="hei_30">详情</text></view>
+		<view class="zhishi_xq">
+			<view class="xq_title hei_30_bold">{{data.title}}</view>
+			<view class="xq_top qian_24">
+				<view class="xq_top_item1">
+					<image src="{{img_url}}/uniapp/img/shuqian.png" mode></image>小虎网络整理
+				</view>
+				<view class="xq_top_item2">
+					<image src="{{img_url}}/uniapp/img/changshi_time.png" mode></image>{{''+$root.f0+''}}
+				</view>
+				<view class="xq_top_item3">
+					<image src="{{img_url}}/uniapp/img/changshi_liulan.png" mode></image>{{''+data.readnum+'浏览'}}
+				</view>
+			</view>
+			<block wx:if="{{data.daodu!=''}}">
+				<view class="zhaiyao hui_26">{{data.daodu}}</view>
+			</block>
+			<view class="zhengwen hei_26">
+				<u-parse vue-id="63991453-1" content="{{data.information}}" bind:__l="__l"></u-parse>
+			</view>
+		</view>
+		<view class="changshi_bottom">
+			<view class="changshi_bottom_left">
+				<image class="changshi_xiaoxi" style="width:60rpx;height:55rpx;" src="{{img_url}}/uniapp/img/changshi_xiaoxi.png" mode></image>
+				<view class="changshi_bottom_l hei_28">
+					<view>当前在线律师<text class="hong_28">1000+</text>人</view>
+					<view>获取解答只需要<text class="hong_28">1分钟</text></view>
+				</view>
+			</view>
+			<navigator class="changshi_bottom_right bai_30" url="tiwen">我要问律师</navigator>
+		</view>
+	</view>
+</view>

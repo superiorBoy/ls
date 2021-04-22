@@ -141,7 +141,8 @@
   "subPackages": [],
   "window": {
     "titleNView": false,
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+      "navigationStyle":"custom"
   },
   "tabBar": {
     "color": "#8a8a8a",
@@ -176,5 +177,5 @@
     ]
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap26.json"
 }

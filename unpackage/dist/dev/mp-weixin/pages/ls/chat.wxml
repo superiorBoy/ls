@@ -1,1 +1,705 @@
-<view><view class="head"><view class="head_back" style="width:10%;"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center " style="width:80%;"><view class="hei_38_bold top_title">{{title}}</view><view class="hong_20 chat_lvsuo">{{"剩余咨询时间:"+day+"天"+hour+":"+minute+":"+seconds}}</view></view><view class=" head_right hei_30_bold" style="width:10%;"></view></view><view class="zi_body"><view class="chat_jiage_wai"><view class="chat_top_xinxi chat_top chat_jiage"><view class="chat_top_xinxi_top"><view class="chat_top_xinxi_top_left"><image class="chat_top_xinxi_tx" src="{{img_url+yh_user.photourl}}" mode></image><view class="chat_top_xinxi_top_left_r hui_22"><view class="chat_top_xinxi_dianhua"><image style="width:13rpx;height:17rpx;margin-right:8rpx;" src="/static/lsimg/chat_shouji.png" mode></image>{{''+dianhua+''}}</view></view></view><view class="chat_top_xinxi_top_right"><view class="chat_top_xinxi_r hei_26"><view class="chat_top_xinxi_r_num">{{zixuncount.zaixian}}</view><view class="qian_24">咨询订单</view></view><view class="chat_top_xinxi_r hei_26"><view class="chat_top_xinxi_r_num">{{zixuncount.dianhua}}</view><view class="qian_24">电话订单</view></view></view></view><view class="chat_top_xinxi_bottom hong_24"><view data-event-opts="{{[['tap',[['go_shoukuan',['$event']]]]]}}" class="chat_top_xinxi_bottom_item" bindtap="__e"><image style="width:18rpx;height:21rpx;" src="../../static/lsimg/top_shoukuan.png" mode></image>服务收款</view><view data-event-opts="{{[['tap',[['send_huanying']]]]}}" class="chat_top_xinxi_bottom_item" bindtap="__e"><image style="width:18rpx;height:21rpx;" src="/static/lsimg/send_huanying.png" mode></image>欢迎语</view><view data-event-opts="{{[['tap',[['send_zaixian']]]]}}" class="chat_top_xinxi_bottom_item" bindtap="__e"><image style="width:22rpx;height:23rpx;" src="/static/lsimg/send_xiaoxi.png" mode></image>咨询收费</view><view data-event-opts="{{[['tap',[['send_dianhua']]]]}}" class="chat_top_xinxi_bottom_item" bindtap="__e"><image style="width:20rpx;height:20rpx;" src="/static/lsimg/send_dianhua.png" mode></image>电话收费</view></view></view></view><view data-event-opts="{{[['tap',[['tan_hide',['$event']]]]]}}" class="{{['chat_body',bt_show?'chat_body_jia':'']}}" bindtap="__e"><block wx:if="{{message!=''}}"><view class="time qian_20">{{$root.f0}}</view></block><block wx:for="{{$root.l0}}" wx:for-item="item" wx:for-index="index"><view><block wx:if="{{index>1&&message[index].addtime-message[index-1].addtime>300}}"><view class="time qian_20">{{item.f1}}</view></block><block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==2&&item.$orig.iswithdraw!=1}}"><view data-event-opts="{{[['longpress',[['changan',['$0'],[[['message','',index,'messageid']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e"><view class="chat_right_txt hei_30"><image style="max-width:100rpx;" src="{{img_url+item.$orig.content}}" mode="widthFix" data-event-opts="{{[['tap',[['clickImg',[img_url+item.$orig.content]]]]]}}" bindtap="__e"></image><view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view></view><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image></view></block><block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==1&&item.$orig.iswithdraw!=1}}"><view data-event-opts="{{[['longpress',[['changan',['$0','$1'],[[['message','',index,'messageid']],[['message','',index,'content']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e"><view class="chat_right_txt hei_30"><u-parse vue-id="{{'3bc31522-1-'+index}}" content="{{item.m0}}" bind:__l="__l"></u-parse><block wx:if="{{item.$orig.to!=undefined}}"><image style="max-width:100rpx;" src="{{item.$orig.content}}" mode="widthFix"></image></block><view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view></view><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image></view></block><block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==3&&item.$orig.iswithdraw!=1}}"><view data-event-opts="{{[['longpress',[['changan',['$0'],[[['message','',index,'messageid']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e"><view class="chat_right_txt hei_30"><view class="send_jia_html"><view class="send_jia_top"><image src="{{img_url+user.photourl}}" mode></image><view class="send_jia_top_r hui_20"><view class="hui_24">{{''+user.nickname+'律师'}}<text class="qian_20 send_jia_top_zhiwei">{{renzheng.zhiwu}}</text></view><view class="send_jia_top_r_dizhi"><image src="/static/img/chat_dizhi.png" mode></image>{{''+renzheng.province+"-"+renzheng.city+"-"+renzheng.area+''}}</view><view class="send_jia_lvsuo"><image src="/static/img/chat_lvsuo.png" mode></image>{{''+renzheng.lvsuo+''}}</view></view></view><view class="send_jia_shangchang hei_24">擅长:<block wx:if="{{zhuanchang_arry[renzheng.expertise1]&&zhuanchang_arry[renzheng.expertise1].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise1].shanchangname+''}}</text></block><block wx:if="{{zhuanchang_arry[renzheng.expertise2]&&zhuanchang_arry[renzheng.expertise2].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise2].shanchangname+''}}</text></block><block wx:if="{{zhuanchang_arry[renzheng.expertise3]&&zhuanchang_arry[renzheng.expertise3].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise3].shanchangname+''}}</text></block></view><view class="send_jia_bottom style_hei_14"><view><text class="hei_24" style="margin-right:20rpx;">电话咨询</text><text class="hong_24">{{"￥"+user.phoneprice+"/20分钟"}}</text></view></view></view><view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view></view><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image></view></block><block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==4&&item.$orig.iswithdraw!=1}}"><view data-event-opts="{{[['longpress',[['changan',['$0'],[[['message','',index,'messageid']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e"><view class="chat_right_txt hei_30"><view class="send_jia_html"><view class="send_jia_top"><image src="{{img_url+user.photourl}}" mode></image><view class="send_jia_top_r hui_20"><view class="hui_24">{{''+user.nickname+'律师'}}<text class="qian_20 send_jia_top_zhiwei">{{renzheng.zhiwu}}</text></view><view class="send_jia_top_r_dizhi"><image src="/static/img/chat_dizhi.png" mode></image>{{''+renzheng.province+"-"+renzheng.city+"-"+renzheng.area+''}}</view><view class="send_jia_lvsuo"><image src="/static/img/chat_lvsuo.png" mode></image>{{''+renzheng.lvsuo+''}}</view></view></view><view class="send_jia_shangchang hei_24">擅长:<block wx:if="{{zhuanchang_arry[renzheng.expertise1]&&zhuanchang_arry[renzheng.expertise1].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise1].shanchangname+''}}</text></block><block wx:if="{{zhuanchang_arry[renzheng.expertise2]&&zhuanchang_arry[renzheng.expertise2].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise2].shanchangname+''}}</text></block><block wx:if="{{zhuanchang_arry[renzheng.expertise3]&&zhuanchang_arry[renzheng.expertise3].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise3].shanchangname+''}}</text></block></view><view class="send_jia_bottom style_hei_14"><view><text class="hei_24" style="margin-right:20rpx;">在线咨询咨询</text><text class="hong_24">{{"￥"+user.chatprice+"/天"}}</text></view></view></view><view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view></view><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image></view></block><block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==5&&item.$orig.iswithdraw!=1}}"><view data-event-opts="{{[['longpress',[['changan',['$0'],[[['message','',index,'messageid']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e"><view class="chat_right_txt hei_30"><view class="send_xuanze hei_26"><view>{{tishiyu.welcomes}}</view><view data-event-opts="{{[['tap',[['send_zaixian']]]]}}" class="hong_26" style="margin-bottom:10rpx;" bindtap="__e">【在线咨询-可看记录】</view><view data-event-opts="{{[['tap',[['send_dianhua']]]]}}" class="hong_26" bindtap="__e">【电话咨询-时时对话】</view></view><view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view></view><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image></view></block><block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==6&&item.$orig.iswithdraw!=1}}"><view data-event-opts="{{[['longpress',[['changan',['$0'],[[['message','',index,'messageid']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e"><view class="chat_right_txt hei_30"><view class="send_fukuan_success"><view class="lv_26 send_fukuan_title"><view class="lv_24_bold send_fukuan_title_left"><image src="/static/img/chat_duihao.png" mode></image>付款成功</view></view><view class="send_pay_ls"><image src="{{img_url+user.photourl}}" mode></image><view class="send_pay_ls_riht"><view class="end_pay_leixing hei_26">电话咨询<view class="hong_26">￥<text class="style_hong_16_bold">{{item.$orig.consult.paymoney}}</text>{{'/'+(item.$orig.consult.zixunshicahng=='24'?'天':item.$orig.consult.zixunshicahng=='72'?'3天':item.$orig.consult.zixunshicahng=='1'?'20分钟':item.$orig.consult.zixunshicahng=='720'?'月':'分钟')+''}}</view></view><view class="hei_20">{{''+user.nickname+'律师'}}<text class="qian_20 send_pay_ls_zhiwu">{{renzheng.zhiwu}}</text></view></view></view><view class="send_pay_bottom hei_24"><view>{{'手机号码：'+item.$orig.consult.phone+''}}<text data-event-opts="{{[['tap',[['call2',['$0'],[[['message','',index,'consult.phone']]]]]]]}}" class="send_pay_call bai_24" bindtap="__e">打电话给他</text></view><view>{{"咨询类型："+item.$orig.consult.typename}}</view><view class="send_pay_bottom_neirong">{{"咨询内容："+item.$orig.consult.information}}</view></view></view><view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view></view><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image></view></block><block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==7&&item.$orig.iswithdraw!=1}}"><view data-event-opts="{{[['longpress',[['changan',['$0'],[[['message','',index,'messageid']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e"><view class="chat_right_txt hei_30"><view class="send_fukuan_success"><view class="lv_26 send_fukuan_title"><view class="lv_24_bold send_fukuan_title_left"><image src="/static/img/chat_duihao.png" mode></image>付款成功</view></view><view class="send_pay_ls"><image src="{{img_url+user.photourl}}" mode></image><view class="send_pay_ls_riht"><view class="end_pay_leixing hei_26">在线咨询<view class="hong_26">￥<text class="style_hong_16_bold">{{item.$orig.consult.paymoney}}</text>{{'/'+(item.$orig.consult.zixunshicahng=='24'?'天':item.$orig.consult.zixunshicahng=='72'?'3天':item.$orig.consult.zixunshicahng=='1'?'20分钟':item.$orig.consult.zixunshicahng=='720'?'月':'小时')+''}}</view></view><view class="hei_20">{{''+user.nickname+'律师'}}<text class="qian_20 send_pay_ls_zhiwu">{{renzheng.zhiwu}}</text></view></view></view><view class="send_pay_bottom hei_24"><view>{{'手机号码：'+item.$orig.consult.phone+''}}</view><view>{{"咨询类型："+item.$orig.consult.typename}}</view><view class="send_pay_bottom_neirong">{{"咨询内容："+item.$orig.consult.information}}</view></view><view class="fufei_success_tips qian_24">{{item.$orig.consult.baojiamode=='zhineng_zaixian'?tips.zhinengpaytip:tips.consultpaytip}}</view></view><view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view></view><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image></view></block><block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==8&&item.$orig.iswithdraw!=1}}"><view data-event-opts="{{[['longpress',[['changan',['$0'],[[['message','',index,'messageid']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e"><view class="chat_right_txt hei_30"><view class="send_xuanze hei_26"><view>{{tishiyu.overdue}}</view><view data-event-opts="{{[['tap',[['send_zaixian']]]]}}" class="hong_26" style="margin-bottom:10rpx;" bindtap="__e">【在线咨询-可看记录】</view><view data-event-opts="{{[['tap',[['send_dianhua']]]]}}" class="hong_26" bindtap="__e">【电话咨询-时时对话】</view></view><view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view></view><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image></view></block><block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.iswithdraw==1}}"><view class=" chat_chehui_tishi hei_26"><text class="chat_chehui_tishi_txt">你撤回了一条消息</text></view></block><block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==11}}"><view class="chat_list chat_right"><view class="chat_right_txt hei_30 send_shoufei_html"><view class="send_shoufei"><view class="send_shoufei_top bai_30"><image src="../../static/img/kefu.png" mode></image><text>{{item.$orig.information}}</text><text class="shou_jiage">{{"￥"+item.$orig.money}}</text></view><view class="send_shoufei_bottom qian_24">律师发起了咨询服务费，请先支付</view></view><view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view></view><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image></view></block><block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==13&&item.$orig.iswithdraw!=1}}"><view class="chat_list chat_right"><view data-event-opts="{{[['tap',[['playVoice',['$0',index,'$1'],[[['message','',index,'content']],[['message','',index,'duration']]]]]]]}}" class="{{['chat_right_txt hei_30 chat_yuyin',yuyin_index==index?'bofang':'']}}" bindtap="__e">{{''+(item.$orig.duration?item.$orig.duration:'5')+'\'\''}}<image class="yuyin_icon" src="../../static/lsimg/chat_yuyin_right.png" mode></image><image class="yuyin_bofang" src="../../static/img/bofang_right.gif" mode></image><view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view></view><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image></view></block><block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==14&&item.$orig.iswithdraw!=1}}"><view data-event-opts="{{[['longpress',[['changan',['$0','$1'],[[['message','',index,'messageid']],[['message','',index,'content']]]]]],['tap',[['onOpenDoc',['$0'],[[['message','',index,'content']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e" bindtap="__e"><view class="chat_right_txt "><view class="send_wenjian_html"><view class="send_wenjian_html_left"><view class="hei_30 send_wenjian_html_title">{{item.m1}}</view></view><view class="send_wenjian_html_right"><image src="../../static/img/word.png" mode></image></view></view><view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view></view><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image></view></block><block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==7&&item.$orig.iswithdraw!=1}}"><view data-event-opts="{{[['longpress',[['changan',['$0'],[[['message','',index,'messageid']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e"><view class="chat_right_txt hei_30"><view class="send_fukuan_success"><view class="lv_26 send_fukuan_title"><view class="lv_24_bold send_fukuan_title_left"><image src="/static/img/chat_duihao.png" mode></image>付款成功</view></view><view class="send_pay_ls"><image src="{{img_url+user.photourl}}" mode></image><view class="send_pay_ls_riht"><view class="end_pay_leixing hei_26">{{item.$orig.consult.baojia[item.$orig.consult.baojiamode]}}</view><view class="hei_20">{{''+user.nickname+'律师'}}<text class="qian_20 send_pay_ls_zhiwu">{{renzheng.zhiwu}}</text></view></view></view><view class="send_pay_bottom hei_24"><view>{{'手机号码：'+item.$orig.consult.phone+''}}</view><view>{{"咨询类型："+item.$orig.consult.typename}}</view><view class="send_pay_bottom_neirong">{{"咨询内容："+item.$orig.consult.information}}</view></view><view class="fufei_success_tips qian_24">{{item.$orig.consult.baojiamode=='zhineng_zaixian'?tips.zhinengpaytip:tips.consultpaytip}}</view></view><view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view></view><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image></view></block><block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==1&&item.$orig.iswithdraw!=1}}"><view class="chat_list chat_left"><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image><view class="chat_left_txt hei_30"><block wx:if="{{item.$orig.msgtype==1}}"><view><u-parse vue-id="{{'3bc31522-2-'+index}}" content="{{item.m2}}" bind:__l="__l"></u-parse></view></block></view></view></block><block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==2&&item.$orig.iswithdraw!=1}}"><view class="chat_list chat_left"><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image><view class="chat_left_txt hei_30"><image style="max-width:100rpx;" src="{{img_url+item.$orig.content}}" mode="widthFix" data-event-opts="{{[['tap',[['clickImg',[img_url+item.$orig.content]]]]]}}" bindtap="__e"></image></view></view></block><block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==3&&item.$orig.iswithdraw!=1}}"><view class="chat_list chat_left"><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image><view class="chat_left_txt hei_30"><view class="send_jia_html"><view class="send_jia_top"><image src="{{img_url+user.photourl}}" mode></image><view class="send_jia_top_r hui_20"><view class="hui_24">{{''+user.nickname+'律师'}}<text class="qian_20 send_jia_top_zhiwei">{{renzheng.zhiwu}}</text></view><view class="send_jia_top_r_dizhi"><image src="/static/img/chat_dizhi.png" mode></image>{{''+renzheng.province+"-"+renzheng.city+"-"+renzheng.area+''}}</view><view class="send_jia_lvsuo"><image src="/static/img/chat_lvsuo.png" mode></image>{{''+renzheng.lvsuo+''}}</view></view></view><view class="send_jia_shangchang hei_24">擅长:<block wx:if="{{zhuanchang_arry[renzheng.expertise1]&&zhuanchang_arry[renzheng.expertise1].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise1].shanchangname+''}}</text></block><block wx:if="{{zhuanchang_arry[renzheng.expertise2]&&zhuanchang_arry[renzheng.expertise2].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise2].shanchangname+''}}</text></block><block wx:if="{{zhuanchang_arry[renzheng.expertise3]&&zhuanchang_arry[renzheng.expertise3].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise3].shanchangname+''}}</text></block></view><view class="send_jia_bottom style_hei_14"><view><text class="hei_24" style="margin-right:20rpx;">电话咨询</text><text class="hong_24">{{"￥"+user.phoneprice+"/20分钟"}}</text></view><button class="bai_24" type="button">立即购买</button></view></view></view></view></block><block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==4&&item.$orig.iswithdraw!=1}}"><view class="chat_list chat_left"><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image><view class="chat_left_txt hei_30"><view class="send_jia_html"><view class="send_jia_top"><image src="{{img_url+user.photourl}}" mode></image><view class="send_jia_top_r hui_20"><view class="hui_24">{{''+user.nickname+'律师'}}<text class="qian_20 send_jia_top_zhiwei">{{renzheng.zhiwu}}</text></view><view class="send_jia_top_r_dizhi"><image src="/static/img/chat_dizhi.png" mode></image>{{''+renzheng.province+"-"+renzheng.city+"-"+renzheng.area+''}}</view><view class="send_jia_lvsuo"><image src="/static/img/chat_lvsuo.png" mode></image>{{''+renzheng.lvsuo+''}}</view></view></view><view class="send_jia_shangchang hei_24">擅长:<block wx:if="{{zhuanchang_arry[renzheng.expertise1]&&zhuanchang_arry[renzheng.expertise1].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise1].shanchangname+''}}</text></block><block wx:if="{{zhuanchang_arry[renzheng.expertise2]&&zhuanchang_arry[renzheng.expertise2].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise2].shanchangname+''}}</text></block><block wx:if="{{zhuanchang_arry[renzheng.expertise3]&&zhuanchang_arry[renzheng.expertise3].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise3].shanchangname+''}}</text></block></view><view class="send_jia_bottom style_hei_14"><view><text class="hei_24" style="margin-right:20rpx;">在线咨询</text><text class="hong_24">{{"￥"+user.chatprice+"/天"}}</text></view><button class="bai_24" type="button">立即购买</button></view></view></view></view></block><block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==5&&item.$orig.iswithdraw!=1}}"><view class="chat_list chat_left"><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image><view class="chat_left_txt hei_30"><view class="send_xuanze hei_26"><view>{{tishiyu.welcomes}}</view><view data-event-opts="{{[['tap',[['send_zaixian']]]]}}" class="hong_26" style="margin-bottom:10rpx;" bindtap="__e">【在线咨询-可看记录】</view><view data-event-opts="{{[['tap',[['send_dianhua']]]]}}" class="hong_26" bindtap="__e">【电话咨询-时时对话】</view></view></view></view></block><block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==6&&item.$orig.iswithdraw!=1}}"><view class="chat_list chat_left"><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image><view class="chat_left_txt hei_30"><view class="send_fukuan_success"><view class="lv_26 send_fukuan_title"><view class="lv_24_bold send_fukuan_title_left"><image src="/static/img/chat_duihao.png" mode></image>付款成功</view></view><view class="send_pay_ls"><image src="{{img_url+user.photourl}}" mode></image><view class="send_pay_ls_riht"><view class="end_pay_leixing hei_26">电话咨询<view class="hong_26">￥<text class="style_hong_16_bold">{{item.$orig.consult.paymoney}}</text>{{'/'+(item.$orig.consult.zixunshicahng=='24'?'天':item.$orig.consult.zixunshicahng=='72'?'3天':item.$orig.consult.zixunshicahng=='1'?'20分钟':item.$orig.consult.zixunshicahng=='720'?'月':'分钟')+''}}</view></view><view class="hei_20">{{''+user.nickname+'律师'}}<text class="qian_20 send_pay_ls_zhiwu">{{renzheng.zhiwu}}</text></view></view></view><view class="send_pay_bottom hei_24"><view>{{'手机号码：'+item.$orig.consult.phone+''}}<text data-event-opts="{{[['tap',[['call2',['$0'],[[['message','',index,'consult.phone']]]]]]]}}" class="send_pay_call bai_24" bindtap="__e">打电话给他</text></view><view>{{"咨询类型："+item.$orig.consult.typename}}</view><view class="send_pay_bottom_neirong">{{"咨询内容："+item.$orig.consult.information}}</view></view></view></view></view></block><block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==7&&item.$orig.iswithdraw!=1}}"><view class="chat_list chat_left"><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image><view class="chat_left_txt hei_30"><view class="send_fukuan_success"><view class="lv_26 send_fukuan_title"><view class="lv_24_bold send_fukuan_title_left"><image src="/static/img/chat_duihao.png" mode></image>付款成功</view></view><view class="send_pay_ls"><image src="{{img_url+user.photourl}}" mode></image><view class="send_pay_ls_riht"><view class="end_pay_leixing hei_26">在线咨询<view class="hong_26">￥<text class="style_hong_16_bold">{{item.$orig.consult.paymoney}}</text>{{'/'+(item.$orig.consult.zixunshicahng=='24'?'天':item.$orig.consult.zixunshicahng=='72'?'3天':item.$orig.consult.zixunshicahng=='1'?'20分钟':item.$orig.consult.zixunshicahng=='720'?'月':'小时')+''}}</view></view><view class="hei_20">{{''+user.nickname+'律师'}}<text class="qian_20 send_pay_ls_zhiwu">{{renzheng.zhiwu}}</text></view></view></view><view class="send_pay_bottom hei_24"><view>{{'手机号码：'+item.$orig.consult.phone+''}}</view><view>{{"咨询类型："+item.$orig.consult.typename}}</view><view class="send_pay_bottom_neirong">{{"咨询内容："+item.$orig.consult.information}}</view></view><view class="fufei_success_tips qian_24">{{item.$orig.consult.baojiamode=='zhineng_zaixian'?tips.zhinengpaytip:tips.consultpaytip}}</view></view></view></view></block><block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==8&&item.$orig.iswithdraw!=1}}"><view class="chat_list chat_left"><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image><view class="chat_left_txt hei_30"><view class="send_xuanze hei_26"><view>{{tishiyu.overdue}}</view><view data-event-opts="{{[['tap',[['send_zaixian']]]]}}" class="hong_26" style="margin-bottom:10rpx;" bindtap="__e">【在线咨询-可看记录】</view><view data-event-opts="{{[['tap',[['send_dianhua']]]]}}" class="hong_26" bindtap="__e">【电话咨询-时时对话】</view></view></view></view></block><block wx:if="{{item.$orig.msgtype==9&&item.$orig.iswithdraw!=1}}"><view class="chat_list chat_left"><image class="tx" src="/static/img/xitong.png" mode></image><view class="chat_left_txt hei_30">{{tips.consultovertimetip}}</view></view></block><block wx:if="{{item.$orig.userid_from==userid&&item.$orig.iswithdraw==1}}"><view class=" chat_chehui_tishi hei_26"><text class="chat_chehui_tishi_txt">{{"“"+title+"”撤回了一条消息"}}</text></view></block><block wx:if="{{item.$orig.msgtype==10}}"><view class="chat_list chat_left"><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image><view class="chat_left_txt hei_30 send_hongbao_html"><view class="send_hongbao"><view class="send_hongbao_top"><image src="../../static/img/hongbao_icon.png" mode></image><text>{{"￥"+item.$orig.money}}</text></view><view class="send_hongbao_bottom qian_24">{{item.$orig.information}}</view></view></view></view></block><block wx:if="{{item.$orig.msgtype==10}}"><view class="lingqu hui_20"><image src="../../static/img/hongbao_icon.png" mode></image>{{'你收到了来自'+yh_user.nickname+'的红包'}}<text class="hong_20">红包</text></view></block><block wx:if="{{item.$orig.msgtype==12}}"><view class="chat_list chat_left"><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image><view class="chat_left_txt hei_30 send_fufei_html"><view class="send_hongbao"><view class="send_fufei_top bai_30"><image src="../../static/img/kefu.png" mode></image><text>{{item.$orig.information}}</text><text class="send_fufei_top_jia">{{"￥"+item.$orig.money}}</text></view><view class="send_hongbao_bottom qian_24">支付成功</view></view></view></view></block><block wx:if="{{item.$orig.msgtype==12}}"><view class="hui_20 yi_fufei"><text>{{"用户"+title+"已完成付款，请您及时解答"}}</text></view></block><block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==13&&item.$orig.iswithdraw!=1}}"><view class="chat_list chat_left"><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image><view data-event-opts="{{[['tap',[['playVoice',['$0',index,'$1'],[[['message','',index,'content']],[['message','',index,'duration']]]]]]]}}" class="{{['chat_left_txt hei_30 chat_yuyin_left',yuyin_index==index?'bofang':'']}}" bindtap="__e"><image class="yuyin_icon" src="../../static/lsimg/chat_yuyin_left.png" mode></image><image class="yuyin_bofang" src="../../static/img/bofang.gif" mode></image>{{''+(item.$orig.duration?item.$orig.duration:'5')+'\'\''}}</view></view></block><block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==14&&item.$orig.iswithdraw!=1}}"><view data-event-opts="{{[['tap',[['onOpenDoc',['$0'],[[['message','',index,'content']]]]]]]}}" class="chat_list chat_left" bindtap="__e"><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image><view class="chat_left_txt hei_30 "><view class="send_wenjian_html"><view class="send_wenjian_html_left"><view class="hei_30 send_wenjian_html_title">{{item.m3}}</view></view><view class="send_wenjian_html_right"><image src="../../static/img/word.png" mode></image></view></view></view></view></block><block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==15&&item.$orig.iswithdraw!=1}}"><view class="chat_list chat_left"><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image><view class="chat_left_txt hei_30"><view class="send_fukuan_success"><view class="lv_26 send_fukuan_title"><view class="lv_24_bold send_fukuan_title_left"><image src="/static/img/chat_duihao.png" mode></image>付款成功</view></view><view class="send_pay_ls"><image src="{{img_url+user.photourl}}" mode></image><view class="send_pay_ls_riht">{{''+item.$orig.consult.baojia[item.$orig.consult.baojiamode]+''}}<view class="hei_20">{{''+user.nickname+'律师'}}<text class="qian_20 send_pay_ls_zhiwu">{{renzheng.zhiwu}}</text></view></view></view><view class="send_pay_bottom hei_24"><view>{{'手机号码：'+item.$orig.consult.phone+''}}</view><view>{{"咨询类型："+item.$orig.consult.typename}}</view><view class="send_pay_bottom_neirong">{{"咨询内容："+item.$orig.consult.information}}</view></view></view></view></view></block><block wx:if="{{item.$orig.msgtype==16&&item.$orig.refund}}"><view class="chat_list chat_left"><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image><view class="chat_left_txt "><view class="send_tuikuan"><block wx:if="{{item.$orig.refund.state!=2}}"><view class="send_tuikuan_top"><text class="hei_26">{{title+"申请了退款"}}</text><view class="send_tuikuan_top_right hong_26_bold"></view></view></block><block wx:if="{{item.$orig.refund.state==2}}"><view class="send_tuikuan_top"><text class="hei_26">退款成功</text><view class="send_tuikuan_top_right hong_26_bold"></view></view></block><view class="send_tuikuan_bottom qian_24"><view>{{"退款金额：￥"+item.$orig.refund.refundmoney}}</view><view>{{'类型/时长：'+gettype[item.$orig.refund.typeid].typename+"/"+(item.$orig.refund.zixunshicahng==24?'1天':item.$orig.refund.zixunshicahng==72?'3天':item.$orig.refund.zixunshicahng==720?'1个月':item.$orig.refund.zixunshicahng+'小时')+''}}</view><view>{{"退款原因："+item.$orig.refund.refundreason}}</view><view>{{'退款状态：'+(item.$orig.refund.state==1?'退款中':item.$orig.refund.state==2?'同意退款':item.$orig.refund.state==3?'拒绝退款':item.$orig.refund.state==4?'取消退款':'')+''}}</view><view>{{"操作时间："+item.f2}}</view></view></view></view></view></block><block wx:if="{{item.$orig.msgtype==17&&item.$orig.refund}}"><view class="chat_list chat_left"><image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image><view class="chat_left_txt "><view class="send_tuikuan"><view class="send_tuikuan_top"><text class="hei_26">{{title+"取消了退款"}}</text><view class="send_tuikuan_top_right hong_26_bold"></view></view><view class="send_tuikuan_bottom qian_24"><view>{{"退款金额：￥"+item.$orig.refund.refundmoney}}</view><view>{{'类型/时长：'+gettype[item.$orig.refund.typeid].typename+"/"+(item.$orig.refund.zixunshicahng==24?'1天':item.$orig.refund.zixunshicahng==72?'3天':item.$orig.refund.zixunshicahng==720?'1个月':item.$orig.refund.zixunshicahng+'小时')+''}}</view><view>{{"退款原因："+item.$orig.refund.refundreason}}</view><view>{{'退款状态：'+(item.$orig.refund.state==1?'退款中':item.$orig.refund.state==2?'同意退款':item.$orig.refund.state==3?'拒绝退款':item.$orig.refund.state==4?'取消退款':'')+''}}</view><view>{{"操作时间："+item.f3}}</view></view></view></view></view></block></view></block><block wx:if="{{is_zuijin_chehui}}"><view class=" chat_chehui_tishi hei_26"><text class="chat_chehui_tishi_txt">你撤回了一条消息<text data-event-opts="{{[['tap',[['bianji',['$event']]]]]}}" class="lv_26" bindtap="__e">重新编辑</text></text></view></block></view><block wx:if="{{isShowEmj}}"><view class="zhanwei"></view></block><view class="chat_bottom"><view class="chat_bottom_top"><block wx:if="{{!on_yuyin}}"><image src="/static/lsimg/chat_yuyin.png" mode data-event-opts="{{[['tap',[['show_luyin',['$event']]]]]}}" bindtap="__e"></image></block><block wx:if="{{on_yuyin}}"><image src="/static/img/chat_jianpan.png" mode data-event-opts="{{[['tap',[['hide_luyin',['$event']]]]]}}" bindtap="__e"></image></block><block wx:if="{{on_yuyin}}"><input class="changan_input hei_34_bold" type="text" value="" placeholder="按住 说话" placeholder-style="color:#333" disabled="true" data-event-opts="{{[['longtap',[['dian_luyin',['$event']]]],['touchend',[['songkai',['$event']]]],['touchmove',[['moveStop',['$event']]]]]}}" bindlongtap="__e" bindtouchend="__e" catchtouchmove="__e"/></block><block wx:if="{{!on_yuyin}}"><input class="hei_26" type="text" value="{{chat_txt}}" confirm-type="send" data-event-opts="{{[['confirm',[['send',['$event']]]],['focus',[['huojiao',['$event']]]],['tap',[['input_click']]],['blur',[['shiqu',['$event']]]],['input',[['__set_model',['','chat_txt','$event',[]]]]]]}}" bindconfirm="__e" bindfocus="__e" bindtap="__e" bindblur="__e" bindinput="__e"/></block><image src="/static/lsimg/chat_biaoqing.png" mode data-event-opts="{{[['tap',[['showEmj',['$event']]]]]}}" bindtap="__e"></image><block wx:if="{{!chat_txt}}"><image src="/static/lsimg/chat_jia.png" mode data-event-opts="{{[['tap',[['jia',['$event']]]]]}}" bindtap="__e"></image></block><block wx:if="{{chat_txt}}"><text data-event-opts="{{[['tap',[['send']]]]}}" class="fasong" bindtap="__e">发送</text></block></view><block wx:if="{{bottom_tip}}"><view class="jianpan"></view></block><block wx:if="{{isShowEmj}}"><emotion bind:emotion="__e" vue-id="3bc31522-3" data-event-opts="{{[['^emotion',[['handleEmj']]]]}}" bind:__l="__l"></emotion></block><block wx:if="{{bt_show}}"><view class="chat_bottom_bottom hui_26"><view data-event-opts="{{[['tap',[['call',['$event']]]]]}}" class="chat_bt_item" bindtap="__e"><image src="/static/lsimg/chat_dianhua.png" mode></image><view>打电话给TA</view></view><view data-event-opts="{{[['tap',[['up_img',['$event']]]]]}}" class="chat_bt_item" bindtap="__e"><image src="/static/lsimg/chat_tupian.png" mode></image><view>发送图片</view></view><view class="chat_bt_item"><picker range="{{changyong_arry}}" data-event-opts="{{[['change',[['changyong_change',['$event']]]]]}}" bindchange="__e"><image src="/static/lsimg/chat_changyong.png" mode></image><view>常用语</view></picker></view><view data-event-opts="{{[['tap',[['go_shoukuan',['$event']]]]]}}" class="chat_bt_item" bindtap="__e"><image src="../../static/lsimg/chat_shoukuan.png" mode></image><view>发起收款</view></view><block wx:if="{{is_kaiqi_yuyin==1}}"><view data-event-opts="{{[['tap',[['yuyin_chat',['$event']]]]]}}" class="chat_bt_item" bindtap="__e"><image src="../../static/img/bottom_yuyin.png" mode></image><view>语音聊天</view></view></block><block wx:if="{{is_kaiqi_yuyin==1}}"><view data-event-opts="{{[['tap',[['shipin_chat',['$event']]]]]}}" class="chat_bt_item" bindtap="__e"><image src="../../static/img/bottom_shipin.png" mode></image><view>视频聊天</view></view></block><view data-event-opts="{{[['tap',[['send_wenjian',['$event']]]]]}}" class="chat_bt_item" bindtap="__e"><image src="../../static/img/bottom_wenjian.png" mode></image><view>发送文件</view></view></view></block></view></view><block wx:if="{{is_yuyin}}"><view class="yuyin_bg"><view class="tan_yuyin"><view class="tan_yuyin_top"><block wx:if="{{!is_quxiao}}"><view class="tan_yuyin_on"><image src="../../static/img/yuyin.gif" mode="heightFix"></image></view></block><block wx:if="{{is_quxiao}}"><view class="tan_yuyin_no"><image src="../../static/img/yuyin.gif" mode></image></view></block></view><view class="tan_yuyin_center"><block wx:if="{{!is_quxiao}}"><image class="no_quxiao" src="../../static/lsimg/no_quxiao.png" mode></image></block><block wx:if="{{is_quxiao}}"><view><view class="songshou_txt">松开 取消</view><image class="yuyin_quxiao" src="../../static/lsimg/yuyin_quxiao.png" mode></image></view></block></view><view class="tan_yuyin_bottom"><block wx:if="{{!is_quxiao}}"><view class="tan_yuyin_bottom_on"></view></block><block wx:if="{{is_quxiao}}"><view class="tan_yuyin_bottom_no"><image src="../../static/lsimg/yuyin_bai.png" mode></image></view></block></view></view></view></block><block wx:if="{{is_chehui}}"><view class="bg"><view class="chehui"><view class="qian_28 chehui_title">是否撤销该条消息？</view><view data-event-opts="{{[['tap',[['che_queding',['$event']]]]]}}" class="lv_32 chehui_queding" bindtap="__e">确定</view><view data-event-opts="{{[['tap',[['che_quxiao',['$event']]]]]}}" class="qian_32 chehui_quxiao" bindtap="__e">取消</view></view></view></block><l-file class="vue-ref" bind:upSuccess="__e" vue-id="3bc31522-4" data-ref="lFile" data-event-opts="{{[['^upSuccess',[['onSuccess']]]]}}" bind:__l="__l"></l-file></view>
+<view>
+	<view class="head">
+		<view class="head_back" style="width:10%;">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center " style="width:80%;">
+			<view class="hei_38_bold top_title">{{title}}</view>
+			<view class="hong_20 chat_lvsuo">{{"剩余咨询时间:"+day+"天"+hour+":"+minute+":"+seconds}}</view>
+		</view>
+		<view class=" head_right hei_30_bold" style="width:10%;"></view>
+	</view>
+	<view class="zi_body">
+		<view class="chat_jiage_wai">
+			<view class="chat_top_xinxi chat_top chat_jiage">
+				<view class="chat_top_xinxi_top">
+					<view class="chat_top_xinxi_top_left">
+						<image class="chat_top_xinxi_tx" src="{{img_url+yh_user.photourl}}" mode></image>
+						<view class="chat_top_xinxi_top_left_r hui_22">
+							<view class="chat_top_xinxi_dianhua">
+								<image style="width:13rpx;height:17rpx;margin-right:8rpx;" src="{{img_url}}/uniapp/lsimg/chat_shouji.png" mode></image>{{''+dianhua+''}}
+							</view>
+						</view>
+					</view>
+					<view class="chat_top_xinxi_top_right">
+						<view class="chat_top_xinxi_r hei_26">
+							<view class="chat_top_xinxi_r_num">{{zixuncount.zaixian}}</view>
+							<view class="qian_24">咨询订单</view>
+						</view>
+						<view class="chat_top_xinxi_r hei_26">
+							<view class="chat_top_xinxi_r_num">{{zixuncount.dianhua}}</view>
+							<view class="qian_24">电话订单</view>
+						</view>
+					</view>
+				</view>
+				<view class="chat_top_xinxi_bottom hong_24">
+					<view data-event-opts="{{[['tap',[['go_shoukuan',['$event']]]]]}}" class="chat_top_xinxi_bottom_item" bindtap="__e">
+						<image style="width:18rpx;height:21rpx;" src="{{img_url}}/uniapp/lsimg/top_shoukuan.png" mode></image>服务收款
+					</view>
+					<view data-event-opts="{{[['tap',[['send_huanying']]]]}}" class="chat_top_xinxi_bottom_item" bindtap="__e">
+						<image style="width:18rpx;height:21rpx;" src="{{img_url}}/uniapp/lsimg/send_huanying.png" mode></image>欢迎语
+					</view>
+					<view data-event-opts="{{[['tap',[['send_zaixian']]]]}}" class="chat_top_xinxi_bottom_item" bindtap="__e">
+						<image style="width:22rpx;height:23rpx;" src="{{img_url}}/uniapp/lsimg/send_xiaoxi.png" mode></image>咨询收费
+					</view>
+					<view data-event-opts="{{[['tap',[['send_dianhua']]]]}}" class="chat_top_xinxi_bottom_item" bindtap="__e">
+						<image style="width:20rpx;height:20rpx;" src="{{img_url}}/uniapp/lsimg/send_dianhua.png" mode></image>电话收费
+					</view>
+				</view>
+			</view>
+		</view>
+		<view data-event-opts="{{[['tap',[['tan_hide',['$event']]]]]}}" class="{{['chat_body',bt_show?'chat_body_jia':'']}}" bindtap="__e">
+			<block wx:if="{{message!=''}}">
+				<view class="time qian_20">{{$root.f0}}</view>
+			</block>
+			<block wx:for="{{$root.l0}}" wx:for-item="item" wx:for-index="index">
+				<view>
+					<block wx:if="{{index>1&&message[index].addtime-message[index-1].addtime>300}}">
+						<view class="time qian_20">{{item.f1}}</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==2&&item.$orig.iswithdraw!=1}}">
+						<view data-event-opts="{{[['longpress',[['changan',['$0'],[[['message','',index,'messageid']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e">
+							<view class="chat_right_txt hei_30">
+								<image style="max-width:100rpx;" src="{{img_url+item.$orig.content}}" mode="widthFix" data-event-opts="{{[['tap',[['clickImg',[img_url+item.$orig.content]]]]]}}" bindtap="__e"></image>
+								<view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view>
+							</view>
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==1&&item.$orig.iswithdraw!=1}}">
+						<view data-event-opts="{{[['longpress',[['changan',['$0','$1'],[[['message','',index,'messageid']],[['message','',index,'content']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e">
+							<view class="chat_right_txt hei_30">
+								<u-parse vue-id="{{'3bc31522-1-'+index}}" content="{{item.m0}}" bind:__l="__l"></u-parse>
+								<block wx:if="{{item.$orig.to!=undefined}}">
+									<image style="max-width:100rpx;" src="{{item.$orig.content}}" mode="widthFix"></image>
+								</block>
+								<view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view>
+							</view>
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==3&&item.$orig.iswithdraw!=1}}">
+						<view data-event-opts="{{[['longpress',[['changan',['$0'],[[['message','',index,'messageid']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e">
+							<view class="chat_right_txt hei_30">
+								<view class="send_jia_html">
+									<view class="send_jia_top">
+										<image src="{{img_url+user.photourl}}" mode></image>
+										<view class="send_jia_top_r hui_20">
+											<view class="hui_24">{{''+user.nickname+'律师'}}<text class="qian_20 send_jia_top_zhiwei">{{renzheng.zhiwu}}</text></view>
+											<view class="send_jia_top_r_dizhi">
+												<image src="{{img_url}}/uniapp/img/chat_dizhi.png" mode></image>{{''+renzheng.province+"-"+renzheng.city+"-"+renzheng.area+''}}
+											</view>
+											<view class="send_jia_lvsuo">
+												<image src="{{img_url}}/uniapp/img/chat_lvsuo.png" mode></image>{{''+renzheng.lvsuo+''}}
+											</view>
+										</view>
+									</view>
+									<view class="send_jia_shangchang hei_24">擅长:<block wx:if="{{zhuanchang_arry[renzheng.expertise1]&&zhuanchang_arry[renzheng.expertise1].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise1].shanchangname+''}}</text></block>
+										<block wx:if="{{zhuanchang_arry[renzheng.expertise2]&&zhuanchang_arry[renzheng.expertise2].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise2].shanchangname+''}}</text></block>
+										<block wx:if="{{zhuanchang_arry[renzheng.expertise3]&&zhuanchang_arry[renzheng.expertise3].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise3].shanchangname+''}}</text></block>
+									</view>
+									<view class="send_jia_bottom style_hei_14">
+										<view><text class="hei_24" style="margin-right:20rpx;">电话咨询</text><text class="hong_24">{{"￥"+user.phoneprice+"/20分钟"}}</text></view>
+									</view>
+								</view>
+								<view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view>
+							</view>
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==4&&item.$orig.iswithdraw!=1}}">
+						<view data-event-opts="{{[['longpress',[['changan',['$0'],[[['message','',index,'messageid']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e">
+							<view class="chat_right_txt hei_30">
+								<view class="send_jia_html">
+									<view class="send_jia_top">
+										<image src="{{img_url+user.photourl}}" mode></image>
+										<view class="send_jia_top_r hui_20">
+											<view class="hui_24">{{''+user.nickname+'律师'}}<text class="qian_20 send_jia_top_zhiwei">{{renzheng.zhiwu}}</text></view>
+											<view class="send_jia_top_r_dizhi">
+												<image src="{{img_url}}/uniapp/img/chat_dizhi.png" mode></image>{{''+renzheng.province+"-"+renzheng.city+"-"+renzheng.area+''}}
+											</view>
+											<view class="send_jia_lvsuo">
+												<image src="{{img_url}}/uniapp/img/chat_lvsuo.png" mode></image>{{''+renzheng.lvsuo+''}}
+											</view>
+										</view>
+									</view>
+									<view class="send_jia_shangchang hei_24">擅长:<block wx:if="{{zhuanchang_arry[renzheng.expertise1]&&zhuanchang_arry[renzheng.expertise1].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise1].shanchangname+''}}</text></block>
+										<block wx:if="{{zhuanchang_arry[renzheng.expertise2]&&zhuanchang_arry[renzheng.expertise2].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise2].shanchangname+''}}</text></block>
+										<block wx:if="{{zhuanchang_arry[renzheng.expertise3]&&zhuanchang_arry[renzheng.expertise3].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise3].shanchangname+''}}</text></block>
+									</view>
+									<view class="send_jia_bottom style_hei_14">
+										<view><text class="hei_24" style="margin-right:20rpx;">在线咨询咨询</text><text class="hong_24">{{"￥"+user.chatprice+"/天"}}</text></view>
+									</view>
+								</view>
+								<view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view>
+							</view>
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==5&&item.$orig.iswithdraw!=1}}">
+						<view data-event-opts="{{[['longpress',[['changan',['$0'],[[['message','',index,'messageid']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e">
+							<view class="chat_right_txt hei_30">
+								<view class="send_xuanze hei_26">
+									<view>{{tishiyu.welcomes}}</view>
+									<view data-event-opts="{{[['tap',[['send_zaixian']]]]}}" class="hong_26" style="margin-bottom:10rpx;" bindtap="__e">【在线咨询-可看记录】</view>
+									<view data-event-opts="{{[['tap',[['send_dianhua']]]]}}" class="hong_26" bindtap="__e">【电话咨询-时时对话】</view>
+								</view>
+								<view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view>
+							</view>
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==6&&item.$orig.iswithdraw!=1}}">
+						<view data-event-opts="{{[['longpress',[['changan',['$0'],[[['message','',index,'messageid']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e">
+							<view class="chat_right_txt hei_30">
+								<view class="send_fukuan_success">
+									<view class="lv_26 send_fukuan_title">
+										<view class="lv_24_bold send_fukuan_title_left">
+											<image src="{{img_url}}/uniapp/img/chat_duihao.png" mode></image>付款成功
+										</view>
+									</view>
+									<view class="send_pay_ls">
+										<image src="{{img_url+user.photourl}}" mode></image>
+										<view class="send_pay_ls_riht">
+											<view class="end_pay_leixing hei_26">电话咨询<view class="hong_26">￥<text class="style_hong_16_bold">{{item.$orig.consult.paymoney}}</text>{{'/'+(item.$orig.consult.zixunshicahng=='24'?'天':item.$orig.consult.zixunshicahng=='72'?'3天':item.$orig.consult.zixunshicahng=='1'?'20分钟':item.$orig.consult.zixunshicahng=='720'?'月':'分钟')+''}}</view>
+											</view>
+											<view class="hei_20">{{''+user.nickname+'律师'}}<text class="qian_20 send_pay_ls_zhiwu">{{renzheng.zhiwu}}</text></view>
+										</view>
+									</view>
+									<view class="send_pay_bottom hei_24">
+										<view>{{'手机号码：'+item.$orig.consult.phone+''}}<text data-event-opts="{{[['tap',[['call2',['$0'],[[['message','',index,'consult.phone']]]]]]]}}" class="send_pay_call bai_24" bindtap="__e">打电话给他</text></view>
+										<view>{{"咨询类型："+item.$orig.consult.typename}}</view>
+										<view class="send_pay_bottom_neirong">{{"咨询内容："+item.$orig.consult.information}}</view>
+									</view>
+								</view>
+								<view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view>
+							</view>
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==7&&item.$orig.iswithdraw!=1}}">
+						<view data-event-opts="{{[['longpress',[['changan',['$0'],[[['message','',index,'messageid']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e">
+							<view class="chat_right_txt hei_30">
+								<view class="send_fukuan_success">
+									<view class="lv_26 send_fukuan_title">
+										<view class="lv_24_bold send_fukuan_title_left">
+											<image src="{{img_url}}/uniapp/img/chat_duihao.png" mode></image>付款成功
+										</view>
+									</view>
+									<view class="send_pay_ls">
+										<image src="{{img_url+user.photourl}}" mode></image>
+										<view class="send_pay_ls_riht">
+											<view class="end_pay_leixing hei_26">在线咨询<view class="hong_26">￥<text class="style_hong_16_bold">{{item.$orig.consult.paymoney}}</text>{{'/'+(item.$orig.consult.zixunshicahng=='24'?'天':item.$orig.consult.zixunshicahng=='72'?'3天':item.$orig.consult.zixunshicahng=='1'?'20分钟':item.$orig.consult.zixunshicahng=='720'?'月':'小时')+''}}</view>
+											</view>
+											<view class="hei_20">{{''+user.nickname+'律师'}}<text class="qian_20 send_pay_ls_zhiwu">{{renzheng.zhiwu}}</text></view>
+										</view>
+									</view>
+									<view class="send_pay_bottom hei_24">
+										<view>{{'手机号码：'+item.$orig.consult.phone+''}}</view>
+										<view>{{"咨询类型："+item.$orig.consult.typename}}</view>
+										<view class="send_pay_bottom_neirong">{{"咨询内容："+item.$orig.consult.information}}</view>
+									</view>
+									<view class="fufei_success_tips qian_24">{{item.$orig.consult.baojiamode=='zhineng_zaixian'?tips.zhinengpaytip:tips.consultpaytip}}</view>
+								</view>
+								<view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view>
+							</view>
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==8&&item.$orig.iswithdraw!=1}}">
+						<view data-event-opts="{{[['longpress',[['changan',['$0'],[[['message','',index,'messageid']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e">
+							<view class="chat_right_txt hei_30">
+								<view class="send_xuanze hei_26">
+									<view>{{tishiyu.overdue}}</view>
+									<view data-event-opts="{{[['tap',[['send_zaixian']]]]}}" class="hong_26" style="margin-bottom:10rpx;" bindtap="__e">【在线咨询-可看记录】</view>
+									<view data-event-opts="{{[['tap',[['send_dianhua']]]]}}" class="hong_26" bindtap="__e">【电话咨询-时时对话】</view>
+								</view>
+								<view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view>
+							</view>
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.iswithdraw==1}}">
+						<view class=" chat_chehui_tishi hei_26"><text class="chat_chehui_tishi_txt">你撤回了一条消息</text></view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==11}}">
+						<view class="chat_list chat_right">
+							<view class="chat_right_txt hei_30 send_shoufei_html">
+								<view class="send_shoufei">
+									<view class="send_shoufei_top bai_30">
+										<image src="{{img_url}}/uniapp/img/kefu.png" mode></image><text>{{item.$orig.information}}</text><text class="shou_jiage">{{"￥"+item.$orig.money}}</text>
+									</view>
+									<view class="send_shoufei_bottom qian_24">律师发起了咨询服务费，请先支付</view>
+								</view>
+								<view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view>
+							</view>
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==13&&item.$orig.iswithdraw!=1}}">
+						<view class="chat_list chat_right">
+							<view data-event-opts="{{[['tap',[['playVoice',['$0',index,'$1'],[[['message','',index,'content']],[['message','',index,'duration']]]]]]]}}" class="{{['chat_right_txt hei_30 chat_yuyin',yuyin_index==index?'bofang':'']}}" bindtap="__e">{{''+(item.$orig.duration?item.$orig.duration:'5')+'\'\''}}
+								<image class="yuyin_icon" src="{{img_url}}/uniapp/lsimg/chat_yuyin_right.png" mode></image>
+								<image class="yuyin_bofang" src="{{img_url}}/uniapp/img/bofang_right.gif" mode></image>
+								<view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view>
+							</view>
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==14&&item.$orig.iswithdraw!=1}}">
+						<view data-event-opts="{{[['longpress',[['changan',['$0','$1'],[[['message','',index,'messageid']],[['message','',index,'content']]]]]],['tap',[['onOpenDoc',['$0'],[[['message','',index,'content']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e" bindtap="__e">
+							<view class="chat_right_txt ">
+								<view class="send_wenjian_html">
+									<view class="send_wenjian_html_left">
+										<view class="hei_30 send_wenjian_html_title">{{item.m1}}</view>
+									</view>
+									<view class="send_wenjian_html_right">
+										<image src="{{img_url}}/uniapp/img/word.png" mode></image>
+									</view>
+								</view>
+								<view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view>
+							</view>
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from!=userid&&item.$orig.msgtype==7&&item.$orig.iswithdraw!=1}}">
+						<view data-event-opts="{{[['longpress',[['changan',['$0'],[[['message','',index,'messageid']]]]]]]}}" class="chat_list chat_right" bindlongpress="__e">
+							<view class="chat_right_txt hei_30">
+								<view class="send_fukuan_success">
+									<view class="lv_26 send_fukuan_title">
+										<view class="lv_24_bold send_fukuan_title_left">
+											<image src="{{img_url}}/uniapp/img/chat_duihao.png" mode></image>付款成功
+										</view>
+									</view>
+									<view class="send_pay_ls">
+										<image src="{{img_url+user.photourl}}" mode></image>
+										<view class="send_pay_ls_riht">
+											<view class="end_pay_leixing hei_26">{{item.$orig.consult.baojia[item.$orig.consult.baojiamode]}}</view>
+											<view class="hei_20">{{''+user.nickname+'律师'}}<text class="qian_20 send_pay_ls_zhiwu">{{renzheng.zhiwu}}</text></view>
+										</view>
+									</view>
+									<view class="send_pay_bottom hei_24">
+										<view>{{'手机号码：'+item.$orig.consult.phone+''}}</view>
+										<view>{{"咨询类型："+item.$orig.consult.typename}}</view>
+										<view class="send_pay_bottom_neirong">{{"咨询内容："+item.$orig.consult.information}}</view>
+									</view>
+									<view class="fufei_success_tips qian_24">{{item.$orig.consult.baojiamode=='zhineng_zaixian'?tips.zhinengpaytip:tips.consultpaytip}}</view>
+								</view>
+								<view class="qian_20 du_zhuangtai">{{item.$orig.read==1?'已读':'未读'}}</view>
+							</view>
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==1&&item.$orig.iswithdraw!=1}}">
+						<view class="chat_list chat_left">
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+							<view class="chat_left_txt hei_30">
+								<block wx:if="{{item.$orig.msgtype==1}}">
+									<view>
+										<u-parse vue-id="{{'3bc31522-2-'+index}}" content="{{item.m2}}" bind:__l="__l"></u-parse>
+									</view>
+								</block>
+							</view>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==2&&item.$orig.iswithdraw!=1}}">
+						<view class="chat_list chat_left">
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+							<view class="chat_left_txt hei_30">
+								<image style="max-width:100rpx;" src="{{img_url+item.$orig.content}}" mode="widthFix" data-event-opts="{{[['tap',[['clickImg',[img_url+item.$orig.content]]]]]}}" bindtap="__e"></image>
+							</view>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==3&&item.$orig.iswithdraw!=1}}">
+						<view class="chat_list chat_left">
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+							<view class="chat_left_txt hei_30">
+								<view class="send_jia_html">
+									<view class="send_jia_top">
+										<image src="{{img_url+user.photourl}}" mode></image>
+										<view class="send_jia_top_r hui_20">
+											<view class="hui_24">{{''+user.nickname+'律师'}}<text class="qian_20 send_jia_top_zhiwei">{{renzheng.zhiwu}}</text></view>
+											<view class="send_jia_top_r_dizhi">
+												<image src="{{img_url}}/uniapp/img/chat_dizhi.png" mode></image>{{''+renzheng.province+"-"+renzheng.city+"-"+renzheng.area+''}}
+											</view>
+											<view class="send_jia_lvsuo">
+												<image src="{{img_url}}/uniapp/img/chat_lvsuo.png" mode></image>{{''+renzheng.lvsuo+''}}
+											</view>
+										</view>
+									</view>
+									<view class="send_jia_shangchang hei_24">擅长:<block wx:if="{{zhuanchang_arry[renzheng.expertise1]&&zhuanchang_arry[renzheng.expertise1].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise1].shanchangname+''}}</text></block>
+										<block wx:if="{{zhuanchang_arry[renzheng.expertise2]&&zhuanchang_arry[renzheng.expertise2].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise2].shanchangname+''}}</text></block>
+										<block wx:if="{{zhuanchang_arry[renzheng.expertise3]&&zhuanchang_arry[renzheng.expertise3].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise3].shanchangname+''}}</text></block>
+									</view>
+									<view class="send_jia_bottom style_hei_14">
+										<view><text class="hei_24" style="margin-right:20rpx;">电话咨询</text><text class="hong_24">{{"￥"+user.phoneprice+"/20分钟"}}</text></view><button class="bai_24" type="button">立即购买</button>
+									</view>
+								</view>
+							</view>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==4&&item.$orig.iswithdraw!=1}}">
+						<view class="chat_list chat_left">
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+							<view class="chat_left_txt hei_30">
+								<view class="send_jia_html">
+									<view class="send_jia_top">
+										<image src="{{img_url+user.photourl}}" mode></image>
+										<view class="send_jia_top_r hui_20">
+											<view class="hui_24">{{''+user.nickname+'律师'}}<text class="qian_20 send_jia_top_zhiwei">{{renzheng.zhiwu}}</text></view>
+											<view class="send_jia_top_r_dizhi">
+												<image src="{{img_url}}/uniapp/img/chat_dizhi.png" mode></image>{{''+renzheng.province+"-"+renzheng.city+"-"+renzheng.area+''}}
+											</view>
+											<view class="send_jia_lvsuo">
+												<image src="{{img_url}}/uniapp/img/chat_lvsuo.png" mode></image>{{''+renzheng.lvsuo+''}}
+											</view>
+										</view>
+									</view>
+									<view class="send_jia_shangchang hei_24">擅长:<block wx:if="{{zhuanchang_arry[renzheng.expertise1]&&zhuanchang_arry[renzheng.expertise1].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise1].shanchangname+''}}</text></block>
+										<block wx:if="{{zhuanchang_arry[renzheng.expertise2]&&zhuanchang_arry[renzheng.expertise2].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise2].shanchangname+''}}</text></block>
+										<block wx:if="{{zhuanchang_arry[renzheng.expertise3]&&zhuanchang_arry[renzheng.expertise3].shanchangname}}"><text>{{''+zhuanchang_arry[renzheng.expertise3].shanchangname+''}}</text></block>
+									</view>
+									<view class="send_jia_bottom style_hei_14">
+										<view><text class="hei_24" style="margin-right:20rpx;">在线咨询</text><text class="hong_24">{{"￥"+user.chatprice+"/天"}}</text></view><button class="bai_24" type="button">立即购买</button>
+									</view>
+								</view>
+							</view>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==5&&item.$orig.iswithdraw!=1}}">
+						<view class="chat_list chat_left">
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+							<view class="chat_left_txt hei_30">
+								<view class="send_xuanze hei_26">
+									<view>{{tishiyu.welcomes}}</view>
+									<view data-event-opts="{{[['tap',[['send_zaixian']]]]}}" class="hong_26" style="margin-bottom:10rpx;" bindtap="__e">【在线咨询-可看记录】</view>
+									<view data-event-opts="{{[['tap',[['send_dianhua']]]]}}" class="hong_26" bindtap="__e">【电话咨询-时时对话】</view>
+								</view>
+							</view>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==6&&item.$orig.iswithdraw!=1}}">
+						<view class="chat_list chat_left">
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+							<view class="chat_left_txt hei_30">
+								<view class="send_fukuan_success">
+									<view class="lv_26 send_fukuan_title">
+										<view class="lv_24_bold send_fukuan_title_left">
+											<image src="{{img_url}}/uniapp/img/chat_duihao.png" mode></image>付款成功
+										</view>
+									</view>
+									<view class="send_pay_ls">
+										<image src="{{img_url+user.photourl}}" mode></image>
+										<view class="send_pay_ls_riht">
+											<view class="end_pay_leixing hei_26">电话咨询<view class="hong_26">￥<text class="style_hong_16_bold">{{item.$orig.consult.paymoney}}</text>{{'/'+(item.$orig.consult.zixunshicahng=='24'?'天':item.$orig.consult.zixunshicahng=='72'?'3天':item.$orig.consult.zixunshicahng=='1'?'20分钟':item.$orig.consult.zixunshicahng=='720'?'月':'分钟')+''}}</view>
+											</view>
+											<view class="hei_20">{{''+user.nickname+'律师'}}<text class="qian_20 send_pay_ls_zhiwu">{{renzheng.zhiwu}}</text></view>
+										</view>
+									</view>
+									<view class="send_pay_bottom hei_24">
+										<view>{{'手机号码：'+item.$orig.consult.phone+''}}<text data-event-opts="{{[['tap',[['call2',['$0'],[[['message','',index,'consult.phone']]]]]]]}}" class="send_pay_call bai_24" bindtap="__e">打电话给他</text></view>
+										<view>{{"咨询类型："+item.$orig.consult.typename}}</view>
+										<view class="send_pay_bottom_neirong">{{"咨询内容："+item.$orig.consult.information}}</view>
+									</view>
+								</view>
+							</view>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==7&&item.$orig.iswithdraw!=1}}">
+						<view class="chat_list chat_left">
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+							<view class="chat_left_txt hei_30">
+								<view class="send_fukuan_success">
+									<view class="lv_26 send_fukuan_title">
+										<view class="lv_24_bold send_fukuan_title_left">
+											<image src="{{img_url}}/uniapp/img/chat_duihao.png" mode></image>付款成功
+										</view>
+									</view>
+									<view class="send_pay_ls">
+										<image src="{{img_url+user.photourl}}" mode></image>
+										<view class="send_pay_ls_riht">
+											<view class="end_pay_leixing hei_26">在线咨询<view class="hong_26">￥<text class="style_hong_16_bold">{{item.$orig.consult.paymoney}}</text>{{'/'+(item.$orig.consult.zixunshicahng=='24'?'天':item.$orig.consult.zixunshicahng=='72'?'3天':item.$orig.consult.zixunshicahng=='1'?'20分钟':item.$orig.consult.zixunshicahng=='720'?'月':'小时')+''}}</view>
+											</view>
+											<view class="hei_20">{{''+user.nickname+'律师'}}<text class="qian_20 send_pay_ls_zhiwu">{{renzheng.zhiwu}}</text></view>
+										</view>
+									</view>
+									<view class="send_pay_bottom hei_24">
+										<view>{{'手机号码：'+item.$orig.consult.phone+''}}</view>
+										<view>{{"咨询类型："+item.$orig.consult.typename}}</view>
+										<view class="send_pay_bottom_neirong">{{"咨询内容："+item.$orig.consult.information}}</view>
+									</view>
+									<view class="fufei_success_tips qian_24">{{item.$orig.consult.baojiamode=='zhineng_zaixian'?tips.zhinengpaytip:tips.consultpaytip}}</view>
+								</view>
+							</view>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==8&&item.$orig.iswithdraw!=1}}">
+						<view class="chat_list chat_left">
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+							<view class="chat_left_txt hei_30">
+								<view class="send_xuanze hei_26">
+									<view>{{tishiyu.overdue}}</view>
+									<view data-event-opts="{{[['tap',[['send_zaixian']]]]}}" class="hong_26" style="margin-bottom:10rpx;" bindtap="__e">【在线咨询-可看记录】</view>
+									<view data-event-opts="{{[['tap',[['send_dianhua']]]]}}" class="hong_26" bindtap="__e">【电话咨询-时时对话】</view>
+								</view>
+							</view>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.msgtype==9&&item.$orig.iswithdraw!=1}}">
+						<view class="chat_list chat_left">
+							<image class="tx" src="{{img_url}}/uniapp/img/xitong.png" mode></image>
+							<view class="chat_left_txt hei_30">{{tips.consultovertimetip}}</view>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from==userid&&item.$orig.iswithdraw==1}}">
+						<view class=" chat_chehui_tishi hei_26"><text class="chat_chehui_tishi_txt">{{"“"+title+"”撤回了一条消息"}}</text></view>
+					</block>
+					<block wx:if="{{item.$orig.msgtype==10}}">
+						<view class="chat_list chat_left">
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+							<view class="chat_left_txt hei_30 send_hongbao_html">
+								<view class="send_hongbao">
+									<view class="send_hongbao_top">
+										<image src="{{img_url}}/uniapp/img/hongbao_icon.png" mode></image><text>{{"￥"+item.$orig.money}}</text>
+									</view>
+									<view class="send_hongbao_bottom qian_24">{{item.$orig.information}}</view>
+								</view>
+							</view>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.msgtype==10}}">
+						<view class="lingqu hui_20">
+							<image src="{{img_url}}/uniapp/img/hongbao_icon.png" mode></image>{{'你收到了来自'+yh_user.nickname+'的红包'}}<text class="hong_20">红包</text>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.msgtype==12}}">
+						<view class="chat_list chat_left">
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+							<view class="chat_left_txt hei_30 send_fufei_html">
+								<view class="send_hongbao">
+									<view class="send_fufei_top bai_30">
+										<image src="{{img_url}}/uniapp/img/kefu.png" mode></image><text>{{item.$orig.information}}</text><text class="send_fufei_top_jia">{{"￥"+item.$orig.money}}</text>
+									</view>
+									<view class="send_hongbao_bottom qian_24">支付成功</view>
+								</view>
+							</view>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.msgtype==12}}">
+						<view class="hui_20 yi_fufei"><text>{{"用户"+title+"已完成付款，请您及时解答"}}</text></view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==13&&item.$orig.iswithdraw!=1}}">
+						<view class="chat_list chat_left">
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+							<view data-event-opts="{{[['tap',[['playVoice',['$0',index,'$1'],[[['message','',index,'content']],[['message','',index,'duration']]]]]]]}}" class="{{['chat_left_txt hei_30 chat_yuyin_left',yuyin_index==index?'bofang':'']}}" bindtap="__e">
+								<image class="yuyin_icon" src="{{img_url}}/uniapp/lsimg/chat_yuyin_left.png" mode></image>
+								<image class="yuyin_bofang" src="{{img_url}}/uniapp/img/bofang.gif" mode></image>{{''+(item.$orig.duration?item.$orig.duration:'5')+'\'\''}}
+							</view>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==14&&item.$orig.iswithdraw!=1}}">
+						<view data-event-opts="{{[['tap',[['onOpenDoc',['$0'],[[['message','',index,'content']]]]]]]}}" class="chat_list chat_left" bindtap="__e">
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+							<view class="chat_left_txt hei_30 ">
+								<view class="send_wenjian_html">
+									<view class="send_wenjian_html_left">
+										<view class="hei_30 send_wenjian_html_title">{{item.m3}}</view>
+									</view>
+									<view class="send_wenjian_html_right">
+										<image src="{{img_url}}/uniapp/img/word.png" mode></image>
+									</view>
+								</view>
+							</view>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.userid_from==userid&&item.$orig.msgtype==15&&item.$orig.iswithdraw!=1}}">
+						<view class="chat_list chat_left">
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+							<view class="chat_left_txt hei_30">
+								<view class="send_fukuan_success">
+									<view class="lv_26 send_fukuan_title">
+										<view class="lv_24_bold send_fukuan_title_left">
+											<image src="{{img_url}}/uniapp/img/chat_duihao.png" mode></image>付款成功
+										</view>
+									</view>
+									<view class="send_pay_ls">
+										<image src="{{img_url+user.photourl}}" mode></image>
+										<view class="send_pay_ls_riht">{{''+item.$orig.consult.baojia[item.$orig.consult.baojiamode]+''}}
+											<view class="hei_20">{{''+user.nickname+'律师'}}<text class="qian_20 send_pay_ls_zhiwu">{{renzheng.zhiwu}}</text></view>
+										</view>
+									</view>
+									<view class="send_pay_bottom hei_24">
+										<view>{{'手机号码：'+item.$orig.consult.phone+''}}</view>
+										<view>{{"咨询类型："+item.$orig.consult.typename}}</view>
+										<view class="send_pay_bottom_neirong">{{"咨询内容："+item.$orig.consult.information}}</view>
+									</view>
+								</view>
+							</view>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.msgtype==16&&item.$orig.refund}}">
+						<view class="chat_list chat_left">
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+							<view class="chat_left_txt ">
+								<view class="send_tuikuan">
+									<block wx:if="{{item.$orig.refund.state!=2}}">
+										<view class="send_tuikuan_top"><text class="hei_26">{{title+"申请了退款"}}</text>
+											<view class="send_tuikuan_top_right hong_26_bold"></view>
+										</view>
+									</block>
+									<block wx:if="{{item.$orig.refund.state==2}}">
+										<view class="send_tuikuan_top"><text class="hei_26">退款成功</text>
+											<view class="send_tuikuan_top_right hong_26_bold"></view>
+										</view>
+									</block>
+									<view class="send_tuikuan_bottom qian_24">
+										<view>{{"退款金额：￥"+item.$orig.refund.refundmoney}}</view>
+										<view>{{'类型/时长：'+gettype[item.$orig.refund.typeid].typename+"/"+(item.$orig.refund.zixunshicahng==24?'1天':item.$orig.refund.zixunshicahng==72?'3天':item.$orig.refund.zixunshicahng==720?'1个月':item.$orig.refund.zixunshicahng+'小时')+''}}</view>
+										<view>{{"退款原因："+item.$orig.refund.refundreason}}</view>
+										<view>{{'退款状态：'+(item.$orig.refund.state==1?'退款中':item.$orig.refund.state==2?'同意退款':item.$orig.refund.state==3?'拒绝退款':item.$orig.refund.state==4?'取消退款':'')+''}}</view>
+										<view>{{"操作时间："+item.f2}}</view>
+									</view>
+								</view>
+							</view>
+						</view>
+					</block>
+					<block wx:if="{{item.$orig.msgtype==17&&item.$orig.refund}}">
+						<view class="chat_list chat_left">
+							<image class="tx" src="{{img_url+item.$orig.photourl_form}}" mode></image>
+							<view class="chat_left_txt ">
+								<view class="send_tuikuan">
+									<view class="send_tuikuan_top"><text class="hei_26">{{title+"取消了退款"}}</text>
+										<view class="send_tuikuan_top_right hong_26_bold"></view>
+									</view>
+									<view class="send_tuikuan_bottom qian_24">
+										<view>{{"退款金额：￥"+item.$orig.refund.refundmoney}}</view>
+										<view>{{'类型/时长：'+gettype[item.$orig.refund.typeid].typename+"/"+(item.$orig.refund.zixunshicahng==24?'1天':item.$orig.refund.zixunshicahng==72?'3天':item.$orig.refund.zixunshicahng==720?'1个月':item.$orig.refund.zixunshicahng+'小时')+''}}</view>
+										<view>{{"退款原因："+item.$orig.refund.refundreason}}</view>
+										<view>{{'退款状态：'+(item.$orig.refund.state==1?'退款中':item.$orig.refund.state==2?'同意退款':item.$orig.refund.state==3?'拒绝退款':item.$orig.refund.state==4?'取消退款':'')+''}}</view>
+										<view>{{"操作时间："+item.f3}}</view>
+									</view>
+								</view>
+							</view>
+						</view>
+					</block>
+				</view>
+			</block>
+			<block wx:if="{{is_zuijin_chehui}}">
+				<view class=" chat_chehui_tishi hei_26"><text class="chat_chehui_tishi_txt">你撤回了一条消息<text data-event-opts="{{[['tap',[['bianji',['$event']]]]]}}" class="lv_26" bindtap="__e">重新编辑</text></text></view>
+			</block>
+		</view>
+		<block wx:if="{{isShowEmj}}">
+			<view class="zhanwei"></view>
+		</block>
+		<view class="chat_bottom">
+			<view class="chat_bottom_top">
+				<block wx:if="{{!on_yuyin}}">
+					<image src="{{img_url}}/uniapp/lsimg/chat_yuyin.png" mode data-event-opts="{{[['tap',[['show_luyin',['$event']]]]]}}" bindtap="__e"></image>
+				</block>
+				<block wx:if="{{on_yuyin}}">
+					<image src="{{img_url}}/uniapp/img/chat_jianpan.png" mode data-event-opts="{{[['tap',[['hide_luyin',['$event']]]]]}}" bindtap="__e"></image>
+				</block>
+				<block wx:if="{{on_yuyin}}"><input class="changan_input hei_34_bold" type="text" value="" placeholder="按住 说话" placeholder-style="color:#333" disabled="true" data-event-opts="{{[['longtap',[['dian_luyin',['$event']]]],['touchend',[['songkai',['$event']]]],['touchmove',[['moveStop',['$event']]]]]}}" bindlongtap="__e" bindtouchend="__e" catchtouchmove="__e" /></block>
+				<block wx:if="{{!on_yuyin}}"><input class="hei_26" type="text" value="{{chat_txt}}" confirm-type="send" data-event-opts="{{[['confirm',[['send',['$event']]]],['focus',[['huojiao',['$event']]]],['tap',[['input_click']]],['blur',[['shiqu',['$event']]]],['input',[['__set_model',['','chat_txt','$event',[]]]]]]}}" bindconfirm="__e" bindfocus="__e" bindtap="__e" bindblur="__e" bindinput="__e" /></block>
+				<image src="{{img_url}}/uniapp/lsimg/chat_biaoqing.png" mode data-event-opts="{{[['tap',[['showEmj',['$event']]]]]}}" bindtap="__e"></image>
+				<block wx:if="{{!chat_txt}}">
+					<image src="{{img_url}}/uniapp/lsimg/chat_jia.png" mode data-event-opts="{{[['tap',[['jia',['$event']]]]]}}" bindtap="__e"></image>
+				</block>
+				<block wx:if="{{chat_txt}}"><text data-event-opts="{{[['tap',[['send']]]]}}" class="fasong" bindtap="__e">发送</text></block>
+			</view>
+			<block wx:if="{{bottom_tip}}">
+				<view class="jianpan"></view>
+			</block>
+			<block wx:if="{{isShowEmj}}">
+				<emotion bind:emotion="__e" vue-id="3bc31522-3" data-event-opts="{{[['^emotion',[['handleEmj']]]]}}" bind:__l="__l"></emotion>
+			</block>
+			<block wx:if="{{bt_show}}">
+				<view class="chat_bottom_bottom hui_26">
+					<view data-event-opts="{{[['tap',[['call',['$event']]]]]}}" class="chat_bt_item" bindtap="__e">
+						<image src="{{img_url}}/uniapp/lsimg/chat_dianhua.png" mode></image>
+						<view>打电话给TA</view>
+					</view>
+					<view data-event-opts="{{[['tap',[['up_img',['$event']]]]]}}" class="chat_bt_item" bindtap="__e">
+						<image src="{{img_url}}/uniapp/lsimg/chat_tupian.png" mode></image>
+						<view>发送图片</view>
+					</view>
+					<view class="chat_bt_item">
+						<picker range="{{changyong_arry}}" data-event-opts="{{[['change',[['changyong_change',['$event']]]]]}}" bindchange="__e">
+							<image src="{{img_url}}/uniapp/lsimg/chat_changyong.png" mode></image>
+							<view>常用语</view>
+						</picker>
+					</view>
+					<view data-event-opts="{{[['tap',[['go_shoukuan',['$event']]]]]}}" class="chat_bt_item" bindtap="__e">
+						<image src="{{img_url}}/uniapp/lsimg/chat_shoukuan.png" mode></image>
+						<view>发起收款</view>
+					</view>
+					<block wx:if="{{is_kaiqi_yuyin==1}}">
+						<view data-event-opts="{{[['tap',[['yuyin_chat',['$event']]]]]}}" class="chat_bt_item" bindtap="__e">
+							<image src="{{img_url}}/uniapp/img/bottom_yuyin.png" mode></image>
+							<view>语音聊天</view>
+						</view>
+					</block>
+					<block wx:if="{{is_kaiqi_yuyin==1}}">
+						<view data-event-opts="{{[['tap',[['shipin_chat',['$event']]]]]}}" class="chat_bt_item" bindtap="__e">
+							<image src="{{img_url}}/uniapp/img/bottom_shipin.png" mode></image>
+							<view>视频聊天</view>
+						</view>
+					</block>
+					<view data-event-opts="{{[['tap',[['send_wenjian',['$event']]]]]}}" class="chat_bt_item" bindtap="__e">
+						<image src="{{img_url}}/uniapp/img/bottom_wenjian.png" mode></image>
+						<view>发送文件</view>
+					</view>
+				</view>
+			</block>
+		</view>
+	</view>
+	<block wx:if="{{is_yuyin}}">
+		<view class="yuyin_bg">
+			<view class="tan_yuyin">
+				<view class="tan_yuyin_top">
+					<block wx:if="{{!is_quxiao}}">
+						<view class="tan_yuyin_on">
+							<image src="{{img_url}}/uniapp/img/yuyin.gif" mode="heightFix"></image>
+						</view>
+					</block>
+					<block wx:if="{{is_quxiao}}">
+						<view class="tan_yuyin_no">
+							<image src="{{img_url}}/uniapp/img/yuyin.gif" mode></image>
+						</view>
+					</block>
+				</view>
+				<view class="tan_yuyin_center">
+					<block wx:if="{{!is_quxiao}}">
+						<image class="no_quxiao" src="{{img_url}}/uniapp/lsimg/no_quxiao.png" mode></image>
+					</block>
+					<block wx:if="{{is_quxiao}}">
+						<view>
+							<view class="songshou_txt">松开 取消</view>
+							<image class="yuyin_quxiao" src="{{img_url}}/uniapp/lsimg/yuyin_quxiao.png" mode></image>
+						</view>
+					</block>
+				</view>
+				<view class="tan_yuyin_bottom">
+					<block wx:if="{{!is_quxiao}}">
+						<view class="tan_yuyin_bottom_on"></view>
+					</block>
+					<block wx:if="{{is_quxiao}}">
+						<view class="tan_yuyin_bottom_no">
+							<image src="{{img_url}}/uniapp/lsimg/yuyin_bai.png" mode></image>
+						</view>
+					</block>
+				</view>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{is_chehui}}">
+		<view class="bg">
+			<view class="chehui">
+				<view class="qian_28 chehui_title">是否撤销该条消息？</view>
+				<view data-event-opts="{{[['tap',[['che_queding',['$event']]]]]}}" class="lv_32 chehui_queding" bindtap="__e">确定</view>
+				<view data-event-opts="{{[['tap',[['che_quxiao',['$event']]]]]}}" class="qian_32 chehui_quxiao" bindtap="__e">取消</view>
+			</view>
+		</view>
+	</block>
+	<l-file class="vue-ref" bind:upSuccess="__e" vue-id="3bc31522-4" data-ref="lFile" data-event-opts="{{[['^upSuccess',[['onSuccess']]]]}}" bind:__l="__l"></l-file>
+</view>

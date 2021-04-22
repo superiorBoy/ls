@@ -1,1 +1,23 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">服务报价</view><view data-event-opts="{{[['tap',[['add']]]]}}" class=" head_right hei_30_bold" bindtap="__e">新增</view></view><view class="zi_body "><block wx:for="{{fuwu_list}}" wx:for-item="item" wx:for-index="index"><view class="baojia_list hei_28"><view class="baojia_list_left"><view class="list_top"><text class="paixu bai_24">{{index+1}}</text>{{''+fenlei[item.typeid].typename+''}}</view><view class="hong_28">{{"￥"+item.minmoney+"~"+item.maxmoney}}</view></view><view class="baojia_list_center"><view class="list_top">{{item.province+"-"+item.city}}</view><view>{{item.agent==1?'接受':'不接受'}}</view></view><button class="xiugai hong_26" type data-event-opts="{{[['tap',[['xiugai',[index,'$0'],['num']]]]]}}" bindtap="__e">修改</button></view></block></view></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">服务报价</view>
+		<view data-event-opts="{{[['tap',[['add']]]]}}" class=" head_right hei_30_bold" bindtap="__e">新增</view>
+	</view>
+	<view class="zi_body ">
+		<block wx:for="{{fuwu_list}}" wx:for-item="item" wx:for-index="index">
+			<view class="baojia_list hei_28">
+				<view class="baojia_list_left">
+					<view class="list_top"><text class="paixu bai_24">{{index+1}}</text>{{''+fenlei[item.typeid].typename+''}}</view>
+					<view class="hong_28">{{"￥"+item.minmoney+"~"+item.maxmoney}}</view>
+				</view>
+				<view class="baojia_list_center">
+					<view class="list_top">{{item.province+"-"+item.city}}</view>
+					<view>{{item.agent==1?'接受':'不接受'}}</view>
+				</view><button class="xiugai hong_26" type data-event-opts="{{[['tap',[['xiugai',[index,'$0'],['num']]]]]}}" bindtap="__e">修改</button>
+			</view>
+		</block>
+	</view>
+</view>

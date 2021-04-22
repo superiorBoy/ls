@@ -242,6 +242,7 @@ var _default =
         then(function (res) {
           if (res.code == 0) {
             uni.removeStorageSync('ls_chat_list');
+            uni.setStorageSync('token',res.data.token);
             uni.reLaunch({
               url: 'my' });
 

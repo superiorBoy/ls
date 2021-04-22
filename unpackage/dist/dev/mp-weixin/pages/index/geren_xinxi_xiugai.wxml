@@ -1,1 +1,18 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">{{"修改"+(state==1?'昵称':state==2?'QQ':state==3?'微信':state==4?'邮箱':'简介')}}</view><view class=" head_right hei_30_bold"></view></view><view class="zi_body "><view class="xiu_top hei_30"><view class="xiu_top_title">{{(state==1?'用户名':state==2?'QQ号':state==3?'微信号':state==4?'邮箱':'简介')+"："}}</view><view class="xiu_top_shuru"><input class="hei_30" type="text" value="{{shuru}}" data-event-opts="{{[['input',[['__set_model',['','shuru','$event',[]]]]]]}}" bindinput="__e"/></view><block wx:if="{{state==1}}"><view class="tishi qian_24">以英文字母或汉字开头，限4-16个字符，一个汉字为2个字符</view></block><button class="bai_30" type data-event-opts="{{[['tap',[['save']]]]}}" bindtap="__e">确认修改</button></view></view></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">{{"修改"+(state==1?'昵称':state==2?'QQ':state==3?'微信':state==4?'邮箱':'简介')}}</view>
+		<view class=" head_right hei_30_bold"></view>
+	</view>
+	<view class="zi_body ">
+		<view class="xiu_top hei_30">
+			<view class="xiu_top_title">{{(state==1?'用户名':state==2?'QQ号':state==3?'微信号':state==4?'邮箱':'简介')+"："}}</view>
+			<view class="xiu_top_shuru"><input class="hei_30" type="text" value="{{shuru}}" data-event-opts="{{[['input',[['__set_model',['','shuru','$event',[]]]]]]}}" bindinput="__e" /></view>
+			<block wx:if="{{state==1}}">
+				<view class="tishi qian_24">以英文字母或汉字开头，限4-16个字符，一个汉字为2个字符</view>
+			</block><button class="bai_30" type data-event-opts="{{[['tap',[['save']]]]}}" bindtap="__e">确认修改</button>
+		</view>
+	</view>
+</view>

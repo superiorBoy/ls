@@ -1,1 +1,33 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">当面咨询</view><view class=" head_right hei_30_bold"></view></view><view class="zi_body "><view class="jianmian_top hei_28" style="border-bottom:20rpx solid #E8E8E8;"><text>当面咨询价格</text><view class="jianmian_top_right "><input class="hei_28" type="text" value="{{price}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','price','$event',[]]]]]]}}" bindinput="__e"/>元</view></view><view class="jianmian_bottom hei_28"><view style="line-height:130rpx;">预约咨询见面日期(多选)</view><view class="qian_26 jiamian_riqi"><view data-event-opts="{{[['tap',[['xuan_riqi',[1]]]]]}}" class="{{[' jiamian_riqi_item',riqi_index==1?'riqi_active':'']}}" bindtap="__e">今天</view><view data-event-opts="{{[['tap',[['xuan_riqi',[2]]]]]}}" class="{{[' jiamian_riqi_item',riqi_index==2?'riqi_active':'']}}" bindtap="__e">明天</view><view data-event-opts="{{[['tap',[['xuan_riqi',[3]]]]]}}" class="{{[' jiamian_riqi_item',riqi_index==3?'riqi_active':'']}}" bindtap="__e"><picker mode="date" data-event-opts="{{[['change',[['time_change',['$event']]]]]}}" bindchange="__e"><image src="/static/lsimg/rili.png" mode></image>{{(time==''?'自定义':time)+''}}</picker></view></view><view style="line-height:114rpx;">预约咨询见面时间段(多选)</view><view class="jiamian_riqi qian_26 "><view data-event-opts="{{[['tap',[['xuan_time',[1]]]]]}}" class="{{[' jiamian_riqi_item_time',time_index==1?'riqi_active':'']}}" bindtap="__e">上午9:00-12:00</view><view data-event-opts="{{[['tap',[['xuan_time',[2]]]]]}}" class="{{[' jiamian_riqi_item_time',time_index==2?'riqi_active':'']}}" bindtap="__e">下午13:00-18:00</view></view><view class="jianmian_dizhi hei_28"><text>预约咨询见面地址</text><input class="hei_28" type="text" value="{{dizhi}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','dizhi','$event',[]]]]]]}}" bindinput="__e"/></view></view><view class="tianjie_btn"><button class="bai_30" type data-event-opts="{{[['tap',[['save',['$event']]]]]}}" bindtap="__e">立即添加</button></view></view></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">当面咨询</view>
+		<view class=" head_right hei_30_bold"></view>
+	</view>
+	<view class="zi_body ">
+		<view class="jianmian_top hei_28" style="border-bottom:20rpx solid #E8E8E8;"><text>当面咨询价格</text>
+			<view class="jianmian_top_right "><input class="hei_28" type="text" value="{{price}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','price','$event',[]]]]]]}}" bindinput="__e" />元</view>
+		</view>
+		<view class="jianmian_bottom hei_28">
+			<view style="line-height:130rpx;">预约咨询见面日期(多选)</view>
+			<view class="qian_26 jiamian_riqi">
+				<view data-event-opts="{{[['tap',[['xuan_riqi',[1]]]]]}}" class="{{[' jiamian_riqi_item',riqi_index==1?'riqi_active':'']}}" bindtap="__e">今天</view>
+				<view data-event-opts="{{[['tap',[['xuan_riqi',[2]]]]]}}" class="{{[' jiamian_riqi_item',riqi_index==2?'riqi_active':'']}}" bindtap="__e">明天</view>
+				<view data-event-opts="{{[['tap',[['xuan_riqi',[3]]]]]}}" class="{{[' jiamian_riqi_item',riqi_index==3?'riqi_active':'']}}" bindtap="__e">
+					<picker mode="date" data-event-opts="{{[['change',[['time_change',['$event']]]]]}}" bindchange="__e">
+						<image src="{{img_url}}/uniapp/lsimg/rili.png" mode></image>{{(time==''?'自定义':time)+''}}
+					</picker>
+				</view>
+			</view>
+			<view style="line-height:114rpx;">预约咨询见面时间段(多选)</view>
+			<view class="jiamian_riqi qian_26 ">
+				<view data-event-opts="{{[['tap',[['xuan_time',[1]]]]]}}" class="{{[' jiamian_riqi_item_time',time_index==1?'riqi_active':'']}}" bindtap="__e">上午9:00-12:00</view>
+				<view data-event-opts="{{[['tap',[['xuan_time',[2]]]]]}}" class="{{[' jiamian_riqi_item_time',time_index==2?'riqi_active':'']}}" bindtap="__e">下午13:00-18:00</view>
+			</view>
+			<view class="jianmian_dizhi hei_28"><text>预约咨询见面地址</text><input class="hei_28" type="text" value="{{dizhi}}" placeholder="请填写" data-event-opts="{{[['input',[['__set_model',['','dizhi','$event',[]]]]]]}}" bindinput="__e" /></view>
+		</view>
+		<view class="tianjie_btn"><button class="bai_30" type data-event-opts="{{[['tap',[['save',['$event']]]]]}}" bindtap="__e">立即添加</button></view>
+	</view>
+</view>

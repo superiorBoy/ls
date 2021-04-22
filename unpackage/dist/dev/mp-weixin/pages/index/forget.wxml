@@ -1,1 +1,29 @@
-<view><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold ">忘记密码</view><view class="hei_30_bold head_right"></view></view><view class="zi_body"><view class="yonghu_zhuce "><view class="zhuce_list"><image src="../../static/img/shouji_icon.png"></image><input type="text" value="{{shouji}}" placeholder="手机号码" data-event-opts="{{[['input',[['__set_model',['','shouji','$event',[]]]]]]}}" bindinput="__e"/></view><view class="zhuce_list zhuce_list_yanzheng"><view class="zhuce_list_left"><image class="yanzheng_icon" src="../../static/img/duanxin_icon.png" mode></image><input type="text" placeholder="验证码" data-event-opts="{{[['input',[['__set_model',['','code','$event',[]]]]]]}}" value="{{code}}" bindinput="__e"/></view><button class="{{['vue-ref','background_zhuti',isdisabled==true?'border':'']}}" disabled="{{isdisabled}}" data-ref="yanzheng_btn" data-event-opts="{{[['tap',[['VerificationCode',['$event']]]]]}}" bindtap="__e">{{''+yan_txt+''}}</button></view><view class="zhuce_list"><image src="../../static/img/mima_icon.png" mode></image><input type="{{type1}}" value="" placeholder="请设置一个最少6位的密码" data-event-opts="{{[['input',[['mimashu',['$event']]]]]}}" bindinput="__e"/><image class="{{['yanjing',type1=='text'?'kai':'guan']}}" src="{{yan1_zhuangtai}}" mode data-event-opts="{{[['tap',[['chakan',[1]]]]]}}" bindtap="__e"></image></view><view class="zhuce_list"><image src="../../static/img/mima_icon.png" mode></image><input type="{{type2}}" value="" placeholder="确认密码" data-event-opts="{{[['input',[['agamimashu',['$event']]]]]}}" bindinput="__e"/><image class="{{['yanjing',type1=='text'?'kai':'guan']}}" src="{{yan1_zhuangtai}}" mode data-event-opts="{{[['tap',[['chakan',[2]]]]]}}" bindtap="__e"></image></view><button class="zhuce bai_30" type data-event-opts="{{[['tap',[['xiugai']]]]}}" bindtap="__e">确认修改</button></view></view></view>
+<view>
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold ">忘记密码</view>
+		<view class="hei_30_bold head_right"></view>
+	</view>
+	<view class="zi_body">
+		<view class="yonghu_zhuce ">
+			<view class="zhuce_list">
+				<image src="{{img_url}}/uniapp/img/shouji_icon.png"></image><input type="text" value="{{shouji}}" placeholder="手机号码" data-event-opts="{{[['input',[['__set_model',['','shouji','$event',[]]]]]]}}" bindinput="__e" />
+			</view>
+			<view class="zhuce_list zhuce_list_yanzheng">
+				<view class="zhuce_list_left">
+					<image class="yanzheng_icon" src="{{img_url}}/uniapp/img/duanxin_icon.png" mode></image><input type="text" placeholder="验证码" data-event-opts="{{[['input',[['__set_model',['','code','$event',[]]]]]]}}" value="{{code}}" bindinput="__e" />
+				</view><button class="{{['vue-ref','background_zhuti',isdisabled==true?'border':'']}}" disabled="{{isdisabled}}" data-ref="yanzheng_btn" data-event-opts="{{[['tap',[['VerificationCode',['$event']]]]]}}" bindtap="__e">{{''+yan_txt+''}}</button>
+			</view>
+			<view class="zhuce_list">
+				<image src="{{img_url}}/uniapp/img/mima_icon.png" mode></image><input type="{{type1}}" value="" placeholder="请设置一个最少6位的密码" data-event-opts="{{[['input',[['mimashu',['$event']]]]]}}" bindinput="__e" />
+				<image class="{{['yanjing',type1=='text'?'kai':'guan']}}" src="{{yan1_zhuangtai}}" mode data-event-opts="{{[['tap',[['chakan',[1]]]]]}}" bindtap="__e"></image>
+			</view>
+			<view class="zhuce_list">
+				<image src="{{img_url}}/uniapp/img/mima_icon.png" mode></image><input type="{{type2}}" value="" placeholder="确认密码" data-event-opts="{{[['input',[['agamimashu',['$event']]]]]}}" bindinput="__e" />
+				<image class="{{['yanjing',type1=='text'?'kai':'guan']}}" src="{{yan1_zhuangtai}}" mode data-event-opts="{{[['tap',[['chakan',[2]]]]]}}" bindtap="__e"></image>
+			</view><button class="zhuce bai_30" type data-event-opts="{{[['tap',[['xiugai']]]]}}" bindtap="__e">确认修改</button>
+		</view>
+	</view>
+</view>

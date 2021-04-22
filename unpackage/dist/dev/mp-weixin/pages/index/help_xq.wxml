@@ -1,1 +1,15 @@
-<view class="body"><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">帮助中心</view><view class=" head_right hei_30_bold"></view></view><view class="zi_body help_xq_body"><view class="help_xq_top hei_30_bold">{{title}}</view><view class="help_txt hui_28"><u-parse vue-id="cb803156-1" content="{{body}}" bind:__l="__l"></u-parse></view></view></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">帮助中心</view>
+		<view class=" head_right hei_30_bold"></view>
+	</view>
+	<view class="zi_body help_xq_body">
+		<view class="help_xq_top hei_30_bold">{{title}}</view>
+		<view class="help_txt hui_28">
+			<u-parse vue-id="cb803156-1" content="{{body}}" bind:__l="__l"></u-parse>
+		</view>
+	</view>
+</view>

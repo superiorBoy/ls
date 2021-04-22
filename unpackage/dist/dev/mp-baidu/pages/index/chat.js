@@ -2589,6 +2589,18 @@
                             // 		.then(res => {
                             // 		});
 
+                            var that = this;
+                            let up_path = swan.getStorageSync('up_path');
+                            console.log(up_path,'111111')
+
+                            if(up_path){
+
+                                          that.send_wenjian_txt(up_path)
+
+                              }
+
+
+
                         },
                         onReady: function onReady() {
                             var that = this;
@@ -2832,6 +2844,12 @@
                             },
                             send_wenjian: function send_wenjian() {
 
+                                uni.navigateTo({
+                                    url: 'up_file'
+                                });
+
+
+
                                 // swan.uploadFile({
                                 //     count: 1,
                                 //     type: 'file',
@@ -2904,6 +2922,7 @@
                                 this.send_wenjian_txt(res.data.file);
                             },
                             send_wenjian_txt: function send_wenjian_txt(localPath) {
+                                swan.setStorageSync("up_path", '');
                                 var _this2 = this;
                                 var that = this;
                                 this.$http.post({
@@ -2915,6 +2934,7 @@
                                     }
                                 }).then(function (res) {
                                     console.log(res);
+
                                     if (res.code == 0) {
                                         var data = {
                                             content: localPath,
@@ -2937,6 +2957,7 @@
                                             that.send_guoqi();
                                         }
                                     }
+
                                 });
                             },
                             wenjian: function wenjian(str) {

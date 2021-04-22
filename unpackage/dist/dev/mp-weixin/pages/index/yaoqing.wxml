@@ -1,1 +1,35 @@
-<view><view class="head"><view class="head_back"><image src="/static/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">邀请好友</view><view class="head_right"></view></view><view class="zi_body"><view class="yaoqing_bg"><view class="txt bai_30">邀请好友  领取红包</view></view><view class="yaoqing_bottom"><view class="lianjie"><input class="qian_26" type="text" value="{{lianjie}}" disabled="{{true}}" data-event-opts="{{[['input',[['__set_model',['','lianjie','$event',[]]]]]]}}" bindinput="__e"/><button class="fuzhi" type data-event-opts="{{[['tap',[['lianjiego',['$event']]]]]}}" bindtap="__e">{{deng_txt}}</button></view><view class="guize bai_26"><view class="guize_list"><text></text>首次下单并成功邀请好友，即有资格领取现金红包！</view><view class="guize_list"><text></text>请好友注册会员奖励10元</view><view class="guize_list"><text></text>邀请好友注册律师并且完成律师认证奖励100元</view><view class="guize_list"><text></text>享受直属会员消费的1%的提成！</view></view><view class="mingdan"><block wx:if="{{list.length==0}}"><view class="none"><image src="/static/lsimg/none_mingdan.png" mode></image></view></block><block wx:for="{{list}}" wx:for-item="item" wx:for-index="index"><block wx:if="{{list.length>0&&index<5}}"><view class="mimgdan_list bai_30"><text class="paixu">{{index+1}}</text><text>{{item.mobile}}</text><text>{{item.usercount+"人"}}</text></view></block></block></view><button class="fenxiang" type="default" data-event-opts="{{[['tap',[['lianjiego',['$event']]]]]}}" bindtap="__e">立即分享给好友</button></view></view></view>
+<view>
+	<view class="head">
+		<view class="head_back">
+			<image src="{{img_url}}/uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">邀请好友</view>
+		<view class="head_right"></view>
+	</view>
+	<view class="zi_body">
+		<view class="yaoqing_bg">
+			<view class="txt bai_30">邀请好友 领取红包</view>
+		</view>
+		<view class="yaoqing_bottom">
+			<view class="lianjie"><input class="qian_26" type="text" value="{{lianjie}}" disabled="{{true}}" data-event-opts="{{[['input',[['__set_model',['','lianjie','$event',[]]]]]]}}" bindinput="__e" /><button class="fuzhi" type data-event-opts="{{[['tap',[['lianjiego',['$event']]]]]}}" bindtap="__e">{{deng_txt}}</button></view>
+			<view class="guize bai_26">
+				<view class="guize_list"><text></text>首次下单并成功邀请好友，即有资格领取现金红包！</view>
+				<view class="guize_list"><text></text>请好友注册会员奖励10元</view>
+				<view class="guize_list"><text></text>邀请好友注册律师并且完成律师认证奖励100元</view>
+				<view class="guize_list"><text></text>享受直属会员消费的1%的提成！</view>
+			</view>
+			<view class="mingdan">
+				<block wx:if="{{list.length==0}}">
+					<view class="none">
+						<image src="{{img_url}}/uniapp/lsimg/none_mingdan.png" mode></image>
+					</view>
+				</block>
+				<block wx:for="{{list}}" wx:for-item="item" wx:for-index="index">
+					<block wx:if="{{list.length>0&&index<5}}">
+						<view class="mimgdan_list bai_30"><text class="paixu">{{index+1}}</text><text>{{item.mobile}}</text><text>{{item.usercount+"人"}}</text></view>
+					</block>
+				</block>
+			</view><button class="fenxiang" type="default" data-event-opts="{{[['tap',[['lianjiego',['$event']]]]]}}" bindtap="__e">立即分享给好友</button>
+		</view>
+	</view>
+</view>
