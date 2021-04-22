@@ -270,7 +270,7 @@ var _default =
         console.log('zhifubao');
 
 
-
+this.h5_pay()
 
 
 
@@ -299,7 +299,9 @@ var _default =
             if (res.code == 0) {
               // window.open('' + res.data.response);
 
-
+              swan.navigateTo({
+                url: 'ceshi?src='+encodeURIComponent(res.data.response)
+            })
 
 
               // if (uni.getSystemInfoSync().platform === 'android') {

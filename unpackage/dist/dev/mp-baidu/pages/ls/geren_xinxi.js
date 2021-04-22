@@ -282,119 +282,41 @@ var _default =
       uni.chooseImage({
         success: function success(res) {
           console.log(res);
-          // that.zhiye_zhao = res.tempFilePaths[0];
-
-          // that.urlTobase64(res.tempFilePaths[0])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          uni.getFileSystemManager().readFile({
+            filePath: res.tempFilePaths[0], //选择图片返回的相对路径
+            encoding: "base64",//这个是很重要的
+            success: res => { //成功的回调
+
+       let base64='data:image/png;base64,' + res.data
+            that.$http
+            .post({
+                url: '/mlawyerapi/lawyer/upnickname',
+                data: {
+                    nickname:that.data.nickname,
+                    img:base64
+                }
+            })
+            .then(res => {
+                console.log(res.code);
+                if (res.code == 0) {
+                    uni.showToast({
+                        title: '修改成功',
+                        duration: 2000,
+                        icon: 'none'
+                    });
+                    that.touxiang = base64;
+                }
+            });
+
+            }
+          })
 
 
 
         } });
 
     },
-    getLocalFilePath: function getLocalFilePath(path) {
-      if (path.indexOf('_www') === 0 || path.indexOf('_doc') === 0 || path.indexOf('_documents') === 0 || path.indexOf('_downloads') === 0) {
-        return path;
-      }
-      if (path.indexOf('file://') === 0) {
-        return path;
-      }
-      if (path.indexOf('/storage/emulated/0/') === 0) {
-        return path;
-      }
-      if (path.indexOf('/') === 0) {
-        var localFilePath = plus.io.convertAbsoluteFileSystem(path);
-        if (localFilePath !== path) {
-          return localFilePath;
-        } else {
-          path = path.substr(1);
-        }
-      }
-      return '_www/' + path;
-    },
+
     tianjia_go: function tianjia_go() {
       console.log(this.txt);
       this.youshi_arry.push(this.txt);

@@ -421,92 +421,39 @@
 									uni.chooseImage({
 										success: function success(res) {
 											console.log(res);
-											// that.zhiye_zhao = res.tempFilePaths[0];
-
-											// that.urlTobase64(res.tempFilePaths[0])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                            uni.getFileSystemManager().readFile({
+                                                filePath: res.tempFilePaths[0], //选择图片返回的相对路径
+                                                encoding: "base64",//这个是很重要的
+                                                success: res => { //成功的回调
+                                                 //返回base64格式
+                                                //  console.log('data:image/png;base64,' + res.data)
+                                                var   base64 = 'data:image/jpeg;base64,' + res.data; //不加上这串字符，在页面无法显示的哦
+                             that.$http
+								.post({
+									url: '/mapi/user/upnickname',
+									data: {
+										nickname:that.data.nickname,
+										img:base64
+									}
+								})
+								.then(res => {
+									console.log(res.code);
+									if (res.code == 0) {
+										uni.showToast({
+											title: '修改成功',
+											duration: 2000,
+											icon: 'none'
+										});
+                                        that.touxiang=base64
+									}
+								});
+
+
+
+
+
+                                                }
+                                              })
 
 
 

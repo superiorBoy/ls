@@ -274,12 +274,17 @@ var _default =
       uni.chooseImage({
         success: function success(res) {
           console.log(res);
-          that.zhiye_zhao = res.tempFilePaths[0];
 
-          // that.urlTobase64(res.tempFilePaths[0])
+          uni.getFileSystemManager().readFile({
+            filePath: res.tempFilePaths[0], //选择图片返回的相对路径
+            encoding: "base64",//这个是很重要的
+            success: res => { //成功的回调
+             //返回base64格式
+            //  console.log('data:image/png;base64,' + res.data)
+            that.zhiye_zhao='data:image/png;base64,' + res.data
 
-
-
+            }
+          })
 
 
 
@@ -349,48 +354,17 @@ var _default =
       uni.chooseImage({
         success: function success(res) {
           console.log(res);
-          // that.zheng_img = res.tempFilePaths[0];
-          console.log(that.zhiye_zhao);
-          // that.urlTobase64(res.tempFilePaths[0])
 
+          uni.getFileSystemManager().readFile({
+            filePath: res.tempFilePaths[0], //选择图片返回的相对路径
+            encoding: "base64",//这个是很重要的
+            success: res => { //成功的回调
+             //返回base64格式
+            //  console.log('data:image/png;base64,' + res.data)
+            that.zheng_img='data:image/png;base64,' + res.data
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            }
+          })
 
 
 
@@ -404,12 +378,16 @@ var _default =
       uni.chooseImage({
         success: function success(res) {
           console.log(res);
+          uni.getFileSystemManager().readFile({
+            filePath: res.tempFilePaths[0], //选择图片返回的相对路径
+            encoding: "base64",//这个是很重要的
+            success: res => { //成功的回调
+             //返回base64格式
+            //  console.log('data:image/png;base64,' + res.data)
+            that.fan_img='data:image/png;base64,' + res.data
 
-          console.log(that.zhiye_zhao);
-          // that.urlTobase64(res.tempFilePaths[0])
-
-
-
+            }
+          })
 
 
 

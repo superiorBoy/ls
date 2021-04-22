@@ -378,6 +378,7 @@ var _default =
 
         } else {
 
+            this.h5pay();
 
 
 
@@ -411,11 +412,9 @@ var _default =
           if (res.code == 0) {
 
 
-
-
-
-
-
+            swan.navigateTo({
+                url: '../index/ceshi?src='+encodeURIComponent(res.data.response)
+            })
 
           }
         });

@@ -302,47 +302,16 @@ var _default =
 
           for (var i = 0; i < res.tempFilePaths.length; i++) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            uni.getFileSystemManager().readFile({
+                filePath: res.tempFilePaths[i], //选择图片返回的相对路径
+                encoding: "base64",//这个是很重要的
+                success: res => { //成功的回调
+                 //返回base64格式
+                //  console.log('data:image/png;base64,' + res.data)
+                let base64 = 'data:image/jpeg;base64,' + res.data; //不加上这串字符，在页面无法显示的哦
+                   that.arry_img.push(base64) ;
+                }
+              })
 
           }
 
@@ -350,26 +319,7 @@ var _default =
         } });
 
     },
-    getLocalFilePath: function getLocalFilePath(path) {
-      if (path.indexOf('_www') === 0 || path.indexOf('_doc') === 0 || path.indexOf('_documents') === 0 || path.indexOf('_downloads') === 0) {
-        return path;
-      }
-      if (path.indexOf('file://') === 0) {
-        return path;
-      }
-      if (path.indexOf('/storage/emulated/0/') === 0) {
-        return path;
-      }
-      if (path.indexOf('/') === 0) {
-        var localFilePath = plus.io.convertAbsoluteFileSystem(path);
-        if (localFilePath !== path) {
-          return localFilePath;
-        } else {
-          path = path.substr(1);
-        }
-      }
-      return '_www/' + path;
-    },
+
     del: function del(index) {
       this.arry_img.splice(index, 1);
     },

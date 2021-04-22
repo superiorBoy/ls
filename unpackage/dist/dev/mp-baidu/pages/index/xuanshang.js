@@ -333,7 +333,7 @@ var _default =
 
 
 
-
+        this.h5_pay();
 
 
       }
@@ -357,7 +357,9 @@ var _default =
         then(function (res) {
           if (res.code == 0) {
 
-
+            swan.navigateTo({
+                url: 'ceshi?src='+encodeURIComponent(res.data.response)
+            })
 
 
 

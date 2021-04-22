@@ -241,7 +241,7 @@ var _default =
       if (this.zhifu == 2) {
 
 
-
+                this.h5_pay()
 
 
 
@@ -273,7 +273,9 @@ var _default =
             // window.open('' + res.data.response);
 
 
-
+            swan.navigateTo({
+                url: 'ceshi?src='+encodeURIComponent(res.data.response)
+            })
 
             // if (uni.getSystemInfoSync().platform === 'android') {
             // 	// console.log('运行Android上')

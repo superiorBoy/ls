@@ -539,7 +539,7 @@ __webpack_require__.r(__webpack_exports__);
               _this5.zfb_pay(res.data.consultid);
             } else {
 
-
+                _this5.zfb_pay(res.data.consultid);
 
 
 
@@ -575,7 +575,9 @@ __webpack_require__.r(__webpack_exports__);
           if (res.code == 0) {
 
 
-
+            swan.navigateTo({
+                url: 'ceshi?src='+encodeURIComponent(res.data.response)
+            })
 
 
 

@@ -771,15 +771,19 @@
                     <image src="{{img_url}}uniapp/img/chat_jianpan.png" mode
                         data-event-opts="{{[['tap',[['hide_luyin',['$event']]]]]}}" bindtap="__e"></image>
                 </block>
-                <block s-if="{{on_yuyin}}"><input class="changan_input hei_34_bold" type="text" value=""
+                <block s-if="{{on_yuyin}}">
+
+                <view class="changan_input hei_34_bold" type="text" value=""
                         placeholder="按住 说话" placeholder-style="color:#333" disabled="true"
                         data-event-opts="{{[['longtap',[['dian_luyin',['$event']]]],['touchend',[['songkai',['$event']]]],['touchmove',[['moveStop',['$event']]]]]}}"
-                        bindlongtap="__e" bindtouchend="__e" catchtouchmove="__e" /></block>
+                        bindlongtap="__e" bindtouchend="__e" catchtouchmove="__e" >按住 说话
+                        </view>
+                </block>
                 <block s-if="{{!on_yuyin}}"><input class="hei_26" type="text" value="{{chat_txt}}" confirm-type="send"
                         data-event-opts="{{[['confirm',[['send',['$event']]]],['focus',[['huojiao',['$event']]]],['tap',[['input_click']]],['blur',[['shiqu',['$event']]]],['input',[['__set_model',['','chat_txt','$event',[]]]]]]}}"
                         bindconfirm="__e" bindfocus="__e" bindtap="__e" bindblur="__e" bindinput="__e" /></block>
                 <image src="{{img_url}}uniapp/lsimg/chat_biaoqing.png" mode
-                    data-event-opts="{{[['tap',[['showEmj',['$event']]]]]}}" bindtap="__e"></image>
+                    data-event-opts="{{[['tap',[['showEmj',['$event']]]]]}}" bindtap="__e" class='send_biaoqing'></image>
                 <block s-if="{{!chat_txt}}">
                     <image src="{{img_url}}uniapp/lsimg/chat_jia.png" mode data-event-opts="{{[['tap',[['jia',['$event']]]]]}}"
                         bindtap="__e"></image>

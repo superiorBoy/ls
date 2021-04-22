@@ -315,3 +315,6 @@ uni-checkbox:not([disabled]) .uni-checkbox-input:hover,uni-radio:not([disabled])
   .chat_body{
 	  padding-top: 90rpx !important;
   }
+  .head_back image{
+      display: none !important;
+  }

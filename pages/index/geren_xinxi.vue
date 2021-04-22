@@ -188,25 +188,25 @@ export default {
 							base64 = 'data:image/jpeg;base64,' + base64; //不加上这串字符，在页面无法显示的哦
 							// console.log(base64)
 							that.touxiang = base64;
-							// that.$http
-							// 	.post({
-							// 		url: '/mapi/user/upnickname',
-							// 		data: {
-							// 			nickname:that.data.nickname,
-							// 			img:base64
-							// 		}
-							// 	})
-							// 	.then(res => {
-							// 		console.log(res.code);
-							// 		if (res.code == 0) {
-							// 			uni.showToast({
-							// 				title: '修改成功',
-							// 				duration: 2000,
-							// 				icon: 'none'
-							// 			});
-							// 			that.touxiang = base64;
-							// 		}
-							// 	});
+							that.$http
+								.post({
+									url: '/mapi/user/upnickname',
+									data: {
+										nickname:that.data.nickname,
+										img:base64
+									}
+								})
+								.then(res => {
+									console.log(res.code);
+									if (res.code == 0) {
+										uni.showToast({
+											title: '修改成功',
+											duration: 2000,
+											icon: 'none'
+										});
+										that.touxiang = base64;
+									}
+								});
 
 							
 						}

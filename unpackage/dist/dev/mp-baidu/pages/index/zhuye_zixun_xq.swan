@@ -1,1 +1,138 @@
-<view class="body"><view class="head"><view class="head_back"><image src="{{url}}uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image></view><view class="head_center hei_38_bold">咨询详情</view><view class=" head_right"></view></view><view class="zi_body "><view class="erji_weizhi hui_26_bold"><text data-event-opts="{{[['tap',[['go_index']]]]}}" bindtap="__e">首页</text><image src="{{url}}uniapp/img/zhishi_weizhi.png" mode></image><block s-if="{{data.consult}}"><view data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e">{{fenlei_list[data.consult.typeid].typename}}</view></block><image src="{{url}}uniapp/img/zhishi_weizhi.png" mode></image><text class="hei_30">咨询详情</text></view><block s-if="{{data!=''}}"><view class="wenti hei_28">{{''+data.consult.information+''}}<view class="wenti_center qian_24"><text>{{data.consult.province+"-"+data.consult.city+"用户发布"}}</text><text>{{$root.f0}}</text></view><view class="wenti_bottom"><view class="wenti_bottom_left hei_24"><image src="{{url}}uniapp/img/zixun_wen.png" mode></image>问题大致一样，细节不同？</view><text class="lv_24">点击获取针对性解答></text></view></view></block><view class="huida_num hei_28">共<text class="hong_28">{{data.consult_replycount}}</text>位律师回复</view><view class="ls_list"><block s-for="{{$root.l1}}" s-for-item="item" s-for-index="__i0__"><view class="huifu_item"><view class="huifu_item_top"><image src="{{img_url+item.$orig.photourl}}" mode data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['huifu_list','',__i0__,'userid']]]]]]]}}" bindtap="__e"></image><view class="huifu_item_top_r"><view class="huifu_item_name"><view data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['huifu_list','',__i0__,'userid']]]]]]]}}" class="hei_30 ls_name" bindtap="__e">{{''+item.$orig.nickname+'律师'}}<image src="{{url}}uniapp/img/renzheng.png" mode></image></view><view class="qian_24">已解答<text class="lv_24">{{item.$orig.replynum}}</text>次</view></view><button class="bai_24" type data-event-opts="{{[['tap',[['go_chat',['$0'],[[['huifu_list','',__i0__,'userid']]]]]]]}}" bindtap="__e">咨询TA</button></view></view><view class="hei_26 huida_txt">{{item.$orig.information}}</view><view class="qian_24 huida_time">{{item.f1+"回答"}}</view><view class="zhui_list"><block s-for="{{item.l0}}" s-for-item="zhui_item" s-for-index="__i1__"><view class="zhui_item"><block s-if="{{zhui_item.$orig.type==1}}"><view class="zhui_item_xq"><view class="zhui_item_xq_top"><view class="ls_item_top_tx"><image class="ls_item_top_tx_img" src="{{img_url+data.user.photourl}}" mode></image></view><view class="ls_item_right_top"><view data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['huifu_list','',__i0__,'userid']]]]]]]}}" class="hei_30 ls_item_name" bindtap="__e">{{data.user.nickname}}</view><view class="qian_24">{{zhui_item.f2}}</view></view></view><view class="zhuiwen_body hui_26">{{''+zhui_item.$orig.information+''}}</view></view></block><block s-if="{{zhui_item.$orig.type==2}}"><view class="zhui_item_xq"><view class="zhui_item_xq_top"><view class="ls_item_top_tx"><image class="ls_item_top_tx_img" src="{{img_url+item.$orig.photourl}}" mode data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['huifu_list','',__i0__,'userid']]]]]]]}}" bindtap="__e"></image><image class="ls_item_top_tx_ren" src="{{url}}uniapp/img/renzheng2.png" mode></image></view><view class="ls_item_right_top"><view data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['huifu_list','',__i0__,'userid']]]]]]]}}" class="hei_30 ls_item_name" bindtap="__e">{{item.$orig.nickname+"律师"}}</view><view class="qian_24">{{zhui_item.f3}}</view></view></view><view class="zhuiwen_body hui_26">{{''+zhui_item.$orig.information+''}}</view></view></block></view></block><view class="qian_26 zantong"><text data-event-opts="{{[['tap',[['zantong',['$0'],[[['huifu_list','',__i0__,'crid']]]]]]]}}" bindtap="__e"><image src="{{url}}uniapp/img/zantong.png" mode></image>{{item.$orig.zantong==1?'已赞同':'赞同'}}</text>{{''+item.$orig.agreenum+'人赞同了该回答'}}</view></view></view></block></view><block s-if="{{!is_all}}"><view data-event-opts="{{[['tap',[['get_more']]]]}}" class="get_more hei_26" bindtap="__e">查看更多></view></block><view class="manyi"><view class="hei_30">律师解答不满意？想要更详细的答案？</view><button class="bai_26" type data-event-opts="{{[['tap',[['go_lvshi',['$event']]]]]}}" bindtap="__e"><image src="{{url}}uniapp/img/shouzhi_icon.png" mode></image>开始提问，获取专业解答</button><view class="manyi_bottom"><view class="manyi_bottom_item hei_26"><image src="{{url}}uniapp/img/duihao.png" mode></image>更快速</view><view class="manyi_bottom_item hei_26"><image src="{{url}}uniapp/img/duihao.png" mode></image>更准确</view><view class="manyi_bottom_item hei_26"><image src="{{url}}uniapp/img/duihao.png" mode></image>更全面</view></view></view><view class="zixun_bottom"><view class="shipin_dibu"><view class="shipin_dibu_left"><view data-event-opts="{{[['tap',[['go_index',['$event']]]]]}}" class="shipin_dibu_item " bindtap="__e"><image style="width:43rpx;height:36rpx;" src="{{url}}uniapp/img/zhu_shouye.png" mode></image><view class="hei_20">首页</view></view><view data-event-opts="{{[['tap',[['shoucang',['$event']]]]]}}" class="shipin_dibu_item " bindtap="__e"><image style="width:36rpx;height:36rpx;" src="{{type==1?'{{url}}uniapp/img/yi_shoucang.png':'{{url}}uniapp/img/zhu_shoucang.png'}}" mode></image><view class="hei_20">{{type==1?'已收藏':'收藏'}}</view></view><view data-event-opts="{{[['tap',[['share',['$event']]]]]}}" class="shipin_dibu_item " bindtap="__e"><image style="width:36rpx;height:36rpx;" src="{{url}}uniapp/img/zhu_fenxiang.png" mode></image><view class="hei_20">分享</view></view></view><button class="bai_32" type data-event-opts="{{[['tap',[['go_lvshi',['$event']]]]]}}" bindtap="__e"><view class="bai_30_bold">在线问律师</view><view class="bai_20">向律师说明问题，获取专业法律意见</view></button></view></view></view></view>
+<view class="body">
+	<view class="head">
+		<view class="head_back">
+			<image src="{{url}}uniapp/img/back.png" mode data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e"></image>
+		</view>
+		<view class="head_center hei_38_bold">咨询详情</view>
+		<view class=" head_right"></view>
+	</view>
+	<view class="zi_body ">
+		<view class="erji_weizhi hui_26_bold"><text data-event-opts="{{[['tap',[['go_index']]]]}}" bindtap="__e">首页</text>
+			<image src="{{url}}uniapp/img/zhishi_weizhi.png" mode></image>
+			<block s-if="{{data.consult}}">
+				<view data-event-opts="{{[['tap',[['navigateBack']]]]}}" bindtap="__e">{{fenlei_list[data.consult.typeid].typename}}</view>
+			</block>
+			<image src="{{url}}uniapp/img/zhishi_weizhi.png" mode></image><text class="hei_30">咨询详情</text>
+		</view>
+		<block s-if="{{data!=''}}">
+			<view class="wenti hei_28">{{''+data.consult.information+''}}
+				<view class="wenti_center qian_24"><text>{{data.consult.province+"-"+data.consult.city+"用户发布"}}</text><text>{{$root.f0}}</text></view>
+				<view class="wenti_bottom">
+					<view class="wenti_bottom_left hei_24">
+						<image src="{{url}}uniapp/img/zixun_wen.png" mode></image>问题大致一样，细节不同？
+					</view><text class="lv_24">点击获取针对性解答></text>
+				</view>
+			</view>
+		</block>
+		<view class="huida_num hei_28">共<text class="hong_28">{{data.consult_replycount}}</text>位律师回复</view>
+		<view class="ls_list">
+			<block s-for="{{$root.l1}}" s-for-item="item" s-for-index="__i0__">
+				<view class="huifu_item">
+					<view class="huifu_item_top">
+						<image src="{{img_url+item.$orig.photourl}}" mode data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['huifu_list','',__i0__,'userid']]]]]]]}}"
+						 bindtap="__e"></image>
+						<view class="huifu_item_top_r">
+							<view class="huifu_item_name">
+								<view data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['huifu_list','',__i0__,'userid']]]]]]]}}" class="hei_30 ls_name"
+								 bindtap="__e">{{''+item.$orig.nickname+'律师'}}
+									<image src="{{url}}uniapp/img/renzheng.png" mode></image>
+								</view>
+								<view class="qian_24">已解答<text class="lv_24">{{item.$orig.replynum}}</text>次</view>
+							</view><button class="bai_24" type data-event-opts="{{[['tap',[['go_chat',['$0'],[[['huifu_list','',__i0__,'userid']]]]]]]}}"
+							 bindtap="__e">咨询TA</button>
+						</view>
+					</view>
+					<view class="hei_26 huida_txt">{{item.$orig.information}}</view>
+					<view class="qian_24 huida_time">{{item.f1+"回答"}}</view>
+					<view class="zhui_list">
+						<block s-for="{{item.l0}}" s-for-item="zhui_item" s-for-index="__i1__">
+							<view class="zhui_item">
+								<block s-if="{{zhui_item.$orig.type==1}}">
+									<view class="zhui_item_xq">
+										<view class="zhui_item_xq_top">
+											<view class="ls_item_top_tx">
+												<image class="ls_item_top_tx_img" src="{{img_url+data.user.photourl}}" mode></image>
+											</view>
+											<view class="ls_item_right_top">
+												<view data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['huifu_list','',__i0__,'userid']]]]]]]}}" class="hei_30 ls_item_name"
+												 bindtap="__e">{{data.user.nickname}}</view>
+												<view class="qian_24">{{zhui_item.f2}}</view>
+											</view>
+										</view>
+										<view class="zhuiwen_body hui_26">{{''+zhui_item.$orig.information+''}}</view>
+									</view>
+								</block>
+								<block s-if="{{zhui_item.$orig.type==2}}">
+									<view class="zhui_item_xq">
+										<view class="zhui_item_xq_top">
+											<view class="ls_item_top_tx">
+												<image class="ls_item_top_tx_img" src="{{img_url+item.$orig.photourl}}" mode data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['huifu_list','',__i0__,'userid']]]]]]]}}"
+												 bindtap="__e"></image>
+												<image class="ls_item_top_tx_ren" src="{{url}}uniapp/img/renzheng2.png" mode></image>
+											</view>
+											<view class="ls_item_right_top">
+												<view data-event-opts="{{[['tap',[['go_zhuye',['$0'],[[['huifu_list','',__i0__,'userid']]]]]]]}}" class="hei_30 ls_item_name"
+												 bindtap="__e">{{item.$orig.nickname+"律师"}}</view>
+												<view class="qian_24">{{zhui_item.f3}}</view>
+											</view>
+										</view>
+										<view class="zhuiwen_body hui_26">{{''+zhui_item.$orig.information+''}}</view>
+									</view>
+								</block>
+							</view>
+						</block>
+						<view class="qian_26 zantong"><text data-event-opts="{{[['tap',[['zantong',['$0'],[[['huifu_list','',__i0__,'crid']]]]]]]}}"
+							 bindtap="__e">
+								<image src="{{url}}uniapp/img/zantong.png" mode></image>{{item.$orig.zantong==1?'已赞同':'赞同'}}
+							</text>{{''+item.$orig.agreenum+'人赞同了该回答'}}</view>
+					</view>
+				</view>
+			</block>
+		</view>
+		<block s-if="{{!is_all}}">
+			<view data-event-opts="{{[['tap',[['get_more']]]]}}" class="get_more hei_26" bindtap="__e">查看更多></view>
+		</block>
+		<view class="manyi">
+			<view class="hei_30">律师解答不满意？想要更详细的答案？</view><button class="bai_26" type data-event-opts="{{[['tap',[['go_lvshi',['$event']]]]]}}"
+			 bindtap="__e">
+				<image src="{{url}}uniapp/img/shouzhi_icon.png" mode></image>开始提问，获取专业解答
+			</button>
+			<view class="manyi_bottom">
+				<view class="manyi_bottom_item hei_26">
+					<image src="{{url}}uniapp/img/duihao.png" mode></image>更快速
+				</view>
+				<view class="manyi_bottom_item hei_26">
+					<image src="{{url}}uniapp/img/duihao.png" mode></image>更准确
+				</view>
+				<view class="manyi_bottom_item hei_26">
+					<image src="{{url}}uniapp/img/duihao.png" mode></image>更全面
+				</view>
+			</view>
+		</view>
+		<view class="zixun_bottom">
+			<view class="shipin_dibu">
+				<view class="shipin_dibu_left">
+					<view data-event-opts="{{[['tap',[['go_index',['$event']]]]]}}" class="shipin_dibu_item " bindtap="__e">
+						<image style="width:43rpx;height:36rpx;" src="{{url}}uniapp/img/zhu_shouye.png" mode></image>
+						<view class="hei_20">首页</view>
+					</view>
+					<view data-event-opts="{{[['tap',[['shoucang',['$event']]]]]}}" class="shipin_dibu_item " bindtap="__e">
+						<image style="width:36rpx;height:36rpx;" src="{{url}}uniapp/img/yi_shoucang.png" s-if="{{type==1}}"
+						 mode></image>
+                         <image style="width:36rpx;height:36rpx;" src="{{url}}uniapp/img/zhu_shoucang.png" s-if="{{type!=1}}"
+						 mode></image>
+						<view class="hei_20">{{type==1?'已收藏':'收藏'}}</view>
+					</view>
+					<view data-event-opts="{{[['tap',[['share',['$event']]]]]}}" class="shipin_dibu_item " bindtap="__e">
+						<image style="width:36rpx;height:36rpx;" src="{{url}}uniapp/img/zhu_fenxiang.png" mode></image>
+						<view class="hei_20">分享</view>
+					</view>
+				</view>
+                <button class="bai_32" type data-event-opts="{{[['tap',[['go_lvshi',['$event']]]]]}}" bindtap="__e">
+					<view class="bai_30_bold">在线问律师</view>
+					<view class="bai_20">向律师说明问题，获取专业法律意见</view>
+				</button>
+			</view>
+		</view>
+	</view>
+</view>

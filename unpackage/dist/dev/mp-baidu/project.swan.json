@@ -33,6 +33,47 @@
                 },
                 "id": 1,
                 "text": "pages/ls/mingpian"
+            },
+            {
+                "extra": {
+                    "compileArgs": "--module cmd",
+                    "ext": {},
+                    "index": "pages/index/chat",
+                    "isPrefetch": false,
+                    "query": "lawyerid=7",
+                    "scene": {},
+                    "single": false,
+                    "singleArgs": null
+                },
+                "id": 2,
+                "text": "pages/index/chat"
+            },
+            {
+                "extra": {
+                    "compileArgs": "--module cmd",
+                    "ext": {},
+                    "index": "pages/index/ceshi",
+                    "isPrefetch": false,
+                    "query": "",
+                    "scene": {},
+                    "single": false,
+                    "singleArgs": null
+                },
+                "id": 3,
+                "text": "pages/index/ceshi"
+            },
+            {
+                "extra": {
+                    "compileArgs": "--module cmd",
+                    "ext": {},
+                    "index": "pages/index/zhuye_zixun_xq",
+                    "query": "id=6576",
+                    "scene": {},
+                    "single": false,
+                    "singleArgs": null
+                },
+                "id": 4,
+                "text": "pages/index/zhuye_zixun_xq"
             }
         ],
         "selected": -2
@@ -65,8 +106,8 @@
     },
     "swan": {
         "baiduboxapp": {
-            "swanJsVersion": "3.290.28",
-            "extensionJsVersion": "1.21.2"
+            "extensionJsVersion": "1.21.2",
+            "swanJsVersion": "3.290.28"
         }
     }
 }

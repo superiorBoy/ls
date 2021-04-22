@@ -248,11 +248,16 @@ var _default =
       uni.chooseImage({
         success: function success(res) {
           console.log(res);
-          // that.zhiye_zhao = res.tempFilePaths[0];
-          console.log(that.logo);
-          // that.urlTobase64(res.tempFilePaths[0])
+          uni.getFileSystemManager().readFile({
+            filePath: res.tempFilePaths[0], //选择图片返回的相对路径
+            encoding: "base64",//这个是很重要的
+            success: res => { //成功的回调
+             //返回base64格式
 
+            that.logo='data:image/png;base64,' + res.data
 
+            }
+          })
 
 
 
