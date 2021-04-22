@@ -1947,6 +1947,11 @@ export default {
 						setTimeout(() => {
 							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 						}, 200);
+						that.message.forEach((item, index, array) => {
+							item.read=1
+						});
+						
+						that.$forceUpdate();
 					}
 				} else {
 					console.log('else');
@@ -2269,7 +2274,7 @@ export default {
 			 * name：附件key,服务端根据key值获取文件流，默认file,上传文件的key
 			 * header: 上传接口请求头
 			 */
-			var url = '/api/lawyer/index/uploadfile';
+			var url = '/lawyer/index/uploadfile';
 
 			// #ifdef APP-PLUS
 			url = this.$http.baseUrl + '/lawyer/index/uploadfile';
@@ -2545,6 +2550,12 @@ export default {
 						setTimeout(() => {
 							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 						}, 100);
+						that.message.forEach((item, index, array) => {
+							
+							item.read=1
+						});
+						
+						that.$forceUpdate();
 					}
 				} else {
 					console.log('else');

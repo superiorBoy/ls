@@ -201,7 +201,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       lyanliid: '',
       xq: '',
-      img_url: uni.getStorageSync('img_url'),
       zhuan: '' };
 
   },

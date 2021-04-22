@@ -1477,7 +1477,7 @@ export default {
 			 * name：附件key,服务端根据key值获取文件流，默认file,上传文件的key
 			 * header: 上传接口请求头
 			 */
-			var url = '/api/index/zixun/uploadfile';
+			var url = '/index/zixun/uploadfile';
 
 			// #ifdef APP-PLUS
 			url = this.$http.baseUrl + '/index/zixun/uploadfile';
@@ -2127,6 +2127,17 @@ export default {
 						setTimeout(() => {
 							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 						}, 200);
+						
+						
+						that.message.forEach((item, index, array) => {
+							
+							item.read=1
+						});
+						
+						that.$forceUpdate();
+						
+						
+						
 					}
 				} else {
 					console.log('else');
@@ -2749,6 +2760,16 @@ export default {
 						setTimeout(() => {
 							uni.pageScrollTo({ scrollTop: 99999, duration: 0 });
 						}, 100);
+						that.message.forEach((item, index, array) => {
+							
+							item.read=1
+						});
+						
+						that.$forceUpdate();
+						
+						
+						
+						
 					}
 				} else {
 					console.log('else');

@@ -492,8 +492,7 @@ var _default = {
       that.$refs.ls_mainindex.huoqunum();
 
       uni.navigateTo({
-        url: 'chat?userid=' + id
-       });
+        url: 'chat?userid=' + id });
 
     },
     go_gonggao: function go_gonggao() {
