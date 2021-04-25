@@ -42,6 +42,15 @@
 			<image src="../../static/lsimg/go_r.png" mode="" class="go_r"></image>
 			</view>
 			</view>
+<!-- 			<pickerAddress @change="change" class="aaaaaa">
+			<view class="shiming_list hei_28" >
+				<view class="shiming_list_left">地址</view>
+				<view class="shiming_list_right":class="dizhi?'hei_28':'qian_28'" >
+						{{ dizhi?dizhi:'请选择省-市-区' }}
+			    <image src="../../static/lsimg/go_r.png" mode="" class="go_r"></image>
+			</view>
+			</view>
+			</pickerAddress> -->
 			<view class="shiming_list hei_28" @click="go_xiugai(4)">
 				<view class="shiming_list_left">电子邮箱</view>
 				<view class="shiming_list_right">
@@ -74,7 +83,11 @@
 </template>
 
 <script>
+	import pickerAddress from '@/components/pickerAddress/pickerAddress.vue';
 export default {
+	components: {
+		pickerAddress
+	},
 	data() {
 		return {
 			img_url: uni.getStorageSync('img_url'),
@@ -98,7 +111,8 @@ export default {
 				'丰富的专业经验',
 				'专利代理经历'
 			],
-			touxiang:''
+			touxiang:'',
+			dizhi:''
 		};
 	},
 	created() {},
@@ -126,6 +140,10 @@ export default {
 	methods: {
 		navigateBack() {
 			uni.navigateBack();
+		},
+		change(data) {
+			console.log(data);
+			this.dizhi = data.data.join('-');
 		},
 		tuichu() {
 			// 退出

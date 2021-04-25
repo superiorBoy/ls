@@ -92,9 +92,9 @@
 									<image src="@/static/lsimg/chat_shouji.png" mode="" style="width: 13rpx;height: 17rpx;margin-right: 8rpx;"></image>
 									{{ dianhua }}
 								</view>
-								<!-- <view class="chat_top_xinxi_dizhi">
-									<image src="@/static/lsimg/chat_dizhi.png" style="width: 16rpx;height: 22rpx;margin-right: 8rpx;" mode=""></image>浙江-杭州
-								</view> -->
+								<view class="chat_top_xinxi_dizhi">
+									<image src="@/static/lsimg/chat_dizhi.png" style="width: 16rpx;height: 22rpx;margin-right: 8rpx;" mode=""></image>{{yh_user.provinces}}-{{yh_user.citys}}
+								</view>
 							</view>
 						</view>
 						<view class="chat_top_xinxi_top_right">
@@ -1742,7 +1742,6 @@ export default {
 					this.dianhua = res.data.user_to.mobile;
 					this.yh_user = res.data.user_to;
 					this.zixuncount = res.data.zixuncount;
-
 					for (let key in res.data.message) {
 						if (res.data.message[key].msgtype == 10 || res.data.message[key].msgtype == 11 || res.data.message[key].msgtype == 12) {
 							this.$http
@@ -3014,8 +3013,8 @@ page {
 }
 .chat_top_xinxi_top_left_r {
 	width: 210rpx;
-	display: flex;
-	align-items: center;
+	/* display: flex; */
+	/* align-items: center; */
 }
 .chat_top_xinxi_bottom {
 	display: flex;
@@ -3466,5 +3465,12 @@ page {
 	background: url(../../static/img/xiazai.png) no-repeat;
 	background-size: 100% 100%;
 	transform: translate(0, -50%);
+}
+.chat_top_xinxi_dizhi{
+	max-width: 260rpx;
+	
+	overflow:hidden; 
+	text-overflow:ellipsis; 
+	white-space:nowrap; 
 }
 </style>

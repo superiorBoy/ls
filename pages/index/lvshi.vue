@@ -184,7 +184,8 @@ export default {
 		tabBar
 	},
 	onLoad(option) {
-		this.page=0,
+		  var that=this
+		  this.page=0,
 		  this.is_all=false,
 		  this.lslist=[],
 		  this.sheng='',
@@ -193,8 +194,36 @@ export default {
 		  this.zhuanchang= '不限专长',
 		  this.shanchang_id='',
 		this.get_shanchang();
-		this.get_lvshilist();
+	    // this.get_lvshilist();
 		
+		  this.get_lvshilist();
+		
+	this.$http
+		.post({
+			url: '/index/login/islogin'
+		})
+		.then(res => {
+			if(res.data.user!=''){
+	this.$http
+		.post({
+			url: '/mapi/user/useraddress'
+		})
+		.then(res => {
+			if(res.data.provinces){
+			 // this.dizhi=res.data.provinces+'-'+res.data.citys
+			 that.citys=res.data.citys
+			}
+			 // this.sheng=res.data.province
+		      that.get_lvshilist();
+		
+		});
+				
+			}else{
+				
+			}
+		});		
+		// 获取地址
+
 		
 		// 获取跳转链接
 		this.$http
@@ -263,7 +292,8 @@ export default {
 			type:1,
 			tiao_type:1,
 			zhankai_arry:[0,1,2],
-			zhuanchang_arry_txt:''
+			zhuanchang_arry_txt:'',
+			citys:''
 		};
 	},
 	created() {
@@ -408,7 +438,7 @@ export default {
 			this.page=0,
 			this.is_all=false,
 			this.lslist=[],
-			
+			this.citys='',
 			this.get_lvshilist();
 		},
 		// 专长选择
@@ -480,7 +510,8 @@ export default {
 						shanchangid: this.shanchang_id,
 						province: this.sheng,
 						city: this.shi,
-						type:this.type
+						type:this.type,
+						citys:this.citys
 					}
 				})
 				.then(res => {

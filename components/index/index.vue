@@ -11,7 +11,10 @@
 			<view  :style="{ background: topbg }" class="index_top_dingwei">
 				<view class="dingwei bai_20">
 					<image src="@/static/img/dingwei.png" mode=""></image>
-					<pickerAddress @change="xuandizhi">{{ dizhi == '' ? '定位中' : dizhi }}</pickerAddress>
+					
+					<pickerAddress @change="xuandizhi"><view class="dingwei_txt">{{ dizhi == '' ? '全国' : dizhi }}</view></pickerAddress>
+						
+					
 					<!-- <text>{{dizhi}}</text> -->
 				</view>
 				<navigator url="tiwen">
@@ -491,34 +494,8 @@ export default {
 		// #endif
 	},
 	created() {
-		// #ifdef APP-PLUS
-		var that = this;
-		plus.geolocation.getCurrentPosition(
-			function(p) {
-				that.dizhi = p.address.city;
-				that.shuxin_zujian();
-				uni.setStorage({
-					key: 'dizhi',
-					data: {
-						sheng: p.address.province,
-						shi: p.address.city,
-						qu: p.address.district
-					}
-				});
-			},
-			function(e) {}
-		);
-		// #endif
-		// #ifdef H5
-		var that = this;
-		that.shuxin_zujian();
-		window.initBaiduMapScript = () => {
-			// console.log(BMap);
-			this.getlocation();
-		};
-		loadBMap('initBaiduMapScript');
-		// #endif
-
+				var that = this;
+	
 		//#ifdef APP-PLUS
 		plus.runtime.getProperty(plus.runtime.appid, wgtinfo => {
 			console.log(JSON.stringify(wgtinfo));
@@ -565,6 +542,12 @@ export default {
 				this.zhuanchang_arry=res.data.shanchang
 			});
 		// this.shuxin_zujian()
+		
+		
+		that.shuxin_zujian();
+		
+
+		
 	},
 	onLoad() {
 		// if (this._isMobile()) {
@@ -572,22 +555,79 @@ export default {
 		//    } else {
 		//      alert("pc端");
 		//    }
+	
 	},
 	onShow() {},
 	mounted() {},
 	methods: {
+		jianhcha_dingwei(){
+			console.log('jiancha')
+			var that=this
+			this.$http
+					.post({
+						url: '/mapi/user/useraddress'
+					})
+					.then(res => {
+						if(res.data.provinces){
+							this.dizhi=res.data.citys
+							uni.setStorageSync('citys', res.data.citys);
+			
+							that.huoqu_index();
+						}else{
+							that.huoqu_index();
+							this.dingwei()
+						}
+					});
+		},
 		go_tiwen() {
 			uni.navigateTo({
 				url: '../../pages/index/tiwen'
 			});
 		},
-zhankai(index){
+        zhankai(index){
 			if (this.zhankai_arry.indexOf(index) == -1) {
 				this.zhankai_arry.push(index); //选中添加到数组里
 			} else {
 				this.zhankai_arry.splice(this.zhankai_arry.indexOf(index), 1); //取消
 			}
 		},
+		dingwei(){
+			// #ifdef APP-PLUS
+			var that = this;
+			plus.geolocation.getCurrentPosition(
+				function(p) {
+					that.dizhi = p.address.city;
+					that.huoqu_index();
+
+					that.$http
+						.post({
+							url: '/mapi/user/upadress',
+							data: {
+								province:p.address.province,
+								city: p.address.city,
+								area:p.address.district
+							}
+						})
+						.then(res => {
+
+						});
+			
+					
+					
+				},
+				function(e) {}
+			);
+			// #endif
+			// #ifdef H5
+			var that = this;
+			
+			window.initBaiduMapScript = () => {
+				this.getlocation();
+			};
+			loadBMap('initBaiduMapScript');
+			// #endif
+		},
+
 		huoqu_index() {
 			// 获取首页信息
 			this.$http
@@ -641,6 +681,10 @@ zhankai(index){
 				.then(res => {
 					this.zhineng = res.data.zhan;
 				});
+				
+				
+				this.$forceUpdate();	
+				
 		},
 		down() {
 			//#ifdef APP-PLUS
@@ -740,6 +784,7 @@ zhankai(index){
 		},
 
 		huiqu_login() {
+			console.log('11111111111111')
 			this.$http
 				.post({
 					url: '/index/login/islogin'
@@ -747,7 +792,7 @@ zhankai(index){
 				.then(res => {
 					if (res.data.user != '') {
 						this.is_login = true;
-					
+					this.jianhcha_dingwei()
 					
 					
 					} else {
@@ -863,7 +908,8 @@ zhankai(index){
 		},
 		xuandizhi(data) {
 			this.dizhi = data.data[1];
-			this.shuxin_zujian();
+			uni.setStorageSync('xuanze', '1');
+			this.huoqu_index()
 			//                this.txt = data.data.join('')
 			//                console.log(data.data.join(''))
 		},
@@ -992,14 +1038,30 @@ zhankai(index){
 								console.log(res);
 								that.dizhi = res.result.addressComponent.city;
 								that.huoqu_index();
-								uni.setStorage({
-									key: 'dizhi',
-									data: {
-										sheng: res.result.addressComponent.province,
-										shi: res.result.addressComponent.city,
-										qu: res.result.addressComponent.district
-									}
-								});
+								
+								
+								that.$http
+									.post({
+										url: '/mapi/user/upadress',
+										data: {
+											province:res.result.addressComponent.province,
+											city: res.result.addressComponent.city,
+											area:res.result.addressComponent.district
+										}
+									})
+									.then(res => {
+										
+										
+									});
+								
+								// uni.setStorage({
+								// 	key: 'dizhi',
+								// 	data: {
+								// 		sheng: res.result.addressComponent.province,
+								// 		shi: res.result.addressComponent.city,
+								// 		qu: res.result.addressComponent.district
+								// 	}
+								// });
 							},
 							error: function(err) {
 								console.log(err);
@@ -1161,6 +1223,14 @@ zhankai(index){
 	margin-right: 14rpx;
 	display: flex;
 	align-items: center;
+
+}
+.dingwei_txt{
+	display: inline-block;
+	max-width: 140rpx;
+    overflow:hidden; 
+    text-overflow:ellipsis; 
+     white-space:nowrap; 
 }
 
 .dingwei image {

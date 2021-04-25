@@ -268,13 +268,8 @@ export default {
 	},
 	created() {},
 	onShow() {
-		
 		this.huiqu_login();
 		this.huo_qu_is_yaoqing()
-		
-
-		
-		
 	},
 	onLoad(option) {
 	
@@ -344,7 +339,6 @@ uni.removeStorageSync('ls_chat_list');
 				})
 				.then(res => {
 					this.user = res.data.user;
-					
 				});
 		},
 		huiqu_login() {
@@ -354,8 +348,9 @@ uni.removeStorageSync('ls_chat_list');
 					url: '/lawyer/login/islogin'
 				})
 				.then(res => {
-					
+			
 					if (res.data.user != '') {
+				
 						this.is_login = true;
 						//#ifdef APP-PLUS
 						// setTimeout(function(){
@@ -377,6 +372,7 @@ uni.removeStorageSync('ls_chat_list');
 					    	
 						
 					} else {
+						console.log('111111')
 						that.is_login = false;
 						
 					}
@@ -433,7 +429,7 @@ uni.removeStorageSync('ls_chat_list');
 	   kaiqi() {
 
 	   	let that = this;
-	   	Object.assign(uni, socket);
+	   	// Object.assign(uni, socket);
 	   	// console.log(Object.assign(uni, socket));
 	   	var url = that.$http.WebSocket_url;
 	   uni.connectSocket({
@@ -753,5 +749,8 @@ page {
 }
 .my_ziliao_item_top{
 	margin-bottom: 12rpx;
+display: flex;
+align-items: center;
+justify-content: center;
 	}
 </style>

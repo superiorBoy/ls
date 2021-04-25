@@ -230,11 +230,20 @@ export default {
 					this.user=res.data.user
 				});
 			
-
-			var cun_dizhi = uni.getStorageSync('dizhi');
-			if (cun_dizhi.sheng!=undefined) {
-				this.dizhi = cun_dizhi.sheng + '-' + cun_dizhi.shi + '-' + cun_dizhi.qu;
-			}
+			this.$http
+				.post({
+					url: '/mapi/user/useraddress'
+				})
+				.then(res => {
+					if(res.data.provinces){
+						this.dizhi=res.data.provinces+'-'+res.data.citys+'-'+res.data.areas
+					}
+					
+				});
+			// var cun_dizhi = uni.getStorageSync('dizhi');
+			// if (cun_dizhi.sheng!=undefined) {
+			// 	this.dizhi = cun_dizhi.sheng + '-' + cun_dizhi.shi + '-' + cun_dizhi.qu;
+			// }
 		}
 		// 查看只能服务报价
 		this.$http

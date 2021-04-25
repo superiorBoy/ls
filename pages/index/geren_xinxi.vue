@@ -44,6 +44,15 @@
 			<image src="../../static/lsimg/go_r.png" mode="" class="go_r"></image>
 			</view>
 			</view>
+			<pickerAddress @change="change" class="aaaaaa">
+			<view class="shiming_list hei_28" >
+				<view class="shiming_list_left">地址</view>
+				<view class="shiming_list_right":class="dizhi?'hei_28':'qian_28'" >
+						{{ dizhi?dizhi:'请选择省-市-区' }}
+			    <image src="../../static/lsimg/go_r.png" mode="" class="go_r"></image>
+			</view>
+			</view>
+			</pickerAddress>
 			<view class="shiming_list hei_28" @click="go_xiugai(4)">
 				<view class="shiming_list_left">电子邮箱</view>
 				<view class="shiming_list_right" >
@@ -58,7 +67,6 @@
 			<view class="shiming_list hei_28" @click="go_xiugai(5)">
 				<view class="shiming_list_left">简介</view>
 				<view class="shiming_list_right" >
-				
 			<image src="../../static/lsimg/go_r.png" mode="" class="go_r"></image>
 			</view>
 			</view>
@@ -81,8 +89,11 @@
 </template>
 
 <script>
-
+import pickerAddress from '@/components/pickerAddress/pickerAddress.vue';
 export default {
+	components: {
+		pickerAddress
+	},
 	data() {
 		return {
 			img_url: uni.getStorageSync('img_url'),
@@ -94,7 +105,9 @@ export default {
 			youshi: '',
 			data: '',
 			userid: '',
-			touxiang:''
+			touxiang:'',
+			dizhi:'',
+			first:false
 		};
 	},
 	created() {},
@@ -118,6 +131,22 @@ export default {
 				this.youshi = res.data.user.beizhu;
 				this.touxiang=this.img_url+res.data.user.photourl
 			});
+		
+			this.$http
+				.post({
+					url: '/mapi/user/useraddress'
+				})
+				.then(res => {
+					if(res.data.provinces){
+						this.dizhi=res.data.provinces+'-'+res.data.citys+'-'+res.data.areas
+					}else{
+						this.first=true
+					}
+					
+				});
+			
+			
+			
 	},
 	methods: {
 		navigateBack() {
@@ -158,12 +187,55 @@ export default {
 					if (res.code == 0) {
 						 uni.removeStorageSync('user_chat_list');
 						uni.closeSocket();
-						
+						 uni.removeStorageSync('citys')
+						 uni.removeStorageSync('xuanze')
 						uni.switchTab({
 							url: 'my'
 						});
 					}
 				});
+		},
+		change(data) {
+			console.log(data);
+		var that=this
+		
+		if(this.first){
+			var url='/mapi/user/upadress'
+			var data={
+				province:data.data[0],
+				city:data.data[1],
+				area:data.data[2]
+			}
+		}else{
+			var url='/mapi/user/upuser'
+			var data={
+				email:this.youxiang,
+				province:data.data[0],
+				city:data.data[1],
+				area:data.data[2]
+			}
+		}
+			this.$http
+				.post({
+					url: '/mapi/user/upuser',
+					data: data
+				})
+				.then(res => {
+					console.log(res.code);
+					if (res.code == 0) {
+						uni.showToast({
+							title: '修改成功',
+							duration: 2000,
+							icon: 'none'
+						});
+						
+						that.dizhi=data.province+'-'+data.city+'-'+data.area
+						that.first=false
+						that.$forceUpdate();
+					}
+				});
+			
+			
 		},
 		go_xiugai(state){
 			uni.navigateTo({

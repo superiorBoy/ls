@@ -53,7 +53,7 @@ export default {
 	// #endif
 	},
 	onShow() {
-	
+	var that=this
 			this.$http
 				.post({
 					url: '/index/login/islogin'
@@ -61,6 +61,22 @@ export default {
 				.then(res => {
 					if(res.data.user!=''){
 						this.$refs.mainindex.huoqunum();
+						// this.$refs.shouye.jianche_dingwei();	
+						   const value = uni.getStorageSync('citys');
+						   console.log(value,'地址')
+                    
+						  if(value){
+							  const xuanze = uni.getStorageSync('xuanze');
+							  		if(xuanze==2){
+							               that.$refs.shouye.jianhcha_dingwei();
+										
+										}
+						  }else{
+							that.$refs.shouye.dingwei();
+							  
+						  }
+						
+						
 						//#ifdef APP-PLUS
 						      this.kaiqi();
 						//#endif

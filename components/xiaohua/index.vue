@@ -10,7 +10,9 @@
 				</navigator>
 				<view class="dingwei hei_30">
 					<image src="@/static/img/xh_dingwei.png" mode=""></image>
-					<pickerAddress @change="xuandizhi">{{ dizhi==''?'定位中':dizhi }}</pickerAddress>
+				
+					<pickerAddress @change="xuandizhi">	<view class="dingwei_txt">{{ dizhi==''?'全国':dizhi }}</view></pickerAddress>
+					
 					<!-- <text>{{dizhi}}</text> -->
 				</view>
 			</view>
@@ -495,35 +497,9 @@ export default {
 		// #endif
 	},
 	created() {
-		// #ifdef APP-PLUS
 			var that = this;
-			plus.geolocation.getCurrentPosition(
-				function(p) {
-					that.dizhi = p.address.city;
-					that.shuxin_zujian()
-					uni.setStorage({
-						key: 'dizhi',
-						data: {
-							sheng: p.address.province,
-							shi: p.address.city,
-							qu: p.address.district
-						}
-					});
-				},
-				function(e) {}
-			);
-			// #endif
-			
-			// #ifdef H5
-			var that=this
-			that.shuxin_zujian()
-			window.initBaiduMapScript = () => {
-				// console.log(BMap);
-				this.getlocation();
-			};
-			loadBMap('initBaiduMapScript');
-			// #endif
-			
+		
+
 		//#ifdef APP-PLUS
 		plus.runtime.getProperty(plus.runtime.appid, wgtinfo => {
 			console.log(JSON.stringify(wgtinfo));
@@ -571,7 +547,21 @@ export default {
 				.then(res => {
 					this.zhuanchang_arry=res.data.shanchang
 				});
-		
+		this.$http
+				.post({
+					url: '/mapi/user/useraddress'
+				})
+				.then(res => {
+					if(res.data.provinces){
+						this.dizhi=res.data.citys
+						uni.setStorageSync('citys', res.data.citys);
+					   that.shuxin_zujian()
+					}else{
+						 that.shuxin_zujian()
+						this.dingwei()
+					}
+					
+				});
 	},
 	onLoad() {
 		// if (this._isMobile()) {
@@ -586,6 +576,24 @@ export default {
 		
 	},
 	methods: {
+		jianhcha_dingwei(){
+			var that=this
+			this.$http
+					.post({
+						url: '/mapi/user/useraddress'
+					})
+					.then(res => {
+						if(res.data.provinces){
+							this.dizhi=res.data.citys
+							uni.setStorageSync('citys', res.data.citys);
+			
+							that.huoqu_index();
+						}else{
+							that.huoqu_index();
+							this.dingwei()
+						}
+					});
+		},
 		go_tiwen(){
 			uni.navigateTo({
 				url:'../../pages/index/tiwen'
@@ -597,6 +605,51 @@ export default {
 					} else {
 						this.zhankai_arry.splice(this.zhankai_arry.indexOf(index), 1); //取消
 					}
+				},
+				dingwei(){
+					// #ifdef APP-PLUS
+					var that = this;
+					plus.geolocation.getCurrentPosition(
+						function(p) {
+							that.dizhi = p.address.city;
+							that.huoqu_index();
+							// uni.setStorage({
+							// 	key: 'dizhi',
+							// 	data: {
+							// 		sheng: p.address.province,
+							// 		shi: p.address.city,
+							// 		qu: p.address.district
+							// 	}
+							// });
+							
+							that.$http
+								.post({
+									url: '/mapi/user/upadress',
+									data: {
+										province:p.address.province,
+										city: p.address.city,
+										area:p.address.district
+									}
+								})
+								.then(res => {
+									
+									
+								});
+					
+							
+							
+						},
+						function(e) {}
+					);
+					// #endif
+					// #ifdef H5
+					var that = this;
+					
+					window.initBaiduMapScript = () => {
+						this.getlocation();
+					};
+					loadBMap('initBaiduMapScript');
+					// #endif
 				},
 		huoqu_index(){
 			// 获取首页信息
@@ -763,7 +816,7 @@ export default {
 				.then(res => {
 					if (res.data.user != '') {
 						this.is_login = true;
-
+                  this.jianhcha_dingwei()
 						
 					} else {
 						this.is_login = false;
@@ -877,6 +930,7 @@ export default {
 		},
 		xuandizhi(data) {
 			this.dizhi = data.data[1];
+			uni.setStorageSync('xuanze', '1');
 			this.shuxin_zujian()
 			//                this.txt = data.data.join('')
 			//                console.log(data.data.join(''))
@@ -991,18 +1045,34 @@ export default {
 							contentType: 'application/json; charset=utf-8',
 							success: function(res) {
 								that.dizhi = res.result.addressComponent.city;
-								that.shuxin_zujian()
-								uni.setStorage({
-									key: 'dizhi',
-									data: {
-										sheng: res.result.addressComponent.province,
-										shi: res.result.addressComponent.city,
-										qu: res.result.addressComponent.district
-									}
-								});
+									that.huoqu_index();
+								that.$http
+									.post({
+										url: '/mapi/user/upadress',
+										data: {
+											province:res.result.addressComponent.province,
+											city: res.result.addressComponent.city,
+											area:res.result.addressComponent.district
+										}
+									})
+									.then(res => {
+										
+										
+									});
+								
+								
+								// that.shuxin_zujian()
+								// uni.setStorage({
+								// 	key: 'dizhi',
+								// 	data: {
+								// 		sheng: res.result.addressComponent.province,
+								// 		shi: res.result.addressComponent.city,
+								// 		qu: res.result.addressComponent.district
+								// 	}
+								// });
 							},
 							error: function (err) {
-								that.shuxin_zujian()
+								that.huoqu_index();
 							}
 						});
 						// var url = wei_url+'/geocoder/v2/?ak=eIxDStjzbtH0WtU50gqdXYCz&output=json&pois=1&location=' + r.latitude + ',' + r.longitude;
@@ -1984,5 +2054,12 @@ scroll-view ::-webkit-scrollbar {
 	/* color: #12ab83; */
 	/* display: inline-block; */
 	/* transform: scale(0.83,0.83) ; */
+}
+.dingwei_txt{
+	display: inline-block;
+	max-width: 140rpx;
+    overflow:hidden; 
+    text-overflow:ellipsis; 
+     white-space:nowrap; 
 }
 </style>

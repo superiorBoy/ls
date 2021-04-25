@@ -113,11 +113,26 @@ export default {
 						if(res.code==0){
 							uni.removeStorageSync('user_chat_list');
 							uni.removeStorageSync('ls_chat_list');
+							 uni.setStorageSync('xuanze', '2');
+							that.$http
+									.post({
+										url: '/mapi/user/useraddress'
+									})
+									.then(res => {
+										if(res.data.provinces){
+											uni.setStorageSync('citys', res.data.citys)
+										}else{
+											   uni.removeStorageSync('citys')
+										}
+										
+									});
+							
 							if(this.type==3){
 								uni.reLaunch({
 									url:'../ls/yaoqing'
 								})
 							}else if(res.data.grade==2){
+							
 							   this.ls_login()
 							}else{
 								uni.switchTab({
@@ -154,6 +169,7 @@ export default {
 					if(res.code==0){
 						uni.removeStorageSync('user_chat_list');
 						uni.removeStorageSync('ls_chat_list');
+						 uni.setStorageSync('xuanze', '2');
 						uni.reLaunch({
 							url:'../ls/my'
 						})

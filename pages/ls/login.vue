@@ -110,6 +110,7 @@ export default {
 					.then(res => {
 						if(res.code==0){
 							uni.removeStorageSync('ls_chat_list');
+							 uni.setStorageSync('xuanze', '2');
 							uni.reLaunch({
 								url:'my'
 							})
