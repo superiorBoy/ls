@@ -5,7 +5,7 @@
                 <image src="{{url}}uniapp/img/dingwei.png" mode></image>
                 <picker-address bind:change="__e" vue-id="5add87bf-1"
                     data-event-opts="{{[['^change',[['xuandizhi']]]]}}" vue-slots="{{['default']}}">
-                    <view class="dingwei_text">{{''+(dizhi==''?'定位中':dizhi)+''}}</view>
+                    <view class="dingwei_text">{{''+(dizhi==''?'全国':dizhi)+''}}</view>
                 </picker-address>
             </view>
             <view class="lvyi_logo_img">

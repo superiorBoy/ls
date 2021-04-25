@@ -162,7 +162,7 @@ export default {
 		tabBar
 	},
 	onLoad() {
-		
+		this.huoqu_baojia()
 	},
       onHide() {
 		// #ifdef APP-PLUS
@@ -322,7 +322,7 @@ export default {
 						this.is_login=true
 						this.huoqu_user()
 						this.huoqu_geshu()
-						this.huoqu_baojia()
+						
 						this.huoqu_lianjie()
 						this.huoqu_tixian()
 

@@ -803,9 +803,9 @@ scroll-view ::-webkit-scrollbar {
 		width: 165rpx;
 		height: 91rpx;
 		background: url(/static/img/jia_beijing1.png) no-repeat;
-		-webkit-box-shadow: 0rpx 0rpx 7rpx 0rpx 
+		-webkit-box-shadow: 0rpx 0rpx 7rpx 0rpx
 			rgba(0, 0, 0, 0.07);
-		        box-shadow: 0rpx 0rpx 7rpx 0rpx 
+		        box-shadow: 0rpx 0rpx 7rpx 0rpx
 			rgba(0, 0, 0, 0.07);
 		-webkit-border-radius: 5rpx;
 		        border-radius: 5rpx;
@@ -903,3 +903,10 @@ scroll-view ::-webkit-scrollbar {
 	/* transform: scale(0.83,0.83) ; */
 }
 
+.dingwei_txt{
+	display: inline-block;
+	max-width: 140rpx;
+    overflow:hidden;
+    text-overflow:ellipsis;
+     white-space:nowrap;
+}

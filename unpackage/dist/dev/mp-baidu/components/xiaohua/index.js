@@ -765,7 +765,7 @@ __webpack_require__.r(__webpack_exports__);
       _this.zhuanchang_arry = res.data.shanchang;
     });
     this.shuxin_zujian()
-    this.getlocation()
+    // this.getlocation()
 
   },
   onLoad: function onLoad() {
@@ -856,74 +856,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     },
     guanbi: function guanbi() {
       this.is_gengxin = false;
@@ -949,7 +881,27 @@ __webpack_require__.r(__webpack_exports__);
 
       }
     },
+    jianhcha_dingwei(){
+        console.log('jiancha')
+        var that=this
+        this.$http
+                .post({
+                    url: '/mapi/user/useraddress'
+                })
+                .then(res => {
+                    if(res.data.provinces){
+                        that.dizhi=res.data.citys
+                        uni.setStorageSync('citys', res.data.citys);
 
+                        that.huoqu_index();
+                    }else{
+                        // that.huoqu_index();
+                        that.getlocation()
+                    }
+                });
+
+
+    },
     huiqu_login: function huiqu_login() {var _this4 = this;
       this.$http.
       post({
@@ -958,7 +910,7 @@ __webpack_require__.r(__webpack_exports__);
       then(function (res) {
         if (res.data.user != '') {
           _this4.is_login = true;
-
+          _this4.jianhcha_dingwei()
 
         } else {
           _this4.is_login = false;
@@ -1071,11 +1023,10 @@ __webpack_require__.r(__webpack_exports__);
       this.btnnum = e;
     },
     xuandizhi: function xuandizhi(data) {
-      this.dizhi = data.data[1];
-      this.shuxin_zujian();
-      //                this.txt = data.data.join('')
-      //                console.log(data.data.join(''))
-    },
+        this.dizhi = data.data[1];
+        uni.setStorageSync('xuanze', '1');
+        this.huoqu_index();
+      },
     tiaozhuan: function tiaozhuan() {
       uni.switchTab({
         url: 'lvshi' });
@@ -1159,14 +1110,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     // 获取经纬度
     getlocation: function getlocation() {
+
         var that=this
         swan.getLocation({
             type: 'wgs84',
             altitude: true,
             success: res => {
                 console.log('success', res);
-                that.dizhi = res.city;
-                that.huoqu_index();
                 uni.setStorage({
                     key: 'dizhi',
                     data: {
@@ -1175,12 +1125,28 @@ __webpack_require__.r(__webpack_exports__);
                         qu: res.district
                     }
                 });
+                that.$http
+						.post({
+							url: '/mapi/user/upadress',
+							data: {
+								province:res.province,
+								city: res.city,
+								area:res.district
+							}
+						})
+						.then(res => {
+
+						});
+                that.dizhi = res.city;
+                that.huoqu_index();
+
 
             },
             fail: err => {
-                swan.showToast({title: '请手动选择位置'});
+                swan.showToast({title: '位置获取失败'});
             }
         });
+
     },
     go_zhishi_xq: function go_zhishi_xq(knowledgetypeid, name) {
       uni.navigateTo({

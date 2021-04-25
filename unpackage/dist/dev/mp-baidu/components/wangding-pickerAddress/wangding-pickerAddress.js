@@ -221,7 +221,7 @@
 				//
 				//
 				//
-				var selectVal = ['', '', ''];
+				var selectVal = ['', ''];
 				var _default = {
 					data: function data() {
 						return {
@@ -266,7 +266,7 @@
 								};
 
 							});
-							// this.array[2] = AllAddress[this.value[0]].city[this.value[1]].area.map(obj => { 
+							// this.array[2] = AllAddress[this.value[0]].city[this.value[1]].area.map(obj => {
 							// 	return {
 							// 		name: obj
 							// 	}
@@ -282,22 +282,22 @@
 							arr[column] = value;
 							if (column === 0) {
 								arr[1] = 0;
-								arr[2] = 0;
+								// arr[2] = 0;
 							}
 							if (column === 1) {
-								arr[2] = 0;
+								// arr[2] = 0;
 							}
 							this.value = arr;
 							return this;
 						},
 
 						/**
-						 * 更新结果数据 
+						 * 更新结果数据
 						 * */
 						updateAddressDate: function updateAddressDate() {
 							selectVal[0] = this.array[0][this.value[0]].name;
 							selectVal[1] = this.array[1][this.value[1]].name;
-							// selectVal[2] = this.array[2][this.value[2]].name 
+							// selectVal[2] = this.array[2][this.value[2]].name
 							return this;
 						},
 

@@ -1,4 +1,6 @@
 {
   "component": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "picker-address": "/components/pickerAddress/pickerAddress"
+  }
 }

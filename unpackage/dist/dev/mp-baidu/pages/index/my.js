@@ -294,7 +294,7 @@ __webpack_require__.r(__webpack_exports__);
     tabBar: tabBar },
 
   onLoad: function onLoad() {
-
+    this.huoqu_baojia();
   },
   onHide: function onHide() {
 
@@ -458,7 +458,7 @@ __webpack_require__.r(__webpack_exports__);
           _this3.is_login = true;
           _this3.huoqu_user();
           _this3.huoqu_geshu();
-          _this3.huoqu_baojia();
+
           _this3.huoqu_lianjie();
           _this3.huoqu_tixian();
 

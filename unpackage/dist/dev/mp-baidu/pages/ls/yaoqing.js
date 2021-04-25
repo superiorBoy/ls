@@ -394,14 +394,18 @@
 
 
 
-
-
-
-
-
-
-
-
+                                swan.setClipboardData({
+                                    data: this.lianjie,
+                                    success: function (res) {
+                                        swan.getClipboardData({
+                                        success: function (res) {
+                                            swan.showToast({
+                                            title: '复制成功'
+                                          })
+                                        }
+                                      })
+                                    }
+                                  })
 
 
 

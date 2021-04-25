@@ -21,6 +21,9 @@
 								<image style="width:13rpx;height:17rpx;margin-right:8rpx;"
 									src="{{img_url}}uniapp/lsimg/chat_shouji.png" mode></image>{{''+dianhua+''}}
 							</view>
+                            	<view class="chat_top_xinxi_dizhi">
+									<image src="{{img_url}}uniapp/lsimg/chat_dizhi.png" style="width: 16rpx;height: 22rpx;margin-right: 8rpx;" mode=""></image>{{yh_user.provinces}}-{{yh_user.citys}}
+								</view>
 						</view>
 					</view>
 					<view class="chat_top_xinxi_top_right">

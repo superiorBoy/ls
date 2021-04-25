@@ -7,7 +7,7 @@
                 <image src="{{url}}uniapp/img/dingwei.png" mode></image>
                 <picker-address bind:change="__e" vue-id="26ca42a6-1"
                     data-event-opts="{{[['^change',[['xuandizhi']]]]}}" vue-slots="{{['default']}}">
-                    {{dizhi==''?'定位中':dizhi}}</picker-address>
+                    {{dizhi==''?'全国':dizhi}}</picker-address>
             </view>
             <navigator url="tiwen">
                 <view class="index_sousuo qian_24">

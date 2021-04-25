@@ -171,6 +171,29 @@
 					return components;
 				});
 				var components
+try {
+  components = {
+    pickerAddress: function() {
+      return Promise.all(/*! import() | components/pickerAddress/pickerAddress */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/pickerAddress/pickerAddress")]).then(__webpack_require__.bind(null, /*! @/components/pickerAddress/pickerAddress.vue */ 1171))
+    }
+  }
+} catch (e) {
+  if (
+    e.message.indexOf("Cannot find module") !== -1 &&
+    e.message.indexOf(".vue") !== -1
+  ) {
+    console.error(e.message)
+    console.error("1. 排查组件名称拼写是否正确")
+    console.error(
+      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
+    )
+    console.error(
+      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
+    )
+  } else {
+    throw e
+  }
+}
 				var render = function() {
 					var _vm = this
 					var _h = _vm.$createElement
@@ -236,8 +259,10 @@
 				(function(uni) {
 					Object.defineProperty(exports, "__esModule", {
 						value: true
-					});
-					exports.default = void 0; //
+                    });
+
+                    exports.default = void 0; //
+                    var pickerAddress = function pickerAddress() {Promise.all(/*! require.ensure | components/pickerAddress/pickerAddress */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/pickerAddress/pickerAddress")]).then((function () {return resolve(__webpack_require__(/*! @/components/pickerAddress/pickerAddress.vue */ 1171));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 					//
 					//
 					//
@@ -334,7 +359,9 @@
 									youshi: '',
 									data: '',
 									userid: '',
-									touxiang: ''
+                                    touxiang: '',
+                                    dizhi:'',
+                                    first:false
 								};
 
 							},
@@ -342,7 +369,9 @@
 							onLoad: function onLoad(option) {
 								// 获取用户信息
 
-							},
+                            },
+                            components: {
+                                pickerAddress: pickerAddress },
 							onShow: function onShow() {
 								var _this = this;
 								this.$http.
@@ -360,7 +389,20 @@
 									_this.userid = res.data.user.userid;
 									_this.youshi = res.data.user.beizhu;
 									_this.touxiang = _this.img_url + res.data.user.photourl;
-								});
+                                });
+
+                                this.$http
+                                .post({
+                                    url: '/mapi/user/useraddress'
+                                })
+                                .then(res => {
+                                    if(res.data.provinces){
+                                        this.dizhi=res.data.provinces+'-'+res.data.citys+'-'+res.data.areas
+                                    }else{
+                                        this.first=true
+                                    }
+
+                                });
 							},
 							methods: {
 								navigateBack: function navigateBack() {
@@ -400,7 +442,8 @@
 
 									then(function(res) {
 										if (res.code == 0) {
-											uni.removeStorageSync('user_chat_list');
+                                            uni.removeStorageSync('user_chat_list');
+                                            uni.setStorageSync('xuanze', '2');
 											uni.closeSocket();
                                          swan.setStorageSync("token",'')
 											uni.switchTab({
@@ -415,7 +458,47 @@
 										url: 'geren_xinxi_xiugai?state=' + state
 									});
 
-								},
+                                },
+                                change: function change(data) {
+                                    console.log(data);
+                                    var that=this
+
+		if(this.first){
+			var url='/mapi/user/upadress'
+			var data={
+				province:data.data[0],
+				city:data.data[1],
+				area:data.data[2]
+			}
+		}else{
+			var url='/mapi/user/upuser'
+			var data={
+				email:this.youxiang,
+				province:data.data[0],
+				city:data.data[1],
+				area:data.data[2]
+			}
+		}
+			this.$http
+				.post({
+					url: '/mapi/user/upuser',
+					data: data
+				})
+				.then(res => {
+					console.log(res.code);
+					if (res.code == 0) {
+						uni.showToast({
+							title: '修改成功',
+							duration: 2000,
+							icon: 'none'
+						});
+
+						that.dizhi=data.province+'-'+data.city+'-'+data.area
+						that.first=false
+						that.$forceUpdate();
+					}
+				});
+                                  },
 								up_zheng: function up_zheng() {
 									var that = this;
 									uni.chooseImage({

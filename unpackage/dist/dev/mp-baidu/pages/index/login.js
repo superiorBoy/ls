@@ -359,7 +359,9 @@
 									then(function(res) {
 										if (res.code == 0) {
 											uni.removeStorageSync('user_chat_list');
-											uni.removeStorageSync('ls_chat_list');
+                                            uni.removeStorageSync('ls_chat_list');
+                                            uni.setStorageSync('xuanze', '2');
+                                            swan.setStorageSync("login", true);
 											swan.setStorageSync("token", res.data.token);
 											if (_this2.type == 3) {
 												uni.reLaunch({

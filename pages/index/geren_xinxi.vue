@@ -188,7 +188,7 @@ export default {
 						 uni.removeStorageSync('user_chat_list');
 						uni.closeSocket();
 						 uni.removeStorageSync('citys')
-						 uni.removeStorageSync('xuanze')
+						 uni.setStorageSync('xuanze', '2');
 						uni.switchTab({
 							url: 'my'
 						});

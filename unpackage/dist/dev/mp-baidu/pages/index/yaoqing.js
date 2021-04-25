@@ -244,13 +244,35 @@ var _copy = _interopRequireDefault(__webpack_require__(/*! @/common/copy.js */ 2
 //
 //
 //
-var _default = { created: function created() {}, onLoad: function onLoad(option) {this.is_login();}, onShow: function onShow() {}, data: function data() {return { lianjie: '登录后即可生成邀请好友的专属链接', deng_txt: '立即登录', url: uni.getStorageSync('img_url'), //复制邀请链接 --- 立即登录
-      user: '', list: [] };}, methods: { navigateBack: function navigateBack() {uni.navigateBack();}, is_login: function is_login() {var _this = this;this.$http.post({ url: '/index/login/islogin' }).then(function (res) {if (res.data.user == '') {_this.deng_txt == '立即登录';} else {_this.huoqu_lianjie();_this.huoqu_list();}});}, huoqu_lianjie: function huoqu_lianjie() {var _this2 = this;this.$http.post({ url: '/mapi/user/yaoqing' }).then(function (res) {_this2.deng_txt = '复制邀请链接';_this2.lianjie = res.data.inviteurl;});}, huoqu_list: function huoqu_list() {var _this3 = this;this.$http.post({ url: '/mapi/user/invitecount' }).
-      then(function (res) {
+var _default = { created: function created() {}, onLoad: function onLoad(option) {this.is_login();}, onShow: function onShow() {},
+ data: function data() {
+     return {
+         lianjie: '登录后即可生成邀请好友的专属链接',
+          deng_txt: '立即登录',
+           url: uni.getStorageSync('img_url'), //复制邀请链接 --- 立即登录
+         user: '',
+          list: [] };
+        },
+         methods: {
+              navigateBack: function navigateBack() {uni.navigateBack();},
+              is_login: function is_login() {var _this = this;this.$http.post({ url: '/index/login/islogin' }).then(function (res) {if (res.data.user == '') {_this.deng_txt == '立即登录';} else {_this.huoqu_lianjie();
+            _this.huoqu_list();}});},
+             huoqu_lianjie: function huoqu_lianjie() {
+                 var _this2 = this;
+                 this.$http.post({
+                     url: '/mapi/user/yaoqing' }).then(function (res) {
+                         _this2.deng_txt = '复制邀请链接';
+                         _this2.lianjie = res.data.inviteurl;
+                        });
+                    },
+                    huoqu_list: function huoqu_list() {
+                        var _this3 = this;
+                        this.$http.post({ url: '/mapi/user/invitecount' }).
+                        then(function (res) {
 
-        _this3.list = res.data.rewardlist;
-      });
-    },
+                            _this3.list = res.data.rewardlist;
+                        });
+                        },
     lianjiego: function lianjiego() {
       if (this.deng_txt == '立即登录') {
         wx.navigateTo({
@@ -258,20 +280,18 @@ var _default = { created: function created() {}, onLoad: function onLoad(option)
 
       } else {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        swan.setClipboardData({
+            data: this.lianjie,
+            success: function (res) {
+                swan.getClipboardData({
+                success: function (res) {
+                    swan.showToast({
+                    title: '复制成功'
+                  })
+                }
+              })
+            }
+          })
 
 
 

@@ -223,6 +223,12 @@ __webpack_require__.r(__webpack_exports__);
     then(function (res) {
       if (res.data.user != '') {
         _this2.$refs.mainindex.huoqunum();
+        const xuanze = uni.getStorageSync('xuanze');
+        console.log(xuanze)
+        if(xuanze==2){
+            _this2.$refs.shouye.jianhcha_dingwei();
+
+        }
         _this2.kaiqi()
 
 
