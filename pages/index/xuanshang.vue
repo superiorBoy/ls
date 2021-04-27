@@ -43,7 +43,10 @@
 				{{ item }}元
 			</view>
 		</view>
-
+	<view class="qian_26 xuanshang_tishi">
+		<image src="../../static/img/xuanshang_tishi.png" mode=""></image>
+				马上悬赏，您的问题会被更多的律师快速有效解答哦~
+				</view>
 		<view class="pay_btn">
 			<button type="" class="xuanshang bai_30" @click="save">支付</button>
 			<button type="" class="zanbu qian_30" @click="zanbu">返回</button>
@@ -407,7 +410,7 @@ page {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-top: 70rpx;
+	margin-top: 108rpx;
 }
 .wen_list {
 	display: block;
@@ -499,5 +502,16 @@ page {
 }
 .xuan_tishi_fir {
 	margin-bottom: 10rpx;
+}
+.xuanshang_tishi{
+	display: flex;
+	align-items: center;
+	padding-left: 23rpx;
+	margin-top: 18rpx;
+}
+.xuanshang_tishi image{
+	width: 34rpx;
+		height: 34rpx;
+		margin-right: 16rpx;
 }
 </style>

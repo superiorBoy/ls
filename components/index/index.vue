@@ -446,10 +446,10 @@ export default {
 			current: 0,
 			banner: [
 				{
-					img: '../../static/img/banner1.png'
+					img: '../../static/img/ls_new_banner1.jpg'
 				},
 				{
-					img: '../../static/img/banner2.jpg'
+					img: '../../static/img/ls_new_banner2.jpg'
 				},
 				{
 					img: '../../static/img/banner3.jpg'
