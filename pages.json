@@ -290,7 +290,10 @@
 			"path":"pages/ls/jiedan"
 		},
 		{
-			"path":"pages/ls/my"
+			"path":"pages/ls/my",
+			"style": {
+			"enablePullDownRefresh": true  //允许上拉加载和下拉刷新为true
+			}
 		},
 		{
 			"path":"pages/ls/xiaoxi",

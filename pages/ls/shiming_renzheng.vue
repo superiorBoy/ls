@@ -102,7 +102,7 @@
 				.then(res => {
 					
 					if(res.data.lawyerauth){
-						
+						console.log(res.data.lawyerauth)
 						this.name=res.data.lawyerauth.nickname
 						this.danxuan=res.data.lawyerauth.sexid
 						this.zhiye_zhao=this.img_url+res.data.lawyerauth.photourl
@@ -338,7 +338,7 @@
 				this.danxuan = e
 			},
 			tijiao() {
-
+var that=this
 				if (this.name == '') {
 					uni.showToast({
 						title: '请输入姓名',
@@ -386,7 +386,7 @@
 				   var url='/lawyer/lawyer/zx_shiming_rz'
 			   }
 
-
+                    console.log(url)
 
 
 	      	this.$http
@@ -402,11 +402,22 @@
 					}
 				})
 				.then(res => {
+					
+					console.log(res)
 					if(res.code==0){
 						uni.showToast({
 							title: '上传成功',
 							duration: 2000
 						});
+						if(that.tijiao_txt=='确认提交'){
+							setTimeout(function(){
+								uni.navigateTo({
+									url:'zhiye_renzheng'
+								})
+							},1000)
+						}
+						
+						
 					}
 				});
 

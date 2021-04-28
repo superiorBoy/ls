@@ -11,7 +11,7 @@
 				<image src="@/static/lsimg/moren_tx.png" mode="" class="ls_tx" v-if="!user"></image>
 				<view class="my_top_left_r" v-if="is_login">
 					<view class="my_name hei_30_bold" @click="go_geren"> 
-						{{ user?user.nickname:'' }}律师
+						{{ user?user.nickname:chushi_name }}律师
 						<view class="renzheng_xinxi" v-if="user">
 							<image src="../../static/lsimg/yi_renzheng1.png" mode="" class="renzheng1" v-if="user.isreal == 1"></image>
 							<image src="../../static/lsimg/yi_renzheng2.png" mode="" class="renzheng2" v-if="user.iszhiye == 1"></image>
@@ -34,20 +34,24 @@
 
 		<view class="my_ziliao">
 			<view  class="my_ziliao_item" @click="tiaozhuan('fensi')">
-				<view class="my_ziliao_item_top hei_28">{{geshu.fensi}}</view>
+				<view class="my_ziliao_item_top hei_28"v-if="!geshu">0</view>
+				<view class="my_ziliao_item_top hei_28" v-if="geshu">{{geshu.fensi}}</view>
 				<view class="my_ziliao_item_bottom hei_22">粉丝</view>
 			</view>
 			<view  class="my_ziliao_item" @click="tiaozhuan('tiwen_guanli')">
-				<view class="my_ziliao_item_top hei_28">{{geshu.tiwen}}</view>
+				<view class="my_ziliao_item_top hei_28"v-if="!geshu">0</view>
+				<view class="my_ziliao_item_top hei_28" v-if="geshu">{{geshu.tiwen}}</view>
 				<view class="my_ziliao_item_bottom hei_22">提问</view>
 			</view>
 			
 			<view  class="my_ziliao_item" @click="tiaozhuan('my_jindou')">
-				<view class="my_ziliao_item_top hei_28">{{user.jindou}}</view>
+				<view class="my_ziliao_item_top hei_28"v-if="!user">0</view>
+				<view class="my_ziliao_item_top hei_28" v-if="user">{{user.jindou}}</view>
 				<view class="my_ziliao_item_bottom hei_22">金豆</view>
 			</view>
 			<view  class="my_ziliao_item" @click="tiaozhuan('tixian')">
-				<view class="my_ziliao_item_top hei_28">{{user.rmb}}</view>
+				<view class="my_ziliao_item_top hei_28"v-if="!user">0.00</view>
+				<view class="my_ziliao_item_top hei_28" v-if="user">{{user.rmb}}</view>
 				<view class="my_ziliao_item_bottom hei_22">余额</view>
 			</view>
 		</view>
@@ -300,8 +304,14 @@ export default {
 			geshu:'',
 		     weidu:0,
 			 type:2,
-			 is_yaoqing:2
+			 is_yaoqing:2,
+			 chushi_name:''
 		};
+	},
+	//下拉刷新
+	onPullDownRefresh: function() {
+	  this.is_shuaxin();
+	
 	},
 	methods: {
 		qiehuan() {
@@ -321,6 +331,26 @@ uni.removeStorageSync('ls_chat_list');
 				url: '/pages/index/my'
 			});
 		},
+		is_shuaxin(){
+			var that=this
+				this.$http
+					.post({
+						url: '/lawyer/login/islogin'
+					})
+					.then(res => {
+				
+						if (res.data.user != '') {
+					     this.huoqu_user();
+					     this.huoqu_geshu()
+
+						} else {
+							uni.navigateTo({
+								url:'login'
+							})
+							
+						}
+					});
+		},
 		huo_qu_is_yaoqing(){
 			this.$http
 				.post({
@@ -338,6 +368,7 @@ uni.removeStorageSync('ls_chat_list');
 					url: '/mlawyerapi/user/getlawyer'
 				})
 				.then(res => {
+					
 					this.user = res.data.user;
 				});
 		},
@@ -350,15 +381,16 @@ uni.removeStorageSync('ls_chat_list');
 				.then(res => {
 			
 					if (res.data.user != '') {
-				
+				     this.huoqu_user();
+				     this.huoqu_geshu()
 						this.is_login = true;
+						this.chushi_name=res.data.user.nickname
 						//#ifdef APP-PLUS
 						// setTimeout(function(){
 							that.kaiqi();  
 						// },500)
 						//#endif
-						this.huoqu_user();
-				       this.huoqu_geshu()
+						
 					   
 					   this.$http
 					   	.post({
