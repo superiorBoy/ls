@@ -35,11 +35,13 @@
 					职务
 				</view> <input type="text" value="" placeholder="在律所承担的职务" class="qian_28" v-model="zhiwu" />
 			</view>
+			<picker mode="date"  @change="riqi_change">
 			<view class="shiming_list hei_28">
 				<view class="shiming_list_left">
-					执业年份
-				</view> <input type="text" value="" placeholder="执业年份，例如：2年" class="qian_28" v-model="nianfen" />
+					发证日期
+				</view> <input type="text" value="" disabled="disabled" placeholder="执业年份，例如：2年" class="qian_28" v-model="nianfen" />
 			</view>
+			</picker>
 			<view class="shiming_list hei_28">
 				<view class="shiming_list_left">
 					执业地区
@@ -197,6 +199,10 @@
 				this.dizhi = data.data.join('-')
 				console.log(data.data.join('-'))
 			},
+			riqi_change(e){
+				console.log(e.detail.value)
+				this.nianfen=e.detail.value
+			},
 			huoqu_list(){
 				this.$http
 					.post({
@@ -217,7 +223,11 @@
 							this.gaikuo=res.data.lawyerauth.miaoshu
 							this.zheng_img=uni.getStorageSync('img_url')+res.data.lawyerauth.zhiyephoto
 							this.dizhi=res.data.lawyerauth.province+"-"+res.data.lawyerauth.city+"-"+res.data.lawyerauth.area
-							this.nianfen=res.data.lawyerauth.zhiyenianfen
+							// this.nianfen=res.data.lawyerauth.zhiyenianfen
+							
+
+							this.nianfen=res.data.lawyerauth.zhiyenianfen+'-'+res.data.lawyerauth.zhiyeyuefen+'-'+res.data.lawyerauth.zhiyeday
+							
 							this.zhuanchang=this.huoqu_zhuang[res.data.lawyerauth.expertise1].shanchangname+"-"+this.huoqu_zhuang[res.data.lawyerauth.expertise2].shanchangname+"-"+this.huoqu_zhuang[res.data.lawyerauth.expertise3].shanchangname
 							this.lawyerauth=res.data.lawyerauth
 							this.shan_id=[]
@@ -346,6 +356,9 @@
 			},
 			tijiao() {
 
+
+
+
             if (this.shouji == '') {
 					uni.showToast({
 						title: '请输入手机号码',
@@ -420,6 +433,12 @@
 				}
 				
 				var di=this.dizhi.split('-');
+				if(this.nianfen.indexOf("-") != -1){
+					var shijian=this.nianfen.split('-');
+				}else{
+					
+				}
+				
 				// var zhuan=this.zhuanchang.split('-');
 				// console.log(this.huoqu_zhuang)
 				// console.log(zhuan)
@@ -447,7 +466,9 @@
 								zhuangchang2:this.shan_id[1],
 								zhuangchang3:this.shan_id[2],
 								zhiwu:this.zhiwu,
-								nianfen:this.nianfen,
+								nianfen:shijian[0],
+								yuefen:shijian[1],
+								day:shijian[2],
 								sheng:di[0],
 								shi:di[1],
 								qu:di[2],

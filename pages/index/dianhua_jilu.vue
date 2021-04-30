@@ -38,7 +38,7 @@
 					</view>
 					<view class="zixun_item_leixing hui_26" >
 						<text v-if="item.typeid && fenlei[item.typeid]">咨询类型：{{ fenlei[item.typeid].typename }}</text>  
-						<text class="hong_26 zixun_item_jiage">￥{{item.paymoney}}/{{item.baojiamode=='zhineng_dianhua'?item.zixunshicahng+'分钟':item.baojiamode=='phoneprice'?'20分钟':item.baojiamode=='dianhua1'?'1天':item.baojiamode=='dianhua3'?'3天':item.baojiamode=='dianhua30'?'1月':''}}</text>
+						<text class="hong_26 zixun_item_jiage">￥{{item.paymoney}}/{{zixun_baojia[item.baojiamode]?zixun_baojia[item.baojiamode]:item.zixunshicahng+'分钟'}}</text>
 					</view>
 					<view class="zixun_item_leixing hui_26" v-if="item.mobile">
 						律师电话：{{item.mobile}}
@@ -154,7 +154,8 @@ export default {
 			fenlei: '',
 			zixun_list: [],
 			zixunstate: '',
-			type_id: ''
+			type_id: '',
+			zixun_baojia:''
 		};
 	},
 	created() {},
@@ -168,6 +169,7 @@ export default {
 			.then(res => {
 				this.fenlei = res.data.type;
 			});
+			this.huoqu_baijiatime()
 	},
 	//下拉刷新
 	onPullDownRefresh: function() {
@@ -199,6 +201,15 @@ export default {
 				this.page++;
 				this.huoqu_list();
 			}
+		},
+		huoqu_baijiatime(){
+			this.$http
+				.post({
+					url: '/mapi/index/getbaojiatime'
+				})
+				.then(res => {
+					this.zixun_baojia = res.data;
+				});
 		},
 		navigateBack() {
 			uni.navigateBack();

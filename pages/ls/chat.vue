@@ -286,17 +286,7 @@
 											<view class="hong_26">
 												&ensp;￥
 												<text class="style_hong_16_bold">{{ item.consult.paymoney }}</text>
-												/{{
-													item.consult.zixunshicahng == '24'
-														? '天'
-														: item.consult.zixunshicahng == '72'
-														? '3天'
-														: item.consult.zixunshicahng == '1'
-														? '20分钟'
-														: item.consult.zixunshicahng == '720'
-														? '月'
-														: '分钟'
-												}}
+												/{{zixun_baojia[item.consult.baojiamode]?zixun_baojia[item.consult.baojiamode]:item.consult.zixunshicahng+'分钟'}}
 											</view>
 										</view>
 										<!-- <view class="hei_26 consult_typename">
@@ -347,17 +337,7 @@
 											<view class="hong_26">
 												&ensp;￥
 												<text class="style_hong_16_bold">{{ item.consult.paymoney }}</text>
-												/{{
-													item.consult.zixunshicahng == '24'
-														? '天'
-														: item.consult.zixunshicahng == '72'
-														? '3天'
-														: item.consult.zixunshicahng == '1'
-														? '20分钟'
-														: item.consult.zixunshicahng == '720'
-														? '月'
-														: '小时'
-												}}
+												/{{zixun_baojia[item.consult.baojiamode]?zixun_baojia[item.consult.baojiamode]:item.consult.zixunshicahng+'小时'}}
 											</view>
 										</view>
 										<!-- <view class="hei_26 consult_typename">
@@ -635,17 +615,7 @@
 											<view class="hong_26">
 												&ensp;￥
 												<text class="style_hong_16_bold">{{ item.consult.paymoney }}</text>
-												/{{
-													item.consult.zixunshicahng == '24'
-														? '天'
-														: item.consult.zixunshicahng == '72'
-														? '3天'
-														: item.consult.zixunshicahng == '1'
-														? '20分钟'
-														: item.consult.zixunshicahng == '720'
-														? '月'
-														: '分钟'
-												}}
+												/{{zixun_baojia[item.consult.baojiamode]?zixun_baojia[item.consult.baojiamode]:item.consult.zixunshicahng+'分钟'}}
 											</view>
 										</view>
 										<!-- 	<view class="hei_26 consult_typename">
@@ -695,17 +665,7 @@
 											<view class="hong_26">
 												&ensp;￥
 												<text class="style_hong_16_bold">{{ item.consult.paymoney }}</text>
-												/{{
-													item.consult.zixunshicahng == '24'
-														? '天'
-														: item.consult.zixunshicahng == '72'
-														? '3天'
-														: item.consult.zixunshicahng == '1'
-														? '20分钟'
-														: item.consult.zixunshicahng == '720'
-														? '月'
-														: '小时'
-												}}
+												/{{zixun_baojia[item.consult.baojiamode]?zixun_baojia[item.consult.baojiamode]:item.consult.zixunshicahng+'小时'}}
 											</view>
 										</view>
 										<!-- 	<view class="hei_26 consult_typename">
@@ -879,15 +839,10 @@
 								<view class="send_tuikuan_bottom qian_24">
 									<view class="">退款金额：￥{{ item.refund.refundmoney }}</view>
 									<view class="">
-										类型/时长：{{ gettype[item.refund.typeid].typename }}/{{
-											item.refund.zixunshicahng == 24
-												? '1天'
-												: item.refund.zixunshicahng == 72
-												? '3天'
-												: item.refund.zixunshicahng == 720
-												? '1个月'
-												: item.refund.zixunshicahng + '小时'
-										}}
+										类型/时长：{{ gettype[item.refund.typeid].typename }}/{{zixun_baojia[item.refund.baojiamode]?zixun_baojia[item.refund.baojiamode]:item.refund.zixunshicahng}}
+										<text v-if="!zixun_baojia[item.refund.baojiamode]">
+											{{item.refund.cstate==2?'小时':'分钟'}}
+										</text>	
 									</view>
 									<view class="">退款原因：{{ item.refund.refundreason }}</view>
 									<view class="">
@@ -921,15 +876,10 @@
 								<view class="send_tuikuan_bottom qian_24">
 									<view class="">退款金额：￥{{ item.refund.refundmoney }}</view>
 									<view class="">
-										类型/时长：{{ gettype[item.refund.typeid].typename }}/{{
-											item.refund.zixunshicahng == 24
-												? '1天'
-												: item.refund.zixunshicahng == 72
-												? '3天'
-												: item.refund.zixunshicahng == 720
-												? '1个月'
-												: item.refund.zixunshicahng + '小时'
-										}}
+										类型/时长：{{ gettype[item.refund.typeid].typename }}/{{zixun_baojia[item.refund.baojiamode]?zixun_baojia[item.refund.baojiamode]:item.refund.zixunshicahng}}
+										<text v-if="!zixun_baojia[item.refund.baojiamode]">
+											{{item.refund.cstate==2?'小时':'分钟'}}
+										</text>	
 									</view>
 									<view class="">退款原因：{{ item.refund.refundreason }}</view>
 									<view class="">
@@ -1127,7 +1077,14 @@ export default {
 				this.first_xiaoxi=res.data.messagecount
 				this.huoqu_xiaoxi_list();
 			});	
-		
+		//查看咨询报价
+		      this.$http
+							.post({
+								url: '/mapi/index/getbaojiatime'
+							})
+							.then(res => {
+								this.zixun_baojia = res.data;
+							});
 		this.tishiyu_tip();
 		this.huoqu_type();
 		var self = this;
@@ -1327,7 +1284,8 @@ export default {
 			is_kaiqi_yuyin: 2,
 			is_first: true,
 			first_xiaoxi:'',
-			first_height: 0
+			first_height: 0,
+			zixun_baojia:''
 		};
 	},
 	//下拉刷新

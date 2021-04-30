@@ -59,6 +59,44 @@
 					周一到周末  8:30-21:00（法定节假日除外）
 				</view>
 				
+				<!-- <view class="weixin" v-if="xinxi.isweixinshow==1">
+					<view class="weixin_hao hei_26">
+						微信号：<text class="qian_26">{{xinxi.webweixin}}</text> 
+					</view>
+					<view class="weixin_erweima">
+						<image :src="img_url+xinxi.webweixinurl" mode=""></image>
+					<view class="hei_26">
+						扫一扫，添加客服
+						
+					</view>
+					</view>
+				</view> -->
+				
+				
+				
+			</view>
+			
+			
+			
+			<view class="kefu_top" v-if="xinxi.isweixinshow==1">
+				<view class="kefu_title hei_30_bold">
+					<image src="../../static/lsimg/kefu_weixin.png" mode="widthFix" style="width: 28rpx;height: 30rpx;"></image>微信客服
+				</view>
+				
+				<view class="weixin" >
+					<view class="weixin_hao hei_26">
+						微信号：<text class="qian_26">{{xinxi.webweixin}}</text> 
+					</view>
+					<view class="weixin_erweima">
+						<image :src="img_url+xinxi.webweixinurl" mode=""></image>
+					<view class="hei_26">
+						扫一扫，添加客服
+						
+					</view>
+					</view>
+				</view>
+				
+				
 				
 			</view>
 			<view class="kefu_bottom">
@@ -85,7 +123,8 @@ export default {
 
 	data() {
 		return {
-			xinxi:''
+			xinxi:'',
+			img_url: uni.getStorageSync('img_url'),
 		};
 	},
 	onLoad() {
@@ -180,7 +219,7 @@ export default {
 	
 }
 .shijian_title{
-	margin-bottom: 10rpx;
+	margin-bottom: 20rpx;
 }
 .kefu_top{
 	border-bottom: 20rpx solid #f9f9f9;
@@ -197,5 +236,20 @@ export default {
 }
 .dianhua_item_title{
 	margin-bottom: 4rpx;
+}
+.weixin{
+	
+}
+.weixin_erweima{
+	text-align: center;
+}
+.weixin_erweima image{
+	width: 320rpx;
+		height: 320rpx;
+		vertical-align: bottom;
+		margin-bottom: 10px;
+}
+.weixin_hao{
+	margin-bottom: 20px;
 }
 </style>

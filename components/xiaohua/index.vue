@@ -164,10 +164,14 @@
 	<view class="tuijian">
 			<view class="tuijian_top"><image src="@/static/img/tuijian_title.png" mode=""></image></view>
 			<view class="tuijian_list">
-				<block v-for="(item,index) in data.loginlawyer">
+				<block v-for="(item,index) in loginlawyer">
 					<view class="tuijian_item_body">
 					<view class="tuijian_item">
-						<view class="tuijian_item_left" @click="go_zhuye(item.userid)"><image :src="url + item.photourl" mode=""></image></view>
+						<view class="tuijian_item_left" @click="go_zhuye(item.userid)"><image :src="url + item.photourl" mode=""></image>
+						<view class="hei_22 zhiye_nianfen">
+							执业{{item.zhiyenianfen}}年
+						</view>
+						</view>
 						<view class="tuijian_item_right">
 							<view class="ls_name">
 								<view class="ls_name_left hei_30_bold" @click="go_zhuye(item.userid)">
@@ -231,6 +235,14 @@
 								￥<text class="">{{item.phoneprice}}</text>/20分钟
 							</view>
 						</view>
+						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.zaixian30,'1年',1)">
+							<view class="tuijian_item_bottom_item_top">
+								在线咨询
+							</view>
+							<view class="tuijian_item_bottom_item_bottom hong_20">
+								￥<text class="">{{item.zaixian30}}</text>/年
+							</view>
+						</view>
 						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.hetong_shenhe,'合同审核',3)">
 							<view class="tuijian_item_bottom_item_top">
 								合同审核
@@ -263,14 +275,14 @@
 								￥<text class="">{{item.lvshi_huijian}}</text>/次
 							</view>
 						</view>
-						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.lvshihan,'发律师函',4)">
+					<!-- 	<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.lvshihan,'发律师函',4)">
 							<view class="tuijian_item_bottom_item_top">
 								发律师函
 							</view>
 							<view class="tuijian_item_bottom_item_bottom hong_20">
 								￥<text class="">{{item.lvshihan}}</text>/次
 							</view>
-						</view>
+						</view> -->
 					<!-- 	<view class="tuijian_item_bottom_item"  @click="go_zhifu(item.userid,item.anjianzhidao,'案件指导',4)">
 							<view class="tuijian_item_bottom_item_top">
 								案件指导
@@ -559,8 +571,10 @@ export default {
 						this.dizhi=res.data.citys
 						uni.setStorageSync('citys', res.data.citys);
 					   that.shuxin_zujian()
+					   that.shouye_lvshi();
 					}else{
 						 that.shuxin_zujian()
+						 that.shouye_lvshi();
 						this.dingwei()
 					}
 					
@@ -586,6 +600,18 @@ export default {
 					})
 					.then(res => {
 						this.is_tiwen=res.data
+					});
+		},
+		shouye_lvshi(){
+			this.$http
+					.post({
+						url: '/mapi/index/lawyerlist',
+						data:{
+							city: this.dizhi
+						}
+					})
+					.then(res => {
+						this.loginlawyer=res.data.loginlawyer
 					});
 		},
 		jianhcha_dingwei(){
@@ -1463,6 +1489,7 @@ scroll-view ::-webkit-scrollbar {
 .tuijian_item_left {
 	width: 130rpx;
 	margin-right: 20rpx;
+	text-align: center;
 }
 
 .tuijian_item_left image {

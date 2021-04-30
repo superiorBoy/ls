@@ -175,7 +175,8 @@ export default {
 			pay_money: 0,
 			time: '',
 			apppaytype: '',
-			is_click: true
+			is_click: true,
+			zixun_baojia:''
 		};
 	},
 	components: {
@@ -184,7 +185,13 @@ export default {
 	created() {},
 	onLoad(option) {
 		this.lawyerid = option.lawyerid;
-
+        this.$http
+					.post({
+						url: '/mapi/index/getbaojiatime'
+					})
+					.then(res => {
+						this.zixun_baojia = res.data;
+					});
 		if (option.type) {
 			this.type = option.type;
 		}
@@ -277,17 +284,22 @@ export default {
 					this.pay_money = res.data.consult.paymoney;
 					this.typeid = res.data.consult.typeid;
 					this.time = res.data.consult.zixunshicahng;
-					if (res.data.consult.zixunshicahng == 1) {
-						this.time = '20分钟';
-					} else if (res.data.consult.zixunshicahng == 24) {
-						this.time = '1天';
-					} else if (res.data.consult.zixunshicahng == 72) {
-						this.time = '3天';
-					} else if (res.data.consult.zixunshicahng == 720) {
-						this.time = '1个月';
-					} else {
-						this.time = res.data.consult.zixunshicahng + '小时';
-					}
+					// if (res.data.consult.zixunshicahng == 1) {
+					// 	this.time = '20分钟';
+					// } else if (res.data.consult.zixunshicahng == 24) {
+					// 	this.time = '1天';
+					// } else if (res.data.consult.zixunshicahng == 72) {
+					// 	this.time = '3天';
+					// } else if (res.data.consult.zixunshicahng == 720) {
+					// 	this.time = '1个月';
+					// } else {
+					// 	this.time = res.data.consult.zixunshicahng + '小时';
+					// }
+
+
+                     this.time=this.zixun_baojia[res.data.consult.baojiamode]
+
+
 
 					if (res.data.consult.baojiamode == 'hetong_shenhe') {
 						this.time = '合同审核';

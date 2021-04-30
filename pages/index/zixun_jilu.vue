@@ -48,8 +48,8 @@
 			</view>
 			</view>
 			<view class="zixun_item_leixing hui_26" v-if="fenlei">
-				<text v-if="item.typeid">咨询类型：{{ fenlei[item.typeid].typename }}</text>  
-				<text class="hong_26 zixun_item_jiage">￥{{item.paymoney}}/{{item.zixunshicahng==24?'1天':item.zixunshicahng==72?'3天':item.zixunshicahng==720?'1个月':item.zixunshicahng+'小时'}}</text>
+				<text v-if="item.typeid">咨询类型：{{ fenlei[item.typeid].typename }}</text>   
+				<text class="hong_26 zixun_item_jiage">￥{{item.paymoney}}/{{zixun_baojia[item.baojiamode]?zixun_baojia[item.baojiamode]:item.zixunshicahng+'小时'}}</text>
 			</view>
 			<view class="zixun_item_top_bottom" >
 				<view class="fukuan lv_26" v-if="item.zixunstate == 1" @click="pay(item.lawyerid,item.consultid,item.baojiamode)">
@@ -160,6 +160,7 @@
 				zixun_list: [],
 		        zixunstate:'',
 				type_id:'',
+				zixun_baojia:''
 				
 			
 			}
@@ -178,6 +179,7 @@
 					this.fenlei = res.data.type;
 				});
 		
+		this.huoqu_baijiatime()
 			
 		},
 		//下拉刷新
@@ -214,6 +216,15 @@
 			},
 			navigateBack() {
 				uni.navigateBack()
+			},
+			huoqu_baijiatime(){
+				this.$http
+					.post({
+						url: '/mapi/index/getbaojiatime'
+					})
+					.then(res => {
+						this.zixun_baojia = res.data;
+					});
 			},
 			// 切换tab
 			qiehuan(index) {

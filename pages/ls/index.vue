@@ -29,10 +29,10 @@
 					</view>
 					<view class="jiedan_item_right hong_26">
 						<view class=""v-if="active==0">
-							{{item.paymoney}}元/{{item.zixunshicahng==24?'1天':item.zixunshicahng==72?'3天':item.zixunshicahng==720?'1个月':item.zixunshicahng+'小时'}}
+							{{item.paymoney}}元/{{zixun_baojia[item.baojiamode]?zixun_baojia[item.baojiamode]:item.zixunshicahng+'小时'}}
 						</view>
 						<view class=""v-if="active==1" >
-							{{item.paymoney}}元/{{item.zixunshicahng==24?'1天':item.zixunshicahng==72?'3天':item.zixunshicahng==720?'1个月':item.zixunshicahng+'分钟'}}
+							{{item.paymoney}}元/{{zixun_baojia[item.baojiamode]?zixun_baojia[item.baojiamode]:item.zixunshicahng+'分钟'}}
 						</view>
 						<view class="jiedan_btn" @click="jiedan(item)">
 							接单
@@ -68,6 +68,10 @@
 			// #endif
 			
 		},
+		onLoad() {
+			
+			this.huoqu_baijiatime()
+		},
 		onShow() {
 			this.list=[],
 			this.huoqu_user()
@@ -93,7 +97,8 @@
 				weidu:0,
 				page:0,
 				is_all:false,
-				list:[]
+				list:[],
+				zixun_baojia:''
 			}
 		},
 		//下拉刷新
@@ -107,6 +112,15 @@
 		methods: {
 			navigateBack() {
 				uni.navigateBack();
+			},
+			huoqu_baijiatime(){
+				this.$http
+					.post({
+						url: '/mapi/index/getbaojiatime'
+					})
+					.then(res => {
+						this.zixun_baojia = res.data;
+					});
 			},
 			//上拉加载
 			onReachBottom() {

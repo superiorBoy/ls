@@ -93,6 +93,7 @@ export default {
 	//下拉刷新
 	onPullDownRefresh: function() {
 	   this.$refs.shouye.huoqu_index();	
+	   this.$refs.shouye.shouye_lvshi();	
 	},
 	methods: {
 	kaiqi() {

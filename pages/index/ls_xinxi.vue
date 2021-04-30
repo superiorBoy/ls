@@ -337,14 +337,14 @@
 			</view>
 			<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==1">
 				<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.chatprice,'1天')" v-if="baojia.chatprice" >1天</text>
-				<text :class="shichang_index==2?'tan_xuan_active':''" @click="huan_shichang(2,baojia.zaixian3,'3天')" v-if="baojia.zaixian3" >3天</text>
-				<text :class="shichang_index==3?'tan_xuan_active':''" @click="huan_shichang(3,baojia.zaixian30,'1个月')" v-if="baojia.zaixian30" >1个月</text>
+				<text :class="shichang_index==2?'tan_xuan_active':''" @click="huan_shichang(2,baojia.zaixian3,'1个月')" v-if="baojia.zaixian3" >1个月</text>
+				<text :class="shichang_index==3?'tan_xuan_active':''" @click="huan_shichang(3,baojia.zaixian30,'1年')" v-if="baojia.zaixian30" >1年</text>
 			</view>
 			<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==2">
-				<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.dianhua,'20分钟')" v-if="baojia.dianhua" >20分钟</text>
+				<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.phoneprice,'20分钟')" v-if="baojia.phoneprice" >20分钟</text>
 				<text :class="shichang_index==2?'tan_xuan_active':''" @click="huan_shichang(2,baojia.dianhua1,'1天')" v-if="baojia.dianhua1" >1天</text>
-				<text :class="shichang_index==3?'tan_xuan_active':''" @click="huan_shichang(3,baojia.dianhua3,'3天')" v-if="baojia.dianhua3" >3天</text>
-				<text :class="shichang_index==4?'tan_xuan_active':''" @click="huan_shichang(4,baojia.dianhua30,'1个月')" v-if="baojia.dianhua30" >1个月</text>
+				<text :class="shichang_index==3?'tan_xuan_active':''" @click="huan_shichang(3,baojia.dianhua3,'1个月')" v-if="baojia.dianhua3" >1个月</text>
+				<text :class="shichang_index==4?'tan_xuan_active':''" @click="huan_shichang(4,baojia.dianhua30,'1年')" v-if="baojia.dianhua30" >1年</text>
 			</view>
 			<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==3">
 				<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.hetong_daixie,'合同审核')" v-if="baojia.hetong_daixie">合同审核</text>
