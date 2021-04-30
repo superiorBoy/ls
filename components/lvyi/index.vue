@@ -173,7 +173,7 @@
 							</view>
 							<view class="ls_gongsi hui_24">
 								<text class="bai_20 tese_ls">特色律师</text>
-								{{ item.zhiwu }}
+								{{ item.lvsuo }}
 							</view>
 							<view class="ls_dizhi qian_22">
 								<image src="@/static/img/dizhi.png" mode=""></image>
@@ -302,7 +302,7 @@
 				查看更多律师>>
 			</button>
 		</view>
-		<view class="index_zixun">
+		<view class="index_zixun" v-if="is_tiwen&&is_tiwen.appopenconsult==1">
 			<view class="zixun_tab qian_28">
 				<text @tap="change(1)" :class="{ hei: btnnum == 1 }">最新解答</text>
 				<text @tap="change(0)" :class="{ hei: btnnum == 0 }">最新咨询</text>
@@ -354,7 +354,7 @@
 				</block>
 			</view>
 		</view>
-		<button type="" class="qian_26 ls_more" @click="tiaozhuan_zixun">
+		<button type="" class="qian_26 ls_more" @click="tiaozhuan_zixun" v-if="is_tiwen&&is_tiwen.appopenconsult==1">
 			<image src="@/static/img/gengduo.png" mode=""></image>
 			查看更多咨询>>
 		</button>
@@ -477,7 +477,8 @@ export default {
 			filename:'',
 			xiazai_txt:'正在下载中，请稍后...',
 			zhankai_arry:[0,1,2],
-			zhuanchang_arry:[]
+			zhuanchang_arry:[],
+			is_tiwen:''
 		};
 	},
 	components: {
@@ -504,6 +505,7 @@ export default {
 		
 		
 		//#endif
+		this.huoqu_is_tiwen()
 		this.$http
 			.post({
 				url: '/mapi/index/getopenshenhe'
@@ -571,6 +573,15 @@ export default {
 		
 	},
 	methods: {
+		huoqu_is_tiwen(){
+			this.$http
+					.post({
+						url: '/mapi/index/getopenconsult'
+					})
+					.then(res => {
+						this.is_tiwen=res.data
+					});
+		},
 		jianhcha_dingwei(){
 			var that=this
 			this.$http
@@ -877,9 +888,9 @@ export default {
 
 		tabChange(index) {
 			this.TabCur = index;
-			uni.reLaunch({
-				url:'../../pages/index/zixun'
-			})
+		uni.switchTab({
+			url:'../../pages/index/lvshi'
+		})
 			uni.setStorage({
 				key: 'zhuanchang',
 				data: this.tabList[index].typename

@@ -30,7 +30,7 @@
 				</view>
 			</view>
 			<view class="pay_fs_list "v-if="xianshi3">
-				<view class="pay_fs_item">
+				<view class="pay_fs_item" v-if="is_tiwen&&is_tiwen.appopenconsult==1">
 					<view class="pay_fs_item_top">
 						<text class="hei_30_bold" style="margin-right: 24rpx;">悬赏提问</text>
 						<text class="hong_26" >
@@ -166,7 +166,8 @@ export default {
 			addtime:new Date().getTime(),
 			lvshi:'',
 			user:'',
-			min_num:0
+			min_num:0,
+			is_tiwen:''
 			 
 		};
 	},
@@ -177,6 +178,7 @@ export default {
 		// this.consultid=option.consultid
 		// this.huoqu_consult_xq()
 		this.xianshi()
+		this.huoqu_is_tiwen()
 		this.huoqu_jiage()
 		this.huoqu_lvshi()
 		this.huoqu_user()
@@ -186,7 +188,15 @@ export default {
 		navigateBack() {
 			uni.navigateBack();
 		},
-
+huoqu_is_tiwen(){
+			this.$http
+					.post({
+						url: '/mapi/index/getopenconsult'
+					})
+					.then(res => {
+						this.is_tiwen=res.data
+					});
+		},
 		huoqu_jiage(){
 			
 			this.$http.post({

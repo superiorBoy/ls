@@ -3,7 +3,7 @@
 		<view class="head">
 			<view class="sousuo">
 				<input type="text" value="" confirm-type="search" class="hei_24" @confirm="search" v-model="sou_txt" @click="panduan" @input="shuruchange" />
-				<view class="sou_tishi qian_24" v-if="tishi">
+				<view class="sou_tishi qian_24" v-if="!sou_txt">
 					<image src="@/static/img/sousuo.png" mode="" />
 					输入您要查找的律师姓名
 				</view>
@@ -293,7 +293,8 @@ export default {
 			tiao_type:1,
 			zhankai_arry:[0,1,2],
 			zhuanchang_arry_txt:'',
-			citys:''
+			citys:'',
+			name:''
 		};
 	},
 	created() {
@@ -307,6 +308,7 @@ export default {
 		this.lslist=[],
 		this.sheng='',
 		this.shi='',
+		this.sou_txt=''
 		this.dizhi= '不限地区',
 		this.zhuanchang= '不限专长',
 		this.shanchang_id='',
@@ -418,7 +420,16 @@ export default {
 		},
 		// 按键搜索
 		search(e) {
-			console.log(e.detail.value);
+			this.page=0,
+			this.citys=''
+			this.is_all=false,
+			this.lslist=[],
+			this.sheng='',
+			this.shi='',
+			this.dizhi= '不限地区',
+			this.zhuanchang= '不限专长',
+			this.shanchang_id='',
+			this.get_lvshilist()
 		},
 		panduan() {
 			this.tishi = false;
@@ -511,7 +522,8 @@ export default {
 						province: this.sheng,
 						city: this.shi,
 						type:this.type,
-						citys:this.citys
+						citys:this.citys,
+						name:this.sou_txt
 					}
 				})
 				.then(res => {
