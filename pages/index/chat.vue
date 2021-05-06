@@ -329,7 +329,7 @@
 									</view>
 								</view>
 								<view class="send_pay_bottom hei_24">
-									<view>手机号码：{{ dianhua }}</view>
+									<view>手机号码：{{ xinghao(dianhua) }}</view>
 									<view>咨询类型：{{ gettype[item.consult.typeid].typename }}</view>
 									<view class="send_pay_bottom_neirong">咨询内容：{{ item.consult.information }}</view>
 								</view>
@@ -690,7 +690,7 @@
 									</view>
 								</view>
 								<view class="send_pay_bottom hei_24">
-									<view>手机号码：{{ dianhua }}</view>
+									<view>手机号码：{{ xinghao(dianhua) }}</view>
 									<view>咨询类型：{{ gettype[item.consult.typeid].typename }}</view>
 									<view class="send_pay_bottom_neirong">咨询内容：{{ item.consult.information }}</view>
 								</view>
@@ -1530,6 +1530,10 @@ export default {
 						this.tips = res.data;
 					}
 				});
+		},
+		xinghao(dianhua){
+			var dianhua=dianhua+''
+			return dianhua.substr(0, 7) + '****' ;
 		},
 		huoqu_type() {
 			this.$http

@@ -144,11 +144,13 @@
 					服务类型
 				</view>
 				<view class="tan_jiage_title_list hui_26 tan_jiage_title_leixing">
+					
 					<text @click="huan_leixing(1)" :class="leixing_index==1?'tan_xuan_active':''" v-if="baojia.chatprice || baojia.zaixian3 ||baojia.zaixian30 ">在线咨询</text>
 					<text @click="huan_leixing(2)" :class="leixing_index==2?'tan_xuan_active':''" v-if="baojia.dianhua || baojia.dianhua1 || baojia.dianhua3 || baojia.dianhua30 ">电话咨询</text>
 					<text @click="huan_leixing(3)" :class="leixing_index==3?'tan_xuan_active':''" v-if="baojia.hetong_daixie || baojia.hetong_shenhe || baojia.hetong_wenshu ">合同文书</text>
 					<text @click="huan_leixing(4)" :class="leixing_index==4?'tan_xuan_active':''" v-if="baojia.lvshi_huijian || baojia.lvshihan || baojia.anjianzhidao ">诉讼委托</text>
-					<text @click="huan_leixing(0)" :class="leixing_index==0?'tan_xuan_active':''" v-if="baojia.jianmian">见面咨询</text>
+				<text @click="huan_leixing(0)" :class="leixing_index==0?'tan_xuan_active':''" v-if="baojia.jianmian">见面咨询</text>
+				<text @click="huan_leixing(5)" :class="leixing_index==5?'tan_xuan_active':''" v-if="baojia.legaladviser1 || baojia.legaladviser2">法律顾问</text>
 				</view>
 				<view class="tan_jiage_title hei_28_bold">
 					服务时长
@@ -157,9 +159,10 @@
 					<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.jianmian,'1次')" v-if="baojia.jianmian" >1次</text>
 				</view>
 				<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==1">
-					<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.chatprice,'1天')" v-if="baojia.chatprice" >1天</text>
-					<text :class="shichang_index==2?'tan_xuan_active':''" @click="huan_shichang(2,baojia.zaixian3,'1个月')" v-if="baojia.zaixian3" >1个月</text>
-					<text :class="shichang_index==3?'tan_xuan_active':''" @click="huan_shichang(3,baojia.zaixian30,'1年')" v-if="baojia.zaixian30" >1年</text>
+					<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.zaixian1,'1小时')" v-if="baojia.zaixian1" >1小时</text>
+					<text :class="shichang_index==2?'tan_xuan_active':''" @click="huan_shichang(2,baojia.chatprice,'1天')" v-if="baojia.chatprice" >1天</text>
+					<text :class="shichang_index==3?'tan_xuan_active':''" @click="huan_shichang(3,baojia.zaixian3,'1个月')" v-if="baojia.zaixian3" >1个月</text>
+					<text :class="shichang_index==4?'tan_xuan_active':''" @click="huan_shichang(4,baojia.zaixian30,'1年')" v-if="baojia.zaixian30" >1年</text>
 				</view>
 				<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==2">
 					<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.phoneprice,'20分钟')" v-if="baojia.phoneprice" >20分钟</text>
@@ -176,6 +179,11 @@
 					<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.lvshi_huijian,'律师会见')"  v-if="baojia.lvshi_huijian" >律师会见</text>
 					<text :class="shichang_index==2?'tan_xuan_active':''" @click="huan_shichang(2,baojia.lvshihan,'发律师函')"  v-if="baojia.lvshihan" >发律师函</text>
 					<text :class="shichang_index==3?'tan_xuan_active':''" @click="huan_shichang(3,baojia.anjianzhidao,'案件指导')"  v-if="baojia.anjianzhidao">案件指导</text>
+				</view>
+				<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==5">
+					<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.legaladviser1,'个人法律顾问')"  v-if="baojia.legaladviser1" >个人法律顾问一年</text>
+					<text :class="shichang_index==2?'tan_xuan_active':''" @click="huan_shichang(2,baojia.legaladviser2,'企业法律顾问')"  v-if="baojia.legaladviser1" >企业法律顾问一年</text>
+					
 				</view>
 			</view>		
 					

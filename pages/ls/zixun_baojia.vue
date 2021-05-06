@@ -26,7 +26,7 @@
 					</view>
 				</view>
 				<view class="baojia_list_bottom qian_26" v-if="baojia">
-				<text>￥{{baojia.chatprice}}/1天</text><text>￥{{baojia.zaixian3}}/3天</text><text>￥{{baojia.zaixian30}}/30天</text>
+				<text>￥{{baojia.chatprice}}/天</text><text>￥{{baojia.zaixian3}}/月</text><text>￥{{baojia.zaixian30}}/年</text>
 				
 			</view>
 			</view>
@@ -39,8 +39,8 @@
 					</view>
 				</view>
 				<view class="baojia_list_bottom qian_26">
-				<text>￥{{baojia.phoneprice}}/20分钟</text><text>￥{{baojia.dianhua1}}/1天</text><text>￥{{baojia.dianhua3}}/3天</text>
-				<text>￥{{baojia.dianhua30}}/30天</text>
+				<text>￥{{baojia.phoneprice}}/20分钟</text><text>￥{{baojia.dianhua1}}/天</text><text>￥{{baojia.dianhua3}}/月</text>
+				<text>￥{{baojia.dianhua30}}/年</text>
 			</view>
 			</view>
 			<view class="baojia_list" style="border-bottom: 20rpx solid #E8E8E8;">
@@ -65,6 +65,19 @@
 				</view>
 				<view class="baojia_list_bottom qian_26 wen_txt">
 				<text>￥{{baojia.anjianzhidao}}/案件指导</text><text>￥{{baojia.lvshihan}}/发律师函</text><text>￥{{baojia.lvshi_huijian}}/律师会见</text>
+				
+			</view>
+			</view>
+			<view class="baojia_list" style="border-bottom: 20rpx solid #E8E8E8;">
+				<view class="baojia_list_top hei_28">
+					<text>法律顾问</text>
+					<view class="baojia_list_top_right qian_28" @click="go_baojia(5)">
+						<text>修改</text>
+						<image src="@/static/lsimg/go_r.png" mode=""></image>
+					</view>
+				</view>
+				<view class="baojia_list_bottom qian_26 wen_txt guwen_txt">
+				<text>￥{{baojia.legaladviser1}}/个人法律顾问一年</text><text>￥{{baojia.legaladviser2}}/企业法律顾问一年</text>
 				
 			</view>
 			</view>
@@ -164,4 +177,9 @@ export default {
 	height: 21rpx;
 	margin-left: 12rpx;
 }
+
+.guwen_txt text{
+	width: 365rpx;
+}
+
 </style>

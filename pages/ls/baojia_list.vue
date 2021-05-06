@@ -2,7 +2,7 @@
 	<view class="body">
 		<view class="head">
 			<view class="head_back"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
-			<view class="head_center hei_38_bold">{{type==1?'在线咨询':type==2?'电话咨询':type==3?'合同文书':'诉讼委托'}}</view>
+			<view class="head_center hei_38_bold">{{type==1?'在线咨询':type==2?'电话咨询':type==3?'合同文书':type==5?'法律顾问':'诉讼委托'}}</view>
 			<view class=" head_right hei_30_bold"></view>
 		</view>
 
@@ -101,7 +101,23 @@
 			    </view>
 			
 			</view>
+			<!-- 法律顾问 -->
+			<view class="baojia_list" v-if="type==5">
+				<view class="baojia_list_item hei_28">
+					<text>个人法律顾问一年</text>
+					<view class="baojia_list_item_right ">
+						<input type="text" value="" placeholder="请填写" class="hei_28" v-model="legaladviser1"/> 元
+					</view>
+				</view>
+				<view class="baojia_list_item hei_28">
+					<text>企业法律顾问一年</text>
+					<view class="baojia_list_item_right ">
+						<input type="text" value="" placeholder="请填写" class="hei_28" v-model="legaladviser2"/> 元
+					</view>
+				</view>
+		
 			
+			</view>
 			<view class="baocun_btn">
 				<button type="" class="bai_30" @click="save">立即添加</button>
 			</view>
@@ -130,7 +146,9 @@ export default {
 				 anjianzhidao:'', 
 				 type:1,
 				 title:'在线咨询',
-				 baojia:''
+				 baojia:'',
+				 legaladviser1:'',
+				 legaladviser2:''
 		};
 	},
 	created() {},
@@ -155,6 +173,8 @@ export default {
 			this.lvshi_huijian=res.data.lawyer.lvshi_huijian
 			this.lvshihan=res.data.lawyer.lvshihan
        		this.anjianzhidao=res.data.lawyer.anjianzhidao
+			this.legaladviser1=res.data.lawyer.legaladviser1
+			this.legaladviser2=res.data.lawyer.legaladviser2
        	});
 	},
 	methods: {
@@ -231,6 +251,23 @@ export default {
 				lvshihan:this.lvshihan,
 				anjianzhidao:this.anjianzhidao
 			}
+		   
+		   }
+		   if(this.type==5){
+		   	if (this.legaladviser1 == '' || this.legaladviser2=='') {
+		   		uni.showToast({
+		   			title: '请填写完整',
+		   			duration: 2000,
+		   			icon: 'none'
+		   		});
+		   		return false;
+		   	} 
+		   			var data={
+		   				state: 6,
+		   				legaladviser1:this.legaladviser1,
+		   				legaladviser2:this.legaladviser2
+		   				
+		   			}
 		   
 		   }
 

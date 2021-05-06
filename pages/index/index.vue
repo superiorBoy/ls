@@ -1,9 +1,6 @@
 <template>
 	<view class="" >
-<!-- 	首页首页首页首页首页首页首页首页首页首页首页首页
-	首页首页首页首页首页首页首页首页首页首页首页首页
-	首页首页首页首页首页首页首页首页首页首页首页首页
-	首页首页首页首页首页首页首页首页首页首页首页首页 -->
+
 		<index v-if="muban==1" ref="shouye"></index> 
 		<xiaohua v-if="muban==2" ref="shouye"></xiaohua>	
 		<lvyi v-if="muban==3" ref="shouye"></lvyi>
@@ -33,6 +30,7 @@ export default {
 		xiaohua,
 		lvyi,
 		tabBar
+		
 	},
 	created() {
 	this.$http
@@ -70,7 +68,7 @@ export default {
 							  		if(xuanze==2){
 							               that.$refs.shouye.jianhcha_dingwei();
 										
-										}
+									}
 						  }else{
 							that.$refs.shouye.dingwei();
 							  
@@ -81,7 +79,7 @@ export default {
 						      this.kaiqi();
 						//#endif
 					}else{
-						
+						this.$refs.shouye.shouye_lvshi();
 					}
 				});	
 		// this.$refs.shouye.shuxin_zujian();
@@ -93,7 +91,8 @@ export default {
 	//下拉刷新
 	onPullDownRefresh: function() {
 	   this.$refs.shouye.huoqu_index();	
-	   this.$refs.shouye.shouye_lvshi();	
+	   this.$refs.shouye.shouye_lvshi();
+		   
 	},
 	methods: {
 	kaiqi() {

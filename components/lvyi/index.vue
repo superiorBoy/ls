@@ -60,7 +60,7 @@
 				</view>
 				<view class="index_zixun_num_left">
 					<image src="../../static/img/lvyi_zaixiannum.png" mode=""></image>
-					今日律师解答 <text class="hong_26">{{jiequ(data.serve.todayreply)}}</text>问题
+					今日律师解答 <text class="hong_26" v-if="data">{{jiequ(data.serve.todayreply)}}</text>问题
 				</view>
 				
 			</view>
@@ -120,37 +120,55 @@
 		<navigator url="zhineng_pay?type=1" class="index_zhineng_item">
 			<image src="../../static/img/xh_zaixian.png" mode="" class="index_zhineng_item_lei"></image>
 		<view class="index_zhineng_item_right">
-			<view class="">
+			<view class="index_zhineng_item_right_top">
 				
 			<view class="index_zhineng_item_top hei_30_bold">
 			在线咨询<image src="../../static/img/xh_hot.png" mode="">
 			
 			</view>
-			<view class="index_zhineng_item_bottom qian_24">
-				专业律师·限时应答
-			</view>
-			</view>
+			
 			<text class="hong_26_bold">{{zhineng.zaixiantime}}小时/￥{{zhineng.zaixianprice}}</text>
+			</view>
+			<view class="index_zhineng_item_bottom qian_24">
+				律师24小时在线，3秒匹配律师，不满意可申请退款
+			</view>
 		</view>
 	</navigator>
 	<navigator url="zhineng_pay?type=2" class="index_zhineng_item">
 		<image src="../../static/img/xh_dianhua.png" mode="" class="index_zhineng_item_lei"></image>
 		<view class="index_zhineng_item_right">
-			<view class="">
+			<view class="index_zhineng_item_right_top">
 				
 			<view class="index_zhineng_item_top hei_30_bold">
 		电话咨询 <image src="../../static/img/xh_tuijian.png" mode=""></image>
 				
 			</view>
-			<view class="index_zhineng_item_bottom qian_24">
-				超值咨询·高效便捷
-			</view>
-			</view>
+			
 			<text class="hong_26_bold">{{zhineng.dianhuatime}}分钟/￥{{zhineng.dianhuaprice}}</text>
+			</view>
+			<view class="index_zhineng_item_bottom qian_24">
+				可主动拨打律师电话，沟通效果更高，不满意可申请退款！
+			</view>
 		</view>
 	</navigator>
 	
 </view>
+
+		<view class="index_ls_ziao_body">
+			<view class="index_ls_ziao hei_28">
+				<view class="index_ls_ziao_title hei_36_bold">按专长找</view>
+				<view class="index_ls_ziao_list">
+					<text v-for="(item, index) in zhuanchang_list" v-if="index < zhuanchang_num" @click="go_lvshi_zhuan(item.shanchangid)">{{ item.shanchangname }}</text>
+					<text class="ls_shouqi lv_28" @click="index_zhankai" v-if="zhuanchang_list.length > 7">{{ ls_shouqi }}</text>
+				</view>
+				<view class="" v-if="getlawyerlevelscreen==1">
+				<view class="index_ls_ziao_title hei_36_bold index_ls_ziao_dengji_title">按等级找</view>
+				<view class="index_ls_ziao_list index_ls_ziao_dengji">
+					<text v-for="(item, index) in dengji_arry" @click="go_lvshi_dengji(index)">{{ item }}</text>
+				</view>
+				</view>
+			</view>
+		</view>
 
 
 	<view class="tuijian">
@@ -211,12 +229,12 @@
 							<view class="tuijian_item_bottom_title_right" @click="zhankai(index)">{{zhankai_arry.indexOf(index) != -1?'收起':'展开'}}  <image src="../../static/img/xiangxia.png" mode=""></image></view>
 						</view>
 						<view class="tuijian_item_bottom_list hei_20"  :class="{ zhankai_on: zhankai_arry.indexOf(index) != -1 }">
-						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.chatprice,'1天',1)">
-							<view class="tuijian_item_bottom_item_top">
-								在线咨询
-							</view>
+						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid, item.zaixian1, '1小时', 1)">
+							<view class="tuijian_item_bottom_item_top">在线咨询</view>
 							<view class="tuijian_item_bottom_item_bottom hong_20">
-								￥<text class="">{{item.chatprice}}</text>/天
+								￥
+								<text class="">{{ item.zaixian1 }}</text>
+								/小时
 							</view>
 						</view>
 						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.phoneprice,'20分钟',2)">
@@ -227,14 +245,14 @@
 								￥<text class="">{{item.phoneprice}}</text>/20分钟
 							</view>
 						</view>
-						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.zaixian30,'1年',1)">
-							<view class="tuijian_item_bottom_item_top">
-								在线咨询
-							</view>
-							<view class="tuijian_item_bottom_item_bottom hong_20">
-								￥<text class="">{{item.zaixian30}}</text>/年
-							</view>
-						</view>
+								<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid, item.legaladviser1, '个人法律顾问', 5)">
+									<view class="tuijian_item_bottom_item_top">法律顾问</view>
+									<view class="tuijian_item_bottom_item_bottom hong_20">
+										￥
+										<text class="">{{ item.legaladviser1 }}</text>
+										/年
+									</view>
+								</view>
 						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.hetong_shenhe,'合同审核',3)">
 							<view class="tuijian_item_bottom_item_top">
 								合同审核
@@ -488,9 +506,17 @@ export default {
 			xiazai_state:'取消',
 			filename:'',
 			xiazai_txt:'正在下载中，请稍后...',
-			zhankai_arry:[0,1,2],
+			zhankai_arry:[],
 			zhuanchang_arry:[],
-			is_tiwen:''
+			is_tiwen:'',
+			dengji_arry: '',
+			ls_shouqi: '更多专长',
+			zhuanchang_num: 7,
+			loginlawyer:'',
+			getlawyerlevelscreen:2,
+			getlawyerlistopen:2,
+			zhuanchang_list:[]
+			
 		};
 	},
 	components: {
@@ -545,7 +571,23 @@ export default {
 			})
 			.then(res => {
 				this.fa_zhishi = res.data.type[1];
-			});	
+			});
+				//获取等级
+				this.$http
+					.post({
+						url: '/mapi/index/lawyerlevel'
+					})
+					.then(res => {
+						this.dengji_arry = res.data;
+					});
+					//获取列表是否展开
+					this.$http
+						.post({
+							url: '/mapi/index/getlawyerlistopen'
+						})
+						.then(res => {
+							this.getlawyerlistopen = res.data.lawyerlistopen;
+						});	
 		// this.shuxin_zujian()
 		// 获取擅长
 		this.$http
@@ -554,24 +596,52 @@ export default {
 				})
 				.then(res => {
 					this.zhuanchang_arry=res.data.shanchang
+					var array = [];
+					for (var key in res.data.shanchang) {
+						array.push(res.data.shanchang[key]);
+					}
+					this.zhuanchang_list = array;
 				});
+		//获取是否开启等级搜索
+		this.$http
+			.post({
+				url: '/mapi/index/getlawyerlevelscreen'
+			})
+			.then(res => {
+				this.getlawyerlevelscreen = res.data.lawyerlevelscreen;
+			});			
 		that.shuxin_zujian();	
-				that.shouye_lvshi();
-		// this.$http
-		// 		.post({
-		// 			url: '/mapi/user/useraddress'
-		// 		})
-		// 		.then(res => {
-		// 			if(res.data.provinces){
-		// 				this.dizhi=res.data.citys
-		// 				uni.setStorageSync('citys', res.data.citys);
-		// 			that.shuxin_zujian()
-		// 			}else{
-		// 				that.shuxin_zujian();
-		// 				this.dingwei()
-		// 			}
+				
+				
+		this.$http
+			.post({
+				url: '/index/login/islogin'
+			})
+			.then(res => {
+				if (res.data.user != '') {
+					this.$http
+						.post({
+							url: '/mapi/user/useraddress'
+						})
+						.then(res => {
+							if (res.data.provinces) {
+								this.dizhi = res.data.citys;
+								uni.setStorageSync('citys', res.data.citys);
+								
+								// that.shouye_lvshi();
+							} else {
+								
+								
+								// this.dingwei();
+							}
+						});
 					
-		// 		});		
+					
+					
+				} else {
+					that.shouye_lvshi();
+				}
+			});	
 	},
 	onLoad() {
 		// if (this._isMobile()) {
@@ -605,6 +675,13 @@ export default {
 					})
 					.then(res => {
 						this.loginlawyer=res.data.loginlawyer
+						this.zhankai_arry = [];
+						if (this.getlawyerlistopen == 1) {
+							for (var i = 0; i < res.data.loginlawyer.length; i++) {
+								this.zhankai_arry.push(i);
+							}
+						}
+						
 					});
 		},
 		jianhcha_dingwei(){
@@ -618,9 +695,9 @@ export default {
 							this.dizhi=res.data.citys
 							uni.setStorageSync('citys', res.data.citys);
 			
-							that.huoqu_index();
+							that.shouye_lvshi();
 						}else{
-							that.huoqu_index();
+							// that.shouye_lvshi();
 							this.dingwei()
 						}
 					});
@@ -636,7 +713,7 @@ export default {
 			plus.geolocation.getCurrentPosition(
 				function(p) {
 					that.dizhi = p.address.city;
-					that.huoqu_index();
+					that.shouye_lvshi();
 					// uni.setStorage({
 					// 	key: 'dizhi',
 					// 	data: {
@@ -691,7 +768,7 @@ export default {
 		},
 		shuxin_zujian(){
 				this.huo_qu_is_yaoqing();
-				this.huiqu_login();
+				// this.huiqu_login();
 		
 				// 获取分类
 				this.$http
@@ -1070,7 +1147,7 @@ export default {
 							contentType: 'application/json; charset=utf-8',
 							success: function(res) {
 								that.dizhi = res.result.addressComponent.city;
-								that.huoqu_index()
+								that.shouye_lvshi();
 								
 								that.$http
 									.post({
@@ -1095,7 +1172,7 @@ export default {
 								// });
 							},
 							error: function (err) {
-								that.huoqu_index()
+								that.shouye_lvshi();
 							}
 						});
 						// var url = wei_url+'/geocoder/v2/?ak=eIxDStjzbtH0WtU50gqdXYCz&output=json&pois=1&location=' + r.latitude + ',' + r.longitude;
@@ -1124,6 +1201,27 @@ export default {
 		go_zhishi_xq(knowledgetypeid, name) {
 			uni.navigateTo({
 				url: 'changshi_erji?typeid=' + knowledgetypeid + '&name=' + name
+			});
+		},
+		index_zhankai() {
+			if (this.ls_shouqi == '更多专长') {
+				this.zhuanchang_num = this.zhuanchang_list.length;
+				this.ls_shouqi = '收起专长';
+			} else {
+				this.zhuanchang_num = 7;
+				this.ls_shouqi = '更多专长';
+			}
+		},
+		go_lvshi_zhuan(shanchangid) {
+			uni.setStorageSync('shanchangid', shanchangid);
+			uni.switchTab({
+				url: '../../pages/index/lvshi'
+			});
+		},
+		go_lvshi_dengji(index) {
+			uni.setStorageSync('level', index);
+			uni.switchTab({
+				url: '../../pages/index/lvshi'
 			});
 		}
 	},
@@ -1953,14 +2051,14 @@ scroll-view ::-webkit-scrollbar {
 	display: flex;
 	align-items: center;
 	position: relative;
-	height: 120rpx;
-		background-color: #ffffff;
-		box-shadow: 0rpx 0rpx 9rpx 0rpx 
+	height: 130rpx;
+	background-color: #ffffff;
+	box-shadow: 0rpx 0rpx 9rpx 0rpx 
 			rgba(0, 30, 20, 0.13);
-		border-radius: 10rpx;
-		padding: 28rpx 20rpx ;
-		margin-bottom: 30rpx;
-		box-sizing: border-box;
+	border-radius: 10rpx;
+	padding: 28rpx 20rpx ;
+	margin-bottom: 30rpx;
+	box-sizing: border-box;
 }
 /* .index_zhineng_item:first-child::before{
 	
@@ -1997,10 +2095,13 @@ scroll-view ::-webkit-scrollbar {
 	white-space: nowrap;
 }
 .index_zhineng_item_right{
+
+	width: 90%;
+}
+.index_zhineng_item_right_top{
 	display: flex;
 	align-items: flex-start;
 	justify-content: space-between;
-	width: 90%;
 }
 .tuijian_item_bottom_title{
 	display: flex;
@@ -2128,5 +2229,38 @@ scroll-view ::-webkit-scrollbar {
     overflow:hidden; 
     text-overflow:ellipsis; 
      white-space:nowrap; 
+}
+.index_ls_ziao {
+}
+.index_ls_ziao_body {
+	background-color: #f7f7f7;
+	padding: 1rpx 30rpx 30rpx;
+}
+.index_ls_ziao_title {
+	/* margin-bottom: 30rpx; */
+	margin: 30rpx 0 30rpx;
+}
+.index_ls_ziao_dengji_title {
+	margin-top: 20rpx;
+}
+.index_ls_ziao_list text {
+	display: inline-block;
+	line-height: 64rpx;
+	height: 64rpx;
+	background-color: #ffffff;
+	border-radius: 10px;
+	margin-right: 4%;
+	margin-bottom: 18rpx;
+	width: 22%;
+	text-align: center;
+}
+.index_ls_ziao_list text:nth-child(4n) {
+	margin-right: 0;
+}
+.index_ls_ziao_dengji {
+	/* margin-bottom: 30rpx; */
+}
+.ls_shouqi {
+	background-color: #effffa !important;
 }
 </style>

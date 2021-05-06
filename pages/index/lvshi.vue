@@ -79,28 +79,29 @@
 						<view class="tuijian_item_bottom_title_right" @click="zhankai(index)">{{zhankai_arry.indexOf(index) != -1?'收起':'展开'}}  <image src="../../static/img/xiangxia.png" mode=""></image></view>
 					</view>
 					<view class="tuijian_item_bottom_list hei_20"  :class="{ zhankai_on: zhankai_arry.indexOf(index) != -1 }">
-					<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.chatprice,'1天',1)">
+					<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.zaixian1,'1小时',1)">
 						<view class="tuijian_item_bottom_item_top">
 							在线咨询
 						</view>
 						<view class="tuijian_item_bottom_item_bottom hong_20">
-							￥<text class="">{{item.chatprice}}</text>/天
+							￥<text class="">{{item.zaixian1}}</text>/小时
 						</view>
 					</view>
-					<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.phoneprice,'20分钟',2)">
-						<view class="tuijian_item_bottom_item_top">
-							电话咨询
-						</view>
+					<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid, item.zaixian1, '1小时', 1)">
+						<view class="tuijian_item_bottom_item_top">在线咨询</view>
 						<view class="tuijian_item_bottom_item_bottom hong_20">
-							￥<text class="">{{item.phoneprice}}</text>/20分钟
+							￥
+							<text class="">{{ item.zaixian1 }}</text>
+							/小时
 						</view>
 					</view>
-					<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.zaixian30,'1年',1)">
+
+					<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.zaixian30,'个人法律顾问',5)">
 						<view class="tuijian_item_bottom_item_top">
-							在线咨询
+							法律顾问
 						</view>
 						<view class="tuijian_item_bottom_item_bottom hong_20">
-							￥<text class="">{{item.zaixian30}}</text>/年
+							￥<text class="">{{item.legaladviser1}}</text>/年
 						</view>
 					</view>
 					<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.hetong_shenhe,'合同审核',3)">
@@ -185,6 +186,14 @@ export default {
 		tabBar
 	},
 	onLoad(option) {
+		//获取列表是否展开
+		this.$http
+			.post({
+				url: '/mapi/index/getlawyerlistopen'
+			})
+			.then(res => {
+				this.getlawyerlistopen = res.data.lawyerlistopen;
+			});
 		  var that=this
 		  this.page=0,
 		  this.is_all=false,
@@ -196,8 +205,14 @@ export default {
 		  this.shanchang_id='',
 		this.get_shanchang();
 	    // this.get_lvshilist();
-		
-		  this.get_lvshilist();
+		if(uni.getStorageSync("shanchangid") || uni.getStorageSync("level")){
+			
+		}else{
+			
+			
+			this.get_lvshilist();
+		}
+		  
 		
 	this.$http
 		.post({
@@ -215,7 +230,7 @@ export default {
 			 that.citys=res.data.citys
 			}
 			 // this.sheng=res.data.province
-		      that.get_lvshilist();
+		      // that.get_lvshilist();
 		
 		});
 				
@@ -241,6 +256,8 @@ export default {
 		// #ifdef APP-PLUS
 		 uni.closeSocket();
 		// #endif
+		uni.removeStorageSync('shanchangid');
+		uni.removeStorageSync('level');
 	},
 	
 	onShow() {
@@ -269,8 +286,50 @@ export default {
 				}
 			});	
 			
-			
-           
+	var shanchangid=uni.getStorageSync("shanchangid")
+	if(shanchangid){
+		this.$http
+			.post({
+				url: '/mapi/lawyer/getshanchang'
+			})
+			.then(res => {
+				var array = [];
+				for (var key in res.data.shanchang) {
+					array.push(res.data.shanchang[key]);
+				}
+				this.zhuanchang_arry = array;
+				this.zhuanchang_arry_txt = res.data.shanchang;
+				
+				this.page=0,
+				this.is_all=false,
+				this.lslist=[],
+				this.sheng='',
+				this.shi='',
+				this.dizhi= '不限地区',
+				this.shanchang_id=shanchangid
+				this.zhuanchang= this.zhuanchang_arry_txt[shanchangid].shanchangname,
+				this.get_lvshilist();
+				
+				
+			});
+	
+	}
+	
+	var level=uni.getStorageSync("level")
+	if(level){
+		
+		  this.page=0,
+		  this.is_all=false,
+		  this.lslist=[],
+		  this.sheng='',
+		  this.shi='',
+		  this.dizhi= '不限地区',
+		  this.shanchang_id=''
+		  this.level=level
+		  this.zhuanchang= '不限专长'
+		  this.get_lvshilist();
+	}
+		   
 	  },
 
 	data() {
@@ -292,10 +351,13 @@ export default {
 			is_all:false,
 			type:1,
 			tiao_type:1,
-			zhankai_arry:[0,1,2],
+			zhankai_arry:[],
 			zhuanchang_arry_txt:'',
 			citys:'',
-			name:''
+			name:'',
+			shanchangid:'',
+			level:'',
+			getlawyerlistopen: 2
 		};
 	},
 	created() {
@@ -313,6 +375,9 @@ export default {
 		this.dizhi= '不限地区',
 		this.zhuanchang= '不限专长',
 		this.shanchang_id='',
+		this.level=''
+		uni.removeStorageSync('shanchangid');
+		uni.removeStorageSync('level');
 		this.get_lvshilist()
 
 	},
@@ -427,6 +492,7 @@ export default {
 			this.lslist=[],
 			this.sheng='',
 			this.shi='',
+			this.level=''
 			this.dizhi= '不限地区',
 			this.zhuanchang= '不限专长',
 			this.shanchang_id='',
@@ -524,11 +590,21 @@ export default {
 						city: this.shi,
 						type:this.type,
 						citys:this.citys,
-						name:this.sou_txt
+						name:this.sou_txt,
+						level:this.level
 					}
 				})
 				.then(res => {
 					this.lslist=this.lslist.concat(res.data.lawyer);
+					
+					this.zhankai_arry = [];
+					if (this.getlawyerlistopen == 1) {
+						for (var i = 0; i < this.lslist.length; i++) {
+							this.zhankai_arry.push(i);
+						}
+					}
+					
+					
 					if (res.data.lawyer.length < 10) {
 						this.is_all = true;
 					} 

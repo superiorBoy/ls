@@ -16,7 +16,7 @@
 			<view class="shiming_list hei_28">
 				<view class="shiming_list_left">
 					姓名
-				</view> <input type="text" value="" placeholder="请填写姓名" class="qian_28" v-model="name" />
+				</view> <input type="text" value="" placeholder="请填写姓名" class="qian_28" v-model="name"  :disabled="yi_zhiye"/>
 			</view>
 			<view class="shiming_list hei_28">
 				<view class="shiming_list_left">
@@ -85,7 +85,8 @@
 				danxuan: false,
 				dis:true,
 				img_url: uni.getStorageSync('img_url'),
-				tijiao_txt:'确认提交'
+				tijiao_txt:'确认提交',
+				yi_zhiye:false
 			}
 		},
 		created() {
@@ -128,6 +129,19 @@
 				
 					
 				});
+
+
+                  this.$http
+				.post({
+					url: '/mlawyerapi/user/getlawyer'
+				})
+				.then(res => {
+                         if(res.data.user.iszhiye==1){
+							 this.yi_zhiye=true
+						 }
+				});
+
+
 
 		},
 		methods: {
