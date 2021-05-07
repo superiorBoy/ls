@@ -2,7 +2,7 @@
 	<view class="body">
 		<view class="head">
 			<view class="head_back"><image src="@/static/img/back.png" mode="" @click="navigateBack()"></image></view>
-			<view class="head_center hei_38_bold">{{type==1?'在线咨询':type==2?'电话咨询':type==3?'合同文书':type==5?'法律顾问':'诉讼委托'}}</view>
+			<view class="head_center hei_38_bold">{{type==1?'在线咨询':type==2?'电话咨询':type==3?'合同文书':type==6?'法律顾问':'诉讼委托'}}</view>
 			<view class=" head_right hei_30_bold"></view>
 		</view>
 
@@ -134,7 +134,7 @@
 			
 			</view>
 			<!-- 法律顾问 -->
-			<view class="baojia_list" v-if="type==5">
+			<view class="baojia_list" v-if="type==6">
 				<view class="baojia_list_item hei_28" v-for="item in arry6">
 					<text>{{item.name}}</text>
 					<view class="baojia_list_item_right ">
