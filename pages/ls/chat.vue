@@ -286,7 +286,8 @@
 											<view class="hong_26">
 												&ensp;￥
 												<text class="style_hong_16_bold">{{ item.consult.paymoney }}</text>
-												/{{zixun_baojia[item.consult.baojiamode]?zixun_baojia[item.consult.baojiamode]:item.consult.zixunshicahng+'分钟'}}
+												/{{huoqu_name(item.consult.baojiamode)?huoqu_name(item.consult.baojiamode):item.consult.zixunshicahng+'分钟'}}
+												
 											</view>
 										</view>
 										<!-- <view class="hei_26 consult_typename">
@@ -337,7 +338,7 @@
 											<view class="hong_26">
 												&ensp;￥
 												<text class="style_hong_16_bold">{{ item.consult.paymoney }}</text>
-												/{{zixun_baojia[item.consult.baojiamode]?zixun_baojia[item.consult.baojiamode]:item.consult.zixunshicahng+'小时'}}
+												/{{huoqu_name(item.consult.baojiamode)?huoqu_name(item.consult.baojiamode):item.consult.zixunshicahng+'小时'}}
 											</view>
 										</view>
 										<!-- <view class="hei_26 consult_typename">
@@ -615,7 +616,7 @@
 											<view class="hong_26">
 												&ensp;￥
 												<text class="style_hong_16_bold">{{ item.consult.paymoney }}</text>
-												/{{zixun_baojia[item.consult.baojiamode]?zixun_baojia[item.consult.baojiamode]:item.consult.zixunshicahng+'分钟'}}
+												/{{huoqu_name(item.consult.baojiamode)?huoqu_name(item.consult.baojiamode):item.consult.zixunshicahng+'分钟'}}
 											</view>
 										</view>
 										<!-- 	<view class="hei_26 consult_typename">
@@ -665,7 +666,7 @@
 											<view class="hong_26">
 												&ensp;￥
 												<text class="style_hong_16_bold">{{ item.consult.paymoney }}</text>
-												/{{zixun_baojia[item.consult.baojiamode]?zixun_baojia[item.consult.baojiamode]:item.consult.zixunshicahng+'小时'}}
+												/{{huoqu_name(item.consult.baojiamode)?huoqu_name(item.consult.baojiamode):item.consult.zixunshicahng+'小时'}}
 											</view>
 										</view>
 										<!-- 	<view class="hei_26 consult_typename">
@@ -839,8 +840,8 @@
 								<view class="send_tuikuan_bottom qian_24">
 									<view class="">退款金额：￥{{ item.refund.refundmoney }}</view>
 									<view class="">
-										类型/时长：{{ gettype[item.refund.typeid].typename }}/{{zixun_baojia[item.refund.baojiamode]?zixun_baojia[item.refund.baojiamode]:item.refund.zixunshicahng}}
-										<text v-if="!zixun_baojia[item.refund.baojiamode]">
+										类型/时长：{{ gettype[item.refund.typeid].typename }}/{{huoqu_name(item.refund.baojiamode)?huoqu_name(item.refund.baojiamode):item.refund.zixunshicahng}}
+										<text v-if="!huoqu_name(item.refund.baojiamode)">
 											{{item.refund.cstate==2?'小时':'分钟'}}
 										</text>	
 									</view>
@@ -876,8 +877,8 @@
 								<view class="send_tuikuan_bottom qian_24">
 									<view class="">退款金额：￥{{ item.refund.refundmoney }}</view>
 									<view class="">
-										类型/时长：{{ gettype[item.refund.typeid].typename }}/{{zixun_baojia[item.refund.baojiamode]?zixun_baojia[item.refund.baojiamode]:item.refund.zixunshicahng}}
-										<text v-if="!zixun_baojia[item.refund.baojiamode]">
+										类型/时长：{{ gettype[item.refund.typeid].typename }}/{{huoqu_name(item.refund.baojiamode)?huoqu_name(item.refund.baojiamode):item.refund.zixunshicahng}}
+										<text v-if="!huoqu_name(item.refund.baojiamode)">
 											{{item.refund.cstate==2?'小时':'分钟'}}
 										</text>	
 									</view>
@@ -1080,7 +1081,7 @@ export default {
 		//查看咨询报价
 		      this.$http
 							.post({
-								url: '/mapi/index/getbaojiatime'
+								url: '/mapi/index/lawyerservice'
 							})
 							.then(res => {
 								this.zixun_baojia = res.data;
@@ -1340,6 +1341,15 @@ export default {
 			// 	duration: 2000,
 			// 	icon: "none"
 			// });
+		},
+		huoqu_name(baojiamode){
+			
+			for (var value of this.zixun_baojia){
+			if(value.baojiamode==baojiamode){
+				return value.name
+			}
+			}
+			
 		},
 		huoqu_type() {
 			this.$http

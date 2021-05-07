@@ -4,7 +4,7 @@
 		<index v-if="muban==1" ref="shouye"></index> 
 		<xiaohua v-if="muban==2" ref="shouye"></xiaohua>	
 		<lvyi v-if="muban==3" ref="shouye"></lvyi>
-	 
+	 <lvyi v-if="muban==4" ref="shouye"></lvyi>
 	
 	<tabBar :currentPage="currentPage" ref="mainindex"></tabBar>
 	</view>

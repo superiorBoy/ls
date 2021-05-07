@@ -107,10 +107,10 @@
 					</view>
 					<view class="zaixian bai_26" >
 						<!-- <image src="@/static/img/zaixian_bai.png" mode=""></image> -->
-						<view class="bai_24 bottom_jiage" v-if="baojia&&baojia.chatprice" @click="tan(1,baojia.chatprice)">
-							￥<text class="bai_32">{{baojia.chatprice}}</text>
+						<view class="bai_24 bottom_jiage" v-if="baojia&&baojia.zaixian1" @click="tan(1,baojia.zaixian1)">
+							￥<text class="bai_32">{{baojia.zaixian1}}</text>
 						</view>
-						<view class="bai_24 bottom_jiage" v-if="!baojia || !baojia.chatprice ">
+						<view class="bai_24 bottom_jiage" v-if="!baojia || !baojia.zaixian1 ">
 							<text class="bai_32">未报价</text>
 						</view>
 						在线咨询
@@ -427,11 +427,8 @@ export default {
 		go_pay(lawyerid,type){
 			
 			console.log(this.leixing_index,this.shichang_txt)
-			
-		
-			
 			uni.navigateTo({
-				url:'pay?lawyerid='+lawyerid+'&type='+type
+				url:'pay?lawyerid='+lawyerid+'&type='+ this.leixing_index +'&time='+this.shichang_txt+'&pay_money='+this.pay_money
 			})
 		},
 		// 底部弹窗
@@ -445,7 +442,7 @@ export default {
 			this.shichang_index=1
 			this.leixing_index=type
 			if(type==1){
-				this.shichang_txt='1天'
+				this.shichang_txt='1小时'
 			}else if(type==2){
 				this.shichang_txt='20分钟'
 			}else{
@@ -808,20 +805,26 @@ export default {
 	padding-bottom: 50rpx;
 }
 
-.tan_jiage_title_leixing{
-	display: flex;
-}
-.tan_jiage_title_leixing text{
-		width: 158rpx;
-		height: 57rpx;
-		background-color: #ffffff;
-		border-radius: 5rpx;
-		border: solid 2rpx #c6c6c6;
-		display: inline-block;
-		line-height: 57rpx;
-		text-align: center;
-		margin-right: 18rpx;
-}
+	.tan_jiage_title_leixing{
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.tan_jiage_title_leixing text{
+			width: 154rpx;
+			height: 57rpx;
+			background-color: #ffffff;
+			border-radius: 5rpx;
+			border: solid 2rpx #c6c6c6;
+			display: inline-block;
+			line-height: 57rpx;
+			text-align: center;
+			margin-right: 18rpx;
+			margin-bottom: 10rpx;
+			
+	}
+	.tan_jiage_title_leixing text:nth-child(4n){
+		margin-right: 0;
+	}
 .tan_jiage_title_list_shichang text{
 	display: inline-block;
 	height: 57rpx;

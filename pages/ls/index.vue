@@ -29,10 +29,10 @@
 					</view>
 					<view class="jiedan_item_right hong_26">
 						<view class=""v-if="active==0">
-							{{item.paymoney}}元/{{zixun_baojia[item.baojiamode]?zixun_baojia[item.baojiamode]:item.zixunshicahng+'小时'}}
+							{{item.paymoney}}元/{{huoqu_name(item.baojiamode)?huoqu_name(item.baojiamode):item.zixunshicahng+'小时'}}
 						</view>
 						<view class=""v-if="active==1" >
-							{{item.paymoney}}元/{{zixun_baojia[item.baojiamode]?zixun_baojia[item.baojiamode]:item.zixunshicahng+'分钟'}}
+							{{item.paymoney}}元/{{huoqu_name(item.baojiamode)?huoqu_name(item.baojiamode):item.zixunshicahng+'分钟'}}
 						</view>
 						<view class="jiedan_btn" @click="jiedan(item)">
 							接单
@@ -116,11 +116,20 @@
 			huoqu_baijiatime(){
 				this.$http
 					.post({
-						url: '/mapi/index/getbaojiatime'
+						url: '/mapi/index/lawyerservice'
 					})
 					.then(res => {
 						this.zixun_baojia = res.data;
 					});
+			},
+			huoqu_name(baojiamode){
+				
+				for (var value of this.zixun_baojia){
+				if(value.baojiamode==baojiamode){
+					return value.name
+				}
+				}
+				
 			},
 			//上拉加载
 			onReachBottom() {

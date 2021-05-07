@@ -21,7 +21,9 @@
 		{
 			"path":"pages/index/tiwen_list_xq"
 		},
-
+{
+			"path":"pages/index/jvbao"
+		},
 		{
 			"path":"pages/index/kefu"
 		},

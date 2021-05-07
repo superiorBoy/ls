@@ -7,80 +7,119 @@
 		</view>
 
 		<view class="zi_body ">
-			<view class="baojia_list" style="border-bottom: 20rpx solid #E8E8E8;">
-				<view class="baojia_list_top hei_28">
-					<text>当面咨询</text>
-					<navigator url="baojia_jianmian" class="baojia_list_top_right qian_28">
-						<text>{{baojia.jianmian}}/1次</text>
-						<image src="@/static/lsimg/go_r.png" mode=""></image>
-					</navigator>
+			<view class="fuwu_top">
+				
+					
+			<view class="fuwu_list">
+				<view class="fuwu_list_left qian_24">
+				<image src="@/static/lsimg/ls_guanli1.png" mode=""></image>	<text class="hei_30 fuwu_leixing">服务范围</text> 
+				<text v-if="zhuanchang_arry[lawyerauth.expertise1] && zhuanchang_arry[lawyerauth.expertise1].shanchangname" class="youshi">{{zhuanchang_arry[lawyerauth.expertise1].shanchangname}}</text>
+				<text v-if="zhuanchang_arry[lawyerauth.expertise2] && zhuanchang_arry[lawyerauth.expertise2].shanchangname" class="youshi">{{zhuanchang_arry[lawyerauth.expertise2].shanchangname}}</text>
+				<text v-if="zhuanchang_arry[lawyerauth.expertise3] && zhuanchang_arry[lawyerauth.expertise3].shanchangname" class="youshi">{{zhuanchang_arry[lawyerauth.expertise3].shanchangname}}</text>
 				</view>
-
+				<view class="fuwu_list_right qian_24" @click="go_zhiye">
+					修改
+					<image src="@/static/lsimg/go_r.png" mode=""></image>
+				</view>
 			</view>
+			<view class="fuwu_list">
+				<view class="fuwu_list_left qian_24">
+				  <image src="@/static/lsimg/ls_guanli2.png" mode=""></image> <text class="hei_30 fuwu_leixing">	服务地区</text> {{lawyerauth.province}} {{lawyerauth.city}}
+				</view>
+				<view class="fuwu_list_right qian_24" @click="go_zhiye">
+					修改
+					<image src="@/static/lsimg/go_r.png" mode=""></image>
+				</view>
+			</view>
+			<navigator url="jiedan_time"class="fuwu_list">
+			
+				<view class="fuwu_list_left qian_24">
+					
+					<image src="../../static/lsimg/fuwu_jiedan.png" mode=""></image><text class="hei_30 fuwu_leixing">接单时间</text><text class="qian_24">{{jiedan_time.workstate==1?'全天24小时':jiedan_time.workstate==2?'白天（9:00-23:00）':jiedan_time.workstate==3?'晚上（23:00-9:00）':jiedan_time.workstarttime+'-'+jiedan_time.workendtime}}</text>
+				</view>
+				<view class="fuwu_list_right qian_24">
+					修改<image src="../../static/lsimg/go_r.png" mode=""></image>
+				</view>
+			
+			</navigator>
+			</view>
+			
 			<view class="baojia_list" style="border-bottom: 20rpx solid #E8E8E8;">
 				<view class="baojia_list_top hei_28">
-					<text>在线咨询</text>
+					<text><image src="@/static/lsimg/ls_guanli3.png" mode=""></image>在线咨询<switch name="switch" :disabled="true" @click="tanchu" :checked='kaiqi' color='#1890ff'/></text>
 					<view class="baojia_list_top_right qian_28" @click="go_baojia(1)">
 						<text>修改</text>
-						<image src="@/static/lsimg/go_r.png" mode=""></image>
-					</view>
-				</view>
-				<view class="baojia_list_bottom qian_26" v-if="baojia">
-				<text>￥{{baojia.chatprice}}/天</text><text>￥{{baojia.zaixian3}}/月</text><text>￥{{baojia.zaixian30}}/年</text>
-				
-			</view>
-			</view>
-			<view class="baojia_list" style="border-bottom: 20rpx solid #E8E8E8;">
-				<view class="baojia_list_top hei_28">
-					<text>电话咨询</text>
-					<view class="baojia_list_top_right qian_28" @click="go_baojia(2)">
-						<text>修改</text>
-						<image src="@/static/lsimg/go_r.png" mode=""></image>
+						<image src="@/static/lsimg/go_r.png" mode="" class="go_r"></image>
 					</view>
 				</view>
 				<view class="baojia_list_bottom qian_26">
-				<text>￥{{baojia.phoneprice}}/20分钟</text><text>￥{{baojia.dianhua1}}/天</text><text>￥{{baojia.dianhua3}}/月</text>
-				<text>￥{{baojia.dianhua30}}/年</text>
-			</view>
-			</view>
-			<view class="baojia_list" style="border-bottom: 20rpx solid #E8E8E8;">
-				<view class="baojia_list_top hei_28">
-					<text>合同文书</text>
-					<view class="baojia_list_top_right qian_28" @click="go_baojia(3)">
-						<text>修改</text>
-						<image src="@/static/lsimg/go_r.png" mode=""></image>
-					</view>
-				</view>
-				<view class="baojia_list_bottom qian_26 wen_txt">
-				<text>￥{{baojia.hetong_daixie}}/代写合同</text><text>￥{{baojia.hetong_shenhe}}/合同审核</text><text>￥{{baojia.hetong_wenshu}}/代写文书</text>
-			</view>
-			</view>
-			<view class="baojia_list" style="border-bottom: 20rpx solid #E8E8E8;">
-				<view class="baojia_list_top hei_28">
-					<text>诉讼委托</text>
-					<view class="baojia_list_top_right qian_28" @click="go_baojia(4)">
-						<text>修改</text>
-						<image src="@/static/lsimg/go_r.png" mode=""></image>
-					</view>
-				</view>
-				<view class="baojia_list_bottom qian_26 wen_txt">
-				<text>￥{{baojia.anjianzhidao}}/案件指导</text><text>￥{{baojia.lvshihan}}/发律师函</text><text>￥{{baojia.lvshi_huijian}}/律师会见</text>
+					<!-- <text>￥{{baojia.zaixian1}}/小时</text> -->
+				<text v-for="item in arry1">￥{{baojia[item.baojiamode]}}/{{item.name}}</text>
+				<!-- <text>￥{{baojia.zaixian3}}/月</text><text>￥{{baojia.zaixian30}}/年</text> -->
 				
 			</view>
+			</view>
+			<view class="baojia_list" style="border-bottom: 20rpx solid #E8E8E8;">
+				<view class="baojia_list_top hei_28">
+					<text><image src="@/static/lsimg/ls_guanli4.png" mode=""></image>电话咨询<switch name="switch" :disabled="true" @click="tanchu" :checked='kaiqi' color='#1890ff'/></text>
+					<view class="baojia_list_top_right qian_28" @click="go_baojia(2)">
+						<text>修改</text>
+						<image src="@/static/lsimg/go_r.png" mode=""class="go_r"></image>
+					</view>
+				</view>
+				<view class="baojia_list_bottom qian_26">
+				<text v-for="item in arry2">￥{{baojia[item.baojiamode]}}/{{item.name}}</text>
+			</view>
+			</view>
+			<view class="baojia_list" style="border-bottom: 20rpx solid #E8E8E8;">
+				<view class="baojia_list_top hei_28">
+					<text><image src="../../static/lsimg/baojia_hetong.png" mode=""></image>合同文书<switch name="switch" :disabled="true" @click="tanchu" :checked='kaiqi' color='#1890ff'/></text>
+					<view class="baojia_list_top_right qian_28" @click="go_baojia(3)">
+						<text>修改</text>
+						<image src="@/static/lsimg/go_r.png" mode="" class="go_r"></image>
+					</view>
+				</view>
+				<view class="baojia_list_bottom qian_26 wen_txt">
+				<text v-for="item in arry3">￥{{baojia[item.baojiamode]}}/{{item.name}}</text>
+			</view>
+			</view>
+			<view class="baojia_list" style="border-bottom: 20rpx solid #E8E8E8;">
+				<view class="baojia_list_top hei_28">
+					<text><image src="../../static/lsimg/baojia_weituo.png" mode=""></image>诉讼委托<switch name="switch" :disabled="true" @click="tanchu" :checked='kaiqi' color='#1890ff'/></text>
+					<view class="baojia_list_top_right qian_28" @click="go_baojia(4)">
+						<text>修改</text>
+						<image src="@/static/lsimg/go_r.png" mode="" class="go_r"></image>
+					</view>
+				</view>
+				<view class="baojia_list_bottom qian_26 wen_txt">
+				<text v-for="item in arry4">￥{{baojia[item.baojiamode]}}/{{item.name}}</text>
+				
+			</view>
+			</view>
+			<view class="baojia_list" style="border-bottom: 20rpx solid #E8E8E8;">
+				<view class="baojia_list_top hei_28">
+					<text><image src="../../static/lsimg/baojia_dangmian.png" mode=""></image>当面咨询<switch name="switch" :disabled="true" @click="tanchu" :checked='kaiqi' color='#1890ff'/></text>
+					<navigator url="baojia_jianmian" class="baojia_list_top_right qian_28">
+						<text v-for="item in arry5">￥{{baojia[item.baojiamode]}}/{{item.name}}</text>
+						<image src="@/static/lsimg/go_r.png" mode="" class="go_r"></image>
+					</navigator>
+				</view>
+			
 			</view>
 			<view class="baojia_list" style="border-bottom: 20rpx solid #E8E8E8;">
 				<view class="baojia_list_top hei_28">
 					<text>法律顾问</text>
 					<view class="baojia_list_top_right qian_28" @click="go_baojia(5)">
 						<text>修改</text>
-						<image src="@/static/lsimg/go_r.png" mode=""></image>
+						<image src="@/static/lsimg/go_r.png" mode="" class="go_r"></image>
 					</view>
 				</view>
 				<view class="baojia_list_bottom qian_26 wen_txt guwen_txt">
-				<text>￥{{baojia.legaladviser1}}/个人法律顾问一年</text><text>￥{{baojia.legaladviser2}}/企业法律顾问一年</text>
+				<text v-for="item in arry6">￥{{baojia[item.baojiamode]}}/{{item.name}}</text>
 				
 			</view>
 			</view>
+			
 		</view>
 	</view>
 </template>
@@ -89,22 +128,93 @@
 export default {
 	data() {
 		return {
-			baojia:''
+			baojia:'',
+			zhuanchang_arry:[],
+			lawyerauth:'',
+			jiedan_time:'',
+			kaiqi:false,
+			isvip:2,
+			arry1:[],
+			arry2:[],
+			arry3:[],
+			arry4:[],
+			arry5:[],
+			arry6:[],
+			all_dalei:[],
+			arry:[],
+			
 		};
 	},
 	created() {},
 	onLoad(option) {
-		
+		this.$http
+			.post({
+				url: '/mapi/lawyer/getshanchang'
+			})
+			.then(res => {
+				this.zhuanchang_arry = res.data.shanchang;
+				this.huoqu_lawyerauth();
+				
+			});
+			this.huoqu_kaiqi()
+			this.huoqu_lawyer()
+			
 	},
 	onShow() {
+		this.arry1=[]
+		this.arry2=[]
+		this.arry3=[]
+		this.arry4=[]
+		this.arry5=[]
+		this.arry6=[]
 		this.$http
 			.post({
 				url: '/mlawyerapi/lawyer/baojia'
 			})
 			.then(res => {
 				this.baojia=res.data.lawyer
+		
+			});
+		this.$http
+			.post({
+				url: '/mapi/index/lawyerservice'
+			})
+			.then(res => {
+				// this.baojia=res.data.lawyer
+				res.data.forEach((item,index,array)=>{
+				    
+					if(!item.upserviceid){
+						
+						this.all_dalei.push(item)
+					}
+					console.log(this.all_dalei)
+					this.all_dalei.forEach((item2,index2,array2)=>{
+					
+					
+						if(item.upserviceid==item2.serviceid){
+							console.log(item2)
+							this.arry[index].push(item)
+						}
+					
+					
+					
+					
+				})
+		})
+				
+				
+				console.log(this.arry)
+				
 				
 			});
+			// 获取接单时间
+			this.$http
+				.post({
+					url: '/mlawyerapi/consult/getworktime'
+				})
+				.then(res => {
+					this.jiedan_time = res.data;
+				});
 	},
 	methods: {
 		navigateBack() {
@@ -115,6 +225,103 @@ export default {
 			uni.navigateTo({
 				url: 'baojia_list?type=' + type
 			});
+		},
+		go_zhiye(){
+			uni.navigateTo({
+				url:'zhiye_renzheng'
+			})
+		},
+		huoqu_lawyer(){
+			this.$http
+				.post({
+					url: '/mlawyerapi/user/getlawyer'
+		
+				})
+				.then(res => {
+					this.isvip = res.data.user.isvip;
+				});
+		},
+		huoqu_lawyerauth(){
+			this.$http
+				.post({
+					url: '/mlawyerapi/lawyer/auth',
+					data:{
+						type:2
+					}
+				})
+				.then(res => {
+					this.lawyerauth = res.data.lawyerauth;
+				});
+		},
+		huoqu_kaiqi(){
+			this.$http
+				.post({
+					url: '/mlawyerapi/consult/auto_match'
+				})
+				.then(res => {
+					if(res.data.lawyer){
+						// this.userid=res.data.lawyer.userid
+						
+						if(res.data.lawyer.auto_match==1){
+							this.kaiqi=true
+						}else{
+							this.kaiqi=false
+						}
+					}
+					
+					
+				});
+		},
+		tanchu(){
+			if(!this.kaiqi){
+				
+				if(this.isvip==1){
+					this.$http
+						.post({
+							url: '/mlawyerapi/consult/auto_matchopen'
+						})
+						.then(res => {
+							if(res.code==0){
+								uni.showToast({
+									title: '已开启',
+									duration: 2000,
+									icon: 'none'
+								});
+								this.huoqu_kaiqi()
+							}
+							
+						});
+					// this.kaiqi=true
+					console.log(this.isvip,'kaiqi')	
+					
+					
+				}else{
+					this.is_tan=true
+				}
+				
+			
+			}else{
+				this.$http
+					.post({
+						url: '/mlawyerapi/consult/auto_matchclose'
+					})
+					.then(res => {
+						if(res.code==0){
+							uni.showToast({
+								title: '已关闭',
+								duration: 2000,
+								icon: 'none'
+							});
+							this.huoqu_kaiqi()
+						}
+						
+					});
+				
+			}
+			
+		},
+		close(){
+			this.is_tan=false
 		}
 	}
 };
@@ -126,6 +333,7 @@ export default {
 }
 .baojia_list {
 	padding: 0 30rpx;
+	background-color: #FFFFFF;
 }
 .baojia_list_bottom {
 	padding-bottom: 16rpx;
@@ -172,14 +380,64 @@ export default {
 	border-radius: 44rpx;
 	line-height: 88rpx;
 }
-.baojia_list_top_right image {
-	width: 12rpx;
-	height: 21rpx;
-	margin-left: 12rpx;
-}
+
 
 .guwen_txt text{
 	width: 365rpx;
 }
+.fuwu_top{
+	padding: 0 30rpx;
+	background-color: #FFFFFF;
+	margin-bottom: 20rpx;
+	border-bottom: 20rpx solid #f3f3f3;
+}
+.fuwu_list{
+	height: 100rpx;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 2rpx solid #e8e8e8;
+	
+}
+.fuwu_list_left{
+	display: flex;
+	align-items: center;
+}
+.fuwu_list_left image,.baojia_list_top image{
+	width: 36rpx;
+		height: 36rpx;
+		margin-right: 16rpx;
+		border-radius: 5rpx;
+		
+}
+.baojia_list_top image{
+	vertical-align: text-bottom;
+}
+.fuwu_list:last-child{
+	border: none;
+}
+.fuwu_leixing{
+	margin-right: 22rpx;
+}
+.fuwu_list_right{
 
+}
+.fuwu_list_right image{
+	width: 10rpx;
+		height: 17rpx;
+		margin-left: 10rpx;
+}
+.baojia_list_top_right .go_r {
+	width: 12rpx;
+	height: 21rpx;
+	margin-left: 12rpx;
+	vertical-align: middle;
+}
+.baojia_list_top switch{
+	margin-left: 30rpx;
+	transform: scale(0.7,0.7);
+}
+	.youshi{
+		margin-right: 10rpx;
+	}
 </style>

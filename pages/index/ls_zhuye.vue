@@ -274,6 +274,13 @@
 						<view class="jiben_xixin_list_right hui_26">-</view>
 					</view> -->
 				</view>
+				
+				<view class="jiben_xixin" v-if="ls_xinxi!=''" style="padding-bottom: 20rpx;">
+					<view class=" xixin_title hei_28_bold">服务时间</view>
+					<view class="jiben_xixin_list hei_26" style="padding-left: 0;">
+						{{jiedan_time.workstate==1?'全天24小时':jiedan_time.workstate==2?'白天（9:00-23:00）':jiedan_time.workstate==3?'晚上（23:00-9:00）':jiedan_time.workstarttime+'-'+jiedan_time.workendtime}}
+					</view>
+				</view>
 				<view class=" ls_jilu">
 					<text class="hei_28_bold">律师服务记录</text>
 					<navigator :url="'./ls_zhuye_huifu?lawyerid=' + lvshi.userid" class="qian_28">更多>></navigator>
@@ -381,10 +388,10 @@
 					</view>
 					<view class="zaixian bai_30" >
 						<!-- <image src="@/static/img/zaixian_bai.png" mode=""></image> -->
-						<view class="bai_24 bottom_jiage" v-if="baojia&&baojia.chatprice" @click="tan(1,baojia.chatprice)">
-							￥<text class="bai_32">{{baojia.chatprice}}</text>
+						<view class="bai_24 bottom_jiage" v-if="baojia&&baojia.zaixian1" @click="tan(1,baojia.zaixian1)">
+							￥<text class="bai_32">{{baojia.zaixian1}}</text>
 						</view>
-						<view class="bai_24 bottom_jiage" v-if="!baojia || !baojia.chatprice ">
+						<view class="bai_24 bottom_jiage" v-if="!baojia || !baojia.zaixian1 ">
 							<text class="bai_32">未报价</text>
 						</view>
 						在线咨询
@@ -510,7 +517,8 @@ export default {
 			tan_jia_jianjie:'实时聊天，快速沟通，高效解答，服务期内提问100%解答，可查看聊天记录。',
 			baojia:'',
             pay_money:0,
-			shichang_txt:''
+			shichang_txt:'',
+			jiedan_time:''
 		};
 	},
 	components: {
@@ -545,6 +553,7 @@ export default {
 		this.huoqu_pingjiatype();
 		this.huoqu_xinxi();
 		this.huoqu_baojia()
+		this.huoqu_jiadan_shijian()
 		// 检测是否关注
 		
 		
@@ -590,6 +599,20 @@ export default {
 			uni.navigateTo({
 				url:'pay?lawyerid='+lawyerid+'&type='+type+'&time='+time+'&pay_money='+money
 			})
+		},
+		huoqu_jiadan_shijian(){
+			this.$http
+				.post({
+					url: '/mapi/lawyer/getworktime',
+					data: {
+						lawyerid: this.lawyerid
+					}
+				})
+				.then(res => {
+					this.jiedan_time=res.data
+				});
+			
+			
 		},
         huoqu_baojia(){
 			this.$http
@@ -874,7 +897,7 @@ export default {
 			this.shichang_index=1
 			this.leixing_index=type
 			if(type==1){
-				this.shichang_txt='1天'
+				this.shichang_txt='1小时'
 			}else if(type==2){
 				this.shichang_txt='20分钟'
 			}else{

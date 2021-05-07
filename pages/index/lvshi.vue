@@ -1,25 +1,30 @@
 <template>
 	<view class="body">
 		<view class="head">
+			<pickerAddress2 @change="change" class="xuanze_diqu hei_24">
+			<text class="xuanze_diqu_txt">{{ dizhi }}</text>	
+				<image src="../../static/img/xuandizu_icon.png" mode=""></image>
+			</pickerAddress2>
 			<view class="sousuo">
-				<input type="text" value="" confirm-type="search" class="hei_24" @confirm="search" v-model="sou_txt" @click="panduan" @input="shuruchange" />
+				
+				<input type="text" value="" placeholder="输入您要查找的律师姓名" confirm-type="search" class="hei_24" @confirm="search" v-model="sou_txt" @click="panduan" @input="shuruchange" />
 				<view class="sou_tishi qian_24" v-if="!sou_txt">
 					<image src="@/static/img/sousuo.png" mode="" />
-					输入您要查找的律师姓名
+					
 				</view>
 			</view>
 		</view>
 		<view class="tab_top hui_26">
-			<pickerAddress2 @change="change" class="aaaaaa">
-				{{ dizhi }}
-				<image src="@/static/img/shaixuan.png" mode=""></image>
-			</pickerAddress2>
+	
 
 			<picker mode="selector" :range="zhuanchang_arry" @change="zhuanchang_change" :range-key="'shanchangname'">
 				{{ zhuanchang }}
 				<image src="@/static/img/shaixuan.png" mode=""></image>
 			</picker>
-
+            <picker mode="selector" :range="dengji_list" @change="dengji_change">
+				{{ dengji?dengji:'律师等级' }}
+				<image src="@/static/img/shaixuan.png" mode=""></image>
+			</picker>
 			<picker :range="paixu_arry" @change="paixu_change">
 				{{ paixu }}
 				<image src="@/static/img/shaixuan.png" mode=""></image>
@@ -36,14 +41,20 @@
 					<!-- <view class="zixun_jiage lv_22" >
 					<text v-if="item.chatprice==0">未报价</text>	<text v-if="item.chatprice!=0">{{item.chatprice}}/天</text>
 					</view> -->
-					<view class="lvshi_left" @click="go_zhuye(item.userid)"><image :src="img_url + item.photourl" mode=""></image></view>
+					<view class="lvshi_left" @click="go_zhuye(item.userid)">
+						<view class="lvshi_left_top">
+						<image :src="img_url + item.photourl" mode="" class="tx"></image>
+						<image src="../../static/img/renzheng2.png" mode="" class="renzheng_tx"></image>
+						</view>
+						<view class="hei_22 zhiye_nianfen">执业{{ item.zhiyenianfen }}年</view>
+						</view>
 					<view class="lvshi_right">
 						<view class="hei_30_bold lvshi_name" @click="go_zhuye(item.userid)">
 							{{ item.nickname }}律师
 							<image src="@/static/img/renzheng.png" mode=""></image>
 						</view>
 						<view class="hui_24 lv_suo">
-							<text class="tese bai_20">特色律所</text>
+							<text class="tese bai_20">{{dengji_arry[item.level]}}</text>
 							{{ item.lvsuo }}
 						</view>
 						<view class="qian_22 lvsuo_dizhi">
@@ -79,7 +90,7 @@
 						<view class="tuijian_item_bottom_title_right" @click="zhankai(index)">{{zhankai_arry.indexOf(index) != -1?'收起':'展开'}}  <image src="../../static/img/xiangxia.png" mode=""></image></view>
 					</view>
 					<view class="tuijian_item_bottom_list hei_20"  :class="{ zhankai_on: zhankai_arry.indexOf(index) != -1 }">
-					<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.zaixian1,'1小时',1)">
+					<view class="tuijian_item_bottom_item"  @click="go_zhuye(item.userid)">
 						<view class="tuijian_item_bottom_item_top">
 							在线咨询
 						</view>
@@ -87,7 +98,7 @@
 							￥<text class="">{{item.zaixian1}}</text>/小时
 						</view>
 					</view>
-					<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid, item.zaixian1, '1小时', 1)">
+					<view class="tuijian_item_bottom_item"  @click="go_zhuye(item.userid)">
 						<view class="tuijian_item_bottom_item_top">在线咨询</view>
 						<view class="tuijian_item_bottom_item_bottom hong_20">
 							￥
@@ -96,7 +107,7 @@
 						</view>
 					</view>
 
-					<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.zaixian30,'个人法律顾问',5)">
+					<view class="tuijian_item_bottom_item"  @click="go_zhuye(item.userid)">
 						<view class="tuijian_item_bottom_item_top">
 							法律顾问
 						</view>
@@ -104,7 +115,7 @@
 							￥<text class="">{{item.legaladviser1}}</text>/年
 						</view>
 					</view>
-					<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.hetong_shenhe,'合同审核',3)">
+					<view class="tuijian_item_bottom_item"  @click="go_zhuye(item.userid)">
 						<view class="tuijian_item_bottom_item_top">
 							合同审核
 						</view>
@@ -112,7 +123,7 @@
 							￥<text class="">{{item.hetong_shenhe}}</text>/次
 						</view>
 					</view>
-					<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.hetong_daixie,'代写合同',3)">
+					<view class="tuijian_item_bottom_item"  @click="go_zhuye(item.userid)">
 						<view class="tuijian_item_bottom_item_top">
 							代写合同
 						</view>
@@ -120,7 +131,7 @@
 							￥<text class="">{{item.hetong_daixie}}</text>/次
 						</view>
 					</view>
-					<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.hetong_wenshu,'代写文书',3)">
+					<view class="tuijian_item_bottom_item"  @click="go_zhuye(item.userid)">
 						<view class="tuijian_item_bottom_item_top">
 							代写文书
 						</view>
@@ -128,7 +139,7 @@
 							￥<text class="">{{item.hetong_wenshu}}</text>/次
 						</view>
 					</view>
-					<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.lvshi_huijian,'律师会见',4)">
+					<view class="tuijian_item_bottom_item"  @click="go_zhuye(item.userid)">
 						<view class="tuijian_item_bottom_item_top">
 							律师会见
 						</view>
@@ -194,6 +205,24 @@ export default {
 			.then(res => {
 				this.getlawyerlistopen = res.data.lawyerlistopen;
 			});
+			
+		//获取等级
+		this.$http
+			.post({
+				url: '/mapi/index/lawyerlevel'
+			})
+			.then(res => {
+				this.dengji_arry = res.data;
+				var array = [];
+				for (var key in res.data) {
+					array.push(res.data[key]);
+				}
+				
+				this.dengji_list = array;
+			});	
+			
+			
+			
 		  var that=this
 		  this.page=0,
 		  this.is_all=false,
@@ -326,6 +355,7 @@ export default {
 		  this.dizhi= '不限地区',
 		  this.shanchang_id=''
 		  this.level=level
+		  this.dengji=this.dengji_arry[level]
 		  this.zhuanchang= '不限专长'
 		  this.get_lvshilist();
 	}
@@ -357,7 +387,10 @@ export default {
 			name:'',
 			shanchangid:'',
 			level:'',
-			getlawyerlistopen: 2
+			getlawyerlistopen: 2,
+			dengji:'',
+			dengji_arry:[],
+			dengji_list:[]
 		};
 	},
 	created() {
@@ -376,6 +409,7 @@ export default {
 		this.zhuanchang= '不限专长',
 		this.shanchang_id='',
 		this.level=''
+		this.dengji=''
 		uni.removeStorageSync('shanchangid');
 		uni.removeStorageSync('level');
 		this.get_lvshilist()
@@ -529,6 +563,16 @@ export default {
 			this.get_lvshilist();
 			console.log(this.shanchang_id);
 		},
+		//等级选择
+		dengji_change(e){
+			console.log(e.detail.value)
+			this.dengji=this.dengji_list[e.detail.value]
+			this.level=e.detail.value+1
+			this.page=0,
+			this.is_all=false,
+			this.lslist=[],
+			this.get_lvshilist();
+		},
 		// 排序选择
 		paixu_change(e) {
 			console.log(e.detail.value)
@@ -654,11 +698,30 @@ page {
 	width: 40rpx;
 	height: 41rpx;
 }
-.lvshi_left image {
-	width: 130rpx;
-	height: 131rpx;
-	border-radius: 100%;
+	
+.lvshi_left{
 	margin-right: 20rpx;
+	text-align: center;
+}
+.lvshi_left_top{
+	width: 130rpx;
+	height: 130rpx;
+	position: relative;
+	margin-bottom: 10rpx;
+}
+.lvshi_left .tx {
+	width: 100%;
+	height: 100%;
+	border-radius: 100%;
+	
+}
+.lvshi_left .renzheng_tx {
+		width: 24rpx;
+		height: 25rpx;
+	border-radius: 100%;
+	position: absolute;
+	bottom: 0;
+	right: 10rpx;
 }
 .lvshi_list {
 	margin-top: 30rpx;
@@ -667,7 +730,7 @@ page {
 .lvshi_item {
 	display: flex;
 	position: relative;
-	padding: 26rpx 20rpx;
+	padding: 26rpx 0rpx;
 	/* border-bottom: 2rpx solid #e8e8e8; */
 }
 .lvshi_name image {
@@ -719,7 +782,7 @@ page {
 	margin: 0 4rpx;
 }
 .lv_suo {
-	margin: 10rpx 0;
+	margin: 14rpx 0;
 	word-break: break-all;
 	max-width: 400rpx;
 }
@@ -742,7 +805,7 @@ page {
 	margin-right: 60rpx;
 }
 .sousuo {
-	width: 100%;
+	width: 75%;
 	position: relative;
 }
 .sou_tishi image {
@@ -753,7 +816,7 @@ page {
 .sou_tishi {
 	position: absolute;
 	transform: translate(-50%, -50%); /* 50%为自身尺寸的一半 */
-	left: 50%;
+	left: 22%;
 	top: 50%;
 	pointer-events: none;
 	display: flex;
@@ -766,6 +829,7 @@ page {
 	border-radius: 28rpx;
 	padding-left: 20rpx;
 	box-sizing: border-box;
+	text-align: center;
 }
 .body{
 	padding-bottom: 150rpx;
@@ -890,5 +954,18 @@ page {
 	/* color: #12ab83; */
 	/* display: inline-block; */
 	/* transform: scale(0.83,0.83) ; */
+}
+.xuanze_diqu_txt{
+	max-width: 100rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: inline-block;
+}
+.xuanze_diqu image{
+		width: 18rpx;
+		height: 10rpx;
+		vertical-align: middle;
+		margin-left: 12rpx;
 }
 </style>

@@ -38,7 +38,7 @@
 					</view>
 					<view class="zixun_item_leixing hui_26" >
 						<text v-if="item.typeid && fenlei[item.typeid]">咨询类型：{{ fenlei[item.typeid].typename }}</text>  
-						<text class="hong_26 zixun_item_jiage">￥{{item.paymoney}}/{{zixun_baojia[item.baojiamode]?zixun_baojia[item.baojiamode]:item.zixunshicahng+'分钟'}}</text>
+						<text class="hong_26 zixun_item_jiage">￥{{item.paymoney}}/{{huoqu_name(item.baojiamode)?huoqu_name(item.baojiamode):item.zixunshicahng+'分钟'}}</text>
 					</view>
 					<view class="zixun_item_leixing hui_26" v-if="item.mobile">
 						律师电话：{{item.mobile}}
@@ -205,11 +205,20 @@ export default {
 		huoqu_baijiatime(){
 			this.$http
 				.post({
-					url: '/mapi/index/getbaojiatime'
+					url: '/mapi/index/lawyerservice'
 				})
 				.then(res => {
 					this.zixun_baojia = res.data;
 				});
+		},
+		huoqu_name(baojiamode){
+			
+			for (var value of this.zixun_baojia){
+			if(value.baojiamode==baojiamode){
+				return value.name
+			}
+			}
+			
 		},
 		navigateBack() {
 			uni.navigateBack();

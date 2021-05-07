@@ -45,16 +45,16 @@
 		</view>
 	<view class="qian_26 xuanshang_tishi">
 		<image src="../../static/img/xuanshang_tishi.png" mode=""></image>
-				马上悬赏，您的问题会被更多的律师快速有效解答哦~
+				没有悬赏平均5小时解答，有悬赏平均30分钟解答
 				</view>
 		<view class="pay_btn">
 			<button type="" class="xuanshang bai_30" @click="save">支付</button>
 			<button type="" class="zanbu qian_30" @click="zanbu">返回</button>
 		</view>
-		<view class="xuan_tishi qian_26">
+	<!-- 	<view class="xuan_tishi qian_26">
 			<view class="xuan_tishi_fir">悬赏提问，律师一分钟内优先解答！</view>
 			<view class="">99%的问题都得到了优质解决方案！</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 

@@ -52,7 +52,10 @@
 				<text v-if="item.typeid">咨询类型：{{ fenlei[item.typeid].typename }}</text>  <text class="hong_26 zixun_item_jiage">￥{{item.paymoney}}</text>
 			</view>
 			<view class="zixun_item_leixing hui_26" v-if="fenlei">
-				<text v-if="item.typeid">咨询项目：{{ item.state==1?'提问':item.state==4?'见面咨询':item.state==5?'合同文书':'诉讼委托'}}</text>  </text>
+				<text v-if="item.typeid">咨询项目： {{huoqu_name(item.baojiamode)?huoqu_name(item.baojiamode):item.zixunshicahng+'小时'}}
+				
+				<!-- {{ item.state==1?'提问':item.state==4?'见面咨询':item.state==5?'合同文书':'诉讼委托'}}</text> -->
+				 </text>
 			</view>
 			<view class="zixun_item_top_bottom" >
 				<view class="fukuan lv_26" v-if="item.zixunstate == 1" @click="pay(item.lawyerid,item.consultid,item.baojiamode)">
@@ -152,6 +155,7 @@
 				zixun_list: [],
 		        zixunstate:'',
 				type_id:'',
+				zixun_baojia:''
 			
 			}
 		},
@@ -168,7 +172,7 @@
 				.then(res => {
 					this.fenlei = res.data.type;
 				});
-			
+			this.huoqu_baijiatime()
 		},
 		//下拉刷新
 		onPullDownRefresh: function() {
@@ -204,6 +208,24 @@
 			},
 			navigateBack() {
 				uni.navigateBack()
+			},
+			huoqu_baijiatime(){
+				this.$http
+					.post({
+						url: '/mapi/index/lawyerservice'
+					})
+					.then(res => {
+						this.zixun_baojia = res.data;
+					});
+			},
+			huoqu_name(baojiamode){
+				
+				for (var value of this.zixun_baojia){
+				if(value.baojiamode==baojiamode){
+					return value.name
+				}
+				}
+				
 			},
 			// 切换tab
 			qiehuan(index) {

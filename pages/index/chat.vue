@@ -7,7 +7,11 @@
 				<view class="hei_38_bold top_title" @click="go_zhuye()">{{ title }}</view>
 				<view class="hong_20 chat_lvsuo">剩余咨询时间:{{ day }}天{{ hour }}:{{ minute }}:{{ seconds }}</view>
 			</view>
-			<view class=" head_right hei_30_bold" style="width: 10%;"></view>
+			<view class=" head_right hei_30_bold" style="width: 10%;">
+				
+				<image src="../../static/img/dian.png" mode="" @click="go_jvbao"></image>
+				
+			</view>
 		</view>
 
 		<view class="zi_body">
@@ -272,7 +276,8 @@
 										<view class="end_pay_leixing hei_24">
 											电话咨询
 											<view class="hong_24">
-												&ensp;￥{{ item.consult.paymoney }}/{{zixun_baojia[item.consult.baojiamode]?zixun_baojia[item.consult.baojiamode]:item.consult.zixunshicahng+'分钟'}}
+												&ensp;￥{{ item.consult.paymoney }}/{{huoqu_name(item.consult.baojiamode)?huoqu_name(item.consult.baojiamode):item.consult.zixunshicahng+'分钟'}}
+											
 											</view>
 										</view>
 										<view class="hui_24">
@@ -319,7 +324,7 @@
 										<view class="end_pay_leixing hei_24">
 											在线咨询
 											<view class="hong_24">
-												&ensp;￥{{ item.consult.paymoney }}/{{zixun_baojia[item.consult.baojiamode]?zixun_baojia[item.consult.baojiamode]:item.consult.zixunshicahng+'小时'}}
+												&ensp;￥{{ item.consult.paymoney }}/{{huoqu_name(item.consult.baojiamode)?huoqu_name(item.consult.baojiamode):item.consult.zixunshicahng+'小时'}}
 											</view>
 										</view>
 										<view class="hui_24">
@@ -633,7 +638,7 @@
 										<view class="end_pay_leixing hei_24">
 											电话咨询
 											<view class="hong_24">
-												&ensp;￥{{ item.consult.paymoney }}/{{zixun_baojia[item.consult.baojiamode]?zixun_baojia[item.consult.baojiamode]:item.consult.zixunshicahng+'分钟'}}
+												&ensp;￥{{ item.consult.paymoney }}/{{huoqu_name(item.consult.baojiamode)?huoqu_name(item.consult.baojiamode):item.consult.zixunshicahng+'分钟'}}
 											</view>
 										</view>
 
@@ -679,7 +684,7 @@
 										<view class="end_pay_leixing hei_24">
 											在线咨询
 											<view class="hong_24">
-												&ensp;￥{{ item.consult.paymoney }}/{{zixun_baojia[item.consult.baojiamode]?zixun_baojia[item.consult.baojiamode]:item.consult.zixunshicahng+'小时'}}
+												&ensp;￥{{ item.consult.paymoney }}/{{huoqu_name(item.consult.baojiamode)?huoqu_name(item.consult.baojiamode):item.consult.zixunshicahng+'小时'}}
 											</view>
 										</view>
 										<view class="hui_24">
@@ -847,8 +852,9 @@
 									<view class="">退款金额：￥{{ item.refund.refundmoney }}</view>
 									<view class="">
 										类型/时长：{{ gettype[item.refund.typeid].typename }}/
-										{{zixun_baojia[item.refund.baojiamode]?zixun_baojia[item.refund.baojiamode]:item.refund.zixunshicahng  }}
-								<text v-if="!zixun_baojia[item.refund.baojiamode]">
+										
+										{{huoqu_name(item.refund.baojiamode)?huoqu_name(item.refund.baojiamode):item.refund.zixunshicahng}}
+								<text v-if="!huoqu_name(item.refund.baojiamode)">
 									{{item.refund.cstate==2?'小时':'分钟'}}
 								</text>		
 									</view>
@@ -885,8 +891,8 @@
 								<view class="send_tuikuan_bottom qian_24">
 									<view class="">退款金额：￥{{ item.refund.refundmoney }}</view>
 									<view class="">
-										类型/时长：{{ gettype[item.refund.typeid].typename }}/{{zixun_baojia[item.refund.baojiamode]?zixun_baojia[item.refund.baojiamode]:item.refund.zixunshicahng }}
-										<text v-if="!zixun_baojia[item.refund.baojiamode]">
+										类型/时长：{{ gettype[item.refund.typeid].typename }}/{{huoqu_name(item.refund.baojiamode)?huoqu_name(item.refund.baojiamode):item.refund.zixunshicahng}}
+										<text v-if="!huoqu_name(item.refund.baojiamode)">
 											{{item.refund.cstate==2?'小时':'分钟'}}
 										</text>	
 									</view>
@@ -1089,7 +1095,7 @@ export default {
       //查看咨询报价
             this.$http
 					.post({
-						url: '/mapi/index/getbaojiatime'
+						url: '/mapi/index/lawyerservice'
 					})
 					.then(res => {
 						this.zixun_baojia = res.data;
@@ -1340,6 +1346,20 @@ export default {
 				that.first_height = data.height;
 			}).exec();
 			// console.log(res.scrollTop)
+		},
+		huoqu_name(baojiamode){
+			
+			for (var value of this.zixun_baojia){
+			if(value.baojiamode==baojiamode){
+				return value.name
+			}
+			}
+			
+		},
+		go_jvbao(){
+			uni.navigateTo({
+				url:'jvbao?lawyerid='+this.ls_id
+			})
 		},
 		//上拉加载
 		onReachBottom() {
@@ -3792,5 +3812,9 @@ button {
 	background: url(../../static/img/xiazai.png) no-repeat;
 	background-size: 100% 100%;
 	transform: translate(0, -50%);
+}
+.head_right image{
+	width: 50rpx;
+	height: 10rpx;
 }
 </style>

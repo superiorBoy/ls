@@ -95,10 +95,11 @@
 				</navigator>
 			</view>
 			<view class="index_bankuai_list">
-				<navigator url="weituo" class="index_bankuai_item index_bankuai_item3">
+			
+					<view class="index_bankuai_item index_bankuai_item3"  @click="tiaozhuan">
 					<view class="hei_28 index_bankuai_item_title">案件委托</view>
 					<view class="hui_26">打官司·约见律师</view>
-				</navigator>
+					</view>
 				<navigator url="changshi" class="index_bankuai_item index_bankuai_item3">
 					<view class="hei_28 index_bankuai_item_title">法律百科</view>
 					<view class="hui_26">热点知识全都有</view>
@@ -136,13 +137,14 @@
 			<view class="index_ls_ziao hei_28">
 				<view class="index_ls_ziao_title hei_36_bold">按专长找</view>
 				<view class="index_ls_ziao_list">
+					
 					<text v-for="(item, index) in zhuanchang_list" v-if="index < zhuanchang_num" @click="go_lvshi_zhuan(item.shanchangid)">{{ item.shanchangname }}</text>
 					<text class="ls_shouqi lv_28" @click="index_zhankai" v-if="zhuanchang_list.length > 7">{{ ls_shouqi }}</text>
 				</view>
 				<view class="" v-if="getlawyerlevelscreen == 1">
 					<view class="index_ls_ziao_title hei_36_bold index_ls_ziao_dengji_title">按等级找</view>
 					<view class="index_ls_ziao_list index_ls_ziao_dengji">
-						<text v-for="(item, index) in dengji_arry" @click="go_lvshi_dengji(index)">{{ item }}</text>
+						<text @click="tiaozhuan">全部律师</text><text v-for="(item, index) in dengji_arry" @click="go_lvshi_dengji(index)">{{ item }}</text>
 					</view>
 				</view>
 			</view>
@@ -155,7 +157,10 @@
 					<view class="tuijian_item_body">
 						<view class="tuijian_item">
 							<view class="tuijian_item_left" @click="go_zhuye(item.userid)">
-								<image :src="url + item.photourl" mode=""></image>
+								<view class="tuijian_item_left_top" >
+								<image :src="url + item.photourl" mode="" class="tx"></image>
+								<image src="../../static/img/renzheng2.png" mode="" class="renzheng_tx"></image>
+								</view>
 								<view class="hei_22 zhiye_nianfen">执业{{ item.zhiyenianfen }}年</view>
 							</view>
 							<view class="tuijian_item_right">
@@ -170,7 +175,7 @@
 									</view>
 								</view>
 								<view class="ls_gongsi hui_24">
-									<text class="bai_20 tese_ls">特色律师</text>
+									<text class="bai_20 tese_ls">{{dengji_arry[item.level]}}</text>
 									{{ item.lvsuo }}
 								</view>
 								<view class="ls_dizhi qian_22">
@@ -214,7 +219,7 @@
 								</view>
 							</view>
 							<view class="tuijian_item_bottom_list hei_20" :class="{ zhankai_on: zhankai_arry.indexOf(index) != -1 }">
-								<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid, item.zaixian1, '1小时', 1)">
+								<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
 									<view class="tuijian_item_bottom_item_top">在线咨询</view>
 									<view class="tuijian_item_bottom_item_bottom hong_20">
 										￥
@@ -222,7 +227,7 @@
 										/小时
 									</view>
 								</view>
-								<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid, item.phoneprice, '20分钟', 2)">
+								<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
 									<view class="tuijian_item_bottom_item_top">电话咨询</view>
 									<view class="tuijian_item_bottom_item_bottom hong_20">
 										￥
@@ -230,7 +235,7 @@
 										/20分钟
 									</view>
 								</view>
-								<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid, item.legaladviser1, '个人法律顾问', 5)">
+								<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
 									<view class="tuijian_item_bottom_item_top">法律顾问</view>
 									<view class="tuijian_item_bottom_item_bottom hong_20">
 										￥
@@ -238,7 +243,7 @@
 										/年
 									</view>
 								</view>
-								<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid, item.hetong_shenhe, '合同审核', 3)">
+								<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
 									<view class="tuijian_item_bottom_item_top">合同审核</view>
 									<view class="tuijian_item_bottom_item_bottom hong_20">
 										￥
@@ -246,7 +251,7 @@
 										/次
 									</view>
 								</view>
-								<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid, item.hetong_daixie, '代写合同', 3)">
+								<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
 									<view class="tuijian_item_bottom_item_top">代写合同</view>
 									<view class="tuijian_item_bottom_item_bottom hong_20">
 										￥
@@ -254,7 +259,7 @@
 										/次
 									</view>
 								</view>
-								<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid, item.hetong_wenshu, '代写文书', 3)">
+								<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
 									<view class="tuijian_item_bottom_item_top">代写文书</view>
 									<view class="tuijian_item_bottom_item_bottom hong_20">
 										￥
@@ -262,7 +267,7 @@
 										/次
 									</view>
 								</view>
-								<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid, item.lvshi_huijian, '律师会见', 4)">
+								<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
 									<view class="tuijian_item_bottom_item_top">律师会见</view>
 									<view class="tuijian_item_bottom_item_bottom hong_20">
 										￥
@@ -573,7 +578,7 @@ export default {
 				this.getlawyerlistopen = res.data.lawyerlistopen;
 			});
 		that.shuxin_zujian();
-
+that.shouye_lvshi();
 		this.$http
 			.post({
 				url: '/index/login/islogin'
@@ -1510,12 +1515,27 @@ scroll-view ::-webkit-scrollbar {
 	margin-right: 20rpx;
 	text-align: center;
 }
+.tuijian_item_left_top{
+	width: 130rpx;
+	height: 130rpx;
+	position: relative;
+	margin-bottom: 8rpx;
+}
 
-.tuijian_item_left image {
+.tuijian_item_left .tx {
 	width: 100%;
-	height: 131rpx;
+	height: 100%;
 	background-color: #1073ea;
 	border-radius: 100%;
+}
+
+.tuijian_item_left .renzheng_tx {
+		width: 24rpx;
+		height: 25rpx;
+	border-radius: 100%;
+	position: absolute;
+	bottom: 10rpx;
+	right: 10rpx;
 }
 
 .tuijian_item_right {
@@ -2125,16 +2145,26 @@ scroll-view ::-webkit-scrollbar {
 	height: 64rpx;
 	background-color: #ffffff;
 	border-radius: 10px;
-	margin-right: 4%;
+	margin-right: 3%;
 	margin-bottom: 18rpx;
-	width: 22%;
+	width: 31%;
 	text-align: center;
 }
-.index_ls_ziao_list text:nth-child(4n) {
+.index_ls_ziao_list text:nth-child(3n) {
 	margin-right: 0;
 }
 .index_ls_ziao_dengji {
 	/* margin-bottom: 30rpx; */
+}
+.index_ls_ziao_dengji text{
+	width: 22%;
+	margin-right: 4%;
+}
+.index_ls_ziao_dengji text:nth-child(3n){
+	margin-right: 4%;
+}
+.index_ls_ziao_dengji text:nth-child(4n){
+	margin-right: 0;
 }
 .ls_shouqi {
 	background-color: #effffa !important;

@@ -187,7 +187,7 @@ export default {
 		this.lawyerid = option.lawyerid;
         this.$http
 					.post({
-						url: '/mapi/index/getbaojiatime'
+						url: '/mapi/index/lawyerservice'
 					})
 					.then(res => {
 						this.zixun_baojia = res.data;
@@ -270,6 +270,17 @@ export default {
 					}
 				});
 		},
+		huoqu_name(baojiamode){
+			
+			for (var value of this.zixun_baojia){
+			if(value.baojiamode==baojiamode){
+				
+				return value.name
+			}
+			}
+			
+		},
+		
 		diangdan_xinxi() {
 			this.$http
 				.post({
@@ -297,8 +308,12 @@ export default {
 					// }
 
 
-                     this.time=this.zixun_baojia[res.data.consult.baojiamode]
-
+                     // this.time=this.zixun_baojia[res.data.consult.baojiamode]
+this.time=this.huoqu_name(res.data.consult.baojiamode)
+if(!this.time){
+	this.time=res.data.consult.zixunshicahng+'小时'
+}
+// ?huoqu_name(item.baojiamode):item.zixunshicahng+'小时'}}
 
 
 					if (res.data.consult.baojiamode == 'hetong_shenhe') {
@@ -597,7 +612,7 @@ page {
 }
 
 .tixian_body {
-	padding: 0 30rpx;
+	padding: 0 30rpx ;
 }
 
 .tixian_top {
@@ -626,7 +641,7 @@ page {
 	background-color: #0eb77e;
 	border-radius: 44rpx;
 	line-height: 88rpx;
-	margin: 125rpx 0 50rpx;
+	margin: 50rpx 0 0rpx;
 }
 
 .jine_shuru {
@@ -712,7 +727,7 @@ page {
 	margin-left: 7rpx;
 }
 .pay_btn {
-	padding: 0 30rpx;
+	padding: 0 30rpx 50rpx;
 }
 .wen_list {
 	display: block;

@@ -43,15 +43,15 @@
 						<view class="pay_fs_item_center_left hei_22">
 							<view class="pay_fs_item_center_list">
 								<image src="@/static/img/huojian.png" mode="" style="width: 22rpx;height: 22rpx;"></image>
-								可以追问，服务期内不限次数追问
+								没有悬赏平均5小时解答
 							</view>
 							<view class="pay_fs_item_center_list">
 								<image src="@/static/img/xunhuan.png" mode="" style="width: 24rpx;height: 24rpx;"></image>
-								平均30分钟律师解答
+								有悬赏平均30分钟解答
 							</view>
 							<view class="pay_fs_item_center_list">
 								<image src="@/static/img/fs_duihao.png" mode="" style="width: 22rpx;height: 22rpx;"></image>
-								问题解决率高达80%！
+								问题解决率50%
 							</view>
 						</view>
 						<button type="" class="bai_26" @click="go_xuanshang">立即咨询</button>

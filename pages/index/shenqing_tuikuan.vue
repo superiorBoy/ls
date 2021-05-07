@@ -20,11 +20,11 @@
 			<view class="tui_list hei_26">
 				类型/时长 <text class="hei_30">{{type==1?'在线咨询':type==2?'电话咨询':''}}/
 			<text v-if="type==1" style="margin-left: 0;">
-			{{zixun_baojia[item.baojiamode]?zixun_baojia[item.baojiamode]:item.zixunshicahng+'小时'}}
+			{{huoqu_name(item.baojiamode)?huoqu_name(item.baojiamode):item.zixunshicahng+'小时'}}
 			</text>	
 			<text v-if="type==2" style="margin-left: 0;">
 				
-			{{zixun_baojia[item.baojiamode]?zixun_baojia[item.baojiamode]:item.zixunshicahng+'分钟'}}
+			{{huoqu_name(item.baojiamode)?huoqu_name(item.baojiamode):item.zixunshicahng+'分钟'}}
 			
 			</text>	
 			
@@ -93,12 +93,22 @@ export default {
 		huoqu_baijiatime(){
 			this.$http
 				.post({
-					url: '/mapi/index/getbaojiatime'
+					url: '/mapi/index/lawyerservice'
 				})
 				.then(res => {
 					this.zixun_baojia = res.data;
 				});
 		},
+		huoqu_name(baojiamode){
+			
+			for (var value of this.zixun_baojia){
+			if(value.baojiamode==baojiamode){
+				return value.name
+			}
+			}
+			
+		},
+		
 		tijiao(){
 			if(this.shuru==''){
 				uni.showToast({
