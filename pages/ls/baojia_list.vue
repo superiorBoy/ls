@@ -8,154 +8,23 @@
 
 		<view class="zi_body ">
 			<!-- 在线咨询 -->
-			<view class="baojia_list" v-if="type==1">
+			
+			
+			
+			
+			<view class="baojia_list" v-for="(item, index) in all_dalei" v-if="index==type-1">
 				
-				<view class="baojia_list_item hei_28" v-for="item in arry1">
-					<text>{{item.name}}</text>
+				<view class="baojia_list_item hei_28" v-for="item2 in arry[index]">
+					<text>{{item2.name}}</text>
 					<view class="baojia_list_item_right ">
-						<input type="text"  placeholder="请填写" class="hei_28" v-model="baojia[item.baojiamode]"/> 元
+						<input type="text"  placeholder="请填写" class="hei_28" v-model="baojia[item2.baojiamode]"/> 元
 					</view>
 				</view>
-				
-				<!-- <view class="baojia_list_item hei_28" v-for="arry1">
-					<text>1小时</text>
-					<view class="baojia_list_item_right ">
-						<input type="text" value="" placeholder="请填写" class="hei_28" v-model="zaixian1"/> 元
-					</view>
-				</view>
-				<view class="baojia_list_item hei_28">
-					<text>1天</text>
-					<view class="baojia_list_item_right ">
-						<input type="text" value="" placeholder="请填写" class="hei_28" v-model="chatprice"/> 元
-					</view>
-				</view>
-                <view class="baojia_list_item hei_28">
-                	<text>1个月</text>
-                	<view class="baojia_list_item_right ">
-                		<input type="text" value="" placeholder="请填写" class="hei_28" v-model="zaixian3"/> 元
-                	</view>
-                </view>
-				<view class="baojia_list_item hei_28">
-					<text>1年</text>
-					<view class="baojia_list_item_right ">
-						<input type="text" value="" placeholder="请填写" class="hei_28" v-model="zaixian30"/> 元
-					</view>
-				</view> -->
-			</view>
-			<!-- 电话咨询 -->
-			<view class="baojia_list" v-if="type==2">
-				<view class="baojia_list_item hei_28" v-for="item in arry2">
-					<text>{{item.name}}</text>
-					<view class="baojia_list_item_right ">
-						<input type="text" value="" placeholder="请填写" class="hei_28" v-model="baojia[item.baojiamode]"/> 元
-					</view>
-				</view>
-				<!-- <view class="baojia_list_item hei_28">
-					<text>20分钟</text>
-					<view class="baojia_list_item_right ">
-						<input type="text" value="" placeholder="请填写" class="hei_28" v-model="phoneprice"/> 元
-					</view>
-				</view>
-				<view class="baojia_list_item hei_28">
-					<text>1天</text>
-					<view class="baojia_list_item_right ">
-						<input type="text" value="" placeholder="请填写" class="hei_28" v-model="dianhua1"/> 元
-					</view>
-				</view>
-			    <view class="baojia_list_item hei_28">
-			    	<text>1个月</text>
-			    	<view class="baojia_list_item_right ">
-			    		<input type="text" value="" placeholder="请填写" class="hei_28" v-model="dianhua3"/> 元
-			    	</view>
-			    </view>
-				<view class="baojia_list_item hei_28">
-					<text>1年</text>
-					<view class="baojia_list_item_right ">
-						<input type="text" value="" placeholder="请填写" class="hei_28" v-model="dianhua30"/> 元
-					</view>
-				</view> -->
-			</view>
-			
-			<!-- 合同文书 -->
-			<view class="baojia_list" v-if="type==3">
-				<view class="baojia_list_item hei_28" v-for="item in arry3">
-					<text>{{item.name}}</text>
-					<view class="baojia_list_item_right ">
-						<input type="text" value="" placeholder="请填写" class="hei_28" v-model="baojia[item.baojiamode]"/> 元
-					</view>
-				</view>
-				<!-- <view class="baojia_list_item hei_28">
-					<text>合同审核</text>
-					<view class="baojia_list_item_right ">
-						<input type="text" value="" placeholder="请填写" class="hei_28" v-model="hetong_shenhe"/> 元
-					</view>
-				</view>
-				<view class="baojia_list_item hei_28">
-					<text>代写合同</text>
-					<view class="baojia_list_item_right ">
-						<input type="text" value="" placeholder="请填写" class="hei_28" v-model="hetong_daixie"/> 元
-					</view>
-				</view>
-			    <view class="baojia_list_item hei_28">
-			    	<text>代写文书</text>
-			    	<view class="baojia_list_item_right ">
-			    		<input type="text" value="" placeholder="请填写" class="hei_28" v-model="hetong_wenshu"/> 元
-			    	</view>
-			    </view> -->
-
-			</view>
-			
-			<!-- 委托诉讼 -->
-			<view class="baojia_list" v-if="type==4">
-				<view class="baojia_list_item hei_28" v-for="item in arry4">
-					<text>{{item.name}}</text>
-					<view class="baojia_list_item_right ">
-						<input type="text" value="" placeholder="请填写" class="hei_28" v-model="baojia[item.baojiamode]"/> 元
-					</view>
-				</view>
-				<!-- <view class="baojia_list_item hei_28">
-					<text>律师会见</text>
-					<view class="baojia_list_item_right ">
-						<input type="text" value="" placeholder="请填写" class="hei_28" v-model="lvshi_huijian"/> 元
-					</view>
-				</view>
-				<view class="baojia_list_item hei_28">
-					<text>发律师函</text>
-					<view class="baojia_list_item_right ">
-						<input type="text" value="" placeholder="请填写" class="hei_28" v-model="lvshihan"/> 元
-					</view>
-				</view>
-			    <view class="baojia_list_item hei_28">
-			    	<text>案件知道</text>
-			    	<view class="baojia_list_item_right ">
-			    		<input type="text" value="" placeholder="请填写" class="hei_28" v-model="anjianzhidao"/> 元
-			    	</view>
-			    </view> -->
-			
-			</view>
-			<!-- 法律顾问 -->
-			<view class="baojia_list" v-if="type==6">
-				<view class="baojia_list_item hei_28" v-for="item in arry6">
-					<text>{{item.name}}</text>
-					<view class="baojia_list_item_right ">
-						<input type="text" value="" placeholder="请填写" class="hei_28" v-model="baojia[item.baojiamode]"/> 元
-					</view>
-				</view>
-				<!-- <view class="baojia_list_item hei_28">
-					<text>个人法律顾问一年</text>
-					<view class="baojia_list_item_right ">
-						<input type="text" value="" placeholder="请填写" class="hei_28" v-model="legaladviser1"/> 元
-					</view>
-				</view>
-				<view class="baojia_list_item hei_28">
-					<text>企业法律顾问一年</text>
-					<view class="baojia_list_item_right ">
-						<input type="text" value="" placeholder="请填写" class="hei_28" v-model="legaladviser2"/> 元
-					</view>
-				</view> -->
 		
-			
 			</view>
+			
+			
+	
 			<view class="baocun_btn">
 				<button type="" class="bai_30" @click="save" >立即添加</button>
 			</view>
@@ -188,12 +57,8 @@ export default {
 				 baojia:'',
 				 legaladviser1:'',
 				 legaladviser2:'',
-				 arry1:[],
-				 arry2:[],
-				 arry3:[],
-				 arry4:[],
-				 arry5:[],
-				 arry6:[],
+				 all_dalei:[],
+				 arry:[]
 		};
 	},
 	created() {},
@@ -237,48 +102,29 @@ export default {
 			url: '/mapi/index/lawyerservice'
 		})
 		.then(res => {
-			// this.baojia=res.data.lawyer
-			for (var value of res.data){
-			if(value.upserviceid==1){
-				console.log(value)
-				this.arry1.push(value)
-			}
-			if(value.upserviceid==2){
-				console.log(value)
-				this.arry2.push(value)
-			}
-			if(value.upserviceid==3){
-				console.log(value)
-				this.arry3.push(value)
-			}
-			if(value.upserviceid==4){
-				console.log(value)
-				this.arry4.push(value)
-			}
-			if(value.upserviceid==5){
-				console.log(value)
-				this.arry5.push(value)
-			}
-			if(value.upserviceid==6){
-				console.log(value)
-				this.arry6.push(value)
-			}
 			
-			} 
+			res.data.forEach((item, index, array) => {
+				if (!item.upserviceid) {
+					this.all_dalei.push(item);
+					this.arry.push([]);
+				}
+			});
+			
+			res.data.forEach((item, index, array) => {
+				this.all_dalei.forEach((item2, index2, array2) => {
+					if (item.upserviceid == item2.serviceid) {
+						this.arry[index2].push(item);
+					}
+				});
+			});
+			
+			
 			 })
   },
 		save() {
 			
-			
-			
-			
-			
-			
-			
 
-			
-			
-			
+			console.log(this.baojia)
 			
 			
 			if(this.type==1){

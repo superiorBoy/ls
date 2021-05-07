@@ -83,8 +83,8 @@
 					</view>
 				</view>
 				<view class="baojia_list_bottom qian_26">
-					<text v-for="item in arry[index]" v-if="index != 4">￥{{ baojia[item.baojiamode] }}/{{ item.name }}</text>
-					<text v-for="item in arry[index]" v-if="index == 4">￥{{ baojia[item.baojiamode] }}/{{ item.unit }}</text>
+					<text v-for="item2 in arry[index]" v-if="index != 4">￥{{ baojia[item2.baojiamode] }}/{{ item2.name }}</text>
+					<text v-for="item2 in arry[index]" v-if="index == 4">￥{{ baojia[item2.baojiamode] }}/{{ item2.unit }}</text>
 				</view>
 			</view>
 
