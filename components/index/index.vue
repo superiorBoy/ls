@@ -161,7 +161,7 @@
 				<view class="index_ls_ziao_list">
 					<text v-for="(item, index) in zhuanchang_list" v-if="index < zhuanchang_num" @click="go_lvshi_zhuan(item.shanchangid)">{{ item.shanchangname }}</text>
 			
-					<text class="ls_shouqi lv_28" @click="index_zhankai" v-if="zhuanchang_list.length > 7">{{ ls_shouqi }}</text>
+					<text class="ls_shouqi lv_28" @click="index_zhankai" v-if="zhuanchang_list.length > 11">{{ ls_shouqi }}</text>
 				</view>
 				<view class="" v-if="getlawyerlevelscreen == 1">
 					<view class="index_ls_ziao_title hei_36_bold index_ls_ziao_dengji_title">按等级找</view>
@@ -239,85 +239,68 @@
 									<image src="../../static/img/xiangxia.png" mode=""></image>
 								</view>
 							</view>
-							<view class="tuijian_item_bottom_list hei_20" :class="{ zhankai_on: zhankai_arry.indexOf(index) != -1 }">
-								<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
-									<view class="tuijian_item_bottom_item_top">在线咨询</view>
-									<view class="tuijian_item_bottom_item_bottom hong_20">
-										￥
-										<text class="">{{ item.zaixian1 }}</text>
-										/小时
-									</view>
+							<view class="tuijian_item_bottom_list hei_20"  :class="{ zhankai_on: zhankai_arry.indexOf(index) != -1 }">
+							<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
+								<view class="tuijian_item_bottom_item_top">在线咨询</view>
+								<view class="tuijian_item_bottom_item_bottom hong_20">
+									￥
+									<text class="">{{ item.zaixian1 }}</text>
+									/{{shaixuan_name2('zaixian1')}}
 								</view>
-								<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
-									<view class="tuijian_item_bottom_item_top">电话咨询</view>
-									<view class="tuijian_item_bottom_item_bottom hong_20">
-										￥
-										<text class="">{{ item.phoneprice }}</text>
-										/20分钟
-									</view>
-								</view>
-								<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
-									<view class="tuijian_item_bottom_item_top">法律顾问</view>
-									<view class="tuijian_item_bottom_item_bottom hong_20">
-										￥
-										<text class="">{{ item.legaladviser1 }}</text>
-										/年
-									</view>
-								</view>
-								<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
-									<view class="tuijian_item_bottom_item_top">合同审核</view>
-									<view class="tuijian_item_bottom_item_bottom hong_20">
-										￥
-										<text class="">{{ item.hetong_shenhe }}</text>
-										/次
-									</view>
-								</view>
-								<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
-									<view class="tuijian_item_bottom_item_top">代写合同</view>
-									<view class="tuijian_item_bottom_item_bottom hong_20">
-										￥
-										<text class="">{{ item.hetong_daixie }}</text>
-										/次
-									</view>
-								</view>
-								<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
-									<view class="tuijian_item_bottom_item_top">代写文书</view>
-									<view class="tuijian_item_bottom_item_bottom hong_20">
-										￥
-										<text class="">{{ item.hetong_wenshu }}</text>
-										/次
-									</view>
-								</view>
-								<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
-									<view class="tuijian_item_bottom_item_top">律师会见</view>
-									<view class="tuijian_item_bottom_item_bottom hong_20">
-										￥
-										<text class="">{{ item.lvshi_huijian }}</text>
-										/次
-									</view>
-								</view>
-
-								<!-- 	<view class="tuijian_item_bottom_item"  @click="go_zhifu(item.userid,item.anjianzhidao,'案件指导',4)">
-							<view class="tuijian_item_bottom_item_top">
-								案件指导
 							</view>
-							<view class="tuijian_item_bottom_item_bottom hong_20">
-								￥<text class="">{{item.anjianzhidao}}</text>/次
-							</view>
-						</view>
-						<view class="tuijian_item_bottom_item" @click="go_zhifu(item.userid,item.jianmian,'1次',0)">
-							<view class="tuijian_item_bottom_item_top">
-								见面咨询
-							</view>
-							<view class="tuijian_item_bottom_item_bottom hong_20">
-								￥<text class="">{{item.jianmian}}</text>/次
-							</view>
-						</view> -->
-
-								<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
-									<view class="tuijian_item_bottom_item_top">了解更多</view>
-									<view class="tuijian_item_bottom_item_bottom qian_20">前往律师主页</view>
+							<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
+								<view class="tuijian_item_bottom_item_top">在线咨询</view>
+								<view class="tuijian_item_bottom_item_bottom hong_20">
+									￥
+									<text class="">{{ item.chatprice }}</text>
+									/{{shaixuan_name2('chatprice')}}
 								</view>
+							</view>
+							<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
+								<view class="tuijian_item_bottom_item_top">电话咨询</view>
+								<view class="tuijian_item_bottom_item_bottom hong_20">
+									￥
+									<text class="">{{ item.phoneprice }}</text>
+									/{{shaixuan_name2('phoneprice')}}
+								</view>
+							</view>
+							<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
+								<view class="tuijian_item_bottom_item_top">见面咨询</view>
+								<view class="tuijian_item_bottom_item_bottom hong_20">
+									￥
+									<text class="">{{ item.jianmian }}</text>
+									/{{shaixuan_name2('jianmian')}}
+								</view>
+							</view>
+							<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
+								<view class="tuijian_item_bottom_item_top">合同文书</view>
+								<view class="tuijian_item_bottom_item_bottom hong_20">
+									￥
+									<!-- <text class="">{{ item.hetong_wenshu }}</text> -->
+									<text class="">{{shaixuan(item,3) }}</text>
+									/{{shaixuan_name(3)}}
+								</view>
+							</view>
+							<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
+								<view class="tuijian_item_bottom_item_top">委托诉讼</view>
+								<view class="tuijian_item_bottom_item_bottom hong_20">
+									￥<text class="">{{shaixuan(item,4) }}</text>
+									/{{shaixuan_name(4)}}
+								</view>
+							</view>
+							<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
+								<view class="tuijian_item_bottom_item_top">法律顾问</view>
+								<view class="tuijian_item_bottom_item_bottom hong_20">
+									￥
+									<text class="">{{shaixuan(item,6) }}</text>
+									/{{shaixuan_name(6)}}
+								</view>
+							</view>
+							
+							<view class="tuijian_item_bottom_item" @click="go_zhuye(item.userid)">
+								<view class="tuijian_item_bottom_item_top">了解更多</view>
+								<view class="tuijian_item_bottom_item_bottom qian_20">前往律师主页</view>
+							</view>
 							</view>
 						</view>
 					</view>
@@ -513,10 +496,11 @@ export default {
 			loginlawyer: '',
 			dengji_arry: '',
 			ls_shouqi: '更多专长',
-			zhuanchang_num: 7,
+			zhuanchang_num: 11,
 			getlawyerlevelscreen: 2,
 			getlawyerlistopen: 2,
-			zhuanchang_list: []
+			zhuanchang_list: [],
+			jiage_list:[]
 		};
 	},
 
@@ -532,7 +516,14 @@ export default {
 	},
 	created() {
 		var that = this;
-
+	//获取价格信息
+		this.$http
+			.post({
+				url: '/mapi/index/lawyerservice'
+			})
+			.then(res => {
+				this.jiage_list = res.data
+			});
 		//#ifdef APP-PLUS
 		plus.runtime.getProperty(plus.runtime.appid, wgtinfo => {
 			console.log(JSON.stringify(wgtinfo));
@@ -998,7 +989,39 @@ that.shouye_lvshi();
 			//搜索的代码
 			console.log(that.sou_txt);
 		},
+		shaixuan_name(upserviceid){
+			   var name=''
+		     this.jiage_list.forEach((item0,index)=>{
+			    if(item0.upserviceid==upserviceid){
+					 name=item0.unit
+				}
+			})
+		          return name
+		},
+		shaixuan_name2(mode){
+			   var name=''
+		     this.jiage_list.forEach((item0,index)=>{
+			    if(item0.baojiamode==mode){
+					 name=item0.unit
+				}
+			})
+		          return name
+		},
+         shaixuan(item,upserviceid){
+					var arr=[]
+			         this.jiage_list.forEach((item0,index)=>{
+					    
+					    if(item0.upserviceid==upserviceid){
+							arr.push(Number(item[item0.baojiamode]) )
+						}
+						
+					})
+					  arr.sort(function(a,b) {
+							return a - b;
+						});
+					return arr[0]
 
+				},
 		swiperchang(e) {
 			this.current = e.detail.current;
 			if (e.target.current == 0) {
@@ -1112,16 +1135,6 @@ that.shouye_lvshi();
 		// 获取经纬度
 		getlocation() {
 			const that = this;
-			// var wei_url=''
-
-			// if (process.env.NODE_ENV == 'development') {
-			//     wei_url='/dpc'
-			// 	// #ifndef H5
-			// 	wei_url='http://api.map.baidu.com'
-			// 	// #endif
-			// } else {
-			//     wei_url = 'http://api.map.baidu.com' // 生产环境
-			// }
 
 			this.$nextTick(function() {
 				try {
@@ -1212,7 +1225,7 @@ that.shouye_lvshi();
 				this.zhuanchang_num = this.zhuanchang_list.length;
 				this.ls_shouqi = '收起专长';
 			} else {
-				this.zhuanchang_num = 7;
+				this.zhuanchang_num = 11;
 				this.ls_shouqi = '更多专长';
 			}
 		},
@@ -2109,27 +2122,19 @@ scroll-view ::-webkit-scrollbar {
 	height: 64rpx;
 	background-color: #ffffff;
 	border-radius: 10px;
-	margin-right: 3%;
+	margin-right: 4%;
 	margin-bottom: 18rpx;
-	width: 31%;
+	width: 22%;
 	text-align: center;
 }
-.index_ls_ziao_list text:nth-child(3n) {
+.index_ls_ziao_list text:nth-child(4n) {
 	margin-right: 0;
 }
 .index_ls_ziao_dengji {
 	/* margin-bottom: 30rpx; */
 }
-.index_ls_ziao_dengji text{
-	width: 22%;
-	margin-right: 4%;
-}
-.index_ls_ziao_dengji text:nth-child(3n){
-	margin-right: 4%;
-}
-.index_ls_ziao_dengji text:nth-child(4n){
-	margin-right: 0;
-}
+
+
 .ls_shouqi {
 	background-color: #effffa !important;
 }

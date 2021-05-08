@@ -30,10 +30,10 @@
 				</view>
 			</view>
 			</view>
-			<view class="fuwu_top">
+			<view class="fuwu_top" v-if="jiage">
 				
 					
-			<view class="fuwu_list">
+			<view class="fuwu_list" >
 				<view class="fuwu_list_left qian_24">
 					<image src="@/static/lsimg/ls_guanli3.png" mode=""></image><text class="hei_30 fuwu_leixing">在线咨询</text>结算金额￥<text class="hong_24">{{jiage.zaixianprice}}</text>/{{jiage.zaixiantime}}小时
 				</view>
@@ -94,7 +94,8 @@ export default {
 		  kaiqi:false,
 		  userid:'',
 		  isvip:2,
-		  jiedan_time:''
+		  jiedan_time:'',
+		  jiage:''
 			
 		};
 	},

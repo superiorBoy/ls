@@ -38,7 +38,7 @@
 						<image src="@/static/lsimg/go_r.png" mode=""></image>
 					</view>
 				</view>
-				<navigator url="jiedan_time" class="fuwu_list">
+				<navigator url="jiedan_time?type==1" class="fuwu_list">
 					<view class="fuwu_list_left qian_24">
 						<image src="../../static/lsimg/fuwu_jiedan.png" mode=""></image>
 						<text class="hei_30 fuwu_leixing">接单时间</text>
@@ -69,11 +69,16 @@
 						<image src="../../static/lsimg/baojia_hetong.png" mode="" v-if="index == 2"></image>
 						<image src="../../static/lsimg/baojia_weituo.png" mode="" v-if="index == 3"></image>
 						<image src="../../static/lsimg/baojia_dangmian.png" mode="" v-if="index == 4"></image>
-						<image src="@/static/lsimg/ls_guanli3.png" mode="" v-if="index == 5"></image>
+						<image src="@/static/lsimg/ls_guanli6.png" mode="" v-if="index == 5"></image>
 						{{ item.name }}
-						<switch name="switch" :disabled="true" @click="tanchu" :checked="kaiqi" color="#1890ff" />
+						<switch name="switch"  @click="tanchu(item.serviceid,kaiqi.zaixianopen,'zaixianopen')" :checked="kaiqi.zaixianopen==1" color="#1890ff" v-if="item.serviceid==1" />
+						<switch name="switch"  @click="tanchu(item.serviceid,kaiqi.dianhuaopen,'dianhuaopen')" :checked="kaiqi.dianhuaopen==1" color="#1890ff" v-if="item.serviceid==2"/>
+						<switch name="switch"  @click="tanchu(item.serviceid,kaiqi.hetongopen,'hetongopen')" :checked="kaiqi.hetongopen==1" color="#1890ff" v-if="item.serviceid==3"/>
+						<switch name="switch"  @click="tanchu(item.serviceid,kaiqi.susongopen,'susongopen')" :checked="kaiqi.susongopen==1" color="#1890ff" v-if="item.serviceid==4"/>
+						<switch name="switch"  @click="tanchu(item.serviceid,kaiqi.jianmianopen,'jianmianopen')" :checked="kaiqi.jianmianopen==1" color="#1890ff" v-if="item.serviceid==5"/>
+						<switch name="switch"  @click="tanchu(item.serviceid,kaiqi.falvopen,'falvopen')" :checked="kaiqi.falvopen==1" color="#1890ff" v-if="item.serviceid==6"/>
 					</text>
-					<view class="baojia_list_top_right qian_28" @click="go_baojia(index + 1)" v-if="index != 4">
+					<view class="baojia_list_top_right qian_28" @click="go_baojia(item.serviceid)" v-if="index != 4">
 						<text>修改</text>
 						<image src="@/static/lsimg/go_r.png" mode="" class="go_r"></image>
 					</view>
@@ -175,7 +180,7 @@ export default {
 			zhuanchang_arry: [],
 			lawyerauth: '',
 			jiedan_time: '',
-			kaiqi: false,
+			kaiqi: '',
 			isvip: 2,
 			all_dalei: [],
 			arry: []
@@ -232,7 +237,7 @@ export default {
 		// 获取接单时间
 		this.$http
 			.post({
-				url: '/mlawyerapi/consult/getworktime'
+				url: '/mlawyerapi/lawyer/getworktime'
 			})
 			.then(res => {
 				this.jiedan_time = res.data;
@@ -282,58 +287,89 @@ export default {
 		huoqu_kaiqi() {
 			this.$http
 				.post({
-					url: '/mlawyerapi/consult/auto_match'
+					url: '/mlawyerapi/lawyer/getservice_open'
 				})
 				.then(res => {
-					if (res.data.lawyer) {
-						// this.userid=res.data.lawyer.userid
-
-						if (res.data.lawyer.auto_match == 1) {
-							this.kaiqi = true;
-						} else {
-							this.kaiqi = false;
-						}
-					}
+					// if (res.data.lawyer) {
+						
+this.kaiqi=res.data
+					// 	if (res.data.lawyer.auto_match == 1) {
+					// 		this.kaiqi = true;
+					// 	} else {
+					// 		this.kaiqi = false;
+					// 	}
+					// }
 				});
 		},
-		tanchu() {
-			if (!this.kaiqi) {
-				if (this.isvip == 1) {
-					this.$http
-						.post({
-							url: '/mlawyerapi/consult/auto_matchopen'
-						})
-						.then(res => {
-							if (res.code == 0) {
-								uni.showToast({
-									title: '已开启',
-									duration: 2000,
-									icon: 'none'
-								});
-								this.huoqu_kaiqi();
-							}
-						});
-					// this.kaiqi=true
-					console.log(this.isvip, 'kaiqi');
-				} else {
-					this.is_tan = true;
-				}
-			} else {
-				this.$http
-					.post({
-						url: '/mlawyerapi/consult/auto_matchclose'
-					})
-					.then(res => {
-						if (res.code == 0) {
-							uni.showToast({
-								title: '已关闭',
-								duration: 2000,
-								icon: 'none'
-							});
-							this.huoqu_kaiqi();
-						}
-					});
+		tanchu(serviceid,zhuangtai,txt) {
+			
+			if(zhuangtai==1){
+				var zhuang=2
+			}else{
+				var zhuang=1
 			}
+			
+			this.$http
+				.post({
+					url: '/mlawyerapi/lawyer/service_open',
+					data:{
+						state:serviceid,
+						open:zhuang
+					}
+				})
+				.then(res => {
+					uni.showToast({
+						title: ''+res.message,
+						duration: 2000,
+						icon: 'none'
+					 });
+					if (res.code == 0) {
+						this.kaiqi[txt]=zhuang
+					}else{
+						this.kaiqi[txt]=zhuangtai
+					}
+				});
+			
+			
+
+			
+			// if (!this.kaiqi) {
+			// 	if (this.isvip == 1) {
+			// 		this.$http
+			// 			.post({
+			// 				url: '/mlawyerapi/consult/auto_matchopen'
+			// 			})
+			// 			.then(res => {
+			// 				if (res.code == 0) {
+			// 					uni.showToast({
+			// 						title: '已开启',
+			// 						duration: 2000,
+			// 						icon: 'none'
+			// 					});
+			// 					this.huoqu_kaiqi();
+			// 				}
+			// 			});
+					
+			// 		console.log(this.isvip, 'kaiqi');
+			// 	} else {
+			// 		this.is_tan = true;
+			// 	}
+			// } else {
+			// 	this.$http
+			// 		.post({
+			// 			url: '/mlawyerapi/consult/auto_matchclose'
+			// 		})
+			// 		.then(res => {
+			// 			if (res.code == 0) {
+			// 				uni.showToast({
+			// 					title: '已关闭',
+			// 					duration: 2000,
+			// 					icon: 'none'
+			// 				});
+			// 				this.huoqu_kaiqi();
+			// 			}
+			// 		});
+			// }
 		},
 		close() {
 			this.is_tan = false;

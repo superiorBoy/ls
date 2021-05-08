@@ -97,12 +97,20 @@ export default {
 			viewMode: 'time',
 			dateValue: '',
 			timeValue: '',
-			jiedan_time:''
+			jiedan_time:'',
+			shezhi_url:'/mlawyerapi/consult/worktime',
+			chakan_url:'/mlawyerapi/consult/getworktime'
 		};
 	},
 	onReady() {},
 	created() {},
 	onLoad(option) {
+		
+		
+		if(option.type){
+			this.shezhi_url='/mlawyerapi/lawyer/worktime'
+			this.chakan_url='/mlawyerapi/lawyer/getworktime'
+		}
 		this.huoqu_time();
 	},
 	onShow() {},
@@ -118,7 +126,7 @@ export default {
 		huoqu_time() {
 			this.$http
 				.post({
-					url: '/mlawyerapi/consult/getworktime'
+					url:this.chakan_url
 				})
 				.then(res => {
 					this.jiedan_time = res.data;
@@ -131,9 +139,10 @@ export default {
 		},
 		save() {
 			
+
 			this.$http
 				.post({
-					url: '/mlawyerapi/consult/worktime',
+					url:this.shezhi_url,
 					data:{
 						state:this.xuanze,
 						start:this.str_time,

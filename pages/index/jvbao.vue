@@ -174,35 +174,54 @@
 			}
 		
 			
-		
+		uni.request({
+		  url: this.$http.baseUrl + '/mapi/lawyer/report?lawyerid='+this.lawyerid,
+		  method:'POST',
+		  data: {
+		  	reason:this.shuru_txt,
+		  	img:this.arry_img
+		  },
+		  header: {
+		    'content-type': 'application/json'
+		  },
+		  success: function(resp) {
+		    uni.hideLoading();
+			if (resp.data.code == 0) {
+				uni.showToast({
+					title: '举报成功',
+					duration: 2000,
+					icon: 'none'
+				});
+				setTimeout(function(){
+				uni.switchTab({
+					url:'xiaoxi'
+				})
+				},2000)
+			}
+			else if (resp.data.message == '请先登录' || resp.data.msg == '请先登录') {
+				uni.navigateTo({
+					url:'login?type=back'
+				});
+			}
+			else {
+				uni.showToast({
+					title: resp.data.message,
+					duration: 2000,
+					icon: 'none'
+				});
+				
+			}
+		  },
+		  fail: function(resp) {
+		   uni.showToast({
+		   	title: resp.data.message,
+		   	duration: 2000,
+		   	icon: 'none'
+		   });
+		  }
+		})
 			
-			// this.$http
-			// 	.post({
-			// 		url: '/index/lawyer/pingjia?lawyerid='+this.lawyerid,
-			// 		data: {
-			// 			xing:this.xing_number,
-			// 			pingjia:this.shuru_txt,
-			// 			yinxiang:this.arry,
-			// 			img:this.arry_img
-			// 		}
-			// 	})
-			// 	.then(res => {
-			// 		if (res.code == 0) {
-			// 			uni.showToast({
-			// 				title: '评价成功',
-			// 				duration: 2000,
-			// 				icon: 'none'
-			// 			});
-			// 			setTimeout(function(){
-			// 			uni.reLaunch({
-			// 				url:'ls_zhuye?lawyerid='+this.lawyerid
-			// 			})
-			// 			},2000)
-			// 		}
-			// 	});	
-			
-			
-			
+
 			console.log(this.shuru_txt,this.arry_img)
 		}
 		}

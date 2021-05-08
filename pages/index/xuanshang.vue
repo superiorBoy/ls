@@ -45,7 +45,7 @@
 		</view>
 	<view class="qian_26 xuanshang_tishi">
 		<image src="../../static/img/xuanshang_tishi.png" mode=""></image>
-				没有悬赏平均5小时解答，有悬赏平均30分钟解答
+				有赏快速解答，没赏解答缓慢，服务期内不限次数追问！
 				</view>
 		<view class="pay_btn">
 			<button type="" class="xuanshang bai_30" @click="save">支付</button>
@@ -410,7 +410,7 @@ page {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-top: 108rpx;
+	margin-top: 50rpx;
 }
 .wen_list {
 	display: block;

@@ -63,9 +63,9 @@
 								
 							</view>
 							<view class="pay_fa_item_bottom qian_20">
-								<view class="pay_fa_txt">极速响应，3秒分配律师！</view>
-								<view class="pay_fa_txt">不限次数解答，私密聊天！</view>
-								<view class="pay_fa_txt">不限沟通，解决率达99%！</view>
+								<view class="pay_fa_txt">24小时在线，3秒分配律师！</view>
+								<view class="pay_fa_txt">服务期内不限次数解答，私密聊天！</view>
+								<view class="pay_fa_txt">不满意全额退款，解决率高达99%！</view>
 							</view>
 							<text class="tuijian_xuanze bai_20">推荐</text>
 						</view>
@@ -674,22 +674,22 @@ page {
 	padding:0 30rpx;
 }
 .pay_fa_item {
-	height: 276rpx;
+	height: 340rpx;
 	width: 334rpx;
 	background: url(../../static/img/no_fs.png) no-repeat;
 	background-size: 100% 100%;
 	position: relative;
-	padding: 0 0rpx 0 20rpx;
+	
 	box-sizing: border-box;
 }
 .pay_fa_item_top{
-	
-	height: 124rpx;
+	padding-left: 20rpx;
+	height: 130rpx;
 	
 	}
 		
 	.pay_fa_item_top_lei{
-		margin: 20rpx 0 10rpx;
+		margin: 36rpx 0 12rpx;
 	}
 	.pay_fa_item_top text{
 		margin-right: 18rpx;
@@ -699,7 +699,7 @@ page {
 		
 	}
 	.pay_fa_txt{
-		margin-bottom: 10rpx;
+		margin-bottom: 2rpx;
 		-webkit-transform: scale(0.9);
 	}
 .tuijian_xuanze{

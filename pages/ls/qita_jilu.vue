@@ -31,7 +31,7 @@
 						</view>
 					</view>
 					<view class="zixun_item_top_bottom">
-						<text class="hei_26">咨询项目：{{ item.state == 1 ? '提问' : item.state == 4 ? '见面咨询' : item.state == 5 ? '合同文书' : '诉讼委托' }}</text>
+						<text class="hei_26">咨询项目：{{huoqu_name(item.baojiamode)}}</text>
 						<view class="zixun_item_top_bottom_right">
 							<view class="iten_lianxi hong_26" v-if="item.zixunstate == 2" @click="jiadan(item.consultid)">立即接单</view>
 							<view class="iten_lianxi hong_26" @click="go_chat(item.userid)">
@@ -116,7 +116,8 @@ export default {
 			fenlei: [],
 			xuanzc: '9999',
 			zhuanchang_txt: '',
-			type_id: ''
+			type_id: '',
+			zixun_baojia:''
 		};
 	},
 	onLoad() {
@@ -129,6 +130,18 @@ export default {
 				this.fenlei = res.data.type;
 				this.huoqu_list();
 			});
+			
+		
+			this.$http
+				.post({
+					url: '/mapi/index/lawyerservice'
+				})
+				.then(res => {
+					this.zixun_baojia = res.data;
+				});
+			
+			
+			
 	},
 	created() {},
 	//下拉刷新
@@ -161,6 +174,15 @@ export default {
 				this.page++;
 				this.huoqu_list();
 			}
+		},
+		huoqu_name(baojiamode){
+			
+			for (var value of this.zixun_baojia){
+			if(value.baojiamode==baojiamode){
+				return value.name
+			}
+			}
+			
 		},
 		navigateBack() {
 			uni.navigateBack();

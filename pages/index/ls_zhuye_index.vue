@@ -106,106 +106,24 @@
 					</view>
 				</view> -->
 
-<view class="ls_feiyong">
-					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.zaixian1,'1小时',1)">
-						<view class="hei_26">
-							在线咨询
+    <view class="ls_feiyong" >
+					<block v-for="(item0,index0) in all_dalei">	
+					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia[item.baojiamode],item.name,item0.serviceid)"v-if="item.upserviceid==item0.serviceid"  v-for="(item,index) in baojia_list">
+						<view class="hei_26"v-if="item0.name=='在线咨询' ||item0.name=='电话咨询'">
+						 {{item0.name}}
+						</view>
+						<view class="hei_26" v-if="item0.name!='在线咨询'&&item0.name!='电话咨询'">
+							{{item.name}}
 						</view>
 						<view class="qian_20 ls_feiyong_list_title">
-							简易需求，在线解答
+							{{item.desc}}
 						</view>
 						<view class="hong_24">
-							￥{{baojia.zaixian1}}/小时
+							￥{{baojia[item.baojiamode]}}/{{item.unit}}
 						</view>
 					</view>
-					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.phoneprice,'20分钟',2)">
-						<view class="hei_26">
-							电话咨询
-						</view>
-						<view class="qian_20 ls_feiyong_list_title">
-							实时对话，快速沟通
-						</view>
-						<view class="hong_24">
-							￥{{baojia.phoneprice}}/20分钟
-						</view>
-					</view>
-					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.hetong_shenhe,'合同审核',3)">
-						<view class="hei_26">
-							合同审核
-						</view>
-						<view class="qian_20 ls_feiyong_list_title">
-							告知风险，提出修改
-						</view>
-						<view class="hong_24">
-							￥{{baojia.hetong_shenhe}}/次
-						</view>
-					</view>
-					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.hetong_daixie,'代写合同',3)">
-						<view class="hei_26">
-							代写合同
-						</view>
-						<view class="qian_20 ls_feiyong_list_title">
-							快速交付，不限修改
-						</view>
-						<view class="hong_24">
-							￥{{baojia.hetong_daixie}}/次
-						</view>
-					</view>
-					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.hetong_wenshu,'代写文书',3)">
-						<view class="hei_26">
-							代写文书
-						</view>
-						<view class="qian_20 ls_feiyong_list_title">
-							多类文件，代写严格
-						</view>
-						<view class="hong_24">
-							￥{{baojia.hetong_wenshu}}/次
-						</view>
-					</view>
-					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.lvshi_huijian,'律师会见',4)">
-						<view class="hei_26">
-							律师会见
-						</view>
-						<view class="qian_20 ls_feiyong_list_title">
-							了解案情，保障权益
-						</view>
-						<view class="hong_24">
-							￥{{baojia.lvshi_huijian}}/次
-						</view>
-					</view>
-					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia.lvshihan,'发律师函',4)">
-						<view class="hei_26">
-							发律师函
-						</view>
-						<view class="qian_20 ls_feiyong_list_title">
-							依法警告，促使和解
-						</view>
-						<view class="hong_24">
-							￥{{baojia.lvshihan}}/次
-						</view>
-					</view>
-					<view class="ls_feiyong_list"  @click="go_zhifu(lawyerid,baojia.anjianzhidao,'案件指导',4)">
-						<view class="hei_26">
-							案件指导
-						</view>
-						<view class="qian_20 ls_feiyong_list_title">
-							案件流程，申请执行
-						</view>
-						<view class="hong_24">
-							￥{{baojia.anjianzhidao}}/次
-						</view>
-					</view>
-					<view class="ls_feiyong_list"  @click="go_zhifu(lawyerid,baojia.jianmian,'1次',0)">
-						<view class="hei_26">
-							见面咨询
-						</view>
-						<view class="qian_20 ls_feiyong_list_title">
-							面见律师，高效解决
-						</view>
-						<view class="hong_24">
-							￥{{baojia.jianmian}}/次
-						</view>
-					</view>
+					</block>
+					
 				</view>
 
 
@@ -303,7 +221,7 @@
 					</view>
 					<view class="dianhua lv_26" >
 						<!-- <image src="@/static/img/dianhua_lv.png" mode=""></image> -->
-					 <view class="lv_24 bottom_jiage" v-if="baojia&&baojia.jianmian" @click="tan(0,baojia.jianmian)">
+					 <view class="lv_24 bottom_jiage" v-if="baojia&&baojia.jianmian" @click="tan(5,baojia.jianmian)">
 					 	￥<text class="lv_32">{{baojia.jianmian}}</text>
 					 </view>
 					 <view class="bai_24 bottom_jiage" v-if="!baojia || !baojia.jianmian ">
@@ -352,48 +270,16 @@
 					服务类型
 				</view>
 				<view class="tan_jiage_title_list hui_26 tan_jiage_title_leixing">
-					
-					<text @click="huan_leixing(1)" :class="leixing_index==1?'tan_xuan_active':''" v-if="baojia.chatprice || baojia.zaixian3 ||baojia.zaixian30 ">在线咨询</text>
-					<text @click="huan_leixing(2)" :class="leixing_index==2?'tan_xuan_active':''" v-if="baojia.dianhua || baojia.dianhua1 || baojia.dianhua3 || baojia.dianhua30 ">电话咨询</text>
-					<text @click="huan_leixing(3)" :class="leixing_index==3?'tan_xuan_active':''" v-if="baojia.hetong_daixie || baojia.hetong_shenhe || baojia.hetong_wenshu ">合同文书</text>
-					<text @click="huan_leixing(4)" :class="leixing_index==4?'tan_xuan_active':''" v-if="baojia.lvshi_huijian || baojia.lvshihan || baojia.anjianzhidao ">诉讼委托</text>
-				<text @click="huan_leixing(0)" :class="leixing_index==0?'tan_xuan_active':''" v-if="baojia.jianmian">见面咨询</text>
-				<text @click="huan_leixing(5)" :class="leixing_index==5?'tan_xuan_active':''" v-if="baojia.legaladviser1 || baojia.legaladviser2">法律顾问</text>
+					<text v-for="(item,index) in all_dalei" @click="huan_leixing(item.serviceid)" :class="leixing_index==item.serviceid?'tan_xuan_active':''">{{item.name}}</text>
 				</view>
 				<view class="tan_jiage_title hei_28_bold">
 					服务时长
 				</view>
-				<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==0">
-					<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.jianmian,'1次')" v-if="baojia.jianmian" >1次</text>
+				<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" >
+					<text v-for="(item,index) in erjijia_list" :class="shichang_index==index?'tan_xuan_active':''" @click="huan_shichang(index,baojia[item.baojiamode],item.name,item.upserviceid)">{{item.name}}<text v-if="item.upserviceid!=1&&item.upserviceid!=2" class="danwei">/{{item.unit}}</text></text>
 				</view>
-				<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==1">
-					<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.zaixian1,'1小时')" v-if="baojia.zaixian1" >1小时</text>
-					<text :class="shichang_index==2?'tan_xuan_active':''" @click="huan_shichang(2,baojia.chatprice,'1天')" v-if="baojia.chatprice" >1天</text>
-					<text :class="shichang_index==3?'tan_xuan_active':''" @click="huan_shichang(3,baojia.zaixian3,'1个月')" v-if="baojia.zaixian3" >1个月</text>
-					<text :class="shichang_index==4?'tan_xuan_active':''" @click="huan_shichang(4,baojia.zaixian30,'1年')" v-if="baojia.zaixian30" >1年</text>
-				</view>
-				<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==2">
-					<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.phoneprice,'20分钟')" v-if="baojia.phoneprice" >20分钟</text>
-					<text :class="shichang_index==2?'tan_xuan_active':''" @click="huan_shichang(2,baojia.dianhua1,'1天')" v-if="baojia.dianhua1" >1天</text>
-					<text :class="shichang_index==3?'tan_xuan_active':''" @click="huan_shichang(3,baojia.dianhua3,'1个月')" v-if="baojia.dianhua3" >1个月</text>
-					<text :class="shichang_index==4?'tan_xuan_active':''" @click="huan_shichang(4,baojia.dianhua30,'1年')" v-if="baojia.dianhua30" >1年</text>
-				</view>
-				<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==3">
-					<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.hetong_daixie,'合同审核')" v-if="baojia.hetong_daixie">合同审核</text>
-					<text :class="shichang_index==2?'tan_xuan_active':''" @click="huan_shichang(2,baojia.hetong_shenhe,'代写合同')" v-if="baojia.hetong_shenhe" >代写合同</text>
-					<text :class="shichang_index==3?'tan_xuan_active':''" @click="huan_shichang(3,baojia.hetong_wenshu,'代写文书')" v-if="baojia.hetong_wenshu">代写文书</text>
-				</view>
-				<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==4">
-					<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.lvshi_huijian,'律师会见')"  v-if="baojia.lvshi_huijian" >律师会见</text>
-					<text :class="shichang_index==2?'tan_xuan_active':''" @click="huan_shichang(2,baojia.lvshihan,'发律师函')"  v-if="baojia.lvshihan" >发律师函</text>
-					<text :class="shichang_index==3?'tan_xuan_active':''" @click="huan_shichang(3,baojia.anjianzhidao,'案件指导')"  v-if="baojia.anjianzhidao">案件指导</text>
-				</view>
-				<view class="tan_jiage_title_list hui_26 tan_jiage_title_list_shichang" v-if="leixing_index==5">
-					<text :class="shichang_index==1?'tan_xuan_active':''" @click="huan_shichang(1,baojia.legaladviser1,'个人法律顾问')"  v-if="baojia.legaladviser1" >个人法律顾问一年</text>
-					<text :class="shichang_index==2?'tan_xuan_active':''" @click="huan_shichang(2,baojia.legaladviser2,'个人法律顾问')"  v-if="baojia.legaladviser1" >企业法律顾问一年</text>
-					
-				</view>
-			</view>	
+			
+			</view>		
 					
 				<view class="tan_jiage_btn">
 					<button type="" @click="go_pay(lawyerid,1)">立即购买</button>
@@ -441,7 +327,11 @@ export default {
 			tan_jia_jianjie:'实时聊天，快速沟通，高效解答，服务期内提问100%解答，可查看聊天记录。',
 			baojia:'',
 			pay_money:0,
-			shichang_txt:''
+			shichang_txt:'',
+			baojia_list:[],
+			all_dalei:[],
+			jiage_arry:[],
+			erjijia_list:[]
 		};
 	},
 	created() {
@@ -475,6 +365,7 @@ export default {
 	this.huiqu_pingjia_list()
 	this.huoqu_pingjiatype()
 	this.huoqu_baojia()
+	this.huoqu_baojia_list()
 	// 检测是否关注
 	
 	this.$http
@@ -540,6 +431,25 @@ export default {
 				})
 				.then(res => {
 					this.baojia=res.data.lawyer
+				});
+			
+			
+		},
+		// 获取报价信息
+		huoqu_baojia_list(){
+			this.$http
+				.post({
+					url: '/mapi/index/lawyerservice'
+				})
+				.then(res => {
+					this.baojia_list=res.data
+					res.data.forEach((item, index, array) => {
+						if (!item.upserviceid) {
+							this.all_dalei.push(item);
+							this.jiage_arry.push([]);
+						}
+					});
+					this.huan_leixing(this.all_dalei[0].serviceid)
 				});
 			
 			
@@ -789,8 +699,9 @@ export default {
 			}
 			this.$refs.popup.open();
 			this.pay_money=money
-			this.shichang_index=1
+			this.shichang_index=0
 			this.leixing_index=type
+			this.huan_erjilist(type)
 			if(type==1){
 				this.shichang_txt='1小时'
 			}else if(type==2){
@@ -800,29 +711,44 @@ export default {
 			}
 			
 		},
-		huan_leixing(index){
-			
-			this.leixing_index=index
-			this.pay_money=0
-			this.shichang_index = -1
-			if(index==0){
-				this.tan_jia_jianjie=''
-			    
-			}
-			if(index==1){
-				this.tan_jia_jianjie='实时聊天，快速沟通，高效解答，服务期内提问100%解答，可查看聊天记录。'
-			    
-			}else if(index==2){
-				this.tan_jia_jianjie='实时对话，快速沟通，高效解答，服务期内提问100%解答，规定时间内不限拨打次数。'
-			    
-			}else if(index==3){
-				this.tan_jia_jianjie='3天内交付，7天有效期内不限修改次数。'
-				
-			}else if(index==4){
-				this.tan_jia_jianjie='会见当事人，了解真实案例，监督侦察工作，提前保存证据，保障当事人合法权益。'
-			    
-			}
+		huan_erjilist(serviceid){
+			this.$http
+				.post({
+					url: '/mapi/index/lawyerservice',
+					data: {
+						upserviceid: serviceid,
+						
+					}
+				})
+				.then(res => {
+					this.erjijia_list=res.data
+					
+				});
 		},
+	huan_leixing(serviceid){
+		
+		this.huan_erjilist(serviceid)
+	
+		this.leixing_index=serviceid
+		this.pay_money=0
+		this.shichang_index = -1
+	
+		if(serviceid==1){
+			this.tan_jia_jianjie='实时聊天，快速沟通，高效解答，服务期内提问100%解答，可查看聊天记录。'
+		    
+		}else if(serviceid==2){
+			this.tan_jia_jianjie='实时对话，快速沟通，高效解答，服务期内提问100%解答，规定时间内不限拨打次数。'
+		    
+		}else if(serviceid==3){
+			this.tan_jia_jianjie='3天内交付，7天有效期内不限修改次数。'
+			
+		}else if(serviceid==4){
+			this.tan_jia_jianjie='会见当事人，了解真实案例，监督侦察工作，提前保存证据，保障当事人合法权益。'
+		    
+		}else{
+			this.tan_jia_jianjie=''
+		}
+	},
 		huan_shichang(index,money,text){
 			this.shichang_index=index
 			this.pay_money=money
@@ -1396,6 +1322,7 @@ align-items: center;
 			line-height: 57rpx;
 			text-align: center;
 			margin-right: 18rpx;
+			margin-bottom: 10rpx;
 	}
 		
 	.tan_jiage_title {
@@ -1487,5 +1414,12 @@ align-items: center;
 		/* margin: 4rpx 0 0; */
 		font-size: 24rpx;
 		transform: scale(0.85 )
+	}
+	.danwei{
+		width: auto;
+	display: inline-block;
+	margin: 0 !important;
+	border: none !important;
+	padding: 0  !important;
 	}
 </style>

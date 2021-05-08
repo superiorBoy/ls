@@ -43,15 +43,15 @@
 						<view class="pay_fs_item_center_left hei_22">
 							<view class="pay_fs_item_center_list">
 								<image src="@/static/img/huojian.png" mode="" style="width: 22rpx;height: 22rpx;"></image>
-								没有悬赏平均5小时解答
+								可以追问，服务期内不限次数追问
 							</view>
 							<view class="pay_fs_item_center_list">
 								<image src="@/static/img/xunhuan.png" mode="" style="width: 24rpx;height: 24rpx;"></image>
-								有悬赏平均30分钟解答
+								有赏快速解答，没赏解答缓慢
 							</view>
 							<view class="pay_fs_item_center_list">
 								<image src="@/static/img/fs_duihao.png" mode="" style="width: 22rpx;height: 22rpx;"></image>
-								问题解决率50%
+								问题解决率高达80%！
 							</view>
 						</view>
 						<button type="" class="bai_26" @click="go_xuanshang">立即咨询</button>
@@ -70,15 +70,18 @@
 						<view class="pay_fs_item_center_left hei_22">
 							<view class="pay_fs_item_center_list">
 								<image src="@/static/img/huojian.png" mode="" style="width: 22rpx;height: 22rpx;"></image>
-								极速响应，平均3秒钟分配律师！
+								
+								24小时在线，3秒分配律师！
 							</view>
 							<view class="pay_fs_item_center_list">
 								<image src="@/static/img/xunhuan.png" mode="" style="width: 24rpx;height: 24rpx;"></image>
-								服务期内不限制次数解答，私密聊天！
+								
+								服务期内不限次数解答，私密聊天！
 							</view>
 							<view class="pay_fs_item_center_list">
 								<image src="@/static/img/fs_duihao.png" mode="" style="width: 22rpx;height: 22rpx;"></image>
-								不限沟通，问题解决率高达99%！
+								
+								不满意全额退款，解决率高达99%！
 							</view>
 						</view>
 						<button type="" class="bai_26" @click="go_zaixian">立即咨询</button>

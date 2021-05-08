@@ -10,7 +10,8 @@
 			<view class="pay_top">
 				<view class="pay_list">
 					<text class="qian_30">服务项目</text>
-					<text class="hei_30">{{ type == 1 ? '在线咨询' : type == 2 ? '电话咨询' : type == 3 ? '合同文书' : type == 4 ? '诉讼委托' : type == 5 ?'法律顾问': '见面咨询' }}({{ time }})</text>
+
+					<text class="hei_30">{{ type_name }}({{ time }})</text>
 				</view>
 				<!-- 	<view class="pay_list">
 					<text class="qian_30">服务时长</text>
@@ -136,10 +137,11 @@
 					</view>
 					<label class="radio"><radio value="2" :checked="zhifu == 2" /></label>
 				</view>
-				<view class="fangshi_list_pay" @click="radio(3)">
+				<view class="fangshi_list_pay" @click="radio(3)" v-if="user">
 					<view class="fangshi_left hei_28">
 						<image src="@/static/img/yue_pay.png" mode="" style="width:36rpx ;height: 31rpx;"></image>
-						余额支付 <text class="hong_28 yue_show">(￥{{user.rmb}})</text>
+						余额支付
+						<text class="hong_28 yue_show">(￥{{ user.rmb }})</text>
 					</view>
 					<label class="radio"><radio value="3" :checked="zhifu == 3" /></label>
 				</view>
@@ -176,7 +178,11 @@ export default {
 			time: '',
 			apppaytype: '',
 			is_click: true,
-			zixun_baojia:''
+			zixun_baojia: '',
+			type_name: '',
+			user: '',
+			upserviceid: '',
+			all_dalei: []
 		};
 	},
 	components: {
@@ -185,13 +191,27 @@ export default {
 	created() {},
 	onLoad(option) {
 		this.lawyerid = option.lawyerid;
-        this.$http
-					.post({
-						url: '/mapi/index/lawyerservice'
-					})
-					.then(res => {
-						this.zixun_baojia = res.data;
-					});
+		// 获取报价信息
+
+		this.$http
+			.post({
+				url: '/mapi/index/lawyerservice'
+			})
+			.then(res => {
+				this.baojia_list = res.data;
+				this.zixun_baojia = res.data;
+				res.data.forEach((item, index, array) => {
+					if (!item.upserviceid) {
+						this.all_dalei.push(item);
+					}
+
+					if (item.serviceid == option.type) {
+						console.log(item)
+						this.type_name = item.name;
+					}
+				});
+			});
+
 		if (option.type) {
 			this.type = option.type;
 		}
@@ -200,6 +220,10 @@ export default {
 		}
 		if (option.time) {
 			this.time = option.time;
+			if(option.time=='见面咨询'){
+				this.time = '1次'
+				}
+			
 		}
 		if (option.consultid) {
 			this.laiyuan = 2;
@@ -250,7 +274,7 @@ export default {
 			})
 			.then(res => {
 				this.phone = res.data.user.mobile;
-				this.user=res.data.user
+				this.user = res.data.user;
 			});
 
 		this.huoqu_pay_fs();
@@ -270,17 +294,17 @@ export default {
 					}
 				});
 		},
-		huoqu_name(baojiamode){
-			
-			for (var value of this.zixun_baojia){
-			if(value.baojiamode==baojiamode){
-				
-				return value.name
-			}
-			}
-			
+		xuan_type() {
+			return 2;
 		},
-		
+		huoqu_name(baojiamode) {
+			for (var value of this.zixun_baojia) {
+				if (value.baojiamode == baojiamode) {
+					return value.name;
+				}
+			}
+		},
+
 		diangdan_xinxi() {
 			this.$http
 				.post({
@@ -307,43 +331,55 @@ export default {
 					// 	this.time = res.data.consult.zixunshicahng + '小时';
 					// }
 
+					// this.time=this.zixun_baojia[res.data.consult.baojiamode]
+					// this.time = this.huoqu_name(res.data.consult.baojiamode);
+					if (!this.time) {
+						this.time = res.data.consult.zixunshicahng + '小时';
+					}
+					// ?huoqu_name(item.baojiamode):item.zixunshicahng+'小时'}}
 
-                     // this.time=this.zixun_baojia[res.data.consult.baojiamode]
-this.time=this.huoqu_name(res.data.consult.baojiamode)
-if(!this.time){
-	this.time=res.data.consult.zixunshicahng+'小时'
-}
-// ?huoqu_name(item.baojiamode):item.zixunshicahng+'小时'}}
+					this.baojia_list.forEach((item, index, array) => {
+						if (item.baojiamode == res.data.consult.baojiamode) {
+							this.upserviceid = item.upserviceid;
+							console.log(item)
+							this.time=item.name
+						}
+					});
 
+					this.all_dalei.forEach((item, index, array) => {
+						if (item.serviceid == this.upserviceid) {
+							this.type_name = item.name;
+						}
+					});
 
-					if (res.data.consult.baojiamode == 'hetong_shenhe') {
-						this.time = '合同审核';
-						this.type = 3;
-					}
-					if (res.data.consult.baojiamode == 'hetong_daixie') {
-						this.time = '代写合同';
-						this.type = 3;
-					}
-					if (res.data.consult.baojiamode == 'hetong_wenshu') {
-						this.time = '代写文书';
-						this.type = 3;
-					}
-					if (res.data.consult.baojiamode == 'lvshi_huijian') {
-						this.time = '律师会见';
-						this.type = 4;
-					}
+					// if (res.data.consult.baojiamode == 'hetong_shenhe') {
+					// 	this.time = '合同审核';
+					// 	this.type = 3;
+					// }
+					// if (res.data.consult.baojiamode == 'hetong_daixie') {
+					// 	this.time = '代写合同';
+					// 	this.type = 3;
+					// }
+					// if (res.data.consult.baojiamode == 'hetong_wenshu') {
+					// 	this.time = '代写文书';
+					// 	this.type = 3;
+					// }
+					// if (res.data.consult.baojiamode == 'lvshi_huijian') {
+					// 	this.time = '律师会见';
+					// 	this.type = 4;
+					// }
 
-					if (res.data.consult.baojiamode == 'lvshihan') {
-						this.time = '发律师函';
-						this.type = 4;
-					}
-					if (res.data.consult.baojiamode == 'anjianzhidao') {
-						this.time = '案件指导';
-						this.type = 4;
-					}
+					// if (res.data.consult.baojiamode == 'lvshihan') {
+					// 	this.time = '发律师函';
+					// 	this.type = 4;
+					// }
+					// if (res.data.consult.baojiamode == 'anjianzhidao') {
+					// 	this.time = '案件指导';
+					// 	this.type = 4;
+					// }
 					if (res.data.consult.baojiamode == 'jianmian') {
 						this.time = '1次';
-						this.type = 0;
+						
 					}
 
 					this.leixing = this.fenlei[res.data.consult.typeid].typename;
@@ -392,20 +428,6 @@ if(!this.time){
 				return false;
 			}
 
-			if (this.type == 0) {
-				var xiangmu = '见面咨询';
-			} else if (this.type == 1) {
-				var xiangmu = '在线咨询';
-			} else if (this.type == 2) {
-				var xiangmu = '电话咨询';
-			} else if (this.type == 3) {
-				var xiangmu = '合同文书';
-			} else if (this.type == 4) {
-				var xiangmu = '诉讼委托';
-			}else if (this.type == 5) {
-				var xiangmu = '法律顾问';
-			}
-
 			console.log(this.type, this.neirong, this.phone, this.typeid, this.time);
 
 			if (this.laiyuan == 1) {
@@ -422,7 +444,7 @@ if(!this.time){
 						typeid: this.typeid,
 						phone: this.phone,
 						shichang: this.time,
-						xiangmu: xiangmu,
+						xiangmu: this.type_name,
 						lawyerid: ls,
 						consultid: this.consultid
 					}
@@ -612,7 +634,7 @@ page {
 }
 
 .tixian_body {
-	padding: 0 30rpx ;
+	padding: 0 30rpx;
 }
 
 .tixian_top {
@@ -843,7 +865,7 @@ page {
 .dis_fir {
 	align-items: flex-start;
 }
-	.yue_show{
-		margin-left: 10rpx;
-	}
+.yue_show {
+	margin-left: 10rpx;
+}
 </style>
