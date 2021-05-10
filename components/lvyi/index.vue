@@ -996,7 +996,7 @@ export default {
 		xuandizhi(data) {
 			this.dizhi = data.data[1];
 			uni.setStorageSync('xuanze', '1');
-			this.shuxin_zujian();
+			this.shouye_lvshi();
 			//                this.txt = data.data.join('')
 			//                console.log(data.data.join(''))
 		},

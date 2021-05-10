@@ -11,7 +11,7 @@
 				<view class="pay_list">
 					<text class="qian_30">服务项目</text>
 
-					<text class="hei_30">{{ type_name }}({{ time }})</text>
+					<text class="hei_30">{{ type_name }}({{ time=='见面咨询'?'1次':time }})</text>
 				</view>
 				<!-- 	<view class="pay_list">
 					<text class="qian_30">服务时长</text>
@@ -220,9 +220,9 @@ export default {
 		}
 		if (option.time) {
 			this.time = option.time;
-			if(option.time=='见面咨询'){
-				this.time = '1次'
-				}
+			// if(option.time=='见面咨询'){
+			// 	this.time = '1次'
+			// 	}
 			
 		}
 		if (option.consultid) {
@@ -377,10 +377,10 @@ export default {
 					// 	this.time = '案件指导';
 					// 	this.type = 4;
 					// }
-					if (res.data.consult.baojiamode == 'jianmian') {
-						this.time = '1次';
+					// if (res.data.consult.baojiamode == 'jianmian') {
+					// 	this.time = '1次';
 						
-					}
+					// }
 
 					this.leixing = this.fenlei[res.data.consult.typeid].typename;
 				});

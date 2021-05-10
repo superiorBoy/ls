@@ -1,9 +1,9 @@
 {
-    "name" : "小虎律师",
+    "name" : "小虎律师法律咨询",
     "appid" : "__UNI__6204E51",
     "description" : "小虎律师-在线法律咨询-专业律师咨询",
-    "versionName" : "1.1.70",
-    "versionCode" : 119,
+    "versionName" : "1.4.3",
+    "versionCode" : 143,
     "transformPx" : false,
     "app-plus" : {
         "nvueCompiler" : "uni-app",

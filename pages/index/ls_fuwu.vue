@@ -98,7 +98,7 @@
 								<text class="bai_30">{{item.anjianzhidao}}</text>/次
 							</view>
 						</view>
-						<view class="fuwu_item_shoufei" @click="go_zhifu(item.userid,item.jianmian,'1次',5)">
+						<view class="fuwu_item_shoufei" @click="go_zhifu(item.userid,item.jianmian,'见面咨询',5)">
 							<view class="fuwu_item_shoufei_title">见面咨询</view>
 							<view class="bai_20">
 								￥

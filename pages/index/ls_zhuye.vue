@@ -116,26 +116,25 @@
 				</view> -->
 				
 				
-				<view class="ls_feiyong" >
-					<block v-for="(item0,index0) in all_dalei">	
-					<view class="ls_feiyong_list" @click="go_zhifu(lawyerid,baojia[item.baojiamode],item.name,item0.serviceid)"v-if="item.upserviceid==item0.serviceid"  v-for="(item,index) in baojia_list">
-						<view class="hei_26"v-if="item0.name=='在线咨询' ||item0.name=='电话咨询'">
-						 {{item0.name}}
-						</view>
-						<view class="hei_26" v-if="item0.name!='在线咨询'&&item0.name!='电话咨询'">
-							{{item.name}}
-						</view>
-						<view class="qian_20 ls_feiyong_list_title">
-							{{item.desc}}
-						</view>
-						<view class="hong_24">
-							￥{{baojia[item.baojiamode]}}/{{item.unit}}
+				<view class="ls_fei_body">
+					<view class="ls_fei_title_list" v-for="(item0, index0) in all_dalei">
+						<view class="ls_fei_title hei_28_bold">{{ item0.name }}</view>
+				
+						<view class="ls_feiyong">
+							<view
+								class="ls_feiyong_list"
+								@click="go_zhifu(lawyerid, baojia[item.baojiamode], item.name, item0.serviceid)"
+								v-if="item.upserviceid == item0.serviceid"
+								v-for="(item, index) in baojia_list"
+							>
+								<view class="hei_26" v-if="item0.name == '在线咨询' || item0.name == '电话咨询'">{{ item0.name }}</view>
+								<view class="hei_26" v-if="item0.name != '在线咨询' && item0.name != '电话咨询'">{{ item.name }}</view>
+								<view class="qian_20 ls_feiyong_list_title">{{ item.desc }}</view>
+								<view class="hong_24">￥{{ baojia[item.baojiamode] }}/{{ item.unit }}</view>
+							</view>
 						</view>
 					</view>
-					</block>
-					
 				</view>
-				
 				
 				
 			<!-- 	<view class="lianxi" v-if="ls_xinxi!=''">
@@ -408,7 +407,8 @@ export default {
 			baojia_list:[],
 			all_dalei:[],
 			jiage_arry:[],
-			erjijia_list:[]
+			erjijia_list:[],
+			
 			
 		};
 	},
@@ -537,9 +537,17 @@ export default {
 					});
 					
 					this.huan_leixing(this.all_dalei[0].serviceid)
+
 				});
 			
 			
+		},
+		compare(property) {
+		  return function (a, b) {
+		    var value1 = a[property];
+		    var value2 = b[property];
+		    return value1 - value2;
+		  }
 		},
 		// 获取信息
 		huoqu_xinxi() {
@@ -814,7 +822,7 @@ export default {
 			}else if(type==2){
 				this.shichang_txt='20分钟'
 			}else{
-				this.shichang_txt='1次'
+				this.shichang_txt='见面咨询'
 			}
 			
 		},
@@ -1490,29 +1498,27 @@ width: 45rpx;
 	height: 42rpx;	
 }
 .ls_feiyong{
-	padding: 0 30rpx 20rpx;
-	border-bottom: 20rpx solid #f3f3f3;
-	margin-top: 20rpx;
+	padding: 0 30rpx 0rpx;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	flex-wrap: wrap;
 }
 
-.ls_feiyong_list{
-	width: 216rpx;
-		height: 140rpx;
-		background-color: #f4fffe;
-		box-shadow: 0rpx 0rpx 7rpx 0rpx 
-			rgba(0, 0, 0, 0.07);
-		border-radius: 5rpx;
-		background: url(../../static/img/jia_beijing1.png) no-repeat;
-		margin:0 0rpx 20rpx 0;
-		text-align: center;
-		box-sizing: border-box;
-		background-size: 100% 100%;
-		padding-top: 20rpx;
-}
+	.ls_feiyong_list{
+		width: 216rpx;
+			height: 120rpx;
+			background-color: #f4fffe;
+			box-shadow: 0rpx 0rpx 7rpx 0rpx 
+				rgba(0, 0, 0, 0.07);
+			border-radius: 5rpx;
+			background: url(../../static/img/jia_beijing1.png) no-repeat;
+			margin:0 0rpx 20rpx 0;
+			text-align: center;
+			box-sizing: border-box;
+			background-size: 100% 100%;
+			padding-top:14rpx;
+	}
 .ls_feiyong_list:nth-child(2n){
 	background: url(../../static/img/jia_beijing2.png) no-repeat;
 	background-size: 100% 100%;
@@ -1562,4 +1568,13 @@ margin: 0 !important;
 border: none !important;
 padding: 0  !important;
 }
+	.ls_fei_title{
+		margin-bottom: 30rpx;
+		margin-top: 10rpx;
+		padding-left: 29rpx;
+	}
+	.ls_fei_body{
+		padding: 30rpx 0 10rpx;
+		border-bottom: 20rpx solid #f3f3f3;
+	}
 </style>

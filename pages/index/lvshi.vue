@@ -283,6 +283,7 @@ export default {
 		// #endif
 		uni.removeStorageSync('shanchangid');
 		uni.removeStorageSync('level');
+		
 	},
 	
 	onShow() {
@@ -328,9 +329,9 @@ export default {
 				this.page=0,
 				this.is_all=false,
 				this.lslist=[],
-				this.sheng='',
-				this.shi='',
-				this.dizhi= '全国',
+				// this.sheng='',
+				// this.shi='',
+				// this.dizhi= '全国',
 				this.shanchang_id=shanchangid
 				this.zhuanchang= this.zhuanchang_arry_txt[shanchangid].shanchangname,
 				this.get_lvshilist();
@@ -346,9 +347,9 @@ export default {
 		  this.page=0,
 		  this.is_all=false,
 		  this.lslist=[],
-		  this.sheng='',
-		  this.shi='',
-		  this.dizhi= '全国',
+		  // this.sheng='',
+		  // this.shi='',
+		  // this.dizhi= '全国',
 		  this.shanchang_id=''
 		  this.level=level
 		  this.dengji=this.dengji_arry[level]
@@ -399,16 +400,16 @@ export default {
 		this.page=0,
 		this.is_all=false,
 		this.lslist=[],
-		this.sheng='',
-		this.shi='',
-		this.sou_txt=''
-		this.dizhi= '全国',
-		this.zhuanchang= '不限专长',
-		this.shanchang_id='',
-		this.level=''
-		this.dengji=''
-		uni.removeStorageSync('shanchangid');
-		uni.removeStorageSync('level');
+		// this.sheng='',
+		// this.shi='',
+		// this.sou_txt=''
+		// this.dizhi= '全国',
+		// this.zhuanchang= '不限专长',
+		// this.shanchang_id='',
+		// this.level=''
+		// this.dengji=''
+		// uni.removeStorageSync('shanchangid');
+		// uni.removeStorageSync('level');
 		this.get_lvshilist()
 
 	},
@@ -633,13 +634,13 @@ export default {
 		// 按键搜索
 		search(e) {
 			this.page=0,
-			this.citys=''
+			// this.citys=''
 			this.is_all=false,
 			this.lslist=[],
-			this.sheng='',
-			this.shi='',
+			// this.sheng='',
+			// this.shi='',
 			this.level=''
-			this.dizhi= '全国',
+			// this.dizhi= '全国',
 			this.zhuanchang= '不限专长',
 			this.shanchang_id='',
 			this.get_lvshilist()
@@ -662,7 +663,7 @@ export default {
 			this.page=0,
 			this.is_all=false,
 			this.lslist=[],
-			this.citys='',
+			this.citys=data.data[1],
 			this.get_lvshilist();
 		},
 		// 专长选择

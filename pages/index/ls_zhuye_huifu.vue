@@ -438,7 +438,7 @@ export default {
 			}else if(type==2){
 				this.shichang_txt='20分钟'
 			}else{
-				this.shichang_txt='1次'
+				this.shichang_txt='见面咨询'
 			}
 			
 		},
